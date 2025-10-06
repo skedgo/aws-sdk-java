@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,10 +28,10 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The identifier of the DB cluster snapshot to copy. This parameter is not case-sensitive.
+     * The identifier of the DB cluster snapshot to copy. This parameter isn't case-sensitive.
      * </p>
      * <p>
-     * You can't copy an encrypted, shared DB cluster snapshot from one AWS Region to another.
+     * You can't copy an encrypted, shared DB cluster snapshot from one Amazon Web Services Region to another.
      * </p>
      * <p>
      * Constraints:
@@ -44,15 +44,16 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * </li>
      * <li>
      * <p>
-     * If the source snapshot is in the same AWS Region as the copy, specify a valid DB snapshot identifier.
+     * If the source snapshot is in the same Amazon Web Services Region as the copy, specify a valid DB snapshot
+     * identifier.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If the source snapshot is in a different AWS Region than the copy, specify a valid DB cluster snapshot ARN. For
-     * more information, go to <a href=
+     * If the source snapshot is in a different Amazon Web Services Region than the copy, specify a valid DB cluster
+     * snapshot ARN. For more information, go to <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CopySnapshot.html#USER_CopySnapshot.AcrossRegions"
-     * > Copying Snapshots Across AWS Regions</a> in the <i>Amazon Aurora User Guide.</i>
+     * > Copying Snapshots Across Amazon Web Services Regions</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * </li>
      * </ul>
@@ -63,8 +64,8 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
     private String sourceDBClusterSnapshotIdentifier;
     /**
      * <p>
-     * The identifier of the new DB cluster snapshot to create from the source DB cluster snapshot. This parameter is
-     * not case-sensitive.
+     * The identifier of the new DB cluster snapshot to create from the source DB cluster snapshot. This parameter isn't
+     * case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -93,24 +94,25 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
     private String targetDBClusterSnapshotIdentifier;
     /**
      * <p>
-     * The AWS AWS KMS key ID for an encrypted DB cluster snapshot. The KMS key ID is the Amazon Resource Name (ARN),
-     * KMS key identifier, or the KMS key alias for the KMS encryption key.
+     * The Amazon Web Services KMS key identifier for an encrypted DB cluster snapshot. The Amazon Web Services KMS key
+     * identifier is the key ARN, key ID, alias ARN, or alias name for the Amazon Web Services KMS key.
      * </p>
      * <p>
-     * If you copy an encrypted DB cluster snapshot from your AWS account, you can specify a value for
-     * <code>KmsKeyId</code> to encrypt the copy with a new KMS encryption key. If you don't specify a value for
+     * If you copy an encrypted DB cluster snapshot from your Amazon Web Services account, you can specify a value for
+     * <code>KmsKeyId</code> to encrypt the copy with a new KMS key. If you don't specify a value for
      * <code>KmsKeyId</code>, then the copy of the DB cluster snapshot is encrypted with the same KMS key as the source
      * DB cluster snapshot.
      * </p>
      * <p>
-     * If you copy an encrypted DB cluster snapshot that is shared from another AWS account, then you must specify a
-     * value for <code>KmsKeyId</code>.
+     * If you copy an encrypted DB cluster snapshot that is shared from another Amazon Web Services account, then you
+     * must specify a value for <code>KmsKeyId</code>.
      * </p>
      * <p>
-     * To copy an encrypted DB cluster snapshot to another AWS Region, you must set <code>KmsKeyId</code> to the KMS key
-     * ID you want to use to encrypt the copy of the DB cluster snapshot in the destination AWS Region. KMS encryption
-     * keys are specific to the AWS Region that they are created in, and you can't use encryption keys from one AWS
-     * Region in another AWS Region.
+     * To copy an encrypted DB cluster snapshot to another Amazon Web Services Region, you must set
+     * <code>KmsKeyId</code> to the Amazon Web Services KMS key identifier you want to use to encrypt the copy of the DB
+     * cluster snapshot in the destination Amazon Web Services Region. KMS keys are specific to the Amazon Web Services
+     * Region that they are created in, and you can't use KMS keys from one Amazon Web Services Region in another Amazon
+     * Web Services Region.
      * </p>
      * <p>
      * If you copy an unencrypted DB cluster snapshot and specify a value for the <code>KmsKeyId</code> parameter, an
@@ -120,35 +122,43 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
     private String kmsKeyId;
     /**
      * <p>
-     * The URL that contains a Signature Version 4 signed request for the <code>CopyDBClusterSnapshot</code> API action
-     * in the AWS Region that contains the source DB cluster snapshot to copy. The <code>PreSignedUrl</code> parameter
-     * must be used when copying an encrypted DB cluster snapshot from another AWS Region.
+     * When you are copying a DB cluster snapshot from one Amazon Web Services GovCloud (US) Region to another, the URL
+     * that contains a Signature Version 4 signed request for the <code>CopyDBClusterSnapshot</code> API operation in
+     * the Amazon Web Services Region that contains the source DB cluster snapshot to copy. Use the
+     * <code>PreSignedUrl</code> parameter when copying an encrypted DB cluster snapshot from another Amazon Web
+     * Services Region. Don't specify <code>PreSignedUrl</code> when copying an encrypted DB cluster snapshot in the
+     * same Amazon Web Services Region.
      * </p>
      * <p>
-     * The pre-signed URL must be a valid request for the <code>CopyDBSClusterSnapshot</code> API action that can be
-     * executed in the source AWS Region that contains the encrypted DB cluster snapshot to be copied. The pre-signed
+     * This setting applies only to Amazon Web Services GovCloud (US) Regions. It's ignored in other Amazon Web Services
+     * Regions.
+     * </p>
+     * <p>
+     * The presigned URL must be a valid request for the <code>CopyDBClusterSnapshot</code> API operation that can run
+     * in the source Amazon Web Services Region that contains the encrypted DB cluster snapshot to copy. The presigned
      * URL request must contain the following parameter values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>KmsKeyId</code> - The AWS KMS key identifier for the key to use to encrypt the copy of the DB cluster
-     * snapshot in the destination AWS Region. This is the same identifier for both the
-     * <code>CopyDBClusterSnapshot</code> action that is called in the destination AWS Region, and the action contained
-     * in the pre-signed URL.
+     * <code>KmsKeyId</code> - The KMS key identifier for the KMS key to use to encrypt the copy of the DB cluster
+     * snapshot in the destination Amazon Web Services Region. This is the same identifier for both the
+     * <code>CopyDBClusterSnapshot</code> operation that is called in the destination Amazon Web Services Region, and
+     * the operation contained in the presigned URL.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DestinationRegion</code> - The name of the AWS Region that the DB cluster snapshot will be created in.
+     * <code>DestinationRegion</code> - The name of the Amazon Web Services Region that the DB cluster snapshot is to be
+     * created in.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>SourceDBClusterSnapshotIdentifier</code> - The DB cluster snapshot identifier for the encrypted DB cluster
-     * snapshot to be copied. This identifier must be in the Amazon Resource Name (ARN) format for the source AWS
-     * Region. For example, if you are copying an encrypted DB cluster snapshot from the us-west-2 AWS Region, then your
-     * <code>SourceDBClusterSnapshotIdentifier</code> looks like the following example:
+     * snapshot to be copied. This identifier must be in the Amazon Resource Name (ARN) format for the source Amazon Web
+     * Services Region. For example, if you are copying an encrypted DB cluster snapshot from the us-west-2 Amazon Web
+     * Services Region, then your <code>SourceDBClusterSnapshotIdentifier</code> looks like the following example:
      * <code>arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115</code>.
      * </p>
      * </li>
@@ -156,16 +166,24 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * <p>
      * To learn how to generate a Signature Version 4 signed request, see <a
      * href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html"> Authenticating Requests:
-     * Using Query Parameters (AWS Signature Version 4)</a> and <a
+     * Using Query Parameters (Amazon Web Services Signature Version 4)</a> and <a
      * href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"> Signature Version 4 Signing
      * Process</a>.
      * </p>
+     * <note>
+     * <p>
+     * If you are using an Amazon Web Services SDK tool or the CLI, you can specify <code>SourceRegion</code> (or
+     * <code>--source-region</code> for the CLI) instead of specifying <code>PreSignedUrl</code> manually. Specifying
+     * <code>SourceRegion</code> autogenerates a presigned URL that is a valid request for the operation that can run in
+     * the source Amazon Web Services Region.
+     * </p>
+     * </note>
      */
     private String preSignedUrl;
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the source DB cluster snapshot to the target DB cluster
-     * snapshot. By default, tags are not copied.
+     * Specifies whether to copy all tags from the source DB cluster snapshot to the target DB cluster snapshot. By
+     * default, tags are not copied.
      * </p>
      */
     private Boolean copyTags;
@@ -176,10 +194,10 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The identifier of the DB cluster snapshot to copy. This parameter is not case-sensitive.
+     * The identifier of the DB cluster snapshot to copy. This parameter isn't case-sensitive.
      * </p>
      * <p>
-     * You can't copy an encrypted, shared DB cluster snapshot from one AWS Region to another.
+     * You can't copy an encrypted, shared DB cluster snapshot from one Amazon Web Services Region to another.
      * </p>
      * <p>
      * Constraints:
@@ -192,15 +210,16 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * </li>
      * <li>
      * <p>
-     * If the source snapshot is in the same AWS Region as the copy, specify a valid DB snapshot identifier.
+     * If the source snapshot is in the same Amazon Web Services Region as the copy, specify a valid DB snapshot
+     * identifier.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If the source snapshot is in a different AWS Region than the copy, specify a valid DB cluster snapshot ARN. For
-     * more information, go to <a href=
+     * If the source snapshot is in a different Amazon Web Services Region than the copy, specify a valid DB cluster
+     * snapshot ARN. For more information, go to <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CopySnapshot.html#USER_CopySnapshot.AcrossRegions"
-     * > Copying Snapshots Across AWS Regions</a> in the <i>Amazon Aurora User Guide.</i>
+     * > Copying Snapshots Across Amazon Web Services Regions</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * </li>
      * </ul>
@@ -209,9 +228,9 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @param sourceDBClusterSnapshotIdentifier
-     *        The identifier of the DB cluster snapshot to copy. This parameter is not case-sensitive.</p>
+     *        The identifier of the DB cluster snapshot to copy. This parameter isn't case-sensitive.</p>
      *        <p>
-     *        You can't copy an encrypted, shared DB cluster snapshot from one AWS Region to another.
+     *        You can't copy an encrypted, shared DB cluster snapshot from one Amazon Web Services Region to another.
      *        </p>
      *        <p>
      *        Constraints:
@@ -224,15 +243,16 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      *        </li>
      *        <li>
      *        <p>
-     *        If the source snapshot is in the same AWS Region as the copy, specify a valid DB snapshot identifier.
+     *        If the source snapshot is in the same Amazon Web Services Region as the copy, specify a valid DB snapshot
+     *        identifier.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        If the source snapshot is in a different AWS Region than the copy, specify a valid DB cluster snapshot
-     *        ARN. For more information, go to <a href=
+     *        If the source snapshot is in a different Amazon Web Services Region than the copy, specify a valid DB
+     *        cluster snapshot ARN. For more information, go to <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CopySnapshot.html#USER_CopySnapshot.AcrossRegions"
-     *        > Copying Snapshots Across AWS Regions</a> in the <i>Amazon Aurora User Guide.</i>
+     *        > Copying Snapshots Across Amazon Web Services Regions</a> in the <i>Amazon Aurora User Guide</i>.
      *        </p>
      *        </li>
      *        </ul>
@@ -246,10 +266,10 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The identifier of the DB cluster snapshot to copy. This parameter is not case-sensitive.
+     * The identifier of the DB cluster snapshot to copy. This parameter isn't case-sensitive.
      * </p>
      * <p>
-     * You can't copy an encrypted, shared DB cluster snapshot from one AWS Region to another.
+     * You can't copy an encrypted, shared DB cluster snapshot from one Amazon Web Services Region to another.
      * </p>
      * <p>
      * Constraints:
@@ -262,15 +282,16 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * </li>
      * <li>
      * <p>
-     * If the source snapshot is in the same AWS Region as the copy, specify a valid DB snapshot identifier.
+     * If the source snapshot is in the same Amazon Web Services Region as the copy, specify a valid DB snapshot
+     * identifier.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If the source snapshot is in a different AWS Region than the copy, specify a valid DB cluster snapshot ARN. For
-     * more information, go to <a href=
+     * If the source snapshot is in a different Amazon Web Services Region than the copy, specify a valid DB cluster
+     * snapshot ARN. For more information, go to <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CopySnapshot.html#USER_CopySnapshot.AcrossRegions"
-     * > Copying Snapshots Across AWS Regions</a> in the <i>Amazon Aurora User Guide.</i>
+     * > Copying Snapshots Across Amazon Web Services Regions</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * </li>
      * </ul>
@@ -278,9 +299,9 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * Example: <code>my-cluster-snapshot1</code>
      * </p>
      * 
-     * @return The identifier of the DB cluster snapshot to copy. This parameter is not case-sensitive.</p>
+     * @return The identifier of the DB cluster snapshot to copy. This parameter isn't case-sensitive.</p>
      *         <p>
-     *         You can't copy an encrypted, shared DB cluster snapshot from one AWS Region to another.
+     *         You can't copy an encrypted, shared DB cluster snapshot from one Amazon Web Services Region to another.
      *         </p>
      *         <p>
      *         Constraints:
@@ -293,15 +314,16 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      *         </li>
      *         <li>
      *         <p>
-     *         If the source snapshot is in the same AWS Region as the copy, specify a valid DB snapshot identifier.
+     *         If the source snapshot is in the same Amazon Web Services Region as the copy, specify a valid DB snapshot
+     *         identifier.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         If the source snapshot is in a different AWS Region than the copy, specify a valid DB cluster snapshot
-     *         ARN. For more information, go to <a href=
+     *         If the source snapshot is in a different Amazon Web Services Region than the copy, specify a valid DB
+     *         cluster snapshot ARN. For more information, go to <a href=
      *         "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CopySnapshot.html#USER_CopySnapshot.AcrossRegions"
-     *         > Copying Snapshots Across AWS Regions</a> in the <i>Amazon Aurora User Guide.</i>
+     *         > Copying Snapshots Across Amazon Web Services Regions</a> in the <i>Amazon Aurora User Guide</i>.
      *         </p>
      *         </li>
      *         </ul>
@@ -315,10 +337,10 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The identifier of the DB cluster snapshot to copy. This parameter is not case-sensitive.
+     * The identifier of the DB cluster snapshot to copy. This parameter isn't case-sensitive.
      * </p>
      * <p>
-     * You can't copy an encrypted, shared DB cluster snapshot from one AWS Region to another.
+     * You can't copy an encrypted, shared DB cluster snapshot from one Amazon Web Services Region to another.
      * </p>
      * <p>
      * Constraints:
@@ -331,15 +353,16 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * </li>
      * <li>
      * <p>
-     * If the source snapshot is in the same AWS Region as the copy, specify a valid DB snapshot identifier.
+     * If the source snapshot is in the same Amazon Web Services Region as the copy, specify a valid DB snapshot
+     * identifier.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If the source snapshot is in a different AWS Region than the copy, specify a valid DB cluster snapshot ARN. For
-     * more information, go to <a href=
+     * If the source snapshot is in a different Amazon Web Services Region than the copy, specify a valid DB cluster
+     * snapshot ARN. For more information, go to <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CopySnapshot.html#USER_CopySnapshot.AcrossRegions"
-     * > Copying Snapshots Across AWS Regions</a> in the <i>Amazon Aurora User Guide.</i>
+     * > Copying Snapshots Across Amazon Web Services Regions</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * </li>
      * </ul>
@@ -348,9 +371,9 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @param sourceDBClusterSnapshotIdentifier
-     *        The identifier of the DB cluster snapshot to copy. This parameter is not case-sensitive.</p>
+     *        The identifier of the DB cluster snapshot to copy. This parameter isn't case-sensitive.</p>
      *        <p>
-     *        You can't copy an encrypted, shared DB cluster snapshot from one AWS Region to another.
+     *        You can't copy an encrypted, shared DB cluster snapshot from one Amazon Web Services Region to another.
      *        </p>
      *        <p>
      *        Constraints:
@@ -363,15 +386,16 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      *        </li>
      *        <li>
      *        <p>
-     *        If the source snapshot is in the same AWS Region as the copy, specify a valid DB snapshot identifier.
+     *        If the source snapshot is in the same Amazon Web Services Region as the copy, specify a valid DB snapshot
+     *        identifier.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        If the source snapshot is in a different AWS Region than the copy, specify a valid DB cluster snapshot
-     *        ARN. For more information, go to <a href=
+     *        If the source snapshot is in a different Amazon Web Services Region than the copy, specify a valid DB
+     *        cluster snapshot ARN. For more information, go to <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CopySnapshot.html#USER_CopySnapshot.AcrossRegions"
-     *        > Copying Snapshots Across AWS Regions</a> in the <i>Amazon Aurora User Guide.</i>
+     *        > Copying Snapshots Across Amazon Web Services Regions</a> in the <i>Amazon Aurora User Guide</i>.
      *        </p>
      *        </li>
      *        </ul>
@@ -387,8 +411,8 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The identifier of the new DB cluster snapshot to create from the source DB cluster snapshot. This parameter is
-     * not case-sensitive.
+     * The identifier of the new DB cluster snapshot to create from the source DB cluster snapshot. This parameter isn't
+     * case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -416,7 +440,7 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * 
      * @param targetDBClusterSnapshotIdentifier
      *        The identifier of the new DB cluster snapshot to create from the source DB cluster snapshot. This
-     *        parameter is not case-sensitive.</p>
+     *        parameter isn't case-sensitive.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -447,8 +471,8 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The identifier of the new DB cluster snapshot to create from the source DB cluster snapshot. This parameter is
-     * not case-sensitive.
+     * The identifier of the new DB cluster snapshot to create from the source DB cluster snapshot. This parameter isn't
+     * case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -475,7 +499,7 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @return The identifier of the new DB cluster snapshot to create from the source DB cluster snapshot. This
-     *         parameter is not case-sensitive.</p>
+     *         parameter isn't case-sensitive.</p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -506,8 +530,8 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The identifier of the new DB cluster snapshot to create from the source DB cluster snapshot. This parameter is
-     * not case-sensitive.
+     * The identifier of the new DB cluster snapshot to create from the source DB cluster snapshot. This parameter isn't
+     * case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -535,7 +559,7 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * 
      * @param targetDBClusterSnapshotIdentifier
      *        The identifier of the new DB cluster snapshot to create from the source DB cluster snapshot. This
-     *        parameter is not case-sensitive.</p>
+     *        parameter isn't case-sensitive.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -568,24 +592,25 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS AWS KMS key ID for an encrypted DB cluster snapshot. The KMS key ID is the Amazon Resource Name (ARN),
-     * KMS key identifier, or the KMS key alias for the KMS encryption key.
+     * The Amazon Web Services KMS key identifier for an encrypted DB cluster snapshot. The Amazon Web Services KMS key
+     * identifier is the key ARN, key ID, alias ARN, or alias name for the Amazon Web Services KMS key.
      * </p>
      * <p>
-     * If you copy an encrypted DB cluster snapshot from your AWS account, you can specify a value for
-     * <code>KmsKeyId</code> to encrypt the copy with a new KMS encryption key. If you don't specify a value for
+     * If you copy an encrypted DB cluster snapshot from your Amazon Web Services account, you can specify a value for
+     * <code>KmsKeyId</code> to encrypt the copy with a new KMS key. If you don't specify a value for
      * <code>KmsKeyId</code>, then the copy of the DB cluster snapshot is encrypted with the same KMS key as the source
      * DB cluster snapshot.
      * </p>
      * <p>
-     * If you copy an encrypted DB cluster snapshot that is shared from another AWS account, then you must specify a
-     * value for <code>KmsKeyId</code>.
+     * If you copy an encrypted DB cluster snapshot that is shared from another Amazon Web Services account, then you
+     * must specify a value for <code>KmsKeyId</code>.
      * </p>
      * <p>
-     * To copy an encrypted DB cluster snapshot to another AWS Region, you must set <code>KmsKeyId</code> to the KMS key
-     * ID you want to use to encrypt the copy of the DB cluster snapshot in the destination AWS Region. KMS encryption
-     * keys are specific to the AWS Region that they are created in, and you can't use encryption keys from one AWS
-     * Region in another AWS Region.
+     * To copy an encrypted DB cluster snapshot to another Amazon Web Services Region, you must set
+     * <code>KmsKeyId</code> to the Amazon Web Services KMS key identifier you want to use to encrypt the copy of the DB
+     * cluster snapshot in the destination Amazon Web Services Region. KMS keys are specific to the Amazon Web Services
+     * Region that they are created in, and you can't use KMS keys from one Amazon Web Services Region in another Amazon
+     * Web Services Region.
      * </p>
      * <p>
      * If you copy an unencrypted DB cluster snapshot and specify a value for the <code>KmsKeyId</code> parameter, an
@@ -593,23 +618,25 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @param kmsKeyId
-     *        The AWS AWS KMS key ID for an encrypted DB cluster snapshot. The KMS key ID is the Amazon Resource Name
-     *        (ARN), KMS key identifier, or the KMS key alias for the KMS encryption key. </p>
+     *        The Amazon Web Services KMS key identifier for an encrypted DB cluster snapshot. The Amazon Web Services
+     *        KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the Amazon Web Services KMS
+     *        key.</p>
      *        <p>
-     *        If you copy an encrypted DB cluster snapshot from your AWS account, you can specify a value for
-     *        <code>KmsKeyId</code> to encrypt the copy with a new KMS encryption key. If you don't specify a value for
+     *        If you copy an encrypted DB cluster snapshot from your Amazon Web Services account, you can specify a
+     *        value for <code>KmsKeyId</code> to encrypt the copy with a new KMS key. If you don't specify a value for
      *        <code>KmsKeyId</code>, then the copy of the DB cluster snapshot is encrypted with the same KMS key as the
      *        source DB cluster snapshot.
      *        </p>
      *        <p>
-     *        If you copy an encrypted DB cluster snapshot that is shared from another AWS account, then you must
-     *        specify a value for <code>KmsKeyId</code>.
+     *        If you copy an encrypted DB cluster snapshot that is shared from another Amazon Web Services account, then
+     *        you must specify a value for <code>KmsKeyId</code>.
      *        </p>
      *        <p>
-     *        To copy an encrypted DB cluster snapshot to another AWS Region, you must set <code>KmsKeyId</code> to the
-     *        KMS key ID you want to use to encrypt the copy of the DB cluster snapshot in the destination AWS Region.
-     *        KMS encryption keys are specific to the AWS Region that they are created in, and you can't use encryption
-     *        keys from one AWS Region in another AWS Region.
+     *        To copy an encrypted DB cluster snapshot to another Amazon Web Services Region, you must set
+     *        <code>KmsKeyId</code> to the Amazon Web Services KMS key identifier you want to use to encrypt the copy of
+     *        the DB cluster snapshot in the destination Amazon Web Services Region. KMS keys are specific to the Amazon
+     *        Web Services Region that they are created in, and you can't use KMS keys from one Amazon Web Services
+     *        Region in another Amazon Web Services Region.
      *        </p>
      *        <p>
      *        If you copy an unencrypted DB cluster snapshot and specify a value for the <code>KmsKeyId</code>
@@ -622,47 +649,50 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS AWS KMS key ID for an encrypted DB cluster snapshot. The KMS key ID is the Amazon Resource Name (ARN),
-     * KMS key identifier, or the KMS key alias for the KMS encryption key.
+     * The Amazon Web Services KMS key identifier for an encrypted DB cluster snapshot. The Amazon Web Services KMS key
+     * identifier is the key ARN, key ID, alias ARN, or alias name for the Amazon Web Services KMS key.
      * </p>
      * <p>
-     * If you copy an encrypted DB cluster snapshot from your AWS account, you can specify a value for
-     * <code>KmsKeyId</code> to encrypt the copy with a new KMS encryption key. If you don't specify a value for
+     * If you copy an encrypted DB cluster snapshot from your Amazon Web Services account, you can specify a value for
+     * <code>KmsKeyId</code> to encrypt the copy with a new KMS key. If you don't specify a value for
      * <code>KmsKeyId</code>, then the copy of the DB cluster snapshot is encrypted with the same KMS key as the source
      * DB cluster snapshot.
      * </p>
      * <p>
-     * If you copy an encrypted DB cluster snapshot that is shared from another AWS account, then you must specify a
-     * value for <code>KmsKeyId</code>.
+     * If you copy an encrypted DB cluster snapshot that is shared from another Amazon Web Services account, then you
+     * must specify a value for <code>KmsKeyId</code>.
      * </p>
      * <p>
-     * To copy an encrypted DB cluster snapshot to another AWS Region, you must set <code>KmsKeyId</code> to the KMS key
-     * ID you want to use to encrypt the copy of the DB cluster snapshot in the destination AWS Region. KMS encryption
-     * keys are specific to the AWS Region that they are created in, and you can't use encryption keys from one AWS
-     * Region in another AWS Region.
+     * To copy an encrypted DB cluster snapshot to another Amazon Web Services Region, you must set
+     * <code>KmsKeyId</code> to the Amazon Web Services KMS key identifier you want to use to encrypt the copy of the DB
+     * cluster snapshot in the destination Amazon Web Services Region. KMS keys are specific to the Amazon Web Services
+     * Region that they are created in, and you can't use KMS keys from one Amazon Web Services Region in another Amazon
+     * Web Services Region.
      * </p>
      * <p>
      * If you copy an unencrypted DB cluster snapshot and specify a value for the <code>KmsKeyId</code> parameter, an
      * error is returned.
      * </p>
      * 
-     * @return The AWS AWS KMS key ID for an encrypted DB cluster snapshot. The KMS key ID is the Amazon Resource Name
-     *         (ARN), KMS key identifier, or the KMS key alias for the KMS encryption key. </p>
+     * @return The Amazon Web Services KMS key identifier for an encrypted DB cluster snapshot. The Amazon Web Services
+     *         KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the Amazon Web Services KMS
+     *         key.</p>
      *         <p>
-     *         If you copy an encrypted DB cluster snapshot from your AWS account, you can specify a value for
-     *         <code>KmsKeyId</code> to encrypt the copy with a new KMS encryption key. If you don't specify a value for
+     *         If you copy an encrypted DB cluster snapshot from your Amazon Web Services account, you can specify a
+     *         value for <code>KmsKeyId</code> to encrypt the copy with a new KMS key. If you don't specify a value for
      *         <code>KmsKeyId</code>, then the copy of the DB cluster snapshot is encrypted with the same KMS key as the
      *         source DB cluster snapshot.
      *         </p>
      *         <p>
-     *         If you copy an encrypted DB cluster snapshot that is shared from another AWS account, then you must
-     *         specify a value for <code>KmsKeyId</code>.
+     *         If you copy an encrypted DB cluster snapshot that is shared from another Amazon Web Services account,
+     *         then you must specify a value for <code>KmsKeyId</code>.
      *         </p>
      *         <p>
-     *         To copy an encrypted DB cluster snapshot to another AWS Region, you must set <code>KmsKeyId</code> to the
-     *         KMS key ID you want to use to encrypt the copy of the DB cluster snapshot in the destination AWS Region.
-     *         KMS encryption keys are specific to the AWS Region that they are created in, and you can't use encryption
-     *         keys from one AWS Region in another AWS Region.
+     *         To copy an encrypted DB cluster snapshot to another Amazon Web Services Region, you must set
+     *         <code>KmsKeyId</code> to the Amazon Web Services KMS key identifier you want to use to encrypt the copy
+     *         of the DB cluster snapshot in the destination Amazon Web Services Region. KMS keys are specific to the
+     *         Amazon Web Services Region that they are created in, and you can't use KMS keys from one Amazon Web
+     *         Services Region in another Amazon Web Services Region.
      *         </p>
      *         <p>
      *         If you copy an unencrypted DB cluster snapshot and specify a value for the <code>KmsKeyId</code>
@@ -675,24 +705,25 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS AWS KMS key ID for an encrypted DB cluster snapshot. The KMS key ID is the Amazon Resource Name (ARN),
-     * KMS key identifier, or the KMS key alias for the KMS encryption key.
+     * The Amazon Web Services KMS key identifier for an encrypted DB cluster snapshot. The Amazon Web Services KMS key
+     * identifier is the key ARN, key ID, alias ARN, or alias name for the Amazon Web Services KMS key.
      * </p>
      * <p>
-     * If you copy an encrypted DB cluster snapshot from your AWS account, you can specify a value for
-     * <code>KmsKeyId</code> to encrypt the copy with a new KMS encryption key. If you don't specify a value for
+     * If you copy an encrypted DB cluster snapshot from your Amazon Web Services account, you can specify a value for
+     * <code>KmsKeyId</code> to encrypt the copy with a new KMS key. If you don't specify a value for
      * <code>KmsKeyId</code>, then the copy of the DB cluster snapshot is encrypted with the same KMS key as the source
      * DB cluster snapshot.
      * </p>
      * <p>
-     * If you copy an encrypted DB cluster snapshot that is shared from another AWS account, then you must specify a
-     * value for <code>KmsKeyId</code>.
+     * If you copy an encrypted DB cluster snapshot that is shared from another Amazon Web Services account, then you
+     * must specify a value for <code>KmsKeyId</code>.
      * </p>
      * <p>
-     * To copy an encrypted DB cluster snapshot to another AWS Region, you must set <code>KmsKeyId</code> to the KMS key
-     * ID you want to use to encrypt the copy of the DB cluster snapshot in the destination AWS Region. KMS encryption
-     * keys are specific to the AWS Region that they are created in, and you can't use encryption keys from one AWS
-     * Region in another AWS Region.
+     * To copy an encrypted DB cluster snapshot to another Amazon Web Services Region, you must set
+     * <code>KmsKeyId</code> to the Amazon Web Services KMS key identifier you want to use to encrypt the copy of the DB
+     * cluster snapshot in the destination Amazon Web Services Region. KMS keys are specific to the Amazon Web Services
+     * Region that they are created in, and you can't use KMS keys from one Amazon Web Services Region in another Amazon
+     * Web Services Region.
      * </p>
      * <p>
      * If you copy an unencrypted DB cluster snapshot and specify a value for the <code>KmsKeyId</code> parameter, an
@@ -700,23 +731,25 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @param kmsKeyId
-     *        The AWS AWS KMS key ID for an encrypted DB cluster snapshot. The KMS key ID is the Amazon Resource Name
-     *        (ARN), KMS key identifier, or the KMS key alias for the KMS encryption key. </p>
+     *        The Amazon Web Services KMS key identifier for an encrypted DB cluster snapshot. The Amazon Web Services
+     *        KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the Amazon Web Services KMS
+     *        key.</p>
      *        <p>
-     *        If you copy an encrypted DB cluster snapshot from your AWS account, you can specify a value for
-     *        <code>KmsKeyId</code> to encrypt the copy with a new KMS encryption key. If you don't specify a value for
+     *        If you copy an encrypted DB cluster snapshot from your Amazon Web Services account, you can specify a
+     *        value for <code>KmsKeyId</code> to encrypt the copy with a new KMS key. If you don't specify a value for
      *        <code>KmsKeyId</code>, then the copy of the DB cluster snapshot is encrypted with the same KMS key as the
      *        source DB cluster snapshot.
      *        </p>
      *        <p>
-     *        If you copy an encrypted DB cluster snapshot that is shared from another AWS account, then you must
-     *        specify a value for <code>KmsKeyId</code>.
+     *        If you copy an encrypted DB cluster snapshot that is shared from another Amazon Web Services account, then
+     *        you must specify a value for <code>KmsKeyId</code>.
      *        </p>
      *        <p>
-     *        To copy an encrypted DB cluster snapshot to another AWS Region, you must set <code>KmsKeyId</code> to the
-     *        KMS key ID you want to use to encrypt the copy of the DB cluster snapshot in the destination AWS Region.
-     *        KMS encryption keys are specific to the AWS Region that they are created in, and you can't use encryption
-     *        keys from one AWS Region in another AWS Region.
+     *        To copy an encrypted DB cluster snapshot to another Amazon Web Services Region, you must set
+     *        <code>KmsKeyId</code> to the Amazon Web Services KMS key identifier you want to use to encrypt the copy of
+     *        the DB cluster snapshot in the destination Amazon Web Services Region. KMS keys are specific to the Amazon
+     *        Web Services Region that they are created in, and you can't use KMS keys from one Amazon Web Services
+     *        Region in another Amazon Web Services Region.
      *        </p>
      *        <p>
      *        If you copy an unencrypted DB cluster snapshot and specify a value for the <code>KmsKeyId</code>
@@ -731,35 +764,43 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The URL that contains a Signature Version 4 signed request for the <code>CopyDBClusterSnapshot</code> API action
-     * in the AWS Region that contains the source DB cluster snapshot to copy. The <code>PreSignedUrl</code> parameter
-     * must be used when copying an encrypted DB cluster snapshot from another AWS Region.
+     * When you are copying a DB cluster snapshot from one Amazon Web Services GovCloud (US) Region to another, the URL
+     * that contains a Signature Version 4 signed request for the <code>CopyDBClusterSnapshot</code> API operation in
+     * the Amazon Web Services Region that contains the source DB cluster snapshot to copy. Use the
+     * <code>PreSignedUrl</code> parameter when copying an encrypted DB cluster snapshot from another Amazon Web
+     * Services Region. Don't specify <code>PreSignedUrl</code> when copying an encrypted DB cluster snapshot in the
+     * same Amazon Web Services Region.
      * </p>
      * <p>
-     * The pre-signed URL must be a valid request for the <code>CopyDBSClusterSnapshot</code> API action that can be
-     * executed in the source AWS Region that contains the encrypted DB cluster snapshot to be copied. The pre-signed
+     * This setting applies only to Amazon Web Services GovCloud (US) Regions. It's ignored in other Amazon Web Services
+     * Regions.
+     * </p>
+     * <p>
+     * The presigned URL must be a valid request for the <code>CopyDBClusterSnapshot</code> API operation that can run
+     * in the source Amazon Web Services Region that contains the encrypted DB cluster snapshot to copy. The presigned
      * URL request must contain the following parameter values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>KmsKeyId</code> - The AWS KMS key identifier for the key to use to encrypt the copy of the DB cluster
-     * snapshot in the destination AWS Region. This is the same identifier for both the
-     * <code>CopyDBClusterSnapshot</code> action that is called in the destination AWS Region, and the action contained
-     * in the pre-signed URL.
+     * <code>KmsKeyId</code> - The KMS key identifier for the KMS key to use to encrypt the copy of the DB cluster
+     * snapshot in the destination Amazon Web Services Region. This is the same identifier for both the
+     * <code>CopyDBClusterSnapshot</code> operation that is called in the destination Amazon Web Services Region, and
+     * the operation contained in the presigned URL.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DestinationRegion</code> - The name of the AWS Region that the DB cluster snapshot will be created in.
+     * <code>DestinationRegion</code> - The name of the Amazon Web Services Region that the DB cluster snapshot is to be
+     * created in.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>SourceDBClusterSnapshotIdentifier</code> - The DB cluster snapshot identifier for the encrypted DB cluster
-     * snapshot to be copied. This identifier must be in the Amazon Resource Name (ARN) format for the source AWS
-     * Region. For example, if you are copying an encrypted DB cluster snapshot from the us-west-2 AWS Region, then your
-     * <code>SourceDBClusterSnapshotIdentifier</code> looks like the following example:
+     * snapshot to be copied. This identifier must be in the Amazon Resource Name (ARN) format for the source Amazon Web
+     * Services Region. For example, if you are copying an encrypted DB cluster snapshot from the us-west-2 Amazon Web
+     * Services Region, then your <code>SourceDBClusterSnapshotIdentifier</code> looks like the following example:
      * <code>arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115</code>.
      * </p>
      * </li>
@@ -767,42 +808,57 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * <p>
      * To learn how to generate a Signature Version 4 signed request, see <a
      * href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html"> Authenticating Requests:
-     * Using Query Parameters (AWS Signature Version 4)</a> and <a
+     * Using Query Parameters (Amazon Web Services Signature Version 4)</a> and <a
      * href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"> Signature Version 4 Signing
      * Process</a>.
      * </p>
+     * <note>
+     * <p>
+     * If you are using an Amazon Web Services SDK tool or the CLI, you can specify <code>SourceRegion</code> (or
+     * <code>--source-region</code> for the CLI) instead of specifying <code>PreSignedUrl</code> manually. Specifying
+     * <code>SourceRegion</code> autogenerates a presigned URL that is a valid request for the operation that can run in
+     * the source Amazon Web Services Region.
+     * </p>
+     * </note>
      * 
      * @param preSignedUrl
-     *        The URL that contains a Signature Version 4 signed request for the <code>CopyDBClusterSnapshot</code> API
-     *        action in the AWS Region that contains the source DB cluster snapshot to copy. The
-     *        <code>PreSignedUrl</code> parameter must be used when copying an encrypted DB cluster snapshot from
-     *        another AWS Region.</p>
+     *        When you are copying a DB cluster snapshot from one Amazon Web Services GovCloud (US) Region to another,
+     *        the URL that contains a Signature Version 4 signed request for the <code>CopyDBClusterSnapshot</code> API
+     *        operation in the Amazon Web Services Region that contains the source DB cluster snapshot to copy. Use the
+     *        <code>PreSignedUrl</code> parameter when copying an encrypted DB cluster snapshot from another Amazon Web
+     *        Services Region. Don't specify <code>PreSignedUrl</code> when copying an encrypted DB cluster snapshot in
+     *        the same Amazon Web Services Region.</p>
      *        <p>
-     *        The pre-signed URL must be a valid request for the <code>CopyDBSClusterSnapshot</code> API action that can
-     *        be executed in the source AWS Region that contains the encrypted DB cluster snapshot to be copied. The
-     *        pre-signed URL request must contain the following parameter values:
+     *        This setting applies only to Amazon Web Services GovCloud (US) Regions. It's ignored in other Amazon Web
+     *        Services Regions.
+     *        </p>
+     *        <p>
+     *        The presigned URL must be a valid request for the <code>CopyDBClusterSnapshot</code> API operation that
+     *        can run in the source Amazon Web Services Region that contains the encrypted DB cluster snapshot to copy.
+     *        The presigned URL request must contain the following parameter values:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>KmsKeyId</code> - The AWS KMS key identifier for the key to use to encrypt the copy of the DB
-     *        cluster snapshot in the destination AWS Region. This is the same identifier for both the
-     *        <code>CopyDBClusterSnapshot</code> action that is called in the destination AWS Region, and the action
-     *        contained in the pre-signed URL.
+     *        <code>KmsKeyId</code> - The KMS key identifier for the KMS key to use to encrypt the copy of the DB
+     *        cluster snapshot in the destination Amazon Web Services Region. This is the same identifier for both the
+     *        <code>CopyDBClusterSnapshot</code> operation that is called in the destination Amazon Web Services Region,
+     *        and the operation contained in the presigned URL.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DestinationRegion</code> - The name of the AWS Region that the DB cluster snapshot will be created
-     *        in.
+     *        <code>DestinationRegion</code> - The name of the Amazon Web Services Region that the DB cluster snapshot
+     *        is to be created in.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>SourceDBClusterSnapshotIdentifier</code> - The DB cluster snapshot identifier for the encrypted DB
      *        cluster snapshot to be copied. This identifier must be in the Amazon Resource Name (ARN) format for the
-     *        source AWS Region. For example, if you are copying an encrypted DB cluster snapshot from the us-west-2 AWS
-     *        Region, then your <code>SourceDBClusterSnapshotIdentifier</code> looks like the following example:
+     *        source Amazon Web Services Region. For example, if you are copying an encrypted DB cluster snapshot from
+     *        the us-west-2 Amazon Web Services Region, then your <code>SourceDBClusterSnapshotIdentifier</code> looks
+     *        like the following example:
      *        <code>arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115</code>.
      *        </p>
      *        </li>
@@ -810,9 +866,17 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      *        <p>
      *        To learn how to generate a Signature Version 4 signed request, see <a
      *        href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html"> Authenticating
-     *        Requests: Using Query Parameters (AWS Signature Version 4)</a> and <a
+     *        Requests: Using Query Parameters (Amazon Web Services Signature Version 4)</a> and <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"> Signature Version 4 Signing
      *        Process</a>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If you are using an Amazon Web Services SDK tool or the CLI, you can specify <code>SourceRegion</code> (or
+     *        <code>--source-region</code> for the CLI) instead of specifying <code>PreSignedUrl</code> manually.
+     *        Specifying <code>SourceRegion</code> autogenerates a presigned URL that is a valid request for the
+     *        operation that can run in the source Amazon Web Services Region.
+     *        </p>
      */
 
     public void setPreSignedUrl(String preSignedUrl) {
@@ -821,35 +885,43 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The URL that contains a Signature Version 4 signed request for the <code>CopyDBClusterSnapshot</code> API action
-     * in the AWS Region that contains the source DB cluster snapshot to copy. The <code>PreSignedUrl</code> parameter
-     * must be used when copying an encrypted DB cluster snapshot from another AWS Region.
+     * When you are copying a DB cluster snapshot from one Amazon Web Services GovCloud (US) Region to another, the URL
+     * that contains a Signature Version 4 signed request for the <code>CopyDBClusterSnapshot</code> API operation in
+     * the Amazon Web Services Region that contains the source DB cluster snapshot to copy. Use the
+     * <code>PreSignedUrl</code> parameter when copying an encrypted DB cluster snapshot from another Amazon Web
+     * Services Region. Don't specify <code>PreSignedUrl</code> when copying an encrypted DB cluster snapshot in the
+     * same Amazon Web Services Region.
      * </p>
      * <p>
-     * The pre-signed URL must be a valid request for the <code>CopyDBSClusterSnapshot</code> API action that can be
-     * executed in the source AWS Region that contains the encrypted DB cluster snapshot to be copied. The pre-signed
+     * This setting applies only to Amazon Web Services GovCloud (US) Regions. It's ignored in other Amazon Web Services
+     * Regions.
+     * </p>
+     * <p>
+     * The presigned URL must be a valid request for the <code>CopyDBClusterSnapshot</code> API operation that can run
+     * in the source Amazon Web Services Region that contains the encrypted DB cluster snapshot to copy. The presigned
      * URL request must contain the following parameter values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>KmsKeyId</code> - The AWS KMS key identifier for the key to use to encrypt the copy of the DB cluster
-     * snapshot in the destination AWS Region. This is the same identifier for both the
-     * <code>CopyDBClusterSnapshot</code> action that is called in the destination AWS Region, and the action contained
-     * in the pre-signed URL.
+     * <code>KmsKeyId</code> - The KMS key identifier for the KMS key to use to encrypt the copy of the DB cluster
+     * snapshot in the destination Amazon Web Services Region. This is the same identifier for both the
+     * <code>CopyDBClusterSnapshot</code> operation that is called in the destination Amazon Web Services Region, and
+     * the operation contained in the presigned URL.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DestinationRegion</code> - The name of the AWS Region that the DB cluster snapshot will be created in.
+     * <code>DestinationRegion</code> - The name of the Amazon Web Services Region that the DB cluster snapshot is to be
+     * created in.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>SourceDBClusterSnapshotIdentifier</code> - The DB cluster snapshot identifier for the encrypted DB cluster
-     * snapshot to be copied. This identifier must be in the Amazon Resource Name (ARN) format for the source AWS
-     * Region. For example, if you are copying an encrypted DB cluster snapshot from the us-west-2 AWS Region, then your
-     * <code>SourceDBClusterSnapshotIdentifier</code> looks like the following example:
+     * snapshot to be copied. This identifier must be in the Amazon Resource Name (ARN) format for the source Amazon Web
+     * Services Region. For example, if you are copying an encrypted DB cluster snapshot from the us-west-2 Amazon Web
+     * Services Region, then your <code>SourceDBClusterSnapshotIdentifier</code> looks like the following example:
      * <code>arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115</code>.
      * </p>
      * </li>
@@ -857,41 +929,56 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * <p>
      * To learn how to generate a Signature Version 4 signed request, see <a
      * href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html"> Authenticating Requests:
-     * Using Query Parameters (AWS Signature Version 4)</a> and <a
+     * Using Query Parameters (Amazon Web Services Signature Version 4)</a> and <a
      * href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"> Signature Version 4 Signing
      * Process</a>.
      * </p>
+     * <note>
+     * <p>
+     * If you are using an Amazon Web Services SDK tool or the CLI, you can specify <code>SourceRegion</code> (or
+     * <code>--source-region</code> for the CLI) instead of specifying <code>PreSignedUrl</code> manually. Specifying
+     * <code>SourceRegion</code> autogenerates a presigned URL that is a valid request for the operation that can run in
+     * the source Amazon Web Services Region.
+     * </p>
+     * </note>
      * 
-     * @return The URL that contains a Signature Version 4 signed request for the <code>CopyDBClusterSnapshot</code> API
-     *         action in the AWS Region that contains the source DB cluster snapshot to copy. The
-     *         <code>PreSignedUrl</code> parameter must be used when copying an encrypted DB cluster snapshot from
-     *         another AWS Region.</p>
+     * @return When you are copying a DB cluster snapshot from one Amazon Web Services GovCloud (US) Region to another,
+     *         the URL that contains a Signature Version 4 signed request for the <code>CopyDBClusterSnapshot</code> API
+     *         operation in the Amazon Web Services Region that contains the source DB cluster snapshot to copy. Use the
+     *         <code>PreSignedUrl</code> parameter when copying an encrypted DB cluster snapshot from another Amazon Web
+     *         Services Region. Don't specify <code>PreSignedUrl</code> when copying an encrypted DB cluster snapshot in
+     *         the same Amazon Web Services Region.</p>
      *         <p>
-     *         The pre-signed URL must be a valid request for the <code>CopyDBSClusterSnapshot</code> API action that
-     *         can be executed in the source AWS Region that contains the encrypted DB cluster snapshot to be copied.
-     *         The pre-signed URL request must contain the following parameter values:
+     *         This setting applies only to Amazon Web Services GovCloud (US) Regions. It's ignored in other Amazon Web
+     *         Services Regions.
+     *         </p>
+     *         <p>
+     *         The presigned URL must be a valid request for the <code>CopyDBClusterSnapshot</code> API operation that
+     *         can run in the source Amazon Web Services Region that contains the encrypted DB cluster snapshot to copy.
+     *         The presigned URL request must contain the following parameter values:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>KmsKeyId</code> - The AWS KMS key identifier for the key to use to encrypt the copy of the DB
-     *         cluster snapshot in the destination AWS Region. This is the same identifier for both the
-     *         <code>CopyDBClusterSnapshot</code> action that is called in the destination AWS Region, and the action
-     *         contained in the pre-signed URL.
+     *         <code>KmsKeyId</code> - The KMS key identifier for the KMS key to use to encrypt the copy of the DB
+     *         cluster snapshot in the destination Amazon Web Services Region. This is the same identifier for both the
+     *         <code>CopyDBClusterSnapshot</code> operation that is called in the destination Amazon Web Services
+     *         Region, and the operation contained in the presigned URL.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>DestinationRegion</code> - The name of the AWS Region that the DB cluster snapshot will be created
-     *         in.
+     *         <code>DestinationRegion</code> - The name of the Amazon Web Services Region that the DB cluster snapshot
+     *         is to be created in.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>SourceDBClusterSnapshotIdentifier</code> - The DB cluster snapshot identifier for the encrypted DB
      *         cluster snapshot to be copied. This identifier must be in the Amazon Resource Name (ARN) format for the
-     *         source AWS Region. For example, if you are copying an encrypted DB cluster snapshot from the us-west-2
-     *         AWS Region, then your <code>SourceDBClusterSnapshotIdentifier</code> looks like the following example:
+     *         source Amazon Web Services Region. For example, if you are copying an encrypted DB cluster snapshot from
+     *         the us-west-2 Amazon Web Services Region, then your <code>SourceDBClusterSnapshotIdentifier</code> looks
+     *         like the following example:
      *         <code>arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115</code>.
      *         </p>
      *         </li>
@@ -899,9 +986,17 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      *         <p>
      *         To learn how to generate a Signature Version 4 signed request, see <a
      *         href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html"> Authenticating
-     *         Requests: Using Query Parameters (AWS Signature Version 4)</a> and <a
+     *         Requests: Using Query Parameters (Amazon Web Services Signature Version 4)</a> and <a
      *         href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"> Signature Version 4
      *         Signing Process</a>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         If you are using an Amazon Web Services SDK tool or the CLI, you can specify <code>SourceRegion</code>
+     *         (or <code>--source-region</code> for the CLI) instead of specifying <code>PreSignedUrl</code> manually.
+     *         Specifying <code>SourceRegion</code> autogenerates a presigned URL that is a valid request for the
+     *         operation that can run in the source Amazon Web Services Region.
+     *         </p>
      */
 
     public String getPreSignedUrl() {
@@ -910,35 +1005,43 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The URL that contains a Signature Version 4 signed request for the <code>CopyDBClusterSnapshot</code> API action
-     * in the AWS Region that contains the source DB cluster snapshot to copy. The <code>PreSignedUrl</code> parameter
-     * must be used when copying an encrypted DB cluster snapshot from another AWS Region.
+     * When you are copying a DB cluster snapshot from one Amazon Web Services GovCloud (US) Region to another, the URL
+     * that contains a Signature Version 4 signed request for the <code>CopyDBClusterSnapshot</code> API operation in
+     * the Amazon Web Services Region that contains the source DB cluster snapshot to copy. Use the
+     * <code>PreSignedUrl</code> parameter when copying an encrypted DB cluster snapshot from another Amazon Web
+     * Services Region. Don't specify <code>PreSignedUrl</code> when copying an encrypted DB cluster snapshot in the
+     * same Amazon Web Services Region.
      * </p>
      * <p>
-     * The pre-signed URL must be a valid request for the <code>CopyDBSClusterSnapshot</code> API action that can be
-     * executed in the source AWS Region that contains the encrypted DB cluster snapshot to be copied. The pre-signed
+     * This setting applies only to Amazon Web Services GovCloud (US) Regions. It's ignored in other Amazon Web Services
+     * Regions.
+     * </p>
+     * <p>
+     * The presigned URL must be a valid request for the <code>CopyDBClusterSnapshot</code> API operation that can run
+     * in the source Amazon Web Services Region that contains the encrypted DB cluster snapshot to copy. The presigned
      * URL request must contain the following parameter values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>KmsKeyId</code> - The AWS KMS key identifier for the key to use to encrypt the copy of the DB cluster
-     * snapshot in the destination AWS Region. This is the same identifier for both the
-     * <code>CopyDBClusterSnapshot</code> action that is called in the destination AWS Region, and the action contained
-     * in the pre-signed URL.
+     * <code>KmsKeyId</code> - The KMS key identifier for the KMS key to use to encrypt the copy of the DB cluster
+     * snapshot in the destination Amazon Web Services Region. This is the same identifier for both the
+     * <code>CopyDBClusterSnapshot</code> operation that is called in the destination Amazon Web Services Region, and
+     * the operation contained in the presigned URL.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DestinationRegion</code> - The name of the AWS Region that the DB cluster snapshot will be created in.
+     * <code>DestinationRegion</code> - The name of the Amazon Web Services Region that the DB cluster snapshot is to be
+     * created in.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>SourceDBClusterSnapshotIdentifier</code> - The DB cluster snapshot identifier for the encrypted DB cluster
-     * snapshot to be copied. This identifier must be in the Amazon Resource Name (ARN) format for the source AWS
-     * Region. For example, if you are copying an encrypted DB cluster snapshot from the us-west-2 AWS Region, then your
-     * <code>SourceDBClusterSnapshotIdentifier</code> looks like the following example:
+     * snapshot to be copied. This identifier must be in the Amazon Resource Name (ARN) format for the source Amazon Web
+     * Services Region. For example, if you are copying an encrypted DB cluster snapshot from the us-west-2 Amazon Web
+     * Services Region, then your <code>SourceDBClusterSnapshotIdentifier</code> looks like the following example:
      * <code>arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115</code>.
      * </p>
      * </li>
@@ -946,42 +1049,57 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * <p>
      * To learn how to generate a Signature Version 4 signed request, see <a
      * href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html"> Authenticating Requests:
-     * Using Query Parameters (AWS Signature Version 4)</a> and <a
+     * Using Query Parameters (Amazon Web Services Signature Version 4)</a> and <a
      * href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"> Signature Version 4 Signing
      * Process</a>.
      * </p>
+     * <note>
+     * <p>
+     * If you are using an Amazon Web Services SDK tool or the CLI, you can specify <code>SourceRegion</code> (or
+     * <code>--source-region</code> for the CLI) instead of specifying <code>PreSignedUrl</code> manually. Specifying
+     * <code>SourceRegion</code> autogenerates a presigned URL that is a valid request for the operation that can run in
+     * the source Amazon Web Services Region.
+     * </p>
+     * </note>
      * 
      * @param preSignedUrl
-     *        The URL that contains a Signature Version 4 signed request for the <code>CopyDBClusterSnapshot</code> API
-     *        action in the AWS Region that contains the source DB cluster snapshot to copy. The
-     *        <code>PreSignedUrl</code> parameter must be used when copying an encrypted DB cluster snapshot from
-     *        another AWS Region.</p>
+     *        When you are copying a DB cluster snapshot from one Amazon Web Services GovCloud (US) Region to another,
+     *        the URL that contains a Signature Version 4 signed request for the <code>CopyDBClusterSnapshot</code> API
+     *        operation in the Amazon Web Services Region that contains the source DB cluster snapshot to copy. Use the
+     *        <code>PreSignedUrl</code> parameter when copying an encrypted DB cluster snapshot from another Amazon Web
+     *        Services Region. Don't specify <code>PreSignedUrl</code> when copying an encrypted DB cluster snapshot in
+     *        the same Amazon Web Services Region.</p>
      *        <p>
-     *        The pre-signed URL must be a valid request for the <code>CopyDBSClusterSnapshot</code> API action that can
-     *        be executed in the source AWS Region that contains the encrypted DB cluster snapshot to be copied. The
-     *        pre-signed URL request must contain the following parameter values:
+     *        This setting applies only to Amazon Web Services GovCloud (US) Regions. It's ignored in other Amazon Web
+     *        Services Regions.
+     *        </p>
+     *        <p>
+     *        The presigned URL must be a valid request for the <code>CopyDBClusterSnapshot</code> API operation that
+     *        can run in the source Amazon Web Services Region that contains the encrypted DB cluster snapshot to copy.
+     *        The presigned URL request must contain the following parameter values:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>KmsKeyId</code> - The AWS KMS key identifier for the key to use to encrypt the copy of the DB
-     *        cluster snapshot in the destination AWS Region. This is the same identifier for both the
-     *        <code>CopyDBClusterSnapshot</code> action that is called in the destination AWS Region, and the action
-     *        contained in the pre-signed URL.
+     *        <code>KmsKeyId</code> - The KMS key identifier for the KMS key to use to encrypt the copy of the DB
+     *        cluster snapshot in the destination Amazon Web Services Region. This is the same identifier for both the
+     *        <code>CopyDBClusterSnapshot</code> operation that is called in the destination Amazon Web Services Region,
+     *        and the operation contained in the presigned URL.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DestinationRegion</code> - The name of the AWS Region that the DB cluster snapshot will be created
-     *        in.
+     *        <code>DestinationRegion</code> - The name of the Amazon Web Services Region that the DB cluster snapshot
+     *        is to be created in.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>SourceDBClusterSnapshotIdentifier</code> - The DB cluster snapshot identifier for the encrypted DB
      *        cluster snapshot to be copied. This identifier must be in the Amazon Resource Name (ARN) format for the
-     *        source AWS Region. For example, if you are copying an encrypted DB cluster snapshot from the us-west-2 AWS
-     *        Region, then your <code>SourceDBClusterSnapshotIdentifier</code> looks like the following example:
+     *        source Amazon Web Services Region. For example, if you are copying an encrypted DB cluster snapshot from
+     *        the us-west-2 Amazon Web Services Region, then your <code>SourceDBClusterSnapshotIdentifier</code> looks
+     *        like the following example:
      *        <code>arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115</code>.
      *        </p>
      *        </li>
@@ -989,9 +1107,17 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      *        <p>
      *        To learn how to generate a Signature Version 4 signed request, see <a
      *        href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html"> Authenticating
-     *        Requests: Using Query Parameters (AWS Signature Version 4)</a> and <a
+     *        Requests: Using Query Parameters (Amazon Web Services Signature Version 4)</a> and <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"> Signature Version 4 Signing
      *        Process</a>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If you are using an Amazon Web Services SDK tool or the CLI, you can specify <code>SourceRegion</code> (or
+     *        <code>--source-region</code> for the CLI) instead of specifying <code>PreSignedUrl</code> manually.
+     *        Specifying <code>SourceRegion</code> autogenerates a presigned URL that is a valid request for the
+     *        operation that can run in the source Amazon Web Services Region.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1002,13 +1128,13 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the source DB cluster snapshot to the target DB cluster
-     * snapshot. By default, tags are not copied.
+     * Specifies whether to copy all tags from the source DB cluster snapshot to the target DB cluster snapshot. By
+     * default, tags are not copied.
      * </p>
      * 
      * @param copyTags
-     *        A value that indicates whether to copy all tags from the source DB cluster snapshot to the target DB
-     *        cluster snapshot. By default, tags are not copied.
+     *        Specifies whether to copy all tags from the source DB cluster snapshot to the target DB cluster snapshot.
+     *        By default, tags are not copied.
      */
 
     public void setCopyTags(Boolean copyTags) {
@@ -1017,12 +1143,12 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the source DB cluster snapshot to the target DB cluster
-     * snapshot. By default, tags are not copied.
+     * Specifies whether to copy all tags from the source DB cluster snapshot to the target DB cluster snapshot. By
+     * default, tags are not copied.
      * </p>
      * 
-     * @return A value that indicates whether to copy all tags from the source DB cluster snapshot to the target DB
-     *         cluster snapshot. By default, tags are not copied.
+     * @return Specifies whether to copy all tags from the source DB cluster snapshot to the target DB cluster snapshot.
+     *         By default, tags are not copied.
      */
 
     public Boolean getCopyTags() {
@@ -1031,13 +1157,13 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the source DB cluster snapshot to the target DB cluster
-     * snapshot. By default, tags are not copied.
+     * Specifies whether to copy all tags from the source DB cluster snapshot to the target DB cluster snapshot. By
+     * default, tags are not copied.
      * </p>
      * 
      * @param copyTags
-     *        A value that indicates whether to copy all tags from the source DB cluster snapshot to the target DB
-     *        cluster snapshot. By default, tags are not copied.
+     *        Specifies whether to copy all tags from the source DB cluster snapshot to the target DB cluster snapshot.
+     *        By default, tags are not copied.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1048,12 +1174,12 @@ public class CopyDBClusterSnapshotRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the source DB cluster snapshot to the target DB cluster
-     * snapshot. By default, tags are not copied.
+     * Specifies whether to copy all tags from the source DB cluster snapshot to the target DB cluster snapshot. By
+     * default, tags are not copied.
      * </p>
      * 
-     * @return A value that indicates whether to copy all tags from the source DB cluster snapshot to the target DB
-     *         cluster snapshot. By default, tags are not copied.
+     * @return Specifies whether to copy all tags from the source DB cluster snapshot to the target DB cluster snapshot.
+     *         By default, tags are not copied.
      */
 
     public Boolean isCopyTags() {

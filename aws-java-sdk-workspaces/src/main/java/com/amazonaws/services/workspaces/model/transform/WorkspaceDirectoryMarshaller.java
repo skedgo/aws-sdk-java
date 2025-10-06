@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,6 +54,30 @@ public class WorkspaceDirectoryMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("WorkspaceCreationProperties").build();
     private static final MarshallingInfo<List> IPGROUPIDS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("ipGroupIds").build();
+    private static final MarshallingInfo<StructuredPojo> WORKSPACEACCESSPROPERTIES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("WorkspaceAccessProperties").build();
+    private static final MarshallingInfo<String> TENANCY_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Tenancy").build();
+    private static final MarshallingInfo<StructuredPojo> SELFSERVICEPERMISSIONS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SelfservicePermissions").build();
+    private static final MarshallingInfo<StructuredPojo> SAMLPROPERTIES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SamlProperties").build();
+    private static final MarshallingInfo<StructuredPojo> CERTIFICATEBASEDAUTHPROPERTIES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CertificateBasedAuthProperties").build();
+    private static final MarshallingInfo<String> WORKSPACEDIRECTORYNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("WorkspaceDirectoryName").build();
+    private static final MarshallingInfo<String> WORKSPACEDIRECTORYDESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("WorkspaceDirectoryDescription").build();
+    private static final MarshallingInfo<String> USERIDENTITYTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("UserIdentityType").build();
+    private static final MarshallingInfo<String> WORKSPACETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("WorkspaceType").build();
+    private static final MarshallingInfo<StructuredPojo> ACTIVEDIRECTORYCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ActiveDirectoryConfig").build();
+    private static final MarshallingInfo<StructuredPojo> STREAMINGPROPERTIES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StreamingProperties").build();
+    private static final MarshallingInfo<String> ERRORMESSAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ErrorMessage").build();
 
     private static final WorkspaceDirectoryMarshaller instance = new WorkspaceDirectoryMarshaller();
 
@@ -84,6 +108,18 @@ public class WorkspaceDirectoryMarshaller {
             protocolMarshaller.marshall(workspaceDirectory.getState(), STATE_BINDING);
             protocolMarshaller.marshall(workspaceDirectory.getWorkspaceCreationProperties(), WORKSPACECREATIONPROPERTIES_BINDING);
             protocolMarshaller.marshall(workspaceDirectory.getIpGroupIds(), IPGROUPIDS_BINDING);
+            protocolMarshaller.marshall(workspaceDirectory.getWorkspaceAccessProperties(), WORKSPACEACCESSPROPERTIES_BINDING);
+            protocolMarshaller.marshall(workspaceDirectory.getTenancy(), TENANCY_BINDING);
+            protocolMarshaller.marshall(workspaceDirectory.getSelfservicePermissions(), SELFSERVICEPERMISSIONS_BINDING);
+            protocolMarshaller.marshall(workspaceDirectory.getSamlProperties(), SAMLPROPERTIES_BINDING);
+            protocolMarshaller.marshall(workspaceDirectory.getCertificateBasedAuthProperties(), CERTIFICATEBASEDAUTHPROPERTIES_BINDING);
+            protocolMarshaller.marshall(workspaceDirectory.getWorkspaceDirectoryName(), WORKSPACEDIRECTORYNAME_BINDING);
+            protocolMarshaller.marshall(workspaceDirectory.getWorkspaceDirectoryDescription(), WORKSPACEDIRECTORYDESCRIPTION_BINDING);
+            protocolMarshaller.marshall(workspaceDirectory.getUserIdentityType(), USERIDENTITYTYPE_BINDING);
+            protocolMarshaller.marshall(workspaceDirectory.getWorkspaceType(), WORKSPACETYPE_BINDING);
+            protocolMarshaller.marshall(workspaceDirectory.getActiveDirectoryConfig(), ACTIVEDIRECTORYCONFIG_BINDING);
+            protocolMarshaller.marshall(workspaceDirectory.getStreamingProperties(), STREAMINGPROPERTIES_BINDING);
+            protocolMarshaller.marshall(workspaceDirectory.getErrorMessage(), ERRORMESSAGE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

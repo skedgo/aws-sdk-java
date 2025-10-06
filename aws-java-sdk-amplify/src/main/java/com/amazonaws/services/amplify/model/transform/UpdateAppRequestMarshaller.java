@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,6 +43,8 @@ public class UpdateAppRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("environmentVariables").build();
     private static final MarshallingInfo<Boolean> ENABLEBRANCHAUTOBUILD_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("enableBranchAutoBuild").build();
+    private static final MarshallingInfo<Boolean> ENABLEBRANCHAUTODELETION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("enableBranchAutoDeletion").build();
     private static final MarshallingInfo<Boolean> ENABLEBASICAUTH_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("enableBasicAuth").build();
     private static final MarshallingInfo<String> BASICAUTHCREDENTIALS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -51,12 +53,20 @@ public class UpdateAppRequestMarshaller {
             .marshallLocationName("customRules").build();
     private static final MarshallingInfo<String> BUILDSPEC_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("buildSpec").build();
+    private static final MarshallingInfo<String> CUSTOMHEADERS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("customHeaders").build();
     private static final MarshallingInfo<Boolean> ENABLEAUTOBRANCHCREATION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("enableAutoBranchCreation").build();
     private static final MarshallingInfo<List> AUTOBRANCHCREATIONPATTERNS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("autoBranchCreationPatterns").build();
     private static final MarshallingInfo<StructuredPojo> AUTOBRANCHCREATIONCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("autoBranchCreationConfig").build();
+    private static final MarshallingInfo<String> REPOSITORY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("repository").build();
+    private static final MarshallingInfo<String> OAUTHTOKEN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("oauthToken").build();
+    private static final MarshallingInfo<String> ACCESSTOKEN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("accessToken").build();
 
     private static final UpdateAppRequestMarshaller instance = new UpdateAppRequestMarshaller();
 
@@ -81,13 +91,18 @@ public class UpdateAppRequestMarshaller {
             protocolMarshaller.marshall(updateAppRequest.getIamServiceRoleArn(), IAMSERVICEROLEARN_BINDING);
             protocolMarshaller.marshall(updateAppRequest.getEnvironmentVariables(), ENVIRONMENTVARIABLES_BINDING);
             protocolMarshaller.marshall(updateAppRequest.getEnableBranchAutoBuild(), ENABLEBRANCHAUTOBUILD_BINDING);
+            protocolMarshaller.marshall(updateAppRequest.getEnableBranchAutoDeletion(), ENABLEBRANCHAUTODELETION_BINDING);
             protocolMarshaller.marshall(updateAppRequest.getEnableBasicAuth(), ENABLEBASICAUTH_BINDING);
             protocolMarshaller.marshall(updateAppRequest.getBasicAuthCredentials(), BASICAUTHCREDENTIALS_BINDING);
             protocolMarshaller.marshall(updateAppRequest.getCustomRules(), CUSTOMRULES_BINDING);
             protocolMarshaller.marshall(updateAppRequest.getBuildSpec(), BUILDSPEC_BINDING);
+            protocolMarshaller.marshall(updateAppRequest.getCustomHeaders(), CUSTOMHEADERS_BINDING);
             protocolMarshaller.marshall(updateAppRequest.getEnableAutoBranchCreation(), ENABLEAUTOBRANCHCREATION_BINDING);
             protocolMarshaller.marshall(updateAppRequest.getAutoBranchCreationPatterns(), AUTOBRANCHCREATIONPATTERNS_BINDING);
             protocolMarshaller.marshall(updateAppRequest.getAutoBranchCreationConfig(), AUTOBRANCHCREATIONCONFIG_BINDING);
+            protocolMarshaller.marshall(updateAppRequest.getRepository(), REPOSITORY_BINDING);
+            protocolMarshaller.marshall(updateAppRequest.getOauthToken(), OAUTHTOKEN_BINDING);
+            protocolMarshaller.marshall(updateAppRequest.getAccessToken(), ACCESSTOKEN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

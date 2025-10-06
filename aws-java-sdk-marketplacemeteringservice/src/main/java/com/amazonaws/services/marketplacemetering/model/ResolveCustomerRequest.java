@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Contains input to the ResolveCustomer operation.
+ * Contains input to the <code>ResolveCustomer</code> operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/meteringmarketplace-2016-01-14/ResolveCustomer"
@@ -31,7 +31,8 @@ public class ResolveCustomerRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * When a buyer visits your website during the registration process, the buyer submits a registration token through
-     * the browser. The registration token is resolved to obtain a CustomerIdentifier and product code.
+     * the browser. The registration token is resolved to obtain a <code>CustomerIdentifier</code> along with the
+     * <code>CustomerAWSAccountId</code> and <code>ProductCode</code>.
      * </p>
      */
     private String registrationToken;
@@ -39,12 +40,14 @@ public class ResolveCustomerRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * When a buyer visits your website during the registration process, the buyer submits a registration token through
-     * the browser. The registration token is resolved to obtain a CustomerIdentifier and product code.
+     * the browser. The registration token is resolved to obtain a <code>CustomerIdentifier</code> along with the
+     * <code>CustomerAWSAccountId</code> and <code>ProductCode</code>.
      * </p>
      * 
      * @param registrationToken
      *        When a buyer visits your website during the registration process, the buyer submits a registration token
-     *        through the browser. The registration token is resolved to obtain a CustomerIdentifier and product code.
+     *        through the browser. The registration token is resolved to obtain a <code>CustomerIdentifier</code> along
+     *        with the <code>CustomerAWSAccountId</code> and <code>ProductCode</code>.
      */
 
     public void setRegistrationToken(String registrationToken) {
@@ -54,11 +57,13 @@ public class ResolveCustomerRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * When a buyer visits your website during the registration process, the buyer submits a registration token through
-     * the browser. The registration token is resolved to obtain a CustomerIdentifier and product code.
+     * the browser. The registration token is resolved to obtain a <code>CustomerIdentifier</code> along with the
+     * <code>CustomerAWSAccountId</code> and <code>ProductCode</code>.
      * </p>
      * 
      * @return When a buyer visits your website during the registration process, the buyer submits a registration token
-     *         through the browser. The registration token is resolved to obtain a CustomerIdentifier and product code.
+     *         through the browser. The registration token is resolved to obtain a <code>CustomerIdentifier</code> along
+     *         with the <code>CustomerAWSAccountId</code> and <code>ProductCode</code>.
      */
 
     public String getRegistrationToken() {
@@ -68,12 +73,14 @@ public class ResolveCustomerRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * When a buyer visits your website during the registration process, the buyer submits a registration token through
-     * the browser. The registration token is resolved to obtain a CustomerIdentifier and product code.
+     * the browser. The registration token is resolved to obtain a <code>CustomerIdentifier</code> along with the
+     * <code>CustomerAWSAccountId</code> and <code>ProductCode</code>.
      * </p>
      * 
      * @param registrationToken
      *        When a buyer visits your website during the registration process, the buyer submits a registration token
-     *        through the browser. The registration token is resolved to obtain a CustomerIdentifier and product code.
+     *        through the browser. The registration token is resolved to obtain a <code>CustomerIdentifier</code> along
+     *        with the <code>CustomerAWSAccountId</code> and <code>ProductCode</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

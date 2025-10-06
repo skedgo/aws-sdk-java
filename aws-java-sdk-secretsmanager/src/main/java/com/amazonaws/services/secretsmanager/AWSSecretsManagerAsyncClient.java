@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,14 +25,14 @@ import java.util.concurrent.ExecutorService;
  * representing the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive
  * notification when an asynchronous operation completes.
  * <p>
- * <fullname>AWS Secrets Manager API Reference</fullname>
+ * <fullname>Amazon Web Services Secrets Manager</fullname>
  * <p>
- * AWS Secrets Manager is a web service that enables you to store, manage, and retrieve, secrets.
+ * Amazon Web Services Secrets Manager provides a service to enable you to store, manage, and retrieve, secrets.
  * </p>
  * <p>
  * This guide provides descriptions of the Secrets Manager API. For more information about using this service, see the
- * <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/introduction.html">AWS Secrets Manager User
- * Guide</a>.
+ * <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/introduction.html">Amazon Web Services Secrets
+ * Manager User Guide</a>.
  * </p>
  * <p>
  * <b>API Version</b>
@@ -40,61 +40,35 @@ import java.util.concurrent.ExecutorService;
  * <p>
  * This version of the Secrets Manager API Reference documents the Secrets Manager API version 2017-10-17.
  * </p>
- * <note>
  * <p>
- * As an alternative to using the API directly, you can use one of the AWS SDKs, which consist of libraries and sample
- * code for various programming languages and platforms (such as Java, Ruby, .NET, iOS, and Android). The SDKs provide a
- * convenient way to create programmatic access to AWS Secrets Manager. For example, the SDKs take care of
- * cryptographically signing requests, managing errors, and retrying requests automatically. For more information about
- * the AWS SDKs, including how to download and install them, see <a href="http://aws.amazon.com/tools/">Tools for Amazon
- * Web Services</a>.
- * </p>
- * </note>
- * <p>
- * We recommend that you use the AWS SDKs to make programmatic API calls to Secrets Manager. However, you also can use
- * the Secrets Manager HTTP Query API to make direct calls to the Secrets Manager web service. To learn more about the
- * Secrets Manager HTTP Query API, see <a
- * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/query-requests.html">Making Query Requests</a> in
- * the <i>AWS Secrets Manager User Guide</i>.
+ * For a list of endpoints, see <a
+ * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/asm_access.html#endpoints">Amazon Web Services
+ * Secrets Manager endpoints</a>.
  * </p>
  * <p>
- * Secrets Manager supports GET and POST requests for all actions. That is, the API doesn't require you to use GET for
- * some actions and POST for others. However, GET requests are subject to the limitation size of a URL. Therefore, for
- * operations that require larger sizes, use a POST request.
- * </p>
- * <p>
- * <b>Support and Feedback for AWS Secrets Manager</b>
+ * <b>Support and Feedback for Amazon Web Services Secrets Manager</b>
  * </p>
  * <p>
  * We welcome your feedback. Send your comments to <a
  * href="mailto:awssecretsmanager-feedback@amazon.com">awssecretsmanager-feedback@amazon.com</a>, or post your feedback
- * and questions in the <a href="http://forums.aws.amazon.com/forum.jspa?forumID=296">AWS Secrets Manager Discussion
- * Forum</a>. For more information about the AWS Discussion Forums, see <a
+ * and questions in the <a href="http://forums.aws.amazon.com/forum.jspa?forumID=296">Amazon Web Services Secrets
+ * Manager Discussion Forum</a>. For more information about the Amazon Web Services Discussion Forums, see <a
  * href="http://forums.aws.amazon.com/help.jspa">Forums Help</a>.
- * </p>
- * <p>
- * <b>How examples are presented</b>
- * </p>
- * <p>
- * The JSON that AWS Secrets Manager expects as your request parameters and that the service returns as a response to
- * HTTP query requests are single, long strings without line breaks or white space formatting. The JSON shown in the
- * examples is formatted with both line breaks and white space to improve readability. When example input parameters
- * would also result in long strings that extend beyond the screen, we insert line breaks to enhance readability. You
- * should always submit the input as a single JSON text string.
  * </p>
  * <p>
  * <b>Logging API Requests</b>
  * </p>
  * <p>
- * AWS Secrets Manager supports AWS CloudTrail, a service that records AWS API calls for your AWS account and delivers
- * log files to an Amazon S3 bucket. By using information that's collected by AWS CloudTrail, you can determine which
- * requests were successfully made to Secrets Manager, who made the request, when it was made, and so on. For more about
- * AWS Secrets Manager and its support for AWS CloudTrail, see <a
- * href="http://docs.aws.amazon.com/secretsmanager/latest/userguide/monitoring.html#monitoring_cloudtrail">Logging AWS
- * Secrets Manager Events with AWS CloudTrail</a> in the <i>AWS Secrets Manager User Guide</i>. To learn more about
- * CloudTrail, including how to turn it on and find your log files, see the <a
- * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html">AWS CloudTrail
- * User Guide</a>.
+ * Amazon Web Services Secrets Manager supports Amazon Web Services CloudTrail, a service that records Amazon Web
+ * Services API calls for your Amazon Web Services account and delivers log files to an Amazon S3 bucket. By using
+ * information that's collected by Amazon Web Services CloudTrail, you can determine the requests successfully made to
+ * Secrets Manager, who made the request, when it was made, and so on. For more about Amazon Web Services Secrets
+ * Manager and support for Amazon Web Services CloudTrail, see <a
+ * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/monitoring.html#monitoring_cloudtrail">Logging
+ * Amazon Web Services Secrets Manager Events with Amazon Web Services CloudTrail</a> in the <i>Amazon Web Services
+ * Secrets Manager User Guide</i>. To learn more about CloudTrail, including enabling it and find your log files, see
+ * the <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html">Amazon
+ * Web Services CloudTrail User Guide</a>.
  * </p>
  */
 @ThreadSafe
@@ -117,7 +91,20 @@ public class AWSSecretsManagerAsyncClient extends AWSSecretsManagerClient implem
      *        Object providing client parameters.
      */
     AWSSecretsManagerAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS Secrets Manager using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSSecretsManagerAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -128,6 +115,39 @@ public class AWSSecretsManagerAsyncClient extends AWSSecretsManagerClient implem
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchGetSecretValueResult> batchGetSecretValueAsync(BatchGetSecretValueRequest request) {
+
+        return batchGetSecretValueAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchGetSecretValueResult> batchGetSecretValueAsync(final BatchGetSecretValueRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchGetSecretValueRequest, BatchGetSecretValueResult> asyncHandler) {
+        final BatchGetSecretValueRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchGetSecretValueResult>() {
+            @Override
+            public BatchGetSecretValueResult call() throws Exception {
+                BatchGetSecretValueResult result = null;
+
+                try {
+                    result = executeBatchGetSecretValue(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -527,6 +547,72 @@ public class AWSSecretsManagerAsyncClient extends AWSSecretsManagerClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<RemoveRegionsFromReplicationResult> removeRegionsFromReplicationAsync(RemoveRegionsFromReplicationRequest request) {
+
+        return removeRegionsFromReplicationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveRegionsFromReplicationResult> removeRegionsFromReplicationAsync(final RemoveRegionsFromReplicationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RemoveRegionsFromReplicationRequest, RemoveRegionsFromReplicationResult> asyncHandler) {
+        final RemoveRegionsFromReplicationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RemoveRegionsFromReplicationResult>() {
+            @Override
+            public RemoveRegionsFromReplicationResult call() throws Exception {
+                RemoveRegionsFromReplicationResult result = null;
+
+                try {
+                    result = executeRemoveRegionsFromReplication(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReplicateSecretToRegionsResult> replicateSecretToRegionsAsync(ReplicateSecretToRegionsRequest request) {
+
+        return replicateSecretToRegionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReplicateSecretToRegionsResult> replicateSecretToRegionsAsync(final ReplicateSecretToRegionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ReplicateSecretToRegionsRequest, ReplicateSecretToRegionsResult> asyncHandler) {
+        final ReplicateSecretToRegionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ReplicateSecretToRegionsResult>() {
+            @Override
+            public ReplicateSecretToRegionsResult call() throws Exception {
+                ReplicateSecretToRegionsResult result = null;
+
+                try {
+                    result = executeReplicateSecretToRegions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<RestoreSecretResult> restoreSecretAsync(RestoreSecretRequest request) {
 
         return restoreSecretAsync(request, null);
@@ -577,6 +663,39 @@ public class AWSSecretsManagerAsyncClient extends AWSSecretsManagerClient implem
 
                 try {
                     result = executeRotateSecret(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopReplicationToReplicaResult> stopReplicationToReplicaAsync(StopReplicationToReplicaRequest request) {
+
+        return stopReplicationToReplicaAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopReplicationToReplicaResult> stopReplicationToReplicaAsync(final StopReplicationToReplicaRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StopReplicationToReplicaRequest, StopReplicationToReplicaResult> asyncHandler) {
+        final StopReplicationToReplicaRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StopReplicationToReplicaResult>() {
+            @Override
+            public StopReplicationToReplicaResult call() throws Exception {
+                StopReplicationToReplicaResult result = null;
+
+                try {
+                    result = executeStopReplicationToReplica(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -709,6 +828,39 @@ public class AWSSecretsManagerAsyncClient extends AWSSecretsManagerClient implem
 
                 try {
                     result = executeUpdateSecretVersionStage(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ValidateResourcePolicyResult> validateResourcePolicyAsync(ValidateResourcePolicyRequest request) {
+
+        return validateResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ValidateResourcePolicyResult> validateResourcePolicyAsync(final ValidateResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ValidateResourcePolicyRequest, ValidateResourcePolicyResult> asyncHandler) {
+        final ValidateResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ValidateResourcePolicyResult>() {
+            @Override
+            public ValidateResourcePolicyResult call() throws Exception {
+                ValidateResourcePolicyResult result = null;
+
+                try {
+                    result = executeValidateResourcePolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

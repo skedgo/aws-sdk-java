@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,14 +27,14 @@ public class UpdateTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set exists
-     * in.
+     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set is
+     * found in.
      * </p>
      */
     private String cluster;
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the service that the task set exists in.
+     * The short name or full Amazon Resource Name (ARN) of the service that the task set is found in.
      * </p>
      */
     private String service;
@@ -44,18 +44,22 @@ public class UpdateTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      */
     private String taskSet;
-
+    /**
+     * <p>
+     * A floating-point percentage of the desired number of tasks to place and keep running in the task set.
+     * </p>
+     */
     private Scale scale;
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set exists
-     * in.
+     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set is
+     * found in.
      * </p>
      * 
      * @param cluster
      *        The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set
-     *        exists in.
+     *        is found in.
      */
 
     public void setCluster(String cluster) {
@@ -64,12 +68,12 @@ public class UpdateTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set exists
-     * in.
+     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set is
+     * found in.
      * </p>
      * 
      * @return The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set
-     *         exists in.
+     *         is found in.
      */
 
     public String getCluster() {
@@ -78,13 +82,13 @@ public class UpdateTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set exists
-     * in.
+     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set is
+     * found in.
      * </p>
      * 
      * @param cluster
      *        The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set
-     *        exists in.
+     *        is found in.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -95,11 +99,11 @@ public class UpdateTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the service that the task set exists in.
+     * The short name or full Amazon Resource Name (ARN) of the service that the task set is found in.
      * </p>
      * 
      * @param service
-     *        The short name or full Amazon Resource Name (ARN) of the service that the task set exists in.
+     *        The short name or full Amazon Resource Name (ARN) of the service that the task set is found in.
      */
 
     public void setService(String service) {
@@ -108,10 +112,10 @@ public class UpdateTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the service that the task set exists in.
+     * The short name or full Amazon Resource Name (ARN) of the service that the task set is found in.
      * </p>
      * 
-     * @return The short name or full Amazon Resource Name (ARN) of the service that the task set exists in.
+     * @return The short name or full Amazon Resource Name (ARN) of the service that the task set is found in.
      */
 
     public String getService() {
@@ -120,11 +124,11 @@ public class UpdateTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the service that the task set exists in.
+     * The short name or full Amazon Resource Name (ARN) of the service that the task set is found in.
      * </p>
      * 
      * @param service
-     *        The short name or full Amazon Resource Name (ARN) of the service that the task set exists in.
+     *        The short name or full Amazon Resource Name (ARN) of the service that the task set is found in.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -174,7 +178,12 @@ public class UpdateTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * A floating-point percentage of the desired number of tasks to place and keep running in the task set.
+     * </p>
+     * 
      * @param scale
+     *        A floating-point percentage of the desired number of tasks to place and keep running in the task set.
      */
 
     public void setScale(Scale scale) {
@@ -182,7 +191,11 @@ public class UpdateTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
-     * @return
+     * <p>
+     * A floating-point percentage of the desired number of tasks to place and keep running in the task set.
+     * </p>
+     * 
+     * @return A floating-point percentage of the desired number of tasks to place and keep running in the task set.
      */
 
     public Scale getScale() {
@@ -190,7 +203,12 @@ public class UpdateTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * A floating-point percentage of the desired number of tasks to place and keep running in the task set.
+     * </p>
+     * 
      * @param scale
+     *        A floating-point percentage of the desired number of tasks to place and keep running in the task set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

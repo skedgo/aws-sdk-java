@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,8 +15,8 @@ package com.amazonaws.services.mediaconvert.model;
 import javax.annotation.Generated;
 
 /**
- * The Initialization Vector is a 128-bit number used in conjunction with the key for encrypting blocks. If set to
- * INCLUDE, Initialization Vector is listed in the manifest. Otherwise Initialization Vector is not in the manifest.
+ * When you use DRM with CMAF outputs, choose whether the service writes the 128-bit encryption initialization vector in
+ * the HLS and DASH manifests.
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum CmafInitializationVectorInManifest {

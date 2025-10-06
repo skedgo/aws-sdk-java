@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,14 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about a tag.
+ * A structure containing a tag. A tag is metadata that you can attach to your resources to help organize and categorize
+ * them. You can also use them to help you secure your resources. For more information, see <a
+ * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html">Controlling access to Amazon Web Services
+ * resources using tags</a>.
+ * </p>
+ * <p>
+ * For more information about tags, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging
+ * Amazon Web Services resources</a> in the <i>Amazon Web Services General Reference Guide</i>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/Tag" target="_top">AWS API Documentation</a>
@@ -29,24 +36,24 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The key of the tag.
+     * The key, or name, attached to the tag. Every tag must have a key. Key names are case sensitive.
      * </p>
      */
     private String key;
     /**
      * <p>
-     * The value of the tag.
+     * The string value attached to the tag. The value can be an empty string. Key values are case sensitive.
      * </p>
      */
     private String value;
 
     /**
      * <p>
-     * The key of the tag.
+     * The key, or name, attached to the tag. Every tag must have a key. Key names are case sensitive.
      * </p>
      * 
      * @param key
-     *        The key of the tag.
+     *        The key, or name, attached to the tag. Every tag must have a key. Key names are case sensitive.
      */
 
     public void setKey(String key) {
@@ -55,10 +62,10 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The key of the tag.
+     * The key, or name, attached to the tag. Every tag must have a key. Key names are case sensitive.
      * </p>
      * 
-     * @return The key of the tag.
+     * @return The key, or name, attached to the tag. Every tag must have a key. Key names are case sensitive.
      */
 
     public String getKey() {
@@ -67,11 +74,11 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The key of the tag.
+     * The key, or name, attached to the tag. Every tag must have a key. Key names are case sensitive.
      * </p>
      * 
      * @param key
-     *        The key of the tag.
+     *        The key, or name, attached to the tag. Every tag must have a key. Key names are case sensitive.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -82,11 +89,11 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value of the tag.
+     * The string value attached to the tag. The value can be an empty string. Key values are case sensitive.
      * </p>
      * 
      * @param value
-     *        The value of the tag.
+     *        The string value attached to the tag. The value can be an empty string. Key values are case sensitive.
      */
 
     public void setValue(String value) {
@@ -95,10 +102,10 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value of the tag.
+     * The string value attached to the tag. The value can be an empty string. Key values are case sensitive.
      * </p>
      * 
-     * @return The value of the tag.
+     * @return The string value attached to the tag. The value can be an empty string. Key values are case sensitive.
      */
 
     public String getValue() {
@@ -107,11 +114,11 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value of the tag.
+     * The string value attached to the tag. The value can be an empty string. Key values are case sensitive.
      * </p>
      * 
      * @param value
-     *        The value of the tag.
+     *        The string value attached to the tag. The value can be an empty string. Key values are case sensitive.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

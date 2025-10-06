@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,13 +40,14 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <p>
  * With DynamoDB, you can create database tables that can store and retrieve any amount of data, and serve any level of
  * request traffic. You can scale up or scale down your tables' throughput capacity without downtime or performance
- * degradation, and use the AWS Management Console to monitor resource utilization and performance metrics.
+ * degradation, and use the Amazon Web Services Management Console to monitor resource utilization and performance
+ * metrics.
  * </p>
  * <p>
  * DynamoDB automatically spreads the data and traffic for your tables over a sufficient number of servers to handle
  * your throughput and storage requirements, while maintaining consistent and fast performance. All of your data is
- * stored on solid state disks (SSDs) and automatically replicated across multiple Availability Zones in an AWS region,
- * providing built-in high availability and data durability.
+ * stored on solid state disks (SSDs) and automatically replicated across multiple Availability Zones in an Amazon Web
+ * Services Region, providing built-in high availability and data durability.
  * </p>
  */
 @ThreadSafe
@@ -245,7 +246,19 @@ public class AmazonDynamoDBAsyncClient extends AmazonDynamoDBClient implements A
      *        Object providing client parameters.
      */
     AmazonDynamoDBAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on DynamoDB using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonDynamoDBAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -256,6 +269,39 @@ public class AmazonDynamoDBAsyncClient extends AmazonDynamoDBClient implements A
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchExecuteStatementResult> batchExecuteStatementAsync(BatchExecuteStatementRequest request) {
+
+        return batchExecuteStatementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchExecuteStatementResult> batchExecuteStatementAsync(final BatchExecuteStatementRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchExecuteStatementRequest, BatchExecuteStatementResult> asyncHandler) {
+        final BatchExecuteStatementRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchExecuteStatementResult>() {
+            @Override
+            public BatchExecuteStatementResult call() throws Exception {
+                BatchExecuteStatementResult result = null;
+
+                try {
+                    result = executeBatchExecuteStatement(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -633,6 +679,39 @@ public class AmazonDynamoDBAsyncClient extends AmazonDynamoDBClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest request) {
+
+        return deleteResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(final DeleteResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteResourcePolicyRequest, DeleteResourcePolicyResult> asyncHandler) {
+        final DeleteResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteResourcePolicyResult>() {
+            @Override
+            public DeleteResourcePolicyResult call() throws Exception {
+                DeleteResourcePolicyResult result = null;
+
+                try {
+                    result = executeDeleteResourcePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteTableResult> deleteTableAsync(DeleteTableRequest request) {
 
         return deleteTableAsync(request, null);
@@ -755,6 +834,39 @@ public class AmazonDynamoDBAsyncClient extends AmazonDynamoDBClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeContributorInsightsResult> describeContributorInsightsAsync(DescribeContributorInsightsRequest request) {
+
+        return describeContributorInsightsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeContributorInsightsResult> describeContributorInsightsAsync(final DescribeContributorInsightsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeContributorInsightsRequest, DescribeContributorInsightsResult> asyncHandler) {
+        final DescribeContributorInsightsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeContributorInsightsResult>() {
+            @Override
+            public DescribeContributorInsightsResult call() throws Exception {
+                DescribeContributorInsightsResult result = null;
+
+                try {
+                    result = executeDescribeContributorInsights(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeEndpointsResult> describeEndpointsAsync(DescribeEndpointsRequest request) {
 
         return describeEndpointsAsync(request, null);
@@ -772,6 +884,39 @@ public class AmazonDynamoDBAsyncClient extends AmazonDynamoDBClient implements A
 
                 try {
                     result = executeDescribeEndpoints(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeExportResult> describeExportAsync(DescribeExportRequest request) {
+
+        return describeExportAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeExportResult> describeExportAsync(final DescribeExportRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeExportRequest, DescribeExportResult> asyncHandler) {
+        final DescribeExportRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeExportResult>() {
+            @Override
+            public DescribeExportResult call() throws Exception {
+                DescribeExportResult result = null;
+
+                try {
+                    result = executeDescribeExport(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -838,6 +983,74 @@ public class AmazonDynamoDBAsyncClient extends AmazonDynamoDBClient implements A
 
                 try {
                     result = executeDescribeGlobalTableSettings(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeImportResult> describeImportAsync(DescribeImportRequest request) {
+
+        return describeImportAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeImportResult> describeImportAsync(final DescribeImportRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeImportRequest, DescribeImportResult> asyncHandler) {
+        final DescribeImportRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeImportResult>() {
+            @Override
+            public DescribeImportResult call() throws Exception {
+                DescribeImportResult result = null;
+
+                try {
+                    result = executeDescribeImport(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeKinesisStreamingDestinationResult> describeKinesisStreamingDestinationAsync(
+            DescribeKinesisStreamingDestinationRequest request) {
+
+        return describeKinesisStreamingDestinationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeKinesisStreamingDestinationResult> describeKinesisStreamingDestinationAsync(
+            final DescribeKinesisStreamingDestinationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeKinesisStreamingDestinationRequest, DescribeKinesisStreamingDestinationResult> asyncHandler) {
+        final DescribeKinesisStreamingDestinationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeKinesisStreamingDestinationResult>() {
+            @Override
+            public DescribeKinesisStreamingDestinationResult call() throws Exception {
+                DescribeKinesisStreamingDestinationResult result = null;
+
+                try {
+                    result = executeDescribeKinesisStreamingDestination(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -943,6 +1156,41 @@ public class AmazonDynamoDBAsyncClient extends AmazonDynamoDBClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeTableReplicaAutoScalingResult> describeTableReplicaAutoScalingAsync(
+            DescribeTableReplicaAutoScalingRequest request) {
+
+        return describeTableReplicaAutoScalingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTableReplicaAutoScalingResult> describeTableReplicaAutoScalingAsync(
+            final DescribeTableReplicaAutoScalingRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeTableReplicaAutoScalingRequest, DescribeTableReplicaAutoScalingResult> asyncHandler) {
+        final DescribeTableReplicaAutoScalingRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeTableReplicaAutoScalingResult>() {
+            @Override
+            public DescribeTableReplicaAutoScalingResult call() throws Exception {
+                DescribeTableReplicaAutoScalingResult result = null;
+
+                try {
+                    result = executeDescribeTableReplicaAutoScaling(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeTimeToLiveResult> describeTimeToLiveAsync(DescribeTimeToLiveRequest request) {
 
         return describeTimeToLiveAsync(request, null);
@@ -960,6 +1208,175 @@ public class AmazonDynamoDBAsyncClient extends AmazonDynamoDBClient implements A
 
                 try {
                     result = executeDescribeTimeToLive(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableKinesisStreamingDestinationResult> disableKinesisStreamingDestinationAsync(
+            DisableKinesisStreamingDestinationRequest request) {
+
+        return disableKinesisStreamingDestinationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableKinesisStreamingDestinationResult> disableKinesisStreamingDestinationAsync(
+            final DisableKinesisStreamingDestinationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisableKinesisStreamingDestinationRequest, DisableKinesisStreamingDestinationResult> asyncHandler) {
+        final DisableKinesisStreamingDestinationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisableKinesisStreamingDestinationResult>() {
+            @Override
+            public DisableKinesisStreamingDestinationResult call() throws Exception {
+                DisableKinesisStreamingDestinationResult result = null;
+
+                try {
+                    result = executeDisableKinesisStreamingDestination(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableKinesisStreamingDestinationResult> enableKinesisStreamingDestinationAsync(
+            EnableKinesisStreamingDestinationRequest request) {
+
+        return enableKinesisStreamingDestinationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableKinesisStreamingDestinationResult> enableKinesisStreamingDestinationAsync(
+            final EnableKinesisStreamingDestinationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<EnableKinesisStreamingDestinationRequest, EnableKinesisStreamingDestinationResult> asyncHandler) {
+        final EnableKinesisStreamingDestinationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<EnableKinesisStreamingDestinationResult>() {
+            @Override
+            public EnableKinesisStreamingDestinationResult call() throws Exception {
+                EnableKinesisStreamingDestinationResult result = null;
+
+                try {
+                    result = executeEnableKinesisStreamingDestination(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExecuteStatementResult> executeStatementAsync(ExecuteStatementRequest request) {
+
+        return executeStatementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExecuteStatementResult> executeStatementAsync(final ExecuteStatementRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ExecuteStatementRequest, ExecuteStatementResult> asyncHandler) {
+        final ExecuteStatementRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ExecuteStatementResult>() {
+            @Override
+            public ExecuteStatementResult call() throws Exception {
+                ExecuteStatementResult result = null;
+
+                try {
+                    result = executeExecuteStatement(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExecuteTransactionResult> executeTransactionAsync(ExecuteTransactionRequest request) {
+
+        return executeTransactionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExecuteTransactionResult> executeTransactionAsync(final ExecuteTransactionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ExecuteTransactionRequest, ExecuteTransactionResult> asyncHandler) {
+        final ExecuteTransactionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ExecuteTransactionResult>() {
+            @Override
+            public ExecuteTransactionResult call() throws Exception {
+                ExecuteTransactionResult result = null;
+
+                try {
+                    result = executeExecuteTransaction(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExportTableToPointInTimeResult> exportTableToPointInTimeAsync(ExportTableToPointInTimeRequest request) {
+
+        return exportTableToPointInTimeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExportTableToPointInTimeResult> exportTableToPointInTimeAsync(final ExportTableToPointInTimeRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ExportTableToPointInTimeRequest, ExportTableToPointInTimeResult> asyncHandler) {
+        final ExportTableToPointInTimeRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ExportTableToPointInTimeResult>() {
+            @Override
+            public ExportTableToPointInTimeResult call() throws Exception {
+                ExportTableToPointInTimeResult result = null;
+
+                try {
+                    result = executeExportTableToPointInTime(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1055,6 +1472,72 @@ public class AmazonDynamoDBAsyncClient extends AmazonDynamoDBClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<GetResourcePolicyResult> getResourcePolicyAsync(GetResourcePolicyRequest request) {
+
+        return getResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResourcePolicyResult> getResourcePolicyAsync(final GetResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetResourcePolicyRequest, GetResourcePolicyResult> asyncHandler) {
+        final GetResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetResourcePolicyResult>() {
+            @Override
+            public GetResourcePolicyResult call() throws Exception {
+                GetResourcePolicyResult result = null;
+
+                try {
+                    result = executeGetResourcePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportTableResult> importTableAsync(ImportTableRequest request) {
+
+        return importTableAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportTableResult> importTableAsync(final ImportTableRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ImportTableRequest, ImportTableResult> asyncHandler) {
+        final ImportTableRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ImportTableResult>() {
+            @Override
+            public ImportTableResult call() throws Exception {
+                ImportTableResult result = null;
+
+                try {
+                    result = executeImportTable(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListBackupsResult> listBackupsAsync(ListBackupsRequest request) {
 
         return listBackupsAsync(request, null);
@@ -1088,6 +1571,72 @@ public class AmazonDynamoDBAsyncClient extends AmazonDynamoDBClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<ListContributorInsightsResult> listContributorInsightsAsync(ListContributorInsightsRequest request) {
+
+        return listContributorInsightsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListContributorInsightsResult> listContributorInsightsAsync(final ListContributorInsightsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListContributorInsightsRequest, ListContributorInsightsResult> asyncHandler) {
+        final ListContributorInsightsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListContributorInsightsResult>() {
+            @Override
+            public ListContributorInsightsResult call() throws Exception {
+                ListContributorInsightsResult result = null;
+
+                try {
+                    result = executeListContributorInsights(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListExportsResult> listExportsAsync(ListExportsRequest request) {
+
+        return listExportsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListExportsResult> listExportsAsync(final ListExportsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListExportsRequest, ListExportsResult> asyncHandler) {
+        final ListExportsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListExportsResult>() {
+            @Override
+            public ListExportsResult call() throws Exception {
+                ListExportsResult result = null;
+
+                try {
+                    result = executeListExports(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListGlobalTablesResult> listGlobalTablesAsync(ListGlobalTablesRequest request) {
 
         return listGlobalTablesAsync(request, null);
@@ -1105,6 +1654,39 @@ public class AmazonDynamoDBAsyncClient extends AmazonDynamoDBClient implements A
 
                 try {
                     result = executeListGlobalTables(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListImportsResult> listImportsAsync(ListImportsRequest request) {
+
+        return listImportsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListImportsResult> listImportsAsync(final ListImportsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListImportsRequest, ListImportsResult> asyncHandler) {
+        final ListImportsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListImportsResult>() {
+            @Override
+            public ListImportsResult call() throws Exception {
+                ListImportsResult result = null;
+
+                try {
+                    result = executeListImports(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1354,6 +1936,39 @@ public class AmazonDynamoDBAsyncClient extends AmazonDynamoDBClient implements A
             com.amazonaws.handlers.AsyncHandler<PutItemRequest, PutItemResult> asyncHandler) {
 
         return putItemAsync(new PutItemRequest().withTableName(tableName).withItem(item).withReturnValues(returnValues), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest request) {
+
+        return putResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(final PutResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutResourcePolicyRequest, PutResourcePolicyResult> asyncHandler) {
+        final PutResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutResourcePolicyResult>() {
+            @Override
+            public PutResourcePolicyResult call() throws Exception {
+                PutResourcePolicyResult result = null;
+
+                try {
+                    result = executePutResourcePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -1724,6 +2339,39 @@ public class AmazonDynamoDBAsyncClient extends AmazonDynamoDBClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateContributorInsightsResult> updateContributorInsightsAsync(UpdateContributorInsightsRequest request) {
+
+        return updateContributorInsightsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateContributorInsightsResult> updateContributorInsightsAsync(final UpdateContributorInsightsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateContributorInsightsRequest, UpdateContributorInsightsResult> asyncHandler) {
+        final UpdateContributorInsightsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateContributorInsightsResult>() {
+            @Override
+            public UpdateContributorInsightsResult call() throws Exception {
+                UpdateContributorInsightsResult result = null;
+
+                try {
+                    result = executeUpdateContributorInsights(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateGlobalTableResult> updateGlobalTableAsync(UpdateGlobalTableRequest request) {
 
         return updateGlobalTableAsync(request, null);
@@ -1875,6 +2523,41 @@ public class AmazonDynamoDBAsyncClient extends AmazonDynamoDBClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateKinesisStreamingDestinationResult> updateKinesisStreamingDestinationAsync(
+            UpdateKinesisStreamingDestinationRequest request) {
+
+        return updateKinesisStreamingDestinationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateKinesisStreamingDestinationResult> updateKinesisStreamingDestinationAsync(
+            final UpdateKinesisStreamingDestinationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateKinesisStreamingDestinationRequest, UpdateKinesisStreamingDestinationResult> asyncHandler) {
+        final UpdateKinesisStreamingDestinationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateKinesisStreamingDestinationResult>() {
+            @Override
+            public UpdateKinesisStreamingDestinationResult call() throws Exception {
+                UpdateKinesisStreamingDestinationResult result = null;
+
+                try {
+                    result = executeUpdateKinesisStreamingDestination(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateTableResult> updateTableAsync(UpdateTableRequest request) {
 
         return updateTableAsync(request, null);
@@ -1928,6 +2611,40 @@ public class AmazonDynamoDBAsyncClient extends AmazonDynamoDBClient implements A
             com.amazonaws.handlers.AsyncHandler<UpdateTableRequest, UpdateTableResult> asyncHandler) {
 
         return updateTableAsync(new UpdateTableRequest().withTableName(tableName).withProvisionedThroughput(provisionedThroughput), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateTableReplicaAutoScalingResult> updateTableReplicaAutoScalingAsync(UpdateTableReplicaAutoScalingRequest request) {
+
+        return updateTableReplicaAutoScalingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateTableReplicaAutoScalingResult> updateTableReplicaAutoScalingAsync(
+            final UpdateTableReplicaAutoScalingRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateTableReplicaAutoScalingRequest, UpdateTableReplicaAutoScalingResult> asyncHandler) {
+        final UpdateTableReplicaAutoScalingRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateTableReplicaAutoScalingResult>() {
+            @Override
+            public UpdateTableReplicaAutoScalingResult call() throws Exception {
+                UpdateTableReplicaAutoScalingResult result = null;
+
+                try {
+                    result = executeUpdateTableReplicaAutoScaling(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override

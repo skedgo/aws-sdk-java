@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,49 +28,65 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * Specifies the service that you want to use.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      */
     private String serviceCode;
     /**
      * <p>
-     * Specifies the service quota that you want to use
+     * Specifies the quota identifier. To find the quota code for a specific quota, use the <a>ListServiceQuotas</a>
+     * operation, and look for the <code>QuotaCode</code> response in the output for the quota you want.
      * </p>
      */
     private String quotaCode;
     /**
      * <p>
-     * Specifies the status value of the quota increase request.
+     * Specifies that you want to filter the results to only the requests with the matching status.
      * </p>
      */
     private String status;
     /**
      * <p>
-     * (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous request
-     * that indicates that there's more output available. In a subsequent call, set it to the value of the previous
-     * call's <code>NextToken</code> response to indicate where the output should continue from.
+     * Specifies a value for receiving additional results after you receive a <code>NextToken</code> response in a
+     * previous request. A <code>NextToken</code> response indicates that more output is available. Set this parameter
+     * to the value of the previous call's <code>NextToken</code> response to indicate where the output should continue
+     * from.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * (Optional) Limits the number of results that you want to include in the response. If you don't include this
-     * parameter, the response defaults to a value that's specific to the operation. If additional items exist beyond
-     * the specified maximum, the <code>NextToken</code> element is present and has a value (isn't null). Include that
-     * value as the <code>NextToken</code> request parameter in the call to the operation to get the next part of the
-     * results. You should check <code>NextToken</code> after every operation to ensure that you receive all of the
-     * results.
+     * Specifies the maximum number of results that you want included on each page of the response. If you do not
+     * include this parameter, it defaults to a value appropriate to the operation. If additional items exist beyond
+     * those included in the current response, the <code>NextToken</code> response element is present and has a value
+     * (is not null). Include that value as the <code>NextToken</code> request parameter in the next call to the
+     * operation to get the next part of the results.
      * </p>
+     * <note>
+     * <p>
+     * An API operation can return fewer results than the maximum even when there are more results available. You should
+     * check <code>NextToken</code> after every operation to ensure that you receive all of the results.
+     * </p>
+     * </note>
      */
     private Integer maxResults;
+    /**
+     * <p>
+     * Specifies at which level within the Amazon Web Services account the quota request applies to.
+     * </p>
+     */
+    private String quotaRequestedAtLevel;
 
     /**
      * <p>
-     * Specifies the service that you want to use.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      * 
      * @param serviceCode
-     *        Specifies the service that you want to use.
+     *        Specifies the service identifier. To find the service code value for an Amazon Web Services service, use
+     *        the <a>ListServices</a> operation.
      */
 
     public void setServiceCode(String serviceCode) {
@@ -79,10 +95,12 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * Specifies the service that you want to use.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      * 
-     * @return Specifies the service that you want to use.
+     * @return Specifies the service identifier. To find the service code value for an Amazon Web Services service, use
+     *         the <a>ListServices</a> operation.
      */
 
     public String getServiceCode() {
@@ -91,11 +109,13 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * Specifies the service that you want to use.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      * 
      * @param serviceCode
-     *        Specifies the service that you want to use.
+     *        Specifies the service identifier. To find the service code value for an Amazon Web Services service, use
+     *        the <a>ListServices</a> operation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -106,11 +126,14 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * Specifies the service quota that you want to use
+     * Specifies the quota identifier. To find the quota code for a specific quota, use the <a>ListServiceQuotas</a>
+     * operation, and look for the <code>QuotaCode</code> response in the output for the quota you want.
      * </p>
      * 
      * @param quotaCode
-     *        Specifies the service quota that you want to use
+     *        Specifies the quota identifier. To find the quota code for a specific quota, use the
+     *        <a>ListServiceQuotas</a> operation, and look for the <code>QuotaCode</code> response in the output for the
+     *        quota you want.
      */
 
     public void setQuotaCode(String quotaCode) {
@@ -119,10 +142,13 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * Specifies the service quota that you want to use
+     * Specifies the quota identifier. To find the quota code for a specific quota, use the <a>ListServiceQuotas</a>
+     * operation, and look for the <code>QuotaCode</code> response in the output for the quota you want.
      * </p>
      * 
-     * @return Specifies the service quota that you want to use
+     * @return Specifies the quota identifier. To find the quota code for a specific quota, use the
+     *         <a>ListServiceQuotas</a> operation, and look for the <code>QuotaCode</code> response in the output for
+     *         the quota you want.
      */
 
     public String getQuotaCode() {
@@ -131,11 +157,14 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * Specifies the service quota that you want to use
+     * Specifies the quota identifier. To find the quota code for a specific quota, use the <a>ListServiceQuotas</a>
+     * operation, and look for the <code>QuotaCode</code> response in the output for the quota you want.
      * </p>
      * 
      * @param quotaCode
-     *        Specifies the service quota that you want to use
+     *        Specifies the quota identifier. To find the quota code for a specific quota, use the
+     *        <a>ListServiceQuotas</a> operation, and look for the <code>QuotaCode</code> response in the output for the
+     *        quota you want.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -146,11 +175,11 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * Specifies the status value of the quota increase request.
+     * Specifies that you want to filter the results to only the requests with the matching status.
      * </p>
      * 
      * @param status
-     *        Specifies the status value of the quota increase request.
+     *        Specifies that you want to filter the results to only the requests with the matching status.
      * @see RequestStatus
      */
 
@@ -160,10 +189,10 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * Specifies the status value of the quota increase request.
+     * Specifies that you want to filter the results to only the requests with the matching status.
      * </p>
      * 
-     * @return Specifies the status value of the quota increase request.
+     * @return Specifies that you want to filter the results to only the requests with the matching status.
      * @see RequestStatus
      */
 
@@ -173,11 +202,11 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * Specifies the status value of the quota increase request.
+     * Specifies that you want to filter the results to only the requests with the matching status.
      * </p>
      * 
      * @param status
-     *        Specifies the status value of the quota increase request.
+     *        Specifies that you want to filter the results to only the requests with the matching status.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see RequestStatus
      */
@@ -189,11 +218,11 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * Specifies the status value of the quota increase request.
+     * Specifies that you want to filter the results to only the requests with the matching status.
      * </p>
      * 
      * @param status
-     *        Specifies the status value of the quota increase request.
+     *        Specifies that you want to filter the results to only the requests with the matching status.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see RequestStatus
      */
@@ -205,15 +234,17 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous request
-     * that indicates that there's more output available. In a subsequent call, set it to the value of the previous
-     * call's <code>NextToken</code> response to indicate where the output should continue from.
+     * Specifies a value for receiving additional results after you receive a <code>NextToken</code> response in a
+     * previous request. A <code>NextToken</code> response indicates that more output is available. Set this parameter
+     * to the value of the previous call's <code>NextToken</code> response to indicate where the output should continue
+     * from.
      * </p>
      * 
      * @param nextToken
-     *        (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous
-     *        request that indicates that there's more output available. In a subsequent call, set it to the value of
-     *        the previous call's <code>NextToken</code> response to indicate where the output should continue from.
+     *        Specifies a value for receiving additional results after you receive a <code>NextToken</code> response in
+     *        a previous request. A <code>NextToken</code> response indicates that more output is available. Set this
+     *        parameter to the value of the previous call's <code>NextToken</code> response to indicate where the output
+     *        should continue from.
      */
 
     public void setNextToken(String nextToken) {
@@ -222,14 +253,16 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous request
-     * that indicates that there's more output available. In a subsequent call, set it to the value of the previous
-     * call's <code>NextToken</code> response to indicate where the output should continue from.
+     * Specifies a value for receiving additional results after you receive a <code>NextToken</code> response in a
+     * previous request. A <code>NextToken</code> response indicates that more output is available. Set this parameter
+     * to the value of the previous call's <code>NextToken</code> response to indicate where the output should continue
+     * from.
      * </p>
      * 
-     * @return (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous
-     *         request that indicates that there's more output available. In a subsequent call, set it to the value of
-     *         the previous call's <code>NextToken</code> response to indicate where the output should continue from.
+     * @return Specifies a value for receiving additional results after you receive a <code>NextToken</code> response in
+     *         a previous request. A <code>NextToken</code> response indicates that more output is available. Set this
+     *         parameter to the value of the previous call's <code>NextToken</code> response to indicate where the
+     *         output should continue from.
      */
 
     public String getNextToken() {
@@ -238,15 +271,17 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous request
-     * that indicates that there's more output available. In a subsequent call, set it to the value of the previous
-     * call's <code>NextToken</code> response to indicate where the output should continue from.
+     * Specifies a value for receiving additional results after you receive a <code>NextToken</code> response in a
+     * previous request. A <code>NextToken</code> response indicates that more output is available. Set this parameter
+     * to the value of the previous call's <code>NextToken</code> response to indicate where the output should continue
+     * from.
      * </p>
      * 
      * @param nextToken
-     *        (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous
-     *        request that indicates that there's more output available. In a subsequent call, set it to the value of
-     *        the previous call's <code>NextToken</code> response to indicate where the output should continue from.
+     *        Specifies a value for receiving additional results after you receive a <code>NextToken</code> response in
+     *        a previous request. A <code>NextToken</code> response indicates that more output is available. Set this
+     *        parameter to the value of the previous call's <code>NextToken</code> response to indicate where the output
+     *        should continue from.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -257,21 +292,29 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * (Optional) Limits the number of results that you want to include in the response. If you don't include this
-     * parameter, the response defaults to a value that's specific to the operation. If additional items exist beyond
-     * the specified maximum, the <code>NextToken</code> element is present and has a value (isn't null). Include that
-     * value as the <code>NextToken</code> request parameter in the call to the operation to get the next part of the
-     * results. You should check <code>NextToken</code> after every operation to ensure that you receive all of the
-     * results.
+     * Specifies the maximum number of results that you want included on each page of the response. If you do not
+     * include this parameter, it defaults to a value appropriate to the operation. If additional items exist beyond
+     * those included in the current response, the <code>NextToken</code> response element is present and has a value
+     * (is not null). Include that value as the <code>NextToken</code> request parameter in the next call to the
+     * operation to get the next part of the results.
      * </p>
+     * <note>
+     * <p>
+     * An API operation can return fewer results than the maximum even when there are more results available. You should
+     * check <code>NextToken</code> after every operation to ensure that you receive all of the results.
+     * </p>
+     * </note>
      * 
      * @param maxResults
-     *        (Optional) Limits the number of results that you want to include in the response. If you don't include
-     *        this parameter, the response defaults to a value that's specific to the operation. If additional items
-     *        exist beyond the specified maximum, the <code>NextToken</code> element is present and has a value (isn't
-     *        null). Include that value as the <code>NextToken</code> request parameter in the call to the operation to
-     *        get the next part of the results. You should check <code>NextToken</code> after every operation to ensure
-     *        that you receive all of the results.
+     *        Specifies the maximum number of results that you want included on each page of the response. If you do not
+     *        include this parameter, it defaults to a value appropriate to the operation. If additional items exist
+     *        beyond those included in the current response, the <code>NextToken</code> response element is present and
+     *        has a value (is not null). Include that value as the <code>NextToken</code> request parameter in the next
+     *        call to the operation to get the next part of the results.</p> <note>
+     *        <p>
+     *        An API operation can return fewer results than the maximum even when there are more results available. You
+     *        should check <code>NextToken</code> after every operation to ensure that you receive all of the results.
+     *        </p>
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -280,20 +323,29 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * (Optional) Limits the number of results that you want to include in the response. If you don't include this
-     * parameter, the response defaults to a value that's specific to the operation. If additional items exist beyond
-     * the specified maximum, the <code>NextToken</code> element is present and has a value (isn't null). Include that
-     * value as the <code>NextToken</code> request parameter in the call to the operation to get the next part of the
-     * results. You should check <code>NextToken</code> after every operation to ensure that you receive all of the
-     * results.
+     * Specifies the maximum number of results that you want included on each page of the response. If you do not
+     * include this parameter, it defaults to a value appropriate to the operation. If additional items exist beyond
+     * those included in the current response, the <code>NextToken</code> response element is present and has a value
+     * (is not null). Include that value as the <code>NextToken</code> request parameter in the next call to the
+     * operation to get the next part of the results.
      * </p>
+     * <note>
+     * <p>
+     * An API operation can return fewer results than the maximum even when there are more results available. You should
+     * check <code>NextToken</code> after every operation to ensure that you receive all of the results.
+     * </p>
+     * </note>
      * 
-     * @return (Optional) Limits the number of results that you want to include in the response. If you don't include
-     *         this parameter, the response defaults to a value that's specific to the operation. If additional items
-     *         exist beyond the specified maximum, the <code>NextToken</code> element is present and has a value (isn't
-     *         null). Include that value as the <code>NextToken</code> request parameter in the call to the operation to
-     *         get the next part of the results. You should check <code>NextToken</code> after every operation to ensure
-     *         that you receive all of the results.
+     * @return Specifies the maximum number of results that you want included on each page of the response. If you do
+     *         not include this parameter, it defaults to a value appropriate to the operation. If additional items
+     *         exist beyond those included in the current response, the <code>NextToken</code> response element is
+     *         present and has a value (is not null). Include that value as the <code>NextToken</code> request parameter
+     *         in the next call to the operation to get the next part of the results.</p> <note>
+     *         <p>
+     *         An API operation can return fewer results than the maximum even when there are more results available.
+     *         You should check <code>NextToken</code> after every operation to ensure that you receive all of the
+     *         results.
+     *         </p>
      */
 
     public Integer getMaxResults() {
@@ -302,26 +354,93 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
 
     /**
      * <p>
-     * (Optional) Limits the number of results that you want to include in the response. If you don't include this
-     * parameter, the response defaults to a value that's specific to the operation. If additional items exist beyond
-     * the specified maximum, the <code>NextToken</code> element is present and has a value (isn't null). Include that
-     * value as the <code>NextToken</code> request parameter in the call to the operation to get the next part of the
-     * results. You should check <code>NextToken</code> after every operation to ensure that you receive all of the
-     * results.
+     * Specifies the maximum number of results that you want included on each page of the response. If you do not
+     * include this parameter, it defaults to a value appropriate to the operation. If additional items exist beyond
+     * those included in the current response, the <code>NextToken</code> response element is present and has a value
+     * (is not null). Include that value as the <code>NextToken</code> request parameter in the next call to the
+     * operation to get the next part of the results.
      * </p>
+     * <note>
+     * <p>
+     * An API operation can return fewer results than the maximum even when there are more results available. You should
+     * check <code>NextToken</code> after every operation to ensure that you receive all of the results.
+     * </p>
+     * </note>
      * 
      * @param maxResults
-     *        (Optional) Limits the number of results that you want to include in the response. If you don't include
-     *        this parameter, the response defaults to a value that's specific to the operation. If additional items
-     *        exist beyond the specified maximum, the <code>NextToken</code> element is present and has a value (isn't
-     *        null). Include that value as the <code>NextToken</code> request parameter in the call to the operation to
-     *        get the next part of the results. You should check <code>NextToken</code> after every operation to ensure
-     *        that you receive all of the results.
+     *        Specifies the maximum number of results that you want included on each page of the response. If you do not
+     *        include this parameter, it defaults to a value appropriate to the operation. If additional items exist
+     *        beyond those included in the current response, the <code>NextToken</code> response element is present and
+     *        has a value (is not null). Include that value as the <code>NextToken</code> request parameter in the next
+     *        call to the operation to get the next part of the results.</p> <note>
+     *        <p>
+     *        An API operation can return fewer results than the maximum even when there are more results available. You
+     *        should check <code>NextToken</code> after every operation to ensure that you receive all of the results.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ListRequestedServiceQuotaChangeHistoryByQuotaRequest withMaxResults(Integer maxResults) {
         setMaxResults(maxResults);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies at which level within the Amazon Web Services account the quota request applies to.
+     * </p>
+     * 
+     * @param quotaRequestedAtLevel
+     *        Specifies at which level within the Amazon Web Services account the quota request applies to.
+     * @see AppliedLevelEnum
+     */
+
+    public void setQuotaRequestedAtLevel(String quotaRequestedAtLevel) {
+        this.quotaRequestedAtLevel = quotaRequestedAtLevel;
+    }
+
+    /**
+     * <p>
+     * Specifies at which level within the Amazon Web Services account the quota request applies to.
+     * </p>
+     * 
+     * @return Specifies at which level within the Amazon Web Services account the quota request applies to.
+     * @see AppliedLevelEnum
+     */
+
+    public String getQuotaRequestedAtLevel() {
+        return this.quotaRequestedAtLevel;
+    }
+
+    /**
+     * <p>
+     * Specifies at which level within the Amazon Web Services account the quota request applies to.
+     * </p>
+     * 
+     * @param quotaRequestedAtLevel
+     *        Specifies at which level within the Amazon Web Services account the quota request applies to.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AppliedLevelEnum
+     */
+
+    public ListRequestedServiceQuotaChangeHistoryByQuotaRequest withQuotaRequestedAtLevel(String quotaRequestedAtLevel) {
+        setQuotaRequestedAtLevel(quotaRequestedAtLevel);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies at which level within the Amazon Web Services account the quota request applies to.
+     * </p>
+     * 
+     * @param quotaRequestedAtLevel
+     *        Specifies at which level within the Amazon Web Services account the quota request applies to.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AppliedLevelEnum
+     */
+
+    public ListRequestedServiceQuotaChangeHistoryByQuotaRequest withQuotaRequestedAtLevel(AppliedLevelEnum quotaRequestedAtLevel) {
+        this.quotaRequestedAtLevel = quotaRequestedAtLevel.toString();
         return this;
     }
 
@@ -346,7 +465,9 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
         if (getNextToken() != null)
             sb.append("NextToken: ").append(getNextToken()).append(",");
         if (getMaxResults() != null)
-            sb.append("MaxResults: ").append(getMaxResults());
+            sb.append("MaxResults: ").append(getMaxResults()).append(",");
+        if (getQuotaRequestedAtLevel() != null)
+            sb.append("QuotaRequestedAtLevel: ").append(getQuotaRequestedAtLevel());
         sb.append("}");
         return sb.toString();
     }
@@ -381,6 +502,10 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
             return false;
         if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
             return false;
+        if (other.getQuotaRequestedAtLevel() == null ^ this.getQuotaRequestedAtLevel() == null)
+            return false;
+        if (other.getQuotaRequestedAtLevel() != null && other.getQuotaRequestedAtLevel().equals(this.getQuotaRequestedAtLevel()) == false)
+            return false;
         return true;
     }
 
@@ -394,6 +519,7 @@ public class ListRequestedServiceQuotaChangeHistoryByQuotaRequest extends com.am
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
+        hashCode = prime * hashCode + ((getQuotaRequestedAtLevel() == null) ? 0 : getQuotaRequestedAtLevel().hashCode());
         return hashCode;
     }
 

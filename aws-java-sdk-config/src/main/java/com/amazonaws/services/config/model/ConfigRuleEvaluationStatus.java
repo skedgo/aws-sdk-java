@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,11 +19,11 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Status information for your AWS managed Config rules. The status includes information such as the last time the rule
- * ran, the last time it failed, and the related error for the last failure.
+ * Status information for your Config Managed rules and Config Custom Policy rules. The status includes information such
+ * as the last time the rule ran, the last time it failed, and the related error for the last failure.
  * </p>
  * <p>
- * This action does not return status information about custom AWS Config rules.
+ * This action does not return status information about Config Custom Lambda rules.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/ConfigRuleEvaluationStatus" target="_top">AWS
@@ -34,90 +34,117 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The name of the AWS Config rule.
+     * The name of the Config rule.
      * </p>
      */
     private String configRuleName;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Config rule.
+     * The Amazon Resource Name (ARN) of the Config rule.
      * </p>
      */
     private String configRuleArn;
     /**
      * <p>
-     * The ID of the AWS Config rule.
+     * The ID of the Config rule.
      * </p>
      */
     private String configRuleId;
     /**
      * <p>
-     * The time that AWS Config last successfully invoked the AWS Config rule to evaluate your AWS resources.
+     * The time that Config last successfully invoked the Config rule to evaluate your Amazon Web Services resources.
      * </p>
      */
     private java.util.Date lastSuccessfulInvocationTime;
     /**
      * <p>
-     * The time that AWS Config last failed to invoke the AWS Config rule to evaluate your AWS resources.
+     * The time that Config last failed to invoke the Config rule to evaluate your Amazon Web Services resources.
      * </p>
      */
     private java.util.Date lastFailedInvocationTime;
     /**
      * <p>
-     * The time that AWS Config last successfully evaluated your AWS resources against the rule.
+     * The time that Config last successfully evaluated your Amazon Web Services resources against the rule.
      * </p>
      */
     private java.util.Date lastSuccessfulEvaluationTime;
     /**
      * <p>
-     * The time that AWS Config last failed to evaluate your AWS resources against the rule.
+     * The time that Config last failed to evaluate your Amazon Web Services resources against the rule.
      * </p>
      */
     private java.util.Date lastFailedEvaluationTime;
     /**
      * <p>
-     * The time that you first activated the AWS Config rule.
+     * The time that you first activated the Config rule.
      * </p>
      */
     private java.util.Date firstActivatedTime;
     /**
      * <p>
-     * The error code that AWS Config returned when the rule last failed.
+     * The time that you last turned off the Config rule.
+     * </p>
+     */
+    private java.util.Date lastDeactivatedTime;
+    /**
+     * <p>
+     * The error code that Config returned when the rule last failed.
      * </p>
      */
     private String lastErrorCode;
     /**
      * <p>
-     * The error message that AWS Config returned when the rule last failed.
+     * The error message that Config returned when the rule last failed.
      * </p>
      */
     private String lastErrorMessage;
     /**
      * <p>
-     * Indicates whether AWS Config has evaluated your resources against the rule at least once.
+     * Indicates whether Config has evaluated your resources against the rule at least once.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>true</code> - AWS Config has evaluated your AWS resources against the rule at least once.
+     * <code>true</code> - Config has evaluated your Amazon Web Services resources against the rule at least once.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>false</code> - AWS Config has not once finished evaluating your AWS resources against the rule.
+     * <code>false</code> - Config has not finished evaluating your Amazon Web Services resources against the rule at
+     * least once.
      * </p>
      * </li>
      * </ul>
      */
     private Boolean firstEvaluationStarted;
+    /**
+     * <p>
+     * The status of the last attempted delivery of a debug log for your Config Custom Policy rules. Either
+     * <code>Successful</code> or <code>Failed</code>.
+     * </p>
+     */
+    private String lastDebugLogDeliveryStatus;
+    /**
+     * <p>
+     * The reason Config was not able to deliver a debug log. This is for the last failed attempt to retrieve a debug
+     * log for your Config Custom Policy rules.
+     * </p>
+     */
+    private String lastDebugLogDeliveryStatusReason;
+    /**
+     * <p>
+     * The time Config last attempted to deliver a debug log for your Config Custom Policy rules.
+     * </p>
+     */
+    private java.util.Date lastDebugLogDeliveryTime;
 
     /**
      * <p>
-     * The name of the AWS Config rule.
+     * The name of the Config rule.
      * </p>
      * 
      * @param configRuleName
-     *        The name of the AWS Config rule.
+     *        The name of the Config rule.
      */
 
     public void setConfigRuleName(String configRuleName) {
@@ -126,10 +153,10 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The name of the AWS Config rule.
+     * The name of the Config rule.
      * </p>
      * 
-     * @return The name of the AWS Config rule.
+     * @return The name of the Config rule.
      */
 
     public String getConfigRuleName() {
@@ -138,11 +165,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The name of the AWS Config rule.
+     * The name of the Config rule.
      * </p>
      * 
      * @param configRuleName
-     *        The name of the AWS Config rule.
+     *        The name of the Config rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -153,11 +180,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Config rule.
+     * The Amazon Resource Name (ARN) of the Config rule.
      * </p>
      * 
      * @param configRuleArn
-     *        The Amazon Resource Name (ARN) of the AWS Config rule.
+     *        The Amazon Resource Name (ARN) of the Config rule.
      */
 
     public void setConfigRuleArn(String configRuleArn) {
@@ -166,10 +193,10 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Config rule.
+     * The Amazon Resource Name (ARN) of the Config rule.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the AWS Config rule.
+     * @return The Amazon Resource Name (ARN) of the Config rule.
      */
 
     public String getConfigRuleArn() {
@@ -178,11 +205,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Config rule.
+     * The Amazon Resource Name (ARN) of the Config rule.
      * </p>
      * 
      * @param configRuleArn
-     *        The Amazon Resource Name (ARN) of the AWS Config rule.
+     *        The Amazon Resource Name (ARN) of the Config rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -193,11 +220,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The ID of the AWS Config rule.
+     * The ID of the Config rule.
      * </p>
      * 
      * @param configRuleId
-     *        The ID of the AWS Config rule.
+     *        The ID of the Config rule.
      */
 
     public void setConfigRuleId(String configRuleId) {
@@ -206,10 +233,10 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The ID of the AWS Config rule.
+     * The ID of the Config rule.
      * </p>
      * 
-     * @return The ID of the AWS Config rule.
+     * @return The ID of the Config rule.
      */
 
     public String getConfigRuleId() {
@@ -218,11 +245,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The ID of the AWS Config rule.
+     * The ID of the Config rule.
      * </p>
      * 
      * @param configRuleId
-     *        The ID of the AWS Config rule.
+     *        The ID of the Config rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -233,11 +260,12 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time that AWS Config last successfully invoked the AWS Config rule to evaluate your AWS resources.
+     * The time that Config last successfully invoked the Config rule to evaluate your Amazon Web Services resources.
      * </p>
      * 
      * @param lastSuccessfulInvocationTime
-     *        The time that AWS Config last successfully invoked the AWS Config rule to evaluate your AWS resources.
+     *        The time that Config last successfully invoked the Config rule to evaluate your Amazon Web Services
+     *        resources.
      */
 
     public void setLastSuccessfulInvocationTime(java.util.Date lastSuccessfulInvocationTime) {
@@ -246,10 +274,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time that AWS Config last successfully invoked the AWS Config rule to evaluate your AWS resources.
+     * The time that Config last successfully invoked the Config rule to evaluate your Amazon Web Services resources.
      * </p>
      * 
-     * @return The time that AWS Config last successfully invoked the AWS Config rule to evaluate your AWS resources.
+     * @return The time that Config last successfully invoked the Config rule to evaluate your Amazon Web Services
+     *         resources.
      */
 
     public java.util.Date getLastSuccessfulInvocationTime() {
@@ -258,11 +287,12 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time that AWS Config last successfully invoked the AWS Config rule to evaluate your AWS resources.
+     * The time that Config last successfully invoked the Config rule to evaluate your Amazon Web Services resources.
      * </p>
      * 
      * @param lastSuccessfulInvocationTime
-     *        The time that AWS Config last successfully invoked the AWS Config rule to evaluate your AWS resources.
+     *        The time that Config last successfully invoked the Config rule to evaluate your Amazon Web Services
+     *        resources.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -273,11 +303,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time that AWS Config last failed to invoke the AWS Config rule to evaluate your AWS resources.
+     * The time that Config last failed to invoke the Config rule to evaluate your Amazon Web Services resources.
      * </p>
      * 
      * @param lastFailedInvocationTime
-     *        The time that AWS Config last failed to invoke the AWS Config rule to evaluate your AWS resources.
+     *        The time that Config last failed to invoke the Config rule to evaluate your Amazon Web Services resources.
      */
 
     public void setLastFailedInvocationTime(java.util.Date lastFailedInvocationTime) {
@@ -286,10 +316,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time that AWS Config last failed to invoke the AWS Config rule to evaluate your AWS resources.
+     * The time that Config last failed to invoke the Config rule to evaluate your Amazon Web Services resources.
      * </p>
      * 
-     * @return The time that AWS Config last failed to invoke the AWS Config rule to evaluate your AWS resources.
+     * @return The time that Config last failed to invoke the Config rule to evaluate your Amazon Web Services
+     *         resources.
      */
 
     public java.util.Date getLastFailedInvocationTime() {
@@ -298,11 +329,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time that AWS Config last failed to invoke the AWS Config rule to evaluate your AWS resources.
+     * The time that Config last failed to invoke the Config rule to evaluate your Amazon Web Services resources.
      * </p>
      * 
      * @param lastFailedInvocationTime
-     *        The time that AWS Config last failed to invoke the AWS Config rule to evaluate your AWS resources.
+     *        The time that Config last failed to invoke the Config rule to evaluate your Amazon Web Services resources.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -313,11 +344,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time that AWS Config last successfully evaluated your AWS resources against the rule.
+     * The time that Config last successfully evaluated your Amazon Web Services resources against the rule.
      * </p>
      * 
      * @param lastSuccessfulEvaluationTime
-     *        The time that AWS Config last successfully evaluated your AWS resources against the rule.
+     *        The time that Config last successfully evaluated your Amazon Web Services resources against the rule.
      */
 
     public void setLastSuccessfulEvaluationTime(java.util.Date lastSuccessfulEvaluationTime) {
@@ -326,10 +357,10 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time that AWS Config last successfully evaluated your AWS resources against the rule.
+     * The time that Config last successfully evaluated your Amazon Web Services resources against the rule.
      * </p>
      * 
-     * @return The time that AWS Config last successfully evaluated your AWS resources against the rule.
+     * @return The time that Config last successfully evaluated your Amazon Web Services resources against the rule.
      */
 
     public java.util.Date getLastSuccessfulEvaluationTime() {
@@ -338,11 +369,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time that AWS Config last successfully evaluated your AWS resources against the rule.
+     * The time that Config last successfully evaluated your Amazon Web Services resources against the rule.
      * </p>
      * 
      * @param lastSuccessfulEvaluationTime
-     *        The time that AWS Config last successfully evaluated your AWS resources against the rule.
+     *        The time that Config last successfully evaluated your Amazon Web Services resources against the rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -353,11 +384,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time that AWS Config last failed to evaluate your AWS resources against the rule.
+     * The time that Config last failed to evaluate your Amazon Web Services resources against the rule.
      * </p>
      * 
      * @param lastFailedEvaluationTime
-     *        The time that AWS Config last failed to evaluate your AWS resources against the rule.
+     *        The time that Config last failed to evaluate your Amazon Web Services resources against the rule.
      */
 
     public void setLastFailedEvaluationTime(java.util.Date lastFailedEvaluationTime) {
@@ -366,10 +397,10 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time that AWS Config last failed to evaluate your AWS resources against the rule.
+     * The time that Config last failed to evaluate your Amazon Web Services resources against the rule.
      * </p>
      * 
-     * @return The time that AWS Config last failed to evaluate your AWS resources against the rule.
+     * @return The time that Config last failed to evaluate your Amazon Web Services resources against the rule.
      */
 
     public java.util.Date getLastFailedEvaluationTime() {
@@ -378,11 +409,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time that AWS Config last failed to evaluate your AWS resources against the rule.
+     * The time that Config last failed to evaluate your Amazon Web Services resources against the rule.
      * </p>
      * 
      * @param lastFailedEvaluationTime
-     *        The time that AWS Config last failed to evaluate your AWS resources against the rule.
+     *        The time that Config last failed to evaluate your Amazon Web Services resources against the rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -393,11 +424,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time that you first activated the AWS Config rule.
+     * The time that you first activated the Config rule.
      * </p>
      * 
      * @param firstActivatedTime
-     *        The time that you first activated the AWS Config rule.
+     *        The time that you first activated the Config rule.
      */
 
     public void setFirstActivatedTime(java.util.Date firstActivatedTime) {
@@ -406,10 +437,10 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time that you first activated the AWS Config rule.
+     * The time that you first activated the Config rule.
      * </p>
      * 
-     * @return The time that you first activated the AWS Config rule.
+     * @return The time that you first activated the Config rule.
      */
 
     public java.util.Date getFirstActivatedTime() {
@@ -418,11 +449,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time that you first activated the AWS Config rule.
+     * The time that you first activated the Config rule.
      * </p>
      * 
      * @param firstActivatedTime
-     *        The time that you first activated the AWS Config rule.
+     *        The time that you first activated the Config rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -433,11 +464,51 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The error code that AWS Config returned when the rule last failed.
+     * The time that you last turned off the Config rule.
+     * </p>
+     * 
+     * @param lastDeactivatedTime
+     *        The time that you last turned off the Config rule.
+     */
+
+    public void setLastDeactivatedTime(java.util.Date lastDeactivatedTime) {
+        this.lastDeactivatedTime = lastDeactivatedTime;
+    }
+
+    /**
+     * <p>
+     * The time that you last turned off the Config rule.
+     * </p>
+     * 
+     * @return The time that you last turned off the Config rule.
+     */
+
+    public java.util.Date getLastDeactivatedTime() {
+        return this.lastDeactivatedTime;
+    }
+
+    /**
+     * <p>
+     * The time that you last turned off the Config rule.
+     * </p>
+     * 
+     * @param lastDeactivatedTime
+     *        The time that you last turned off the Config rule.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ConfigRuleEvaluationStatus withLastDeactivatedTime(java.util.Date lastDeactivatedTime) {
+        setLastDeactivatedTime(lastDeactivatedTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The error code that Config returned when the rule last failed.
      * </p>
      * 
      * @param lastErrorCode
-     *        The error code that AWS Config returned when the rule last failed.
+     *        The error code that Config returned when the rule last failed.
      */
 
     public void setLastErrorCode(String lastErrorCode) {
@@ -446,10 +517,10 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The error code that AWS Config returned when the rule last failed.
+     * The error code that Config returned when the rule last failed.
      * </p>
      * 
-     * @return The error code that AWS Config returned when the rule last failed.
+     * @return The error code that Config returned when the rule last failed.
      */
 
     public String getLastErrorCode() {
@@ -458,11 +529,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The error code that AWS Config returned when the rule last failed.
+     * The error code that Config returned when the rule last failed.
      * </p>
      * 
      * @param lastErrorCode
-     *        The error code that AWS Config returned when the rule last failed.
+     *        The error code that Config returned when the rule last failed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -473,11 +544,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The error message that AWS Config returned when the rule last failed.
+     * The error message that Config returned when the rule last failed.
      * </p>
      * 
      * @param lastErrorMessage
-     *        The error message that AWS Config returned when the rule last failed.
+     *        The error message that Config returned when the rule last failed.
      */
 
     public void setLastErrorMessage(String lastErrorMessage) {
@@ -486,10 +557,10 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The error message that AWS Config returned when the rule last failed.
+     * The error message that Config returned when the rule last failed.
      * </p>
      * 
-     * @return The error message that AWS Config returned when the rule last failed.
+     * @return The error message that Config returned when the rule last failed.
      */
 
     public String getLastErrorMessage() {
@@ -498,11 +569,11 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The error message that AWS Config returned when the rule last failed.
+     * The error message that Config returned when the rule last failed.
      * </p>
      * 
      * @param lastErrorMessage
-     *        The error message that AWS Config returned when the rule last failed.
+     *        The error message that Config returned when the rule last failed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -513,32 +584,35 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Indicates whether AWS Config has evaluated your resources against the rule at least once.
+     * Indicates whether Config has evaluated your resources against the rule at least once.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>true</code> - AWS Config has evaluated your AWS resources against the rule at least once.
+     * <code>true</code> - Config has evaluated your Amazon Web Services resources against the rule at least once.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>false</code> - AWS Config has not once finished evaluating your AWS resources against the rule.
+     * <code>false</code> - Config has not finished evaluating your Amazon Web Services resources against the rule at
+     * least once.
      * </p>
      * </li>
      * </ul>
      * 
      * @param firstEvaluationStarted
-     *        Indicates whether AWS Config has evaluated your resources against the rule at least once.</p>
+     *        Indicates whether Config has evaluated your resources against the rule at least once.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>true</code> - AWS Config has evaluated your AWS resources against the rule at least once.
+     *        <code>true</code> - Config has evaluated your Amazon Web Services resources against the rule at least
+     *        once.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>false</code> - AWS Config has not once finished evaluating your AWS resources against the rule.
+     *        <code>false</code> - Config has not finished evaluating your Amazon Web Services resources against the
+     *        rule at least once.
      *        </p>
      *        </li>
      */
@@ -549,31 +623,34 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Indicates whether AWS Config has evaluated your resources against the rule at least once.
+     * Indicates whether Config has evaluated your resources against the rule at least once.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>true</code> - AWS Config has evaluated your AWS resources against the rule at least once.
+     * <code>true</code> - Config has evaluated your Amazon Web Services resources against the rule at least once.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>false</code> - AWS Config has not once finished evaluating your AWS resources against the rule.
+     * <code>false</code> - Config has not finished evaluating your Amazon Web Services resources against the rule at
+     * least once.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return Indicates whether AWS Config has evaluated your resources against the rule at least once.</p>
+     * @return Indicates whether Config has evaluated your resources against the rule at least once.</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>true</code> - AWS Config has evaluated your AWS resources against the rule at least once.
+     *         <code>true</code> - Config has evaluated your Amazon Web Services resources against the rule at least
+     *         once.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>false</code> - AWS Config has not once finished evaluating your AWS resources against the rule.
+     *         <code>false</code> - Config has not finished evaluating your Amazon Web Services resources against the
+     *         rule at least once.
      *         </p>
      *         </li>
      */
@@ -584,32 +661,35 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Indicates whether AWS Config has evaluated your resources against the rule at least once.
+     * Indicates whether Config has evaluated your resources against the rule at least once.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>true</code> - AWS Config has evaluated your AWS resources against the rule at least once.
+     * <code>true</code> - Config has evaluated your Amazon Web Services resources against the rule at least once.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>false</code> - AWS Config has not once finished evaluating your AWS resources against the rule.
+     * <code>false</code> - Config has not finished evaluating your Amazon Web Services resources against the rule at
+     * least once.
      * </p>
      * </li>
      * </ul>
      * 
      * @param firstEvaluationStarted
-     *        Indicates whether AWS Config has evaluated your resources against the rule at least once.</p>
+     *        Indicates whether Config has evaluated your resources against the rule at least once.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>true</code> - AWS Config has evaluated your AWS resources against the rule at least once.
+     *        <code>true</code> - Config has evaluated your Amazon Web Services resources against the rule at least
+     *        once.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>false</code> - AWS Config has not once finished evaluating your AWS resources against the rule.
+     *        <code>false</code> - Config has not finished evaluating your Amazon Web Services resources against the
+     *        rule at least once.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -622,37 +702,172 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Indicates whether AWS Config has evaluated your resources against the rule at least once.
+     * Indicates whether Config has evaluated your resources against the rule at least once.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>true</code> - AWS Config has evaluated your AWS resources against the rule at least once.
+     * <code>true</code> - Config has evaluated your Amazon Web Services resources against the rule at least once.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>false</code> - AWS Config has not once finished evaluating your AWS resources against the rule.
+     * <code>false</code> - Config has not finished evaluating your Amazon Web Services resources against the rule at
+     * least once.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return Indicates whether AWS Config has evaluated your resources against the rule at least once.</p>
+     * @return Indicates whether Config has evaluated your resources against the rule at least once.</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>true</code> - AWS Config has evaluated your AWS resources against the rule at least once.
+     *         <code>true</code> - Config has evaluated your Amazon Web Services resources against the rule at least
+     *         once.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>false</code> - AWS Config has not once finished evaluating your AWS resources against the rule.
+     *         <code>false</code> - Config has not finished evaluating your Amazon Web Services resources against the
+     *         rule at least once.
      *         </p>
      *         </li>
      */
 
     public Boolean isFirstEvaluationStarted() {
         return this.firstEvaluationStarted;
+    }
+
+    /**
+     * <p>
+     * The status of the last attempted delivery of a debug log for your Config Custom Policy rules. Either
+     * <code>Successful</code> or <code>Failed</code>.
+     * </p>
+     * 
+     * @param lastDebugLogDeliveryStatus
+     *        The status of the last attempted delivery of a debug log for your Config Custom Policy rules. Either
+     *        <code>Successful</code> or <code>Failed</code>.
+     */
+
+    public void setLastDebugLogDeliveryStatus(String lastDebugLogDeliveryStatus) {
+        this.lastDebugLogDeliveryStatus = lastDebugLogDeliveryStatus;
+    }
+
+    /**
+     * <p>
+     * The status of the last attempted delivery of a debug log for your Config Custom Policy rules. Either
+     * <code>Successful</code> or <code>Failed</code>.
+     * </p>
+     * 
+     * @return The status of the last attempted delivery of a debug log for your Config Custom Policy rules. Either
+     *         <code>Successful</code> or <code>Failed</code>.
+     */
+
+    public String getLastDebugLogDeliveryStatus() {
+        return this.lastDebugLogDeliveryStatus;
+    }
+
+    /**
+     * <p>
+     * The status of the last attempted delivery of a debug log for your Config Custom Policy rules. Either
+     * <code>Successful</code> or <code>Failed</code>.
+     * </p>
+     * 
+     * @param lastDebugLogDeliveryStatus
+     *        The status of the last attempted delivery of a debug log for your Config Custom Policy rules. Either
+     *        <code>Successful</code> or <code>Failed</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ConfigRuleEvaluationStatus withLastDebugLogDeliveryStatus(String lastDebugLogDeliveryStatus) {
+        setLastDebugLogDeliveryStatus(lastDebugLogDeliveryStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The reason Config was not able to deliver a debug log. This is for the last failed attempt to retrieve a debug
+     * log for your Config Custom Policy rules.
+     * </p>
+     * 
+     * @param lastDebugLogDeliveryStatusReason
+     *        The reason Config was not able to deliver a debug log. This is for the last failed attempt to retrieve a
+     *        debug log for your Config Custom Policy rules.
+     */
+
+    public void setLastDebugLogDeliveryStatusReason(String lastDebugLogDeliveryStatusReason) {
+        this.lastDebugLogDeliveryStatusReason = lastDebugLogDeliveryStatusReason;
+    }
+
+    /**
+     * <p>
+     * The reason Config was not able to deliver a debug log. This is for the last failed attempt to retrieve a debug
+     * log for your Config Custom Policy rules.
+     * </p>
+     * 
+     * @return The reason Config was not able to deliver a debug log. This is for the last failed attempt to retrieve a
+     *         debug log for your Config Custom Policy rules.
+     */
+
+    public String getLastDebugLogDeliveryStatusReason() {
+        return this.lastDebugLogDeliveryStatusReason;
+    }
+
+    /**
+     * <p>
+     * The reason Config was not able to deliver a debug log. This is for the last failed attempt to retrieve a debug
+     * log for your Config Custom Policy rules.
+     * </p>
+     * 
+     * @param lastDebugLogDeliveryStatusReason
+     *        The reason Config was not able to deliver a debug log. This is for the last failed attempt to retrieve a
+     *        debug log for your Config Custom Policy rules.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ConfigRuleEvaluationStatus withLastDebugLogDeliveryStatusReason(String lastDebugLogDeliveryStatusReason) {
+        setLastDebugLogDeliveryStatusReason(lastDebugLogDeliveryStatusReason);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time Config last attempted to deliver a debug log for your Config Custom Policy rules.
+     * </p>
+     * 
+     * @param lastDebugLogDeliveryTime
+     *        The time Config last attempted to deliver a debug log for your Config Custom Policy rules.
+     */
+
+    public void setLastDebugLogDeliveryTime(java.util.Date lastDebugLogDeliveryTime) {
+        this.lastDebugLogDeliveryTime = lastDebugLogDeliveryTime;
+    }
+
+    /**
+     * <p>
+     * The time Config last attempted to deliver a debug log for your Config Custom Policy rules.
+     * </p>
+     * 
+     * @return The time Config last attempted to deliver a debug log for your Config Custom Policy rules.
+     */
+
+    public java.util.Date getLastDebugLogDeliveryTime() {
+        return this.lastDebugLogDeliveryTime;
+    }
+
+    /**
+     * <p>
+     * The time Config last attempted to deliver a debug log for your Config Custom Policy rules.
+     * </p>
+     * 
+     * @param lastDebugLogDeliveryTime
+     *        The time Config last attempted to deliver a debug log for your Config Custom Policy rules.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ConfigRuleEvaluationStatus withLastDebugLogDeliveryTime(java.util.Date lastDebugLogDeliveryTime) {
+        setLastDebugLogDeliveryTime(lastDebugLogDeliveryTime);
+        return this;
     }
 
     /**
@@ -683,12 +898,20 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
             sb.append("LastFailedEvaluationTime: ").append(getLastFailedEvaluationTime()).append(",");
         if (getFirstActivatedTime() != null)
             sb.append("FirstActivatedTime: ").append(getFirstActivatedTime()).append(",");
+        if (getLastDeactivatedTime() != null)
+            sb.append("LastDeactivatedTime: ").append(getLastDeactivatedTime()).append(",");
         if (getLastErrorCode() != null)
             sb.append("LastErrorCode: ").append(getLastErrorCode()).append(",");
         if (getLastErrorMessage() != null)
             sb.append("LastErrorMessage: ").append(getLastErrorMessage()).append(",");
         if (getFirstEvaluationStarted() != null)
-            sb.append("FirstEvaluationStarted: ").append(getFirstEvaluationStarted());
+            sb.append("FirstEvaluationStarted: ").append(getFirstEvaluationStarted()).append(",");
+        if (getLastDebugLogDeliveryStatus() != null)
+            sb.append("LastDebugLogDeliveryStatus: ").append(getLastDebugLogDeliveryStatus()).append(",");
+        if (getLastDebugLogDeliveryStatusReason() != null)
+            sb.append("LastDebugLogDeliveryStatusReason: ").append(getLastDebugLogDeliveryStatusReason()).append(",");
+        if (getLastDebugLogDeliveryTime() != null)
+            sb.append("LastDebugLogDeliveryTime: ").append(getLastDebugLogDeliveryTime());
         sb.append("}");
         return sb.toString();
     }
@@ -735,6 +958,10 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
             return false;
         if (other.getFirstActivatedTime() != null && other.getFirstActivatedTime().equals(this.getFirstActivatedTime()) == false)
             return false;
+        if (other.getLastDeactivatedTime() == null ^ this.getLastDeactivatedTime() == null)
+            return false;
+        if (other.getLastDeactivatedTime() != null && other.getLastDeactivatedTime().equals(this.getLastDeactivatedTime()) == false)
+            return false;
         if (other.getLastErrorCode() == null ^ this.getLastErrorCode() == null)
             return false;
         if (other.getLastErrorCode() != null && other.getLastErrorCode().equals(this.getLastErrorCode()) == false)
@@ -746,6 +973,19 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
         if (other.getFirstEvaluationStarted() == null ^ this.getFirstEvaluationStarted() == null)
             return false;
         if (other.getFirstEvaluationStarted() != null && other.getFirstEvaluationStarted().equals(this.getFirstEvaluationStarted()) == false)
+            return false;
+        if (other.getLastDebugLogDeliveryStatus() == null ^ this.getLastDebugLogDeliveryStatus() == null)
+            return false;
+        if (other.getLastDebugLogDeliveryStatus() != null && other.getLastDebugLogDeliveryStatus().equals(this.getLastDebugLogDeliveryStatus()) == false)
+            return false;
+        if (other.getLastDebugLogDeliveryStatusReason() == null ^ this.getLastDebugLogDeliveryStatusReason() == null)
+            return false;
+        if (other.getLastDebugLogDeliveryStatusReason() != null
+                && other.getLastDebugLogDeliveryStatusReason().equals(this.getLastDebugLogDeliveryStatusReason()) == false)
+            return false;
+        if (other.getLastDebugLogDeliveryTime() == null ^ this.getLastDebugLogDeliveryTime() == null)
+            return false;
+        if (other.getLastDebugLogDeliveryTime() != null && other.getLastDebugLogDeliveryTime().equals(this.getLastDebugLogDeliveryTime()) == false)
             return false;
         return true;
     }
@@ -763,9 +1003,13 @@ public class ConfigRuleEvaluationStatus implements Serializable, Cloneable, Stru
         hashCode = prime * hashCode + ((getLastSuccessfulEvaluationTime() == null) ? 0 : getLastSuccessfulEvaluationTime().hashCode());
         hashCode = prime * hashCode + ((getLastFailedEvaluationTime() == null) ? 0 : getLastFailedEvaluationTime().hashCode());
         hashCode = prime * hashCode + ((getFirstActivatedTime() == null) ? 0 : getFirstActivatedTime().hashCode());
+        hashCode = prime * hashCode + ((getLastDeactivatedTime() == null) ? 0 : getLastDeactivatedTime().hashCode());
         hashCode = prime * hashCode + ((getLastErrorCode() == null) ? 0 : getLastErrorCode().hashCode());
         hashCode = prime * hashCode + ((getLastErrorMessage() == null) ? 0 : getLastErrorMessage().hashCode());
         hashCode = prime * hashCode + ((getFirstEvaluationStarted() == null) ? 0 : getFirstEvaluationStarted().hashCode());
+        hashCode = prime * hashCode + ((getLastDebugLogDeliveryStatus() == null) ? 0 : getLastDebugLogDeliveryStatus().hashCode());
+        hashCode = prime * hashCode + ((getLastDebugLogDeliveryStatusReason() == null) ? 0 : getLastDebugLogDeliveryStatusReason().hashCode());
+        hashCode = prime * hashCode + ((getLastDebugLogDeliveryTime() == null) ? 0 : getLastDebugLogDeliveryTime().hashCode());
         return hashCode;
     }
 

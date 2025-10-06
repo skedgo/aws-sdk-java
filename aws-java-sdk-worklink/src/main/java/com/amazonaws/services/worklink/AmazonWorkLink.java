@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,12 +27,12 @@ import com.amazonaws.services.worklink.model.*;
  * </p>
  * <p>
  * <p>
- * Amazon WorkLink is a cloud-based service that provides secure access to internal websites and web apps from iOS
- * phones. In a single step, your users, such as employees, can access internal websites as efficiently as they access
- * any other public website. They enter a URL in their web browser, or choose a link to an internal website in an email.
- * Amazon WorkLink authenticates the user's access and securely renders authorized internal web content in a secure
- * rendering service in the AWS cloud. Amazon WorkLink doesn't download or store any internal web content on mobile
- * devices.
+ * Amazon WorkLink is a cloud-based service that provides secure access to internal websites and web apps from iOS and
+ * Android phones. In a single step, your users, such as employees, can access internal websites as efficiently as they
+ * access any other public website. They enter a URL in their web browser, or choose a link to an internal website in an
+ * email. Amazon WorkLink authenticates the user's access and securely renders authorized internal web content in a
+ * secure rendering service in the AWS cloud. Amazon WorkLink doesn't download or store any internal web content on
+ * mobile devices.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -69,6 +69,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/AssociateDomain" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     AssociateDomainResult associateDomain(AssociateDomainRequest associateDomainRequest);
 
     /**
@@ -95,6 +96,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/AssociateWebsiteAuthorizationProvider"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     AssociateWebsiteAuthorizationProviderResult associateWebsiteAuthorizationProvider(
             AssociateWebsiteAuthorizationProviderRequest associateWebsiteAuthorizationProviderRequest);
 
@@ -122,6 +124,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/AssociateWebsiteCertificateAuthority"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     AssociateWebsiteCertificateAuthorityResult associateWebsiteCertificateAuthority(
             AssociateWebsiteCertificateAuthorityRequest associateWebsiteCertificateAuthorityRequest);
 
@@ -149,6 +152,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/CreateFleet" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     CreateFleetResult createFleet(CreateFleetRequest createFleetRequest);
 
     /**
@@ -172,6 +176,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/DeleteFleet" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     DeleteFleetResult deleteFleet(DeleteFleetRequest deleteFleetRequest);
 
     /**
@@ -195,6 +200,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/DescribeAuditStreamConfiguration"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     DescribeAuditStreamConfigurationResult describeAuditStreamConfiguration(DescribeAuditStreamConfigurationRequest describeAuditStreamConfigurationRequest);
 
     /**
@@ -218,6 +224,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/DescribeCompanyNetworkConfiguration"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     DescribeCompanyNetworkConfigurationResult describeCompanyNetworkConfiguration(
             DescribeCompanyNetworkConfigurationRequest describeCompanyNetworkConfigurationRequest);
 
@@ -242,6 +249,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/DescribeDevice" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     DescribeDeviceResult describeDevice(DescribeDeviceRequest describeDeviceRequest);
 
     /**
@@ -265,6 +273,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/DescribeDevicePolicyConfiguration"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     DescribeDevicePolicyConfigurationResult describeDevicePolicyConfiguration(DescribeDevicePolicyConfigurationRequest describeDevicePolicyConfigurationRequest);
 
     /**
@@ -288,6 +297,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/DescribeDomain" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     DescribeDomainResult describeDomain(DescribeDomainRequest describeDomainRequest);
 
     /**
@@ -312,6 +322,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/DescribeFleetMetadata" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     DescribeFleetMetadataResult describeFleetMetadata(DescribeFleetMetadataRequest describeFleetMetadataRequest);
 
     /**
@@ -335,6 +346,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/DescribeIdentityProviderConfiguration"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     DescribeIdentityProviderConfigurationResult describeIdentityProviderConfiguration(
             DescribeIdentityProviderConfigurationRequest describeIdentityProviderConfigurationRequest);
 
@@ -359,6 +371,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/DescribeWebsiteCertificateAuthority"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     DescribeWebsiteCertificateAuthorityResult describeWebsiteCertificateAuthority(
             DescribeWebsiteCertificateAuthorityRequest describeWebsiteCertificateAuthorityRequest);
 
@@ -384,6 +397,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/DisassociateDomain" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     DisassociateDomainResult disassociateDomain(DisassociateDomainRequest disassociateDomainRequest);
 
     /**
@@ -411,6 +425,7 @@ public interface AmazonWorkLink {
      *      href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/DisassociateWebsiteAuthorizationProvider"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     DisassociateWebsiteAuthorizationProviderResult disassociateWebsiteAuthorizationProvider(
             DisassociateWebsiteAuthorizationProviderRequest disassociateWebsiteAuthorizationProviderRequest);
 
@@ -435,6 +450,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/DisassociateWebsiteCertificateAuthority"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     DisassociateWebsiteCertificateAuthorityResult disassociateWebsiteCertificateAuthority(
             DisassociateWebsiteCertificateAuthorityRequest disassociateWebsiteCertificateAuthorityRequest);
 
@@ -459,6 +475,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/ListDevices" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     ListDevicesResult listDevices(ListDevicesRequest listDevicesRequest);
 
     /**
@@ -474,12 +491,15 @@ public interface AmazonWorkLink {
      *         The service is temporarily unavailable.
      * @throws InvalidRequestException
      *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The requested resource was not found.
      * @throws TooManyRequestsException
      *         The number of requests exceeds the limit.
      * @sample AmazonWorkLink.ListDomains
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/ListDomains" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     ListDomainsResult listDomains(ListDomainsRequest listDomainsRequest);
 
     /**
@@ -501,7 +521,24 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/ListFleets" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     ListFleetsResult listFleets(ListFleetsRequest listFleetsRequest);
+
+    /**
+     * <p>
+     * Retrieves a list of tags for the specified resource.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @sample AmazonWorkLink.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/ListTagsForResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest);
 
     /**
      * <p>
@@ -524,6 +561,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/ListWebsiteAuthorizationProviders"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     ListWebsiteAuthorizationProvidersResult listWebsiteAuthorizationProviders(ListWebsiteAuthorizationProvidersRequest listWebsiteAuthorizationProvidersRequest);
 
     /**
@@ -545,6 +583,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/ListWebsiteCertificateAuthorities"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     ListWebsiteCertificateAuthoritiesResult listWebsiteCertificateAuthorities(ListWebsiteCertificateAuthoritiesRequest listWebsiteCertificateAuthoritiesRequest);
 
     /**
@@ -568,6 +607,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/RestoreDomainAccess" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     RestoreDomainAccessResult restoreDomainAccess(RestoreDomainAccessRequest restoreDomainAccessRequest);
 
     /**
@@ -591,6 +631,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/RevokeDomainAccess" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     RevokeDomainAccessResult revokeDomainAccess(RevokeDomainAccessRequest revokeDomainAccessRequest);
 
     /**
@@ -614,7 +655,41 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/SignOutUser" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     SignOutUserResult signOutUser(SignOutUserRequest signOutUserRequest);
+
+    /**
+     * <p>
+     * Adds or overwrites one or more tags for the specified resource, such as a fleet. Each tag consists of a key and
+     * an optional value. If a resource already has a tag with the same key, this operation updates its value.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @sample AmazonWorkLink.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    TagResourceResult tagResource(TagResourceRequest tagResourceRequest);
+
+    /**
+     * <p>
+     * Removes one or more tags from the specified resource.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @sample AmazonWorkLink.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    UntagResourceResult untagResource(UntagResourceRequest untagResourceRequest);
 
     /**
      * <p>
@@ -637,6 +712,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/UpdateAuditStreamConfiguration"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     UpdateAuditStreamConfigurationResult updateAuditStreamConfiguration(UpdateAuditStreamConfigurationRequest updateAuditStreamConfigurationRequest);
 
     /**
@@ -660,6 +736,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/UpdateCompanyNetworkConfiguration"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     UpdateCompanyNetworkConfigurationResult updateCompanyNetworkConfiguration(UpdateCompanyNetworkConfigurationRequest updateCompanyNetworkConfigurationRequest);
 
     /**
@@ -683,6 +760,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/UpdateDevicePolicyConfiguration"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     UpdateDevicePolicyConfigurationResult updateDevicePolicyConfiguration(UpdateDevicePolicyConfigurationRequest updateDevicePolicyConfigurationRequest);
 
     /**
@@ -706,6 +784,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/UpdateDomainMetadata" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     UpdateDomainMetadataResult updateDomainMetadata(UpdateDomainMetadataRequest updateDomainMetadataRequest);
 
     /**
@@ -729,6 +808,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/UpdateFleetMetadata" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     UpdateFleetMetadataResult updateFleetMetadata(UpdateFleetMetadataRequest updateFleetMetadataRequest);
 
     /**
@@ -752,6 +832,7 @@ public interface AmazonWorkLink {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/UpdateIdentityProviderConfiguration"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     UpdateIdentityProviderConfigurationResult updateIdentityProviderConfiguration(
             UpdateIdentityProviderConfigurationRequest updateIdentityProviderConfigurationRequest);
 

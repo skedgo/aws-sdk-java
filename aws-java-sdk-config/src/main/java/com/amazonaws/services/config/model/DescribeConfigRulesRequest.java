@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,8 @@ public class DescribeConfigRulesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The names of the AWS Config rules for which you want details. If you do not specify any names, AWS Config returns
-     * details for all your rules.
+     * The names of the Config rules for which you want details. If you do not specify any names, Config returns details
+     * for all your rules.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> configRuleNames;
@@ -40,15 +40,24 @@ public class DescribeConfigRulesRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      */
     private String nextToken;
+    /**
+     * <p>
+     * Returns a list of Detective or Proactive Config rules. By default, this API returns an unfiltered list. For more
+     * information on Detective or Proactive Config rules, see <a
+     * href="https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config-rules.html"> <b>Evaluation
+     * Mode</b> </a> in the <i>Config Developer Guide</i>.
+     * </p>
+     */
+    private DescribeConfigRulesFilters filters;
 
     /**
      * <p>
-     * The names of the AWS Config rules for which you want details. If you do not specify any names, AWS Config returns
-     * details for all your rules.
+     * The names of the Config rules for which you want details. If you do not specify any names, Config returns details
+     * for all your rules.
      * </p>
      * 
-     * @return The names of the AWS Config rules for which you want details. If you do not specify any names, AWS Config
-     *         returns details for all your rules.
+     * @return The names of the Config rules for which you want details. If you do not specify any names, Config returns
+     *         details for all your rules.
      */
 
     public java.util.List<String> getConfigRuleNames() {
@@ -60,13 +69,13 @@ public class DescribeConfigRulesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The names of the AWS Config rules for which you want details. If you do not specify any names, AWS Config returns
-     * details for all your rules.
+     * The names of the Config rules for which you want details. If you do not specify any names, Config returns details
+     * for all your rules.
      * </p>
      * 
      * @param configRuleNames
-     *        The names of the AWS Config rules for which you want details. If you do not specify any names, AWS Config
-     *        returns details for all your rules.
+     *        The names of the Config rules for which you want details. If you do not specify any names, Config returns
+     *        details for all your rules.
      */
 
     public void setConfigRuleNames(java.util.Collection<String> configRuleNames) {
@@ -80,8 +89,8 @@ public class DescribeConfigRulesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The names of the AWS Config rules for which you want details. If you do not specify any names, AWS Config returns
-     * details for all your rules.
+     * The names of the Config rules for which you want details. If you do not specify any names, Config returns details
+     * for all your rules.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -90,8 +99,8 @@ public class DescribeConfigRulesRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param configRuleNames
-     *        The names of the AWS Config rules for which you want details. If you do not specify any names, AWS Config
-     *        returns details for all your rules.
+     *        The names of the Config rules for which you want details. If you do not specify any names, Config returns
+     *        details for all your rules.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -107,13 +116,13 @@ public class DescribeConfigRulesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The names of the AWS Config rules for which you want details. If you do not specify any names, AWS Config returns
-     * details for all your rules.
+     * The names of the Config rules for which you want details. If you do not specify any names, Config returns details
+     * for all your rules.
      * </p>
      * 
      * @param configRuleNames
-     *        The names of the AWS Config rules for which you want details. If you do not specify any names, AWS Config
-     *        returns details for all your rules.
+     *        The names of the Config rules for which you want details. If you do not specify any names, Config returns
+     *        details for all your rules.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -169,6 +178,64 @@ public class DescribeConfigRulesRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <p>
+     * Returns a list of Detective or Proactive Config rules. By default, this API returns an unfiltered list. For more
+     * information on Detective or Proactive Config rules, see <a
+     * href="https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config-rules.html"> <b>Evaluation
+     * Mode</b> </a> in the <i>Config Developer Guide</i>.
+     * </p>
+     * 
+     * @param filters
+     *        Returns a list of Detective or Proactive Config rules. By default, this API returns an unfiltered list.
+     *        For more information on Detective or Proactive Config rules, see <a
+     *        href="https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config-rules.html"> <b>Evaluation
+     *        Mode</b> </a> in the <i>Config Developer Guide</i>.
+     */
+
+    public void setFilters(DescribeConfigRulesFilters filters) {
+        this.filters = filters;
+    }
+
+    /**
+     * <p>
+     * Returns a list of Detective or Proactive Config rules. By default, this API returns an unfiltered list. For more
+     * information on Detective or Proactive Config rules, see <a
+     * href="https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config-rules.html"> <b>Evaluation
+     * Mode</b> </a> in the <i>Config Developer Guide</i>.
+     * </p>
+     * 
+     * @return Returns a list of Detective or Proactive Config rules. By default, this API returns an unfiltered list.
+     *         For more information on Detective or Proactive Config rules, see <a
+     *         href="https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config-rules.html"> <b>Evaluation
+     *         Mode</b> </a> in the <i>Config Developer Guide</i>.
+     */
+
+    public DescribeConfigRulesFilters getFilters() {
+        return this.filters;
+    }
+
+    /**
+     * <p>
+     * Returns a list of Detective or Proactive Config rules. By default, this API returns an unfiltered list. For more
+     * information on Detective or Proactive Config rules, see <a
+     * href="https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config-rules.html"> <b>Evaluation
+     * Mode</b> </a> in the <i>Config Developer Guide</i>.
+     * </p>
+     * 
+     * @param filters
+     *        Returns a list of Detective or Proactive Config rules. By default, this API returns an unfiltered list.
+     *        For more information on Detective or Proactive Config rules, see <a
+     *        href="https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config-rules.html"> <b>Evaluation
+     *        Mode</b> </a> in the <i>Config Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeConfigRulesRequest withFilters(DescribeConfigRulesFilters filters) {
+        setFilters(filters);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -183,7 +250,9 @@ public class DescribeConfigRulesRequest extends com.amazonaws.AmazonWebServiceRe
         if (getConfigRuleNames() != null)
             sb.append("ConfigRuleNames: ").append(getConfigRuleNames()).append(",");
         if (getNextToken() != null)
-            sb.append("NextToken: ").append(getNextToken());
+            sb.append("NextToken: ").append(getNextToken()).append(",");
+        if (getFilters() != null)
+            sb.append("Filters: ").append(getFilters());
         sb.append("}");
         return sb.toString();
     }
@@ -206,6 +275,10 @@ public class DescribeConfigRulesRequest extends com.amazonaws.AmazonWebServiceRe
             return false;
         if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
             return false;
+        if (other.getFilters() == null ^ this.getFilters() == null)
+            return false;
+        if (other.getFilters() != null && other.getFilters().equals(this.getFilters()) == false)
+            return false;
         return true;
     }
 
@@ -216,6 +289,7 @@ public class DescribeConfigRulesRequest extends com.amazonaws.AmazonWebServiceRe
 
         hashCode = prime * hashCode + ((getConfigRuleNames() == null) ? 0 : getConfigRuleNames().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
+        hashCode = prime * hashCode + ((getFilters() == null) ? 0 : getFilters().hashCode());
         return hashCode;
     }
 

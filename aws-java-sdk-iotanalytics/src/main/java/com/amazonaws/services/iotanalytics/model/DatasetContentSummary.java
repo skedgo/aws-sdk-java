@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Summary information about data set contents.
+ * Summary information about dataset contents.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iotanalytics-2017-11-27/DatasetContentSummary" target="_top">AWS
@@ -30,36 +30,42 @@ public class DatasetContentSummary implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The version of the data set contents.
+     * The version of the dataset contents.
      * </p>
      */
     private String version;
     /**
      * <p>
-     * The status of the data set contents.
+     * The status of the dataset contents.
      * </p>
      */
     private DatasetContentStatus status;
     /**
      * <p>
-     * The actual time the creation of the data set contents was started.
+     * The actual time the creation of the dataset contents was started.
      * </p>
      */
     private java.util.Date creationTime;
     /**
      * <p>
-     * The time the creation of the data set contents was scheduled to start.
+     * The time the creation of the dataset contents was scheduled to start.
      * </p>
      */
     private java.util.Date scheduleTime;
+    /**
+     * <p>
+     * The time the dataset content status was updated to SUCCEEDED or FAILED.
+     * </p>
+     */
+    private java.util.Date completionTime;
 
     /**
      * <p>
-     * The version of the data set contents.
+     * The version of the dataset contents.
      * </p>
      * 
      * @param version
-     *        The version of the data set contents.
+     *        The version of the dataset contents.
      */
 
     public void setVersion(String version) {
@@ -68,10 +74,10 @@ public class DatasetContentSummary implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The version of the data set contents.
+     * The version of the dataset contents.
      * </p>
      * 
-     * @return The version of the data set contents.
+     * @return The version of the dataset contents.
      */
 
     public String getVersion() {
@@ -80,11 +86,11 @@ public class DatasetContentSummary implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The version of the data set contents.
+     * The version of the dataset contents.
      * </p>
      * 
      * @param version
-     *        The version of the data set contents.
+     *        The version of the dataset contents.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -95,11 +101,11 @@ public class DatasetContentSummary implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The status of the data set contents.
+     * The status of the dataset contents.
      * </p>
      * 
      * @param status
-     *        The status of the data set contents.
+     *        The status of the dataset contents.
      */
 
     public void setStatus(DatasetContentStatus status) {
@@ -108,10 +114,10 @@ public class DatasetContentSummary implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The status of the data set contents.
+     * The status of the dataset contents.
      * </p>
      * 
-     * @return The status of the data set contents.
+     * @return The status of the dataset contents.
      */
 
     public DatasetContentStatus getStatus() {
@@ -120,11 +126,11 @@ public class DatasetContentSummary implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The status of the data set contents.
+     * The status of the dataset contents.
      * </p>
      * 
      * @param status
-     *        The status of the data set contents.
+     *        The status of the dataset contents.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -135,11 +141,11 @@ public class DatasetContentSummary implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The actual time the creation of the data set contents was started.
+     * The actual time the creation of the dataset contents was started.
      * </p>
      * 
      * @param creationTime
-     *        The actual time the creation of the data set contents was started.
+     *        The actual time the creation of the dataset contents was started.
      */
 
     public void setCreationTime(java.util.Date creationTime) {
@@ -148,10 +154,10 @@ public class DatasetContentSummary implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The actual time the creation of the data set contents was started.
+     * The actual time the creation of the dataset contents was started.
      * </p>
      * 
-     * @return The actual time the creation of the data set contents was started.
+     * @return The actual time the creation of the dataset contents was started.
      */
 
     public java.util.Date getCreationTime() {
@@ -160,11 +166,11 @@ public class DatasetContentSummary implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The actual time the creation of the data set contents was started.
+     * The actual time the creation of the dataset contents was started.
      * </p>
      * 
      * @param creationTime
-     *        The actual time the creation of the data set contents was started.
+     *        The actual time the creation of the dataset contents was started.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -175,11 +181,11 @@ public class DatasetContentSummary implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The time the creation of the data set contents was scheduled to start.
+     * The time the creation of the dataset contents was scheduled to start.
      * </p>
      * 
      * @param scheduleTime
-     *        The time the creation of the data set contents was scheduled to start.
+     *        The time the creation of the dataset contents was scheduled to start.
      */
 
     public void setScheduleTime(java.util.Date scheduleTime) {
@@ -188,10 +194,10 @@ public class DatasetContentSummary implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The time the creation of the data set contents was scheduled to start.
+     * The time the creation of the dataset contents was scheduled to start.
      * </p>
      * 
-     * @return The time the creation of the data set contents was scheduled to start.
+     * @return The time the creation of the dataset contents was scheduled to start.
      */
 
     public java.util.Date getScheduleTime() {
@@ -200,16 +206,56 @@ public class DatasetContentSummary implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The time the creation of the data set contents was scheduled to start.
+     * The time the creation of the dataset contents was scheduled to start.
      * </p>
      * 
      * @param scheduleTime
-     *        The time the creation of the data set contents was scheduled to start.
+     *        The time the creation of the dataset contents was scheduled to start.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DatasetContentSummary withScheduleTime(java.util.Date scheduleTime) {
         setScheduleTime(scheduleTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time the dataset content status was updated to SUCCEEDED or FAILED.
+     * </p>
+     * 
+     * @param completionTime
+     *        The time the dataset content status was updated to SUCCEEDED or FAILED.
+     */
+
+    public void setCompletionTime(java.util.Date completionTime) {
+        this.completionTime = completionTime;
+    }
+
+    /**
+     * <p>
+     * The time the dataset content status was updated to SUCCEEDED or FAILED.
+     * </p>
+     * 
+     * @return The time the dataset content status was updated to SUCCEEDED or FAILED.
+     */
+
+    public java.util.Date getCompletionTime() {
+        return this.completionTime;
+    }
+
+    /**
+     * <p>
+     * The time the dataset content status was updated to SUCCEEDED or FAILED.
+     * </p>
+     * 
+     * @param completionTime
+     *        The time the dataset content status was updated to SUCCEEDED or FAILED.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DatasetContentSummary withCompletionTime(java.util.Date completionTime) {
+        setCompletionTime(completionTime);
         return this;
     }
 
@@ -232,7 +278,9 @@ public class DatasetContentSummary implements Serializable, Cloneable, Structure
         if (getCreationTime() != null)
             sb.append("CreationTime: ").append(getCreationTime()).append(",");
         if (getScheduleTime() != null)
-            sb.append("ScheduleTime: ").append(getScheduleTime());
+            sb.append("ScheduleTime: ").append(getScheduleTime()).append(",");
+        if (getCompletionTime() != null)
+            sb.append("CompletionTime: ").append(getCompletionTime());
         sb.append("}");
         return sb.toString();
     }
@@ -263,6 +311,10 @@ public class DatasetContentSummary implements Serializable, Cloneable, Structure
             return false;
         if (other.getScheduleTime() != null && other.getScheduleTime().equals(this.getScheduleTime()) == false)
             return false;
+        if (other.getCompletionTime() == null ^ this.getCompletionTime() == null)
+            return false;
+        if (other.getCompletionTime() != null && other.getCompletionTime().equals(this.getCompletionTime()) == false)
+            return false;
         return true;
     }
 
@@ -275,6 +327,7 @@ public class DatasetContentSummary implements Serializable, Cloneable, Structure
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getCreationTime() == null) ? 0 : getCreationTime().hashCode());
         hashCode = prime * hashCode + ((getScheduleTime() == null) ? 0 : getScheduleTime().hashCode());
+        hashCode = prime * hashCode + ((getCompletionTime() == null) ? 0 : getCompletionTime().hashCode());
         return hashCode;
     }
 

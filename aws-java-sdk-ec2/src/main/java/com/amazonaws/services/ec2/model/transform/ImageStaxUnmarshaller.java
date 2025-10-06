@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -90,6 +90,16 @@ public class ImageStaxUnmarshaller implements Unmarshaller<Image, StaxUnmarshall
                     continue;
                 }
 
+                if (context.testExpression("platformDetails", targetDepth)) {
+                    image.setPlatformDetails(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("usageOperation", targetDepth)) {
+                    image.setUsageOperation(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("productCodes", targetDepth)) {
                     image.withProductCodes(new ArrayList<ProductCode>());
                     continue;
@@ -177,6 +187,41 @@ public class ImageStaxUnmarshaller implements Unmarshaller<Image, StaxUnmarshall
 
                 if (context.testExpression("virtualizationType", targetDepth)) {
                     image.setVirtualizationType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("bootMode", targetDepth)) {
+                    image.setBootMode(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("tpmSupport", targetDepth)) {
+                    image.setTpmSupport(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("deprecationTime", targetDepth)) {
+                    image.setDeprecationTime(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("imdsSupport", targetDepth)) {
+                    image.setImdsSupport(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("sourceInstanceId", targetDepth)) {
+                    image.setSourceInstanceId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("deregistrationProtection", targetDepth)) {
+                    image.setDeregistrationProtection(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("lastLaunchedTime", targetDepth)) {
+                    image.setLastLaunchedTime(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

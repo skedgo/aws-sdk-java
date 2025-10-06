@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes a resource associated with a resource share.
+ * Describes a resource associated with a resource share in RAM.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/Resource" target="_top">AWS API Documentation</a>
@@ -29,25 +29,35 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource.
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource.
      * </p>
      */
     private String arn;
     /**
      * <p>
-     * The resource type.
+     * The resource type. This takes the form of: <code>service-code</code>:<code>resource-code</code>, and is
+     * case-insensitive. For example, an Amazon EC2 Subnet would be represented by the string <code>ec2:subnet</code>.
      * </p>
      */
     private String type;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource share this resource is associated with.
      * </p>
      */
     private String resourceShareArn;
     /**
      * <p>
-     * The status of the resource.
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource group. This value is available only if the resource is part of a resource group.
+     * </p>
+     */
+    private String resourceGroupArn;
+    /**
+     * <p>
+     * The current status of the resource.
      * </p>
      */
     private String status;
@@ -59,24 +69,45 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
     private String statusMessage;
     /**
      * <p>
-     * The time when the resource was associated with the resource share.
+     * The date and time when the resource was associated with the resource share.
      * </p>
      */
     private java.util.Date creationTime;
     /**
      * <p>
-     * The time when the association was last updated.
+     * The date an time when the association between the resource and the resource share was last updated.
      * </p>
      */
     private java.util.Date lastUpdatedTime;
+    /**
+     * <p>
+     * Specifies the scope of visibility of this resource:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>REGIONAL</b> – The resource can be accessed only by using requests that target the Amazon Web Services Region
+     * in which the resource exists.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>GLOBAL</b> – The resource can be accessed from any Amazon Web Services Region.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String resourceRegionScope;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource.
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource.
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) of the resource.
+     *        The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *        Name (ARN)</a> of the resource.
      */
 
     public void setArn(String arn) {
@@ -85,10 +116,12 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource.
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the resource.
+     * @return The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *         Name (ARN)</a> of the resource.
      */
 
     public String getArn() {
@@ -97,11 +130,13 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource.
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource.
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) of the resource.
+     *        The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *        Name (ARN)</a> of the resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -112,11 +147,14 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The resource type.
+     * The resource type. This takes the form of: <code>service-code</code>:<code>resource-code</code>, and is
+     * case-insensitive. For example, an Amazon EC2 Subnet would be represented by the string <code>ec2:subnet</code>.
      * </p>
      * 
      * @param type
-     *        The resource type.
+     *        The resource type. This takes the form of: <code>service-code</code>:<code>resource-code</code>, and is
+     *        case-insensitive. For example, an Amazon EC2 Subnet would be represented by the string
+     *        <code>ec2:subnet</code>.
      */
 
     public void setType(String type) {
@@ -125,10 +163,13 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The resource type.
+     * The resource type. This takes the form of: <code>service-code</code>:<code>resource-code</code>, and is
+     * case-insensitive. For example, an Amazon EC2 Subnet would be represented by the string <code>ec2:subnet</code>.
      * </p>
      * 
-     * @return The resource type.
+     * @return The resource type. This takes the form of: <code>service-code</code>:<code>resource-code</code>, and is
+     *         case-insensitive. For example, an Amazon EC2 Subnet would be represented by the string
+     *         <code>ec2:subnet</code>.
      */
 
     public String getType() {
@@ -137,11 +178,14 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The resource type.
+     * The resource type. This takes the form of: <code>service-code</code>:<code>resource-code</code>, and is
+     * case-insensitive. For example, an Amazon EC2 Subnet would be represented by the string <code>ec2:subnet</code>.
      * </p>
      * 
      * @param type
-     *        The resource type.
+     *        The resource type. This takes the form of: <code>service-code</code>:<code>resource-code</code>, and is
+     *        case-insensitive. For example, an Amazon EC2 Subnet would be represented by the string
+     *        <code>ec2:subnet</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -152,11 +196,13 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource share this resource is associated with.
      * </p>
      * 
      * @param resourceShareArn
-     *        The Amazon Resource Name (ARN) of the resource share.
+     *        The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *        Name (ARN)</a> of the resource share this resource is associated with.
      */
 
     public void setResourceShareArn(String resourceShareArn) {
@@ -165,10 +211,12 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource share this resource is associated with.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the resource share.
+     * @return The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *         Name (ARN)</a> of the resource share this resource is associated with.
      */
 
     public String getResourceShareArn() {
@@ -177,11 +225,13 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource share this resource is associated with.
      * </p>
      * 
      * @param resourceShareArn
-     *        The Amazon Resource Name (ARN) of the resource share.
+     *        The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *        Name (ARN)</a> of the resource share this resource is associated with.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -192,11 +242,60 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the resource.
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource group. This value is available only if the resource is part of a resource group.
+     * </p>
+     * 
+     * @param resourceGroupArn
+     *        The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *        Name (ARN)</a> of the resource group. This value is available only if the resource is part of a resource
+     *        group.
+     */
+
+    public void setResourceGroupArn(String resourceGroupArn) {
+        this.resourceGroupArn = resourceGroupArn;
+    }
+
+    /**
+     * <p>
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource group. This value is available only if the resource is part of a resource group.
+     * </p>
+     * 
+     * @return The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *         Name (ARN)</a> of the resource group. This value is available only if the resource is part of a resource
+     *         group.
+     */
+
+    public String getResourceGroupArn() {
+        return this.resourceGroupArn;
+    }
+
+    /**
+     * <p>
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource group. This value is available only if the resource is part of a resource group.
+     * </p>
+     * 
+     * @param resourceGroupArn
+     *        The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *        Name (ARN)</a> of the resource group. This value is available only if the resource is part of a resource
+     *        group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Resource withResourceGroupArn(String resourceGroupArn) {
+        setResourceGroupArn(resourceGroupArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current status of the resource.
      * </p>
      * 
      * @param status
-     *        The status of the resource.
+     *        The current status of the resource.
      * @see ResourceStatus
      */
 
@@ -206,10 +305,10 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the resource.
+     * The current status of the resource.
      * </p>
      * 
-     * @return The status of the resource.
+     * @return The current status of the resource.
      * @see ResourceStatus
      */
 
@@ -219,11 +318,11 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the resource.
+     * The current status of the resource.
      * </p>
      * 
      * @param status
-     *        The status of the resource.
+     *        The current status of the resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceStatus
      */
@@ -235,11 +334,11 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the resource.
+     * The current status of the resource.
      * </p>
      * 
      * @param status
-     *        The status of the resource.
+     *        The current status of the resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceStatus
      */
@@ -291,11 +390,11 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time when the resource was associated with the resource share.
+     * The date and time when the resource was associated with the resource share.
      * </p>
      * 
      * @param creationTime
-     *        The time when the resource was associated with the resource share.
+     *        The date and time when the resource was associated with the resource share.
      */
 
     public void setCreationTime(java.util.Date creationTime) {
@@ -304,10 +403,10 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time when the resource was associated with the resource share.
+     * The date and time when the resource was associated with the resource share.
      * </p>
      * 
-     * @return The time when the resource was associated with the resource share.
+     * @return The date and time when the resource was associated with the resource share.
      */
 
     public java.util.Date getCreationTime() {
@@ -316,11 +415,11 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time when the resource was associated with the resource share.
+     * The date and time when the resource was associated with the resource share.
      * </p>
      * 
      * @param creationTime
-     *        The time when the resource was associated with the resource share.
+     *        The date and time when the resource was associated with the resource share.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -331,11 +430,11 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time when the association was last updated.
+     * The date an time when the association between the resource and the resource share was last updated.
      * </p>
      * 
      * @param lastUpdatedTime
-     *        The time when the association was last updated.
+     *        The date an time when the association between the resource and the resource share was last updated.
      */
 
     public void setLastUpdatedTime(java.util.Date lastUpdatedTime) {
@@ -344,10 +443,10 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time when the association was last updated.
+     * The date an time when the association between the resource and the resource share was last updated.
      * </p>
      * 
-     * @return The time when the association was last updated.
+     * @return The date an time when the association between the resource and the resource share was last updated.
      */
 
     public java.util.Date getLastUpdatedTime() {
@@ -356,16 +455,175 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time when the association was last updated.
+     * The date an time when the association between the resource and the resource share was last updated.
      * </p>
      * 
      * @param lastUpdatedTime
-     *        The time when the association was last updated.
+     *        The date an time when the association between the resource and the resource share was last updated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Resource withLastUpdatedTime(java.util.Date lastUpdatedTime) {
         setLastUpdatedTime(lastUpdatedTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the scope of visibility of this resource:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>REGIONAL</b> – The resource can be accessed only by using requests that target the Amazon Web Services Region
+     * in which the resource exists.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>GLOBAL</b> – The resource can be accessed from any Amazon Web Services Region.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param resourceRegionScope
+     *        Specifies the scope of visibility of this resource:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>REGIONAL</b> – The resource can be accessed only by using requests that target the Amazon Web Services
+     *        Region in which the resource exists.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>GLOBAL</b> – The resource can be accessed from any Amazon Web Services Region.
+     *        </p>
+     *        </li>
+     * @see ResourceRegionScope
+     */
+
+    public void setResourceRegionScope(String resourceRegionScope) {
+        this.resourceRegionScope = resourceRegionScope;
+    }
+
+    /**
+     * <p>
+     * Specifies the scope of visibility of this resource:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>REGIONAL</b> – The resource can be accessed only by using requests that target the Amazon Web Services Region
+     * in which the resource exists.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>GLOBAL</b> – The resource can be accessed from any Amazon Web Services Region.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Specifies the scope of visibility of this resource:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <b>REGIONAL</b> – The resource can be accessed only by using requests that target the Amazon Web Services
+     *         Region in which the resource exists.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>GLOBAL</b> – The resource can be accessed from any Amazon Web Services Region.
+     *         </p>
+     *         </li>
+     * @see ResourceRegionScope
+     */
+
+    public String getResourceRegionScope() {
+        return this.resourceRegionScope;
+    }
+
+    /**
+     * <p>
+     * Specifies the scope of visibility of this resource:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>REGIONAL</b> – The resource can be accessed only by using requests that target the Amazon Web Services Region
+     * in which the resource exists.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>GLOBAL</b> – The resource can be accessed from any Amazon Web Services Region.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param resourceRegionScope
+     *        Specifies the scope of visibility of this resource:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>REGIONAL</b> – The resource can be accessed only by using requests that target the Amazon Web Services
+     *        Region in which the resource exists.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>GLOBAL</b> – The resource can be accessed from any Amazon Web Services Region.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResourceRegionScope
+     */
+
+    public Resource withResourceRegionScope(String resourceRegionScope) {
+        setResourceRegionScope(resourceRegionScope);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the scope of visibility of this resource:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>REGIONAL</b> – The resource can be accessed only by using requests that target the Amazon Web Services Region
+     * in which the resource exists.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>GLOBAL</b> – The resource can be accessed from any Amazon Web Services Region.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param resourceRegionScope
+     *        Specifies the scope of visibility of this resource:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>REGIONAL</b> – The resource can be accessed only by using requests that target the Amazon Web Services
+     *        Region in which the resource exists.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>GLOBAL</b> – The resource can be accessed from any Amazon Web Services Region.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResourceRegionScope
+     */
+
+    public Resource withResourceRegionScope(ResourceRegionScope resourceRegionScope) {
+        this.resourceRegionScope = resourceRegionScope.toString();
         return this;
     }
 
@@ -387,6 +645,8 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
             sb.append("Type: ").append(getType()).append(",");
         if (getResourceShareArn() != null)
             sb.append("ResourceShareArn: ").append(getResourceShareArn()).append(",");
+        if (getResourceGroupArn() != null)
+            sb.append("ResourceGroupArn: ").append(getResourceGroupArn()).append(",");
         if (getStatus() != null)
             sb.append("Status: ").append(getStatus()).append(",");
         if (getStatusMessage() != null)
@@ -394,7 +654,9 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
         if (getCreationTime() != null)
             sb.append("CreationTime: ").append(getCreationTime()).append(",");
         if (getLastUpdatedTime() != null)
-            sb.append("LastUpdatedTime: ").append(getLastUpdatedTime());
+            sb.append("LastUpdatedTime: ").append(getLastUpdatedTime()).append(",");
+        if (getResourceRegionScope() != null)
+            sb.append("ResourceRegionScope: ").append(getResourceRegionScope());
         sb.append("}");
         return sb.toString();
     }
@@ -421,6 +683,10 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getResourceShareArn() != null && other.getResourceShareArn().equals(this.getResourceShareArn()) == false)
             return false;
+        if (other.getResourceGroupArn() == null ^ this.getResourceGroupArn() == null)
+            return false;
+        if (other.getResourceGroupArn() != null && other.getResourceGroupArn().equals(this.getResourceGroupArn()) == false)
+            return false;
         if (other.getStatus() == null ^ this.getStatus() == null)
             return false;
         if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
@@ -437,6 +703,10 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getLastUpdatedTime() != null && other.getLastUpdatedTime().equals(this.getLastUpdatedTime()) == false)
             return false;
+        if (other.getResourceRegionScope() == null ^ this.getResourceRegionScope() == null)
+            return false;
+        if (other.getResourceRegionScope() != null && other.getResourceRegionScope().equals(this.getResourceRegionScope()) == false)
+            return false;
         return true;
     }
 
@@ -448,10 +718,12 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
         hashCode = prime * hashCode + ((getType() == null) ? 0 : getType().hashCode());
         hashCode = prime * hashCode + ((getResourceShareArn() == null) ? 0 : getResourceShareArn().hashCode());
+        hashCode = prime * hashCode + ((getResourceGroupArn() == null) ? 0 : getResourceGroupArn().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getStatusMessage() == null) ? 0 : getStatusMessage().hashCode());
         hashCode = prime * hashCode + ((getCreationTime() == null) ? 0 : getCreationTime().hashCode());
         hashCode = prime * hashCode + ((getLastUpdatedTime() == null) ? 0 : getLastUpdatedTime().hashCode());
+        hashCode = prime * hashCode + ((getResourceRegionScope() == null) ? 0 : getResourceRegionScope().hashCode());
         return hashCode;
     }
 

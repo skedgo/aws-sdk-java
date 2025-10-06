@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,27 +27,27 @@ public class ThrottleSettings implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The API request burst limit, the maximum rate limit over a time ranging from one to a few seconds, depending upon
-     * whether the underlying token bucket is at its full capacity.
+     * The API target request burst rate limit. This allows more requests through for a period of time than the target
+     * rate limit.
      * </p>
      */
     private Integer burstLimit;
     /**
      * <p>
-     * The API request steady-state rate limit.
+     * The API target request rate limit.
      * </p>
      */
     private Double rateLimit;
 
     /**
      * <p>
-     * The API request burst limit, the maximum rate limit over a time ranging from one to a few seconds, depending upon
-     * whether the underlying token bucket is at its full capacity.
+     * The API target request burst rate limit. This allows more requests through for a period of time than the target
+     * rate limit.
      * </p>
      * 
      * @param burstLimit
-     *        The API request burst limit, the maximum rate limit over a time ranging from one to a few seconds,
-     *        depending upon whether the underlying token bucket is at its full capacity.
+     *        The API target request burst rate limit. This allows more requests through for a period of time than the
+     *        target rate limit.
      */
 
     public void setBurstLimit(Integer burstLimit) {
@@ -56,12 +56,12 @@ public class ThrottleSettings implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The API request burst limit, the maximum rate limit over a time ranging from one to a few seconds, depending upon
-     * whether the underlying token bucket is at its full capacity.
+     * The API target request burst rate limit. This allows more requests through for a period of time than the target
+     * rate limit.
      * </p>
      * 
-     * @return The API request burst limit, the maximum rate limit over a time ranging from one to a few seconds,
-     *         depending upon whether the underlying token bucket is at its full capacity.
+     * @return The API target request burst rate limit. This allows more requests through for a period of time than the
+     *         target rate limit.
      */
 
     public Integer getBurstLimit() {
@@ -70,13 +70,13 @@ public class ThrottleSettings implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The API request burst limit, the maximum rate limit over a time ranging from one to a few seconds, depending upon
-     * whether the underlying token bucket is at its full capacity.
+     * The API target request burst rate limit. This allows more requests through for a period of time than the target
+     * rate limit.
      * </p>
      * 
      * @param burstLimit
-     *        The API request burst limit, the maximum rate limit over a time ranging from one to a few seconds,
-     *        depending upon whether the underlying token bucket is at its full capacity.
+     *        The API target request burst rate limit. This allows more requests through for a period of time than the
+     *        target rate limit.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -87,11 +87,11 @@ public class ThrottleSettings implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The API request steady-state rate limit.
+     * The API target request rate limit.
      * </p>
      * 
      * @param rateLimit
-     *        The API request steady-state rate limit.
+     *        The API target request rate limit.
      */
 
     public void setRateLimit(Double rateLimit) {
@@ -100,10 +100,10 @@ public class ThrottleSettings implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The API request steady-state rate limit.
+     * The API target request rate limit.
      * </p>
      * 
-     * @return The API request steady-state rate limit.
+     * @return The API target request rate limit.
      */
 
     public Double getRateLimit() {
@@ -112,11 +112,11 @@ public class ThrottleSettings implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The API request steady-state rate limit.
+     * The API target request rate limit.
      * </p>
      * 
      * @param rateLimit
-     *        The API request steady-state rate limit.
+     *        The API target request rate limit.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

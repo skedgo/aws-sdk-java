@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,18 @@ public class InputSettings implements Serializable, Cloneable, StructuredPojo {
     private String inputFilter;
     /** Input settings. */
     private NetworkInputSettings networkInputSettings;
+    /**
+     * PID from which to read SCTE-35 messages. If left undefined, EML will select the first SCTE-35 PID found in the
+     * input.
+     */
+    private Integer scte35Pid;
+    /**
+     * Specifies whether to extract applicable ancillary data from a SMPTE-2038 source in this input. Applicable data
+     * types are captions, timecode, AFD, and SCTE-104 messages. - PREFER: Extract from SMPTE-2038 if present in this
+     * input, otherwise extract from another source (if any). - IGNORE: Never extract any ancillary data from
+     * SMPTE-2038.
+     */
+    private String smpte2038DataPreference;
     /** Loop input if it is a file. This allows a file input to be streamed indefinitely. */
     private String sourceEndBehavior;
     /** Informs which video elementary stream to decode for input types that have multiple available. */
@@ -411,6 +423,121 @@ public class InputSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * PID from which to read SCTE-35 messages. If left undefined, EML will select the first SCTE-35 PID found in the
+     * input.
+     * 
+     * @param scte35Pid
+     *        PID from which to read SCTE-35 messages. If left undefined, EML will select the first SCTE-35 PID found in
+     *        the input.
+     */
+
+    public void setScte35Pid(Integer scte35Pid) {
+        this.scte35Pid = scte35Pid;
+    }
+
+    /**
+     * PID from which to read SCTE-35 messages. If left undefined, EML will select the first SCTE-35 PID found in the
+     * input.
+     * 
+     * @return PID from which to read SCTE-35 messages. If left undefined, EML will select the first SCTE-35 PID found
+     *         in the input.
+     */
+
+    public Integer getScte35Pid() {
+        return this.scte35Pid;
+    }
+
+    /**
+     * PID from which to read SCTE-35 messages. If left undefined, EML will select the first SCTE-35 PID found in the
+     * input.
+     * 
+     * @param scte35Pid
+     *        PID from which to read SCTE-35 messages. If left undefined, EML will select the first SCTE-35 PID found in
+     *        the input.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InputSettings withScte35Pid(Integer scte35Pid) {
+        setScte35Pid(scte35Pid);
+        return this;
+    }
+
+    /**
+     * Specifies whether to extract applicable ancillary data from a SMPTE-2038 source in this input. Applicable data
+     * types are captions, timecode, AFD, and SCTE-104 messages. - PREFER: Extract from SMPTE-2038 if present in this
+     * input, otherwise extract from another source (if any). - IGNORE: Never extract any ancillary data from
+     * SMPTE-2038.
+     * 
+     * @param smpte2038DataPreference
+     *        Specifies whether to extract applicable ancillary data from a SMPTE-2038 source in this input. Applicable
+     *        data types are captions, timecode, AFD, and SCTE-104 messages. - PREFER: Extract from SMPTE-2038 if
+     *        present in this input, otherwise extract from another source (if any). - IGNORE: Never extract any
+     *        ancillary data from SMPTE-2038.
+     * @see Smpte2038DataPreference
+     */
+
+    public void setSmpte2038DataPreference(String smpte2038DataPreference) {
+        this.smpte2038DataPreference = smpte2038DataPreference;
+    }
+
+    /**
+     * Specifies whether to extract applicable ancillary data from a SMPTE-2038 source in this input. Applicable data
+     * types are captions, timecode, AFD, and SCTE-104 messages. - PREFER: Extract from SMPTE-2038 if present in this
+     * input, otherwise extract from another source (if any). - IGNORE: Never extract any ancillary data from
+     * SMPTE-2038.
+     * 
+     * @return Specifies whether to extract applicable ancillary data from a SMPTE-2038 source in this input. Applicable
+     *         data types are captions, timecode, AFD, and SCTE-104 messages. - PREFER: Extract from SMPTE-2038 if
+     *         present in this input, otherwise extract from another source (if any). - IGNORE: Never extract any
+     *         ancillary data from SMPTE-2038.
+     * @see Smpte2038DataPreference
+     */
+
+    public String getSmpte2038DataPreference() {
+        return this.smpte2038DataPreference;
+    }
+
+    /**
+     * Specifies whether to extract applicable ancillary data from a SMPTE-2038 source in this input. Applicable data
+     * types are captions, timecode, AFD, and SCTE-104 messages. - PREFER: Extract from SMPTE-2038 if present in this
+     * input, otherwise extract from another source (if any). - IGNORE: Never extract any ancillary data from
+     * SMPTE-2038.
+     * 
+     * @param smpte2038DataPreference
+     *        Specifies whether to extract applicable ancillary data from a SMPTE-2038 source in this input. Applicable
+     *        data types are captions, timecode, AFD, and SCTE-104 messages. - PREFER: Extract from SMPTE-2038 if
+     *        present in this input, otherwise extract from another source (if any). - IGNORE: Never extract any
+     *        ancillary data from SMPTE-2038.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Smpte2038DataPreference
+     */
+
+    public InputSettings withSmpte2038DataPreference(String smpte2038DataPreference) {
+        setSmpte2038DataPreference(smpte2038DataPreference);
+        return this;
+    }
+
+    /**
+     * Specifies whether to extract applicable ancillary data from a SMPTE-2038 source in this input. Applicable data
+     * types are captions, timecode, AFD, and SCTE-104 messages. - PREFER: Extract from SMPTE-2038 if present in this
+     * input, otherwise extract from another source (if any). - IGNORE: Never extract any ancillary data from
+     * SMPTE-2038.
+     * 
+     * @param smpte2038DataPreference
+     *        Specifies whether to extract applicable ancillary data from a SMPTE-2038 source in this input. Applicable
+     *        data types are captions, timecode, AFD, and SCTE-104 messages. - PREFER: Extract from SMPTE-2038 if
+     *        present in this input, otherwise extract from another source (if any). - IGNORE: Never extract any
+     *        ancillary data from SMPTE-2038.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Smpte2038DataPreference
+     */
+
+    public InputSettings withSmpte2038DataPreference(Smpte2038DataPreference smpte2038DataPreference) {
+        this.smpte2038DataPreference = smpte2038DataPreference.toString();
+        return this;
+    }
+
+    /**
      * Loop input if it is a file. This allows a file input to be streamed indefinitely.
      * 
      * @param sourceEndBehavior
@@ -521,6 +648,10 @@ public class InputSettings implements Serializable, Cloneable, StructuredPojo {
             sb.append("InputFilter: ").append(getInputFilter()).append(",");
         if (getNetworkInputSettings() != null)
             sb.append("NetworkInputSettings: ").append(getNetworkInputSettings()).append(",");
+        if (getScte35Pid() != null)
+            sb.append("Scte35Pid: ").append(getScte35Pid()).append(",");
+        if (getSmpte2038DataPreference() != null)
+            sb.append("Smpte2038DataPreference: ").append(getSmpte2038DataPreference()).append(",");
         if (getSourceEndBehavior() != null)
             sb.append("SourceEndBehavior: ").append(getSourceEndBehavior()).append(",");
         if (getVideoSelector() != null)
@@ -567,6 +698,14 @@ public class InputSettings implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getNetworkInputSettings() != null && other.getNetworkInputSettings().equals(this.getNetworkInputSettings()) == false)
             return false;
+        if (other.getScte35Pid() == null ^ this.getScte35Pid() == null)
+            return false;
+        if (other.getScte35Pid() != null && other.getScte35Pid().equals(this.getScte35Pid()) == false)
+            return false;
+        if (other.getSmpte2038DataPreference() == null ^ this.getSmpte2038DataPreference() == null)
+            return false;
+        if (other.getSmpte2038DataPreference() != null && other.getSmpte2038DataPreference().equals(this.getSmpte2038DataPreference()) == false)
+            return false;
         if (other.getSourceEndBehavior() == null ^ this.getSourceEndBehavior() == null)
             return false;
         if (other.getSourceEndBehavior() != null && other.getSourceEndBehavior().equals(this.getSourceEndBehavior()) == false)
@@ -590,6 +729,8 @@ public class InputSettings implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getFilterStrength() == null) ? 0 : getFilterStrength().hashCode());
         hashCode = prime * hashCode + ((getInputFilter() == null) ? 0 : getInputFilter().hashCode());
         hashCode = prime * hashCode + ((getNetworkInputSettings() == null) ? 0 : getNetworkInputSettings().hashCode());
+        hashCode = prime * hashCode + ((getScte35Pid() == null) ? 0 : getScte35Pid().hashCode());
+        hashCode = prime * hashCode + ((getSmpte2038DataPreference() == null) ? 0 : getSmpte2038DataPreference().hashCode());
         hashCode = prime * hashCode + ((getSourceEndBehavior() == null) ? 0 : getSourceEndBehavior().hashCode());
         hashCode = prime * hashCode + ((getVideoSelector() == null) ? 0 : getVideoSelector().hashCode());
         return hashCode;

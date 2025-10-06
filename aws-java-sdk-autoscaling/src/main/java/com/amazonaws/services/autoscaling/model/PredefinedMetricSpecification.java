@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,13 +28,7 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The metric type.
-     * </p>
-     */
-    private String predefinedMetricType;
-    /**
-     * <p>
-     * Identifies the resource associated with the metric type. The following predefined metrics are available:
+     * The metric type. The following predefined metrics are available:
      * </p>
      * <ul>
      * <li>
@@ -56,100 +50,54 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>ALBRequestCountPerTarget</code> - Number of requests completed per target in an Application Load Balancer
-     * target group.
+     * <code>ALBRequestCountPerTarget</code> - Average Application Load Balancer request count per target for your Auto
+     * Scaling group.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String predefinedMetricType;
+    /**
+     * <p>
+     * A label that uniquely identifies a specific Application Load Balancer target group from which to determine the
+     * average request count served by your Auto Scaling group. You can't specify a resource label unless the target
+     * group is attached to the Auto Scaling group.
+     * </p>
+     * <p>
+     * You create the resource label by appending the final portion of the load balancer ARN and the final portion of
+     * the target group ARN into a single value, separated by a forward slash (/). The format of the resource label is:
+     * </p>
+     * <p>
+     * <code>app/my-alb/778d41231b141a0f/targetgroup/my-alb-target-group/943f017f100becff</code>.
+     * </p>
+     * <p>
+     * Where:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * app/&lt;load-balancer-name&gt;/&lt;load-balancer-id&gt; is the final portion of the load balancer ARN
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * targetgroup/&lt;target-group-name&gt;/&lt;target-group-id&gt; is the final portion of the target group ARN.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * For predefined metric types <code>ASGAverageCPUUtilization</code>, <code>ASGAverageNetworkIn</code>, and
-     * <code>ASGAverageNetworkOut</code>, the parameter must not be specified as the resource associated with the metric
-     * type is the Auto Scaling group. For predefined metric type <code>ALBRequestCountPerTarget</code>, the parameter
-     * must be specified in the format:
-     * <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i>/targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code>
-     * , where <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i> </code> is the final portion of the load
-     * balancer ARN, and <code>targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code> is the final portion
-     * of the target group ARN. The target group must be attached to the Auto Scaling group.
+     * To find the ARN for an Application Load Balancer, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html"
+     * >DescribeLoadBalancers</a> API operation. To find the ARN for the target group, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html"
+     * >DescribeTargetGroups</a> API operation.
      * </p>
      */
     private String resourceLabel;
 
     /**
      * <p>
-     * The metric type.
-     * </p>
-     * 
-     * @param predefinedMetricType
-     *        The metric type.
-     * @see MetricType
-     */
-
-    public void setPredefinedMetricType(String predefinedMetricType) {
-        this.predefinedMetricType = predefinedMetricType;
-    }
-
-    /**
-     * <p>
-     * The metric type.
-     * </p>
-     * 
-     * @return The metric type.
-     * @see MetricType
-     */
-
-    public String getPredefinedMetricType() {
-        return this.predefinedMetricType;
-    }
-
-    /**
-     * <p>
-     * The metric type.
-     * </p>
-     * 
-     * @param predefinedMetricType
-     *        The metric type.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     * @see MetricType
-     */
-
-    public PredefinedMetricSpecification withPredefinedMetricType(String predefinedMetricType) {
-        setPredefinedMetricType(predefinedMetricType);
-        return this;
-    }
-
-    /**
-     * <p>
-     * The metric type.
-     * </p>
-     * 
-     * @param predefinedMetricType
-     *        The metric type.
-     * @see MetricType
-     */
-
-    public void setPredefinedMetricType(MetricType predefinedMetricType) {
-        withPredefinedMetricType(predefinedMetricType);
-    }
-
-    /**
-     * <p>
-     * The metric type.
-     * </p>
-     * 
-     * @param predefinedMetricType
-     *        The metric type.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     * @see MetricType
-     */
-
-    public PredefinedMetricSpecification withPredefinedMetricType(MetricType predefinedMetricType) {
-        this.predefinedMetricType = predefinedMetricType.toString();
-        return this;
-    }
-
-    /**
-     * <p>
-     * Identifies the resource associated with the metric type. The following predefined metrics are available:
+     * The metric type. The following predefined metrics are available:
      * </p>
      * <ul>
      * <li>
@@ -171,25 +119,14 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>ALBRequestCountPerTarget</code> - Number of requests completed per target in an Application Load Balancer
-     * target group.
+     * <code>ALBRequestCountPerTarget</code> - Average Application Load Balancer request count per target for your Auto
+     * Scaling group.
      * </p>
      * </li>
      * </ul>
-     * <p>
-     * For predefined metric types <code>ASGAverageCPUUtilization</code>, <code>ASGAverageNetworkIn</code>, and
-     * <code>ASGAverageNetworkOut</code>, the parameter must not be specified as the resource associated with the metric
-     * type is the Auto Scaling group. For predefined metric type <code>ALBRequestCountPerTarget</code>, the parameter
-     * must be specified in the format:
-     * <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i>/targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code>
-     * , where <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i> </code> is the final portion of the load
-     * balancer ARN, and <code>targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code> is the final portion
-     * of the target group ARN. The target group must be attached to the Auto Scaling group.
-     * </p>
      * 
-     * @param resourceLabel
-     *        Identifies the resource associated with the metric type. The following predefined metrics are
-     *        available:</p>
+     * @param predefinedMetricType
+     *        The metric type. The following predefined metrics are available:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -210,29 +147,20 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ALBRequestCountPerTarget</code> - Number of requests completed per target in an Application Load
-     *        Balancer target group.
+     *        <code>ALBRequestCountPerTarget</code> - Average Application Load Balancer request count per target for
+     *        your Auto Scaling group.
      *        </p>
      *        </li>
-     *        </ul>
-     *        <p>
-     *        For predefined metric types <code>ASGAverageCPUUtilization</code>, <code>ASGAverageNetworkIn</code>, and
-     *        <code>ASGAverageNetworkOut</code>, the parameter must not be specified as the resource associated with the
-     *        metric type is the Auto Scaling group. For predefined metric type <code>ALBRequestCountPerTarget</code>,
-     *        the parameter must be specified in the format:
-     *        <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i>/targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code>
-     *        , where <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i> </code> is the final portion of the
-     *        load balancer ARN, and <code>targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code> is the
-     *        final portion of the target group ARN. The target group must be attached to the Auto Scaling group.
+     * @see MetricType
      */
 
-    public void setResourceLabel(String resourceLabel) {
-        this.resourceLabel = resourceLabel;
+    public void setPredefinedMetricType(String predefinedMetricType) {
+        this.predefinedMetricType = predefinedMetricType;
     }
 
     /**
      * <p>
-     * Identifies the resource associated with the metric type. The following predefined metrics are available:
+     * The metric type. The following predefined metrics are available:
      * </p>
      * <ul>
      * <li>
@@ -254,24 +182,13 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>ALBRequestCountPerTarget</code> - Number of requests completed per target in an Application Load Balancer
-     * target group.
+     * <code>ALBRequestCountPerTarget</code> - Average Application Load Balancer request count per target for your Auto
+     * Scaling group.
      * </p>
      * </li>
      * </ul>
-     * <p>
-     * For predefined metric types <code>ASGAverageCPUUtilization</code>, <code>ASGAverageNetworkIn</code>, and
-     * <code>ASGAverageNetworkOut</code>, the parameter must not be specified as the resource associated with the metric
-     * type is the Auto Scaling group. For predefined metric type <code>ALBRequestCountPerTarget</code>, the parameter
-     * must be specified in the format:
-     * <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i>/targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code>
-     * , where <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i> </code> is the final portion of the load
-     * balancer ARN, and <code>targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code> is the final portion
-     * of the target group ARN. The target group must be attached to the Auto Scaling group.
-     * </p>
      * 
-     * @return Identifies the resource associated with the metric type. The following predefined metrics are
-     *         available:</p>
+     * @return The metric type. The following predefined metrics are available:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -292,29 +209,20 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable {
      *         </li>
      *         <li>
      *         <p>
-     *         <code>ALBRequestCountPerTarget</code> - Number of requests completed per target in an Application Load
-     *         Balancer target group.
+     *         <code>ALBRequestCountPerTarget</code> - Average Application Load Balancer request count per target for
+     *         your Auto Scaling group.
      *         </p>
      *         </li>
-     *         </ul>
-     *         <p>
-     *         For predefined metric types <code>ASGAverageCPUUtilization</code>, <code>ASGAverageNetworkIn</code>, and
-     *         <code>ASGAverageNetworkOut</code>, the parameter must not be specified as the resource associated with
-     *         the metric type is the Auto Scaling group. For predefined metric type
-     *         <code>ALBRequestCountPerTarget</code>, the parameter must be specified in the format:
-     *         <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i>/targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code>
-     *         , where <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i> </code> is the final portion of the
-     *         load balancer ARN, and <code>targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code> is the
-     *         final portion of the target group ARN. The target group must be attached to the Auto Scaling group.
+     * @see MetricType
      */
 
-    public String getResourceLabel() {
-        return this.resourceLabel;
+    public String getPredefinedMetricType() {
+        return this.predefinedMetricType;
     }
 
     /**
      * <p>
-     * Identifies the resource associated with the metric type. The following predefined metrics are available:
+     * The metric type. The following predefined metrics are available:
      * </p>
      * <ul>
      * <li>
@@ -336,25 +244,14 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>ALBRequestCountPerTarget</code> - Number of requests completed per target in an Application Load Balancer
-     * target group.
+     * <code>ALBRequestCountPerTarget</code> - Average Application Load Balancer request count per target for your Auto
+     * Scaling group.
      * </p>
      * </li>
      * </ul>
-     * <p>
-     * For predefined metric types <code>ASGAverageCPUUtilization</code>, <code>ASGAverageNetworkIn</code>, and
-     * <code>ASGAverageNetworkOut</code>, the parameter must not be specified as the resource associated with the metric
-     * type is the Auto Scaling group. For predefined metric type <code>ALBRequestCountPerTarget</code>, the parameter
-     * must be specified in the format:
-     * <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i>/targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code>
-     * , where <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i> </code> is the final portion of the load
-     * balancer ARN, and <code>targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code> is the final portion
-     * of the target group ARN. The target group must be attached to the Auto Scaling group.
-     * </p>
      * 
-     * @param resourceLabel
-     *        Identifies the resource associated with the metric type. The following predefined metrics are
-     *        available:</p>
+     * @param predefinedMetricType
+     *        The metric type. The following predefined metrics are available:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -375,20 +272,368 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ALBRequestCountPerTarget</code> - Number of requests completed per target in an Application Load
-     *        Balancer target group.
+     *        <code>ALBRequestCountPerTarget</code> - Average Application Load Balancer request count per target for
+     *        your Auto Scaling group.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MetricType
+     */
+
+    public PredefinedMetricSpecification withPredefinedMetricType(String predefinedMetricType) {
+        setPredefinedMetricType(predefinedMetricType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The metric type. The following predefined metrics are available:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ASGAverageCPUUtilization</code> - Average CPU utilization of the Auto Scaling group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ASGAverageNetworkIn</code> - Average number of bytes received on all network interfaces by the Auto Scaling
+     * group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ASGAverageNetworkOut</code> - Average number of bytes sent out on all network interfaces by the Auto
+     * Scaling group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ALBRequestCountPerTarget</code> - Average Application Load Balancer request count per target for your Auto
+     * Scaling group.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param predefinedMetricType
+     *        The metric type. The following predefined metrics are available:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ASGAverageCPUUtilization</code> - Average CPU utilization of the Auto Scaling group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ASGAverageNetworkIn</code> - Average number of bytes received on all network interfaces by the Auto
+     *        Scaling group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ASGAverageNetworkOut</code> - Average number of bytes sent out on all network interfaces by the Auto
+     *        Scaling group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ALBRequestCountPerTarget</code> - Average Application Load Balancer request count per target for
+     *        your Auto Scaling group.
+     *        </p>
+     *        </li>
+     * @see MetricType
+     */
+
+    public void setPredefinedMetricType(MetricType predefinedMetricType) {
+        withPredefinedMetricType(predefinedMetricType);
+    }
+
+    /**
+     * <p>
+     * The metric type. The following predefined metrics are available:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ASGAverageCPUUtilization</code> - Average CPU utilization of the Auto Scaling group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ASGAverageNetworkIn</code> - Average number of bytes received on all network interfaces by the Auto Scaling
+     * group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ASGAverageNetworkOut</code> - Average number of bytes sent out on all network interfaces by the Auto
+     * Scaling group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ALBRequestCountPerTarget</code> - Average Application Load Balancer request count per target for your Auto
+     * Scaling group.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param predefinedMetricType
+     *        The metric type. The following predefined metrics are available:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ASGAverageCPUUtilization</code> - Average CPU utilization of the Auto Scaling group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ASGAverageNetworkIn</code> - Average number of bytes received on all network interfaces by the Auto
+     *        Scaling group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ASGAverageNetworkOut</code> - Average number of bytes sent out on all network interfaces by the Auto
+     *        Scaling group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ALBRequestCountPerTarget</code> - Average Application Load Balancer request count per target for
+     *        your Auto Scaling group.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MetricType
+     */
+
+    public PredefinedMetricSpecification withPredefinedMetricType(MetricType predefinedMetricType) {
+        this.predefinedMetricType = predefinedMetricType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A label that uniquely identifies a specific Application Load Balancer target group from which to determine the
+     * average request count served by your Auto Scaling group. You can't specify a resource label unless the target
+     * group is attached to the Auto Scaling group.
+     * </p>
+     * <p>
+     * You create the resource label by appending the final portion of the load balancer ARN and the final portion of
+     * the target group ARN into a single value, separated by a forward slash (/). The format of the resource label is:
+     * </p>
+     * <p>
+     * <code>app/my-alb/778d41231b141a0f/targetgroup/my-alb-target-group/943f017f100becff</code>.
+     * </p>
+     * <p>
+     * Where:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * app/&lt;load-balancer-name&gt;/&lt;load-balancer-id&gt; is the final portion of the load balancer ARN
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * targetgroup/&lt;target-group-name&gt;/&lt;target-group-id&gt; is the final portion of the target group ARN.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To find the ARN for an Application Load Balancer, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html"
+     * >DescribeLoadBalancers</a> API operation. To find the ARN for the target group, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html"
+     * >DescribeTargetGroups</a> API operation.
+     * </p>
+     * 
+     * @param resourceLabel
+     *        A label that uniquely identifies a specific Application Load Balancer target group from which to determine
+     *        the average request count served by your Auto Scaling group. You can't specify a resource label unless the
+     *        target group is attached to the Auto Scaling group.</p>
+     *        <p>
+     *        You create the resource label by appending the final portion of the load balancer ARN and the final
+     *        portion of the target group ARN into a single value, separated by a forward slash (/). The format of the
+     *        resource label is:
+     *        </p>
+     *        <p>
+     *        <code>app/my-alb/778d41231b141a0f/targetgroup/my-alb-target-group/943f017f100becff</code>.
+     *        </p>
+     *        <p>
+     *        Where:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        app/&lt;load-balancer-name&gt;/&lt;load-balancer-id&gt; is the final portion of the load balancer ARN
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        targetgroup/&lt;target-group-name&gt;/&lt;target-group-id&gt; is the final portion of the target group
+     *        ARN.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
-     *        For predefined metric types <code>ASGAverageCPUUtilization</code>, <code>ASGAverageNetworkIn</code>, and
-     *        <code>ASGAverageNetworkOut</code>, the parameter must not be specified as the resource associated with the
-     *        metric type is the Auto Scaling group. For predefined metric type <code>ALBRequestCountPerTarget</code>,
-     *        the parameter must be specified in the format:
-     *        <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i>/targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code>
-     *        , where <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i> </code> is the final portion of the
-     *        load balancer ARN, and <code>targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code> is the
-     *        final portion of the target group ARN. The target group must be attached to the Auto Scaling group.
+     *        To find the ARN for an Application Load Balancer, use the <a href=
+     *        "https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html"
+     *        >DescribeLoadBalancers</a> API operation. To find the ARN for the target group, use the <a href=
+     *        "https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html"
+     *        >DescribeTargetGroups</a> API operation.
+     */
+
+    public void setResourceLabel(String resourceLabel) {
+        this.resourceLabel = resourceLabel;
+    }
+
+    /**
+     * <p>
+     * A label that uniquely identifies a specific Application Load Balancer target group from which to determine the
+     * average request count served by your Auto Scaling group. You can't specify a resource label unless the target
+     * group is attached to the Auto Scaling group.
+     * </p>
+     * <p>
+     * You create the resource label by appending the final portion of the load balancer ARN and the final portion of
+     * the target group ARN into a single value, separated by a forward slash (/). The format of the resource label is:
+     * </p>
+     * <p>
+     * <code>app/my-alb/778d41231b141a0f/targetgroup/my-alb-target-group/943f017f100becff</code>.
+     * </p>
+     * <p>
+     * Where:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * app/&lt;load-balancer-name&gt;/&lt;load-balancer-id&gt; is the final portion of the load balancer ARN
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * targetgroup/&lt;target-group-name&gt;/&lt;target-group-id&gt; is the final portion of the target group ARN.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To find the ARN for an Application Load Balancer, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html"
+     * >DescribeLoadBalancers</a> API operation. To find the ARN for the target group, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html"
+     * >DescribeTargetGroups</a> API operation.
+     * </p>
+     * 
+     * @return A label that uniquely identifies a specific Application Load Balancer target group from which to
+     *         determine the average request count served by your Auto Scaling group. You can't specify a resource label
+     *         unless the target group is attached to the Auto Scaling group.</p>
+     *         <p>
+     *         You create the resource label by appending the final portion of the load balancer ARN and the final
+     *         portion of the target group ARN into a single value, separated by a forward slash (/). The format of the
+     *         resource label is:
+     *         </p>
+     *         <p>
+     *         <code>app/my-alb/778d41231b141a0f/targetgroup/my-alb-target-group/943f017f100becff</code>.
+     *         </p>
+     *         <p>
+     *         Where:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         app/&lt;load-balancer-name&gt;/&lt;load-balancer-id&gt; is the final portion of the load balancer ARN
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         targetgroup/&lt;target-group-name&gt;/&lt;target-group-id&gt; is the final portion of the target group
+     *         ARN.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         To find the ARN for an Application Load Balancer, use the <a href=
+     *         "https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html"
+     *         >DescribeLoadBalancers</a> API operation. To find the ARN for the target group, use the <a href=
+     *         "https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html"
+     *         >DescribeTargetGroups</a> API operation.
+     */
+
+    public String getResourceLabel() {
+        return this.resourceLabel;
+    }
+
+    /**
+     * <p>
+     * A label that uniquely identifies a specific Application Load Balancer target group from which to determine the
+     * average request count served by your Auto Scaling group. You can't specify a resource label unless the target
+     * group is attached to the Auto Scaling group.
+     * </p>
+     * <p>
+     * You create the resource label by appending the final portion of the load balancer ARN and the final portion of
+     * the target group ARN into a single value, separated by a forward slash (/). The format of the resource label is:
+     * </p>
+     * <p>
+     * <code>app/my-alb/778d41231b141a0f/targetgroup/my-alb-target-group/943f017f100becff</code>.
+     * </p>
+     * <p>
+     * Where:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * app/&lt;load-balancer-name&gt;/&lt;load-balancer-id&gt; is the final portion of the load balancer ARN
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * targetgroup/&lt;target-group-name&gt;/&lt;target-group-id&gt; is the final portion of the target group ARN.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To find the ARN for an Application Load Balancer, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html"
+     * >DescribeLoadBalancers</a> API operation. To find the ARN for the target group, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html"
+     * >DescribeTargetGroups</a> API operation.
+     * </p>
+     * 
+     * @param resourceLabel
+     *        A label that uniquely identifies a specific Application Load Balancer target group from which to determine
+     *        the average request count served by your Auto Scaling group. You can't specify a resource label unless the
+     *        target group is attached to the Auto Scaling group.</p>
+     *        <p>
+     *        You create the resource label by appending the final portion of the load balancer ARN and the final
+     *        portion of the target group ARN into a single value, separated by a forward slash (/). The format of the
+     *        resource label is:
+     *        </p>
+     *        <p>
+     *        <code>app/my-alb/778d41231b141a0f/targetgroup/my-alb-target-group/943f017f100becff</code>.
+     *        </p>
+     *        <p>
+     *        Where:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        app/&lt;load-balancer-name&gt;/&lt;load-balancer-id&gt; is the final portion of the load balancer ARN
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        targetgroup/&lt;target-group-name&gt;/&lt;target-group-id&gt; is the final portion of the target group
+     *        ARN.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        To find the ARN for an Application Load Balancer, use the <a href=
+     *        "https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html"
+     *        >DescribeLoadBalancers</a> API operation. To find the ARN for the target group, use the <a href=
+     *        "https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html"
+     *        >DescribeTargetGroups</a> API operation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

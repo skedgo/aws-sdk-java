@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,7 +48,7 @@ public class MaintenanceWindowExecutionTaskIdentity implements Serializable, Clo
     private String status;
     /**
      * <p>
-     * The details explaining the status of the task execution. Only available for certain status values.
+     * The details explaining the status of the task execution. Not available for all status values.
      * </p>
      */
     private String statusDetails;
@@ -66,7 +66,7 @@ public class MaintenanceWindowExecutionTaskIdentity implements Serializable, Clo
     private java.util.Date endTime;
     /**
      * <p>
-     * The ARN of the task that ran.
+     * The Amazon Resource Name (ARN) of the task that ran.
      * </p>
      */
     private String taskArn;
@@ -76,6 +76,18 @@ public class MaintenanceWindowExecutionTaskIdentity implements Serializable, Clo
      * </p>
      */
     private String taskType;
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your maintenance window task.
+     * </p>
+     */
+    private AlarmConfiguration alarmConfiguration;
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the maintenance window task.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<AlarmStateInformation> triggeredAlarms;
 
     /**
      * <p>
@@ -232,11 +244,11 @@ public class MaintenanceWindowExecutionTaskIdentity implements Serializable, Clo
 
     /**
      * <p>
-     * The details explaining the status of the task execution. Only available for certain status values.
+     * The details explaining the status of the task execution. Not available for all status values.
      * </p>
      * 
      * @param statusDetails
-     *        The details explaining the status of the task execution. Only available for certain status values.
+     *        The details explaining the status of the task execution. Not available for all status values.
      */
 
     public void setStatusDetails(String statusDetails) {
@@ -245,10 +257,10 @@ public class MaintenanceWindowExecutionTaskIdentity implements Serializable, Clo
 
     /**
      * <p>
-     * The details explaining the status of the task execution. Only available for certain status values.
+     * The details explaining the status of the task execution. Not available for all status values.
      * </p>
      * 
-     * @return The details explaining the status of the task execution. Only available for certain status values.
+     * @return The details explaining the status of the task execution. Not available for all status values.
      */
 
     public String getStatusDetails() {
@@ -257,11 +269,11 @@ public class MaintenanceWindowExecutionTaskIdentity implements Serializable, Clo
 
     /**
      * <p>
-     * The details explaining the status of the task execution. Only available for certain status values.
+     * The details explaining the status of the task execution. Not available for all status values.
      * </p>
      * 
      * @param statusDetails
-     *        The details explaining the status of the task execution. Only available for certain status values.
+     *        The details explaining the status of the task execution. Not available for all status values.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -352,11 +364,11 @@ public class MaintenanceWindowExecutionTaskIdentity implements Serializable, Clo
 
     /**
      * <p>
-     * The ARN of the task that ran.
+     * The Amazon Resource Name (ARN) of the task that ran.
      * </p>
      * 
      * @param taskArn
-     *        The ARN of the task that ran.
+     *        The Amazon Resource Name (ARN) of the task that ran.
      */
 
     public void setTaskArn(String taskArn) {
@@ -365,10 +377,10 @@ public class MaintenanceWindowExecutionTaskIdentity implements Serializable, Clo
 
     /**
      * <p>
-     * The ARN of the task that ran.
+     * The Amazon Resource Name (ARN) of the task that ran.
      * </p>
      * 
-     * @return The ARN of the task that ran.
+     * @return The Amazon Resource Name (ARN) of the task that ran.
      */
 
     public String getTaskArn() {
@@ -377,11 +389,11 @@ public class MaintenanceWindowExecutionTaskIdentity implements Serializable, Clo
 
     /**
      * <p>
-     * The ARN of the task that ran.
+     * The Amazon Resource Name (ARN) of the task that ran.
      * </p>
      * 
      * @param taskArn
-     *        The ARN of the task that ran.
+     *        The Amazon Resource Name (ARN) of the task that ran.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -464,6 +476,119 @@ public class MaintenanceWindowExecutionTaskIdentity implements Serializable, Clo
     }
 
     /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your maintenance window task.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The details for the CloudWatch alarm applied to your maintenance window task.
+     */
+
+    public void setAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        this.alarmConfiguration = alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your maintenance window task.
+     * </p>
+     * 
+     * @return The details for the CloudWatch alarm applied to your maintenance window task.
+     */
+
+    public AlarmConfiguration getAlarmConfiguration() {
+        return this.alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your maintenance window task.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The details for the CloudWatch alarm applied to your maintenance window task.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MaintenanceWindowExecutionTaskIdentity withAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        setAlarmConfiguration(alarmConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the maintenance window task.
+     * </p>
+     * 
+     * @return The CloudWatch alarm that was invoked by the maintenance window task.
+     */
+
+    public java.util.List<AlarmStateInformation> getTriggeredAlarms() {
+        if (triggeredAlarms == null) {
+            triggeredAlarms = new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>();
+        }
+        return triggeredAlarms;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the maintenance window task.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarm that was invoked by the maintenance window task.
+     */
+
+    public void setTriggeredAlarms(java.util.Collection<AlarmStateInformation> triggeredAlarms) {
+        if (triggeredAlarms == null) {
+            this.triggeredAlarms = null;
+            return;
+        }
+
+        this.triggeredAlarms = new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>(triggeredAlarms);
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the maintenance window task.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTriggeredAlarms(java.util.Collection)} or {@link #withTriggeredAlarms(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarm that was invoked by the maintenance window task.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MaintenanceWindowExecutionTaskIdentity withTriggeredAlarms(AlarmStateInformation... triggeredAlarms) {
+        if (this.triggeredAlarms == null) {
+            setTriggeredAlarms(new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>(triggeredAlarms.length));
+        }
+        for (AlarmStateInformation ele : triggeredAlarms) {
+            this.triggeredAlarms.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the maintenance window task.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarm that was invoked by the maintenance window task.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MaintenanceWindowExecutionTaskIdentity withTriggeredAlarms(java.util.Collection<AlarmStateInformation> triggeredAlarms) {
+        setTriggeredAlarms(triggeredAlarms);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -490,7 +615,11 @@ public class MaintenanceWindowExecutionTaskIdentity implements Serializable, Clo
         if (getTaskArn() != null)
             sb.append("TaskArn: ").append(getTaskArn()).append(",");
         if (getTaskType() != null)
-            sb.append("TaskType: ").append(getTaskType());
+            sb.append("TaskType: ").append(getTaskType()).append(",");
+        if (getAlarmConfiguration() != null)
+            sb.append("AlarmConfiguration: ").append(getAlarmConfiguration()).append(",");
+        if (getTriggeredAlarms() != null)
+            sb.append("TriggeredAlarms: ").append(getTriggeredAlarms());
         sb.append("}");
         return sb.toString();
     }
@@ -537,6 +666,14 @@ public class MaintenanceWindowExecutionTaskIdentity implements Serializable, Clo
             return false;
         if (other.getTaskType() != null && other.getTaskType().equals(this.getTaskType()) == false)
             return false;
+        if (other.getAlarmConfiguration() == null ^ this.getAlarmConfiguration() == null)
+            return false;
+        if (other.getAlarmConfiguration() != null && other.getAlarmConfiguration().equals(this.getAlarmConfiguration()) == false)
+            return false;
+        if (other.getTriggeredAlarms() == null ^ this.getTriggeredAlarms() == null)
+            return false;
+        if (other.getTriggeredAlarms() != null && other.getTriggeredAlarms().equals(this.getTriggeredAlarms()) == false)
+            return false;
         return true;
     }
 
@@ -553,6 +690,8 @@ public class MaintenanceWindowExecutionTaskIdentity implements Serializable, Clo
         hashCode = prime * hashCode + ((getEndTime() == null) ? 0 : getEndTime().hashCode());
         hashCode = prime * hashCode + ((getTaskArn() == null) ? 0 : getTaskArn().hashCode());
         hashCode = prime * hashCode + ((getTaskType() == null) ? 0 : getTaskType().hashCode());
+        hashCode = prime * hashCode + ((getAlarmConfiguration() == null) ? 0 : getAlarmConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getTriggeredAlarms() == null) ? 0 : getTriggeredAlarms().hashCode());
         return hashCode;
     }
 

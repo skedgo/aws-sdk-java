@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,23 @@ public enum MetricType {
     EC2SpotFleetRequestAverageNetworkOut("EC2SpotFleetRequestAverageNetworkOut"),
     SageMakerVariantInvocationsPerInstance("SageMakerVariantInvocationsPerInstance"),
     ECSServiceAverageCPUUtilization("ECSServiceAverageCPUUtilization"),
-    ECSServiceAverageMemoryUtilization("ECSServiceAverageMemoryUtilization");
+    ECSServiceAverageMemoryUtilization("ECSServiceAverageMemoryUtilization"),
+    AppStreamAverageCapacityUtilization("AppStreamAverageCapacityUtilization"),
+    ComprehendInferenceUtilization("ComprehendInferenceUtilization"),
+    LambdaProvisionedConcurrencyUtilization("LambdaProvisionedConcurrencyUtilization"),
+    CassandraReadCapacityUtilization("CassandraReadCapacityUtilization"),
+    CassandraWriteCapacityUtilization("CassandraWriteCapacityUtilization"),
+    KafkaBrokerStorageUtilization("KafkaBrokerStorageUtilization"),
+    ElastiCachePrimaryEngineCPUUtilization("ElastiCachePrimaryEngineCPUUtilization"),
+    ElastiCacheReplicaEngineCPUUtilization("ElastiCacheReplicaEngineCPUUtilization"),
+    ElastiCacheDatabaseMemoryUsageCountedForEvictPercentage("ElastiCacheDatabaseMemoryUsageCountedForEvictPercentage"),
+    NeptuneReaderAverageCPUUtilization("NeptuneReaderAverageCPUUtilization"),
+    SageMakerVariantProvisionedConcurrencyUtilization("SageMakerVariantProvisionedConcurrencyUtilization"),
+    ElastiCacheDatabaseCapacityUsageCountedForEvictPercentage("ElastiCacheDatabaseCapacityUsageCountedForEvictPercentage"),
+    SageMakerInferenceComponentInvocationsPerCopy("SageMakerInferenceComponentInvocationsPerCopy"),
+    WorkSpacesAverageUserSessionsCapacityUtilization("WorkSpacesAverageUserSessionsCapacityUtilization"),
+    SageMakerInferenceComponentConcurrentRequestsPerCopyHighResolution("SageMakerInferenceComponentConcurrentRequestsPerCopyHighResolution"),
+    SageMakerVariantConcurrentRequestsPerModelHighResolution("SageMakerVariantConcurrentRequestsPerModelHighResolution");
 
     private String value;
 

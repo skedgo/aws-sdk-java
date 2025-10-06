@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,13 +27,13 @@ public class DetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A UTF-8 string. Each string must contain fewer that 5,000 bytes of UTF encoded characters.
+     * A UTF-8 string. The maximum string size is 5 KB.
      * </p>
      */
     private String text;
     /**
      * <p>
-     * The language code of the input documents. You can specify any of the primary languages supported by Amazon
+     * The language code of the input documents. You can specify any of the following languages supported by Amazon
      * Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt").
      * </p>
      */
@@ -41,11 +41,11 @@ public class DetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A UTF-8 string. Each string must contain fewer that 5,000 bytes of UTF encoded characters.
+     * A UTF-8 string. The maximum string size is 5 KB.
      * </p>
      * 
      * @param text
-     *        A UTF-8 string. Each string must contain fewer that 5,000 bytes of UTF encoded characters.
+     *        A UTF-8 string. The maximum string size is 5 KB.
      */
 
     public void setText(String text) {
@@ -54,10 +54,10 @@ public class DetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A UTF-8 string. Each string must contain fewer that 5,000 bytes of UTF encoded characters.
+     * A UTF-8 string. The maximum string size is 5 KB.
      * </p>
      * 
-     * @return A UTF-8 string. Each string must contain fewer that 5,000 bytes of UTF encoded characters.
+     * @return A UTF-8 string. The maximum string size is 5 KB.
      */
 
     public String getText() {
@@ -66,11 +66,11 @@ public class DetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A UTF-8 string. Each string must contain fewer that 5,000 bytes of UTF encoded characters.
+     * A UTF-8 string. The maximum string size is 5 KB.
      * </p>
      * 
      * @param text
-     *        A UTF-8 string. Each string must contain fewer that 5,000 bytes of UTF encoded characters.
+     *        A UTF-8 string. The maximum string size is 5 KB.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -81,14 +81,14 @@ public class DetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The language code of the input documents. You can specify any of the primary languages supported by Amazon
+     * The language code of the input documents. You can specify any of the following languages supported by Amazon
      * Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt").
      * </p>
      * 
      * @param languageCode
-     *        The language code of the input documents. You can specify any of the primary languages supported by Amazon
-     *        Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese
-     *        ("pt").
+     *        The language code of the input documents. You can specify any of the following languages supported by
+     *        Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or
+     *        Portuguese ("pt").
      * @see SyntaxLanguageCode
      */
 
@@ -98,11 +98,11 @@ public class DetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The language code of the input documents. You can specify any of the primary languages supported by Amazon
+     * The language code of the input documents. You can specify any of the following languages supported by Amazon
      * Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt").
      * </p>
      * 
-     * @return The language code of the input documents. You can specify any of the primary languages supported by
+     * @return The language code of the input documents. You can specify any of the following languages supported by
      *         Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or
      *         Portuguese ("pt").
      * @see SyntaxLanguageCode
@@ -114,14 +114,14 @@ public class DetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The language code of the input documents. You can specify any of the primary languages supported by Amazon
+     * The language code of the input documents. You can specify any of the following languages supported by Amazon
      * Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt").
      * </p>
      * 
      * @param languageCode
-     *        The language code of the input documents. You can specify any of the primary languages supported by Amazon
-     *        Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese
-     *        ("pt").
+     *        The language code of the input documents. You can specify any of the following languages supported by
+     *        Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or
+     *        Portuguese ("pt").
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SyntaxLanguageCode
      */
@@ -133,14 +133,14 @@ public class DetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The language code of the input documents. You can specify any of the primary languages supported by Amazon
+     * The language code of the input documents. You can specify any of the following languages supported by Amazon
      * Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt").
      * </p>
      * 
      * @param languageCode
-     *        The language code of the input documents. You can specify any of the primary languages supported by Amazon
-     *        Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese
-     *        ("pt").
+     *        The language code of the input documents. You can specify any of the following languages supported by
+     *        Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or
+     *        Portuguese ("pt").
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SyntaxLanguageCode
      */
@@ -163,7 +163,7 @@ public class DetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequest i
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getText() != null)
-            sb.append("Text: ").append(getText()).append(",");
+            sb.append("Text: ").append("***Sensitive Data Redacted***").append(",");
         if (getLanguageCode() != null)
             sb.append("LanguageCode: ").append(getLanguageCode());
         sb.append("}");

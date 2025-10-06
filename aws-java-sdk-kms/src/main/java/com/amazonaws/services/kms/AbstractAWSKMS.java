@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -93,6 +93,11 @@ public class AbstractAWSKMS implements AWSKMS {
     }
 
     @Override
+    public DeriveSharedSecretResult deriveSharedSecret(DeriveSharedSecretRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeCustomKeyStoresResult describeCustomKeyStores(DescribeCustomKeyStoresRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -138,7 +143,22 @@ public class AbstractAWSKMS implements AWSKMS {
     }
 
     @Override
+    public GenerateDataKeyPairResult generateDataKeyPair(GenerateDataKeyPairRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GenerateDataKeyPairWithoutPlaintextResult generateDataKeyPairWithoutPlaintext(GenerateDataKeyPairWithoutPlaintextRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GenerateDataKeyWithoutPlaintextResult generateDataKeyWithoutPlaintext(GenerateDataKeyWithoutPlaintextRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GenerateMacResult generateMac(GenerateMacRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -168,6 +188,11 @@ public class AbstractAWSKMS implements AWSKMS {
     }
 
     @Override
+    public GetPublicKeyResult getPublicKey(GetPublicKeyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ImportKeyMaterialResult importKeyMaterial(ImportKeyMaterialRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -189,6 +214,11 @@ public class AbstractAWSKMS implements AWSKMS {
 
     @Override
     public ListKeyPoliciesResult listKeyPolicies(ListKeyPoliciesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListKeyRotationsResult listKeyRotations(ListKeyRotationsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -223,6 +253,11 @@ public class AbstractAWSKMS implements AWSKMS {
     }
 
     @Override
+    public ReplicateKeyResult replicateKey(ReplicateKeyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public RetireGrantResult retireGrant(RetireGrantRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -238,7 +273,17 @@ public class AbstractAWSKMS implements AWSKMS {
     }
 
     @Override
+    public RotateKeyOnDemandResult rotateKeyOnDemand(RotateKeyOnDemandRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ScheduleKeyDeletionResult scheduleKeyDeletion(ScheduleKeyDeletionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SignResult sign(SignRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -264,6 +309,21 @@ public class AbstractAWSKMS implements AWSKMS {
 
     @Override
     public UpdateKeyDescriptionResult updateKeyDescription(UpdateKeyDescriptionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdatePrimaryRegionResult updatePrimaryRegion(UpdatePrimaryRegionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public VerifyResult verify(VerifyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public VerifyMacResult verifyMac(VerifyMacRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

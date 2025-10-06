@@ -1,0 +1,509 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.iot.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+import com.amazonaws.AmazonWebServiceRequest;
+
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class ListMetricValuesRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * The name of the thing for which security profile metric values are returned.
+     * </p>
+     */
+    private String thingName;
+    /**
+     * <p>
+     * The name of the security profile metric for which values are returned.
+     * </p>
+     */
+    private String metricName;
+    /**
+     * <p>
+     * The dimension name.
+     * </p>
+     */
+    private String dimensionName;
+    /**
+     * <p>
+     * The dimension value operator.
+     * </p>
+     */
+    private String dimensionValueOperator;
+    /**
+     * <p>
+     * The start of the time period for which metric values are returned.
+     * </p>
+     */
+    private java.util.Date startTime;
+    /**
+     * <p>
+     * The end of the time period for which metric values are returned.
+     * </p>
+     */
+    private java.util.Date endTime;
+    /**
+     * <p>
+     * The maximum number of results to return at one time.
+     * </p>
+     */
+    private Integer maxResults;
+    /**
+     * <p>
+     * The token for the next set of results.
+     * </p>
+     */
+    private String nextToken;
+
+    /**
+     * <p>
+     * The name of the thing for which security profile metric values are returned.
+     * </p>
+     * 
+     * @param thingName
+     *        The name of the thing for which security profile metric values are returned.
+     */
+
+    public void setThingName(String thingName) {
+        this.thingName = thingName;
+    }
+
+    /**
+     * <p>
+     * The name of the thing for which security profile metric values are returned.
+     * </p>
+     * 
+     * @return The name of the thing for which security profile metric values are returned.
+     */
+
+    public String getThingName() {
+        return this.thingName;
+    }
+
+    /**
+     * <p>
+     * The name of the thing for which security profile metric values are returned.
+     * </p>
+     * 
+     * @param thingName
+     *        The name of the thing for which security profile metric values are returned.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListMetricValuesRequest withThingName(String thingName) {
+        setThingName(thingName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the security profile metric for which values are returned.
+     * </p>
+     * 
+     * @param metricName
+     *        The name of the security profile metric for which values are returned.
+     */
+
+    public void setMetricName(String metricName) {
+        this.metricName = metricName;
+    }
+
+    /**
+     * <p>
+     * The name of the security profile metric for which values are returned.
+     * </p>
+     * 
+     * @return The name of the security profile metric for which values are returned.
+     */
+
+    public String getMetricName() {
+        return this.metricName;
+    }
+
+    /**
+     * <p>
+     * The name of the security profile metric for which values are returned.
+     * </p>
+     * 
+     * @param metricName
+     *        The name of the security profile metric for which values are returned.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListMetricValuesRequest withMetricName(String metricName) {
+        setMetricName(metricName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The dimension name.
+     * </p>
+     * 
+     * @param dimensionName
+     *        The dimension name.
+     */
+
+    public void setDimensionName(String dimensionName) {
+        this.dimensionName = dimensionName;
+    }
+
+    /**
+     * <p>
+     * The dimension name.
+     * </p>
+     * 
+     * @return The dimension name.
+     */
+
+    public String getDimensionName() {
+        return this.dimensionName;
+    }
+
+    /**
+     * <p>
+     * The dimension name.
+     * </p>
+     * 
+     * @param dimensionName
+     *        The dimension name.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListMetricValuesRequest withDimensionName(String dimensionName) {
+        setDimensionName(dimensionName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The dimension value operator.
+     * </p>
+     * 
+     * @param dimensionValueOperator
+     *        The dimension value operator.
+     * @see DimensionValueOperator
+     */
+
+    public void setDimensionValueOperator(String dimensionValueOperator) {
+        this.dimensionValueOperator = dimensionValueOperator;
+    }
+
+    /**
+     * <p>
+     * The dimension value operator.
+     * </p>
+     * 
+     * @return The dimension value operator.
+     * @see DimensionValueOperator
+     */
+
+    public String getDimensionValueOperator() {
+        return this.dimensionValueOperator;
+    }
+
+    /**
+     * <p>
+     * The dimension value operator.
+     * </p>
+     * 
+     * @param dimensionValueOperator
+     *        The dimension value operator.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DimensionValueOperator
+     */
+
+    public ListMetricValuesRequest withDimensionValueOperator(String dimensionValueOperator) {
+        setDimensionValueOperator(dimensionValueOperator);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The dimension value operator.
+     * </p>
+     * 
+     * @param dimensionValueOperator
+     *        The dimension value operator.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DimensionValueOperator
+     */
+
+    public ListMetricValuesRequest withDimensionValueOperator(DimensionValueOperator dimensionValueOperator) {
+        this.dimensionValueOperator = dimensionValueOperator.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The start of the time period for which metric values are returned.
+     * </p>
+     * 
+     * @param startTime
+     *        The start of the time period for which metric values are returned.
+     */
+
+    public void setStartTime(java.util.Date startTime) {
+        this.startTime = startTime;
+    }
+
+    /**
+     * <p>
+     * The start of the time period for which metric values are returned.
+     * </p>
+     * 
+     * @return The start of the time period for which metric values are returned.
+     */
+
+    public java.util.Date getStartTime() {
+        return this.startTime;
+    }
+
+    /**
+     * <p>
+     * The start of the time period for which metric values are returned.
+     * </p>
+     * 
+     * @param startTime
+     *        The start of the time period for which metric values are returned.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListMetricValuesRequest withStartTime(java.util.Date startTime) {
+        setStartTime(startTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The end of the time period for which metric values are returned.
+     * </p>
+     * 
+     * @param endTime
+     *        The end of the time period for which metric values are returned.
+     */
+
+    public void setEndTime(java.util.Date endTime) {
+        this.endTime = endTime;
+    }
+
+    /**
+     * <p>
+     * The end of the time period for which metric values are returned.
+     * </p>
+     * 
+     * @return The end of the time period for which metric values are returned.
+     */
+
+    public java.util.Date getEndTime() {
+        return this.endTime;
+    }
+
+    /**
+     * <p>
+     * The end of the time period for which metric values are returned.
+     * </p>
+     * 
+     * @param endTime
+     *        The end of the time period for which metric values are returned.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListMetricValuesRequest withEndTime(java.util.Date endTime) {
+        setEndTime(endTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maximum number of results to return at one time.
+     * </p>
+     * 
+     * @param maxResults
+     *        The maximum number of results to return at one time.
+     */
+
+    public void setMaxResults(Integer maxResults) {
+        this.maxResults = maxResults;
+    }
+
+    /**
+     * <p>
+     * The maximum number of results to return at one time.
+     * </p>
+     * 
+     * @return The maximum number of results to return at one time.
+     */
+
+    public Integer getMaxResults() {
+        return this.maxResults;
+    }
+
+    /**
+     * <p>
+     * The maximum number of results to return at one time.
+     * </p>
+     * 
+     * @param maxResults
+     *        The maximum number of results to return at one time.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListMetricValuesRequest withMaxResults(Integer maxResults) {
+        setMaxResults(maxResults);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The token for the next set of results.
+     * </p>
+     * 
+     * @param nextToken
+     *        The token for the next set of results.
+     */
+
+    public void setNextToken(String nextToken) {
+        this.nextToken = nextToken;
+    }
+
+    /**
+     * <p>
+     * The token for the next set of results.
+     * </p>
+     * 
+     * @return The token for the next set of results.
+     */
+
+    public String getNextToken() {
+        return this.nextToken;
+    }
+
+    /**
+     * <p>
+     * The token for the next set of results.
+     * </p>
+     * 
+     * @param nextToken
+     *        The token for the next set of results.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListMetricValuesRequest withNextToken(String nextToken) {
+        setNextToken(nextToken);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getThingName() != null)
+            sb.append("ThingName: ").append(getThingName()).append(",");
+        if (getMetricName() != null)
+            sb.append("MetricName: ").append(getMetricName()).append(",");
+        if (getDimensionName() != null)
+            sb.append("DimensionName: ").append(getDimensionName()).append(",");
+        if (getDimensionValueOperator() != null)
+            sb.append("DimensionValueOperator: ").append(getDimensionValueOperator()).append(",");
+        if (getStartTime() != null)
+            sb.append("StartTime: ").append(getStartTime()).append(",");
+        if (getEndTime() != null)
+            sb.append("EndTime: ").append(getEndTime()).append(",");
+        if (getMaxResults() != null)
+            sb.append("MaxResults: ").append(getMaxResults()).append(",");
+        if (getNextToken() != null)
+            sb.append("NextToken: ").append(getNextToken());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof ListMetricValuesRequest == false)
+            return false;
+        ListMetricValuesRequest other = (ListMetricValuesRequest) obj;
+        if (other.getThingName() == null ^ this.getThingName() == null)
+            return false;
+        if (other.getThingName() != null && other.getThingName().equals(this.getThingName()) == false)
+            return false;
+        if (other.getMetricName() == null ^ this.getMetricName() == null)
+            return false;
+        if (other.getMetricName() != null && other.getMetricName().equals(this.getMetricName()) == false)
+            return false;
+        if (other.getDimensionName() == null ^ this.getDimensionName() == null)
+            return false;
+        if (other.getDimensionName() != null && other.getDimensionName().equals(this.getDimensionName()) == false)
+            return false;
+        if (other.getDimensionValueOperator() == null ^ this.getDimensionValueOperator() == null)
+            return false;
+        if (other.getDimensionValueOperator() != null && other.getDimensionValueOperator().equals(this.getDimensionValueOperator()) == false)
+            return false;
+        if (other.getStartTime() == null ^ this.getStartTime() == null)
+            return false;
+        if (other.getStartTime() != null && other.getStartTime().equals(this.getStartTime()) == false)
+            return false;
+        if (other.getEndTime() == null ^ this.getEndTime() == null)
+            return false;
+        if (other.getEndTime() != null && other.getEndTime().equals(this.getEndTime()) == false)
+            return false;
+        if (other.getMaxResults() == null ^ this.getMaxResults() == null)
+            return false;
+        if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
+            return false;
+        if (other.getNextToken() == null ^ this.getNextToken() == null)
+            return false;
+        if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getThingName() == null) ? 0 : getThingName().hashCode());
+        hashCode = prime * hashCode + ((getMetricName() == null) ? 0 : getMetricName().hashCode());
+        hashCode = prime * hashCode + ((getDimensionName() == null) ? 0 : getDimensionName().hashCode());
+        hashCode = prime * hashCode + ((getDimensionValueOperator() == null) ? 0 : getDimensionValueOperator().hashCode());
+        hashCode = prime * hashCode + ((getStartTime() == null) ? 0 : getStartTime().hashCode());
+        hashCode = prime * hashCode + ((getEndTime() == null) ? 0 : getEndTime().hashCode());
+        hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
+        hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public ListMetricValuesRequest clone() {
+        return (ListMetricValuesRequest) super.clone();
+    }
+
+}

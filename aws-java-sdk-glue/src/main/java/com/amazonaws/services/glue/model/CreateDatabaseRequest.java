@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,27 +27,33 @@ public class CreateDatabaseRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The ID of the Data Catalog in which to create the database. If none is supplied, the AWS account ID is used by
-     * default.
+     * The ID of the Data Catalog in which to create the database. If none is provided, the Amazon Web Services account
+     * ID is used by default.
      * </p>
      */
     private String catalogId;
     /**
      * <p>
-     * A <code>DatabaseInput</code> object defining the metadata database to create in the catalog.
+     * The metadata for the database.
      * </p>
      */
     private DatabaseInput databaseInput;
+    /**
+     * <p>
+     * The tags you assign to the database.
+     * </p>
+     */
+    private java.util.Map<String, String> tags;
 
     /**
      * <p>
-     * The ID of the Data Catalog in which to create the database. If none is supplied, the AWS account ID is used by
-     * default.
+     * The ID of the Data Catalog in which to create the database. If none is provided, the Amazon Web Services account
+     * ID is used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog in which to create the database. If none is supplied, the AWS account ID is
-     *        used by default.
+     *        The ID of the Data Catalog in which to create the database. If none is provided, the Amazon Web Services
+     *        account ID is used by default.
      */
 
     public void setCatalogId(String catalogId) {
@@ -56,12 +62,12 @@ public class CreateDatabaseRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The ID of the Data Catalog in which to create the database. If none is supplied, the AWS account ID is used by
-     * default.
+     * The ID of the Data Catalog in which to create the database. If none is provided, the Amazon Web Services account
+     * ID is used by default.
      * </p>
      * 
-     * @return The ID of the Data Catalog in which to create the database. If none is supplied, the AWS account ID is
-     *         used by default.
+     * @return The ID of the Data Catalog in which to create the database. If none is provided, the Amazon Web Services
+     *         account ID is used by default.
      */
 
     public String getCatalogId() {
@@ -70,13 +76,13 @@ public class CreateDatabaseRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The ID of the Data Catalog in which to create the database. If none is supplied, the AWS account ID is used by
-     * default.
+     * The ID of the Data Catalog in which to create the database. If none is provided, the Amazon Web Services account
+     * ID is used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog in which to create the database. If none is supplied, the AWS account ID is
-     *        used by default.
+     *        The ID of the Data Catalog in which to create the database. If none is provided, the Amazon Web Services
+     *        account ID is used by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -87,11 +93,11 @@ public class CreateDatabaseRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A <code>DatabaseInput</code> object defining the metadata database to create in the catalog.
+     * The metadata for the database.
      * </p>
      * 
      * @param databaseInput
-     *        A <code>DatabaseInput</code> object defining the metadata database to create in the catalog.
+     *        The metadata for the database.
      */
 
     public void setDatabaseInput(DatabaseInput databaseInput) {
@@ -100,10 +106,10 @@ public class CreateDatabaseRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A <code>DatabaseInput</code> object defining the metadata database to create in the catalog.
+     * The metadata for the database.
      * </p>
      * 
-     * @return A <code>DatabaseInput</code> object defining the metadata database to create in the catalog.
+     * @return The metadata for the database.
      */
 
     public DatabaseInput getDatabaseInput() {
@@ -112,16 +118,84 @@ public class CreateDatabaseRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A <code>DatabaseInput</code> object defining the metadata database to create in the catalog.
+     * The metadata for the database.
      * </p>
      * 
      * @param databaseInput
-     *        A <code>DatabaseInput</code> object defining the metadata database to create in the catalog.
+     *        The metadata for the database.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateDatabaseRequest withDatabaseInput(DatabaseInput databaseInput) {
         setDatabaseInput(databaseInput);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags you assign to the database.
+     * </p>
+     * 
+     * @return The tags you assign to the database.
+     */
+
+    public java.util.Map<String, String> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The tags you assign to the database.
+     * </p>
+     * 
+     * @param tags
+     *        The tags you assign to the database.
+     */
+
+    public void setTags(java.util.Map<String, String> tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * <p>
+     * The tags you assign to the database.
+     * </p>
+     * 
+     * @param tags
+     *        The tags you assign to the database.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDatabaseRequest withTags(java.util.Map<String, String> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateDatabaseRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDatabaseRequest addTagsEntry(String key, String value) {
+        if (null == this.tags) {
+            this.tags = new java.util.HashMap<String, String>();
+        }
+        if (this.tags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.tags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Tags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDatabaseRequest clearTagsEntries() {
+        this.tags = null;
         return this;
     }
 
@@ -140,7 +214,9 @@ public class CreateDatabaseRequest extends com.amazonaws.AmazonWebServiceRequest
         if (getCatalogId() != null)
             sb.append("CatalogId: ").append(getCatalogId()).append(",");
         if (getDatabaseInput() != null)
-            sb.append("DatabaseInput: ").append(getDatabaseInput());
+            sb.append("DatabaseInput: ").append(getDatabaseInput()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -163,6 +239,10 @@ public class CreateDatabaseRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getDatabaseInput() != null && other.getDatabaseInput().equals(this.getDatabaseInput()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -173,6 +253,7 @@ public class CreateDatabaseRequest extends com.amazonaws.AmazonWebServiceRequest
 
         hashCode = prime * hashCode + ((getCatalogId() == null) ? 0 : getCatalogId().hashCode());
         hashCode = prime * hashCode + ((getDatabaseInput() == null) ? 0 : getDatabaseInput().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

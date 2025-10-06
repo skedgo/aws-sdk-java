@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,7 +38,27 @@ public class AbstractAWSElasticsearch implements AWSElasticsearch {
     }
 
     @Override
+    public AcceptInboundCrossClusterSearchConnectionResult acceptInboundCrossClusterSearchConnection(AcceptInboundCrossClusterSearchConnectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public AddTagsResult addTags(AddTagsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociatePackageResult associatePackage(AssociatePackageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AuthorizeVpcEndpointAccessResult authorizeVpcEndpointAccess(AuthorizeVpcEndpointAccessRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CancelDomainConfigChangeResult cancelDomainConfigChange(CancelDomainConfigChangeRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -53,12 +73,57 @@ public class AbstractAWSElasticsearch implements AWSElasticsearch {
     }
 
     @Override
+    public CreateOutboundCrossClusterSearchConnectionResult createOutboundCrossClusterSearchConnection(CreateOutboundCrossClusterSearchConnectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreatePackageResult createPackage(CreatePackageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateVpcEndpointResult createVpcEndpoint(CreateVpcEndpointRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteElasticsearchDomainResult deleteElasticsearchDomain(DeleteElasticsearchDomainRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public DeleteElasticsearchServiceRoleResult deleteElasticsearchServiceRole(DeleteElasticsearchServiceRoleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteInboundCrossClusterSearchConnectionResult deleteInboundCrossClusterSearchConnection(DeleteInboundCrossClusterSearchConnectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteOutboundCrossClusterSearchConnectionResult deleteOutboundCrossClusterSearchConnection(DeleteOutboundCrossClusterSearchConnectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeletePackageResult deletePackage(DeletePackageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteVpcEndpointResult deleteVpcEndpoint(DeleteVpcEndpointRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeDomainAutoTunesResult describeDomainAutoTunes(DescribeDomainAutoTunesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeDomainChangeProgressResult describeDomainChangeProgress(DescribeDomainChangeProgressRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -83,6 +148,23 @@ public class AbstractAWSElasticsearch implements AWSElasticsearch {
     }
 
     @Override
+    public DescribeInboundCrossClusterSearchConnectionsResult describeInboundCrossClusterSearchConnections(
+            DescribeInboundCrossClusterSearchConnectionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeOutboundCrossClusterSearchConnectionsResult describeOutboundCrossClusterSearchConnections(
+            DescribeOutboundCrossClusterSearchConnectionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribePackagesResult describePackages(DescribePackagesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeReservedElasticsearchInstanceOfferingsResult describeReservedElasticsearchInstanceOfferings(
             DescribeReservedElasticsearchInstanceOfferingsRequest request) {
         throw new java.lang.UnsupportedOperationException();
@@ -94,7 +176,22 @@ public class AbstractAWSElasticsearch implements AWSElasticsearch {
     }
 
     @Override
+    public DescribeVpcEndpointsResult describeVpcEndpoints(DescribeVpcEndpointsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DissociatePackageResult dissociatePackage(DissociatePackageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetCompatibleElasticsearchVersionsResult getCompatibleElasticsearchVersions(GetCompatibleElasticsearchVersionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetPackageVersionHistoryResult getPackageVersionHistory(GetPackageVersionHistoryRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -114,6 +211,11 @@ public class AbstractAWSElasticsearch implements AWSElasticsearch {
     }
 
     @Override
+    public ListDomainsForPackageResult listDomainsForPackage(ListDomainsForPackageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListElasticsearchInstanceTypesResult listElasticsearchInstanceTypes(ListElasticsearchInstanceTypesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -124,7 +226,27 @@ public class AbstractAWSElasticsearch implements AWSElasticsearch {
     }
 
     @Override
+    public ListPackagesForDomainResult listPackagesForDomain(ListPackagesForDomainRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListTagsResult listTags(ListTagsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListVpcEndpointAccessResult listVpcEndpointAccess(ListVpcEndpointAccessRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListVpcEndpointsResult listVpcEndpoints(ListVpcEndpointsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListVpcEndpointsForDomainResult listVpcEndpointsForDomain(ListVpcEndpointsForDomainRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -135,7 +257,17 @@ public class AbstractAWSElasticsearch implements AWSElasticsearch {
     }
 
     @Override
+    public RejectInboundCrossClusterSearchConnectionResult rejectInboundCrossClusterSearchConnection(RejectInboundCrossClusterSearchConnectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public RemoveTagsResult removeTags(RemoveTagsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public RevokeVpcEndpointAccessResult revokeVpcEndpointAccess(RevokeVpcEndpointAccessRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -146,6 +278,16 @@ public class AbstractAWSElasticsearch implements AWSElasticsearch {
 
     @Override
     public UpdateElasticsearchDomainConfigResult updateElasticsearchDomainConfig(UpdateElasticsearchDomainConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdatePackageResult updatePackage(UpdatePackageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateVpcEndpointResult updateVpcEndpoint(UpdateVpcEndpointRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

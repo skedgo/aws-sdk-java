@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -67,7 +67,7 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
     private Integer zeppelinRemoteSparkInterpreterPort;
     /**
      * <p>
-     * The number of AWS Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
+     * The number of Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
      * </p>
      */
     private Integer numberOfNodes;
@@ -80,13 +80,24 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
     private String workerType;
     /**
      * <p>
+     * Glue version determines the versions of Apache Spark and Python that Glue supports. The Python version indicates
+     * the version supported for running your ETL scripts on development endpoints.
+     * </p>
+     * <p>
+     * For more information about the available Glue versions and corresponding Spark and Python versions, see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
+     * </p>
+     */
+    private String glueVersion;
+    /**
+     * <p>
      * The number of workers of a defined <code>workerType</code> that are allocated to the development endpoint.
      * </p>
      */
     private Integer numberOfWorkers;
     /**
      * <p>
-     * The AWS Availability Zone where this <code>DevEndpoint</code> is located.
+     * The Amazon Web Services Availability Zone where this <code>DevEndpoint</code> is located.
      * </p>
      */
     private String availabilityZone;
@@ -130,6 +141,21 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
     /**
      * <p>
      * The map of arguments used to configure this <code>DevEndpoint</code>.
+     * </p>
+     * <p>
+     * Valid arguments are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"--enable-glue-datacatalog": ""</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can specify a version of Python support for development endpoints by using the <code>Arguments</code>
+     * parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments are
+     * provided, the version defaults to Python 2.
      * </p>
      */
     private java.util.Map<String, String> arguments;
@@ -446,11 +472,11 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The number of AWS Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
+     * The number of Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
      * </p>
      * 
      * @param numberOfNodes
-     *        The number of AWS Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
+     *        The number of Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
      */
 
     public void setNumberOfNodes(Integer numberOfNodes) {
@@ -459,10 +485,10 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The number of AWS Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
+     * The number of Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
      * </p>
      * 
-     * @return The number of AWS Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
+     * @return The number of Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
      */
 
     public Integer getNumberOfNodes() {
@@ -471,11 +497,11 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The number of AWS Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
+     * The number of Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
      * </p>
      * 
      * @param numberOfNodes
-     *        The number of AWS Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
+     *        The number of Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -553,6 +579,74 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
+     * Glue version determines the versions of Apache Spark and Python that Glue supports. The Python version indicates
+     * the version supported for running your ETL scripts on development endpoints.
+     * </p>
+     * <p>
+     * For more information about the available Glue versions and corresponding Spark and Python versions, see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
+     * </p>
+     * 
+     * @param glueVersion
+     *        Glue version determines the versions of Apache Spark and Python that Glue supports. The Python version
+     *        indicates the version supported for running your ETL scripts on development endpoints. </p>
+     *        <p>
+     *        For more information about the available Glue versions and corresponding Spark and Python versions, see <a
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
+     */
+
+    public void setGlueVersion(String glueVersion) {
+        this.glueVersion = glueVersion;
+    }
+
+    /**
+     * <p>
+     * Glue version determines the versions of Apache Spark and Python that Glue supports. The Python version indicates
+     * the version supported for running your ETL scripts on development endpoints.
+     * </p>
+     * <p>
+     * For more information about the available Glue versions and corresponding Spark and Python versions, see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
+     * </p>
+     * 
+     * @return Glue version determines the versions of Apache Spark and Python that Glue supports. The Python version
+     *         indicates the version supported for running your ETL scripts on development endpoints. </p>
+     *         <p>
+     *         For more information about the available Glue versions and corresponding Spark and Python versions, see
+     *         <a href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer
+     *         guide.
+     */
+
+    public String getGlueVersion() {
+        return this.glueVersion;
+    }
+
+    /**
+     * <p>
+     * Glue version determines the versions of Apache Spark and Python that Glue supports. The Python version indicates
+     * the version supported for running your ETL scripts on development endpoints.
+     * </p>
+     * <p>
+     * For more information about the available Glue versions and corresponding Spark and Python versions, see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
+     * </p>
+     * 
+     * @param glueVersion
+     *        Glue version determines the versions of Apache Spark and Python that Glue supports. The Python version
+     *        indicates the version supported for running your ETL scripts on development endpoints. </p>
+     *        <p>
+     *        For more information about the available Glue versions and corresponding Spark and Python versions, see <a
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDevEndpointResult withGlueVersion(String glueVersion) {
+        setGlueVersion(glueVersion);
+        return this;
+    }
+
+    /**
+     * <p>
      * The number of workers of a defined <code>workerType</code> that are allocated to the development endpoint.
      * </p>
      * 
@@ -594,11 +688,11 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The AWS Availability Zone where this <code>DevEndpoint</code> is located.
+     * The Amazon Web Services Availability Zone where this <code>DevEndpoint</code> is located.
      * </p>
      * 
      * @param availabilityZone
-     *        The AWS Availability Zone where this <code>DevEndpoint</code> is located.
+     *        The Amazon Web Services Availability Zone where this <code>DevEndpoint</code> is located.
      */
 
     public void setAvailabilityZone(String availabilityZone) {
@@ -607,10 +701,10 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The AWS Availability Zone where this <code>DevEndpoint</code> is located.
+     * The Amazon Web Services Availability Zone where this <code>DevEndpoint</code> is located.
      * </p>
      * 
-     * @return The AWS Availability Zone where this <code>DevEndpoint</code> is located.
+     * @return The Amazon Web Services Availability Zone where this <code>DevEndpoint</code> is located.
      */
 
     public String getAvailabilityZone() {
@@ -619,11 +713,11 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The AWS Availability Zone where this <code>DevEndpoint</code> is located.
+     * The Amazon Web Services Availability Zone where this <code>DevEndpoint</code> is located.
      * </p>
      * 
      * @param availabilityZone
-     *        The AWS Availability Zone where this <code>DevEndpoint</code> is located.
+     *        The Amazon Web Services Availability Zone where this <code>DevEndpoint</code> is located.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -888,8 +982,37 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
      * <p>
      * The map of arguments used to configure this <code>DevEndpoint</code>.
      * </p>
+     * <p>
+     * Valid arguments are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"--enable-glue-datacatalog": ""</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can specify a version of Python support for development endpoints by using the <code>Arguments</code>
+     * parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments are
+     * provided, the version defaults to Python 2.
+     * </p>
      * 
-     * @return The map of arguments used to configure this <code>DevEndpoint</code>.
+     * @return The map of arguments used to configure this <code>DevEndpoint</code>.</p>
+     *         <p>
+     *         Valid arguments are:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>"--enable-glue-datacatalog": ""</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         You can specify a version of Python support for development endpoints by using the <code>Arguments</code>
+     *         parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments
+     *         are provided, the version defaults to Python 2.
      */
 
     public java.util.Map<String, String> getArguments() {
@@ -900,9 +1023,38 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
      * <p>
      * The map of arguments used to configure this <code>DevEndpoint</code>.
      * </p>
+     * <p>
+     * Valid arguments are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"--enable-glue-datacatalog": ""</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can specify a version of Python support for development endpoints by using the <code>Arguments</code>
+     * parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments are
+     * provided, the version defaults to Python 2.
+     * </p>
      * 
      * @param arguments
-     *        The map of arguments used to configure this <code>DevEndpoint</code>.
+     *        The map of arguments used to configure this <code>DevEndpoint</code>.</p>
+     *        <p>
+     *        Valid arguments are:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>"--enable-glue-datacatalog": ""</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        You can specify a version of Python support for development endpoints by using the <code>Arguments</code>
+     *        parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments
+     *        are provided, the version defaults to Python 2.
      */
 
     public void setArguments(java.util.Map<String, String> arguments) {
@@ -913,9 +1065,38 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
      * <p>
      * The map of arguments used to configure this <code>DevEndpoint</code>.
      * </p>
+     * <p>
+     * Valid arguments are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"--enable-glue-datacatalog": ""</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can specify a version of Python support for development endpoints by using the <code>Arguments</code>
+     * parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments are
+     * provided, the version defaults to Python 2.
+     * </p>
      * 
      * @param arguments
-     *        The map of arguments used to configure this <code>DevEndpoint</code>.
+     *        The map of arguments used to configure this <code>DevEndpoint</code>.</p>
+     *        <p>
+     *        Valid arguments are:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>"--enable-glue-datacatalog": ""</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        You can specify a version of Python support for development endpoints by using the <code>Arguments</code>
+     *        parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments
+     *        are provided, the version defaults to Python 2.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -923,6 +1104,13 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
         setArguments(arguments);
         return this;
     }
+
+    /**
+     * Add a single Arguments entry
+     *
+     * @see CreateDevEndpointResult#withArguments
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateDevEndpointResult addArgumentsEntry(String key, String value) {
         if (null == this.arguments) {
@@ -975,6 +1163,8 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
             sb.append("NumberOfNodes: ").append(getNumberOfNodes()).append(",");
         if (getWorkerType() != null)
             sb.append("WorkerType: ").append(getWorkerType()).append(",");
+        if (getGlueVersion() != null)
+            sb.append("GlueVersion: ").append(getGlueVersion()).append(",");
         if (getNumberOfWorkers() != null)
             sb.append("NumberOfWorkers: ").append(getNumberOfWorkers()).append(",");
         if (getAvailabilityZone() != null)
@@ -1044,6 +1234,10 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
             return false;
         if (other.getWorkerType() != null && other.getWorkerType().equals(this.getWorkerType()) == false)
             return false;
+        if (other.getGlueVersion() == null ^ this.getGlueVersion() == null)
+            return false;
+        if (other.getGlueVersion() != null && other.getGlueVersion().equals(this.getGlueVersion()) == false)
+            return false;
         if (other.getNumberOfWorkers() == null ^ this.getNumberOfWorkers() == null)
             return false;
         if (other.getNumberOfWorkers() != null && other.getNumberOfWorkers().equals(this.getNumberOfWorkers()) == false)
@@ -1097,6 +1291,7 @@ public class CreateDevEndpointResult extends com.amazonaws.AmazonWebServiceResul
         hashCode = prime * hashCode + ((getZeppelinRemoteSparkInterpreterPort() == null) ? 0 : getZeppelinRemoteSparkInterpreterPort().hashCode());
         hashCode = prime * hashCode + ((getNumberOfNodes() == null) ? 0 : getNumberOfNodes().hashCode());
         hashCode = prime * hashCode + ((getWorkerType() == null) ? 0 : getWorkerType().hashCode());
+        hashCode = prime * hashCode + ((getGlueVersion() == null) ? 0 : getGlueVersion().hashCode());
         hashCode = prime * hashCode + ((getNumberOfWorkers() == null) ? 0 : getNumberOfWorkers().hashCode());
         hashCode = prime * hashCode + ((getAvailabilityZone() == null) ? 0 : getAvailabilityZone().hashCode());
         hashCode = prime * hashCode + ((getVpcId() == null) ? 0 : getVpcId().hashCode());

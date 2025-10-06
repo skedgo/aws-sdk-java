@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The response object for <code>DeleteBackup</code> operation.
+ * The response object for the <code>DeleteBackup</code> operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/DeleteBackup" target="_top">AWS API
@@ -28,24 +28,25 @@ public class DeleteBackupResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The ID of the backup deleted.
+     * The ID of the backup that was deleted.
      * </p>
      */
     private String backupId;
     /**
      * <p>
-     * The lifecycle of the backup. Should be <code>DELETED</code>.
+     * The lifecycle status of the backup. If the <code>DeleteBackup</code> operation is successful, the status is
+     * <code>DELETED</code>.
      * </p>
      */
     private String lifecycle;
 
     /**
      * <p>
-     * The ID of the backup deleted.
+     * The ID of the backup that was deleted.
      * </p>
      * 
      * @param backupId
-     *        The ID of the backup deleted.
+     *        The ID of the backup that was deleted.
      */
 
     public void setBackupId(String backupId) {
@@ -54,10 +55,10 @@ public class DeleteBackupResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The ID of the backup deleted.
+     * The ID of the backup that was deleted.
      * </p>
      * 
-     * @return The ID of the backup deleted.
+     * @return The ID of the backup that was deleted.
      */
 
     public String getBackupId() {
@@ -66,11 +67,11 @@ public class DeleteBackupResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The ID of the backup deleted.
+     * The ID of the backup that was deleted.
      * </p>
      * 
      * @param backupId
-     *        The ID of the backup deleted.
+     *        The ID of the backup that was deleted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -81,11 +82,13 @@ public class DeleteBackupResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The lifecycle of the backup. Should be <code>DELETED</code>.
+     * The lifecycle status of the backup. If the <code>DeleteBackup</code> operation is successful, the status is
+     * <code>DELETED</code>.
      * </p>
      * 
      * @param lifecycle
-     *        The lifecycle of the backup. Should be <code>DELETED</code>.
+     *        The lifecycle status of the backup. If the <code>DeleteBackup</code> operation is successful, the status
+     *        is <code>DELETED</code>.
      * @see BackupLifecycle
      */
 
@@ -95,10 +98,12 @@ public class DeleteBackupResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The lifecycle of the backup. Should be <code>DELETED</code>.
+     * The lifecycle status of the backup. If the <code>DeleteBackup</code> operation is successful, the status is
+     * <code>DELETED</code>.
      * </p>
      * 
-     * @return The lifecycle of the backup. Should be <code>DELETED</code>.
+     * @return The lifecycle status of the backup. If the <code>DeleteBackup</code> operation is successful, the status
+     *         is <code>DELETED</code>.
      * @see BackupLifecycle
      */
 
@@ -108,11 +113,13 @@ public class DeleteBackupResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The lifecycle of the backup. Should be <code>DELETED</code>.
+     * The lifecycle status of the backup. If the <code>DeleteBackup</code> operation is successful, the status is
+     * <code>DELETED</code>.
      * </p>
      * 
      * @param lifecycle
-     *        The lifecycle of the backup. Should be <code>DELETED</code>.
+     *        The lifecycle status of the backup. If the <code>DeleteBackup</code> operation is successful, the status
+     *        is <code>DELETED</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see BackupLifecycle
      */
@@ -124,11 +131,13 @@ public class DeleteBackupResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The lifecycle of the backup. Should be <code>DELETED</code>.
+     * The lifecycle status of the backup. If the <code>DeleteBackup</code> operation is successful, the status is
+     * <code>DELETED</code>.
      * </p>
      * 
      * @param lifecycle
-     *        The lifecycle of the backup. Should be <code>DELETED</code>.
+     *        The lifecycle status of the backup. If the <code>DeleteBackup</code> operation is successful, the status
+     *        is <code>DELETED</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see BackupLifecycle
      */

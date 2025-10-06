@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -62,6 +62,11 @@ public class OrderableDBInstanceOptionStaxUnmarshaller implements Unmarshaller<O
 
                 if (context.testExpression("LicenseModel", targetDepth)) {
                     orderableDBInstanceOption.setLicenseModel(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("AvailabilityZoneGroup", targetDepth)) {
+                    orderableDBInstanceOption.setAvailabilityZoneGroup(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
 
@@ -172,6 +177,76 @@ public class OrderableDBInstanceOptionStaxUnmarshaller implements Unmarshaller<O
 
                 if (context.testExpression("SupportsStorageAutoscaling", targetDepth)) {
                     orderableDBInstanceOption.setSupportsStorageAutoscaling(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportsKerberosAuthentication", targetDepth)) {
+                    orderableDBInstanceOption.setSupportsKerberosAuthentication(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("OutpostCapable", targetDepth)) {
+                    orderableDBInstanceOption.setOutpostCapable(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportedActivityStreamModes", targetDepth)) {
+                    orderableDBInstanceOption.withSupportedActivityStreamModes(new ArrayList<String>());
+                    continue;
+                }
+
+                if (context.testExpression("SupportedActivityStreamModes/member", targetDepth)) {
+                    orderableDBInstanceOption.withSupportedActivityStreamModes(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportsGlobalDatabases", targetDepth)) {
+                    orderableDBInstanceOption.setSupportsGlobalDatabases(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportsClusters", targetDepth)) {
+                    orderableDBInstanceOption.setSupportsClusters(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportedNetworkTypes", targetDepth)) {
+                    orderableDBInstanceOption.withSupportedNetworkTypes(new ArrayList<String>());
+                    continue;
+                }
+
+                if (context.testExpression("SupportedNetworkTypes/member", targetDepth)) {
+                    orderableDBInstanceOption.withSupportedNetworkTypes(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportsStorageThroughput", targetDepth)) {
+                    orderableDBInstanceOption.setSupportsStorageThroughput(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MinStorageThroughputPerDbInstance", targetDepth)) {
+                    orderableDBInstanceOption.setMinStorageThroughputPerDbInstance(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MaxStorageThroughputPerDbInstance", targetDepth)) {
+                    orderableDBInstanceOption.setMaxStorageThroughputPerDbInstance(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MinStorageThroughputPerIops", targetDepth)) {
+                    orderableDBInstanceOption.setMinStorageThroughputPerIops(DoubleStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MaxStorageThroughputPerIops", targetDepth)) {
+                    orderableDBInstanceOption.setMaxStorageThroughputPerIops(DoubleStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportsDedicatedLogVolume", targetDepth)) {
+                    orderableDBInstanceOption.setSupportsDedicatedLogVolume(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,12 +41,16 @@ public class RegisterCertificateRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * A boolean value that specifies if the certificate is set to active.
      * </p>
+     * <p>
+     * Valid values: <code>ACTIVE | INACTIVE</code>
+     * </p>
      */
     @Deprecated
     private Boolean setAsActive;
     /**
      * <p>
-     * The status of the register certificate request.
+     * The status of the register certificate request. Valid values that you can use include <code>ACTIVE</code>,
+     * <code>INACTIVE</code>, and <code>REVOKED</code>.
      * </p>
      */
     private String status;
@@ -135,9 +139,14 @@ public class RegisterCertificateRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * A boolean value that specifies if the certificate is set to active.
      * </p>
+     * <p>
+     * Valid values: <code>ACTIVE | INACTIVE</code>
+     * </p>
      * 
      * @param setAsActive
-     *        A boolean value that specifies if the certificate is set to active.
+     *        A boolean value that specifies if the certificate is set to active.</p>
+     *        <p>
+     *        Valid values: <code>ACTIVE | INACTIVE</code>
      */
     @Deprecated
     public void setSetAsActive(Boolean setAsActive) {
@@ -148,8 +157,13 @@ public class RegisterCertificateRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * A boolean value that specifies if the certificate is set to active.
      * </p>
+     * <p>
+     * Valid values: <code>ACTIVE | INACTIVE</code>
+     * </p>
      * 
-     * @return A boolean value that specifies if the certificate is set to active.
+     * @return A boolean value that specifies if the certificate is set to active.</p>
+     *         <p>
+     *         Valid values: <code>ACTIVE | INACTIVE</code>
      */
     @Deprecated
     public Boolean getSetAsActive() {
@@ -160,9 +174,14 @@ public class RegisterCertificateRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * A boolean value that specifies if the certificate is set to active.
      * </p>
+     * <p>
+     * Valid values: <code>ACTIVE | INACTIVE</code>
+     * </p>
      * 
      * @param setAsActive
-     *        A boolean value that specifies if the certificate is set to active.
+     *        A boolean value that specifies if the certificate is set to active.</p>
+     *        <p>
+     *        Valid values: <code>ACTIVE | INACTIVE</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
     @Deprecated
@@ -175,8 +194,13 @@ public class RegisterCertificateRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * A boolean value that specifies if the certificate is set to active.
      * </p>
+     * <p>
+     * Valid values: <code>ACTIVE | INACTIVE</code>
+     * </p>
      * 
-     * @return A boolean value that specifies if the certificate is set to active.
+     * @return A boolean value that specifies if the certificate is set to active.</p>
+     *         <p>
+     *         Valid values: <code>ACTIVE | INACTIVE</code>
      */
     @Deprecated
     public Boolean isSetAsActive() {
@@ -185,11 +209,13 @@ public class RegisterCertificateRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The status of the register certificate request.
+     * The status of the register certificate request. Valid values that you can use include <code>ACTIVE</code>,
+     * <code>INACTIVE</code>, and <code>REVOKED</code>.
      * </p>
      * 
      * @param status
-     *        The status of the register certificate request.
+     *        The status of the register certificate request. Valid values that you can use include <code>ACTIVE</code>,
+     *        <code>INACTIVE</code>, and <code>REVOKED</code>.
      * @see CertificateStatus
      */
 
@@ -199,10 +225,12 @@ public class RegisterCertificateRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The status of the register certificate request.
+     * The status of the register certificate request. Valid values that you can use include <code>ACTIVE</code>,
+     * <code>INACTIVE</code>, and <code>REVOKED</code>.
      * </p>
      * 
-     * @return The status of the register certificate request.
+     * @return The status of the register certificate request. Valid values that you can use include <code>ACTIVE</code>
+     *         , <code>INACTIVE</code>, and <code>REVOKED</code>.
      * @see CertificateStatus
      */
 
@@ -212,11 +240,13 @@ public class RegisterCertificateRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The status of the register certificate request.
+     * The status of the register certificate request. Valid values that you can use include <code>ACTIVE</code>,
+     * <code>INACTIVE</code>, and <code>REVOKED</code>.
      * </p>
      * 
      * @param status
-     *        The status of the register certificate request.
+     *        The status of the register certificate request. Valid values that you can use include <code>ACTIVE</code>,
+     *        <code>INACTIVE</code>, and <code>REVOKED</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CertificateStatus
      */
@@ -228,11 +258,13 @@ public class RegisterCertificateRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The status of the register certificate request.
+     * The status of the register certificate request. Valid values that you can use include <code>ACTIVE</code>,
+     * <code>INACTIVE</code>, and <code>REVOKED</code>.
      * </p>
      * 
      * @param status
-     *        The status of the register certificate request.
+     *        The status of the register certificate request. Valid values that you can use include <code>ACTIVE</code>,
+     *        <code>INACTIVE</code>, and <code>REVOKED</code>.
      * @see CertificateStatus
      */
 
@@ -242,11 +274,13 @@ public class RegisterCertificateRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The status of the register certificate request.
+     * The status of the register certificate request. Valid values that you can use include <code>ACTIVE</code>,
+     * <code>INACTIVE</code>, and <code>REVOKED</code>.
      * </p>
      * 
      * @param status
-     *        The status of the register certificate request.
+     *        The status of the register certificate request. Valid values that you can use include <code>ACTIVE</code>,
+     *        <code>INACTIVE</code>, and <code>REVOKED</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CertificateStatus
      */

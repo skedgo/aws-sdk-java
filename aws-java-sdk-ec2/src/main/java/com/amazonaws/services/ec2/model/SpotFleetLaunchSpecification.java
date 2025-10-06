@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,8 @@ import javax.annotation.Generated;
 /**
  * <p>
  * Describes the launch specification for one or more Spot Instances. If you include On-Demand capacity in your fleet
- * request, you can't use <code>SpotFleetLaunchSpecification</code>; you must use <a
+ * request or want to specify an EFA network device, you can't use <code>SpotFleetLaunchSpecification</code>; you must
+ * use <a
  * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_LaunchTemplateConfig.html">LaunchTemplateConfig</a>.
  * </p>
  * 
@@ -30,8 +31,11 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more security groups. When requesting instances in a VPC, you must specify the IDs of the security groups.
-     * When requesting instances in EC2-Classic, you can specify the names or the IDs of the security groups.
+     * The security groups.
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any security groups as part of the network interface instead
+     * of using this parameter.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<GroupIdentifier> securityGroups;
@@ -43,7 +47,7 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
     private String addressingType;
     /**
      * <p>
-     * One or more block devices that are mapped to the Spot instances. You can't specify both a snapshot ID and an
+     * One or more block devices that are mapped to the Spot Instances. You can't specify both a snapshot ID and an
      * encryption value. This is because only blank volumes can be encrypted on creation. If a snapshot is the basis for
      * a volume, it is not blank and its encryption status is used for the volume encryption status.
      * </p>
@@ -98,9 +102,15 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
     private SpotFleetMonitoring monitoring;
     /**
      * <p>
-     * One or more network interfaces. If you specify a network interface, you must specify subnet IDs and security
-     * group IDs using the network interface.
+     * The network interfaces.
      * </p>
+     * <note>
+     * <p>
+     * <code>SpotFleetLaunchSpecification</code> does not support Elastic Fabric Adapter (EFA). You must use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_LaunchTemplateConfig.html"
+     * >LaunchTemplateConfig</a> instead.
+     * </p>
+     * </note>
      */
     private com.amazonaws.internal.SdkInternalList<InstanceNetworkInterfaceSpecification> networkInterfaces;
     /**
@@ -112,29 +122,39 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
     /**
      * <p>
      * The ID of the RAM disk. Some kernels require additional drivers at launch. Check the kernel requirements for
-     * information about whether you need to specify a RAM disk. To find kernel requirements, refer to the AWS Resource
-     * Center and search for the kernel ID.
+     * information about whether you need to specify a RAM disk. To find kernel requirements, refer to the Amazon Web
+     * Services Resource Center and search for the kernel ID.
      * </p>
      */
     private String ramdiskId;
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance. If this value is not specified,
-     * the default is the Spot price specified for the fleet. To determine the Spot price per unit hour, divide the Spot
-     * price by the value of <code>WeightedCapacity</code>.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      */
     private String spotPrice;
     /**
      * <p>
-     * The ID of the subnet in which to launch the instances. To specify multiple subnets, separate them using commas;
-     * for example, "subnet-a61dafcf, subnet-65ea5f08".
+     * The IDs of the subnets in which to launch the instances. To specify multiple subnets, separate them using commas;
+     * for example, "subnet-1234abcdeexample1, subnet-0987cdef6example2".
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any subnets as part of the network interface instead of
+     * using this parameter.
      * </p>
      */
     private String subnetId;
     /**
      * <p>
-     * The Base64-encoded user data that instances use when starting up.
+     * The base64-encoded user data that instances use when starting up. User data is limited to 16 KB.
      * </p>
      */
     private String userData;
@@ -147,6 +167,14 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
      * If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of instances to
      * the next whole number. If this value is not specified, the default is 1.
      * </p>
+     * <note>
+     * <p>
+     * When specifying weights, the price used in the <code>lowestPrice</code> and <code>priceCapacityOptimized</code>
+     * allocation strategies is per <i>unit</i> hour (where the instance price is divided by the specified weight).
+     * However, if all the specified weights are above the requested <code>TargetCapacity</code>, resulting in only 1
+     * instance being launched, the price used is per <i>instance</i> hour.
+     * </p>
+     * </note>
      */
     private Double weightedCapacity;
     /**
@@ -155,16 +183,32 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<SpotFleetTagSpecification> tagSpecifications;
+    /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with those attributes.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * </note>
+     */
+    private InstanceRequirements instanceRequirements;
 
     /**
      * <p>
-     * One or more security groups. When requesting instances in a VPC, you must specify the IDs of the security groups.
-     * When requesting instances in EC2-Classic, you can specify the names or the IDs of the security groups.
+     * The security groups.
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any security groups as part of the network interface instead
+     * of using this parameter.
      * </p>
      * 
-     * @return One or more security groups. When requesting instances in a VPC, you must specify the IDs of the security
-     *         groups. When requesting instances in EC2-Classic, you can specify the names or the IDs of the security
-     *         groups.
+     * @return The security groups.</p>
+     *         <p>
+     *         If you specify a network interface, you must specify any security groups as part of the network interface
+     *         instead of using this parameter.
      */
 
     public java.util.List<GroupIdentifier> getSecurityGroups() {
@@ -176,14 +220,18 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more security groups. When requesting instances in a VPC, you must specify the IDs of the security groups.
-     * When requesting instances in EC2-Classic, you can specify the names or the IDs of the security groups.
+     * The security groups.
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any security groups as part of the network interface instead
+     * of using this parameter.
      * </p>
      * 
      * @param securityGroups
-     *        One or more security groups. When requesting instances in a VPC, you must specify the IDs of the security
-     *        groups. When requesting instances in EC2-Classic, you can specify the names or the IDs of the security
-     *        groups.
+     *        The security groups.</p>
+     *        <p>
+     *        If you specify a network interface, you must specify any security groups as part of the network interface
+     *        instead of using this parameter.
      */
 
     public void setSecurityGroups(java.util.Collection<GroupIdentifier> securityGroups) {
@@ -197,8 +245,11 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more security groups. When requesting instances in a VPC, you must specify the IDs of the security groups.
-     * When requesting instances in EC2-Classic, you can specify the names or the IDs of the security groups.
+     * The security groups.
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any security groups as part of the network interface instead
+     * of using this parameter.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -207,9 +258,10 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
      * </p>
      * 
      * @param securityGroups
-     *        One or more security groups. When requesting instances in a VPC, you must specify the IDs of the security
-     *        groups. When requesting instances in EC2-Classic, you can specify the names or the IDs of the security
-     *        groups.
+     *        The security groups.</p>
+     *        <p>
+     *        If you specify a network interface, you must specify any security groups as part of the network interface
+     *        instead of using this parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -225,14 +277,18 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more security groups. When requesting instances in a VPC, you must specify the IDs of the security groups.
-     * When requesting instances in EC2-Classic, you can specify the names or the IDs of the security groups.
+     * The security groups.
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any security groups as part of the network interface instead
+     * of using this parameter.
      * </p>
      * 
      * @param securityGroups
-     *        One or more security groups. When requesting instances in a VPC, you must specify the IDs of the security
-     *        groups. When requesting instances in EC2-Classic, you can specify the names or the IDs of the security
-     *        groups.
+     *        The security groups.</p>
+     *        <p>
+     *        If you specify a network interface, you must specify any security groups as part of the network interface
+     *        instead of using this parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -283,12 +339,12 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more block devices that are mapped to the Spot instances. You can't specify both a snapshot ID and an
+     * One or more block devices that are mapped to the Spot Instances. You can't specify both a snapshot ID and an
      * encryption value. This is because only blank volumes can be encrypted on creation. If a snapshot is the basis for
      * a volume, it is not blank and its encryption status is used for the volume encryption status.
      * </p>
      * 
-     * @return One or more block devices that are mapped to the Spot instances. You can't specify both a snapshot ID and
+     * @return One or more block devices that are mapped to the Spot Instances. You can't specify both a snapshot ID and
      *         an encryption value. This is because only blank volumes can be encrypted on creation. If a snapshot is
      *         the basis for a volume, it is not blank and its encryption status is used for the volume encryption
      *         status.
@@ -303,13 +359,13 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more block devices that are mapped to the Spot instances. You can't specify both a snapshot ID and an
+     * One or more block devices that are mapped to the Spot Instances. You can't specify both a snapshot ID and an
      * encryption value. This is because only blank volumes can be encrypted on creation. If a snapshot is the basis for
      * a volume, it is not blank and its encryption status is used for the volume encryption status.
      * </p>
      * 
      * @param blockDeviceMappings
-     *        One or more block devices that are mapped to the Spot instances. You can't specify both a snapshot ID and
+     *        One or more block devices that are mapped to the Spot Instances. You can't specify both a snapshot ID and
      *        an encryption value. This is because only blank volumes can be encrypted on creation. If a snapshot is the
      *        basis for a volume, it is not blank and its encryption status is used for the volume encryption status.
      */
@@ -325,7 +381,7 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more block devices that are mapped to the Spot instances. You can't specify both a snapshot ID and an
+     * One or more block devices that are mapped to the Spot Instances. You can't specify both a snapshot ID and an
      * encryption value. This is because only blank volumes can be encrypted on creation. If a snapshot is the basis for
      * a volume, it is not blank and its encryption status is used for the volume encryption status.
      * </p>
@@ -336,7 +392,7 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
      * </p>
      * 
      * @param blockDeviceMappings
-     *        One or more block devices that are mapped to the Spot instances. You can't specify both a snapshot ID and
+     *        One or more block devices that are mapped to the Spot Instances. You can't specify both a snapshot ID and
      *        an encryption value. This is because only blank volumes can be encrypted on creation. If a snapshot is the
      *        basis for a volume, it is not blank and its encryption status is used for the volume encryption status.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -354,13 +410,13 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more block devices that are mapped to the Spot instances. You can't specify both a snapshot ID and an
+     * One or more block devices that are mapped to the Spot Instances. You can't specify both a snapshot ID and an
      * encryption value. This is because only blank volumes can be encrypted on creation. If a snapshot is the basis for
      * a volume, it is not blank and its encryption status is used for the volume encryption status.
      * </p>
      * 
      * @param blockDeviceMappings
-     *        One or more block devices that are mapped to the Spot instances. You can't specify both a snapshot ID and
+     *        One or more block devices that are mapped to the Spot Instances. You can't specify both a snapshot ID and
      *        an encryption value. This is because only blank volumes can be encrypted on creation. If a snapshot is the
      *        basis for a volume, it is not blank and its encryption status is used for the volume encryption status.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -738,12 +794,22 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more network interfaces. If you specify a network interface, you must specify subnet IDs and security
-     * group IDs using the network interface.
+     * The network interfaces.
      * </p>
+     * <note>
+     * <p>
+     * <code>SpotFleetLaunchSpecification</code> does not support Elastic Fabric Adapter (EFA). You must use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_LaunchTemplateConfig.html"
+     * >LaunchTemplateConfig</a> instead.
+     * </p>
+     * </note>
      * 
-     * @return One or more network interfaces. If you specify a network interface, you must specify subnet IDs and
-     *         security group IDs using the network interface.
+     * @return The network interfaces.</p> <note>
+     *         <p>
+     *         <code>SpotFleetLaunchSpecification</code> does not support Elastic Fabric Adapter (EFA). You must use <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_LaunchTemplateConfig.html">
+     *         LaunchTemplateConfig</a> instead.
+     *         </p>
      */
 
     public java.util.List<InstanceNetworkInterfaceSpecification> getNetworkInterfaces() {
@@ -755,13 +821,23 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more network interfaces. If you specify a network interface, you must specify subnet IDs and security
-     * group IDs using the network interface.
+     * The network interfaces.
      * </p>
+     * <note>
+     * <p>
+     * <code>SpotFleetLaunchSpecification</code> does not support Elastic Fabric Adapter (EFA). You must use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_LaunchTemplateConfig.html"
+     * >LaunchTemplateConfig</a> instead.
+     * </p>
+     * </note>
      * 
      * @param networkInterfaces
-     *        One or more network interfaces. If you specify a network interface, you must specify subnet IDs and
-     *        security group IDs using the network interface.
+     *        The network interfaces.</p> <note>
+     *        <p>
+     *        <code>SpotFleetLaunchSpecification</code> does not support Elastic Fabric Adapter (EFA). You must use <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_LaunchTemplateConfig.html">
+     *        LaunchTemplateConfig</a> instead.
+     *        </p>
      */
 
     public void setNetworkInterfaces(java.util.Collection<InstanceNetworkInterfaceSpecification> networkInterfaces) {
@@ -775,9 +851,15 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more network interfaces. If you specify a network interface, you must specify subnet IDs and security
-     * group IDs using the network interface.
+     * The network interfaces.
      * </p>
+     * <note>
+     * <p>
+     * <code>SpotFleetLaunchSpecification</code> does not support Elastic Fabric Adapter (EFA). You must use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_LaunchTemplateConfig.html"
+     * >LaunchTemplateConfig</a> instead.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setNetworkInterfaces(java.util.Collection)} or {@link #withNetworkInterfaces(java.util.Collection)} if
@@ -785,8 +867,12 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
      * </p>
      * 
      * @param networkInterfaces
-     *        One or more network interfaces. If you specify a network interface, you must specify subnet IDs and
-     *        security group IDs using the network interface.
+     *        The network interfaces.</p> <note>
+     *        <p>
+     *        <code>SpotFleetLaunchSpecification</code> does not support Elastic Fabric Adapter (EFA). You must use <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_LaunchTemplateConfig.html">
+     *        LaunchTemplateConfig</a> instead.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -802,13 +888,23 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more network interfaces. If you specify a network interface, you must specify subnet IDs and security
-     * group IDs using the network interface.
+     * The network interfaces.
      * </p>
+     * <note>
+     * <p>
+     * <code>SpotFleetLaunchSpecification</code> does not support Elastic Fabric Adapter (EFA). You must use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_LaunchTemplateConfig.html"
+     * >LaunchTemplateConfig</a> instead.
+     * </p>
+     * </note>
      * 
      * @param networkInterfaces
-     *        One or more network interfaces. If you specify a network interface, you must specify subnet IDs and
-     *        security group IDs using the network interface.
+     *        The network interfaces.</p> <note>
+     *        <p>
+     *        <code>SpotFleetLaunchSpecification</code> does not support Elastic Fabric Adapter (EFA). You must use <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_LaunchTemplateConfig.html">
+     *        LaunchTemplateConfig</a> instead.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -860,14 +956,14 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
     /**
      * <p>
      * The ID of the RAM disk. Some kernels require additional drivers at launch. Check the kernel requirements for
-     * information about whether you need to specify a RAM disk. To find kernel requirements, refer to the AWS Resource
-     * Center and search for the kernel ID.
+     * information about whether you need to specify a RAM disk. To find kernel requirements, refer to the Amazon Web
+     * Services Resource Center and search for the kernel ID.
      * </p>
      * 
      * @param ramdiskId
      *        The ID of the RAM disk. Some kernels require additional drivers at launch. Check the kernel requirements
      *        for information about whether you need to specify a RAM disk. To find kernel requirements, refer to the
-     *        AWS Resource Center and search for the kernel ID.
+     *        Amazon Web Services Resource Center and search for the kernel ID.
      */
 
     public void setRamdiskId(String ramdiskId) {
@@ -877,13 +973,13 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
     /**
      * <p>
      * The ID of the RAM disk. Some kernels require additional drivers at launch. Check the kernel requirements for
-     * information about whether you need to specify a RAM disk. To find kernel requirements, refer to the AWS Resource
-     * Center and search for the kernel ID.
+     * information about whether you need to specify a RAM disk. To find kernel requirements, refer to the Amazon Web
+     * Services Resource Center and search for the kernel ID.
      * </p>
      * 
      * @return The ID of the RAM disk. Some kernels require additional drivers at launch. Check the kernel requirements
      *         for information about whether you need to specify a RAM disk. To find kernel requirements, refer to the
-     *         AWS Resource Center and search for the kernel ID.
+     *         Amazon Web Services Resource Center and search for the kernel ID.
      */
 
     public String getRamdiskId() {
@@ -893,14 +989,14 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
     /**
      * <p>
      * The ID of the RAM disk. Some kernels require additional drivers at launch. Check the kernel requirements for
-     * information about whether you need to specify a RAM disk. To find kernel requirements, refer to the AWS Resource
-     * Center and search for the kernel ID.
+     * information about whether you need to specify a RAM disk. To find kernel requirements, refer to the Amazon Web
+     * Services Resource Center and search for the kernel ID.
      * </p>
      * 
      * @param ramdiskId
      *        The ID of the RAM disk. Some kernels require additional drivers at launch. Check the kernel requirements
      *        for information about whether you need to specify a RAM disk. To find kernel requirements, refer to the
-     *        AWS Resource Center and search for the kernel ID.
+     *        Amazon Web Services Resource Center and search for the kernel ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -911,15 +1007,25 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance. If this value is not specified,
-     * the default is the Spot price specified for the fleet. To determine the Spot price per unit hour, divide the Spot
-     * price by the value of <code>WeightedCapacity</code>.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      * 
      * @param spotPrice
-     *        The maximum price per unit hour that you are willing to pay for a Spot Instance. If this value is not
-     *        specified, the default is the Spot price specified for the fleet. To determine the Spot price per unit
-     *        hour, divide the Spot price by the value of <code>WeightedCapacity</code>.
+     *        The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using
+     *        this parameter because it can lead to increased interruptions. If you do not specify this parameter, you
+     *        will pay the current Spot price.</p> <important>
+     *        <p>
+     *        If you specify a maximum price, your instances will be interrupted more frequently than if you do not
+     *        specify this parameter.
+     *        </p>
      */
 
     public void setSpotPrice(String spotPrice) {
@@ -928,14 +1034,24 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance. If this value is not specified,
-     * the default is the Spot price specified for the fleet. To determine the Spot price per unit hour, divide the Spot
-     * price by the value of <code>WeightedCapacity</code>.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      * 
-     * @return The maximum price per unit hour that you are willing to pay for a Spot Instance. If this value is not
-     *         specified, the default is the Spot price specified for the fleet. To determine the Spot price per unit
-     *         hour, divide the Spot price by the value of <code>WeightedCapacity</code>.
+     * @return The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend
+     *         using this parameter because it can lead to increased interruptions. If you do not specify this
+     *         parameter, you will pay the current Spot price.</p> <important>
+     *         <p>
+     *         If you specify a maximum price, your instances will be interrupted more frequently than if you do not
+     *         specify this parameter.
+     *         </p>
      */
 
     public String getSpotPrice() {
@@ -944,15 +1060,25 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance. If this value is not specified,
-     * the default is the Spot price specified for the fleet. To determine the Spot price per unit hour, divide the Spot
-     * price by the value of <code>WeightedCapacity</code>.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      * 
      * @param spotPrice
-     *        The maximum price per unit hour that you are willing to pay for a Spot Instance. If this value is not
-     *        specified, the default is the Spot price specified for the fleet. To determine the Spot price per unit
-     *        hour, divide the Spot price by the value of <code>WeightedCapacity</code>.
+     *        The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using
+     *        this parameter because it can lead to increased interruptions. If you do not specify this parameter, you
+     *        will pay the current Spot price.</p> <important>
+     *        <p>
+     *        If you specify a maximum price, your instances will be interrupted more frequently than if you do not
+     *        specify this parameter.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -963,13 +1089,20 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the subnet in which to launch the instances. To specify multiple subnets, separate them using commas;
-     * for example, "subnet-a61dafcf, subnet-65ea5f08".
+     * The IDs of the subnets in which to launch the instances. To specify multiple subnets, separate them using commas;
+     * for example, "subnet-1234abcdeexample1, subnet-0987cdef6example2".
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any subnets as part of the network interface instead of
+     * using this parameter.
      * </p>
      * 
      * @param subnetId
-     *        The ID of the subnet in which to launch the instances. To specify multiple subnets, separate them using
-     *        commas; for example, "subnet-a61dafcf, subnet-65ea5f08".
+     *        The IDs of the subnets in which to launch the instances. To specify multiple subnets, separate them using
+     *        commas; for example, "subnet-1234abcdeexample1, subnet-0987cdef6example2".</p>
+     *        <p>
+     *        If you specify a network interface, you must specify any subnets as part of the network interface instead
+     *        of using this parameter.
      */
 
     public void setSubnetId(String subnetId) {
@@ -978,12 +1111,19 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the subnet in which to launch the instances. To specify multiple subnets, separate them using commas;
-     * for example, "subnet-a61dafcf, subnet-65ea5f08".
+     * The IDs of the subnets in which to launch the instances. To specify multiple subnets, separate them using commas;
+     * for example, "subnet-1234abcdeexample1, subnet-0987cdef6example2".
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any subnets as part of the network interface instead of
+     * using this parameter.
      * </p>
      * 
-     * @return The ID of the subnet in which to launch the instances. To specify multiple subnets, separate them using
-     *         commas; for example, "subnet-a61dafcf, subnet-65ea5f08".
+     * @return The IDs of the subnets in which to launch the instances. To specify multiple subnets, separate them using
+     *         commas; for example, "subnet-1234abcdeexample1, subnet-0987cdef6example2".</p>
+     *         <p>
+     *         If you specify a network interface, you must specify any subnets as part of the network interface instead
+     *         of using this parameter.
      */
 
     public String getSubnetId() {
@@ -992,13 +1132,20 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the subnet in which to launch the instances. To specify multiple subnets, separate them using commas;
-     * for example, "subnet-a61dafcf, subnet-65ea5f08".
+     * The IDs of the subnets in which to launch the instances. To specify multiple subnets, separate them using commas;
+     * for example, "subnet-1234abcdeexample1, subnet-0987cdef6example2".
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any subnets as part of the network interface instead of
+     * using this parameter.
      * </p>
      * 
      * @param subnetId
-     *        The ID of the subnet in which to launch the instances. To specify multiple subnets, separate them using
-     *        commas; for example, "subnet-a61dafcf, subnet-65ea5f08".
+     *        The IDs of the subnets in which to launch the instances. To specify multiple subnets, separate them using
+     *        commas; for example, "subnet-1234abcdeexample1, subnet-0987cdef6example2".</p>
+     *        <p>
+     *        If you specify a network interface, you must specify any subnets as part of the network interface instead
+     *        of using this parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1009,11 +1156,11 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Base64-encoded user data that instances use when starting up.
+     * The base64-encoded user data that instances use when starting up. User data is limited to 16 KB.
      * </p>
      * 
      * @param userData
-     *        The Base64-encoded user data that instances use when starting up.
+     *        The base64-encoded user data that instances use when starting up. User data is limited to 16 KB.
      */
 
     public void setUserData(String userData) {
@@ -1022,10 +1169,10 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Base64-encoded user data that instances use when starting up.
+     * The base64-encoded user data that instances use when starting up. User data is limited to 16 KB.
      * </p>
      * 
-     * @return The Base64-encoded user data that instances use when starting up.
+     * @return The base64-encoded user data that instances use when starting up. User data is limited to 16 KB.
      */
 
     public String getUserData() {
@@ -1034,11 +1181,11 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Base64-encoded user data that instances use when starting up.
+     * The base64-encoded user data that instances use when starting up. User data is limited to 16 KB.
      * </p>
      * 
      * @param userData
-     *        The Base64-encoded user data that instances use when starting up.
+     *        The base64-encoded user data that instances use when starting up. User data is limited to 16 KB.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1056,6 +1203,14 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
      * If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of instances to
      * the next whole number. If this value is not specified, the default is 1.
      * </p>
+     * <note>
+     * <p>
+     * When specifying weights, the price used in the <code>lowestPrice</code> and <code>priceCapacityOptimized</code>
+     * allocation strategies is per <i>unit</i> hour (where the instance price is divided by the specified weight).
+     * However, if all the specified weights are above the requested <code>TargetCapacity</code>, resulting in only 1
+     * instance being launched, the price used is per <i>instance</i> hour.
+     * </p>
+     * </note>
      * 
      * @param weightedCapacity
      *        The number of units provided by the specified instance type. These are the same units that you chose to
@@ -1064,6 +1219,15 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
      *        <p>
      *        If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of
      *        instances to the next whole number. If this value is not specified, the default is 1.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        When specifying weights, the price used in the <code>lowestPrice</code> and
+     *        <code>priceCapacityOptimized</code> allocation strategies is per <i>unit</i> hour (where the instance
+     *        price is divided by the specified weight). However, if all the specified weights are above the requested
+     *        <code>TargetCapacity</code>, resulting in only 1 instance being launched, the price used is per
+     *        <i>instance</i> hour.
+     *        </p>
      */
 
     public void setWeightedCapacity(Double weightedCapacity) {
@@ -1079,6 +1243,14 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
      * If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of instances to
      * the next whole number. If this value is not specified, the default is 1.
      * </p>
+     * <note>
+     * <p>
+     * When specifying weights, the price used in the <code>lowestPrice</code> and <code>priceCapacityOptimized</code>
+     * allocation strategies is per <i>unit</i> hour (where the instance price is divided by the specified weight).
+     * However, if all the specified weights are above the requested <code>TargetCapacity</code>, resulting in only 1
+     * instance being launched, the price used is per <i>instance</i> hour.
+     * </p>
+     * </note>
      * 
      * @return The number of units provided by the specified instance type. These are the same units that you chose to
      *         set the target capacity in terms of instances, or a performance characteristic such as vCPUs, memory, or
@@ -1086,6 +1258,15 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
      *         <p>
      *         If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of
      *         instances to the next whole number. If this value is not specified, the default is 1.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         When specifying weights, the price used in the <code>lowestPrice</code> and
+     *         <code>priceCapacityOptimized</code> allocation strategies is per <i>unit</i> hour (where the instance
+     *         price is divided by the specified weight). However, if all the specified weights are above the requested
+     *         <code>TargetCapacity</code>, resulting in only 1 instance being launched, the price used is per
+     *         <i>instance</i> hour.
+     *         </p>
      */
 
     public Double getWeightedCapacity() {
@@ -1101,6 +1282,14 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
      * If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of instances to
      * the next whole number. If this value is not specified, the default is 1.
      * </p>
+     * <note>
+     * <p>
+     * When specifying weights, the price used in the <code>lowestPrice</code> and <code>priceCapacityOptimized</code>
+     * allocation strategies is per <i>unit</i> hour (where the instance price is divided by the specified weight).
+     * However, if all the specified weights are above the requested <code>TargetCapacity</code>, resulting in only 1
+     * instance being launched, the price used is per <i>instance</i> hour.
+     * </p>
+     * </note>
      * 
      * @param weightedCapacity
      *        The number of units provided by the specified instance type. These are the same units that you chose to
@@ -1109,6 +1298,15 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
      *        <p>
      *        If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of
      *        instances to the next whole number. If this value is not specified, the default is 1.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        When specifying weights, the price used in the <code>lowestPrice</code> and
+     *        <code>priceCapacityOptimized</code> allocation strategies is per <i>unit</i> hour (where the instance
+     *        price is divided by the specified weight). However, if all the specified weights are above the requested
+     *        <code>TargetCapacity</code>, resulting in only 1 instance being launched, the price used is per
+     *        <i>instance</i> hour.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1191,6 +1389,76 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with those attributes.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * </note>
+     * 
+     * @param instanceRequirements
+     *        The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify
+     *        instance types with those attributes.</p> <note>
+     *        <p>
+     *        If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     *        </p>
+     */
+
+    public void setInstanceRequirements(InstanceRequirements instanceRequirements) {
+        this.instanceRequirements = instanceRequirements;
+    }
+
+    /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with those attributes.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * </note>
+     * 
+     * @return The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify
+     *         instance types with those attributes.</p> <note>
+     *         <p>
+     *         If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     *         </p>
+     */
+
+    public InstanceRequirements getInstanceRequirements() {
+        return this.instanceRequirements;
+    }
+
+    /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with those attributes.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * </note>
+     * 
+     * @param instanceRequirements
+     *        The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify
+     *        instance types with those attributes.</p> <note>
+     *        <p>
+     *        If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SpotFleetLaunchSpecification withInstanceRequirements(InstanceRequirements instanceRequirements) {
+        setInstanceRequirements(instanceRequirements);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1233,11 +1501,13 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
         if (getSubnetId() != null)
             sb.append("SubnetId: ").append(getSubnetId()).append(",");
         if (getUserData() != null)
-            sb.append("UserData: ").append(getUserData()).append(",");
+            sb.append("UserData: ").append("***Sensitive Data Redacted***").append(",");
         if (getWeightedCapacity() != null)
             sb.append("WeightedCapacity: ").append(getWeightedCapacity()).append(",");
         if (getTagSpecifications() != null)
-            sb.append("TagSpecifications: ").append(getTagSpecifications());
+            sb.append("TagSpecifications: ").append(getTagSpecifications()).append(",");
+        if (getInstanceRequirements() != null)
+            sb.append("InstanceRequirements: ").append(getInstanceRequirements());
         sb.append("}");
         return sb.toString();
     }
@@ -1324,6 +1594,10 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
             return false;
         if (other.getTagSpecifications() != null && other.getTagSpecifications().equals(this.getTagSpecifications()) == false)
             return false;
+        if (other.getInstanceRequirements() == null ^ this.getInstanceRequirements() == null)
+            return false;
+        if (other.getInstanceRequirements() != null && other.getInstanceRequirements().equals(this.getInstanceRequirements()) == false)
+            return false;
         return true;
     }
 
@@ -1350,6 +1624,7 @@ public class SpotFleetLaunchSpecification implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getUserData() == null) ? 0 : getUserData().hashCode());
         hashCode = prime * hashCode + ((getWeightedCapacity() == null) ? 0 : getWeightedCapacity().hashCode());
         hashCode = prime * hashCode + ((getTagSpecifications() == null) ? 0 : getTagSpecifications().hashCode());
+        hashCode = prime * hashCode + ((getInstanceRequirements() == null) ? 0 : getInstanceRequirements().hashCode());
         return hashCode;
     }
 

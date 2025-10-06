@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A complex type for endpoints.
+ * A complex type for endpoints. A resource must be valid and active when you add it as an endpoint.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/EndpointConfiguration"
@@ -32,33 +32,72 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
      * <p>
      * An ID for the endpoint. If the endpoint is a Network Load Balancer or Application Load Balancer, this is the
      * Amazon Resource Name (ARN) of the resource. If the endpoint is an Elastic IP address, this is the Elastic IP
-     * address allocation ID.
+     * address allocation ID. For Amazon EC2 instances, this is the EC2 instance ID. A resource must be valid and active
+     * when you add it as an endpoint.
+     * </p>
+     * <p>
+     * For cross-account endpoints, this must be the ARN of the resource.
      * </p>
      */
     private String endpointId;
     /**
      * <p>
-     * The weight associated with the endpoint. When you add weights to endpoints, you configure AWS Global Accelerator
-     * to route traffic based on proportions that you specify. For example, you might specify endpoint weights of 4, 5,
-     * 5, and 6 (sum=20). The result is that 4/20 of your traffic, on average, is routed to the first endpoint, 5/20 is
+     * The weight associated with the endpoint. When you add weights to endpoints, you configure Global Accelerator to
+     * route traffic based on proportions that you specify. For example, you might specify endpoint weights of 4, 5, 5,
+     * and 6 (sum=20). The result is that 4/20 of your traffic, on average, is routed to the first endpoint, 5/20 is
      * routed both to the second and third endpoints, and 6/20 is routed to the last endpoint. For more information, see
      * <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoints-endpoint-weights.html">Endpoint
-     * Weights</a> in the <i>AWS Global Accelerator Developer Guide</i>.
+     * weights</a> in the <i>Global Accelerator Developer Guide</i>.
      * </p>
      */
     private Integer weight;
+    /**
+     * <p>
+     * Indicates whether client IP address preservation is enabled for an endpoint. The value is true or false. The
+     * default value is true for Application Load Balancer endpoints.
+     * </p>
+     * <p>
+     * If the value is set to true, the client's IP address is preserved in the <code>X-Forwarded-For</code> request
+     * header as traffic travels to applications on the endpoint fronted by the accelerator.
+     * </p>
+     * <p>
+     * Client IP address preservation is supported, in specific Amazon Web Services Regions, for endpoints that are
+     * Application Load Balancers, Amazon EC2 instances, and Network Load Balancers with security groups. IMPORTANT: You
+     * cannot use client IP address preservation with Network Load Balancers with TLS listeners.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/preserve-client-ip-address.html"> Preserve client
+     * IP addresses in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     */
+    private Boolean clientIPPreservationEnabled;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cross-account attachment that specifies the endpoints (resources) that can
+     * be added to accelerators and principals that have permission to add the endpoints.
+     * </p>
+     */
+    private String attachmentArn;
 
     /**
      * <p>
      * An ID for the endpoint. If the endpoint is a Network Load Balancer or Application Load Balancer, this is the
      * Amazon Resource Name (ARN) of the resource. If the endpoint is an Elastic IP address, this is the Elastic IP
-     * address allocation ID.
+     * address allocation ID. For Amazon EC2 instances, this is the EC2 instance ID. A resource must be valid and active
+     * when you add it as an endpoint.
+     * </p>
+     * <p>
+     * For cross-account endpoints, this must be the ARN of the resource.
      * </p>
      * 
      * @param endpointId
      *        An ID for the endpoint. If the endpoint is a Network Load Balancer or Application Load Balancer, this is
      *        the Amazon Resource Name (ARN) of the resource. If the endpoint is an Elastic IP address, this is the
-     *        Elastic IP address allocation ID.
+     *        Elastic IP address allocation ID. For Amazon EC2 instances, this is the EC2 instance ID. A resource must
+     *        be valid and active when you add it as an endpoint.</p>
+     *        <p>
+     *        For cross-account endpoints, this must be the ARN of the resource.
      */
 
     public void setEndpointId(String endpointId) {
@@ -69,12 +108,19 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
      * <p>
      * An ID for the endpoint. If the endpoint is a Network Load Balancer or Application Load Balancer, this is the
      * Amazon Resource Name (ARN) of the resource. If the endpoint is an Elastic IP address, this is the Elastic IP
-     * address allocation ID.
+     * address allocation ID. For Amazon EC2 instances, this is the EC2 instance ID. A resource must be valid and active
+     * when you add it as an endpoint.
+     * </p>
+     * <p>
+     * For cross-account endpoints, this must be the ARN of the resource.
      * </p>
      * 
      * @return An ID for the endpoint. If the endpoint is a Network Load Balancer or Application Load Balancer, this is
      *         the Amazon Resource Name (ARN) of the resource. If the endpoint is an Elastic IP address, this is the
-     *         Elastic IP address allocation ID.
+     *         Elastic IP address allocation ID. For Amazon EC2 instances, this is the EC2 instance ID. A resource must
+     *         be valid and active when you add it as an endpoint.</p>
+     *         <p>
+     *         For cross-account endpoints, this must be the ARN of the resource.
      */
 
     public String getEndpointId() {
@@ -85,13 +131,20 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
      * <p>
      * An ID for the endpoint. If the endpoint is a Network Load Balancer or Application Load Balancer, this is the
      * Amazon Resource Name (ARN) of the resource. If the endpoint is an Elastic IP address, this is the Elastic IP
-     * address allocation ID.
+     * address allocation ID. For Amazon EC2 instances, this is the EC2 instance ID. A resource must be valid and active
+     * when you add it as an endpoint.
+     * </p>
+     * <p>
+     * For cross-account endpoints, this must be the ARN of the resource.
      * </p>
      * 
      * @param endpointId
      *        An ID for the endpoint. If the endpoint is a Network Load Balancer or Application Load Balancer, this is
      *        the Amazon Resource Name (ARN) of the resource. If the endpoint is an Elastic IP address, this is the
-     *        Elastic IP address allocation ID.
+     *        Elastic IP address allocation ID. For Amazon EC2 instances, this is the EC2 instance ID. A resource must
+     *        be valid and active when you add it as an endpoint.</p>
+     *        <p>
+     *        For cross-account endpoints, this must be the ARN of the resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -102,22 +155,22 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The weight associated with the endpoint. When you add weights to endpoints, you configure AWS Global Accelerator
-     * to route traffic based on proportions that you specify. For example, you might specify endpoint weights of 4, 5,
-     * 5, and 6 (sum=20). The result is that 4/20 of your traffic, on average, is routed to the first endpoint, 5/20 is
+     * The weight associated with the endpoint. When you add weights to endpoints, you configure Global Accelerator to
+     * route traffic based on proportions that you specify. For example, you might specify endpoint weights of 4, 5, 5,
+     * and 6 (sum=20). The result is that 4/20 of your traffic, on average, is routed to the first endpoint, 5/20 is
      * routed both to the second and third endpoints, and 6/20 is routed to the last endpoint. For more information, see
      * <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoints-endpoint-weights.html">Endpoint
-     * Weights</a> in the <i>AWS Global Accelerator Developer Guide</i>.
+     * weights</a> in the <i>Global Accelerator Developer Guide</i>.
      * </p>
      * 
      * @param weight
-     *        The weight associated with the endpoint. When you add weights to endpoints, you configure AWS Global
+     *        The weight associated with the endpoint. When you add weights to endpoints, you configure Global
      *        Accelerator to route traffic based on proportions that you specify. For example, you might specify
      *        endpoint weights of 4, 5, 5, and 6 (sum=20). The result is that 4/20 of your traffic, on average, is
      *        routed to the first endpoint, 5/20 is routed both to the second and third endpoints, and 6/20 is routed to
      *        the last endpoint. For more information, see <a
      *        href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoints-endpoint-weights.html"
-     *        >Endpoint Weights</a> in the <i>AWS Global Accelerator Developer Guide</i>.
+     *        >Endpoint weights</a> in the <i>Global Accelerator Developer Guide</i>.
      */
 
     public void setWeight(Integer weight) {
@@ -126,21 +179,21 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The weight associated with the endpoint. When you add weights to endpoints, you configure AWS Global Accelerator
-     * to route traffic based on proportions that you specify. For example, you might specify endpoint weights of 4, 5,
-     * 5, and 6 (sum=20). The result is that 4/20 of your traffic, on average, is routed to the first endpoint, 5/20 is
+     * The weight associated with the endpoint. When you add weights to endpoints, you configure Global Accelerator to
+     * route traffic based on proportions that you specify. For example, you might specify endpoint weights of 4, 5, 5,
+     * and 6 (sum=20). The result is that 4/20 of your traffic, on average, is routed to the first endpoint, 5/20 is
      * routed both to the second and third endpoints, and 6/20 is routed to the last endpoint. For more information, see
      * <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoints-endpoint-weights.html">Endpoint
-     * Weights</a> in the <i>AWS Global Accelerator Developer Guide</i>.
+     * weights</a> in the <i>Global Accelerator Developer Guide</i>.
      * </p>
      * 
-     * @return The weight associated with the endpoint. When you add weights to endpoints, you configure AWS Global
+     * @return The weight associated with the endpoint. When you add weights to endpoints, you configure Global
      *         Accelerator to route traffic based on proportions that you specify. For example, you might specify
      *         endpoint weights of 4, 5, 5, and 6 (sum=20). The result is that 4/20 of your traffic, on average, is
      *         routed to the first endpoint, 5/20 is routed both to the second and third endpoints, and 6/20 is routed
      *         to the last endpoint. For more information, see <a
      *         href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoints-endpoint-weights.html"
-     *         >Endpoint Weights</a> in the <i>AWS Global Accelerator Developer Guide</i>.
+     *         >Endpoint weights</a> in the <i>Global Accelerator Developer Guide</i>.
      */
 
     public Integer getWeight() {
@@ -149,27 +202,241 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The weight associated with the endpoint. When you add weights to endpoints, you configure AWS Global Accelerator
-     * to route traffic based on proportions that you specify. For example, you might specify endpoint weights of 4, 5,
-     * 5, and 6 (sum=20). The result is that 4/20 of your traffic, on average, is routed to the first endpoint, 5/20 is
+     * The weight associated with the endpoint. When you add weights to endpoints, you configure Global Accelerator to
+     * route traffic based on proportions that you specify. For example, you might specify endpoint weights of 4, 5, 5,
+     * and 6 (sum=20). The result is that 4/20 of your traffic, on average, is routed to the first endpoint, 5/20 is
      * routed both to the second and third endpoints, and 6/20 is routed to the last endpoint. For more information, see
      * <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoints-endpoint-weights.html">Endpoint
-     * Weights</a> in the <i>AWS Global Accelerator Developer Guide</i>.
+     * weights</a> in the <i>Global Accelerator Developer Guide</i>.
      * </p>
      * 
      * @param weight
-     *        The weight associated with the endpoint. When you add weights to endpoints, you configure AWS Global
+     *        The weight associated with the endpoint. When you add weights to endpoints, you configure Global
      *        Accelerator to route traffic based on proportions that you specify. For example, you might specify
      *        endpoint weights of 4, 5, 5, and 6 (sum=20). The result is that 4/20 of your traffic, on average, is
      *        routed to the first endpoint, 5/20 is routed both to the second and third endpoints, and 6/20 is routed to
      *        the last endpoint. For more information, see <a
      *        href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoints-endpoint-weights.html"
-     *        >Endpoint Weights</a> in the <i>AWS Global Accelerator Developer Guide</i>.
+     *        >Endpoint weights</a> in the <i>Global Accelerator Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public EndpointConfiguration withWeight(Integer weight) {
         setWeight(weight);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether client IP address preservation is enabled for an endpoint. The value is true or false. The
+     * default value is true for Application Load Balancer endpoints.
+     * </p>
+     * <p>
+     * If the value is set to true, the client's IP address is preserved in the <code>X-Forwarded-For</code> request
+     * header as traffic travels to applications on the endpoint fronted by the accelerator.
+     * </p>
+     * <p>
+     * Client IP address preservation is supported, in specific Amazon Web Services Regions, for endpoints that are
+     * Application Load Balancers, Amazon EC2 instances, and Network Load Balancers with security groups. IMPORTANT: You
+     * cannot use client IP address preservation with Network Load Balancers with TLS listeners.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/preserve-client-ip-address.html"> Preserve client
+     * IP addresses in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param clientIPPreservationEnabled
+     *        Indicates whether client IP address preservation is enabled for an endpoint. The value is true or false.
+     *        The default value is true for Application Load Balancer endpoints. </p>
+     *        <p>
+     *        If the value is set to true, the client's IP address is preserved in the <code>X-Forwarded-For</code>
+     *        request header as traffic travels to applications on the endpoint fronted by the accelerator.
+     *        </p>
+     *        <p>
+     *        Client IP address preservation is supported, in specific Amazon Web Services Regions, for endpoints that
+     *        are Application Load Balancers, Amazon EC2 instances, and Network Load Balancers with security groups.
+     *        IMPORTANT: You cannot use client IP address preservation with Network Load Balancers with TLS listeners.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/global-accelerator/latest/dg/preserve-client-ip-address.html"> Preserve
+     *        client IP addresses in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     */
+
+    public void setClientIPPreservationEnabled(Boolean clientIPPreservationEnabled) {
+        this.clientIPPreservationEnabled = clientIPPreservationEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether client IP address preservation is enabled for an endpoint. The value is true or false. The
+     * default value is true for Application Load Balancer endpoints.
+     * </p>
+     * <p>
+     * If the value is set to true, the client's IP address is preserved in the <code>X-Forwarded-For</code> request
+     * header as traffic travels to applications on the endpoint fronted by the accelerator.
+     * </p>
+     * <p>
+     * Client IP address preservation is supported, in specific Amazon Web Services Regions, for endpoints that are
+     * Application Load Balancers, Amazon EC2 instances, and Network Load Balancers with security groups. IMPORTANT: You
+     * cannot use client IP address preservation with Network Load Balancers with TLS listeners.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/preserve-client-ip-address.html"> Preserve client
+     * IP addresses in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @return Indicates whether client IP address preservation is enabled for an endpoint. The value is true or false.
+     *         The default value is true for Application Load Balancer endpoints. </p>
+     *         <p>
+     *         If the value is set to true, the client's IP address is preserved in the <code>X-Forwarded-For</code>
+     *         request header as traffic travels to applications on the endpoint fronted by the accelerator.
+     *         </p>
+     *         <p>
+     *         Client IP address preservation is supported, in specific Amazon Web Services Regions, for endpoints that
+     *         are Application Load Balancers, Amazon EC2 instances, and Network Load Balancers with security groups.
+     *         IMPORTANT: You cannot use client IP address preservation with Network Load Balancers with TLS listeners.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/global-accelerator/latest/dg/preserve-client-ip-address.html"> Preserve
+     *         client IP addresses in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     */
+
+    public Boolean getClientIPPreservationEnabled() {
+        return this.clientIPPreservationEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether client IP address preservation is enabled for an endpoint. The value is true or false. The
+     * default value is true for Application Load Balancer endpoints.
+     * </p>
+     * <p>
+     * If the value is set to true, the client's IP address is preserved in the <code>X-Forwarded-For</code> request
+     * header as traffic travels to applications on the endpoint fronted by the accelerator.
+     * </p>
+     * <p>
+     * Client IP address preservation is supported, in specific Amazon Web Services Regions, for endpoints that are
+     * Application Load Balancers, Amazon EC2 instances, and Network Load Balancers with security groups. IMPORTANT: You
+     * cannot use client IP address preservation with Network Load Balancers with TLS listeners.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/preserve-client-ip-address.html"> Preserve client
+     * IP addresses in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param clientIPPreservationEnabled
+     *        Indicates whether client IP address preservation is enabled for an endpoint. The value is true or false.
+     *        The default value is true for Application Load Balancer endpoints. </p>
+     *        <p>
+     *        If the value is set to true, the client's IP address is preserved in the <code>X-Forwarded-For</code>
+     *        request header as traffic travels to applications on the endpoint fronted by the accelerator.
+     *        </p>
+     *        <p>
+     *        Client IP address preservation is supported, in specific Amazon Web Services Regions, for endpoints that
+     *        are Application Load Balancers, Amazon EC2 instances, and Network Load Balancers with security groups.
+     *        IMPORTANT: You cannot use client IP address preservation with Network Load Balancers with TLS listeners.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/global-accelerator/latest/dg/preserve-client-ip-address.html"> Preserve
+     *        client IP addresses in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EndpointConfiguration withClientIPPreservationEnabled(Boolean clientIPPreservationEnabled) {
+        setClientIPPreservationEnabled(clientIPPreservationEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether client IP address preservation is enabled for an endpoint. The value is true or false. The
+     * default value is true for Application Load Balancer endpoints.
+     * </p>
+     * <p>
+     * If the value is set to true, the client's IP address is preserved in the <code>X-Forwarded-For</code> request
+     * header as traffic travels to applications on the endpoint fronted by the accelerator.
+     * </p>
+     * <p>
+     * Client IP address preservation is supported, in specific Amazon Web Services Regions, for endpoints that are
+     * Application Load Balancers, Amazon EC2 instances, and Network Load Balancers with security groups. IMPORTANT: You
+     * cannot use client IP address preservation with Network Load Balancers with TLS listeners.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/preserve-client-ip-address.html"> Preserve client
+     * IP addresses in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @return Indicates whether client IP address preservation is enabled for an endpoint. The value is true or false.
+     *         The default value is true for Application Load Balancer endpoints. </p>
+     *         <p>
+     *         If the value is set to true, the client's IP address is preserved in the <code>X-Forwarded-For</code>
+     *         request header as traffic travels to applications on the endpoint fronted by the accelerator.
+     *         </p>
+     *         <p>
+     *         Client IP address preservation is supported, in specific Amazon Web Services Regions, for endpoints that
+     *         are Application Load Balancers, Amazon EC2 instances, and Network Load Balancers with security groups.
+     *         IMPORTANT: You cannot use client IP address preservation with Network Load Balancers with TLS listeners.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/global-accelerator/latest/dg/preserve-client-ip-address.html"> Preserve
+     *         client IP addresses in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     */
+
+    public Boolean isClientIPPreservationEnabled() {
+        return this.clientIPPreservationEnabled;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cross-account attachment that specifies the endpoints (resources) that can
+     * be added to accelerators and principals that have permission to add the endpoints.
+     * </p>
+     * 
+     * @param attachmentArn
+     *        The Amazon Resource Name (ARN) of the cross-account attachment that specifies the endpoints (resources)
+     *        that can be added to accelerators and principals that have permission to add the endpoints.
+     */
+
+    public void setAttachmentArn(String attachmentArn) {
+        this.attachmentArn = attachmentArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cross-account attachment that specifies the endpoints (resources) that can
+     * be added to accelerators and principals that have permission to add the endpoints.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the cross-account attachment that specifies the endpoints (resources)
+     *         that can be added to accelerators and principals that have permission to add the endpoints.
+     */
+
+    public String getAttachmentArn() {
+        return this.attachmentArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cross-account attachment that specifies the endpoints (resources) that can
+     * be added to accelerators and principals that have permission to add the endpoints.
+     * </p>
+     * 
+     * @param attachmentArn
+     *        The Amazon Resource Name (ARN) of the cross-account attachment that specifies the endpoints (resources)
+     *        that can be added to accelerators and principals that have permission to add the endpoints.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EndpointConfiguration withAttachmentArn(String attachmentArn) {
+        setAttachmentArn(attachmentArn);
         return this;
     }
 
@@ -188,7 +455,11 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
         if (getEndpointId() != null)
             sb.append("EndpointId: ").append(getEndpointId()).append(",");
         if (getWeight() != null)
-            sb.append("Weight: ").append(getWeight());
+            sb.append("Weight: ").append(getWeight()).append(",");
+        if (getClientIPPreservationEnabled() != null)
+            sb.append("ClientIPPreservationEnabled: ").append(getClientIPPreservationEnabled()).append(",");
+        if (getAttachmentArn() != null)
+            sb.append("AttachmentArn: ").append(getAttachmentArn());
         sb.append("}");
         return sb.toString();
     }
@@ -211,6 +482,14 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
             return false;
         if (other.getWeight() != null && other.getWeight().equals(this.getWeight()) == false)
             return false;
+        if (other.getClientIPPreservationEnabled() == null ^ this.getClientIPPreservationEnabled() == null)
+            return false;
+        if (other.getClientIPPreservationEnabled() != null && other.getClientIPPreservationEnabled().equals(this.getClientIPPreservationEnabled()) == false)
+            return false;
+        if (other.getAttachmentArn() == null ^ this.getAttachmentArn() == null)
+            return false;
+        if (other.getAttachmentArn() != null && other.getAttachmentArn().equals(this.getAttachmentArn()) == false)
+            return false;
         return true;
     }
 
@@ -221,6 +500,8 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
 
         hashCode = prime * hashCode + ((getEndpointId() == null) ? 0 : getEndpointId().hashCode());
         hashCode = prime * hashCode + ((getWeight() == null) ? 0 : getWeight().hashCode());
+        hashCode = prime * hashCode + ((getClientIPPreservationEnabled() == null) ? 0 : getClientIPPreservationEnabled().hashCode());
+        hashCode = prime * hashCode + ((getAttachmentArn() == null) ? 0 : getAttachmentArn().hashCode());
         return hashCode;
     }
 

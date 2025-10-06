@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class ListStackSetsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * If the previous paginated request didn't return all of the remaining results, the response object's
+     * If the previous paginated request didn't return all the remaining results, the response object's
      * <code>NextToken</code> parameter value is set to a token. To retrieve the next set of results, call
      * <code>ListStackSets</code> again and assign that token to the request object's <code>NextToken</code> parameter.
      * If there are no remaining results, the previous response object's <code>NextToken</code> parameter is set to
@@ -49,10 +49,38 @@ public class ListStackSetsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      */
     private String status;
+    /**
+     * <p>
+     * [Service-managed permissions] Specifies whether you are acting as an account administrator in the management
+     * account or as a delegated administrator in a member account.
+     * </p>
+     * <p>
+     * By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed permissions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you are signed in to the management account, specify <code>SELF</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     * </p>
+     * <p>
+     * Your Amazon Web Services account must be registered as a delegated administrator in the management account. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     * >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String callAs;
 
     /**
      * <p>
-     * If the previous paginated request didn't return all of the remaining results, the response object's
+     * If the previous paginated request didn't return all the remaining results, the response object's
      * <code>NextToken</code> parameter value is set to a token. To retrieve the next set of results, call
      * <code>ListStackSets</code> again and assign that token to the request object's <code>NextToken</code> parameter.
      * If there are no remaining results, the previous response object's <code>NextToken</code> parameter is set to
@@ -60,7 +88,7 @@ public class ListStackSetsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param nextToken
-     *        If the previous paginated request didn't return all of the remaining results, the response object's
+     *        If the previous paginated request didn't return all the remaining results, the response object's
      *        <code>NextToken</code> parameter value is set to a token. To retrieve the next set of results, call
      *        <code>ListStackSets</code> again and assign that token to the request object's <code>NextToken</code>
      *        parameter. If there are no remaining results, the previous response object's <code>NextToken</code>
@@ -73,14 +101,14 @@ public class ListStackSetsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * If the previous paginated request didn't return all of the remaining results, the response object's
+     * If the previous paginated request didn't return all the remaining results, the response object's
      * <code>NextToken</code> parameter value is set to a token. To retrieve the next set of results, call
      * <code>ListStackSets</code> again and assign that token to the request object's <code>NextToken</code> parameter.
      * If there are no remaining results, the previous response object's <code>NextToken</code> parameter is set to
      * <code>null</code>.
      * </p>
      * 
-     * @return If the previous paginated request didn't return all of the remaining results, the response object's
+     * @return If the previous paginated request didn't return all the remaining results, the response object's
      *         <code>NextToken</code> parameter value is set to a token. To retrieve the next set of results, call
      *         <code>ListStackSets</code> again and assign that token to the request object's <code>NextToken</code>
      *         parameter. If there are no remaining results, the previous response object's <code>NextToken</code>
@@ -93,7 +121,7 @@ public class ListStackSetsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * If the previous paginated request didn't return all of the remaining results, the response object's
+     * If the previous paginated request didn't return all the remaining results, the response object's
      * <code>NextToken</code> parameter value is set to a token. To retrieve the next set of results, call
      * <code>ListStackSets</code> again and assign that token to the request object's <code>NextToken</code> parameter.
      * If there are no remaining results, the previous response object's <code>NextToken</code> parameter is set to
@@ -101,7 +129,7 @@ public class ListStackSetsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param nextToken
-     *        If the previous paginated request didn't return all of the remaining results, the response object's
+     *        If the previous paginated request didn't return all the remaining results, the response object's
      *        <code>NextToken</code> parameter value is set to a token. To retrieve the next set of results, call
      *        <code>ListStackSets</code> again and assign that token to the request object's <code>NextToken</code>
      *        parameter. If there are no remaining results, the previous response object's <code>NextToken</code>
@@ -240,6 +268,299 @@ public class ListStackSetsRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * [Service-managed permissions] Specifies whether you are acting as an account administrator in the management
+     * account or as a delegated administrator in a member account.
+     * </p>
+     * <p>
+     * By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed permissions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you are signed in to the management account, specify <code>SELF</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     * </p>
+     * <p>
+     * Your Amazon Web Services account must be registered as a delegated administrator in the management account. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     * >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param callAs
+     *        [Service-managed permissions] Specifies whether you are acting as an account administrator in the
+     *        management account or as a delegated administrator in a member account.</p>
+     *        <p>
+     *        By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed
+     *        permissions.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you are signed in to the management account, specify <code>SELF</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     *        </p>
+     *        <p>
+     *        Your Amazon Web Services account must be registered as a delegated administrator in the management
+     *        account. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     *        >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     *        </p>
+     *        </li>
+     * @see CallAs
+     */
+
+    public void setCallAs(String callAs) {
+        this.callAs = callAs;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] Specifies whether you are acting as an account administrator in the management
+     * account or as a delegated administrator in a member account.
+     * </p>
+     * <p>
+     * By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed permissions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you are signed in to the management account, specify <code>SELF</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     * </p>
+     * <p>
+     * Your Amazon Web Services account must be registered as a delegated administrator in the management account. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     * >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return [Service-managed permissions] Specifies whether you are acting as an account administrator in the
+     *         management account or as a delegated administrator in a member account.</p>
+     *         <p>
+     *         By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed
+     *         permissions.
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If you are signed in to the management account, specify <code>SELF</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     *         </p>
+     *         <p>
+     *         Your Amazon Web Services account must be registered as a delegated administrator in the management
+     *         account. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     *         >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     *         </p>
+     *         </li>
+     * @see CallAs
+     */
+
+    public String getCallAs() {
+        return this.callAs;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] Specifies whether you are acting as an account administrator in the management
+     * account or as a delegated administrator in a member account.
+     * </p>
+     * <p>
+     * By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed permissions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you are signed in to the management account, specify <code>SELF</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     * </p>
+     * <p>
+     * Your Amazon Web Services account must be registered as a delegated administrator in the management account. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     * >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param callAs
+     *        [Service-managed permissions] Specifies whether you are acting as an account administrator in the
+     *        management account or as a delegated administrator in a member account.</p>
+     *        <p>
+     *        By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed
+     *        permissions.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you are signed in to the management account, specify <code>SELF</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     *        </p>
+     *        <p>
+     *        Your Amazon Web Services account must be registered as a delegated administrator in the management
+     *        account. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     *        >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CallAs
+     */
+
+    public ListStackSetsRequest withCallAs(String callAs) {
+        setCallAs(callAs);
+        return this;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] Specifies whether you are acting as an account administrator in the management
+     * account or as a delegated administrator in a member account.
+     * </p>
+     * <p>
+     * By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed permissions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you are signed in to the management account, specify <code>SELF</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     * </p>
+     * <p>
+     * Your Amazon Web Services account must be registered as a delegated administrator in the management account. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     * >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param callAs
+     *        [Service-managed permissions] Specifies whether you are acting as an account administrator in the
+     *        management account or as a delegated administrator in a member account.</p>
+     *        <p>
+     *        By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed
+     *        permissions.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you are signed in to the management account, specify <code>SELF</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     *        </p>
+     *        <p>
+     *        Your Amazon Web Services account must be registered as a delegated administrator in the management
+     *        account. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     *        >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     *        </p>
+     *        </li>
+     * @see CallAs
+     */
+
+    public void setCallAs(CallAs callAs) {
+        withCallAs(callAs);
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] Specifies whether you are acting as an account administrator in the management
+     * account or as a delegated administrator in a member account.
+     * </p>
+     * <p>
+     * By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed permissions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you are signed in to the management account, specify <code>SELF</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     * </p>
+     * <p>
+     * Your Amazon Web Services account must be registered as a delegated administrator in the management account. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     * >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param callAs
+     *        [Service-managed permissions] Specifies whether you are acting as an account administrator in the
+     *        management account or as a delegated administrator in a member account.</p>
+     *        <p>
+     *        By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed
+     *        permissions.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you are signed in to the management account, specify <code>SELF</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     *        </p>
+     *        <p>
+     *        Your Amazon Web Services account must be registered as a delegated administrator in the management
+     *        account. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     *        >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CallAs
+     */
+
+    public ListStackSetsRequest withCallAs(CallAs callAs) {
+        this.callAs = callAs.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -256,7 +577,9 @@ public class ListStackSetsRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getMaxResults() != null)
             sb.append("MaxResults: ").append(getMaxResults()).append(",");
         if (getStatus() != null)
-            sb.append("Status: ").append(getStatus());
+            sb.append("Status: ").append(getStatus()).append(",");
+        if (getCallAs() != null)
+            sb.append("CallAs: ").append(getCallAs());
         sb.append("}");
         return sb.toString();
     }
@@ -283,6 +606,10 @@ public class ListStackSetsRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
             return false;
+        if (other.getCallAs() == null ^ this.getCallAs() == null)
+            return false;
+        if (other.getCallAs() != null && other.getCallAs().equals(this.getCallAs()) == false)
+            return false;
         return true;
     }
 
@@ -294,6 +621,7 @@ public class ListStackSetsRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        hashCode = prime * hashCode + ((getCallAs() == null) ? 0 : getCallAs().hashCode());
         return hashCode;
     }
 

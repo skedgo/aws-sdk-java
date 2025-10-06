@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.mediaconvert.AWSMediaConvertClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.mediaconvert.model.*;
+
 import com.amazonaws.services.mediaconvert.model.transform.*;
 
 /**
@@ -74,25 +75,25 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ForbiddenException").withModeledClass(
-                                    com.amazonaws.services.mediaconvert.model.ForbiddenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ForbiddenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediaconvert.model.transform.ForbiddenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withModeledClass(
-                                    com.amazonaws.services.mediaconvert.model.NotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediaconvert.model.transform.NotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withModeledClass(
-                                    com.amazonaws.services.mediaconvert.model.ConflictException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediaconvert.model.transform.ConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withModeledClass(
-                                    com.amazonaws.services.mediaconvert.model.TooManyRequestsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediaconvert.model.transform.TooManyRequestsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withModeledClass(
-                                    com.amazonaws.services.mediaconvert.model.BadRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediaconvert.model.transform.BadRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withModeledClass(
-                                    com.amazonaws.services.mediaconvert.model.InternalServerErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediaconvert.model.transform.InternalServerErrorExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.mediaconvert.model.AWSMediaConvertException.class));
 
     public static AWSMediaConvertClientBuilder builder() {
@@ -186,6 +187,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new AssociateCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(associateCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateCertificate");
@@ -252,6 +255,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new CancelJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelJob");
@@ -319,6 +324,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new CreateJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateJob");
@@ -386,6 +393,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new CreateJobTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createJobTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateJobTemplate");
@@ -453,6 +462,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new CreatePresetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createPresetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePreset");
@@ -520,6 +531,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new CreateQueueRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createQueueRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateQueue");
@@ -586,6 +599,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new DeleteJobTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteJobTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteJobTemplate");
@@ -597,6 +612,74 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
 
             HttpResponseHandler<AmazonWebServiceResponse<DeleteJobTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteJobTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Permanently delete a policy that you created.
+     * 
+     * @param deletePolicyRequest
+     * @return Result of the DeletePolicy operation returned by the service.
+     * @throws BadRequestException
+     *         The service can't process your request because of a problem in the request. Please check your request
+     *         form and syntax.
+     * @throws InternalServerErrorException
+     *         The service encountered an unexpected condition and can't fulfill your request.
+     * @throws ForbiddenException
+     *         You don't have permissions for this action with the credentials you sent.
+     * @throws NotFoundException
+     *         The resource you requested doesn't exist.
+     * @throws TooManyRequestsException
+     *         Too many requests have been sent in too short of a time. The service limits the rate at which it will
+     *         accept requests.
+     * @throws ConflictException
+     *         The service couldn't complete your request because there is a conflict with the current state of the
+     *         resource.
+     * @sample AWSMediaConvert.DeletePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeletePolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeletePolicyResult deletePolicy(DeletePolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeletePolicy(request);
+    }
+
+    @SdkInternalApi
+    final DeletePolicyResult executeDeletePolicy(DeletePolicyRequest deletePolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deletePolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeletePolicyRequest> request = null;
+        Response<DeletePolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeletePolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deletePolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeletePolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeletePolicyResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -652,6 +735,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new DeletePresetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deletePresetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePreset");
@@ -718,6 +803,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new DeleteQueueRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteQueueRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteQueue");
@@ -740,28 +827,33 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
     }
 
     /**
-     * Send an request with an empty body to the regional API endpoint to get your account API endpoint.
+     * Send a request with an empty body to the regional API endpoint to get your account API endpoint. Note that
+     * DescribeEndpoints is no longer required. We recommend that you send your requests directly to the regional
+     * endpoint instead.
      * 
      * @param describeEndpointsRequest
-     *        DescribeEndpointsRequest
      * @return Result of the DescribeEndpoints operation returned by the service.
      * @throws BadRequestException
-     *         BadRequestException
+     *         The service can't process your request because of a problem in the request. Please check your request
+     *         form and syntax.
      * @throws InternalServerErrorException
-     *         InternalServiceException
+     *         The service encountered an unexpected condition and can't fulfill your request.
      * @throws ForbiddenException
-     *         AccessDeniedException
+     *         You don't have permissions for this action with the credentials you sent.
      * @throws NotFoundException
-     *         ResourceNotFoundException
+     *         The resource you requested doesn't exist.
      * @throws TooManyRequestsException
-     *         LimitExceededException
+     *         Too many requests have been sent in too short of a time. The service limits the rate at which it will
+     *         accept requests.
      * @throws ConflictException
-     *         ResourceInUseException
+     *         The service couldn't complete your request because there is a conflict with the current state of the
+     *         resource.
      * @sample AWSMediaConvert.DescribeEndpoints
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DescribeEndpoints" target="_top">AWS
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public DescribeEndpointsResult describeEndpoints(DescribeEndpointsRequest request) {
         request = beforeClientExecution(request);
         return executeDescribeEndpoints(request);
@@ -782,6 +874,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new DescribeEndpointsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeEndpointsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEndpoints");
@@ -850,6 +944,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(disassociateCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateCertificate");
@@ -873,7 +969,7 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
     }
 
     /**
-     * Retrieve the JSON for a specific completed transcoding job.
+     * Retrieve the JSON for a specific transcoding job.
      * 
      * @param getJobRequest
      * @return Result of the GetJob operation returned by the service.
@@ -917,6 +1013,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new GetJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetJob");
@@ -983,6 +1081,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new GetJobTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getJobTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetJobTemplate");
@@ -994,6 +1094,74 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
 
             HttpResponseHandler<AmazonWebServiceResponse<GetJobTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetJobTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Retrieve the JSON for your policy.
+     * 
+     * @param getPolicyRequest
+     * @return Result of the GetPolicy operation returned by the service.
+     * @throws BadRequestException
+     *         The service can't process your request because of a problem in the request. Please check your request
+     *         form and syntax.
+     * @throws InternalServerErrorException
+     *         The service encountered an unexpected condition and can't fulfill your request.
+     * @throws ForbiddenException
+     *         You don't have permissions for this action with the credentials you sent.
+     * @throws NotFoundException
+     *         The resource you requested doesn't exist.
+     * @throws TooManyRequestsException
+     *         Too many requests have been sent in too short of a time. The service limits the rate at which it will
+     *         accept requests.
+     * @throws ConflictException
+     *         The service couldn't complete your request because there is a conflict with the current state of the
+     *         resource.
+     * @sample AWSMediaConvert.GetPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetPolicyResult getPolicy(GetPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetPolicy(request);
+    }
+
+    @SdkInternalApi
+    final GetPolicyResult executeGetPolicy(GetPolicyRequest getPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetPolicyRequest> request = null;
+        Response<GetPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetPolicyResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetPolicyResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1049,6 +1217,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new GetPresetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPresetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPreset");
@@ -1115,6 +1285,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new GetQueueRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getQueueRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetQueue");
@@ -1182,6 +1354,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new ListJobTemplatesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listJobTemplatesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListJobTemplates");
@@ -1250,6 +1424,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new ListJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listJobsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListJobs");
@@ -1317,6 +1493,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new ListPresetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPresetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPresets");
@@ -1384,6 +1562,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new ListQueuesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listQueuesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListQueues");
@@ -1450,6 +1630,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -1461,6 +1643,145 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
 
             HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Create or change your policy. For more information about policies, see the user guide at
+     * http://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html
+     * 
+     * @param putPolicyRequest
+     * @return Result of the PutPolicy operation returned by the service.
+     * @throws BadRequestException
+     *         The service can't process your request because of a problem in the request. Please check your request
+     *         form and syntax.
+     * @throws InternalServerErrorException
+     *         The service encountered an unexpected condition and can't fulfill your request.
+     * @throws ForbiddenException
+     *         You don't have permissions for this action with the credentials you sent.
+     * @throws NotFoundException
+     *         The resource you requested doesn't exist.
+     * @throws TooManyRequestsException
+     *         Too many requests have been sent in too short of a time. The service limits the rate at which it will
+     *         accept requests.
+     * @throws ConflictException
+     *         The service couldn't complete your request because there is a conflict with the current state of the
+     *         resource.
+     * @sample AWSMediaConvert.PutPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/PutPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public PutPolicyResult putPolicy(PutPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executePutPolicy(request);
+    }
+
+    @SdkInternalApi
+    final PutPolicyResult executePutPolicy(PutPolicyRequest putPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutPolicyRequest> request = null;
+        Response<PutPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutPolicyResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new PutPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Retrieve a JSON array that includes job details for up to twenty of your most recent jobs. Optionally filter
+     * results further according to input file, queue, or status. To retrieve the twenty next most recent jobs, use the
+     * nextToken string returned with the array.
+     * 
+     * @param searchJobsRequest
+     * @return Result of the SearchJobs operation returned by the service.
+     * @throws BadRequestException
+     *         The service can't process your request because of a problem in the request. Please check your request
+     *         form and syntax.
+     * @throws InternalServerErrorException
+     *         The service encountered an unexpected condition and can't fulfill your request.
+     * @throws ForbiddenException
+     *         You don't have permissions for this action with the credentials you sent.
+     * @throws NotFoundException
+     *         The resource you requested doesn't exist.
+     * @throws TooManyRequestsException
+     *         Too many requests have been sent in too short of a time. The service limits the rate at which it will
+     *         accept requests.
+     * @throws ConflictException
+     *         The service couldn't complete your request because there is a conflict with the current state of the
+     *         resource.
+     * @sample AWSMediaConvert.SearchJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/SearchJobs" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public SearchJobsResult searchJobs(SearchJobsRequest request) {
+        request = beforeClientExecution(request);
+        return executeSearchJobs(request);
+    }
+
+    @SdkInternalApi
+    final SearchJobsResult executeSearchJobs(SearchJobsRequest searchJobsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(searchJobsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<SearchJobsRequest> request = null;
+        Response<SearchJobsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new SearchJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(searchJobsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SearchJobs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<SearchJobsResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new SearchJobsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1517,6 +1838,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -1584,6 +1907,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -1650,6 +1975,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new UpdateJobTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateJobTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateJobTemplate");
@@ -1716,6 +2043,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new UpdatePresetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updatePresetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePreset");
@@ -1782,6 +2111,8 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
                 request = new UpdateQueueRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateQueueRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaConvert");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateQueue");
@@ -1877,6 +2208,11 @@ public class AWSMediaConvertClient extends AmazonWebServiceClient implements AWS
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

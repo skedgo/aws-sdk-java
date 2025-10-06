@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -64,10 +64,64 @@ public class AmazonCloudFormationWaiters {
 
         return new WaiterBuilder<DescribeStacksRequest, DescribeStacksResult>()
                 .withSdkFunction(new DescribeStacksFunction(client))
-                .withAcceptors(new StackCreateComplete.IsCREATE_COMPLETEMatcher(), new StackCreateComplete.IsCREATE_FAILEDMatcher(),
+                .withAcceptors(new StackCreateComplete.IsCREATE_COMPLETEMatcher(), new StackCreateComplete.IsUPDATE_COMPLETEMatcher(),
+                        new StackCreateComplete.IsUPDATE_IN_PROGRESSMatcher(), new StackCreateComplete.IsUPDATE_COMPLETE_CLEANUP_IN_PROGRESSMatcher(),
+                        new StackCreateComplete.IsUPDATE_FAILEDMatcher(), new StackCreateComplete.IsUPDATE_ROLLBACK_IN_PROGRESSMatcher(),
+                        new StackCreateComplete.IsUPDATE_ROLLBACK_FAILEDMatcher(),
+                        new StackCreateComplete.IsUPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESSMatcher(),
+                        new StackCreateComplete.IsUPDATE_ROLLBACK_COMPLETEMatcher(), new StackCreateComplete.IsCREATE_FAILEDMatcher(),
                         new StackCreateComplete.IsDELETE_COMPLETEMatcher(), new StackCreateComplete.IsDELETE_FAILEDMatcher(),
                         new StackCreateComplete.IsROLLBACK_FAILEDMatcher(), new StackCreateComplete.IsROLLBACK_COMPLETEMatcher(),
                         new StackCreateComplete.IsValidationErrorMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(120), new FixedDelayStrategy(30)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
+     * Builds a StackImportComplete waiter by using custom parameters waiterParameters and other parameters defined in
+     * the waiters specification, and then polls until it determines whether the resource entered the desired state or
+     * not, where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeStacksRequest> stackImportComplete() {
+
+        return new WaiterBuilder<DescribeStacksRequest, DescribeStacksResult>()
+                .withSdkFunction(new DescribeStacksFunction(client))
+                .withAcceptors(new StackImportComplete.IsIMPORT_COMPLETEMatcher(), new StackImportComplete.IsROLLBACK_COMPLETEMatcher(),
+                        new StackImportComplete.IsROLLBACK_FAILEDMatcher(), new StackImportComplete.IsIMPORT_ROLLBACK_IN_PROGRESSMatcher(),
+                        new StackImportComplete.IsIMPORT_ROLLBACK_FAILEDMatcher(), new StackImportComplete.IsIMPORT_ROLLBACK_COMPLETEMatcher(),
+                        new StackImportComplete.IsValidationErrorMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(120), new FixedDelayStrategy(30)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
+     * Builds a StackRollbackComplete waiter by using custom parameters waiterParameters and other parameters defined in
+     * the waiters specification, and then polls until it determines whether the resource entered the desired state or
+     * not, where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeStacksRequest> stackRollbackComplete() {
+
+        return new WaiterBuilder<DescribeStacksRequest, DescribeStacksResult>()
+                .withSdkFunction(new DescribeStacksFunction(client))
+                .withAcceptors(new StackRollbackComplete.IsUPDATE_ROLLBACK_COMPLETEMatcher(), new StackRollbackComplete.IsUPDATE_FAILEDMatcher(),
+                        new StackRollbackComplete.IsUPDATE_ROLLBACK_FAILEDMatcher(), new StackRollbackComplete.IsDELETE_FAILEDMatcher(),
+                        new StackRollbackComplete.IsValidationErrorMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(120), new FixedDelayStrategy(30)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
+     * Builds a StackUpdateComplete waiter by using custom parameters waiterParameters and other parameters defined in
+     * the waiters specification, and then polls until it determines whether the resource entered the desired state or
+     * not, where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeStacksRequest> stackUpdateComplete() {
+
+        return new WaiterBuilder<DescribeStacksRequest, DescribeStacksResult>()
+                .withSdkFunction(new DescribeStacksFunction(client))
+                .withAcceptors(new StackUpdateComplete.IsUPDATE_COMPLETEMatcher(), new StackUpdateComplete.IsUPDATE_FAILEDMatcher(),
+                        new StackUpdateComplete.IsUPDATE_ROLLBACK_FAILEDMatcher(), new StackUpdateComplete.IsUPDATE_ROLLBACK_COMPLETEMatcher(),
+                        new StackUpdateComplete.IsValidationErrorMatcher())
                 .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(120), new FixedDelayStrategy(30)))
                 .withExecutorService(executorService).build();
     }
@@ -98,24 +152,23 @@ public class AmazonCloudFormationWaiters {
                 .withSdkFunction(new DescribeStacksFunction(client))
                 .withAcceptors(new StackDeleteComplete.IsDELETE_COMPLETEMatcher(), new StackDeleteComplete.IsValidationErrorMatcher(),
                         new StackDeleteComplete.IsDELETE_FAILEDMatcher(), new StackDeleteComplete.IsCREATE_FAILEDMatcher(),
-                        new StackDeleteComplete.IsROLLBACK_FAILEDMatcher(), new StackDeleteComplete.IsUPDATE_ROLLBACK_FAILEDMatcher(),
-                        new StackDeleteComplete.IsUPDATE_ROLLBACK_IN_PROGRESSMatcher())
+                        new StackDeleteComplete.IsROLLBACK_FAILEDMatcher(), new StackDeleteComplete.IsUPDATE_ROLLBACK_IN_PROGRESSMatcher(),
+                        new StackDeleteComplete.IsUPDATE_ROLLBACK_FAILEDMatcher(), new StackDeleteComplete.IsUPDATE_ROLLBACK_COMPLETEMatcher(),
+                        new StackDeleteComplete.IsUPDATE_COMPLETEMatcher())
                 .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(120), new FixedDelayStrategy(30)))
                 .withExecutorService(executorService).build();
     }
 
     /**
-     * Builds a StackUpdateComplete waiter by using custom parameters waiterParameters and other parameters defined in
-     * the waiters specification, and then polls until it determines whether the resource entered the desired state or
-     * not, where polling criteria is bound by either default polling strategy or custom polling strategy.
+     * Builds a TypeRegistrationComplete waiter by using custom parameters waiterParameters and other parameters defined
+     * in the waiters specification, and then polls until it determines whether the resource entered the desired state
+     * or not, where polling criteria is bound by either default polling strategy or custom polling strategy.
      */
-    public Waiter<DescribeStacksRequest> stackUpdateComplete() {
+    public Waiter<DescribeTypeRegistrationRequest> typeRegistrationComplete() {
 
-        return new WaiterBuilder<DescribeStacksRequest, DescribeStacksResult>()
-                .withSdkFunction(new DescribeStacksFunction(client))
-                .withAcceptors(new StackUpdateComplete.IsUPDATE_COMPLETEMatcher(), new StackUpdateComplete.IsUPDATE_FAILEDMatcher(),
-                        new StackUpdateComplete.IsUPDATE_ROLLBACK_FAILEDMatcher(), new StackUpdateComplete.IsUPDATE_ROLLBACK_COMPLETEMatcher(),
-                        new StackUpdateComplete.IsValidationErrorMatcher())
+        return new WaiterBuilder<DescribeTypeRegistrationRequest, DescribeTypeRegistrationResult>()
+                .withSdkFunction(new DescribeTypeRegistrationFunction(client))
+                .withAcceptors(new TypeRegistrationComplete.IsCOMPLETEMatcher(), new TypeRegistrationComplete.IsFAILEDMatcher())
                 .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(120), new FixedDelayStrategy(30)))
                 .withExecutorService(executorService).build();
     }

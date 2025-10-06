@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,15 +42,15 @@ public class RiskConfigurationType implements Serializable, Cloneable, Structure
     private String clientId;
     /**
      * <p>
-     * The compromised credentials risk configuration object including the <code>EventFilter</code> and the
-     * <code>EventAction</code>
+     * The compromised credentials risk configuration object, including the <code>EventFilter</code> and the
+     * <code>EventAction</code>.
      * </p>
      */
     private CompromisedCredentialsRiskConfigurationType compromisedCredentialsRiskConfiguration;
     /**
      * <p>
-     * The account takeover risk configuration object including the <code>NotifyConfiguration</code> object and
-     * <code>Actions</code> to take in the case of an account takeover.
+     * The account takeover risk configuration object, including the <code>NotifyConfiguration</code> object and
+     * <code>Actions</code> to take if there is an account takeover.
      * </p>
      */
     private AccountTakeoverRiskConfigurationType accountTakeoverRiskConfiguration;
@@ -62,7 +62,8 @@ public class RiskConfigurationType implements Serializable, Cloneable, Structure
     private RiskExceptionConfigurationType riskExceptionConfiguration;
     /**
      * <p>
-     * The last modified date.
+     * The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      */
     private java.util.Date lastModifiedDate;
@@ -149,13 +150,13 @@ public class RiskConfigurationType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The compromised credentials risk configuration object including the <code>EventFilter</code> and the
-     * <code>EventAction</code>
+     * The compromised credentials risk configuration object, including the <code>EventFilter</code> and the
+     * <code>EventAction</code>.
      * </p>
      * 
      * @param compromisedCredentialsRiskConfiguration
-     *        The compromised credentials risk configuration object including the <code>EventFilter</code> and the
-     *        <code>EventAction</code>
+     *        The compromised credentials risk configuration object, including the <code>EventFilter</code> and the
+     *        <code>EventAction</code>.
      */
 
     public void setCompromisedCredentialsRiskConfiguration(CompromisedCredentialsRiskConfigurationType compromisedCredentialsRiskConfiguration) {
@@ -164,12 +165,12 @@ public class RiskConfigurationType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The compromised credentials risk configuration object including the <code>EventFilter</code> and the
-     * <code>EventAction</code>
+     * The compromised credentials risk configuration object, including the <code>EventFilter</code> and the
+     * <code>EventAction</code>.
      * </p>
      * 
-     * @return The compromised credentials risk configuration object including the <code>EventFilter</code> and the
-     *         <code>EventAction</code>
+     * @return The compromised credentials risk configuration object, including the <code>EventFilter</code> and the
+     *         <code>EventAction</code>.
      */
 
     public CompromisedCredentialsRiskConfigurationType getCompromisedCredentialsRiskConfiguration() {
@@ -178,13 +179,13 @@ public class RiskConfigurationType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The compromised credentials risk configuration object including the <code>EventFilter</code> and the
-     * <code>EventAction</code>
+     * The compromised credentials risk configuration object, including the <code>EventFilter</code> and the
+     * <code>EventAction</code>.
      * </p>
      * 
      * @param compromisedCredentialsRiskConfiguration
-     *        The compromised credentials risk configuration object including the <code>EventFilter</code> and the
-     *        <code>EventAction</code>
+     *        The compromised credentials risk configuration object, including the <code>EventFilter</code> and the
+     *        <code>EventAction</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -195,13 +196,13 @@ public class RiskConfigurationType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The account takeover risk configuration object including the <code>NotifyConfiguration</code> object and
-     * <code>Actions</code> to take in the case of an account takeover.
+     * The account takeover risk configuration object, including the <code>NotifyConfiguration</code> object and
+     * <code>Actions</code> to take if there is an account takeover.
      * </p>
      * 
      * @param accountTakeoverRiskConfiguration
-     *        The account takeover risk configuration object including the <code>NotifyConfiguration</code> object and
-     *        <code>Actions</code> to take in the case of an account takeover.
+     *        The account takeover risk configuration object, including the <code>NotifyConfiguration</code> object and
+     *        <code>Actions</code> to take if there is an account takeover.
      */
 
     public void setAccountTakeoverRiskConfiguration(AccountTakeoverRiskConfigurationType accountTakeoverRiskConfiguration) {
@@ -210,12 +211,12 @@ public class RiskConfigurationType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The account takeover risk configuration object including the <code>NotifyConfiguration</code> object and
-     * <code>Actions</code> to take in the case of an account takeover.
+     * The account takeover risk configuration object, including the <code>NotifyConfiguration</code> object and
+     * <code>Actions</code> to take if there is an account takeover.
      * </p>
      * 
-     * @return The account takeover risk configuration object including the <code>NotifyConfiguration</code> object and
-     *         <code>Actions</code> to take in the case of an account takeover.
+     * @return The account takeover risk configuration object, including the <code>NotifyConfiguration</code> object and
+     *         <code>Actions</code> to take if there is an account takeover.
      */
 
     public AccountTakeoverRiskConfigurationType getAccountTakeoverRiskConfiguration() {
@@ -224,13 +225,13 @@ public class RiskConfigurationType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The account takeover risk configuration object including the <code>NotifyConfiguration</code> object and
-     * <code>Actions</code> to take in the case of an account takeover.
+     * The account takeover risk configuration object, including the <code>NotifyConfiguration</code> object and
+     * <code>Actions</code> to take if there is an account takeover.
      * </p>
      * 
      * @param accountTakeoverRiskConfiguration
-     *        The account takeover risk configuration object including the <code>NotifyConfiguration</code> object and
-     *        <code>Actions</code> to take in the case of an account takeover.
+     *        The account takeover risk configuration object, including the <code>NotifyConfiguration</code> object and
+     *        <code>Actions</code> to take if there is an account takeover.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -281,11 +282,14 @@ public class RiskConfigurationType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The last modified date.
+     * The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
      * @param lastModifiedDate
-     *        The last modified date.
+     *        The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time
+     *        format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *        <code>Date</code> object.
      */
 
     public void setLastModifiedDate(java.util.Date lastModifiedDate) {
@@ -294,10 +298,13 @@ public class RiskConfigurationType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The last modified date.
+     * The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
-     * @return The last modified date.
+     * @return The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time
+     *         format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *         <code>Date</code> object.
      */
 
     public java.util.Date getLastModifiedDate() {
@@ -306,11 +313,14 @@ public class RiskConfigurationType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The last modified date.
+     * The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
      * @param lastModifiedDate
-     *        The last modified date.
+     *        The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time
+     *        format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *        <code>Date</code> object.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

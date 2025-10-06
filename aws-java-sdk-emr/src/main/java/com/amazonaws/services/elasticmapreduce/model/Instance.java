@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Represents an EC2 instance provisioned as part of cluster.
+ * Represents an Amazon EC2 instance provisioned as part of cluster.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/Instance" target="_top">AWS API
@@ -78,7 +78,7 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
     private String instanceGroupId;
     /**
      * <p>
-     * The unique identifier of the instance fleet to which an EC2 instance belongs.
+     * The unique identifier of the instance fleet to which an Amazon EC2 instance belongs.
      * </p>
      */
     private String instanceFleetId;
@@ -90,13 +90,13 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
     private String market;
     /**
      * <p>
-     * The EC2 instance type, for example <code>m3.xlarge</code>.
+     * The Amazon EC2 instance type, for example <code>m3.xlarge</code>.
      * </p>
      */
     private String instanceType;
     /**
      * <p>
-     * The list of EBS volumes that are attached to this instance.
+     * The list of Amazon EBS volumes that are attached to this instance.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<EbsVolume> ebsVolumes;
@@ -423,11 +423,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The unique identifier of the instance fleet to which an EC2 instance belongs.
+     * The unique identifier of the instance fleet to which an Amazon EC2 instance belongs.
      * </p>
      * 
      * @param instanceFleetId
-     *        The unique identifier of the instance fleet to which an EC2 instance belongs.
+     *        The unique identifier of the instance fleet to which an Amazon EC2 instance belongs.
      */
 
     public void setInstanceFleetId(String instanceFleetId) {
@@ -436,10 +436,10 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The unique identifier of the instance fleet to which an EC2 instance belongs.
+     * The unique identifier of the instance fleet to which an Amazon EC2 instance belongs.
      * </p>
      * 
-     * @return The unique identifier of the instance fleet to which an EC2 instance belongs.
+     * @return The unique identifier of the instance fleet to which an Amazon EC2 instance belongs.
      */
 
     public String getInstanceFleetId() {
@@ -448,11 +448,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The unique identifier of the instance fleet to which an EC2 instance belongs.
+     * The unique identifier of the instance fleet to which an Amazon EC2 instance belongs.
      * </p>
      * 
      * @param instanceFleetId
-     *        The unique identifier of the instance fleet to which an EC2 instance belongs.
+     *        The unique identifier of the instance fleet to which an Amazon EC2 instance belongs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -536,11 +536,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The EC2 instance type, for example <code>m3.xlarge</code>.
+     * The Amazon EC2 instance type, for example <code>m3.xlarge</code>.
      * </p>
      * 
      * @param instanceType
-     *        The EC2 instance type, for example <code>m3.xlarge</code>.
+     *        The Amazon EC2 instance type, for example <code>m3.xlarge</code>.
      */
 
     public void setInstanceType(String instanceType) {
@@ -549,10 +549,10 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The EC2 instance type, for example <code>m3.xlarge</code>.
+     * The Amazon EC2 instance type, for example <code>m3.xlarge</code>.
      * </p>
      * 
-     * @return The EC2 instance type, for example <code>m3.xlarge</code>.
+     * @return The Amazon EC2 instance type, for example <code>m3.xlarge</code>.
      */
 
     public String getInstanceType() {
@@ -561,11 +561,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The EC2 instance type, for example <code>m3.xlarge</code>.
+     * The Amazon EC2 instance type, for example <code>m3.xlarge</code>.
      * </p>
      * 
      * @param instanceType
-     *        The EC2 instance type, for example <code>m3.xlarge</code>.
+     *        The Amazon EC2 instance type, for example <code>m3.xlarge</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -576,10 +576,10 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The list of EBS volumes that are attached to this instance.
+     * The list of Amazon EBS volumes that are attached to this instance.
      * </p>
      * 
-     * @return The list of EBS volumes that are attached to this instance.
+     * @return The list of Amazon EBS volumes that are attached to this instance.
      */
 
     public java.util.List<EbsVolume> getEbsVolumes() {
@@ -591,11 +591,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The list of EBS volumes that are attached to this instance.
+     * The list of Amazon EBS volumes that are attached to this instance.
      * </p>
      * 
      * @param ebsVolumes
-     *        The list of EBS volumes that are attached to this instance.
+     *        The list of Amazon EBS volumes that are attached to this instance.
      */
 
     public void setEbsVolumes(java.util.Collection<EbsVolume> ebsVolumes) {
@@ -609,7 +609,7 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The list of EBS volumes that are attached to this instance.
+     * The list of Amazon EBS volumes that are attached to this instance.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -618,7 +618,7 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param ebsVolumes
-     *        The list of EBS volumes that are attached to this instance.
+     *        The list of Amazon EBS volumes that are attached to this instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -634,11 +634,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The list of EBS volumes that are attached to this instance.
+     * The list of Amazon EBS volumes that are attached to this instance.
      * </p>
      * 
      * @param ebsVolumes
-     *        The list of EBS volumes that are attached to this instance.
+     *        The list of Amazon EBS volumes that are attached to this instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

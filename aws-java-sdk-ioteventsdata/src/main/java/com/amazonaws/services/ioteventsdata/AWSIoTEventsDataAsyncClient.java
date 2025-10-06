@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,9 +26,14 @@ import java.util.concurrent.ExecutorService;
  * notification when an asynchronous operation completes.
  * <p>
  * <p>
- * AWS IoT Events monitors your equipment or device fleets for failures or changes in operation, and triggers actions
- * when such events occur. AWS IoT Events Data API commands enable you to send inputs to detectors, list detectors, and
- * view or update a detector's status.
+ * IoT Events monitors your equipment or device fleets for failures or changes in operation, and triggers actions when
+ * such events occur. You can use IoT Events Data API commands to send inputs to detectors, list detectors, and view or
+ * update a detector's status.
+ * </p>
+ * <p>
+ * For more information, see <a
+ * href="https://docs.aws.amazon.com/iotevents/latest/developerguide/what-is-iotevents.html">What is IoT Events?</a> in
+ * the <i>IoT Events Developer Guide</i>.
  * </p>
  */
 @ThreadSafe
@@ -51,7 +56,20 @@ public class AWSIoTEventsDataAsyncClient extends AWSIoTEventsDataClient implemen
      *        Object providing client parameters.
      */
     AWSIoTEventsDataAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS IoT Events Data using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSIoTEventsDataAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -62,6 +80,138 @@ public class AWSIoTEventsDataAsyncClient extends AWSIoTEventsDataClient implemen
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchAcknowledgeAlarmResult> batchAcknowledgeAlarmAsync(BatchAcknowledgeAlarmRequest request) {
+
+        return batchAcknowledgeAlarmAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchAcknowledgeAlarmResult> batchAcknowledgeAlarmAsync(final BatchAcknowledgeAlarmRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchAcknowledgeAlarmRequest, BatchAcknowledgeAlarmResult> asyncHandler) {
+        final BatchAcknowledgeAlarmRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchAcknowledgeAlarmResult>() {
+            @Override
+            public BatchAcknowledgeAlarmResult call() throws Exception {
+                BatchAcknowledgeAlarmResult result = null;
+
+                try {
+                    result = executeBatchAcknowledgeAlarm(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDeleteDetectorResult> batchDeleteDetectorAsync(BatchDeleteDetectorRequest request) {
+
+        return batchDeleteDetectorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDeleteDetectorResult> batchDeleteDetectorAsync(final BatchDeleteDetectorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchDeleteDetectorRequest, BatchDeleteDetectorResult> asyncHandler) {
+        final BatchDeleteDetectorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchDeleteDetectorResult>() {
+            @Override
+            public BatchDeleteDetectorResult call() throws Exception {
+                BatchDeleteDetectorResult result = null;
+
+                try {
+                    result = executeBatchDeleteDetector(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDisableAlarmResult> batchDisableAlarmAsync(BatchDisableAlarmRequest request) {
+
+        return batchDisableAlarmAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDisableAlarmResult> batchDisableAlarmAsync(final BatchDisableAlarmRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchDisableAlarmRequest, BatchDisableAlarmResult> asyncHandler) {
+        final BatchDisableAlarmRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchDisableAlarmResult>() {
+            @Override
+            public BatchDisableAlarmResult call() throws Exception {
+                BatchDisableAlarmResult result = null;
+
+                try {
+                    result = executeBatchDisableAlarm(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchEnableAlarmResult> batchEnableAlarmAsync(BatchEnableAlarmRequest request) {
+
+        return batchEnableAlarmAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchEnableAlarmResult> batchEnableAlarmAsync(final BatchEnableAlarmRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchEnableAlarmRequest, BatchEnableAlarmResult> asyncHandler) {
+        final BatchEnableAlarmRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchEnableAlarmResult>() {
+            @Override
+            public BatchEnableAlarmResult call() throws Exception {
+                BatchEnableAlarmResult result = null;
+
+                try {
+                    result = executeBatchEnableAlarm(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -82,6 +232,72 @@ public class AWSIoTEventsDataAsyncClient extends AWSIoTEventsDataClient implemen
 
                 try {
                     result = executeBatchPutMessage(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchResetAlarmResult> batchResetAlarmAsync(BatchResetAlarmRequest request) {
+
+        return batchResetAlarmAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchResetAlarmResult> batchResetAlarmAsync(final BatchResetAlarmRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchResetAlarmRequest, BatchResetAlarmResult> asyncHandler) {
+        final BatchResetAlarmRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchResetAlarmResult>() {
+            @Override
+            public BatchResetAlarmResult call() throws Exception {
+                BatchResetAlarmResult result = null;
+
+                try {
+                    result = executeBatchResetAlarm(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchSnoozeAlarmResult> batchSnoozeAlarmAsync(BatchSnoozeAlarmRequest request) {
+
+        return batchSnoozeAlarmAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchSnoozeAlarmResult> batchSnoozeAlarmAsync(final BatchSnoozeAlarmRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchSnoozeAlarmRequest, BatchSnoozeAlarmResult> asyncHandler) {
+        final BatchSnoozeAlarmRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchSnoozeAlarmResult>() {
+            @Override
+            public BatchSnoozeAlarmResult call() throws Exception {
+                BatchSnoozeAlarmResult result = null;
+
+                try {
+                    result = executeBatchSnoozeAlarm(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -131,6 +347,39 @@ public class AWSIoTEventsDataAsyncClient extends AWSIoTEventsDataClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeAlarmResult> describeAlarmAsync(DescribeAlarmRequest request) {
+
+        return describeAlarmAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAlarmResult> describeAlarmAsync(final DescribeAlarmRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeAlarmRequest, DescribeAlarmResult> asyncHandler) {
+        final DescribeAlarmRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeAlarmResult>() {
+            @Override
+            public DescribeAlarmResult call() throws Exception {
+                DescribeAlarmResult result = null;
+
+                try {
+                    result = executeDescribeAlarm(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeDetectorResult> describeDetectorAsync(DescribeDetectorRequest request) {
 
         return describeDetectorAsync(request, null);
@@ -148,6 +397,39 @@ public class AWSIoTEventsDataAsyncClient extends AWSIoTEventsDataClient implemen
 
                 try {
                     result = executeDescribeDetector(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAlarmsResult> listAlarmsAsync(ListAlarmsRequest request) {
+
+        return listAlarmsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAlarmsResult> listAlarmsAsync(final ListAlarmsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListAlarmsRequest, ListAlarmsResult> asyncHandler) {
+        final ListAlarmsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListAlarmsResult>() {
+            @Override
+            public ListAlarmsResult call() throws Exception {
+                ListAlarmsResult result = null;
+
+                try {
+                    result = executeListAlarms(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

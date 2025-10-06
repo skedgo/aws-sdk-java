@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,8 +18,10 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
+ * <p>
  * Creates a new configuration for the specified configuration name. Amazon MQ uses the default configuration (the
  * engine type and version).
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateConfiguration" target="_top">AWS API
  *      Documentation</a>
@@ -27,26 +29,109 @@ import com.amazonaws.AmazonWebServiceRequest;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
-    /** Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ. */
+    /**
+     * <p>
+     * Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * </p>
+     */
+    private String authenticationStrategy;
+    /**
+     * <p>
+     * Required. The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
+     * </p>
+     */
     private String engineType;
     /**
-     * Required. The version of the broker engine. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The broker engine version. Defaults to the latest available version for the specified broker engine type. For
+     * more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
      */
     private String engineVersion;
     /**
+     * <p>
      * Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods,
      * underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
+     * </p>
      */
     private String name;
-    /** Create tags when creating the configuration. */
+    /**
+     * <p>
+     * Create tags when creating the configuration.
+     * </p>
+     */
     private java.util.Map<String, String> tags;
 
     /**
-     * Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     * <p>
+     * Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * </p>
+     * 
+     * @param authenticationStrategy
+     *        Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * @see AuthenticationStrategy
+     */
+
+    public void setAuthenticationStrategy(String authenticationStrategy) {
+        this.authenticationStrategy = authenticationStrategy;
+    }
+
+    /**
+     * <p>
+     * Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * </p>
+     * 
+     * @return Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * @see AuthenticationStrategy
+     */
+
+    public String getAuthenticationStrategy() {
+        return this.authenticationStrategy;
+    }
+
+    /**
+     * <p>
+     * Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * </p>
+     * 
+     * @param authenticationStrategy
+     *        Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthenticationStrategy
+     */
+
+    public CreateConfigurationRequest withAuthenticationStrategy(String authenticationStrategy) {
+        setAuthenticationStrategy(authenticationStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * </p>
+     * 
+     * @param authenticationStrategy
+     *        Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthenticationStrategy
+     */
+
+    public CreateConfigurationRequest withAuthenticationStrategy(AuthenticationStrategy authenticationStrategy) {
+        this.authenticationStrategy = authenticationStrategy.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Required. The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
+     * </p>
      * 
      * @param engineType
-     *        Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     *        Required. The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
      * @see EngineType
      */
 
@@ -55,9 +140,11 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
-     * Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     * <p>
+     * Required. The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
+     * </p>
      * 
-     * @return Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     * @return Required. The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
      * @see EngineType
      */
 
@@ -66,10 +153,12 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
-     * Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     * <p>
+     * Required. The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
+     * </p>
      * 
      * @param engineType
-     *        Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     *        Required. The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EngineType
      */
@@ -80,10 +169,12 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
-     * Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     * <p>
+     * Required. The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
+     * </p>
      * 
      * @param engineType
-     *        Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     *        Required. The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EngineType
      */
@@ -94,12 +185,22 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
-     * Required. The version of the broker engine. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The broker engine version. Defaults to the latest available version for the specified broker engine type. For
+     * more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
      * 
      * @param engineVersion
-     *        Required. The version of the broker engine. For a list of supported engine versions, see
-     *        https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     *        The broker engine version. Defaults to the latest available version for the specified broker engine type.
+     *        For more information, see the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html"
+     *        >ActiveMQ version management</a> and the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html"
+     *        >RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -107,11 +208,21 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
-     * Required. The version of the broker engine. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The broker engine version. Defaults to the latest available version for the specified broker engine type. For
+     * more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
      * 
-     * @return Required. The version of the broker engine. For a list of supported engine versions, see
-     *         https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * @return The broker engine version. Defaults to the latest available version for the specified broker engine type.
+     *         For more information, see the <a
+     *         href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html"
+     *         >ActiveMQ version management</a> and the <a
+     *         href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html"
+     *         >RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.
      */
 
     public String getEngineVersion() {
@@ -119,12 +230,22 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
-     * Required. The version of the broker engine. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The broker engine version. Defaults to the latest available version for the specified broker engine type. For
+     * more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
      * 
      * @param engineVersion
-     *        Required. The version of the broker engine. For a list of supported engine versions, see
-     *        https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     *        The broker engine version. Defaults to the latest available version for the specified broker engine type.
+     *        For more information, see the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html"
+     *        >ActiveMQ version management</a> and the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html"
+     *        >RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -134,8 +255,10 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <p>
      * Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods,
      * underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
+     * </p>
      * 
      * @param name
      *        Required. The name of the configuration. This value can contain only alphanumeric characters, dashes,
@@ -147,8 +270,10 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <p>
      * Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods,
      * underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
+     * </p>
      * 
      * @return Required. The name of the configuration. This value can contain only alphanumeric characters, dashes,
      *         periods, underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
@@ -159,8 +284,10 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <p>
      * Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods,
      * underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
+     * </p>
      * 
      * @param name
      *        Required. The name of the configuration. This value can contain only alphanumeric characters, dashes,
@@ -174,7 +301,9 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <p>
      * Create tags when creating the configuration.
+     * </p>
      * 
      * @return Create tags when creating the configuration.
      */
@@ -184,7 +313,9 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <p>
      * Create tags when creating the configuration.
+     * </p>
      * 
      * @param tags
      *        Create tags when creating the configuration.
@@ -195,7 +326,9 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <p>
      * Create tags when creating the configuration.
+     * </p>
      * 
      * @param tags
      *        Create tags when creating the configuration.
@@ -206,6 +339,13 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateConfigurationRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateConfigurationRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {
@@ -240,6 +380,8 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getAuthenticationStrategy() != null)
+            sb.append("AuthenticationStrategy: ").append(getAuthenticationStrategy()).append(",");
         if (getEngineType() != null)
             sb.append("EngineType: ").append(getEngineType()).append(",");
         if (getEngineVersion() != null)
@@ -262,6 +404,10 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
         if (obj instanceof CreateConfigurationRequest == false)
             return false;
         CreateConfigurationRequest other = (CreateConfigurationRequest) obj;
+        if (other.getAuthenticationStrategy() == null ^ this.getAuthenticationStrategy() == null)
+            return false;
+        if (other.getAuthenticationStrategy() != null && other.getAuthenticationStrategy().equals(this.getAuthenticationStrategy()) == false)
+            return false;
         if (other.getEngineType() == null ^ this.getEngineType() == null)
             return false;
         if (other.getEngineType() != null && other.getEngineType().equals(this.getEngineType()) == false)
@@ -286,6 +432,7 @@ public class CreateConfigurationRequest extends com.amazonaws.AmazonWebServiceRe
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getAuthenticationStrategy() == null) ? 0 : getAuthenticationStrategy().hashCode());
         hashCode = prime * hashCode + ((getEngineType() == null) ? 0 : getEngineType().hashCode());
         hashCode = prime * hashCode + ((getEngineVersion() == null) ? 0 : getEngineVersion().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());

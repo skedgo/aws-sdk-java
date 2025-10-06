@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,8 +41,8 @@ public class DescribeServicesRequest extends com.amazonaws.AmazonWebServiceReque
     private com.amazonaws.internal.SdkInternalList<String> services;
     /**
      * <p>
-     * Specifies whether you want to see the resource tags for the service. If <code>TAGS</code> is specified, the tags
-     * are included in the response. If this field is omitted, tags are not included in the response.
+     * Determines whether you want to see the resource tags for the service. If <code>TAGS</code> is specified, the tags
+     * are included in the response. If this field is omitted, tags aren't included in the response.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> include;
@@ -174,12 +174,12 @@ public class DescribeServicesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Specifies whether you want to see the resource tags for the service. If <code>TAGS</code> is specified, the tags
-     * are included in the response. If this field is omitted, tags are not included in the response.
+     * Determines whether you want to see the resource tags for the service. If <code>TAGS</code> is specified, the tags
+     * are included in the response. If this field is omitted, tags aren't included in the response.
      * </p>
      * 
-     * @return Specifies whether you want to see the resource tags for the service. If <code>TAGS</code> is specified,
-     *         the tags are included in the response. If this field is omitted, tags are not included in the response.
+     * @return Determines whether you want to see the resource tags for the service. If <code>TAGS</code> is specified,
+     *         the tags are included in the response. If this field is omitted, tags aren't included in the response.
      * @see ServiceField
      */
 
@@ -192,13 +192,13 @@ public class DescribeServicesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Specifies whether you want to see the resource tags for the service. If <code>TAGS</code> is specified, the tags
-     * are included in the response. If this field is omitted, tags are not included in the response.
+     * Determines whether you want to see the resource tags for the service. If <code>TAGS</code> is specified, the tags
+     * are included in the response. If this field is omitted, tags aren't included in the response.
      * </p>
      * 
      * @param include
-     *        Specifies whether you want to see the resource tags for the service. If <code>TAGS</code> is specified,
-     *        the tags are included in the response. If this field is omitted, tags are not included in the response.
+     *        Determines whether you want to see the resource tags for the service. If <code>TAGS</code> is specified,
+     *        the tags are included in the response. If this field is omitted, tags aren't included in the response.
      * @see ServiceField
      */
 
@@ -213,8 +213,8 @@ public class DescribeServicesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Specifies whether you want to see the resource tags for the service. If <code>TAGS</code> is specified, the tags
-     * are included in the response. If this field is omitted, tags are not included in the response.
+     * Determines whether you want to see the resource tags for the service. If <code>TAGS</code> is specified, the tags
+     * are included in the response. If this field is omitted, tags aren't included in the response.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -223,8 +223,8 @@ public class DescribeServicesRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param include
-     *        Specifies whether you want to see the resource tags for the service. If <code>TAGS</code> is specified,
-     *        the tags are included in the response. If this field is omitted, tags are not included in the response.
+     *        Determines whether you want to see the resource tags for the service. If <code>TAGS</code> is specified,
+     *        the tags are included in the response. If this field is omitted, tags aren't included in the response.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ServiceField
      */
@@ -241,13 +241,13 @@ public class DescribeServicesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Specifies whether you want to see the resource tags for the service. If <code>TAGS</code> is specified, the tags
-     * are included in the response. If this field is omitted, tags are not included in the response.
+     * Determines whether you want to see the resource tags for the service. If <code>TAGS</code> is specified, the tags
+     * are included in the response. If this field is omitted, tags aren't included in the response.
      * </p>
      * 
      * @param include
-     *        Specifies whether you want to see the resource tags for the service. If <code>TAGS</code> is specified,
-     *        the tags are included in the response. If this field is omitted, tags are not included in the response.
+     *        Determines whether you want to see the resource tags for the service. If <code>TAGS</code> is specified,
+     *        the tags are included in the response. If this field is omitted, tags aren't included in the response.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ServiceField
      */
@@ -259,13 +259,13 @@ public class DescribeServicesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Specifies whether you want to see the resource tags for the service. If <code>TAGS</code> is specified, the tags
-     * are included in the response. If this field is omitted, tags are not included in the response.
+     * Determines whether you want to see the resource tags for the service. If <code>TAGS</code> is specified, the tags
+     * are included in the response. If this field is omitted, tags aren't included in the response.
      * </p>
      * 
      * @param include
-     *        Specifies whether you want to see the resource tags for the service. If <code>TAGS</code> is specified,
-     *        the tags are included in the response. If this field is omitted, tags are not included in the response.
+     *        Determines whether you want to see the resource tags for the service. If <code>TAGS</code> is specified,
+     *        the tags are included in the response. If this field is omitted, tags aren't included in the response.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ServiceField
      */

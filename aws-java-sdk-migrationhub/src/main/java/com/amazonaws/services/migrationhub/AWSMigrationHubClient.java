@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.migrationhub.AWSMigrationHubClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.migrationhub.model.*;
+
 import com.amazonaws.services.migrationhub.model.transform.*;
 
 /**
@@ -53,6 +54,11 @@ import com.amazonaws.services.migrationhub.model.transform.*;
  * <p>
  * The AWS Migration Hub API methods help to obtain server and application migration status and integrate your
  * resource-specific migration tool by providing a programmatic interface to Migration Hub.
+ * </p>
+ * <p>
+ * Remember that you must set your AWS Migration Hub home region before you call any of these APIs, or a
+ * <code>HomeRegionNotSetException</code> error will be returned. Also, you must make the API calls while in your home
+ * region.
  * </p>
  */
 @ThreadSafe
@@ -78,29 +84,35 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withModeledClass(
-                                    com.amazonaws.services.migrationhub.model.AccessDeniedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.migrationhub.model.transform.AccessDeniedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.migrationhub.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.migrationhub.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnauthorizedOperation").withModeledClass(
-                                    com.amazonaws.services.migrationhub.model.UnauthorizedOperationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnauthorizedOperation").withExceptionUnmarshaller(
+                                    com.amazonaws.services.migrationhub.model.transform.UnauthorizedOperationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidInputException").withModeledClass(
-                                    com.amazonaws.services.migrationhub.model.InvalidInputException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidInputException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.migrationhub.model.transform.InvalidInputExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("PolicyErrorException").withModeledClass(
-                                    com.amazonaws.services.migrationhub.model.PolicyErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.migrationhub.model.transform.ThrottlingExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withModeledClass(
-                                    com.amazonaws.services.migrationhub.model.ServiceUnavailableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("PolicyErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.migrationhub.model.transform.PolicyErrorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerError").withModeledClass(
-                                    com.amazonaws.services.migrationhub.model.InternalServerErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.migrationhub.model.transform.ServiceUnavailableExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DryRunOperation").withModeledClass(
-                                    com.amazonaws.services.migrationhub.model.DryRunOperationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("HomeRegionNotSetException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.migrationhub.model.transform.HomeRegionNotSetExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerError").withExceptionUnmarshaller(
+                                    com.amazonaws.services.migrationhub.model.transform.InternalServerErrorExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("DryRunOperation").withExceptionUnmarshaller(
+                                    com.amazonaws.services.migrationhub.model.transform.DryRunOperationExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.migrationhub.model.AWSMigrationHubException.class));
 
     public static AWSMigrationHubClientBuilder builder() {
@@ -178,8 +190,10 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * @return Result of the AssociateCreatedArtifact operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws DryRunOperationException
@@ -192,8 +206,11 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
      * @throws ResourceNotFoundException
-     *         Exception raised when the request references a resource (ADS configuration, update stream, migration
-     *         task, etc.) that does not exist in ADS (Application Discovery Service) or in Migration Hub's repository.
+     *         Exception raised when the request references a resource (Application Discovery Service configuration,
+     *         update stream, migration task, etc.) that does not exist in Application Discovery Service (Application
+     *         Discovery Service) or in Migration Hub's repository.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.AssociateCreatedArtifact
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/AssociateCreatedArtifact"
      *      target="_top">AWS API Documentation</a>
@@ -220,6 +237,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(associateCreatedArtifactRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateCreatedArtifact");
@@ -244,15 +263,17 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
 
     /**
      * <p>
-     * Associates a discovered resource ID from Application Discovery Service (ADS) with a migration task.
+     * Associates a discovered resource ID from Application Discovery Service with a migration task.
      * </p>
      * 
      * @param associateDiscoveredResourceRequest
      * @return Result of the AssociateDiscoveredResource operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws DryRunOperationException
@@ -265,12 +286,15 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
      * @throws PolicyErrorException
-     *         Exception raised when there are problems accessing ADS (Application Discovery Service); most likely due
-     *         to a misconfigured policy or the <code>migrationhub-discovery</code> role is missing or not configured
-     *         correctly.
+     *         Exception raised when there are problems accessing Application Discovery Service (Application Discovery
+     *         Service); most likely due to a misconfigured policy or the <code>migrationhub-discovery</code> role is
+     *         missing or not configured correctly.
      * @throws ResourceNotFoundException
-     *         Exception raised when the request references a resource (ADS configuration, update stream, migration
-     *         task, etc.) that does not exist in ADS (Application Discovery Service) or in Migration Hub's repository.
+     *         Exception raised when the request references a resource (Application Discovery Service configuration,
+     *         update stream, migration task, etc.) that does not exist in Application Discovery Service (Application
+     *         Discovery Service) or in Migration Hub's repository.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.AssociateDiscoveredResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/AssociateDiscoveredResource"
      *      target="_top">AWS API Documentation</a>
@@ -297,6 +321,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(associateDiscoveredResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateDiscoveredResource");
@@ -331,8 +357,10 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * @return Result of the CreateProgressUpdateStream operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws DryRunOperationException
@@ -344,6 +372,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * @throws InvalidInputException
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.CreateProgressUpdateStream
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/CreateProgressUpdateStream"
      *      target="_top">AWS API Documentation</a>
@@ -370,6 +400,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(createProgressUpdateStreamRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateProgressUpdateStream");
@@ -418,7 +450,7 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * <li>
      * <p>
      * <code>CreateProgressUpdateStream</code>, <code>ImportMigrationTask</code>, <code>NotifyMigrationTaskState</code>,
-     * and all Associate[*] APIs realted to the tasks belonging to the stream will throw "InvalidInputException" if the
+     * and all Associate[*] APIs related to the tasks belonging to the stream will throw "InvalidInputException" if the
      * stream of the same name is in the process of being deleted.
      * </p>
      * </li>
@@ -435,8 +467,10 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * @return Result of the DeleteProgressUpdateStream operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws DryRunOperationException
@@ -449,8 +483,11 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
      * @throws ResourceNotFoundException
-     *         Exception raised when the request references a resource (ADS configuration, update stream, migration
-     *         task, etc.) that does not exist in ADS (Application Discovery Service) or in Migration Hub's repository.
+     *         Exception raised when the request references a resource (Application Discovery Service configuration,
+     *         update stream, migration task, etc.) that does not exist in Application Discovery Service (Application
+     *         Discovery Service) or in Migration Hub's repository.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.DeleteProgressUpdateStream
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/DeleteProgressUpdateStream"
      *      target="_top">AWS API Documentation</a>
@@ -477,6 +514,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(deleteProgressUpdateStreamRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteProgressUpdateStream");
@@ -508,20 +547,25 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * @return Result of the DescribeApplicationState operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws InvalidInputException
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
      * @throws PolicyErrorException
-     *         Exception raised when there are problems accessing ADS (Application Discovery Service); most likely due
-     *         to a misconfigured policy or the <code>migrationhub-discovery</code> role is missing or not configured
-     *         correctly.
+     *         Exception raised when there are problems accessing Application Discovery Service (Application Discovery
+     *         Service); most likely due to a misconfigured policy or the <code>migrationhub-discovery</code> role is
+     *         missing or not configured correctly.
      * @throws ResourceNotFoundException
-     *         Exception raised when the request references a resource (ADS configuration, update stream, migration
-     *         task, etc.) that does not exist in ADS (Application Discovery Service) or in Migration Hub's repository.
+     *         Exception raised when the request references a resource (Application Discovery Service configuration,
+     *         update stream, migration task, etc.) that does not exist in Application Discovery Service (Application
+     *         Discovery Service) or in Migration Hub's repository.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.DescribeApplicationState
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/DescribeApplicationState"
      *      target="_top">AWS API Documentation</a>
@@ -548,6 +592,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(describeApplicationStateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeApplicationState");
@@ -579,16 +625,21 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * @return Result of the DescribeMigrationTask operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws InvalidInputException
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
      * @throws ResourceNotFoundException
-     *         Exception raised when the request references a resource (ADS configuration, update stream, migration
-     *         task, etc.) that does not exist in ADS (Application Discovery Service) or in Migration Hub's repository.
+     *         Exception raised when the request references a resource (Application Discovery Service configuration,
+     *         update stream, migration task, etc.) that does not exist in Application Discovery Service (Application
+     *         Discovery Service) or in Migration Hub's repository.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.DescribeMigrationTask
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/DescribeMigrationTask"
      *      target="_top">AWS API Documentation</a>
@@ -614,6 +665,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                 request = new DescribeMigrationTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeMigrationTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMigrationTask");
@@ -665,8 +718,10 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * @return Result of the DisassociateCreatedArtifact operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws DryRunOperationException
@@ -679,8 +734,11 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
      * @throws ResourceNotFoundException
-     *         Exception raised when the request references a resource (ADS configuration, update stream, migration
-     *         task, etc.) that does not exist in ADS (Application Discovery Service) or in Migration Hub's repository.
+     *         Exception raised when the request references a resource (Application Discovery Service configuration,
+     *         update stream, migration task, etc.) that does not exist in Application Discovery Service (Application
+     *         Discovery Service) or in Migration Hub's repository.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.DisassociateCreatedArtifact
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/DisassociateCreatedArtifact"
      *      target="_top">AWS API Documentation</a>
@@ -707,6 +765,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(disassociateCreatedArtifactRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateCreatedArtifact");
@@ -731,15 +791,17 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
 
     /**
      * <p>
-     * Disassociate an Application Discovery Service (ADS) discovered resource from a migration task.
+     * Disassociate an Application Discovery Service discovered resource from a migration task.
      * </p>
      * 
      * @param disassociateDiscoveredResourceRequest
      * @return Result of the DisassociateDiscoveredResource operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws DryRunOperationException
@@ -752,8 +814,11 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
      * @throws ResourceNotFoundException
-     *         Exception raised when the request references a resource (ADS configuration, update stream, migration
-     *         task, etc.) that does not exist in ADS (Application Discovery Service) or in Migration Hub's repository.
+     *         Exception raised when the request references a resource (Application Discovery Service configuration,
+     *         update stream, migration task, etc.) that does not exist in Application Discovery Service (Application
+     *         Discovery Service) or in Migration Hub's repository.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.DisassociateDiscoveredResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/DisassociateDiscoveredResource"
      *      target="_top">AWS API Documentation</a>
@@ -780,6 +845,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(disassociateDiscoveredResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateDiscoveredResource");
@@ -816,8 +883,10 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * @return Result of the ImportMigrationTask operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws DryRunOperationException
@@ -830,8 +899,11 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
      * @throws ResourceNotFoundException
-     *         Exception raised when the request references a resource (ADS configuration, update stream, migration
-     *         task, etc.) that does not exist in ADS (Application Discovery Service) or in Migration Hub's repository.
+     *         Exception raised when the request references a resource (Application Discovery Service configuration,
+     *         update stream, migration task, etc.) that does not exist in Application Discovery Service (Application
+     *         Discovery Service) or in Migration Hub's repository.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.ImportMigrationTask
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/ImportMigrationTask"
      *      target="_top">AWS API Documentation</a>
@@ -857,6 +929,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                 request = new ImportMigrationTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(importMigrationTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ImportMigrationTask");
@@ -868,6 +942,76 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
 
             HttpResponseHandler<AmazonWebServiceResponse<ImportMigrationTaskResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ImportMigrationTaskResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists all the migration statuses for your applications. If you use the optional <code>ApplicationIds</code>
+     * parameter, only the migration statuses for those applications will be returned.
+     * </p>
+     * 
+     * @param listApplicationStatesRequest
+     * @return Result of the ListApplicationStates operation returned by the service.
+     * @throws AccessDeniedException
+     *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
+     * @throws InternalServerErrorException
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
+     * @throws ServiceUnavailableException
+     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     * @throws InvalidInputException
+     *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
+     *         or data type.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
+     * @sample AWSMigrationHub.ListApplicationStates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/ListApplicationStates"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListApplicationStatesResult listApplicationStates(ListApplicationStatesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListApplicationStates(request);
+    }
+
+    @SdkInternalApi
+    final ListApplicationStatesResult executeListApplicationStates(ListApplicationStatesRequest listApplicationStatesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listApplicationStatesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListApplicationStatesRequest> request = null;
+        Response<ListApplicationStatesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListApplicationStatesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listApplicationStatesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListApplicationStates");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListApplicationStatesResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new ListApplicationStatesResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -906,16 +1050,21 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * @return Result of the ListCreatedArtifacts operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws InvalidInputException
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
      * @throws ResourceNotFoundException
-     *         Exception raised when the request references a resource (ADS configuration, update stream, migration
-     *         task, etc.) that does not exist in ADS (Application Discovery Service) or in Migration Hub's repository.
+     *         Exception raised when the request references a resource (Application Discovery Service configuration,
+     *         update stream, migration task, etc.) that does not exist in Application Discovery Service (Application
+     *         Discovery Service) or in Migration Hub's repository.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.ListCreatedArtifacts
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/ListCreatedArtifacts"
      *      target="_top">AWS API Documentation</a>
@@ -941,6 +1090,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                 request = new ListCreatedArtifactsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listCreatedArtifactsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCreatedArtifacts");
@@ -971,16 +1122,21 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * @return Result of the ListDiscoveredResources operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws InvalidInputException
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
      * @throws ResourceNotFoundException
-     *         Exception raised when the request references a resource (ADS configuration, update stream, migration
-     *         task, etc.) that does not exist in ADS (Application Discovery Service) or in Migration Hub's repository.
+     *         Exception raised when the request references a resource (Application Discovery Service configuration,
+     *         update stream, migration task, etc.) that does not exist in Application Discovery Service (Application
+     *         Discovery Service) or in Migration Hub's repository.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.ListDiscoveredResources
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/ListDiscoveredResources"
      *      target="_top">AWS API Documentation</a>
@@ -1007,6 +1163,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(listDiscoveredResourcesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDiscoveredResources");
@@ -1056,20 +1214,25 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * @return Result of the ListMigrationTasks operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws InvalidInputException
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
      * @throws PolicyErrorException
-     *         Exception raised when there are problems accessing ADS (Application Discovery Service); most likely due
-     *         to a misconfigured policy or the <code>migrationhub-discovery</code> role is missing or not configured
-     *         correctly.
+     *         Exception raised when there are problems accessing Application Discovery Service (Application Discovery
+     *         Service); most likely due to a misconfigured policy or the <code>migrationhub-discovery</code> role is
+     *         missing or not configured correctly.
      * @throws ResourceNotFoundException
-     *         Exception raised when the request references a resource (ADS configuration, update stream, migration
-     *         task, etc.) that does not exist in ADS (Application Discovery Service) or in Migration Hub's repository.
+     *         Exception raised when the request references a resource (Application Discovery Service configuration,
+     *         update stream, migration task, etc.) that does not exist in Application Discovery Service (Application
+     *         Discovery Service) or in Migration Hub's repository.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.ListMigrationTasks
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/ListMigrationTasks"
      *      target="_top">AWS API Documentation</a>
@@ -1095,6 +1258,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                 request = new ListMigrationTasksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listMigrationTasksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListMigrationTasks");
@@ -1125,13 +1290,17 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * @return Result of the ListProgressUpdateStreams operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws InvalidInputException
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.ListProgressUpdateStreams
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/ListProgressUpdateStreams"
      *      target="_top">AWS API Documentation</a>
@@ -1158,6 +1327,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(listProgressUpdateStreamsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListProgressUpdateStreams");
@@ -1191,8 +1362,10 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * @return Result of the NotifyApplicationState operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws DryRunOperationException
@@ -1205,12 +1378,15 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
      * @throws PolicyErrorException
-     *         Exception raised when there are problems accessing ADS (Application Discovery Service); most likely due
-     *         to a misconfigured policy or the <code>migrationhub-discovery</code> role is missing or not configured
-     *         correctly.
+     *         Exception raised when there are problems accessing Application Discovery Service (Application Discovery
+     *         Service); most likely due to a misconfigured policy or the <code>migrationhub-discovery</code> role is
+     *         missing or not configured correctly.
      * @throws ResourceNotFoundException
-     *         Exception raised when the request references a resource (ADS configuration, update stream, migration
-     *         task, etc.) that does not exist in ADS (Application Discovery Service) or in Migration Hub's repository.
+     *         Exception raised when the request references a resource (Application Discovery Service configuration,
+     *         update stream, migration task, etc.) that does not exist in Application Discovery Service (Application
+     *         Discovery Service) or in Migration Hub's repository.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.NotifyApplicationState
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/NotifyApplicationState"
      *      target="_top">AWS API Documentation</a>
@@ -1236,6 +1412,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                 request = new NotifyApplicationStateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(notifyApplicationStateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "NotifyApplicationState");
@@ -1285,8 +1463,10 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * @return Result of the NotifyMigrationTaskState operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws DryRunOperationException
@@ -1299,8 +1479,11 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
      * @throws ResourceNotFoundException
-     *         Exception raised when the request references a resource (ADS configuration, update stream, migration
-     *         task, etc.) that does not exist in ADS (Application Discovery Service) or in Migration Hub's repository.
+     *         Exception raised when the request references a resource (Application Discovery Service configuration,
+     *         update stream, migration task, etc.) that does not exist in Application Discovery Service (Application
+     *         Discovery Service) or in Migration Hub's repository.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.NotifyMigrationTaskState
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/NotifyMigrationTaskState"
      *      target="_top">AWS API Documentation</a>
@@ -1327,6 +1510,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(notifyMigrationTaskStateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "NotifyMigrationTaskState");
@@ -1352,8 +1537,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
     /**
      * <p>
      * Provides identifying details of the resource being migrated so that it can be associated in the Application
-     * Discovery Service (ADS)'s repository. This association occurs asynchronously after
-     * <code>PutResourceAttributes</code> returns.
+     * Discovery Service repository. This association occurs asynchronously after <code>PutResourceAttributes</code>
+     * returns.
      * </p>
      * <important>
      * <ul>
@@ -1361,7 +1546,7 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * <p>
      * Keep in mind that subsequent calls to PutResourceAttributes will override previously stored attributes. For
      * example, if it is first called with a MAC address, but later, it is desired to <i>add</i> an IP address, it will
-     * then be required to call it with <i>both</i> the IP and MAC addresses to prevent overiding the MAC address.
+     * then be required to call it with <i>both</i> the IP and MAC addresses to prevent overriding the MAC address.
      * </p>
      * </li>
      * <li>
@@ -1383,8 +1568,10 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      * @return Result of the PutResourceAttributes operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied due to request throttling.
      * @throws InternalServerErrorException
-     *         Exception raised when there is an internal, configuration, or dependency error encountered.
+     *         Exception raised when an internal, configuration, or dependency error is encountered.
      * @throws ServiceUnavailableException
      *         Exception raised when there is an internal, configuration, or dependency error encountered.
      * @throws DryRunOperationException
@@ -1397,8 +1584,11 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
      *         Exception raised when the provided input violates a policy constraint or is entered in the wrong format
      *         or data type.
      * @throws ResourceNotFoundException
-     *         Exception raised when the request references a resource (ADS configuration, update stream, migration
-     *         task, etc.) that does not exist in ADS (Application Discovery Service) or in Migration Hub's repository.
+     *         Exception raised when the request references a resource (Application Discovery Service configuration,
+     *         update stream, migration task, etc.) that does not exist in Application Discovery Service (Application
+     *         Discovery Service) or in Migration Hub's repository.
+     * @throws HomeRegionNotSetException
+     *         The home region is not set. Set the home region to continue.
      * @sample AWSMigrationHub.PutResourceAttributes
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/PutResourceAttributes"
      *      target="_top">AWS API Documentation</a>
@@ -1424,6 +1614,8 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
                 request = new PutResourceAttributesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putResourceAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Migration Hub");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutResourceAttributes");
@@ -1520,6 +1712,11 @@ public class AWSMigrationHubClient extends AmazonWebServiceClient implements AWS
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

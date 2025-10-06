@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Property key-value pairs passed into a Java-based Kinesis Data Analytics application.
+ * Property key-value pairs passed into an application.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/PropertyGroup" target="_top">AWS
@@ -120,6 +120,13 @@ public class PropertyGroup implements Serializable, Cloneable, StructuredPojo {
         setPropertyMap(propertyMap);
         return this;
     }
+
+    /**
+     * Add a single PropertyMap entry
+     *
+     * @see PropertyGroup#withPropertyMap
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public PropertyGroup addPropertyMapEntry(String key, String value) {
         if (null == this.propertyMap) {

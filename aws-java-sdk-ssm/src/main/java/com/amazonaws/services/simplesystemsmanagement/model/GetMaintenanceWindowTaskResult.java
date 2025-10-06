@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,16 +43,16 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
     private com.amazonaws.internal.SdkInternalList<Target> targets;
     /**
      * <p>
-     * The resource that the task used during execution. For RUN_COMMAND and AUTOMATION task types, the TaskArn is the
-     * Systems Manager Document name/ARN. For LAMBDA tasks, the value is the function name/ARN. For STEP_FUNCTIONS
-     * tasks, the value is the state machine ARN.
+     * The resource that the task used during execution. For <code>RUN_COMMAND</code> and <code>AUTOMATION</code> task
+     * types, the value of <code>TaskArn</code> is the SSM document name/ARN. For <code>LAMBDA</code> tasks, the value
+     * is the function name/ARN. For <code>STEP_FUNCTIONS</code> tasks, the value is the state machine ARN.
      * </p>
      */
     private String taskArn;
     /**
      * <p>
-     * The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications
-     * for maintenance window Run Command tasks.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish Amazon
+     * Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      * </p>
      */
     private String serviceRoleArn;
@@ -93,24 +93,39 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
      * <p>
      * The maximum number of targets allowed to run this task in parallel.
      * </p>
+     * <note>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>, which may be reported in the response to this command. This
+     * value doesn't affect the running of your task and can be ignored.
+     * </p>
+     * </note>
      */
     private String maxConcurrency;
     /**
      * <p>
      * The maximum number of errors allowed before the task stops being scheduled.
      * </p>
+     * <note>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>, which may be reported in the response to this command. This
+     * value doesn't affect the running of your task and can be ignored.
+     * </p>
+     * </note>
      */
     private String maxErrors;
     /**
      * <p>
-     * The location in Amazon S3 where the task results are logged.
+     * The location in Amazon Simple Storage Service (Amazon S3) where the task results are logged.
      * </p>
      * <note>
      * <p>
-     * <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
-     * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
-     * <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these options
-     * for the supported maintenance window task types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
+     * <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3) bucket to
+     * contain logs, instead use the <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
+     * <code>TaskInvocationParameters</code> structure. For information about how Amazon Web Services Systems Manager
+     * handles these options for the supported maintenance window task types, see
+     * <a>MaintenanceWindowTaskInvocationParameters</a>.
      * </p>
      * </note>
      */
@@ -127,6 +142,22 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
      * </p>
      */
     private String description;
+    /**
+     * <p>
+     * The action to take on tasks when the maintenance window cutoff time is reached. <code>CONTINUE_TASK</code> means
+     * that tasks continue to run. For Automation, Lambda, Step Functions tasks, <code>CANCEL_TASK</code> means that
+     * currently running task invocations continue, but no new task invocations are started. For Run Command tasks,
+     * <code>CANCEL_TASK</code> means the system attempts to stop the task by sending a <code>CancelCommand</code>
+     * operation.
+     * </p>
+     */
+    private String cutoffBehavior;
+    /**
+     * <p>
+     * The details for the CloudWatch alarm you applied to your maintenance window task.
+     * </p>
+     */
+    private AlarmConfiguration alarmConfiguration;
 
     /**
      * <p>
@@ -283,15 +314,16 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The resource that the task used during execution. For RUN_COMMAND and AUTOMATION task types, the TaskArn is the
-     * Systems Manager Document name/ARN. For LAMBDA tasks, the value is the function name/ARN. For STEP_FUNCTIONS
-     * tasks, the value is the state machine ARN.
+     * The resource that the task used during execution. For <code>RUN_COMMAND</code> and <code>AUTOMATION</code> task
+     * types, the value of <code>TaskArn</code> is the SSM document name/ARN. For <code>LAMBDA</code> tasks, the value
+     * is the function name/ARN. For <code>STEP_FUNCTIONS</code> tasks, the value is the state machine ARN.
      * </p>
      * 
      * @param taskArn
-     *        The resource that the task used during execution. For RUN_COMMAND and AUTOMATION task types, the TaskArn
-     *        is the Systems Manager Document name/ARN. For LAMBDA tasks, the value is the function name/ARN. For
-     *        STEP_FUNCTIONS tasks, the value is the state machine ARN.
+     *        The resource that the task used during execution. For <code>RUN_COMMAND</code> and <code>AUTOMATION</code>
+     *        task types, the value of <code>TaskArn</code> is the SSM document name/ARN. For <code>LAMBDA</code> tasks,
+     *        the value is the function name/ARN. For <code>STEP_FUNCTIONS</code> tasks, the value is the state machine
+     *        ARN.
      */
 
     public void setTaskArn(String taskArn) {
@@ -300,14 +332,15 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The resource that the task used during execution. For RUN_COMMAND and AUTOMATION task types, the TaskArn is the
-     * Systems Manager Document name/ARN. For LAMBDA tasks, the value is the function name/ARN. For STEP_FUNCTIONS
-     * tasks, the value is the state machine ARN.
+     * The resource that the task used during execution. For <code>RUN_COMMAND</code> and <code>AUTOMATION</code> task
+     * types, the value of <code>TaskArn</code> is the SSM document name/ARN. For <code>LAMBDA</code> tasks, the value
+     * is the function name/ARN. For <code>STEP_FUNCTIONS</code> tasks, the value is the state machine ARN.
      * </p>
      * 
-     * @return The resource that the task used during execution. For RUN_COMMAND and AUTOMATION task types, the TaskArn
-     *         is the Systems Manager Document name/ARN. For LAMBDA tasks, the value is the function name/ARN. For
-     *         STEP_FUNCTIONS tasks, the value is the state machine ARN.
+     * @return The resource that the task used during execution. For <code>RUN_COMMAND</code> and
+     *         <code>AUTOMATION</code> task types, the value of <code>TaskArn</code> is the SSM document name/ARN. For
+     *         <code>LAMBDA</code> tasks, the value is the function name/ARN. For <code>STEP_FUNCTIONS</code> tasks, the
+     *         value is the state machine ARN.
      */
 
     public String getTaskArn() {
@@ -316,15 +349,16 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The resource that the task used during execution. For RUN_COMMAND and AUTOMATION task types, the TaskArn is the
-     * Systems Manager Document name/ARN. For LAMBDA tasks, the value is the function name/ARN. For STEP_FUNCTIONS
-     * tasks, the value is the state machine ARN.
+     * The resource that the task used during execution. For <code>RUN_COMMAND</code> and <code>AUTOMATION</code> task
+     * types, the value of <code>TaskArn</code> is the SSM document name/ARN. For <code>LAMBDA</code> tasks, the value
+     * is the function name/ARN. For <code>STEP_FUNCTIONS</code> tasks, the value is the state machine ARN.
      * </p>
      * 
      * @param taskArn
-     *        The resource that the task used during execution. For RUN_COMMAND and AUTOMATION task types, the TaskArn
-     *        is the Systems Manager Document name/ARN. For LAMBDA tasks, the value is the function name/ARN. For
-     *        STEP_FUNCTIONS tasks, the value is the state machine ARN.
+     *        The resource that the task used during execution. For <code>RUN_COMMAND</code> and <code>AUTOMATION</code>
+     *        task types, the value of <code>TaskArn</code> is the SSM document name/ARN. For <code>LAMBDA</code> tasks,
+     *        the value is the function name/ARN. For <code>STEP_FUNCTIONS</code> tasks, the value is the state machine
+     *        ARN.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -335,13 +369,13 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications
-     * for maintenance window Run Command tasks.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish Amazon
+     * Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      * </p>
      * 
      * @param serviceRoleArn
-     *        The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS)
-     *        notifications for maintenance window Run Command tasks.
+     *        The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish
+     *        Amazon Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      */
 
     public void setServiceRoleArn(String serviceRoleArn) {
@@ -350,12 +384,12 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications
-     * for maintenance window Run Command tasks.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish Amazon
+     * Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      * </p>
      * 
-     * @return The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS)
-     *         notifications for maintenance window Run Command tasks.
+     * @return The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish
+     *         Amazon Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      */
 
     public String getServiceRoleArn() {
@@ -364,13 +398,13 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications
-     * for maintenance window Run Command tasks.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish Amazon
+     * Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      * </p>
      * 
      * @param serviceRoleArn
-     *        The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS)
-     *        notifications for maintenance window Run Command tasks.
+     *        The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish
+     *        Amazon Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -520,6 +554,13 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
         return this;
     }
 
+    /**
+     * Add a single TaskParameters entry
+     *
+     * @see GetMaintenanceWindowTaskResult#withTaskParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public GetMaintenanceWindowTaskResult addTaskParametersEntry(String key, MaintenanceWindowTaskParameterValueExpression value) {
         if (null == this.taskParameters) {
             this.taskParameters = new java.util.HashMap<String, MaintenanceWindowTaskParameterValueExpression>();
@@ -631,9 +672,21 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
      * <p>
      * The maximum number of targets allowed to run this task in parallel.
      * </p>
+     * <note>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>, which may be reported in the response to this command. This
+     * value doesn't affect the running of your task and can be ignored.
+     * </p>
+     * </note>
      * 
      * @param maxConcurrency
-     *        The maximum number of targets allowed to run this task in parallel.
+     *        The maximum number of targets allowed to run this task in parallel.</p> <note>
+     *        <p>
+     *        For maintenance window tasks without a target specified, you can't supply a value for this option.
+     *        Instead, the system inserts a placeholder value of <code>1</code>, which may be reported in the response
+     *        to this command. This value doesn't affect the running of your task and can be ignored.
+     *        </p>
      */
 
     public void setMaxConcurrency(String maxConcurrency) {
@@ -644,8 +697,20 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
      * <p>
      * The maximum number of targets allowed to run this task in parallel.
      * </p>
+     * <note>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>, which may be reported in the response to this command. This
+     * value doesn't affect the running of your task and can be ignored.
+     * </p>
+     * </note>
      * 
-     * @return The maximum number of targets allowed to run this task in parallel.
+     * @return The maximum number of targets allowed to run this task in parallel.</p> <note>
+     *         <p>
+     *         For maintenance window tasks without a target specified, you can't supply a value for this option.
+     *         Instead, the system inserts a placeholder value of <code>1</code>, which may be reported in the response
+     *         to this command. This value doesn't affect the running of your task and can be ignored.
+     *         </p>
      */
 
     public String getMaxConcurrency() {
@@ -656,9 +721,21 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
      * <p>
      * The maximum number of targets allowed to run this task in parallel.
      * </p>
+     * <note>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>, which may be reported in the response to this command. This
+     * value doesn't affect the running of your task and can be ignored.
+     * </p>
+     * </note>
      * 
      * @param maxConcurrency
-     *        The maximum number of targets allowed to run this task in parallel.
+     *        The maximum number of targets allowed to run this task in parallel.</p> <note>
+     *        <p>
+     *        For maintenance window tasks without a target specified, you can't supply a value for this option.
+     *        Instead, the system inserts a placeholder value of <code>1</code>, which may be reported in the response
+     *        to this command. This value doesn't affect the running of your task and can be ignored.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -671,9 +748,21 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
      * <p>
      * The maximum number of errors allowed before the task stops being scheduled.
      * </p>
+     * <note>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>, which may be reported in the response to this command. This
+     * value doesn't affect the running of your task and can be ignored.
+     * </p>
+     * </note>
      * 
      * @param maxErrors
-     *        The maximum number of errors allowed before the task stops being scheduled.
+     *        The maximum number of errors allowed before the task stops being scheduled.</p> <note>
+     *        <p>
+     *        For maintenance window tasks without a target specified, you can't supply a value for this option.
+     *        Instead, the system inserts a placeholder value of <code>1</code>, which may be reported in the response
+     *        to this command. This value doesn't affect the running of your task and can be ignored.
+     *        </p>
      */
 
     public void setMaxErrors(String maxErrors) {
@@ -684,8 +773,20 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
      * <p>
      * The maximum number of errors allowed before the task stops being scheduled.
      * </p>
+     * <note>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>, which may be reported in the response to this command. This
+     * value doesn't affect the running of your task and can be ignored.
+     * </p>
+     * </note>
      * 
-     * @return The maximum number of errors allowed before the task stops being scheduled.
+     * @return The maximum number of errors allowed before the task stops being scheduled.</p> <note>
+     *         <p>
+     *         For maintenance window tasks without a target specified, you can't supply a value for this option.
+     *         Instead, the system inserts a placeholder value of <code>1</code>, which may be reported in the response
+     *         to this command. This value doesn't affect the running of your task and can be ignored.
+     *         </p>
      */
 
     public String getMaxErrors() {
@@ -696,9 +797,21 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
      * <p>
      * The maximum number of errors allowed before the task stops being scheduled.
      * </p>
+     * <note>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>, which may be reported in the response to this command. This
+     * value doesn't affect the running of your task and can be ignored.
+     * </p>
+     * </note>
      * 
      * @param maxErrors
-     *        The maximum number of errors allowed before the task stops being scheduled.
+     *        The maximum number of errors allowed before the task stops being scheduled.</p> <note>
+     *        <p>
+     *        For maintenance window tasks without a target specified, you can't supply a value for this option.
+     *        Instead, the system inserts a placeholder value of <code>1</code>, which may be reported in the response
+     *        to this command. This value doesn't affect the running of your task and can be ignored.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -709,24 +822,25 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The location in Amazon S3 where the task results are logged.
+     * The location in Amazon Simple Storage Service (Amazon S3) where the task results are logged.
      * </p>
      * <note>
      * <p>
-     * <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
-     * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
-     * <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these options
-     * for the supported maintenance window task types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
+     * <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3) bucket to
+     * contain logs, instead use the <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
+     * <code>TaskInvocationParameters</code> structure. For information about how Amazon Web Services Systems Manager
+     * handles these options for the supported maintenance window task types, see
+     * <a>MaintenanceWindowTaskInvocationParameters</a>.
      * </p>
      * </note>
      * 
      * @param loggingInfo
-     *        The location in Amazon S3 where the task results are logged.</p> <note>
+     *        The location in Amazon Simple Storage Service (Amazon S3) where the task results are logged.</p> <note>
      *        <p>
-     *        <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
-     *        <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
-     *        <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these
-     *        options for the supported maintenance window task types, see
+     *        <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3)
+     *        bucket to contain logs, instead use the <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code>
+     *        options in the <code>TaskInvocationParameters</code> structure. For information about how Amazon Web
+     *        Services Systems Manager handles these options for the supported maintenance window task types, see
      *        <a>MaintenanceWindowTaskInvocationParameters</a>.
      *        </p>
      */
@@ -737,24 +851,25 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The location in Amazon S3 where the task results are logged.
+     * The location in Amazon Simple Storage Service (Amazon S3) where the task results are logged.
      * </p>
      * <note>
      * <p>
-     * <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
-     * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
-     * <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these options
-     * for the supported maintenance window task types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
+     * <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3) bucket to
+     * contain logs, instead use the <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
+     * <code>TaskInvocationParameters</code> structure. For information about how Amazon Web Services Systems Manager
+     * handles these options for the supported maintenance window task types, see
+     * <a>MaintenanceWindowTaskInvocationParameters</a>.
      * </p>
      * </note>
      * 
-     * @return The location in Amazon S3 where the task results are logged.</p> <note>
+     * @return The location in Amazon Simple Storage Service (Amazon S3) where the task results are logged.</p> <note>
      *         <p>
-     *         <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
-     *         <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
-     *         <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these
-     *         options for the supported maintenance window task types, see
-     *         <a>MaintenanceWindowTaskInvocationParameters</a>.
+     *         <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3)
+     *         bucket to contain logs, instead use the <code>OutputS3BucketName</code> and
+     *         <code>OutputS3KeyPrefix</code> options in the <code>TaskInvocationParameters</code> structure. For
+     *         information about how Amazon Web Services Systems Manager handles these options for the supported
+     *         maintenance window task types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
      *         </p>
      */
 
@@ -764,24 +879,25 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The location in Amazon S3 where the task results are logged.
+     * The location in Amazon Simple Storage Service (Amazon S3) where the task results are logged.
      * </p>
      * <note>
      * <p>
-     * <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
-     * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
-     * <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these options
-     * for the supported maintenance window task types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
+     * <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3) bucket to
+     * contain logs, instead use the <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
+     * <code>TaskInvocationParameters</code> structure. For information about how Amazon Web Services Systems Manager
+     * handles these options for the supported maintenance window task types, see
+     * <a>MaintenanceWindowTaskInvocationParameters</a>.
      * </p>
      * </note>
      * 
      * @param loggingInfo
-     *        The location in Amazon S3 where the task results are logged.</p> <note>
+     *        The location in Amazon Simple Storage Service (Amazon S3) where the task results are logged.</p> <note>
      *        <p>
-     *        <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
-     *        <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
-     *        <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these
-     *        options for the supported maintenance window task types, see
+     *        <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3)
+     *        bucket to contain logs, instead use the <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code>
+     *        options in the <code>TaskInvocationParameters</code> structure. For information about how Amazon Web
+     *        Services Systems Manager handles these options for the supported maintenance window task types, see
      *        <a>MaintenanceWindowTaskInvocationParameters</a>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -873,6 +989,137 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
     }
 
     /**
+     * <p>
+     * The action to take on tasks when the maintenance window cutoff time is reached. <code>CONTINUE_TASK</code> means
+     * that tasks continue to run. For Automation, Lambda, Step Functions tasks, <code>CANCEL_TASK</code> means that
+     * currently running task invocations continue, but no new task invocations are started. For Run Command tasks,
+     * <code>CANCEL_TASK</code> means the system attempts to stop the task by sending a <code>CancelCommand</code>
+     * operation.
+     * </p>
+     * 
+     * @param cutoffBehavior
+     *        The action to take on tasks when the maintenance window cutoff time is reached. <code>CONTINUE_TASK</code>
+     *        means that tasks continue to run. For Automation, Lambda, Step Functions tasks, <code>CANCEL_TASK</code>
+     *        means that currently running task invocations continue, but no new task invocations are started. For Run
+     *        Command tasks, <code>CANCEL_TASK</code> means the system attempts to stop the task by sending a
+     *        <code>CancelCommand</code> operation.
+     * @see MaintenanceWindowTaskCutoffBehavior
+     */
+
+    public void setCutoffBehavior(String cutoffBehavior) {
+        this.cutoffBehavior = cutoffBehavior;
+    }
+
+    /**
+     * <p>
+     * The action to take on tasks when the maintenance window cutoff time is reached. <code>CONTINUE_TASK</code> means
+     * that tasks continue to run. For Automation, Lambda, Step Functions tasks, <code>CANCEL_TASK</code> means that
+     * currently running task invocations continue, but no new task invocations are started. For Run Command tasks,
+     * <code>CANCEL_TASK</code> means the system attempts to stop the task by sending a <code>CancelCommand</code>
+     * operation.
+     * </p>
+     * 
+     * @return The action to take on tasks when the maintenance window cutoff time is reached.
+     *         <code>CONTINUE_TASK</code> means that tasks continue to run. For Automation, Lambda, Step Functions
+     *         tasks, <code>CANCEL_TASK</code> means that currently running task invocations continue, but no new task
+     *         invocations are started. For Run Command tasks, <code>CANCEL_TASK</code> means the system attempts to
+     *         stop the task by sending a <code>CancelCommand</code> operation.
+     * @see MaintenanceWindowTaskCutoffBehavior
+     */
+
+    public String getCutoffBehavior() {
+        return this.cutoffBehavior;
+    }
+
+    /**
+     * <p>
+     * The action to take on tasks when the maintenance window cutoff time is reached. <code>CONTINUE_TASK</code> means
+     * that tasks continue to run. For Automation, Lambda, Step Functions tasks, <code>CANCEL_TASK</code> means that
+     * currently running task invocations continue, but no new task invocations are started. For Run Command tasks,
+     * <code>CANCEL_TASK</code> means the system attempts to stop the task by sending a <code>CancelCommand</code>
+     * operation.
+     * </p>
+     * 
+     * @param cutoffBehavior
+     *        The action to take on tasks when the maintenance window cutoff time is reached. <code>CONTINUE_TASK</code>
+     *        means that tasks continue to run. For Automation, Lambda, Step Functions tasks, <code>CANCEL_TASK</code>
+     *        means that currently running task invocations continue, but no new task invocations are started. For Run
+     *        Command tasks, <code>CANCEL_TASK</code> means the system attempts to stop the task by sending a
+     *        <code>CancelCommand</code> operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MaintenanceWindowTaskCutoffBehavior
+     */
+
+    public GetMaintenanceWindowTaskResult withCutoffBehavior(String cutoffBehavior) {
+        setCutoffBehavior(cutoffBehavior);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The action to take on tasks when the maintenance window cutoff time is reached. <code>CONTINUE_TASK</code> means
+     * that tasks continue to run. For Automation, Lambda, Step Functions tasks, <code>CANCEL_TASK</code> means that
+     * currently running task invocations continue, but no new task invocations are started. For Run Command tasks,
+     * <code>CANCEL_TASK</code> means the system attempts to stop the task by sending a <code>CancelCommand</code>
+     * operation.
+     * </p>
+     * 
+     * @param cutoffBehavior
+     *        The action to take on tasks when the maintenance window cutoff time is reached. <code>CONTINUE_TASK</code>
+     *        means that tasks continue to run. For Automation, Lambda, Step Functions tasks, <code>CANCEL_TASK</code>
+     *        means that currently running task invocations continue, but no new task invocations are started. For Run
+     *        Command tasks, <code>CANCEL_TASK</code> means the system attempts to stop the task by sending a
+     *        <code>CancelCommand</code> operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MaintenanceWindowTaskCutoffBehavior
+     */
+
+    public GetMaintenanceWindowTaskResult withCutoffBehavior(MaintenanceWindowTaskCutoffBehavior cutoffBehavior) {
+        this.cutoffBehavior = cutoffBehavior.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm you applied to your maintenance window task.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The details for the CloudWatch alarm you applied to your maintenance window task.
+     */
+
+    public void setAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        this.alarmConfiguration = alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm you applied to your maintenance window task.
+     * </p>
+     * 
+     * @return The details for the CloudWatch alarm you applied to your maintenance window task.
+     */
+
+    public AlarmConfiguration getAlarmConfiguration() {
+        return this.alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm you applied to your maintenance window task.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The details for the CloudWatch alarm you applied to your maintenance window task.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetMaintenanceWindowTaskResult withAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        setAlarmConfiguration(alarmConfiguration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -911,7 +1158,11 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getDescription() != null)
-            sb.append("Description: ").append("***Sensitive Data Redacted***");
+            sb.append("Description: ").append("***Sensitive Data Redacted***").append(",");
+        if (getCutoffBehavior() != null)
+            sb.append("CutoffBehavior: ").append(getCutoffBehavior()).append(",");
+        if (getAlarmConfiguration() != null)
+            sb.append("AlarmConfiguration: ").append(getAlarmConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -982,6 +1233,14 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
             return false;
+        if (other.getCutoffBehavior() == null ^ this.getCutoffBehavior() == null)
+            return false;
+        if (other.getCutoffBehavior() != null && other.getCutoffBehavior().equals(this.getCutoffBehavior()) == false)
+            return false;
+        if (other.getAlarmConfiguration() == null ^ this.getAlarmConfiguration() == null)
+            return false;
+        if (other.getAlarmConfiguration() != null && other.getAlarmConfiguration().equals(this.getAlarmConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -1004,6 +1263,8 @@ public class GetMaintenanceWindowTaskResult extends com.amazonaws.AmazonWebServi
         hashCode = prime * hashCode + ((getLoggingInfo() == null) ? 0 : getLoggingInfo().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        hashCode = prime * hashCode + ((getCutoffBehavior() == null) ? 0 : getCutoffBehavior().hashCode());
+        hashCode = prime * hashCode + ((getAlarmConfiguration() == null) ? 0 : getAlarmConfiguration().hashCode());
         return hashCode;
     }
 

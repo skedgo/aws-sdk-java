@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,20 +50,32 @@ public class HlsGroupSettingsJsonUnmarshaller implements Unmarshaller<HlsGroupSe
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("adMarkers", targetDepth)) {
                     context.nextToken();
-                    hlsGroupSettings.setAdMarkers(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    hlsGroupSettings.setAdMarkers(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("baseUrlContent", targetDepth)) {
                     context.nextToken();
                     hlsGroupSettings.setBaseUrlContent(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("baseUrlContent1", targetDepth)) {
+                    context.nextToken();
+                    hlsGroupSettings.setBaseUrlContent1(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("baseUrlManifest", targetDepth)) {
                     context.nextToken();
                     hlsGroupSettings.setBaseUrlManifest(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("baseUrlManifest1", targetDepth)) {
+                    context.nextToken();
+                    hlsGroupSettings.setBaseUrlManifest1(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("captionLanguageMappings", targetDepth)) {
                     context.nextToken();
                     hlsGroupSettings.setCaptionLanguageMappings(new ListUnmarshaller<CaptionLanguageMapping>(CaptionLanguageMappingJsonUnmarshaller
-                            .getInstance()).unmarshall(context));
+                            .getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("captionLanguageSetting", targetDepth)) {
                     context.nextToken();
@@ -89,6 +101,10 @@ public class HlsGroupSettingsJsonUnmarshaller implements Unmarshaller<HlsGroupSe
                     context.nextToken();
                     hlsGroupSettings.setDirectoryStructure(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("discontinuityTags", targetDepth)) {
+                    context.nextToken();
+                    hlsGroupSettings.setDiscontinuityTags(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("encryptionType", targetDepth)) {
                     context.nextToken();
                     hlsGroupSettings.setEncryptionType(context.getUnmarshaller(String.class).unmarshall(context));
@@ -97,9 +113,17 @@ public class HlsGroupSettingsJsonUnmarshaller implements Unmarshaller<HlsGroupSe
                     context.nextToken();
                     hlsGroupSettings.setHlsCdnSettings(HlsCdnSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("hlsId3SegmentTagging", targetDepth)) {
+                    context.nextToken();
+                    hlsGroupSettings.setHlsId3SegmentTagging(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("iFrameOnlyPlaylists", targetDepth)) {
                     context.nextToken();
                     hlsGroupSettings.setIFrameOnlyPlaylists(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("incompleteSegmentBehavior", targetDepth)) {
+                    context.nextToken();
+                    hlsGroupSettings.setIncompleteSegmentBehavior(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("indexNSegments", targetDepth)) {
                     context.nextToken();
@@ -156,6 +180,10 @@ public class HlsGroupSettingsJsonUnmarshaller implements Unmarshaller<HlsGroupSe
                 if (context.testExpression("programDateTime", targetDepth)) {
                     context.nextToken();
                     hlsGroupSettings.setProgramDateTime(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("programDateTimeClock", targetDepth)) {
+                    context.nextToken();
+                    hlsGroupSettings.setProgramDateTimeClock(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("programDateTimePeriod", targetDepth)) {
                     context.nextToken();

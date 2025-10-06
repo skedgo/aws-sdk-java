@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,8 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * Source settings (SourceSettings) contains the group of settings for captions in the input.
+ * If your input captions are SCC, TTML, STL, SMI, SRT, or IMSC in an xml file, specify the URI of the input captions
+ * source file. If your input captions are IMSC in an IMF package, use TrackSourceSettings instead of FileSoureSettings.
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CaptionSourceSettings" target="_top">AWS
  *      API Documentation</a>
@@ -32,17 +33,31 @@ public class CaptionSourceSettings implements Serializable, Cloneable, Structure
     private DvbSubSourceSettings dvbSubSourceSettings;
     /** Settings for embedded captions Source */
     private EmbeddedSourceSettings embeddedSourceSettings;
-    /** Settings for File-based Captions in Source */
-    private FileSourceSettings fileSourceSettings;
     /**
-     * Use Source (SourceType) to identify the format of your input captions. The service cannot auto-detect caption
-     * format.
+     * If your input captions are SCC, SMI, SRT, STL, TTML, WebVTT, or IMSC 1.1 in an xml file, specify the URI of the
+     * input caption source file. If your caption source is IMSC in an IMF package, use TrackSourceSettings instead of
+     * FileSoureSettings.
      */
+    private FileSourceSettings fileSourceSettings;
+    /** Use Source to identify the format of your input captions. The service cannot auto-detect caption format. */
     private String sourceType;
     /** Settings specific to Teletext caption sources, including Page number. */
     private TeletextSourceSettings teletextSourceSettings;
-    /** Settings specific to caption sources that are specfied by track number. Sources include IMSC in IMF. */
+    /**
+     * Settings specific to caption sources that are specified by track number. Currently, this is only IMSC captions in
+     * an IMF package. If your caption source is IMSC 1.1 in a separate xml file, use FileSourceSettings instead of
+     * TrackSourceSettings.
+     */
     private TrackSourceSettings trackSourceSettings;
+    /**
+     * Settings specific to WebVTT sources in HLS alternative rendition group. Specify the properties (renditionGroupId,
+     * renditionName or renditionLanguageCode) to identify the unique subtitle track among the alternative rendition
+     * groups present in the HLS manifest. If no unique track is found, or multiple tracks match the specified
+     * properties, the job fails. If there is only one subtitle track in the rendition group, the settings can be left
+     * empty and the default subtitle track will be chosen. If your caption source is a sidecar file, use
+     * FileSourceSettings instead of WebvttHlsSourceSettings.
+     */
+    private WebvttHlsSourceSettings webvttHlsSourceSettings;
 
     /**
      * Settings for ancillary captions source.
@@ -147,10 +162,14 @@ public class CaptionSourceSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Settings for File-based Captions in Source
+     * If your input captions are SCC, SMI, SRT, STL, TTML, WebVTT, or IMSC 1.1 in an xml file, specify the URI of the
+     * input caption source file. If your caption source is IMSC in an IMF package, use TrackSourceSettings instead of
+     * FileSoureSettings.
      * 
      * @param fileSourceSettings
-     *        Settings for File-based Captions in Source
+     *        If your input captions are SCC, SMI, SRT, STL, TTML, WebVTT, or IMSC 1.1 in an xml file, specify the URI
+     *        of the input caption source file. If your caption source is IMSC in an IMF package, use
+     *        TrackSourceSettings instead of FileSoureSettings.
      */
 
     public void setFileSourceSettings(FileSourceSettings fileSourceSettings) {
@@ -158,9 +177,13 @@ public class CaptionSourceSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Settings for File-based Captions in Source
+     * If your input captions are SCC, SMI, SRT, STL, TTML, WebVTT, or IMSC 1.1 in an xml file, specify the URI of the
+     * input caption source file. If your caption source is IMSC in an IMF package, use TrackSourceSettings instead of
+     * FileSoureSettings.
      * 
-     * @return Settings for File-based Captions in Source
+     * @return If your input captions are SCC, SMI, SRT, STL, TTML, WebVTT, or IMSC 1.1 in an xml file, specify the URI
+     *         of the input caption source file. If your caption source is IMSC in an IMF package, use
+     *         TrackSourceSettings instead of FileSoureSettings.
      */
 
     public FileSourceSettings getFileSourceSettings() {
@@ -168,10 +191,14 @@ public class CaptionSourceSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Settings for File-based Captions in Source
+     * If your input captions are SCC, SMI, SRT, STL, TTML, WebVTT, or IMSC 1.1 in an xml file, specify the URI of the
+     * input caption source file. If your caption source is IMSC in an IMF package, use TrackSourceSettings instead of
+     * FileSoureSettings.
      * 
      * @param fileSourceSettings
-     *        Settings for File-based Captions in Source
+     *        If your input captions are SCC, SMI, SRT, STL, TTML, WebVTT, or IMSC 1.1 in an xml file, specify the URI
+     *        of the input caption source file. If your caption source is IMSC in an IMF package, use
+     *        TrackSourceSettings instead of FileSoureSettings.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -181,12 +208,10 @@ public class CaptionSourceSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Use Source (SourceType) to identify the format of your input captions. The service cannot auto-detect caption
-     * format.
+     * Use Source to identify the format of your input captions. The service cannot auto-detect caption format.
      * 
      * @param sourceType
-     *        Use Source (SourceType) to identify the format of your input captions. The service cannot auto-detect
-     *        caption format.
+     *        Use Source to identify the format of your input captions. The service cannot auto-detect caption format.
      * @see CaptionSourceType
      */
 
@@ -195,11 +220,9 @@ public class CaptionSourceSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Use Source (SourceType) to identify the format of your input captions. The service cannot auto-detect caption
-     * format.
+     * Use Source to identify the format of your input captions. The service cannot auto-detect caption format.
      * 
-     * @return Use Source (SourceType) to identify the format of your input captions. The service cannot auto-detect
-     *         caption format.
+     * @return Use Source to identify the format of your input captions. The service cannot auto-detect caption format.
      * @see CaptionSourceType
      */
 
@@ -208,12 +231,10 @@ public class CaptionSourceSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Use Source (SourceType) to identify the format of your input captions. The service cannot auto-detect caption
-     * format.
+     * Use Source to identify the format of your input captions. The service cannot auto-detect caption format.
      * 
      * @param sourceType
-     *        Use Source (SourceType) to identify the format of your input captions. The service cannot auto-detect
-     *        caption format.
+     *        Use Source to identify the format of your input captions. The service cannot auto-detect caption format.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CaptionSourceType
      */
@@ -224,12 +245,10 @@ public class CaptionSourceSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Use Source (SourceType) to identify the format of your input captions. The service cannot auto-detect caption
-     * format.
+     * Use Source to identify the format of your input captions. The service cannot auto-detect caption format.
      * 
      * @param sourceType
-     *        Use Source (SourceType) to identify the format of your input captions. The service cannot auto-detect
-     *        caption format.
+     *        Use Source to identify the format of your input captions. The service cannot auto-detect caption format.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CaptionSourceType
      */
@@ -274,10 +293,14 @@ public class CaptionSourceSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Settings specific to caption sources that are specfied by track number. Sources include IMSC in IMF.
+     * Settings specific to caption sources that are specified by track number. Currently, this is only IMSC captions in
+     * an IMF package. If your caption source is IMSC 1.1 in a separate xml file, use FileSourceSettings instead of
+     * TrackSourceSettings.
      * 
      * @param trackSourceSettings
-     *        Settings specific to caption sources that are specfied by track number. Sources include IMSC in IMF.
+     *        Settings specific to caption sources that are specified by track number. Currently, this is only IMSC
+     *        captions in an IMF package. If your caption source is IMSC 1.1 in a separate xml file, use
+     *        FileSourceSettings instead of TrackSourceSettings.
      */
 
     public void setTrackSourceSettings(TrackSourceSettings trackSourceSettings) {
@@ -285,9 +308,13 @@ public class CaptionSourceSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Settings specific to caption sources that are specfied by track number. Sources include IMSC in IMF.
+     * Settings specific to caption sources that are specified by track number. Currently, this is only IMSC captions in
+     * an IMF package. If your caption source is IMSC 1.1 in a separate xml file, use FileSourceSettings instead of
+     * TrackSourceSettings.
      * 
-     * @return Settings specific to caption sources that are specfied by track number. Sources include IMSC in IMF.
+     * @return Settings specific to caption sources that are specified by track number. Currently, this is only IMSC
+     *         captions in an IMF package. If your caption source is IMSC 1.1 in a separate xml file, use
+     *         FileSourceSettings instead of TrackSourceSettings.
      */
 
     public TrackSourceSettings getTrackSourceSettings() {
@@ -295,15 +322,83 @@ public class CaptionSourceSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Settings specific to caption sources that are specfied by track number. Sources include IMSC in IMF.
+     * Settings specific to caption sources that are specified by track number. Currently, this is only IMSC captions in
+     * an IMF package. If your caption source is IMSC 1.1 in a separate xml file, use FileSourceSettings instead of
+     * TrackSourceSettings.
      * 
      * @param trackSourceSettings
-     *        Settings specific to caption sources that are specfied by track number. Sources include IMSC in IMF.
+     *        Settings specific to caption sources that are specified by track number. Currently, this is only IMSC
+     *        captions in an IMF package. If your caption source is IMSC 1.1 in a separate xml file, use
+     *        FileSourceSettings instead of TrackSourceSettings.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CaptionSourceSettings withTrackSourceSettings(TrackSourceSettings trackSourceSettings) {
         setTrackSourceSettings(trackSourceSettings);
+        return this;
+    }
+
+    /**
+     * Settings specific to WebVTT sources in HLS alternative rendition group. Specify the properties (renditionGroupId,
+     * renditionName or renditionLanguageCode) to identify the unique subtitle track among the alternative rendition
+     * groups present in the HLS manifest. If no unique track is found, or multiple tracks match the specified
+     * properties, the job fails. If there is only one subtitle track in the rendition group, the settings can be left
+     * empty and the default subtitle track will be chosen. If your caption source is a sidecar file, use
+     * FileSourceSettings instead of WebvttHlsSourceSettings.
+     * 
+     * @param webvttHlsSourceSettings
+     *        Settings specific to WebVTT sources in HLS alternative rendition group. Specify the properties
+     *        (renditionGroupId, renditionName or renditionLanguageCode) to identify the unique subtitle track among the
+     *        alternative rendition groups present in the HLS manifest. If no unique track is found, or multiple tracks
+     *        match the specified properties, the job fails. If there is only one subtitle track in the rendition group,
+     *        the settings can be left empty and the default subtitle track will be chosen. If your caption source is a
+     *        sidecar file, use FileSourceSettings instead of WebvttHlsSourceSettings.
+     */
+
+    public void setWebvttHlsSourceSettings(WebvttHlsSourceSettings webvttHlsSourceSettings) {
+        this.webvttHlsSourceSettings = webvttHlsSourceSettings;
+    }
+
+    /**
+     * Settings specific to WebVTT sources in HLS alternative rendition group. Specify the properties (renditionGroupId,
+     * renditionName or renditionLanguageCode) to identify the unique subtitle track among the alternative rendition
+     * groups present in the HLS manifest. If no unique track is found, or multiple tracks match the specified
+     * properties, the job fails. If there is only one subtitle track in the rendition group, the settings can be left
+     * empty and the default subtitle track will be chosen. If your caption source is a sidecar file, use
+     * FileSourceSettings instead of WebvttHlsSourceSettings.
+     * 
+     * @return Settings specific to WebVTT sources in HLS alternative rendition group. Specify the properties
+     *         (renditionGroupId, renditionName or renditionLanguageCode) to identify the unique subtitle track among
+     *         the alternative rendition groups present in the HLS manifest. If no unique track is found, or multiple
+     *         tracks match the specified properties, the job fails. If there is only one subtitle track in the
+     *         rendition group, the settings can be left empty and the default subtitle track will be chosen. If your
+     *         caption source is a sidecar file, use FileSourceSettings instead of WebvttHlsSourceSettings.
+     */
+
+    public WebvttHlsSourceSettings getWebvttHlsSourceSettings() {
+        return this.webvttHlsSourceSettings;
+    }
+
+    /**
+     * Settings specific to WebVTT sources in HLS alternative rendition group. Specify the properties (renditionGroupId,
+     * renditionName or renditionLanguageCode) to identify the unique subtitle track among the alternative rendition
+     * groups present in the HLS manifest. If no unique track is found, or multiple tracks match the specified
+     * properties, the job fails. If there is only one subtitle track in the rendition group, the settings can be left
+     * empty and the default subtitle track will be chosen. If your caption source is a sidecar file, use
+     * FileSourceSettings instead of WebvttHlsSourceSettings.
+     * 
+     * @param webvttHlsSourceSettings
+     *        Settings specific to WebVTT sources in HLS alternative rendition group. Specify the properties
+     *        (renditionGroupId, renditionName or renditionLanguageCode) to identify the unique subtitle track among the
+     *        alternative rendition groups present in the HLS manifest. If no unique track is found, or multiple tracks
+     *        match the specified properties, the job fails. If there is only one subtitle track in the rendition group,
+     *        the settings can be left empty and the default subtitle track will be chosen. If your caption source is a
+     *        sidecar file, use FileSourceSettings instead of WebvttHlsSourceSettings.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CaptionSourceSettings withWebvttHlsSourceSettings(WebvttHlsSourceSettings webvttHlsSourceSettings) {
+        setWebvttHlsSourceSettings(webvttHlsSourceSettings);
         return this;
     }
 
@@ -332,7 +427,9 @@ public class CaptionSourceSettings implements Serializable, Cloneable, Structure
         if (getTeletextSourceSettings() != null)
             sb.append("TeletextSourceSettings: ").append(getTeletextSourceSettings()).append(",");
         if (getTrackSourceSettings() != null)
-            sb.append("TrackSourceSettings: ").append(getTrackSourceSettings());
+            sb.append("TrackSourceSettings: ").append(getTrackSourceSettings()).append(",");
+        if (getWebvttHlsSourceSettings() != null)
+            sb.append("WebvttHlsSourceSettings: ").append(getWebvttHlsSourceSettings());
         sb.append("}");
         return sb.toString();
     }
@@ -375,6 +472,10 @@ public class CaptionSourceSettings implements Serializable, Cloneable, Structure
             return false;
         if (other.getTrackSourceSettings() != null && other.getTrackSourceSettings().equals(this.getTrackSourceSettings()) == false)
             return false;
+        if (other.getWebvttHlsSourceSettings() == null ^ this.getWebvttHlsSourceSettings() == null)
+            return false;
+        if (other.getWebvttHlsSourceSettings() != null && other.getWebvttHlsSourceSettings().equals(this.getWebvttHlsSourceSettings()) == false)
+            return false;
         return true;
     }
 
@@ -390,6 +491,7 @@ public class CaptionSourceSettings implements Serializable, Cloneable, Structure
         hashCode = prime * hashCode + ((getSourceType() == null) ? 0 : getSourceType().hashCode());
         hashCode = prime * hashCode + ((getTeletextSourceSettings() == null) ? 0 : getTeletextSourceSettings().hashCode());
         hashCode = prime * hashCode + ((getTrackSourceSettings() == null) ? 0 : getTrackSourceSettings().hashCode());
+        hashCode = prime * hashCode + ((getWebvttHlsSourceSettings() == null) ? 0 : getWebvttHlsSourceSettings().hashCode());
         return hashCode;
     }
 

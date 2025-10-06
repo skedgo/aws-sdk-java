@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -75,6 +75,16 @@ public class FleetLaunchTemplateOverridesRequestStaxUnmarshaller implements Unma
 
                 if (context.testExpression("Placement", targetDepth)) {
                     fleetLaunchTemplateOverridesRequest.setPlacement(PlacementStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("InstanceRequirements", targetDepth)) {
+                    fleetLaunchTemplateOverridesRequest.setInstanceRequirements(InstanceRequirementsRequestStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ImageId", targetDepth)) {
+                    fleetLaunchTemplateOverridesRequest.setImageId(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

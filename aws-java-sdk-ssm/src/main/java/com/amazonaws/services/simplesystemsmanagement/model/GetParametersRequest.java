@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,24 +27,68 @@ public class GetParametersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Names of the parameters for which you want to query information.
+     * The names or Amazon Resource Names (ARNs) of the parameters that you want to query. For parameters shared with
+     * you from another account, you must use the full ARNs.
+     * </p>
+     * <p>
+     * To query by parameter label, use <code>"Name": "name:label"</code>. To query by parameter version, use
+     * <code>"Name": "name:version"</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The results for <code>GetParameters</code> requests are listed in alphabetical order in query responses.
+     * </p>
+     * </note>
+     * <p>
+     * For information about shared parameters, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-shared-parameters.html"
+     * >Working with shared parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> names;
     /**
      * <p>
      * Return decrypted secure string value. Return decrypted values for secure string parameters. This flag is ignored
-     * for String and StringList parameter types.
+     * for <code>String</code> and <code>StringList</code> parameter types.
      * </p>
      */
     private Boolean withDecryption;
 
     /**
      * <p>
-     * Names of the parameters for which you want to query information.
+     * The names or Amazon Resource Names (ARNs) of the parameters that you want to query. For parameters shared with
+     * you from another account, you must use the full ARNs.
+     * </p>
+     * <p>
+     * To query by parameter label, use <code>"Name": "name:label"</code>. To query by parameter version, use
+     * <code>"Name": "name:version"</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The results for <code>GetParameters</code> requests are listed in alphabetical order in query responses.
+     * </p>
+     * </note>
+     * <p>
+     * For information about shared parameters, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-shared-parameters.html"
+     * >Working with shared parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
-     * @return Names of the parameters for which you want to query information.
+     * @return The names or Amazon Resource Names (ARNs) of the parameters that you want to query. For parameters shared
+     *         with you from another account, you must use the full ARNs.</p>
+     *         <p>
+     *         To query by parameter label, use <code>"Name": "name:label"</code>. To query by parameter version, use
+     *         <code>"Name": "name:version"</code>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         The results for <code>GetParameters</code> requests are listed in alphabetical order in query responses.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         For information about shared parameters, see <a href=
+     *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-shared-parameters.html"
+     *         >Working with shared parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public java.util.List<String> getNames() {
@@ -56,11 +100,40 @@ public class GetParametersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Names of the parameters for which you want to query information.
+     * The names or Amazon Resource Names (ARNs) of the parameters that you want to query. For parameters shared with
+     * you from another account, you must use the full ARNs.
+     * </p>
+     * <p>
+     * To query by parameter label, use <code>"Name": "name:label"</code>. To query by parameter version, use
+     * <code>"Name": "name:version"</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The results for <code>GetParameters</code> requests are listed in alphabetical order in query responses.
+     * </p>
+     * </note>
+     * <p>
+     * For information about shared parameters, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-shared-parameters.html"
+     * >Working with shared parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param names
-     *        Names of the parameters for which you want to query information.
+     *        The names or Amazon Resource Names (ARNs) of the parameters that you want to query. For parameters shared
+     *        with you from another account, you must use the full ARNs.</p>
+     *        <p>
+     *        To query by parameter label, use <code>"Name": "name:label"</code>. To query by parameter version, use
+     *        <code>"Name": "name:version"</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The results for <code>GetParameters</code> requests are listed in alphabetical order in query responses.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For information about shared parameters, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-shared-parameters.html"
+     *        >Working with shared parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public void setNames(java.util.Collection<String> names) {
@@ -74,7 +147,22 @@ public class GetParametersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Names of the parameters for which you want to query information.
+     * The names or Amazon Resource Names (ARNs) of the parameters that you want to query. For parameters shared with
+     * you from another account, you must use the full ARNs.
+     * </p>
+     * <p>
+     * To query by parameter label, use <code>"Name": "name:label"</code>. To query by parameter version, use
+     * <code>"Name": "name:version"</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The results for <code>GetParameters</code> requests are listed in alphabetical order in query responses.
+     * </p>
+     * </note>
+     * <p>
+     * For information about shared parameters, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-shared-parameters.html"
+     * >Working with shared parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -83,7 +171,21 @@ public class GetParametersRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param names
-     *        Names of the parameters for which you want to query information.
+     *        The names or Amazon Resource Names (ARNs) of the parameters that you want to query. For parameters shared
+     *        with you from another account, you must use the full ARNs.</p>
+     *        <p>
+     *        To query by parameter label, use <code>"Name": "name:label"</code>. To query by parameter version, use
+     *        <code>"Name": "name:version"</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The results for <code>GetParameters</code> requests are listed in alphabetical order in query responses.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For information about shared parameters, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-shared-parameters.html"
+     *        >Working with shared parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -99,11 +201,40 @@ public class GetParametersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Names of the parameters for which you want to query information.
+     * The names or Amazon Resource Names (ARNs) of the parameters that you want to query. For parameters shared with
+     * you from another account, you must use the full ARNs.
+     * </p>
+     * <p>
+     * To query by parameter label, use <code>"Name": "name:label"</code>. To query by parameter version, use
+     * <code>"Name": "name:version"</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The results for <code>GetParameters</code> requests are listed in alphabetical order in query responses.
+     * </p>
+     * </note>
+     * <p>
+     * For information about shared parameters, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-shared-parameters.html"
+     * >Working with shared parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param names
-     *        Names of the parameters for which you want to query information.
+     *        The names or Amazon Resource Names (ARNs) of the parameters that you want to query. For parameters shared
+     *        with you from another account, you must use the full ARNs.</p>
+     *        <p>
+     *        To query by parameter label, use <code>"Name": "name:label"</code>. To query by parameter version, use
+     *        <code>"Name": "name:version"</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The results for <code>GetParameters</code> requests are listed in alphabetical order in query responses.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For information about shared parameters, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-shared-parameters.html"
+     *        >Working with shared parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -115,12 +246,12 @@ public class GetParametersRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * Return decrypted secure string value. Return decrypted values for secure string parameters. This flag is ignored
-     * for String and StringList parameter types.
+     * for <code>String</code> and <code>StringList</code> parameter types.
      * </p>
      * 
      * @param withDecryption
      *        Return decrypted secure string value. Return decrypted values for secure string parameters. This flag is
-     *        ignored for String and StringList parameter types.
+     *        ignored for <code>String</code> and <code>StringList</code> parameter types.
      */
 
     public void setWithDecryption(Boolean withDecryption) {
@@ -130,11 +261,11 @@ public class GetParametersRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * Return decrypted secure string value. Return decrypted values for secure string parameters. This flag is ignored
-     * for String and StringList parameter types.
+     * for <code>String</code> and <code>StringList</code> parameter types.
      * </p>
      * 
      * @return Return decrypted secure string value. Return decrypted values for secure string parameters. This flag is
-     *         ignored for String and StringList parameter types.
+     *         ignored for <code>String</code> and <code>StringList</code> parameter types.
      */
 
     public Boolean getWithDecryption() {
@@ -144,12 +275,12 @@ public class GetParametersRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * Return decrypted secure string value. Return decrypted values for secure string parameters. This flag is ignored
-     * for String and StringList parameter types.
+     * for <code>String</code> and <code>StringList</code> parameter types.
      * </p>
      * 
      * @param withDecryption
      *        Return decrypted secure string value. Return decrypted values for secure string parameters. This flag is
-     *        ignored for String and StringList parameter types.
+     *        ignored for <code>String</code> and <code>StringList</code> parameter types.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -161,11 +292,11 @@ public class GetParametersRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * Return decrypted secure string value. Return decrypted values for secure string parameters. This flag is ignored
-     * for String and StringList parameter types.
+     * for <code>String</code> and <code>StringList</code> parameter types.
      * </p>
      * 
      * @return Return decrypted secure string value. Return decrypted values for secure string parameters. This flag is
-     *         ignored for String and StringList parameter types.
+     *         ignored for <code>String</code> and <code>StringList</code> parameter types.
      */
 
     public Boolean isWithDecryption() {

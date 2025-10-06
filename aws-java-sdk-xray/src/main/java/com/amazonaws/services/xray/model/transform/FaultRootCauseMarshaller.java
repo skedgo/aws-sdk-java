@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,6 +30,8 @@ public class FaultRootCauseMarshaller {
 
     private static final MarshallingInfo<List> SERVICES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Services").build();
+    private static final MarshallingInfo<Boolean> CLIENTIMPACTING_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ClientImpacting").build();
 
     private static final FaultRootCauseMarshaller instance = new FaultRootCauseMarshaller();
 
@@ -48,6 +50,7 @@ public class FaultRootCauseMarshaller {
 
         try {
             protocolMarshaller.marshall(faultRootCause.getServices(), SERVICES_BINDING);
+            protocolMarshaller.marshall(faultRootCause.getClientImpacting(), CLIENTIMPACTING_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

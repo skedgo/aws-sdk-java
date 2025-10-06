@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -84,6 +84,10 @@ public class ContactDataJsonUnmarshaller implements Unmarshaller<ContactData, Js
                     context.nextToken();
                     contactData.setPrePassStartTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
                 }
+                if (context.testExpression("region", targetDepth)) {
+                    context.nextToken();
+                    contactData.setRegion(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("satelliteArn", targetDepth)) {
                     context.nextToken();
                     contactData.setSatelliteArn(context.getUnmarshaller(String.class).unmarshall(context));
@@ -96,6 +100,14 @@ public class ContactDataJsonUnmarshaller implements Unmarshaller<ContactData, Js
                     context.nextToken();
                     contactData.setTags(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
                             .unmarshall(context));
+                }
+                if (context.testExpression("visibilityEndTime", targetDepth)) {
+                    context.nextToken();
+                    contactData.setVisibilityEndTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("visibilityStartTime", targetDepth)) {
+                    context.nextToken();
+                    contactData.setVisibilityStartTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

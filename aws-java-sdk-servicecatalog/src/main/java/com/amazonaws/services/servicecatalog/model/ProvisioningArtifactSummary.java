@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,7 +54,7 @@ public class ProvisioningArtifactSummary implements Serializable, Cloneable, Str
     private java.util.Date createdTime;
     /**
      * <p>
-     * The metadata for the provisioning artifact. This is used with AWS Marketplace products.
+     * The metadata for the provisioning artifact. This is used with Amazon Web Services Marketplace products.
      * </p>
      */
     private java.util.Map<String, String> provisioningArtifactMetadata;
@@ -221,10 +221,10 @@ public class ProvisioningArtifactSummary implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The metadata for the provisioning artifact. This is used with AWS Marketplace products.
+     * The metadata for the provisioning artifact. This is used with Amazon Web Services Marketplace products.
      * </p>
      * 
-     * @return The metadata for the provisioning artifact. This is used with AWS Marketplace products.
+     * @return The metadata for the provisioning artifact. This is used with Amazon Web Services Marketplace products.
      */
 
     public java.util.Map<String, String> getProvisioningArtifactMetadata() {
@@ -233,11 +233,11 @@ public class ProvisioningArtifactSummary implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The metadata for the provisioning artifact. This is used with AWS Marketplace products.
+     * The metadata for the provisioning artifact. This is used with Amazon Web Services Marketplace products.
      * </p>
      * 
      * @param provisioningArtifactMetadata
-     *        The metadata for the provisioning artifact. This is used with AWS Marketplace products.
+     *        The metadata for the provisioning artifact. This is used with Amazon Web Services Marketplace products.
      */
 
     public void setProvisioningArtifactMetadata(java.util.Map<String, String> provisioningArtifactMetadata) {
@@ -246,11 +246,11 @@ public class ProvisioningArtifactSummary implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The metadata for the provisioning artifact. This is used with AWS Marketplace products.
+     * The metadata for the provisioning artifact. This is used with Amazon Web Services Marketplace products.
      * </p>
      * 
      * @param provisioningArtifactMetadata
-     *        The metadata for the provisioning artifact. This is used with AWS Marketplace products.
+     *        The metadata for the provisioning artifact. This is used with Amazon Web Services Marketplace products.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -258,6 +258,13 @@ public class ProvisioningArtifactSummary implements Serializable, Cloneable, Str
         setProvisioningArtifactMetadata(provisioningArtifactMetadata);
         return this;
     }
+
+    /**
+     * Add a single ProvisioningArtifactMetadata entry
+     *
+     * @see ProvisioningArtifactSummary#withProvisioningArtifactMetadata
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public ProvisioningArtifactSummary addProvisioningArtifactMetadataEntry(String key, String value) {
         if (null == this.provisioningArtifactMetadata) {

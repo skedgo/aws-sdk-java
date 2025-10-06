@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * The request body of the ResetServiceSetting API action.
+ * The request body of the ResetServiceSetting API operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ResetServiceSetting" target="_top">AWS API
@@ -30,18 +30,144 @@ public class ResetServiceSettingRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ID of the service setting to reset.
+     * The Amazon Resource Name (ARN) of the service setting to reset. The setting ID can be one of the following.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>/ssm/managed-instance/default-ec2-instance-management-role</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/automation/customer-script-log-destination</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/automation/customer-script-log-group-name</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/documents/console/public-sharing-permission</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/managed-instance/activation-tier</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/opsinsights/opscenter</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/parameter-store/default-parameter-tier</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/parameter-store/high-throughput-enabled</code>
+     * </p>
+     * </li>
+     * </ul>
      */
     private String settingId;
 
     /**
      * <p>
-     * The ID of the service setting to reset.
+     * The Amazon Resource Name (ARN) of the service setting to reset. The setting ID can be one of the following.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>/ssm/managed-instance/default-ec2-instance-management-role</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/automation/customer-script-log-destination</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/automation/customer-script-log-group-name</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/documents/console/public-sharing-permission</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/managed-instance/activation-tier</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/opsinsights/opscenter</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/parameter-store/default-parameter-tier</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/parameter-store/high-throughput-enabled</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param settingId
-     *        The ID of the service setting to reset.
+     *        The Amazon Resource Name (ARN) of the service setting to reset. The setting ID can be one of the
+     *        following.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/managed-instance/default-ec2-instance-management-role</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/automation/customer-script-log-destination</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/automation/customer-script-log-group-name</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/documents/console/public-sharing-permission</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/managed-instance/activation-tier</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/opsinsights/opscenter</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/parameter-store/default-parameter-tier</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/parameter-store/high-throughput-enabled</code>
+     *        </p>
+     *        </li>
      */
 
     public void setSettingId(String settingId) {
@@ -50,10 +176,94 @@ public class ResetServiceSettingRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ID of the service setting to reset.
+     * The Amazon Resource Name (ARN) of the service setting to reset. The setting ID can be one of the following.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>/ssm/managed-instance/default-ec2-instance-management-role</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/automation/customer-script-log-destination</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/automation/customer-script-log-group-name</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/documents/console/public-sharing-permission</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/managed-instance/activation-tier</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/opsinsights/opscenter</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/parameter-store/default-parameter-tier</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/parameter-store/high-throughput-enabled</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The ID of the service setting to reset.
+     * @return The Amazon Resource Name (ARN) of the service setting to reset. The setting ID can be one of the
+     *         following.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>/ssm/managed-instance/default-ec2-instance-management-role</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>/ssm/automation/customer-script-log-destination</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>/ssm/automation/customer-script-log-group-name</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>/ssm/documents/console/public-sharing-permission</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>/ssm/managed-instance/activation-tier</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>/ssm/opsinsights/opscenter</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>/ssm/parameter-store/default-parameter-tier</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>/ssm/parameter-store/high-throughput-enabled</code>
+     *         </p>
+     *         </li>
      */
 
     public String getSettingId() {
@@ -62,11 +272,95 @@ public class ResetServiceSettingRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ID of the service setting to reset.
+     * The Amazon Resource Name (ARN) of the service setting to reset. The setting ID can be one of the following.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>/ssm/managed-instance/default-ec2-instance-management-role</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/automation/customer-script-log-destination</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/automation/customer-script-log-group-name</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/documents/console/public-sharing-permission</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/managed-instance/activation-tier</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/opsinsights/opscenter</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/parameter-store/default-parameter-tier</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/ssm/parameter-store/high-throughput-enabled</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param settingId
-     *        The ID of the service setting to reset.
+     *        The Amazon Resource Name (ARN) of the service setting to reset. The setting ID can be one of the
+     *        following.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/managed-instance/default-ec2-instance-management-role</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/automation/customer-script-log-destination</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/automation/customer-script-log-group-name</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/documents/console/public-sharing-permission</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/managed-instance/activation-tier</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/opsinsights/opscenter</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/parameter-store/default-parameter-tier</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/ssm/parameter-store/high-throughput-enabled</code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

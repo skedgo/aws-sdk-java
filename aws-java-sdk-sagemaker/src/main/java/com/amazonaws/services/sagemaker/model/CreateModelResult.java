@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,18 +25,18 @@ public class CreateModelResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The ARN of the model created in Amazon SageMaker.
+     * The ARN of the model created in SageMaker.
      * </p>
      */
     private String modelArn;
 
     /**
      * <p>
-     * The ARN of the model created in Amazon SageMaker.
+     * The ARN of the model created in SageMaker.
      * </p>
      * 
      * @param modelArn
-     *        The ARN of the model created in Amazon SageMaker.
+     *        The ARN of the model created in SageMaker.
      */
 
     public void setModelArn(String modelArn) {
@@ -45,10 +45,10 @@ public class CreateModelResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The ARN of the model created in Amazon SageMaker.
+     * The ARN of the model created in SageMaker.
      * </p>
      * 
-     * @return The ARN of the model created in Amazon SageMaker.
+     * @return The ARN of the model created in SageMaker.
      */
 
     public String getModelArn() {
@@ -57,11 +57,11 @@ public class CreateModelResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The ARN of the model created in Amazon SageMaker.
+     * The ARN of the model created in SageMaker.
      * </p>
      * 
      * @param modelArn
-     *        The ARN of the model created in Amazon SageMaker.
+     *        The ARN of the model created in SageMaker.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

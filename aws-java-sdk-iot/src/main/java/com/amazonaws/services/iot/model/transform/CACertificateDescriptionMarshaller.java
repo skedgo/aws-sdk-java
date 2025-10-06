@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,6 +49,8 @@ public class CACertificateDescriptionMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("generationId").build();
     private static final MarshallingInfo<StructuredPojo> VALIDITY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("validity").build();
+    private static final MarshallingInfo<String> CERTIFICATEMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("certificateMode").build();
 
     private static final CACertificateDescriptionMarshaller instance = new CACertificateDescriptionMarshaller();
 
@@ -77,6 +79,7 @@ public class CACertificateDescriptionMarshaller {
             protocolMarshaller.marshall(cACertificateDescription.getCustomerVersion(), CUSTOMERVERSION_BINDING);
             protocolMarshaller.marshall(cACertificateDescription.getGenerationId(), GENERATIONID_BINDING);
             protocolMarshaller.marshall(cACertificateDescription.getValidity(), VALIDITY_BINDING);
+            protocolMarshaller.marshall(cACertificateDescription.getCertificateMode(), CERTIFICATEMODE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

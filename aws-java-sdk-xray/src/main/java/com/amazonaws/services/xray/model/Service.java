@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about an application that processed requests, users that made requests, or downstream services, resources
- * and applications that an application used.
+ * Information about an application that processed requests, users that made requests, or downstream services,
+ * resources, and applications that an application used.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/Service" target="_top">AWS API Documentation</a>
@@ -54,7 +54,7 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
     private Boolean root;
     /**
      * <p>
-     * Identifier of the AWS account in which the service runs.
+     * Identifier of the Amazon Web Services account in which the service runs.
      * </p>
      */
     private String accountId;
@@ -65,15 +65,15 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * AWS Resource - The type of an AWS resource. For example, <code>AWS::EC2::Instance</code> for a application
-     * running on Amazon EC2 or <code>AWS::DynamoDB::Table</code> for an Amazon DynamoDB table that the application
-     * used.
+     * Amazon Web Services Resource - The type of an Amazon Web Services resource. For example,
+     * <code>AWS::EC2::Instance</code> for an application running on Amazon EC2 or <code>AWS::DynamoDB::Table</code> for
+     * an Amazon DynamoDB table that the application used.
      * </p>
      * </li>
      * <li>
      * <p>
-     * AWS Service - The type of an AWS service. For example, <code>AWS::DynamoDB</code> for downstream calls to Amazon
-     * DynamoDB that didn't target a specific table.
+     * Amazon Web Services Service - The type of an Amazon Web Services service. For example, <code>AWS::DynamoDB</code>
+     * for downstream calls to Amazon DynamoDB that didn't target a specific table.
      * </p>
      * </li>
      * <li>
@@ -336,11 +336,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Identifier of the AWS account in which the service runs.
+     * Identifier of the Amazon Web Services account in which the service runs.
      * </p>
      * 
      * @param accountId
-     *        Identifier of the AWS account in which the service runs.
+     *        Identifier of the Amazon Web Services account in which the service runs.
      */
 
     public void setAccountId(String accountId) {
@@ -349,10 +349,10 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Identifier of the AWS account in which the service runs.
+     * Identifier of the Amazon Web Services account in which the service runs.
      * </p>
      * 
-     * @return Identifier of the AWS account in which the service runs.
+     * @return Identifier of the Amazon Web Services account in which the service runs.
      */
 
     public String getAccountId() {
@@ -361,11 +361,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Identifier of the AWS account in which the service runs.
+     * Identifier of the Amazon Web Services account in which the service runs.
      * </p>
      * 
      * @param accountId
-     *        Identifier of the AWS account in which the service runs.
+     *        Identifier of the Amazon Web Services account in which the service runs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -381,15 +381,15 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * AWS Resource - The type of an AWS resource. For example, <code>AWS::EC2::Instance</code> for a application
-     * running on Amazon EC2 or <code>AWS::DynamoDB::Table</code> for an Amazon DynamoDB table that the application
-     * used.
+     * Amazon Web Services Resource - The type of an Amazon Web Services resource. For example,
+     * <code>AWS::EC2::Instance</code> for an application running on Amazon EC2 or <code>AWS::DynamoDB::Table</code> for
+     * an Amazon DynamoDB table that the application used.
      * </p>
      * </li>
      * <li>
      * <p>
-     * AWS Service - The type of an AWS service. For example, <code>AWS::DynamoDB</code> for downstream calls to Amazon
-     * DynamoDB that didn't target a specific table.
+     * Amazon Web Services Service - The type of an Amazon Web Services service. For example, <code>AWS::DynamoDB</code>
+     * for downstream calls to Amazon DynamoDB that didn't target a specific table.
      * </p>
      * </li>
      * <li>
@@ -409,15 +409,15 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        AWS Resource - The type of an AWS resource. For example, <code>AWS::EC2::Instance</code> for a application
-     *        running on Amazon EC2 or <code>AWS::DynamoDB::Table</code> for an Amazon DynamoDB table that the
-     *        application used.
+     *        Amazon Web Services Resource - The type of an Amazon Web Services resource. For example,
+     *        <code>AWS::EC2::Instance</code> for an application running on Amazon EC2 or
+     *        <code>AWS::DynamoDB::Table</code> for an Amazon DynamoDB table that the application used.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        AWS Service - The type of an AWS service. For example, <code>AWS::DynamoDB</code> for downstream calls to
-     *        Amazon DynamoDB that didn't target a specific table.
+     *        Amazon Web Services Service - The type of an Amazon Web Services service. For example,
+     *        <code>AWS::DynamoDB</code> for downstream calls to Amazon DynamoDB that didn't target a specific table.
      *        </p>
      *        </li>
      *        <li>
@@ -443,15 +443,15 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * AWS Resource - The type of an AWS resource. For example, <code>AWS::EC2::Instance</code> for a application
-     * running on Amazon EC2 or <code>AWS::DynamoDB::Table</code> for an Amazon DynamoDB table that the application
-     * used.
+     * Amazon Web Services Resource - The type of an Amazon Web Services resource. For example,
+     * <code>AWS::EC2::Instance</code> for an application running on Amazon EC2 or <code>AWS::DynamoDB::Table</code> for
+     * an Amazon DynamoDB table that the application used.
      * </p>
      * </li>
      * <li>
      * <p>
-     * AWS Service - The type of an AWS service. For example, <code>AWS::DynamoDB</code> for downstream calls to Amazon
-     * DynamoDB that didn't target a specific table.
+     * Amazon Web Services Service - The type of an Amazon Web Services service. For example, <code>AWS::DynamoDB</code>
+     * for downstream calls to Amazon DynamoDB that didn't target a specific table.
      * </p>
      * </li>
      * <li>
@@ -470,15 +470,15 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
      *         <ul>
      *         <li>
      *         <p>
-     *         AWS Resource - The type of an AWS resource. For example, <code>AWS::EC2::Instance</code> for a
-     *         application running on Amazon EC2 or <code>AWS::DynamoDB::Table</code> for an Amazon DynamoDB table that
-     *         the application used.
+     *         Amazon Web Services Resource - The type of an Amazon Web Services resource. For example,
+     *         <code>AWS::EC2::Instance</code> for an application running on Amazon EC2 or
+     *         <code>AWS::DynamoDB::Table</code> for an Amazon DynamoDB table that the application used.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         AWS Service - The type of an AWS service. For example, <code>AWS::DynamoDB</code> for downstream calls to
-     *         Amazon DynamoDB that didn't target a specific table.
+     *         Amazon Web Services Service - The type of an Amazon Web Services service. For example,
+     *         <code>AWS::DynamoDB</code> for downstream calls to Amazon DynamoDB that didn't target a specific table.
      *         </p>
      *         </li>
      *         <li>
@@ -504,15 +504,15 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * AWS Resource - The type of an AWS resource. For example, <code>AWS::EC2::Instance</code> for a application
-     * running on Amazon EC2 or <code>AWS::DynamoDB::Table</code> for an Amazon DynamoDB table that the application
-     * used.
+     * Amazon Web Services Resource - The type of an Amazon Web Services resource. For example,
+     * <code>AWS::EC2::Instance</code> for an application running on Amazon EC2 or <code>AWS::DynamoDB::Table</code> for
+     * an Amazon DynamoDB table that the application used.
      * </p>
      * </li>
      * <li>
      * <p>
-     * AWS Service - The type of an AWS service. For example, <code>AWS::DynamoDB</code> for downstream calls to Amazon
-     * DynamoDB that didn't target a specific table.
+     * Amazon Web Services Service - The type of an Amazon Web Services service. For example, <code>AWS::DynamoDB</code>
+     * for downstream calls to Amazon DynamoDB that didn't target a specific table.
      * </p>
      * </li>
      * <li>
@@ -532,15 +532,15 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        AWS Resource - The type of an AWS resource. For example, <code>AWS::EC2::Instance</code> for a application
-     *        running on Amazon EC2 or <code>AWS::DynamoDB::Table</code> for an Amazon DynamoDB table that the
-     *        application used.
+     *        Amazon Web Services Resource - The type of an Amazon Web Services resource. For example,
+     *        <code>AWS::EC2::Instance</code> for an application running on Amazon EC2 or
+     *        <code>AWS::DynamoDB::Table</code> for an Amazon DynamoDB table that the application used.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        AWS Service - The type of an AWS service. For example, <code>AWS::DynamoDB</code> for downstream calls to
-     *        Amazon DynamoDB that didn't target a specific table.
+     *        Amazon Web Services Service - The type of an Amazon Web Services service. For example,
+     *        <code>AWS::DynamoDB</code> for downstream calls to Amazon DynamoDB that didn't target a specific table.
      *        </p>
      *        </li>
      *        <li>

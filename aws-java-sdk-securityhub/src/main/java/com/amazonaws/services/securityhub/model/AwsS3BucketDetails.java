@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The details of an Amazon S3 bucket.
+ * The details of an Amazon Simple Storage Service (Amazon S3) bucket.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/securityhub-2018-10-26/AwsS3BucketDetails" target="_top">AWS API
@@ -40,6 +40,110 @@ public class AwsS3BucketDetails implements Serializable, Cloneable, StructuredPo
      * </p>
      */
     private String ownerName;
+    /**
+     * <p>
+     * The Amazon Web Services account identifier of the account that owns the S3 bucket.
+     * </p>
+     */
+    private String ownerAccountId;
+    /**
+     * <p>
+     * Indicates when the S3 bucket was created.
+     * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String createdAt;
+    /**
+     * <p>
+     * The encryption rules that are applied to the S3 bucket.
+     * </p>
+     */
+    private AwsS3BucketServerSideEncryptionConfiguration serverSideEncryptionConfiguration;
+    /**
+     * <p>
+     * The lifecycle configuration for objects in the specified bucket.
+     * </p>
+     */
+    private AwsS3BucketBucketLifecycleConfigurationDetails bucketLifecycleConfiguration;
+    /**
+     * <p>
+     * Provides information about the Amazon S3 Public Access Block configuration for the S3 bucket.
+     * </p>
+     */
+    private AwsS3AccountPublicAccessBlockDetails publicAccessBlockConfiguration;
+    /**
+     * <p>
+     * The access control list for the S3 bucket.
+     * </p>
+     */
+    private String accessControlList;
+    /**
+     * <p>
+     * The logging configuration for the S3 bucket.
+     * </p>
+     */
+    private AwsS3BucketLoggingConfiguration bucketLoggingConfiguration;
+    /**
+     * <p>
+     * The website configuration parameters for the S3 bucket.
+     * </p>
+     */
+    private AwsS3BucketWebsiteConfiguration bucketWebsiteConfiguration;
+    /**
+     * <p>
+     * The notification configuration for the S3 bucket.
+     * </p>
+     */
+    private AwsS3BucketNotificationConfiguration bucketNotificationConfiguration;
+    /**
+     * <p>
+     * The versioning state of an S3 bucket.
+     * </p>
+     */
+    private AwsS3BucketBucketVersioningConfiguration bucketVersioningConfiguration;
+    /**
+     * <p>
+     * Specifies which rule Amazon S3 applies by default to every new object placed in the bucket.
+     * </p>
+     */
+    private AwsS3BucketObjectLockConfiguration objectLockConfiguration;
+    /**
+     * <p>
+     * The name of the bucket.
+     * </p>
+     */
+    private String name;
 
     /**
      * <p>
@@ -122,6 +226,678 @@ public class AwsS3BucketDetails implements Serializable, Cloneable, StructuredPo
     }
 
     /**
+     * <p>
+     * The Amazon Web Services account identifier of the account that owns the S3 bucket.
+     * </p>
+     * 
+     * @param ownerAccountId
+     *        The Amazon Web Services account identifier of the account that owns the S3 bucket.
+     */
+
+    public void setOwnerAccountId(String ownerAccountId) {
+        this.ownerAccountId = ownerAccountId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services account identifier of the account that owns the S3 bucket.
+     * </p>
+     * 
+     * @return The Amazon Web Services account identifier of the account that owns the S3 bucket.
+     */
+
+    public String getOwnerAccountId() {
+        return this.ownerAccountId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services account identifier of the account that owns the S3 bucket.
+     * </p>
+     * 
+     * @param ownerAccountId
+     *        The Amazon Web Services account identifier of the account that owns the S3 bucket.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsS3BucketDetails withOwnerAccountId(String ownerAccountId) {
+        setOwnerAccountId(ownerAccountId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates when the S3 bucket was created.
+     * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createdAt
+     *        Indicates when the S3 bucket was created.</p>
+     *        <p>
+     *        This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     *        <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a
+     *        maximum of 9 digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example,
+     *        <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     *        </p>
+     *        </li>
+     */
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * <p>
+     * Indicates when the S3 bucket was created.
+     * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Indicates when the S3 bucket was created.</p>
+     *         <p>
+     *         This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     *         <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a
+     *         maximum of 9 digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example,
+     *         <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     *         </p>
+     *         </li>
+     */
+
+    public String getCreatedAt() {
+        return this.createdAt;
+    }
+
+    /**
+     * <p>
+     * Indicates when the S3 bucket was created.
+     * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createdAt
+     *        Indicates when the S3 bucket was created.</p>
+     *        <p>
+     *        This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     *        <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a
+     *        maximum of 9 digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example,
+     *        <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsS3BucketDetails withCreatedAt(String createdAt) {
+        setCreatedAt(createdAt);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The encryption rules that are applied to the S3 bucket.
+     * </p>
+     * 
+     * @param serverSideEncryptionConfiguration
+     *        The encryption rules that are applied to the S3 bucket.
+     */
+
+    public void setServerSideEncryptionConfiguration(AwsS3BucketServerSideEncryptionConfiguration serverSideEncryptionConfiguration) {
+        this.serverSideEncryptionConfiguration = serverSideEncryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * The encryption rules that are applied to the S3 bucket.
+     * </p>
+     * 
+     * @return The encryption rules that are applied to the S3 bucket.
+     */
+
+    public AwsS3BucketServerSideEncryptionConfiguration getServerSideEncryptionConfiguration() {
+        return this.serverSideEncryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * The encryption rules that are applied to the S3 bucket.
+     * </p>
+     * 
+     * @param serverSideEncryptionConfiguration
+     *        The encryption rules that are applied to the S3 bucket.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsS3BucketDetails withServerSideEncryptionConfiguration(AwsS3BucketServerSideEncryptionConfiguration serverSideEncryptionConfiguration) {
+        setServerSideEncryptionConfiguration(serverSideEncryptionConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The lifecycle configuration for objects in the specified bucket.
+     * </p>
+     * 
+     * @param bucketLifecycleConfiguration
+     *        The lifecycle configuration for objects in the specified bucket.
+     */
+
+    public void setBucketLifecycleConfiguration(AwsS3BucketBucketLifecycleConfigurationDetails bucketLifecycleConfiguration) {
+        this.bucketLifecycleConfiguration = bucketLifecycleConfiguration;
+    }
+
+    /**
+     * <p>
+     * The lifecycle configuration for objects in the specified bucket.
+     * </p>
+     * 
+     * @return The lifecycle configuration for objects in the specified bucket.
+     */
+
+    public AwsS3BucketBucketLifecycleConfigurationDetails getBucketLifecycleConfiguration() {
+        return this.bucketLifecycleConfiguration;
+    }
+
+    /**
+     * <p>
+     * The lifecycle configuration for objects in the specified bucket.
+     * </p>
+     * 
+     * @param bucketLifecycleConfiguration
+     *        The lifecycle configuration for objects in the specified bucket.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsS3BucketDetails withBucketLifecycleConfiguration(AwsS3BucketBucketLifecycleConfigurationDetails bucketLifecycleConfiguration) {
+        setBucketLifecycleConfiguration(bucketLifecycleConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Provides information about the Amazon S3 Public Access Block configuration for the S3 bucket.
+     * </p>
+     * 
+     * @param publicAccessBlockConfiguration
+     *        Provides information about the Amazon S3 Public Access Block configuration for the S3 bucket.
+     */
+
+    public void setPublicAccessBlockConfiguration(AwsS3AccountPublicAccessBlockDetails publicAccessBlockConfiguration) {
+        this.publicAccessBlockConfiguration = publicAccessBlockConfiguration;
+    }
+
+    /**
+     * <p>
+     * Provides information about the Amazon S3 Public Access Block configuration for the S3 bucket.
+     * </p>
+     * 
+     * @return Provides information about the Amazon S3 Public Access Block configuration for the S3 bucket.
+     */
+
+    public AwsS3AccountPublicAccessBlockDetails getPublicAccessBlockConfiguration() {
+        return this.publicAccessBlockConfiguration;
+    }
+
+    /**
+     * <p>
+     * Provides information about the Amazon S3 Public Access Block configuration for the S3 bucket.
+     * </p>
+     * 
+     * @param publicAccessBlockConfiguration
+     *        Provides information about the Amazon S3 Public Access Block configuration for the S3 bucket.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsS3BucketDetails withPublicAccessBlockConfiguration(AwsS3AccountPublicAccessBlockDetails publicAccessBlockConfiguration) {
+        setPublicAccessBlockConfiguration(publicAccessBlockConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The access control list for the S3 bucket.
+     * </p>
+     * 
+     * @param accessControlList
+     *        The access control list for the S3 bucket.
+     */
+
+    public void setAccessControlList(String accessControlList) {
+        this.accessControlList = accessControlList;
+    }
+
+    /**
+     * <p>
+     * The access control list for the S3 bucket.
+     * </p>
+     * 
+     * @return The access control list for the S3 bucket.
+     */
+
+    public String getAccessControlList() {
+        return this.accessControlList;
+    }
+
+    /**
+     * <p>
+     * The access control list for the S3 bucket.
+     * </p>
+     * 
+     * @param accessControlList
+     *        The access control list for the S3 bucket.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsS3BucketDetails withAccessControlList(String accessControlList) {
+        setAccessControlList(accessControlList);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The logging configuration for the S3 bucket.
+     * </p>
+     * 
+     * @param bucketLoggingConfiguration
+     *        The logging configuration for the S3 bucket.
+     */
+
+    public void setBucketLoggingConfiguration(AwsS3BucketLoggingConfiguration bucketLoggingConfiguration) {
+        this.bucketLoggingConfiguration = bucketLoggingConfiguration;
+    }
+
+    /**
+     * <p>
+     * The logging configuration for the S3 bucket.
+     * </p>
+     * 
+     * @return The logging configuration for the S3 bucket.
+     */
+
+    public AwsS3BucketLoggingConfiguration getBucketLoggingConfiguration() {
+        return this.bucketLoggingConfiguration;
+    }
+
+    /**
+     * <p>
+     * The logging configuration for the S3 bucket.
+     * </p>
+     * 
+     * @param bucketLoggingConfiguration
+     *        The logging configuration for the S3 bucket.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsS3BucketDetails withBucketLoggingConfiguration(AwsS3BucketLoggingConfiguration bucketLoggingConfiguration) {
+        setBucketLoggingConfiguration(bucketLoggingConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The website configuration parameters for the S3 bucket.
+     * </p>
+     * 
+     * @param bucketWebsiteConfiguration
+     *        The website configuration parameters for the S3 bucket.
+     */
+
+    public void setBucketWebsiteConfiguration(AwsS3BucketWebsiteConfiguration bucketWebsiteConfiguration) {
+        this.bucketWebsiteConfiguration = bucketWebsiteConfiguration;
+    }
+
+    /**
+     * <p>
+     * The website configuration parameters for the S3 bucket.
+     * </p>
+     * 
+     * @return The website configuration parameters for the S3 bucket.
+     */
+
+    public AwsS3BucketWebsiteConfiguration getBucketWebsiteConfiguration() {
+        return this.bucketWebsiteConfiguration;
+    }
+
+    /**
+     * <p>
+     * The website configuration parameters for the S3 bucket.
+     * </p>
+     * 
+     * @param bucketWebsiteConfiguration
+     *        The website configuration parameters for the S3 bucket.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsS3BucketDetails withBucketWebsiteConfiguration(AwsS3BucketWebsiteConfiguration bucketWebsiteConfiguration) {
+        setBucketWebsiteConfiguration(bucketWebsiteConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The notification configuration for the S3 bucket.
+     * </p>
+     * 
+     * @param bucketNotificationConfiguration
+     *        The notification configuration for the S3 bucket.
+     */
+
+    public void setBucketNotificationConfiguration(AwsS3BucketNotificationConfiguration bucketNotificationConfiguration) {
+        this.bucketNotificationConfiguration = bucketNotificationConfiguration;
+    }
+
+    /**
+     * <p>
+     * The notification configuration for the S3 bucket.
+     * </p>
+     * 
+     * @return The notification configuration for the S3 bucket.
+     */
+
+    public AwsS3BucketNotificationConfiguration getBucketNotificationConfiguration() {
+        return this.bucketNotificationConfiguration;
+    }
+
+    /**
+     * <p>
+     * The notification configuration for the S3 bucket.
+     * </p>
+     * 
+     * @param bucketNotificationConfiguration
+     *        The notification configuration for the S3 bucket.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsS3BucketDetails withBucketNotificationConfiguration(AwsS3BucketNotificationConfiguration bucketNotificationConfiguration) {
+        setBucketNotificationConfiguration(bucketNotificationConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The versioning state of an S3 bucket.
+     * </p>
+     * 
+     * @param bucketVersioningConfiguration
+     *        The versioning state of an S3 bucket.
+     */
+
+    public void setBucketVersioningConfiguration(AwsS3BucketBucketVersioningConfiguration bucketVersioningConfiguration) {
+        this.bucketVersioningConfiguration = bucketVersioningConfiguration;
+    }
+
+    /**
+     * <p>
+     * The versioning state of an S3 bucket.
+     * </p>
+     * 
+     * @return The versioning state of an S3 bucket.
+     */
+
+    public AwsS3BucketBucketVersioningConfiguration getBucketVersioningConfiguration() {
+        return this.bucketVersioningConfiguration;
+    }
+
+    /**
+     * <p>
+     * The versioning state of an S3 bucket.
+     * </p>
+     * 
+     * @param bucketVersioningConfiguration
+     *        The versioning state of an S3 bucket.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsS3BucketDetails withBucketVersioningConfiguration(AwsS3BucketBucketVersioningConfiguration bucketVersioningConfiguration) {
+        setBucketVersioningConfiguration(bucketVersioningConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies which rule Amazon S3 applies by default to every new object placed in the bucket.
+     * </p>
+     * 
+     * @param objectLockConfiguration
+     *        Specifies which rule Amazon S3 applies by default to every new object placed in the bucket.
+     */
+
+    public void setObjectLockConfiguration(AwsS3BucketObjectLockConfiguration objectLockConfiguration) {
+        this.objectLockConfiguration = objectLockConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies which rule Amazon S3 applies by default to every new object placed in the bucket.
+     * </p>
+     * 
+     * @return Specifies which rule Amazon S3 applies by default to every new object placed in the bucket.
+     */
+
+    public AwsS3BucketObjectLockConfiguration getObjectLockConfiguration() {
+        return this.objectLockConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies which rule Amazon S3 applies by default to every new object placed in the bucket.
+     * </p>
+     * 
+     * @param objectLockConfiguration
+     *        Specifies which rule Amazon S3 applies by default to every new object placed in the bucket.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsS3BucketDetails withObjectLockConfiguration(AwsS3BucketObjectLockConfiguration objectLockConfiguration) {
+        setObjectLockConfiguration(objectLockConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the bucket.
+     * </p>
+     * 
+     * @param name
+     *        The name of the bucket.
+     */
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * <p>
+     * The name of the bucket.
+     * </p>
+     * 
+     * @return The name of the bucket.
+     */
+
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * <p>
+     * The name of the bucket.
+     * </p>
+     * 
+     * @param name
+     *        The name of the bucket.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsS3BucketDetails withName(String name) {
+        setName(name);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -136,7 +912,31 @@ public class AwsS3BucketDetails implements Serializable, Cloneable, StructuredPo
         if (getOwnerId() != null)
             sb.append("OwnerId: ").append(getOwnerId()).append(",");
         if (getOwnerName() != null)
-            sb.append("OwnerName: ").append(getOwnerName());
+            sb.append("OwnerName: ").append(getOwnerName()).append(",");
+        if (getOwnerAccountId() != null)
+            sb.append("OwnerAccountId: ").append(getOwnerAccountId()).append(",");
+        if (getCreatedAt() != null)
+            sb.append("CreatedAt: ").append(getCreatedAt()).append(",");
+        if (getServerSideEncryptionConfiguration() != null)
+            sb.append("ServerSideEncryptionConfiguration: ").append(getServerSideEncryptionConfiguration()).append(",");
+        if (getBucketLifecycleConfiguration() != null)
+            sb.append("BucketLifecycleConfiguration: ").append(getBucketLifecycleConfiguration()).append(",");
+        if (getPublicAccessBlockConfiguration() != null)
+            sb.append("PublicAccessBlockConfiguration: ").append(getPublicAccessBlockConfiguration()).append(",");
+        if (getAccessControlList() != null)
+            sb.append("AccessControlList: ").append(getAccessControlList()).append(",");
+        if (getBucketLoggingConfiguration() != null)
+            sb.append("BucketLoggingConfiguration: ").append(getBucketLoggingConfiguration()).append(",");
+        if (getBucketWebsiteConfiguration() != null)
+            sb.append("BucketWebsiteConfiguration: ").append(getBucketWebsiteConfiguration()).append(",");
+        if (getBucketNotificationConfiguration() != null)
+            sb.append("BucketNotificationConfiguration: ").append(getBucketNotificationConfiguration()).append(",");
+        if (getBucketVersioningConfiguration() != null)
+            sb.append("BucketVersioningConfiguration: ").append(getBucketVersioningConfiguration()).append(",");
+        if (getObjectLockConfiguration() != null)
+            sb.append("ObjectLockConfiguration: ").append(getObjectLockConfiguration()).append(",");
+        if (getName() != null)
+            sb.append("Name: ").append(getName());
         sb.append("}");
         return sb.toString();
     }
@@ -159,6 +959,58 @@ public class AwsS3BucketDetails implements Serializable, Cloneable, StructuredPo
             return false;
         if (other.getOwnerName() != null && other.getOwnerName().equals(this.getOwnerName()) == false)
             return false;
+        if (other.getOwnerAccountId() == null ^ this.getOwnerAccountId() == null)
+            return false;
+        if (other.getOwnerAccountId() != null && other.getOwnerAccountId().equals(this.getOwnerAccountId()) == false)
+            return false;
+        if (other.getCreatedAt() == null ^ this.getCreatedAt() == null)
+            return false;
+        if (other.getCreatedAt() != null && other.getCreatedAt().equals(this.getCreatedAt()) == false)
+            return false;
+        if (other.getServerSideEncryptionConfiguration() == null ^ this.getServerSideEncryptionConfiguration() == null)
+            return false;
+        if (other.getServerSideEncryptionConfiguration() != null
+                && other.getServerSideEncryptionConfiguration().equals(this.getServerSideEncryptionConfiguration()) == false)
+            return false;
+        if (other.getBucketLifecycleConfiguration() == null ^ this.getBucketLifecycleConfiguration() == null)
+            return false;
+        if (other.getBucketLifecycleConfiguration() != null && other.getBucketLifecycleConfiguration().equals(this.getBucketLifecycleConfiguration()) == false)
+            return false;
+        if (other.getPublicAccessBlockConfiguration() == null ^ this.getPublicAccessBlockConfiguration() == null)
+            return false;
+        if (other.getPublicAccessBlockConfiguration() != null
+                && other.getPublicAccessBlockConfiguration().equals(this.getPublicAccessBlockConfiguration()) == false)
+            return false;
+        if (other.getAccessControlList() == null ^ this.getAccessControlList() == null)
+            return false;
+        if (other.getAccessControlList() != null && other.getAccessControlList().equals(this.getAccessControlList()) == false)
+            return false;
+        if (other.getBucketLoggingConfiguration() == null ^ this.getBucketLoggingConfiguration() == null)
+            return false;
+        if (other.getBucketLoggingConfiguration() != null && other.getBucketLoggingConfiguration().equals(this.getBucketLoggingConfiguration()) == false)
+            return false;
+        if (other.getBucketWebsiteConfiguration() == null ^ this.getBucketWebsiteConfiguration() == null)
+            return false;
+        if (other.getBucketWebsiteConfiguration() != null && other.getBucketWebsiteConfiguration().equals(this.getBucketWebsiteConfiguration()) == false)
+            return false;
+        if (other.getBucketNotificationConfiguration() == null ^ this.getBucketNotificationConfiguration() == null)
+            return false;
+        if (other.getBucketNotificationConfiguration() != null
+                && other.getBucketNotificationConfiguration().equals(this.getBucketNotificationConfiguration()) == false)
+            return false;
+        if (other.getBucketVersioningConfiguration() == null ^ this.getBucketVersioningConfiguration() == null)
+            return false;
+        if (other.getBucketVersioningConfiguration() != null
+                && other.getBucketVersioningConfiguration().equals(this.getBucketVersioningConfiguration()) == false)
+            return false;
+        if (other.getObjectLockConfiguration() == null ^ this.getObjectLockConfiguration() == null)
+            return false;
+        if (other.getObjectLockConfiguration() != null && other.getObjectLockConfiguration().equals(this.getObjectLockConfiguration()) == false)
+            return false;
+        if (other.getName() == null ^ this.getName() == null)
+            return false;
+        if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
         return true;
     }
 
@@ -169,6 +1021,18 @@ public class AwsS3BucketDetails implements Serializable, Cloneable, StructuredPo
 
         hashCode = prime * hashCode + ((getOwnerId() == null) ? 0 : getOwnerId().hashCode());
         hashCode = prime * hashCode + ((getOwnerName() == null) ? 0 : getOwnerName().hashCode());
+        hashCode = prime * hashCode + ((getOwnerAccountId() == null) ? 0 : getOwnerAccountId().hashCode());
+        hashCode = prime * hashCode + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
+        hashCode = prime * hashCode + ((getServerSideEncryptionConfiguration() == null) ? 0 : getServerSideEncryptionConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getBucketLifecycleConfiguration() == null) ? 0 : getBucketLifecycleConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getPublicAccessBlockConfiguration() == null) ? 0 : getPublicAccessBlockConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getAccessControlList() == null) ? 0 : getAccessControlList().hashCode());
+        hashCode = prime * hashCode + ((getBucketLoggingConfiguration() == null) ? 0 : getBucketLoggingConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getBucketWebsiteConfiguration() == null) ? 0 : getBucketWebsiteConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getBucketNotificationConfiguration() == null) ? 0 : getBucketNotificationConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getBucketVersioningConfiguration() == null) ? 0 : getBucketVersioningConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getObjectLockConfiguration() == null) ? 0 : getObjectLockConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         return hashCode;
     }
 

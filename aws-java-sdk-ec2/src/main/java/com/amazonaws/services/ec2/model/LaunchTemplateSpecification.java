@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,8 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The launch template to use. You must specify either the launch template ID or launch template name in the request,
- * but not both.
+ * Describes the launch template to use.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateSpecification" target="_top">AWS
@@ -31,20 +30,32 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
      * <p>
      * The ID of the launch template.
      * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
+     * </p>
      */
     private String launchTemplateId;
     /**
      * <p>
      * The name of the launch template.
      * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
+     * </p>
      */
     private String launchTemplateName;
     /**
      * <p>
-     * The version number of the launch template.
+     * The launch template version number, <code>$Latest</code>, or <code>$Default</code>.
      * </p>
      * <p>
-     * Default: The default version for the launch template.
+     * A value of <code>$Latest</code> uses the latest version of the launch template.
+     * </p>
+     * <p>
+     * A value of <code>$Default</code> uses the default version of the launch template.
+     * </p>
+     * <p>
+     * Default: The default version of the launch template.
      * </p>
      */
     private String version;
@@ -53,9 +64,14 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
      * <p>
      * The ID of the launch template.
      * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
+     * </p>
      * 
      * @param launchTemplateId
-     *        The ID of the launch template.
+     *        The ID of the launch template.</p>
+     *        <p>
+     *        You must specify either the launch template ID or the launch template name, but not both.
      */
 
     public void setLaunchTemplateId(String launchTemplateId) {
@@ -66,8 +82,13 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
      * <p>
      * The ID of the launch template.
      * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
+     * </p>
      * 
-     * @return The ID of the launch template.
+     * @return The ID of the launch template.</p>
+     *         <p>
+     *         You must specify either the launch template ID or the launch template name, but not both.
      */
 
     public String getLaunchTemplateId() {
@@ -78,9 +99,14 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
      * <p>
      * The ID of the launch template.
      * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
+     * </p>
      * 
      * @param launchTemplateId
-     *        The ID of the launch template.
+     *        The ID of the launch template.</p>
+     *        <p>
+     *        You must specify either the launch template ID or the launch template name, but not both.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -93,9 +119,14 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
      * <p>
      * The name of the launch template.
      * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
+     * </p>
      * 
      * @param launchTemplateName
-     *        The name of the launch template.
+     *        The name of the launch template.</p>
+     *        <p>
+     *        You must specify either the launch template ID or the launch template name, but not both.
      */
 
     public void setLaunchTemplateName(String launchTemplateName) {
@@ -106,8 +137,13 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
      * <p>
      * The name of the launch template.
      * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
+     * </p>
      * 
-     * @return The name of the launch template.
+     * @return The name of the launch template.</p>
+     *         <p>
+     *         You must specify either the launch template ID or the launch template name, but not both.
      */
 
     public String getLaunchTemplateName() {
@@ -118,9 +154,14 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
      * <p>
      * The name of the launch template.
      * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
+     * </p>
      * 
      * @param launchTemplateName
-     *        The name of the launch template.
+     *        The name of the launch template.</p>
+     *        <p>
+     *        You must specify either the launch template ID or the launch template name, but not both.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -131,16 +172,28 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The version number of the launch template.
+     * The launch template version number, <code>$Latest</code>, or <code>$Default</code>.
      * </p>
      * <p>
-     * Default: The default version for the launch template.
+     * A value of <code>$Latest</code> uses the latest version of the launch template.
+     * </p>
+     * <p>
+     * A value of <code>$Default</code> uses the default version of the launch template.
+     * </p>
+     * <p>
+     * Default: The default version of the launch template.
      * </p>
      * 
      * @param version
-     *        The version number of the launch template.</p>
+     *        The launch template version number, <code>$Latest</code>, or <code>$Default</code>.</p>
      *        <p>
-     *        Default: The default version for the launch template.
+     *        A value of <code>$Latest</code> uses the latest version of the launch template.
+     *        </p>
+     *        <p>
+     *        A value of <code>$Default</code> uses the default version of the launch template.
+     *        </p>
+     *        <p>
+     *        Default: The default version of the launch template.
      */
 
     public void setVersion(String version) {
@@ -149,15 +202,27 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The version number of the launch template.
+     * The launch template version number, <code>$Latest</code>, or <code>$Default</code>.
      * </p>
      * <p>
-     * Default: The default version for the launch template.
+     * A value of <code>$Latest</code> uses the latest version of the launch template.
+     * </p>
+     * <p>
+     * A value of <code>$Default</code> uses the default version of the launch template.
+     * </p>
+     * <p>
+     * Default: The default version of the launch template.
      * </p>
      * 
-     * @return The version number of the launch template.</p>
+     * @return The launch template version number, <code>$Latest</code>, or <code>$Default</code>.</p>
      *         <p>
-     *         Default: The default version for the launch template.
+     *         A value of <code>$Latest</code> uses the latest version of the launch template.
+     *         </p>
+     *         <p>
+     *         A value of <code>$Default</code> uses the default version of the launch template.
+     *         </p>
+     *         <p>
+     *         Default: The default version of the launch template.
      */
 
     public String getVersion() {
@@ -166,16 +231,28 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The version number of the launch template.
+     * The launch template version number, <code>$Latest</code>, or <code>$Default</code>.
      * </p>
      * <p>
-     * Default: The default version for the launch template.
+     * A value of <code>$Latest</code> uses the latest version of the launch template.
+     * </p>
+     * <p>
+     * A value of <code>$Default</code> uses the default version of the launch template.
+     * </p>
+     * <p>
+     * Default: The default version of the launch template.
      * </p>
      * 
      * @param version
-     *        The version number of the launch template.</p>
+     *        The launch template version number, <code>$Latest</code>, or <code>$Default</code>.</p>
      *        <p>
-     *        Default: The default version for the launch template.
+     *        A value of <code>$Latest</code> uses the latest version of the launch template.
+     *        </p>
+     *        <p>
+     *        A value of <code>$Default</code> uses the default version of the launch template.
+     *        </p>
+     *        <p>
+     *        Default: The default version of the launch template.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

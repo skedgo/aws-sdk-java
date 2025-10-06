@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,7 +34,7 @@ public class DBClusterMember implements Serializable, Cloneable {
     private String dBInstanceIdentifier;
     /**
      * <p>
-     * A value that indicates whehter the cluster member is the primary instance for the DB cluster.
+     * Indicates whether the cluster member is the primary DB instance for the DB cluster.
      * </p>
      */
     private Boolean isClusterWriter;
@@ -96,11 +96,11 @@ public class DBClusterMember implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A value that indicates whehter the cluster member is the primary instance for the DB cluster.
+     * Indicates whether the cluster member is the primary DB instance for the DB cluster.
      * </p>
      * 
      * @param isClusterWriter
-     *        A value that indicates whehter the cluster member is the primary instance for the DB cluster.
+     *        Indicates whether the cluster member is the primary DB instance for the DB cluster.
      */
 
     public void setIsClusterWriter(Boolean isClusterWriter) {
@@ -109,10 +109,10 @@ public class DBClusterMember implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A value that indicates whehter the cluster member is the primary instance for the DB cluster.
+     * Indicates whether the cluster member is the primary DB instance for the DB cluster.
      * </p>
      * 
-     * @return A value that indicates whehter the cluster member is the primary instance for the DB cluster.
+     * @return Indicates whether the cluster member is the primary DB instance for the DB cluster.
      */
 
     public Boolean getIsClusterWriter() {
@@ -121,11 +121,11 @@ public class DBClusterMember implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A value that indicates whehter the cluster member is the primary instance for the DB cluster.
+     * Indicates whether the cluster member is the primary DB instance for the DB cluster.
      * </p>
      * 
      * @param isClusterWriter
-     *        A value that indicates whehter the cluster member is the primary instance for the DB cluster.
+     *        Indicates whether the cluster member is the primary DB instance for the DB cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -136,10 +136,10 @@ public class DBClusterMember implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A value that indicates whehter the cluster member is the primary instance for the DB cluster.
+     * Indicates whether the cluster member is the primary DB instance for the DB cluster.
      * </p>
      * 
-     * @return A value that indicates whehter the cluster member is the primary instance for the DB cluster.
+     * @return Indicates whether the cluster member is the primary DB instance for the DB cluster.
      */
 
     public Boolean isClusterWriter() {

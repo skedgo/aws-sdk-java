@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,12 +54,27 @@ public class StageDeclarationJsonUnmarshaller implements Unmarshaller<StageDecla
                 }
                 if (context.testExpression("blockers", targetDepth)) {
                     context.nextToken();
-                    stageDeclaration
-                            .setBlockers(new ListUnmarshaller<BlockerDeclaration>(BlockerDeclarationJsonUnmarshaller.getInstance()).unmarshall(context));
+                    stageDeclaration.setBlockers(new ListUnmarshaller<BlockerDeclaration>(BlockerDeclarationJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("actions", targetDepth)) {
                     context.nextToken();
-                    stageDeclaration.setActions(new ListUnmarshaller<ActionDeclaration>(ActionDeclarationJsonUnmarshaller.getInstance()).unmarshall(context));
+                    stageDeclaration.setActions(new ListUnmarshaller<ActionDeclaration>(ActionDeclarationJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("onFailure", targetDepth)) {
+                    context.nextToken();
+                    stageDeclaration.setOnFailure(FailureConditionsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("onSuccess", targetDepth)) {
+                    context.nextToken();
+                    stageDeclaration.setOnSuccess(SuccessConditionsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("beforeEntry", targetDepth)) {
+                    context.nextToken();
+                    stageDeclaration.setBeforeEntry(BeforeEntryConditionsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

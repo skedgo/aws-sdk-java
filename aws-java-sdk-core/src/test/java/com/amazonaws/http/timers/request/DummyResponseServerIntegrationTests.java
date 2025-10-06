@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -29,7 +29,10 @@ import com.amazonaws.http.server.MockServer;
 import com.amazonaws.http.settings.HttpClientSettings;
 
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import utils.Retryable;
+import utils.RetryableTestRule;
 
 import java.io.IOException;
 
@@ -45,6 +48,9 @@ import static org.mockito.Mockito.spy;
  */
 public class DummyResponseServerIntegrationTests extends MockServerTestBase {
 
+    @Rule
+    public RetryableTestRule retryableTestRule = new RetryableTestRule();
+    
     private static final int STATUS_CODE = 500;
     private AmazonHttpClient httpClient;
 
@@ -60,6 +66,7 @@ public class DummyResponseServerIntegrationTests extends MockServerTestBase {
     }
 
     @Test(timeout = TEST_TIMEOUT)
+    @Retryable
     public void requestTimeoutEnabled_ServerRespondsWithRetryableError_RetriesUpToLimitThenThrowsServerException()
             throws IOException {
         int maxRetries = 2;
@@ -68,7 +75,7 @@ public class DummyResponseServerIntegrationTests extends MockServerTestBase {
         HttpClientFactory<ConnectionManagerAwareHttpClient> httpClientFactory = new ApacheHttpClientFactory();
         ConnectionManagerAwareHttpClient rawHttpClient = spy(httpClientFactory.create(HttpClientSettings.adapt(config)));
 
-        httpClient = new AmazonHttpClient(config, rawHttpClient, null);
+        httpClient = new AmazonHttpClient(config, rawHttpClient, null, null);
 
         try {
             httpClient.execute(newGetRequest(),

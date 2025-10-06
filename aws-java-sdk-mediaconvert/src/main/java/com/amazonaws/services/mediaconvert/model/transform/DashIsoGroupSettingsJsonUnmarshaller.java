@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,9 +48,28 @@ public class DashIsoGroupSettingsJsonUnmarshaller implements Unmarshaller<DashIs
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("additionalManifests", targetDepth)) {
+                    context.nextToken();
+                    dashIsoGroupSettings.setAdditionalManifests(new ListUnmarshaller<DashAdditionalManifest>(DashAdditionalManifestJsonUnmarshaller
+                            .getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("audioChannelConfigSchemeIdUri", targetDepth)) {
+                    context.nextToken();
+                    dashIsoGroupSettings.setAudioChannelConfigSchemeIdUri(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("baseUrl", targetDepth)) {
                     context.nextToken();
                     dashIsoGroupSettings.setBaseUrl(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("dashIFrameTrickPlayNameModifier", targetDepth)) {
+                    context.nextToken();
+                    dashIsoGroupSettings.setDashIFrameTrickPlayNameModifier(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("dashManifestStyle", targetDepth)) {
+                    context.nextToken();
+                    dashIsoGroupSettings.setDashManifestStyle(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("destination", targetDepth)) {
                     context.nextToken();
@@ -72,9 +91,33 @@ public class DashIsoGroupSettingsJsonUnmarshaller implements Unmarshaller<DashIs
                     context.nextToken();
                     dashIsoGroupSettings.setHbbtvCompliance(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("imageBasedTrickPlay", targetDepth)) {
+                    context.nextToken();
+                    dashIsoGroupSettings.setImageBasedTrickPlay(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("imageBasedTrickPlaySettings", targetDepth)) {
+                    context.nextToken();
+                    dashIsoGroupSettings.setImageBasedTrickPlaySettings(DashIsoImageBasedTrickPlaySettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("minBufferTime", targetDepth)) {
                     context.nextToken();
                     dashIsoGroupSettings.setMinBufferTime(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("minFinalSegmentLength", targetDepth)) {
+                    context.nextToken();
+                    dashIsoGroupSettings.setMinFinalSegmentLength(context.getUnmarshaller(Double.class).unmarshall(context));
+                }
+                if (context.testExpression("mpdManifestBandwidthType", targetDepth)) {
+                    context.nextToken();
+                    dashIsoGroupSettings.setMpdManifestBandwidthType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("mpdProfile", targetDepth)) {
+                    context.nextToken();
+                    dashIsoGroupSettings.setMpdProfile(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ptsOffsetHandlingForBFrames", targetDepth)) {
+                    context.nextToken();
+                    dashIsoGroupSettings.setPtsOffsetHandlingForBFrames(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("segmentControl", targetDepth)) {
                     context.nextToken();
@@ -83,6 +126,14 @@ public class DashIsoGroupSettingsJsonUnmarshaller implements Unmarshaller<DashIs
                 if (context.testExpression("segmentLength", targetDepth)) {
                     context.nextToken();
                     dashIsoGroupSettings.setSegmentLength(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("segmentLengthControl", targetDepth)) {
+                    context.nextToken();
+                    dashIsoGroupSettings.setSegmentLengthControl(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("videoCompositionOffsets", targetDepth)) {
+                    context.nextToken();
+                    dashIsoGroupSettings.setVideoCompositionOffsets(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("writeSegmentTimelineInRepresentation", targetDepth)) {
                     context.nextToken();

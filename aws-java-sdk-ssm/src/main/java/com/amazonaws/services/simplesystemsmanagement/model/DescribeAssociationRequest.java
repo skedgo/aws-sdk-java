@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,13 +27,13 @@ public class DescribeAssociationRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The instance ID.
+     * The managed node ID.
      * </p>
      */
     private String instanceId;
@@ -46,7 +46,7 @@ public class DescribeAssociationRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * Specify the association version to retrieve. To view the latest version, either specify <code>$LATEST</code> for
-     * this parameter, or omit this parameter. To view a list of all associations for an instance, use
+     * this parameter, or omit this parameter. To view a list of all associations for a managed node, use
      * <a>ListAssociations</a>. To get a list of versions for a specific association, use
      * <a>ListAssociationVersions</a>.
      * </p>
@@ -55,11 +55,11 @@ public class DescribeAssociationRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      */
 
     public void setName(String name) {
@@ -68,10 +68,10 @@ public class DescribeAssociationRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
-     * @return The name of the Systems Manager document.
+     * @return The name of the SSM document.
      */
 
     public String getName() {
@@ -80,11 +80,11 @@ public class DescribeAssociationRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -95,11 +95,11 @@ public class DescribeAssociationRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The instance ID.
+     * The managed node ID.
      * </p>
      * 
      * @param instanceId
-     *        The instance ID.
+     *        The managed node ID.
      */
 
     public void setInstanceId(String instanceId) {
@@ -108,10 +108,10 @@ public class DescribeAssociationRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The instance ID.
+     * The managed node ID.
      * </p>
      * 
-     * @return The instance ID.
+     * @return The managed node ID.
      */
 
     public String getInstanceId() {
@@ -120,11 +120,11 @@ public class DescribeAssociationRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The instance ID.
+     * The managed node ID.
      * </p>
      * 
      * @param instanceId
-     *        The instance ID.
+     *        The managed node ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -176,15 +176,15 @@ public class DescribeAssociationRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * Specify the association version to retrieve. To view the latest version, either specify <code>$LATEST</code> for
-     * this parameter, or omit this parameter. To view a list of all associations for an instance, use
+     * this parameter, or omit this parameter. To view a list of all associations for a managed node, use
      * <a>ListAssociations</a>. To get a list of versions for a specific association, use
      * <a>ListAssociationVersions</a>.
      * </p>
      * 
      * @param associationVersion
      *        Specify the association version to retrieve. To view the latest version, either specify
-     *        <code>$LATEST</code> for this parameter, or omit this parameter. To view a list of all associations for an
-     *        instance, use <a>ListAssociations</a>. To get a list of versions for a specific association, use
+     *        <code>$LATEST</code> for this parameter, or omit this parameter. To view a list of all associations for a
+     *        managed node, use <a>ListAssociations</a>. To get a list of versions for a specific association, use
      *        <a>ListAssociationVersions</a>.
      */
 
@@ -195,14 +195,14 @@ public class DescribeAssociationRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * Specify the association version to retrieve. To view the latest version, either specify <code>$LATEST</code> for
-     * this parameter, or omit this parameter. To view a list of all associations for an instance, use
+     * this parameter, or omit this parameter. To view a list of all associations for a managed node, use
      * <a>ListAssociations</a>. To get a list of versions for a specific association, use
      * <a>ListAssociationVersions</a>.
      * </p>
      * 
      * @return Specify the association version to retrieve. To view the latest version, either specify
-     *         <code>$LATEST</code> for this parameter, or omit this parameter. To view a list of all associations for
-     *         an instance, use <a>ListAssociations</a>. To get a list of versions for a specific association, use
+     *         <code>$LATEST</code> for this parameter, or omit this parameter. To view a list of all associations for a
+     *         managed node, use <a>ListAssociations</a>. To get a list of versions for a specific association, use
      *         <a>ListAssociationVersions</a>.
      */
 
@@ -213,15 +213,15 @@ public class DescribeAssociationRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * Specify the association version to retrieve. To view the latest version, either specify <code>$LATEST</code> for
-     * this parameter, or omit this parameter. To view a list of all associations for an instance, use
+     * this parameter, or omit this parameter. To view a list of all associations for a managed node, use
      * <a>ListAssociations</a>. To get a list of versions for a specific association, use
      * <a>ListAssociationVersions</a>.
      * </p>
      * 
      * @param associationVersion
      *        Specify the association version to retrieve. To view the latest version, either specify
-     *        <code>$LATEST</code> for this parameter, or omit this parameter. To view a list of all associations for an
-     *        instance, use <a>ListAssociations</a>. To get a list of versions for a specific association, use
+     *        <code>$LATEST</code> for this parameter, or omit this parameter. To view a list of all associations for a
+     *        managed node, use <a>ListAssociations</a>. To get a list of versions for a specific association, use
      *        <a>ListAssociationVersions</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

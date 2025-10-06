@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,7 +42,7 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
     private String description;
     /**
      * <p>
-     * The type of the connection. Currently, only JDBC is supported; SFTP is not supported.
+     * The type of the connection. Currently, SFTP is not supported.
      * </p>
      */
     private String connectionType;
@@ -89,7 +89,8 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>JDBC_DRIVER_JAR_URI</code> - The Amazon S3 path of the JAR file that contains the JDBC driver to use.
+     * <code>JDBC_DRIVER_JAR_URI</code> - The Amazon Simple Storage Service (Amazon S3) path of the JAR file that
+     * contains the JDBC driver to use.
      * </p>
      * </li>
      * <li>
@@ -109,7 +110,7 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>CONFIG_FILES</code> - (Reserved for future use).
+     * <code>CONFIG_FILES</code> - (Reserved for future use.)
      * </p>
      * </li>
      * <li>
@@ -119,13 +120,191 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>JDBC_CONNECTION_URL</code> - The URL for the JDBC connection.
+     * <code>JDBC_CONNECTION_URL</code> - The URL for connecting to a JDBC data source.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>JDBC_ENFORCE_SSL</code> - A Boolean string (true, false) specifying whether Secure Sockets Layer (SSL) with
-     * hostname matching will be enforced for the JDBC connection on the client. The default is false.
+     * hostname matching is enforced for the JDBC connection on the client. The default is false.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CUSTOM_JDBC_CERT</code> - An Amazon S3 location specifying the customer's root certificate. Glue uses this
+     * root certificate to validate the customer’s certificate when connecting to the customer database. Glue only
+     * handles X.509 certificates. The certificate provided must be DER-encoded and supplied in Base64 encoding PEM
+     * format.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SKIP_CUSTOM_JDBC_CERT_VALIDATION</code> - By default, this is <code>false</code>. Glue validates the
+     * Signature algorithm and Subject Public Key Algorithm for the customer certificate. The only permitted algorithms
+     * for the Signature algorithm are SHA256withRSA, SHA384withRSA or SHA512withRSA. For the Subject Public Key
+     * Algorithm, the key length must be at least 2048. You can set the value of this property to <code>true</code> to
+     * skip Glue’s validation of the customer certificate.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CUSTOM_JDBC_CERT_STRING</code> - A custom JDBC certificate string which is used for domain match or
+     * distinguished name match to prevent a man-in-the-middle attack. In Oracle database, this is used as the
+     * <code>SSL_SERVER_CERT_DN</code>; in Microsoft SQL Server, this is used as the <code>hostNameInCertificate</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTION_URL</code> - The URL for connecting to a general (non-JDBC) data source.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SECRET_ID</code> - The secret ID used for the secret manager of credentials.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTOR_URL</code> - The connector URL for a MARKETPLACE or CUSTOM connection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTOR_TYPE</code> - The connector type for a MARKETPLACE or CUSTOM connection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTOR_CLASS_NAME</code> - The connector class name for a MARKETPLACE or CUSTOM connection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_BOOTSTRAP_SERVERS</code> - A comma-separated list of host and port pairs that are the addresses of
+     * the Apache Kafka brokers in a Kafka cluster to which a Kafka client will connect to and bootstrap itself.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SSL_ENABLED</code> - Whether to enable or disable SSL on an Apache Kafka connection. Default value is
+     * "true".
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CUSTOM_CERT</code> - The Amazon S3 URL for the private CA cert file (.pem format). The default is an
+     * empty string.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SKIP_CUSTOM_CERT_VALIDATION</code> - Whether to skip the validation of the CA cert file or not. Glue
+     * validates for three algorithms: SHA256withRSA, SHA384withRSA and SHA512withRSA. Default value is "false".
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CLIENT_KEYSTORE</code> - The Amazon S3 location of the client keystore file for Kafka client side
+     * authentication (Optional).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CLIENT_KEYSTORE_PASSWORD</code> - The password to access the provided keystore (Optional).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CLIENT_KEY_PASSWORD</code> - A keystore can consist of multiple keys, so this is the password to
+     * access the client key to be used with the Kafka server side key (Optional).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_CLIENT_KEYSTORE_PASSWORD</code> - The encrypted version of the Kafka client keystore
+     * password (if the user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_CLIENT_KEY_PASSWORD</code> - The encrypted version of the Kafka client key password (if the
+     * user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_MECHANISM</code> - <code>"SCRAM-SHA-512"</code>, <code>"GSSAPI"</code>,
+     * <code>"AWS_MSK_IAM"</code>, or <code>"PLAIN"</code>. These are the supported <a
+     * href="https://www.iana.org/assignments/sasl-mechanisms/sasl-mechanisms.xhtml">SASL Mechanisms</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_PLAIN_USERNAME</code> - A plaintext username used to authenticate with the "PLAIN" mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_PLAIN_PASSWORD</code> - A plaintext password used to authenticate with the "PLAIN" mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_SASL_PLAIN_PASSWORD</code> - The encrypted version of the Kafka SASL PLAIN password (if the
+     * user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_SCRAM_USERNAME</code> - A plaintext username used to authenticate with the "SCRAM-SHA-512"
+     * mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_SCRAM_PASSWORD</code> - A plaintext password used to authenticate with the "SCRAM-SHA-512"
+     * mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_SASL_SCRAM_PASSWORD</code> - The encrypted version of the Kafka SASL SCRAM password (if the
+     * user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_SCRAM_SECRETS_ARN</code> - The Amazon Resource Name of a secret in Amazon Web Services Secrets
+     * Manager.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_KEYTAB</code> - The S3 location of a Kerberos <code>keytab</code> file. A keytab stores
+     * long-term keys for one or more principals. For more information, see <a
+     * href="https://web.mit.edu/kerberos/krb5-latest/doc/basic/keytab_def.html">MIT Kerberos Documentation: Keytab</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_KRB5_CONF</code> - The S3 location of a Kerberos <code>krb5.conf</code> file. A krb5.conf
+     * stores Kerberos configuration information, such as the location of the KDC server. For more information, see <a
+     * href="https://web.mit.edu/kerberos/krb5-1.12/doc/admin/conf_files/krb5_conf.html">MIT Kerberos Documentation:
+     * krb5.conf</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_SERVICE</code> - The Kerberos service name, as set with
+     * <code>sasl.kerberos.service.name</code> in your <a
+     * href="https://kafka.apache.org/documentation/#brokerconfigs_sasl.kerberos.service.name">Kafka Configuration</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_PRINCIPAL</code> - The name of the Kerberos princial used by Glue. For more information,
+     * see <a href="https://kafka.apache.org/documentation/#security_sasl_kerberos_clientconfig">Kafka Documentation:
+     * Configuring Kafka Brokers</a>.
      * </p>
      * </li>
      * </ul>
@@ -133,20 +312,20 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
     private java.util.Map<String, String> connectionProperties;
     /**
      * <p>
-     * A map of physical connection requirements, such as virtual private cloud (VPC) and <code>SecurityGroup</code>,
-     * that are needed to make this connection successfully.
+     * The physical connection requirements, such as virtual private cloud (VPC) and <code>SecurityGroup</code>, that
+     * are needed to make this connection successfully.
      * </p>
      */
     private PhysicalConnectionRequirements physicalConnectionRequirements;
     /**
      * <p>
-     * The time that this connection definition was created.
+     * The timestamp of the time that this connection definition was created.
      * </p>
      */
     private java.util.Date creationTime;
     /**
      * <p>
-     * The last time that this connection definition was updated.
+     * The timestamp of the last time the connection definition was updated.
      * </p>
      */
     private java.util.Date lastUpdatedTime;
@@ -156,6 +335,31 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String lastUpdatedBy;
+    /**
+     * <p>
+     * The status of the connection. Can be one of: <code>READY</code>, <code>IN_PROGRESS</code>, or <code>FAILED</code>
+     * .
+     * </p>
+     */
+    private String status;
+    /**
+     * <p>
+     * The reason for the connection status.
+     * </p>
+     */
+    private String statusReason;
+    /**
+     * <p>
+     * A timestamp of the time this connection was last validated.
+     * </p>
+     */
+    private java.util.Date lastConnectionValidationTime;
+    /**
+     * <p>
+     * The authentication properties of the connection.
+     * </p>
+     */
+    private AuthenticationConfiguration authenticationConfiguration;
 
     /**
      * <p>
@@ -239,11 +443,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the connection. Currently, only JDBC is supported; SFTP is not supported.
+     * The type of the connection. Currently, SFTP is not supported.
      * </p>
      * 
      * @param connectionType
-     *        The type of the connection. Currently, only JDBC is supported; SFTP is not supported.
+     *        The type of the connection. Currently, SFTP is not supported.
      * @see ConnectionType
      */
 
@@ -253,10 +457,10 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the connection. Currently, only JDBC is supported; SFTP is not supported.
+     * The type of the connection. Currently, SFTP is not supported.
      * </p>
      * 
-     * @return The type of the connection. Currently, only JDBC is supported; SFTP is not supported.
+     * @return The type of the connection. Currently, SFTP is not supported.
      * @see ConnectionType
      */
 
@@ -266,11 +470,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the connection. Currently, only JDBC is supported; SFTP is not supported.
+     * The type of the connection. Currently, SFTP is not supported.
      * </p>
      * 
      * @param connectionType
-     *        The type of the connection. Currently, only JDBC is supported; SFTP is not supported.
+     *        The type of the connection. Currently, SFTP is not supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ConnectionType
      */
@@ -282,11 +486,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the connection. Currently, only JDBC is supported; SFTP is not supported.
+     * The type of the connection. Currently, SFTP is not supported.
      * </p>
      * 
      * @param connectionType
-     *        The type of the connection. Currently, only JDBC is supported; SFTP is not supported.
+     *        The type of the connection. Currently, SFTP is not supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ConnectionType
      */
@@ -403,7 +607,8 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>JDBC_DRIVER_JAR_URI</code> - The Amazon S3 path of the JAR file that contains the JDBC driver to use.
+     * <code>JDBC_DRIVER_JAR_URI</code> - The Amazon Simple Storage Service (Amazon S3) path of the JAR file that
+     * contains the JDBC driver to use.
      * </p>
      * </li>
      * <li>
@@ -423,7 +628,7 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>CONFIG_FILES</code> - (Reserved for future use).
+     * <code>CONFIG_FILES</code> - (Reserved for future use.)
      * </p>
      * </li>
      * <li>
@@ -433,13 +638,191 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>JDBC_CONNECTION_URL</code> - The URL for the JDBC connection.
+     * <code>JDBC_CONNECTION_URL</code> - The URL for connecting to a JDBC data source.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>JDBC_ENFORCE_SSL</code> - A Boolean string (true, false) specifying whether Secure Sockets Layer (SSL) with
-     * hostname matching will be enforced for the JDBC connection on the client. The default is false.
+     * hostname matching is enforced for the JDBC connection on the client. The default is false.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CUSTOM_JDBC_CERT</code> - An Amazon S3 location specifying the customer's root certificate. Glue uses this
+     * root certificate to validate the customer’s certificate when connecting to the customer database. Glue only
+     * handles X.509 certificates. The certificate provided must be DER-encoded and supplied in Base64 encoding PEM
+     * format.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SKIP_CUSTOM_JDBC_CERT_VALIDATION</code> - By default, this is <code>false</code>. Glue validates the
+     * Signature algorithm and Subject Public Key Algorithm for the customer certificate. The only permitted algorithms
+     * for the Signature algorithm are SHA256withRSA, SHA384withRSA or SHA512withRSA. For the Subject Public Key
+     * Algorithm, the key length must be at least 2048. You can set the value of this property to <code>true</code> to
+     * skip Glue’s validation of the customer certificate.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CUSTOM_JDBC_CERT_STRING</code> - A custom JDBC certificate string which is used for domain match or
+     * distinguished name match to prevent a man-in-the-middle attack. In Oracle database, this is used as the
+     * <code>SSL_SERVER_CERT_DN</code>; in Microsoft SQL Server, this is used as the <code>hostNameInCertificate</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTION_URL</code> - The URL for connecting to a general (non-JDBC) data source.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SECRET_ID</code> - The secret ID used for the secret manager of credentials.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTOR_URL</code> - The connector URL for a MARKETPLACE or CUSTOM connection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTOR_TYPE</code> - The connector type for a MARKETPLACE or CUSTOM connection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTOR_CLASS_NAME</code> - The connector class name for a MARKETPLACE or CUSTOM connection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_BOOTSTRAP_SERVERS</code> - A comma-separated list of host and port pairs that are the addresses of
+     * the Apache Kafka brokers in a Kafka cluster to which a Kafka client will connect to and bootstrap itself.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SSL_ENABLED</code> - Whether to enable or disable SSL on an Apache Kafka connection. Default value is
+     * "true".
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CUSTOM_CERT</code> - The Amazon S3 URL for the private CA cert file (.pem format). The default is an
+     * empty string.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SKIP_CUSTOM_CERT_VALIDATION</code> - Whether to skip the validation of the CA cert file or not. Glue
+     * validates for three algorithms: SHA256withRSA, SHA384withRSA and SHA512withRSA. Default value is "false".
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CLIENT_KEYSTORE</code> - The Amazon S3 location of the client keystore file for Kafka client side
+     * authentication (Optional).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CLIENT_KEYSTORE_PASSWORD</code> - The password to access the provided keystore (Optional).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CLIENT_KEY_PASSWORD</code> - A keystore can consist of multiple keys, so this is the password to
+     * access the client key to be used with the Kafka server side key (Optional).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_CLIENT_KEYSTORE_PASSWORD</code> - The encrypted version of the Kafka client keystore
+     * password (if the user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_CLIENT_KEY_PASSWORD</code> - The encrypted version of the Kafka client key password (if the
+     * user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_MECHANISM</code> - <code>"SCRAM-SHA-512"</code>, <code>"GSSAPI"</code>,
+     * <code>"AWS_MSK_IAM"</code>, or <code>"PLAIN"</code>. These are the supported <a
+     * href="https://www.iana.org/assignments/sasl-mechanisms/sasl-mechanisms.xhtml">SASL Mechanisms</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_PLAIN_USERNAME</code> - A plaintext username used to authenticate with the "PLAIN" mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_PLAIN_PASSWORD</code> - A plaintext password used to authenticate with the "PLAIN" mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_SASL_PLAIN_PASSWORD</code> - The encrypted version of the Kafka SASL PLAIN password (if the
+     * user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_SCRAM_USERNAME</code> - A plaintext username used to authenticate with the "SCRAM-SHA-512"
+     * mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_SCRAM_PASSWORD</code> - A plaintext password used to authenticate with the "SCRAM-SHA-512"
+     * mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_SASL_SCRAM_PASSWORD</code> - The encrypted version of the Kafka SASL SCRAM password (if the
+     * user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_SCRAM_SECRETS_ARN</code> - The Amazon Resource Name of a secret in Amazon Web Services Secrets
+     * Manager.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_KEYTAB</code> - The S3 location of a Kerberos <code>keytab</code> file. A keytab stores
+     * long-term keys for one or more principals. For more information, see <a
+     * href="https://web.mit.edu/kerberos/krb5-latest/doc/basic/keytab_def.html">MIT Kerberos Documentation: Keytab</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_KRB5_CONF</code> - The S3 location of a Kerberos <code>krb5.conf</code> file. A krb5.conf
+     * stores Kerberos configuration information, such as the location of the KDC server. For more information, see <a
+     * href="https://web.mit.edu/kerberos/krb5-1.12/doc/admin/conf_files/krb5_conf.html">MIT Kerberos Documentation:
+     * krb5.conf</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_SERVICE</code> - The Kerberos service name, as set with
+     * <code>sasl.kerberos.service.name</code> in your <a
+     * href="https://kafka.apache.org/documentation/#brokerconfigs_sasl.kerberos.service.name">Kafka Configuration</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_PRINCIPAL</code> - The name of the Kerberos princial used by Glue. For more information,
+     * see <a href="https://kafka.apache.org/documentation/#security_sasl_kerberos_clientconfig">Kafka Documentation:
+     * Configuring Kafka Brokers</a>.
      * </p>
      * </li>
      * </ul>
@@ -478,8 +861,8 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
-     *         <code>JDBC_DRIVER_JAR_URI</code> - The Amazon S3 path of the JAR file that contains the JDBC driver to
-     *         use.
+     *         <code>JDBC_DRIVER_JAR_URI</code> - The Amazon Simple Storage Service (Amazon S3) path of the JAR file
+     *         that contains the JDBC driver to use.
      *         </p>
      *         </li>
      *         <li>
@@ -499,7 +882,7 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
-     *         <code>CONFIG_FILES</code> - (Reserved for future use).
+     *         <code>CONFIG_FILES</code> - (Reserved for future use.)
      *         </p>
      *         </li>
      *         <li>
@@ -509,14 +892,199 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
-     *         <code>JDBC_CONNECTION_URL</code> - The URL for the JDBC connection.
+     *         <code>JDBC_CONNECTION_URL</code> - The URL for connecting to a JDBC data source.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>JDBC_ENFORCE_SSL</code> - A Boolean string (true, false) specifying whether Secure Sockets Layer
-     *         (SSL) with hostname matching will be enforced for the JDBC connection on the client. The default is
-     *         false.
+     *         (SSL) with hostname matching is enforced for the JDBC connection on the client. The default is false.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>CUSTOM_JDBC_CERT</code> - An Amazon S3 location specifying the customer's root certificate. Glue
+     *         uses this root certificate to validate the customer’s certificate when connecting to the customer
+     *         database. Glue only handles X.509 certificates. The certificate provided must be DER-encoded and supplied
+     *         in Base64 encoding PEM format.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>SKIP_CUSTOM_JDBC_CERT_VALIDATION</code> - By default, this is <code>false</code>. Glue validates
+     *         the Signature algorithm and Subject Public Key Algorithm for the customer certificate. The only permitted
+     *         algorithms for the Signature algorithm are SHA256withRSA, SHA384withRSA or SHA512withRSA. For the Subject
+     *         Public Key Algorithm, the key length must be at least 2048. You can set the value of this property to
+     *         <code>true</code> to skip Glue’s validation of the customer certificate.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>CUSTOM_JDBC_CERT_STRING</code> - A custom JDBC certificate string which is used for domain match or
+     *         distinguished name match to prevent a man-in-the-middle attack. In Oracle database, this is used as the
+     *         <code>SSL_SERVER_CERT_DN</code>; in Microsoft SQL Server, this is used as the
+     *         <code>hostNameInCertificate</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>CONNECTION_URL</code> - The URL for connecting to a general (non-JDBC) data source.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>SECRET_ID</code> - The secret ID used for the secret manager of credentials.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>CONNECTOR_URL</code> - The connector URL for a MARKETPLACE or CUSTOM connection.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>CONNECTOR_TYPE</code> - The connector type for a MARKETPLACE or CUSTOM connection.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>CONNECTOR_CLASS_NAME</code> - The connector class name for a MARKETPLACE or CUSTOM connection.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_BOOTSTRAP_SERVERS</code> - A comma-separated list of host and port pairs that are the
+     *         addresses of the Apache Kafka brokers in a Kafka cluster to which a Kafka client will connect to and
+     *         bootstrap itself.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_SSL_ENABLED</code> - Whether to enable or disable SSL on an Apache Kafka connection. Default
+     *         value is "true".
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_CUSTOM_CERT</code> - The Amazon S3 URL for the private CA cert file (.pem format). The
+     *         default is an empty string.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_SKIP_CUSTOM_CERT_VALIDATION</code> - Whether to skip the validation of the CA cert file or
+     *         not. Glue validates for three algorithms: SHA256withRSA, SHA384withRSA and SHA512withRSA. Default value
+     *         is "false".
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_CLIENT_KEYSTORE</code> - The Amazon S3 location of the client keystore file for Kafka client
+     *         side authentication (Optional).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_CLIENT_KEYSTORE_PASSWORD</code> - The password to access the provided keystore (Optional).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_CLIENT_KEY_PASSWORD</code> - A keystore can consist of multiple keys, so this is the password
+     *         to access the client key to be used with the Kafka server side key (Optional).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ENCRYPTED_KAFKA_CLIENT_KEYSTORE_PASSWORD</code> - The encrypted version of the Kafka client
+     *         keystore password (if the user has the Glue encrypt passwords setting selected).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ENCRYPTED_KAFKA_CLIENT_KEY_PASSWORD</code> - The encrypted version of the Kafka client key password
+     *         (if the user has the Glue encrypt passwords setting selected).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_SASL_MECHANISM</code> - <code>"SCRAM-SHA-512"</code>, <code>"GSSAPI"</code>,
+     *         <code>"AWS_MSK_IAM"</code>, or <code>"PLAIN"</code>. These are the supported <a
+     *         href="https://www.iana.org/assignments/sasl-mechanisms/sasl-mechanisms.xhtml">SASL Mechanisms</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_SASL_PLAIN_USERNAME</code> - A plaintext username used to authenticate with the "PLAIN"
+     *         mechanism.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_SASL_PLAIN_PASSWORD</code> - A plaintext password used to authenticate with the "PLAIN"
+     *         mechanism.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ENCRYPTED_KAFKA_SASL_PLAIN_PASSWORD</code> - The encrypted version of the Kafka SASL PLAIN password
+     *         (if the user has the Glue encrypt passwords setting selected).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_SASL_SCRAM_USERNAME</code> - A plaintext username used to authenticate with the
+     *         "SCRAM-SHA-512" mechanism.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_SASL_SCRAM_PASSWORD</code> - A plaintext password used to authenticate with the
+     *         "SCRAM-SHA-512" mechanism.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ENCRYPTED_KAFKA_SASL_SCRAM_PASSWORD</code> - The encrypted version of the Kafka SASL SCRAM password
+     *         (if the user has the Glue encrypt passwords setting selected).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_SASL_SCRAM_SECRETS_ARN</code> - The Amazon Resource Name of a secret in Amazon Web Services
+     *         Secrets Manager.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_SASL_GSSAPI_KEYTAB</code> - The S3 location of a Kerberos <code>keytab</code> file. A keytab
+     *         stores long-term keys for one or more principals. For more information, see <a
+     *         href="https://web.mit.edu/kerberos/krb5-latest/doc/basic/keytab_def.html">MIT Kerberos Documentation:
+     *         Keytab</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_SASL_GSSAPI_KRB5_CONF</code> - The S3 location of a Kerberos <code>krb5.conf</code> file. A
+     *         krb5.conf stores Kerberos configuration information, such as the location of the KDC server. For more
+     *         information, see <a href="https://web.mit.edu/kerberos/krb5-1.12/doc/admin/conf_files/krb5_conf.html">MIT
+     *         Kerberos Documentation: krb5.conf</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_SASL_GSSAPI_SERVICE</code> - The Kerberos service name, as set with
+     *         <code>sasl.kerberos.service.name</code> in your <a
+     *         href="https://kafka.apache.org/documentation/#brokerconfigs_sasl.kerberos.service.name">Kafka
+     *         Configuration</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KAFKA_SASL_GSSAPI_PRINCIPAL</code> - The name of the Kerberos princial used by Glue. For more
+     *         information, see <a
+     *         href="https://kafka.apache.org/documentation/#security_sasl_kerberos_clientconfig">Kafka Documentation:
+     *         Configuring Kafka Brokers</a>.
      *         </p>
      *         </li>
      */
@@ -562,7 +1130,8 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>JDBC_DRIVER_JAR_URI</code> - The Amazon S3 path of the JAR file that contains the JDBC driver to use.
+     * <code>JDBC_DRIVER_JAR_URI</code> - The Amazon Simple Storage Service (Amazon S3) path of the JAR file that
+     * contains the JDBC driver to use.
      * </p>
      * </li>
      * <li>
@@ -582,7 +1151,7 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>CONFIG_FILES</code> - (Reserved for future use).
+     * <code>CONFIG_FILES</code> - (Reserved for future use.)
      * </p>
      * </li>
      * <li>
@@ -592,13 +1161,191 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>JDBC_CONNECTION_URL</code> - The URL for the JDBC connection.
+     * <code>JDBC_CONNECTION_URL</code> - The URL for connecting to a JDBC data source.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>JDBC_ENFORCE_SSL</code> - A Boolean string (true, false) specifying whether Secure Sockets Layer (SSL) with
-     * hostname matching will be enforced for the JDBC connection on the client. The default is false.
+     * hostname matching is enforced for the JDBC connection on the client. The default is false.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CUSTOM_JDBC_CERT</code> - An Amazon S3 location specifying the customer's root certificate. Glue uses this
+     * root certificate to validate the customer’s certificate when connecting to the customer database. Glue only
+     * handles X.509 certificates. The certificate provided must be DER-encoded and supplied in Base64 encoding PEM
+     * format.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SKIP_CUSTOM_JDBC_CERT_VALIDATION</code> - By default, this is <code>false</code>. Glue validates the
+     * Signature algorithm and Subject Public Key Algorithm for the customer certificate. The only permitted algorithms
+     * for the Signature algorithm are SHA256withRSA, SHA384withRSA or SHA512withRSA. For the Subject Public Key
+     * Algorithm, the key length must be at least 2048. You can set the value of this property to <code>true</code> to
+     * skip Glue’s validation of the customer certificate.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CUSTOM_JDBC_CERT_STRING</code> - A custom JDBC certificate string which is used for domain match or
+     * distinguished name match to prevent a man-in-the-middle attack. In Oracle database, this is used as the
+     * <code>SSL_SERVER_CERT_DN</code>; in Microsoft SQL Server, this is used as the <code>hostNameInCertificate</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTION_URL</code> - The URL for connecting to a general (non-JDBC) data source.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SECRET_ID</code> - The secret ID used for the secret manager of credentials.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTOR_URL</code> - The connector URL for a MARKETPLACE or CUSTOM connection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTOR_TYPE</code> - The connector type for a MARKETPLACE or CUSTOM connection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTOR_CLASS_NAME</code> - The connector class name for a MARKETPLACE or CUSTOM connection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_BOOTSTRAP_SERVERS</code> - A comma-separated list of host and port pairs that are the addresses of
+     * the Apache Kafka brokers in a Kafka cluster to which a Kafka client will connect to and bootstrap itself.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SSL_ENABLED</code> - Whether to enable or disable SSL on an Apache Kafka connection. Default value is
+     * "true".
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CUSTOM_CERT</code> - The Amazon S3 URL for the private CA cert file (.pem format). The default is an
+     * empty string.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SKIP_CUSTOM_CERT_VALIDATION</code> - Whether to skip the validation of the CA cert file or not. Glue
+     * validates for three algorithms: SHA256withRSA, SHA384withRSA and SHA512withRSA. Default value is "false".
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CLIENT_KEYSTORE</code> - The Amazon S3 location of the client keystore file for Kafka client side
+     * authentication (Optional).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CLIENT_KEYSTORE_PASSWORD</code> - The password to access the provided keystore (Optional).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CLIENT_KEY_PASSWORD</code> - A keystore can consist of multiple keys, so this is the password to
+     * access the client key to be used with the Kafka server side key (Optional).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_CLIENT_KEYSTORE_PASSWORD</code> - The encrypted version of the Kafka client keystore
+     * password (if the user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_CLIENT_KEY_PASSWORD</code> - The encrypted version of the Kafka client key password (if the
+     * user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_MECHANISM</code> - <code>"SCRAM-SHA-512"</code>, <code>"GSSAPI"</code>,
+     * <code>"AWS_MSK_IAM"</code>, or <code>"PLAIN"</code>. These are the supported <a
+     * href="https://www.iana.org/assignments/sasl-mechanisms/sasl-mechanisms.xhtml">SASL Mechanisms</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_PLAIN_USERNAME</code> - A plaintext username used to authenticate with the "PLAIN" mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_PLAIN_PASSWORD</code> - A plaintext password used to authenticate with the "PLAIN" mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_SASL_PLAIN_PASSWORD</code> - The encrypted version of the Kafka SASL PLAIN password (if the
+     * user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_SCRAM_USERNAME</code> - A plaintext username used to authenticate with the "SCRAM-SHA-512"
+     * mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_SCRAM_PASSWORD</code> - A plaintext password used to authenticate with the "SCRAM-SHA-512"
+     * mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_SASL_SCRAM_PASSWORD</code> - The encrypted version of the Kafka SASL SCRAM password (if the
+     * user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_SCRAM_SECRETS_ARN</code> - The Amazon Resource Name of a secret in Amazon Web Services Secrets
+     * Manager.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_KEYTAB</code> - The S3 location of a Kerberos <code>keytab</code> file. A keytab stores
+     * long-term keys for one or more principals. For more information, see <a
+     * href="https://web.mit.edu/kerberos/krb5-latest/doc/basic/keytab_def.html">MIT Kerberos Documentation: Keytab</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_KRB5_CONF</code> - The S3 location of a Kerberos <code>krb5.conf</code> file. A krb5.conf
+     * stores Kerberos configuration information, such as the location of the KDC server. For more information, see <a
+     * href="https://web.mit.edu/kerberos/krb5-1.12/doc/admin/conf_files/krb5_conf.html">MIT Kerberos Documentation:
+     * krb5.conf</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_SERVICE</code> - The Kerberos service name, as set with
+     * <code>sasl.kerberos.service.name</code> in your <a
+     * href="https://kafka.apache.org/documentation/#brokerconfigs_sasl.kerberos.service.name">Kafka Configuration</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_PRINCIPAL</code> - The name of the Kerberos princial used by Glue. For more information,
+     * see <a href="https://kafka.apache.org/documentation/#security_sasl_kerberos_clientconfig">Kafka Documentation:
+     * Configuring Kafka Brokers</a>.
      * </p>
      * </li>
      * </ul>
@@ -638,8 +1385,8 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>JDBC_DRIVER_JAR_URI</code> - The Amazon S3 path of the JAR file that contains the JDBC driver to
-     *        use.
+     *        <code>JDBC_DRIVER_JAR_URI</code> - The Amazon Simple Storage Service (Amazon S3) path of the JAR file that
+     *        contains the JDBC driver to use.
      *        </p>
      *        </li>
      *        <li>
@@ -659,7 +1406,7 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>CONFIG_FILES</code> - (Reserved for future use).
+     *        <code>CONFIG_FILES</code> - (Reserved for future use.)
      *        </p>
      *        </li>
      *        <li>
@@ -669,13 +1416,199 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>JDBC_CONNECTION_URL</code> - The URL for the JDBC connection.
+     *        <code>JDBC_CONNECTION_URL</code> - The URL for connecting to a JDBC data source.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>JDBC_ENFORCE_SSL</code> - A Boolean string (true, false) specifying whether Secure Sockets Layer
-     *        (SSL) with hostname matching will be enforced for the JDBC connection on the client. The default is false.
+     *        (SSL) with hostname matching is enforced for the JDBC connection on the client. The default is false.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CUSTOM_JDBC_CERT</code> - An Amazon S3 location specifying the customer's root certificate. Glue
+     *        uses this root certificate to validate the customer’s certificate when connecting to the customer
+     *        database. Glue only handles X.509 certificates. The certificate provided must be DER-encoded and supplied
+     *        in Base64 encoding PEM format.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SKIP_CUSTOM_JDBC_CERT_VALIDATION</code> - By default, this is <code>false</code>. Glue validates the
+     *        Signature algorithm and Subject Public Key Algorithm for the customer certificate. The only permitted
+     *        algorithms for the Signature algorithm are SHA256withRSA, SHA384withRSA or SHA512withRSA. For the Subject
+     *        Public Key Algorithm, the key length must be at least 2048. You can set the value of this property to
+     *        <code>true</code> to skip Glue’s validation of the customer certificate.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CUSTOM_JDBC_CERT_STRING</code> - A custom JDBC certificate string which is used for domain match or
+     *        distinguished name match to prevent a man-in-the-middle attack. In Oracle database, this is used as the
+     *        <code>SSL_SERVER_CERT_DN</code>; in Microsoft SQL Server, this is used as the
+     *        <code>hostNameInCertificate</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CONNECTION_URL</code> - The URL for connecting to a general (non-JDBC) data source.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SECRET_ID</code> - The secret ID used for the secret manager of credentials.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CONNECTOR_URL</code> - The connector URL for a MARKETPLACE or CUSTOM connection.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CONNECTOR_TYPE</code> - The connector type for a MARKETPLACE or CUSTOM connection.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CONNECTOR_CLASS_NAME</code> - The connector class name for a MARKETPLACE or CUSTOM connection.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_BOOTSTRAP_SERVERS</code> - A comma-separated list of host and port pairs that are the
+     *        addresses of the Apache Kafka brokers in a Kafka cluster to which a Kafka client will connect to and
+     *        bootstrap itself.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SSL_ENABLED</code> - Whether to enable or disable SSL on an Apache Kafka connection. Default
+     *        value is "true".
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_CUSTOM_CERT</code> - The Amazon S3 URL for the private CA cert file (.pem format). The default
+     *        is an empty string.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SKIP_CUSTOM_CERT_VALIDATION</code> - Whether to skip the validation of the CA cert file or
+     *        not. Glue validates for three algorithms: SHA256withRSA, SHA384withRSA and SHA512withRSA. Default value is
+     *        "false".
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_CLIENT_KEYSTORE</code> - The Amazon S3 location of the client keystore file for Kafka client
+     *        side authentication (Optional).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_CLIENT_KEYSTORE_PASSWORD</code> - The password to access the provided keystore (Optional).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_CLIENT_KEY_PASSWORD</code> - A keystore can consist of multiple keys, so this is the password
+     *        to access the client key to be used with the Kafka server side key (Optional).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ENCRYPTED_KAFKA_CLIENT_KEYSTORE_PASSWORD</code> - The encrypted version of the Kafka client keystore
+     *        password (if the user has the Glue encrypt passwords setting selected).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ENCRYPTED_KAFKA_CLIENT_KEY_PASSWORD</code> - The encrypted version of the Kafka client key password
+     *        (if the user has the Glue encrypt passwords setting selected).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_MECHANISM</code> - <code>"SCRAM-SHA-512"</code>, <code>"GSSAPI"</code>,
+     *        <code>"AWS_MSK_IAM"</code>, or <code>"PLAIN"</code>. These are the supported <a
+     *        href="https://www.iana.org/assignments/sasl-mechanisms/sasl-mechanisms.xhtml">SASL Mechanisms</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_PLAIN_USERNAME</code> - A plaintext username used to authenticate with the "PLAIN"
+     *        mechanism.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_PLAIN_PASSWORD</code> - A plaintext password used to authenticate with the "PLAIN"
+     *        mechanism.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ENCRYPTED_KAFKA_SASL_PLAIN_PASSWORD</code> - The encrypted version of the Kafka SASL PLAIN password
+     *        (if the user has the Glue encrypt passwords setting selected).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_SCRAM_USERNAME</code> - A plaintext username used to authenticate with the
+     *        "SCRAM-SHA-512" mechanism.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_SCRAM_PASSWORD</code> - A plaintext password used to authenticate with the
+     *        "SCRAM-SHA-512" mechanism.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ENCRYPTED_KAFKA_SASL_SCRAM_PASSWORD</code> - The encrypted version of the Kafka SASL SCRAM password
+     *        (if the user has the Glue encrypt passwords setting selected).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_SCRAM_SECRETS_ARN</code> - The Amazon Resource Name of a secret in Amazon Web Services
+     *        Secrets Manager.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_GSSAPI_KEYTAB</code> - The S3 location of a Kerberos <code>keytab</code> file. A keytab
+     *        stores long-term keys for one or more principals. For more information, see <a
+     *        href="https://web.mit.edu/kerberos/krb5-latest/doc/basic/keytab_def.html">MIT Kerberos Documentation:
+     *        Keytab</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_GSSAPI_KRB5_CONF</code> - The S3 location of a Kerberos <code>krb5.conf</code> file. A
+     *        krb5.conf stores Kerberos configuration information, such as the location of the KDC server. For more
+     *        information, see <a href="https://web.mit.edu/kerberos/krb5-1.12/doc/admin/conf_files/krb5_conf.html">MIT
+     *        Kerberos Documentation: krb5.conf</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_GSSAPI_SERVICE</code> - The Kerberos service name, as set with
+     *        <code>sasl.kerberos.service.name</code> in your <a
+     *        href="https://kafka.apache.org/documentation/#brokerconfigs_sasl.kerberos.service.name">Kafka
+     *        Configuration</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_GSSAPI_PRINCIPAL</code> - The name of the Kerberos princial used by Glue. For more
+     *        information, see <a
+     *        href="https://kafka.apache.org/documentation/#security_sasl_kerberos_clientconfig">Kafka Documentation:
+     *        Configuring Kafka Brokers</a>.
      *        </p>
      *        </li>
      */
@@ -721,7 +1654,8 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>JDBC_DRIVER_JAR_URI</code> - The Amazon S3 path of the JAR file that contains the JDBC driver to use.
+     * <code>JDBC_DRIVER_JAR_URI</code> - The Amazon Simple Storage Service (Amazon S3) path of the JAR file that
+     * contains the JDBC driver to use.
      * </p>
      * </li>
      * <li>
@@ -741,7 +1675,7 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>CONFIG_FILES</code> - (Reserved for future use).
+     * <code>CONFIG_FILES</code> - (Reserved for future use.)
      * </p>
      * </li>
      * <li>
@@ -751,13 +1685,191 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>JDBC_CONNECTION_URL</code> - The URL for the JDBC connection.
+     * <code>JDBC_CONNECTION_URL</code> - The URL for connecting to a JDBC data source.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>JDBC_ENFORCE_SSL</code> - A Boolean string (true, false) specifying whether Secure Sockets Layer (SSL) with
-     * hostname matching will be enforced for the JDBC connection on the client. The default is false.
+     * hostname matching is enforced for the JDBC connection on the client. The default is false.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CUSTOM_JDBC_CERT</code> - An Amazon S3 location specifying the customer's root certificate. Glue uses this
+     * root certificate to validate the customer’s certificate when connecting to the customer database. Glue only
+     * handles X.509 certificates. The certificate provided must be DER-encoded and supplied in Base64 encoding PEM
+     * format.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SKIP_CUSTOM_JDBC_CERT_VALIDATION</code> - By default, this is <code>false</code>. Glue validates the
+     * Signature algorithm and Subject Public Key Algorithm for the customer certificate. The only permitted algorithms
+     * for the Signature algorithm are SHA256withRSA, SHA384withRSA or SHA512withRSA. For the Subject Public Key
+     * Algorithm, the key length must be at least 2048. You can set the value of this property to <code>true</code> to
+     * skip Glue’s validation of the customer certificate.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CUSTOM_JDBC_CERT_STRING</code> - A custom JDBC certificate string which is used for domain match or
+     * distinguished name match to prevent a man-in-the-middle attack. In Oracle database, this is used as the
+     * <code>SSL_SERVER_CERT_DN</code>; in Microsoft SQL Server, this is used as the <code>hostNameInCertificate</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTION_URL</code> - The URL for connecting to a general (non-JDBC) data source.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SECRET_ID</code> - The secret ID used for the secret manager of credentials.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTOR_URL</code> - The connector URL for a MARKETPLACE or CUSTOM connection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTOR_TYPE</code> - The connector type for a MARKETPLACE or CUSTOM connection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CONNECTOR_CLASS_NAME</code> - The connector class name for a MARKETPLACE or CUSTOM connection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_BOOTSTRAP_SERVERS</code> - A comma-separated list of host and port pairs that are the addresses of
+     * the Apache Kafka brokers in a Kafka cluster to which a Kafka client will connect to and bootstrap itself.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SSL_ENABLED</code> - Whether to enable or disable SSL on an Apache Kafka connection. Default value is
+     * "true".
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CUSTOM_CERT</code> - The Amazon S3 URL for the private CA cert file (.pem format). The default is an
+     * empty string.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SKIP_CUSTOM_CERT_VALIDATION</code> - Whether to skip the validation of the CA cert file or not. Glue
+     * validates for three algorithms: SHA256withRSA, SHA384withRSA and SHA512withRSA. Default value is "false".
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CLIENT_KEYSTORE</code> - The Amazon S3 location of the client keystore file for Kafka client side
+     * authentication (Optional).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CLIENT_KEYSTORE_PASSWORD</code> - The password to access the provided keystore (Optional).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_CLIENT_KEY_PASSWORD</code> - A keystore can consist of multiple keys, so this is the password to
+     * access the client key to be used with the Kafka server side key (Optional).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_CLIENT_KEYSTORE_PASSWORD</code> - The encrypted version of the Kafka client keystore
+     * password (if the user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_CLIENT_KEY_PASSWORD</code> - The encrypted version of the Kafka client key password (if the
+     * user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_MECHANISM</code> - <code>"SCRAM-SHA-512"</code>, <code>"GSSAPI"</code>,
+     * <code>"AWS_MSK_IAM"</code>, or <code>"PLAIN"</code>. These are the supported <a
+     * href="https://www.iana.org/assignments/sasl-mechanisms/sasl-mechanisms.xhtml">SASL Mechanisms</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_PLAIN_USERNAME</code> - A plaintext username used to authenticate with the "PLAIN" mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_PLAIN_PASSWORD</code> - A plaintext password used to authenticate with the "PLAIN" mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_SASL_PLAIN_PASSWORD</code> - The encrypted version of the Kafka SASL PLAIN password (if the
+     * user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_SCRAM_USERNAME</code> - A plaintext username used to authenticate with the "SCRAM-SHA-512"
+     * mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_SCRAM_PASSWORD</code> - A plaintext password used to authenticate with the "SCRAM-SHA-512"
+     * mechanism.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENCRYPTED_KAFKA_SASL_SCRAM_PASSWORD</code> - The encrypted version of the Kafka SASL SCRAM password (if the
+     * user has the Glue encrypt passwords setting selected).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_SCRAM_SECRETS_ARN</code> - The Amazon Resource Name of a secret in Amazon Web Services Secrets
+     * Manager.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_KEYTAB</code> - The S3 location of a Kerberos <code>keytab</code> file. A keytab stores
+     * long-term keys for one or more principals. For more information, see <a
+     * href="https://web.mit.edu/kerberos/krb5-latest/doc/basic/keytab_def.html">MIT Kerberos Documentation: Keytab</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_KRB5_CONF</code> - The S3 location of a Kerberos <code>krb5.conf</code> file. A krb5.conf
+     * stores Kerberos configuration information, such as the location of the KDC server. For more information, see <a
+     * href="https://web.mit.edu/kerberos/krb5-1.12/doc/admin/conf_files/krb5_conf.html">MIT Kerberos Documentation:
+     * krb5.conf</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_SERVICE</code> - The Kerberos service name, as set with
+     * <code>sasl.kerberos.service.name</code> in your <a
+     * href="https://kafka.apache.org/documentation/#brokerconfigs_sasl.kerberos.service.name">Kafka Configuration</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KAFKA_SASL_GSSAPI_PRINCIPAL</code> - The name of the Kerberos princial used by Glue. For more information,
+     * see <a href="https://kafka.apache.org/documentation/#security_sasl_kerberos_clientconfig">Kafka Documentation:
+     * Configuring Kafka Brokers</a>.
      * </p>
      * </li>
      * </ul>
@@ -797,8 +1909,8 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>JDBC_DRIVER_JAR_URI</code> - The Amazon S3 path of the JAR file that contains the JDBC driver to
-     *        use.
+     *        <code>JDBC_DRIVER_JAR_URI</code> - The Amazon Simple Storage Service (Amazon S3) path of the JAR file that
+     *        contains the JDBC driver to use.
      *        </p>
      *        </li>
      *        <li>
@@ -818,7 +1930,7 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>CONFIG_FILES</code> - (Reserved for future use).
+     *        <code>CONFIG_FILES</code> - (Reserved for future use.)
      *        </p>
      *        </li>
      *        <li>
@@ -828,13 +1940,199 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>JDBC_CONNECTION_URL</code> - The URL for the JDBC connection.
+     *        <code>JDBC_CONNECTION_URL</code> - The URL for connecting to a JDBC data source.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>JDBC_ENFORCE_SSL</code> - A Boolean string (true, false) specifying whether Secure Sockets Layer
-     *        (SSL) with hostname matching will be enforced for the JDBC connection on the client. The default is false.
+     *        (SSL) with hostname matching is enforced for the JDBC connection on the client. The default is false.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CUSTOM_JDBC_CERT</code> - An Amazon S3 location specifying the customer's root certificate. Glue
+     *        uses this root certificate to validate the customer’s certificate when connecting to the customer
+     *        database. Glue only handles X.509 certificates. The certificate provided must be DER-encoded and supplied
+     *        in Base64 encoding PEM format.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SKIP_CUSTOM_JDBC_CERT_VALIDATION</code> - By default, this is <code>false</code>. Glue validates the
+     *        Signature algorithm and Subject Public Key Algorithm for the customer certificate. The only permitted
+     *        algorithms for the Signature algorithm are SHA256withRSA, SHA384withRSA or SHA512withRSA. For the Subject
+     *        Public Key Algorithm, the key length must be at least 2048. You can set the value of this property to
+     *        <code>true</code> to skip Glue’s validation of the customer certificate.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CUSTOM_JDBC_CERT_STRING</code> - A custom JDBC certificate string which is used for domain match or
+     *        distinguished name match to prevent a man-in-the-middle attack. In Oracle database, this is used as the
+     *        <code>SSL_SERVER_CERT_DN</code>; in Microsoft SQL Server, this is used as the
+     *        <code>hostNameInCertificate</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CONNECTION_URL</code> - The URL for connecting to a general (non-JDBC) data source.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SECRET_ID</code> - The secret ID used for the secret manager of credentials.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CONNECTOR_URL</code> - The connector URL for a MARKETPLACE or CUSTOM connection.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CONNECTOR_TYPE</code> - The connector type for a MARKETPLACE or CUSTOM connection.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CONNECTOR_CLASS_NAME</code> - The connector class name for a MARKETPLACE or CUSTOM connection.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_BOOTSTRAP_SERVERS</code> - A comma-separated list of host and port pairs that are the
+     *        addresses of the Apache Kafka brokers in a Kafka cluster to which a Kafka client will connect to and
+     *        bootstrap itself.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SSL_ENABLED</code> - Whether to enable or disable SSL on an Apache Kafka connection. Default
+     *        value is "true".
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_CUSTOM_CERT</code> - The Amazon S3 URL for the private CA cert file (.pem format). The default
+     *        is an empty string.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SKIP_CUSTOM_CERT_VALIDATION</code> - Whether to skip the validation of the CA cert file or
+     *        not. Glue validates for three algorithms: SHA256withRSA, SHA384withRSA and SHA512withRSA. Default value is
+     *        "false".
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_CLIENT_KEYSTORE</code> - The Amazon S3 location of the client keystore file for Kafka client
+     *        side authentication (Optional).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_CLIENT_KEYSTORE_PASSWORD</code> - The password to access the provided keystore (Optional).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_CLIENT_KEY_PASSWORD</code> - A keystore can consist of multiple keys, so this is the password
+     *        to access the client key to be used with the Kafka server side key (Optional).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ENCRYPTED_KAFKA_CLIENT_KEYSTORE_PASSWORD</code> - The encrypted version of the Kafka client keystore
+     *        password (if the user has the Glue encrypt passwords setting selected).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ENCRYPTED_KAFKA_CLIENT_KEY_PASSWORD</code> - The encrypted version of the Kafka client key password
+     *        (if the user has the Glue encrypt passwords setting selected).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_MECHANISM</code> - <code>"SCRAM-SHA-512"</code>, <code>"GSSAPI"</code>,
+     *        <code>"AWS_MSK_IAM"</code>, or <code>"PLAIN"</code>. These are the supported <a
+     *        href="https://www.iana.org/assignments/sasl-mechanisms/sasl-mechanisms.xhtml">SASL Mechanisms</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_PLAIN_USERNAME</code> - A plaintext username used to authenticate with the "PLAIN"
+     *        mechanism.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_PLAIN_PASSWORD</code> - A plaintext password used to authenticate with the "PLAIN"
+     *        mechanism.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ENCRYPTED_KAFKA_SASL_PLAIN_PASSWORD</code> - The encrypted version of the Kafka SASL PLAIN password
+     *        (if the user has the Glue encrypt passwords setting selected).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_SCRAM_USERNAME</code> - A plaintext username used to authenticate with the
+     *        "SCRAM-SHA-512" mechanism.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_SCRAM_PASSWORD</code> - A plaintext password used to authenticate with the
+     *        "SCRAM-SHA-512" mechanism.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ENCRYPTED_KAFKA_SASL_SCRAM_PASSWORD</code> - The encrypted version of the Kafka SASL SCRAM password
+     *        (if the user has the Glue encrypt passwords setting selected).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_SCRAM_SECRETS_ARN</code> - The Amazon Resource Name of a secret in Amazon Web Services
+     *        Secrets Manager.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_GSSAPI_KEYTAB</code> - The S3 location of a Kerberos <code>keytab</code> file. A keytab
+     *        stores long-term keys for one or more principals. For more information, see <a
+     *        href="https://web.mit.edu/kerberos/krb5-latest/doc/basic/keytab_def.html">MIT Kerberos Documentation:
+     *        Keytab</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_GSSAPI_KRB5_CONF</code> - The S3 location of a Kerberos <code>krb5.conf</code> file. A
+     *        krb5.conf stores Kerberos configuration information, such as the location of the KDC server. For more
+     *        information, see <a href="https://web.mit.edu/kerberos/krb5-1.12/doc/admin/conf_files/krb5_conf.html">MIT
+     *        Kerberos Documentation: krb5.conf</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_GSSAPI_SERVICE</code> - The Kerberos service name, as set with
+     *        <code>sasl.kerberos.service.name</code> in your <a
+     *        href="https://kafka.apache.org/documentation/#brokerconfigs_sasl.kerberos.service.name">Kafka
+     *        Configuration</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KAFKA_SASL_GSSAPI_PRINCIPAL</code> - The name of the Kerberos princial used by Glue. For more
+     *        information, see <a
+     *        href="https://kafka.apache.org/documentation/#security_sasl_kerberos_clientconfig">Kafka Documentation:
+     *        Configuring Kafka Brokers</a>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -844,6 +2142,13 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
         setConnectionProperties(connectionProperties);
         return this;
     }
+
+    /**
+     * Add a single ConnectionProperties entry
+     *
+     * @see Connection#withConnectionProperties
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public Connection addConnectionPropertiesEntry(String key, String value) {
         if (null == this.connectionProperties) {
@@ -868,13 +2173,13 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A map of physical connection requirements, such as virtual private cloud (VPC) and <code>SecurityGroup</code>,
-     * that are needed to make this connection successfully.
+     * The physical connection requirements, such as virtual private cloud (VPC) and <code>SecurityGroup</code>, that
+     * are needed to make this connection successfully.
      * </p>
      * 
      * @param physicalConnectionRequirements
-     *        A map of physical connection requirements, such as virtual private cloud (VPC) and
-     *        <code>SecurityGroup</code>, that are needed to make this connection successfully.
+     *        The physical connection requirements, such as virtual private cloud (VPC) and <code>SecurityGroup</code>,
+     *        that are needed to make this connection successfully.
      */
 
     public void setPhysicalConnectionRequirements(PhysicalConnectionRequirements physicalConnectionRequirements) {
@@ -883,12 +2188,12 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A map of physical connection requirements, such as virtual private cloud (VPC) and <code>SecurityGroup</code>,
-     * that are needed to make this connection successfully.
+     * The physical connection requirements, such as virtual private cloud (VPC) and <code>SecurityGroup</code>, that
+     * are needed to make this connection successfully.
      * </p>
      * 
-     * @return A map of physical connection requirements, such as virtual private cloud (VPC) and
-     *         <code>SecurityGroup</code>, that are needed to make this connection successfully.
+     * @return The physical connection requirements, such as virtual private cloud (VPC) and <code>SecurityGroup</code>,
+     *         that are needed to make this connection successfully.
      */
 
     public PhysicalConnectionRequirements getPhysicalConnectionRequirements() {
@@ -897,13 +2202,13 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A map of physical connection requirements, such as virtual private cloud (VPC) and <code>SecurityGroup</code>,
-     * that are needed to make this connection successfully.
+     * The physical connection requirements, such as virtual private cloud (VPC) and <code>SecurityGroup</code>, that
+     * are needed to make this connection successfully.
      * </p>
      * 
      * @param physicalConnectionRequirements
-     *        A map of physical connection requirements, such as virtual private cloud (VPC) and
-     *        <code>SecurityGroup</code>, that are needed to make this connection successfully.
+     *        The physical connection requirements, such as virtual private cloud (VPC) and <code>SecurityGroup</code>,
+     *        that are needed to make this connection successfully.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -914,11 +2219,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time that this connection definition was created.
+     * The timestamp of the time that this connection definition was created.
      * </p>
      * 
      * @param creationTime
-     *        The time that this connection definition was created.
+     *        The timestamp of the time that this connection definition was created.
      */
 
     public void setCreationTime(java.util.Date creationTime) {
@@ -927,10 +2232,10 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time that this connection definition was created.
+     * The timestamp of the time that this connection definition was created.
      * </p>
      * 
-     * @return The time that this connection definition was created.
+     * @return The timestamp of the time that this connection definition was created.
      */
 
     public java.util.Date getCreationTime() {
@@ -939,11 +2244,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time that this connection definition was created.
+     * The timestamp of the time that this connection definition was created.
      * </p>
      * 
      * @param creationTime
-     *        The time that this connection definition was created.
+     *        The timestamp of the time that this connection definition was created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -954,11 +2259,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The last time that this connection definition was updated.
+     * The timestamp of the last time the connection definition was updated.
      * </p>
      * 
      * @param lastUpdatedTime
-     *        The last time that this connection definition was updated.
+     *        The timestamp of the last time the connection definition was updated.
      */
 
     public void setLastUpdatedTime(java.util.Date lastUpdatedTime) {
@@ -967,10 +2272,10 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The last time that this connection definition was updated.
+     * The timestamp of the last time the connection definition was updated.
      * </p>
      * 
-     * @return The last time that this connection definition was updated.
+     * @return The timestamp of the last time the connection definition was updated.
      */
 
     public java.util.Date getLastUpdatedTime() {
@@ -979,11 +2284,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The last time that this connection definition was updated.
+     * The timestamp of the last time the connection definition was updated.
      * </p>
      * 
      * @param lastUpdatedTime
-     *        The last time that this connection definition was updated.
+     *        The timestamp of the last time the connection definition was updated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1033,6 +2338,193 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The status of the connection. Can be one of: <code>READY</code>, <code>IN_PROGRESS</code>, or <code>FAILED</code>
+     * .
+     * </p>
+     * 
+     * @param status
+     *        The status of the connection. Can be one of: <code>READY</code>, <code>IN_PROGRESS</code>, or
+     *        <code>FAILED</code>.
+     * @see ConnectionStatus
+     */
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * <p>
+     * The status of the connection. Can be one of: <code>READY</code>, <code>IN_PROGRESS</code>, or <code>FAILED</code>
+     * .
+     * </p>
+     * 
+     * @return The status of the connection. Can be one of: <code>READY</code>, <code>IN_PROGRESS</code>, or
+     *         <code>FAILED</code>.
+     * @see ConnectionStatus
+     */
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    /**
+     * <p>
+     * The status of the connection. Can be one of: <code>READY</code>, <code>IN_PROGRESS</code>, or <code>FAILED</code>
+     * .
+     * </p>
+     * 
+     * @param status
+     *        The status of the connection. Can be one of: <code>READY</code>, <code>IN_PROGRESS</code>, or
+     *        <code>FAILED</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ConnectionStatus
+     */
+
+    public Connection withStatus(String status) {
+        setStatus(status);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of the connection. Can be one of: <code>READY</code>, <code>IN_PROGRESS</code>, or <code>FAILED</code>
+     * .
+     * </p>
+     * 
+     * @param status
+     *        The status of the connection. Can be one of: <code>READY</code>, <code>IN_PROGRESS</code>, or
+     *        <code>FAILED</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ConnectionStatus
+     */
+
+    public Connection withStatus(ConnectionStatus status) {
+        this.status = status.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The reason for the connection status.
+     * </p>
+     * 
+     * @param statusReason
+     *        The reason for the connection status.
+     */
+
+    public void setStatusReason(String statusReason) {
+        this.statusReason = statusReason;
+    }
+
+    /**
+     * <p>
+     * The reason for the connection status.
+     * </p>
+     * 
+     * @return The reason for the connection status.
+     */
+
+    public String getStatusReason() {
+        return this.statusReason;
+    }
+
+    /**
+     * <p>
+     * The reason for the connection status.
+     * </p>
+     * 
+     * @param statusReason
+     *        The reason for the connection status.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Connection withStatusReason(String statusReason) {
+        setStatusReason(statusReason);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A timestamp of the time this connection was last validated.
+     * </p>
+     * 
+     * @param lastConnectionValidationTime
+     *        A timestamp of the time this connection was last validated.
+     */
+
+    public void setLastConnectionValidationTime(java.util.Date lastConnectionValidationTime) {
+        this.lastConnectionValidationTime = lastConnectionValidationTime;
+    }
+
+    /**
+     * <p>
+     * A timestamp of the time this connection was last validated.
+     * </p>
+     * 
+     * @return A timestamp of the time this connection was last validated.
+     */
+
+    public java.util.Date getLastConnectionValidationTime() {
+        return this.lastConnectionValidationTime;
+    }
+
+    /**
+     * <p>
+     * A timestamp of the time this connection was last validated.
+     * </p>
+     * 
+     * @param lastConnectionValidationTime
+     *        A timestamp of the time this connection was last validated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Connection withLastConnectionValidationTime(java.util.Date lastConnectionValidationTime) {
+        setLastConnectionValidationTime(lastConnectionValidationTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The authentication properties of the connection.
+     * </p>
+     * 
+     * @param authenticationConfiguration
+     *        The authentication properties of the connection.
+     */
+
+    public void setAuthenticationConfiguration(AuthenticationConfiguration authenticationConfiguration) {
+        this.authenticationConfiguration = authenticationConfiguration;
+    }
+
+    /**
+     * <p>
+     * The authentication properties of the connection.
+     * </p>
+     * 
+     * @return The authentication properties of the connection.
+     */
+
+    public AuthenticationConfiguration getAuthenticationConfiguration() {
+        return this.authenticationConfiguration;
+    }
+
+    /**
+     * <p>
+     * The authentication properties of the connection.
+     * </p>
+     * 
+     * @param authenticationConfiguration
+     *        The authentication properties of the connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Connection withAuthenticationConfiguration(AuthenticationConfiguration authenticationConfiguration) {
+        setAuthenticationConfiguration(authenticationConfiguration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1061,7 +2553,15 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
         if (getLastUpdatedTime() != null)
             sb.append("LastUpdatedTime: ").append(getLastUpdatedTime()).append(",");
         if (getLastUpdatedBy() != null)
-            sb.append("LastUpdatedBy: ").append(getLastUpdatedBy());
+            sb.append("LastUpdatedBy: ").append(getLastUpdatedBy()).append(",");
+        if (getStatus() != null)
+            sb.append("Status: ").append(getStatus()).append(",");
+        if (getStatusReason() != null)
+            sb.append("StatusReason: ").append(getStatusReason()).append(",");
+        if (getLastConnectionValidationTime() != null)
+            sb.append("LastConnectionValidationTime: ").append(getLastConnectionValidationTime()).append(",");
+        if (getAuthenticationConfiguration() != null)
+            sb.append("AuthenticationConfiguration: ").append(getAuthenticationConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -1113,6 +2613,22 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getLastUpdatedBy() != null && other.getLastUpdatedBy().equals(this.getLastUpdatedBy()) == false)
             return false;
+        if (other.getStatus() == null ^ this.getStatus() == null)
+            return false;
+        if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
+            return false;
+        if (other.getStatusReason() == null ^ this.getStatusReason() == null)
+            return false;
+        if (other.getStatusReason() != null && other.getStatusReason().equals(this.getStatusReason()) == false)
+            return false;
+        if (other.getLastConnectionValidationTime() == null ^ this.getLastConnectionValidationTime() == null)
+            return false;
+        if (other.getLastConnectionValidationTime() != null && other.getLastConnectionValidationTime().equals(this.getLastConnectionValidationTime()) == false)
+            return false;
+        if (other.getAuthenticationConfiguration() == null ^ this.getAuthenticationConfiguration() == null)
+            return false;
+        if (other.getAuthenticationConfiguration() != null && other.getAuthenticationConfiguration().equals(this.getAuthenticationConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -1130,6 +2646,10 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getCreationTime() == null) ? 0 : getCreationTime().hashCode());
         hashCode = prime * hashCode + ((getLastUpdatedTime() == null) ? 0 : getLastUpdatedTime().hashCode());
         hashCode = prime * hashCode + ((getLastUpdatedBy() == null) ? 0 : getLastUpdatedBy().hashCode());
+        hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        hashCode = prime * hashCode + ((getStatusReason() == null) ? 0 : getStatusReason().hashCode());
+        hashCode = prime * hashCode + ((getLastConnectionValidationTime() == null) ? 0 : getLastConnectionValidationTime().hashCode());
+        hashCode = prime * hashCode + ((getAuthenticationConfiguration() == null) ? 0 : getAuthenticationConfiguration().hashCode());
         return hashCode;
     }
 

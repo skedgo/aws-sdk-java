@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,17 +27,33 @@ public class DeleteParametersRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The names of the parameters to delete.
+     * The names of the parameters to delete. After deleting a parameter, wait for at least 30 seconds to create a
+     * parameter with the same name.
      * </p>
+     * <note>
+     * <p>
+     * You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     * </p>
+     * </note>
      */
     private com.amazonaws.internal.SdkInternalList<String> names;
 
     /**
      * <p>
-     * The names of the parameters to delete.
+     * The names of the parameters to delete. After deleting a parameter, wait for at least 30 seconds to create a
+     * parameter with the same name.
      * </p>
+     * <note>
+     * <p>
+     * You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     * </p>
+     * </note>
      * 
-     * @return The names of the parameters to delete.
+     * @return The names of the parameters to delete. After deleting a parameter, wait for at least 30 seconds to create
+     *         a parameter with the same name.</p> <note>
+     *         <p>
+     *         You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     *         </p>
      */
 
     public java.util.List<String> getNames() {
@@ -49,11 +65,21 @@ public class DeleteParametersRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The names of the parameters to delete.
+     * The names of the parameters to delete. After deleting a parameter, wait for at least 30 seconds to create a
+     * parameter with the same name.
      * </p>
+     * <note>
+     * <p>
+     * You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     * </p>
+     * </note>
      * 
      * @param names
-     *        The names of the parameters to delete.
+     *        The names of the parameters to delete. After deleting a parameter, wait for at least 30 seconds to create
+     *        a parameter with the same name.</p> <note>
+     *        <p>
+     *        You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     *        </p>
      */
 
     public void setNames(java.util.Collection<String> names) {
@@ -67,8 +93,14 @@ public class DeleteParametersRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The names of the parameters to delete.
+     * The names of the parameters to delete. After deleting a parameter, wait for at least 30 seconds to create a
+     * parameter with the same name.
      * </p>
+     * <note>
+     * <p>
+     * You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setNames(java.util.Collection)} or {@link #withNames(java.util.Collection)} if you want to override the
@@ -76,7 +108,11 @@ public class DeleteParametersRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param names
-     *        The names of the parameters to delete.
+     *        The names of the parameters to delete. After deleting a parameter, wait for at least 30 seconds to create
+     *        a parameter with the same name.</p> <note>
+     *        <p>
+     *        You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -92,11 +128,21 @@ public class DeleteParametersRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The names of the parameters to delete.
+     * The names of the parameters to delete. After deleting a parameter, wait for at least 30 seconds to create a
+     * parameter with the same name.
      * </p>
+     * <note>
+     * <p>
+     * You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     * </p>
+     * </note>
      * 
      * @param names
-     *        The names of the parameters to delete.
+     *        The names of the parameters to delete. After deleting a parameter, wait for at least 30 seconds to create
+     *        a parameter with the same name.</p> <note>
+     *        <p>
+     *        You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

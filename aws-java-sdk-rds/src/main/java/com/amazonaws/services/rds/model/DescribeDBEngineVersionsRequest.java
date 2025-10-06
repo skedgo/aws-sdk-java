@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,13 +27,113 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The database engine to return.
+     * The database engine to return version details for.
      * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>aurora-mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aurora-postgresql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mariadb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ex</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-web</code>
+     * </p>
+     * </li>
+     * </ul>
      */
     private String engine;
     /**
      * <p>
-     * The database engine version to return.
+     * A specific database engine version to return details for.
      * </p>
      * <p>
      * Example: <code>5.1.49</code>
@@ -50,7 +150,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * If supplied, must match an existing DBParameterGroupFamily.
+     * If supplied, must match an existing DB parameter group family.
      * </p>
      * </li>
      * </ul>
@@ -58,15 +158,89 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
     private String dBParameterGroupFamily;
     /**
      * <p>
-     * This parameter is not currently supported.
+     * A filter that specifies one or more DB engine versions to describe.
      * </p>
+     * <p>
+     * Supported filters:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db-parameter-group-family</code> - Accepts parameter groups family names. The results list only includes
+     * information about the DB engine versions for these parameter group families.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine</code> - Accepts engine names. The results list only includes information about the DB engine
+     * versions for these engines.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine-mode</code> - Accepts DB engine modes. The results list only includes information about the DB
+     * engine versions for these engine modes. Valid DB engine modes are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>global</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>multimaster</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>parallelquery</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>provisioned</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>serverless</code>
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine-version</code> - Accepts engine versions. The results list only includes information about the DB
+     * engine versions for these engine versions.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>status</code> - Accepts engine version statuses. The results list only includes information about the DB
+     * engine versions for these statuses. Valid statuses are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>available</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>deprecated</code>
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
     /**
      * <p>
      * The maximum number of records to include in the response. If more than the <code>MaxRecords</code> value is
-     * available, a pagination token called a marker is included in the response so that the following results can be
-     * retrieved.
+     * available, a pagination token called a marker is included in the response so you can retrieve the remaining
+     * results.
      * </p>
      * <p>
      * Default: 100
@@ -85,46 +259,253 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
     private String marker;
     /**
      * <p>
-     * A value that indicates whether only the default version of the specified engine or engine and major version
-     * combination is returned.
+     * Specifies whether to return only the default version of the specified engine or the engine and major version
+     * combination.
      * </p>
      */
     private Boolean defaultOnly;
     /**
      * <p>
-     * A value that indicates whether to list the supported character sets for each engine version.
+     * Specifies whether to list the supported character sets for each engine version.
      * </p>
      * <p>
      * If this parameter is enabled and the requested engine supports the <code>CharacterSetName</code> parameter for
      * <code>CreateDBInstance</code>, the response includes a list of supported character sets for each engine version.
      * </p>
+     * <p>
+     * For RDS Custom, the default is not to list supported character sets. If you enable this parameter, RDS Custom
+     * returns no results.
+     * </p>
      */
     private Boolean listSupportedCharacterSets;
     /**
      * <p>
-     * A value that indicates whether to list the supported time zones for each engine version.
+     * Specifies whether to list the supported time zones for each engine version.
      * </p>
      * <p>
      * If this parameter is enabled and the requested engine supports the <code>TimeZone</code> parameter for
      * <code>CreateDBInstance</code>, the response includes a list of supported time zones for each engine version.
      * </p>
+     * <p>
+     * For RDS Custom, the default is not to list supported time zones. If you enable this parameter, RDS Custom returns
+     * no results.
+     * </p>
      */
     private Boolean listSupportedTimezones;
     /**
      * <p>
-     * A value that indicates whether to include engine versions that aren't available in the list. The default is to
-     * list only available engine versions.
+     * Specifies whether to also list the engine versions that aren't available. The default is to list only available
+     * engine versions.
      * </p>
      */
     private Boolean includeAll;
 
     /**
      * <p>
-     * The database engine to return.
+     * The database engine to return version details for.
      * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>aurora-mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aurora-postgresql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mariadb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ex</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-web</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param engine
-     *        The database engine to return.
+     *        The database engine to return version details for.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>aurora-mysql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>aurora-postgresql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>custom-oracle-ee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>custom-oracle-ee-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>custom-oracle-se2</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>custom-oracle-se2-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>db2-ae</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>db2-se</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>mariadb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>mysql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-ee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-ee-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-se2</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-se2-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>postgres</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-ee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-se</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-ex</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-web</code>
+     *        </p>
+     *        </li>
      */
 
     public void setEngine(String engine) {
@@ -133,10 +514,209 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The database engine to return.
+     * The database engine to return version details for.
      * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>aurora-mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aurora-postgresql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mariadb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ex</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-web</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The database engine to return.
+     * @return The database engine to return version details for.</p>
+     *         <p>
+     *         Valid Values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>aurora-mysql</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>aurora-postgresql</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>custom-oracle-ee</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>custom-oracle-ee-cdb</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>custom-oracle-se2</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>custom-oracle-se2-cdb</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>db2-ae</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>db2-se</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>mariadb</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>mysql</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>oracle-ee</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>oracle-ee-cdb</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>oracle-se2</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>oracle-se2-cdb</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>postgres</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sqlserver-ee</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sqlserver-se</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sqlserver-ex</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sqlserver-web</code>
+     *         </p>
+     *         </li>
      */
 
     public String getEngine() {
@@ -145,11 +725,210 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The database engine to return.
+     * The database engine to return version details for.
      * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>aurora-mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aurora-postgresql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mariadb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ex</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-web</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param engine
-     *        The database engine to return.
+     *        The database engine to return version details for.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>aurora-mysql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>aurora-postgresql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>custom-oracle-ee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>custom-oracle-ee-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>custom-oracle-se2</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>custom-oracle-se2-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>db2-ae</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>db2-se</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>mariadb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>mysql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-ee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-ee-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-se2</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-se2-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>postgres</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-ee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-se</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-ex</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-web</code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -160,14 +939,14 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The database engine version to return.
+     * A specific database engine version to return details for.
      * </p>
      * <p>
      * Example: <code>5.1.49</code>
      * </p>
      * 
      * @param engineVersion
-     *        The database engine version to return.</p>
+     *        A specific database engine version to return details for.</p>
      *        <p>
      *        Example: <code>5.1.49</code>
      */
@@ -178,13 +957,13 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The database engine version to return.
+     * A specific database engine version to return details for.
      * </p>
      * <p>
      * Example: <code>5.1.49</code>
      * </p>
      * 
-     * @return The database engine version to return.</p>
+     * @return A specific database engine version to return details for.</p>
      *         <p>
      *         Example: <code>5.1.49</code>
      */
@@ -195,14 +974,14 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The database engine version to return.
+     * A specific database engine version to return details for.
      * </p>
      * <p>
      * Example: <code>5.1.49</code>
      * </p>
      * 
      * @param engineVersion
-     *        The database engine version to return.</p>
+     *        A specific database engine version to return details for.</p>
      *        <p>
      *        Example: <code>5.1.49</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -223,7 +1002,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * If supplied, must match an existing DBParameterGroupFamily.
+     * If supplied, must match an existing DB parameter group family.
      * </p>
      * </li>
      * </ul>
@@ -236,7 +1015,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        If supplied, must match an existing DBParameterGroupFamily.
+     *        If supplied, must match an existing DB parameter group family.
      *        </p>
      *        </li>
      */
@@ -255,7 +1034,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * If supplied, must match an existing DBParameterGroupFamily.
+     * If supplied, must match an existing DB parameter group family.
      * </p>
      * </li>
      * </ul>
@@ -267,7 +1046,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      *         <ul>
      *         <li>
      *         <p>
-     *         If supplied, must match an existing DBParameterGroupFamily.
+     *         If supplied, must match an existing DB parameter group family.
      *         </p>
      *         </li>
      */
@@ -286,7 +1065,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * If supplied, must match an existing DBParameterGroupFamily.
+     * If supplied, must match an existing DB parameter group family.
      * </p>
      * </li>
      * </ul>
@@ -299,7 +1078,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        If supplied, must match an existing DBParameterGroupFamily.
+     *        If supplied, must match an existing DB parameter group family.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -312,10 +1091,157 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * A filter that specifies one or more DB engine versions to describe.
      * </p>
+     * <p>
+     * Supported filters:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db-parameter-group-family</code> - Accepts parameter groups family names. The results list only includes
+     * information about the DB engine versions for these parameter group families.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine</code> - Accepts engine names. The results list only includes information about the DB engine
+     * versions for these engines.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine-mode</code> - Accepts DB engine modes. The results list only includes information about the DB
+     * engine versions for these engine modes. Valid DB engine modes are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>global</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>multimaster</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>parallelquery</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>provisioned</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>serverless</code>
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine-version</code> - Accepts engine versions. The results list only includes information about the DB
+     * engine versions for these engine versions.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>status</code> - Accepts engine version statuses. The results list only includes information about the DB
+     * engine versions for these statuses. Valid statuses are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>available</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>deprecated</code>
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
      * 
-     * @return This parameter is not currently supported.
+     * @return A filter that specifies one or more DB engine versions to describe.</p>
+     *         <p>
+     *         Supported filters:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>db-parameter-group-family</code> - Accepts parameter groups family names. The results list only
+     *         includes information about the DB engine versions for these parameter group families.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>engine</code> - Accepts engine names. The results list only includes information about the DB
+     *         engine versions for these engines.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>engine-mode</code> - Accepts DB engine modes. The results list only includes information about the
+     *         DB engine versions for these engine modes. Valid DB engine modes are the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>global</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>multimaster</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>parallelquery</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>provisioned</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>serverless</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>engine-version</code> - Accepts engine versions. The results list only includes information about
+     *         the DB engine versions for these engine versions.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>status</code> - Accepts engine version statuses. The results list only includes information about
+     *         the DB engine versions for these statuses. Valid statuses are the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>available</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>deprecated</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         </li>
      */
 
     public java.util.List<Filter> getFilters() {
@@ -327,11 +1253,158 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * A filter that specifies one or more DB engine versions to describe.
      * </p>
+     * <p>
+     * Supported filters:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db-parameter-group-family</code> - Accepts parameter groups family names. The results list only includes
+     * information about the DB engine versions for these parameter group families.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine</code> - Accepts engine names. The results list only includes information about the DB engine
+     * versions for these engines.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine-mode</code> - Accepts DB engine modes. The results list only includes information about the DB
+     * engine versions for these engine modes. Valid DB engine modes are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>global</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>multimaster</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>parallelquery</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>provisioned</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>serverless</code>
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine-version</code> - Accepts engine versions. The results list only includes information about the DB
+     * engine versions for these engine versions.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>status</code> - Accepts engine version statuses. The results list only includes information about the DB
+     * engine versions for these statuses. Valid statuses are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>available</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>deprecated</code>
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
      * 
      * @param filters
-     *        This parameter is not currently supported.
+     *        A filter that specifies one or more DB engine versions to describe.</p>
+     *        <p>
+     *        Supported filters:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>db-parameter-group-family</code> - Accepts parameter groups family names. The results list only
+     *        includes information about the DB engine versions for these parameter group families.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>engine</code> - Accepts engine names. The results list only includes information about the DB engine
+     *        versions for these engines.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>engine-mode</code> - Accepts DB engine modes. The results list only includes information about the
+     *        DB engine versions for these engine modes. Valid DB engine modes are the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>global</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>multimaster</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>parallelquery</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>provisioned</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>serverless</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>engine-version</code> - Accepts engine versions. The results list only includes information about
+     *        the DB engine versions for these engine versions.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>status</code> - Accepts engine version statuses. The results list only includes information about
+     *        the DB engine versions for these statuses. Valid statuses are the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>available</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>deprecated</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
      */
 
     public void setFilters(java.util.Collection<Filter> filters) {
@@ -345,8 +1418,82 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * A filter that specifies one or more DB engine versions to describe.
      * </p>
+     * <p>
+     * Supported filters:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db-parameter-group-family</code> - Accepts parameter groups family names. The results list only includes
+     * information about the DB engine versions for these parameter group families.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine</code> - Accepts engine names. The results list only includes information about the DB engine
+     * versions for these engines.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine-mode</code> - Accepts DB engine modes. The results list only includes information about the DB
+     * engine versions for these engine modes. Valid DB engine modes are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>global</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>multimaster</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>parallelquery</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>provisioned</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>serverless</code>
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine-version</code> - Accepts engine versions. The results list only includes information about the DB
+     * engine versions for these engine versions.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>status</code> - Accepts engine version statuses. The results list only includes information about the DB
+     * engine versions for these statuses. Valid statuses are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>available</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>deprecated</code>
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setFilters(java.util.Collection)} or {@link #withFilters(java.util.Collection)} if you want to override
@@ -354,7 +1501,80 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * </p>
      * 
      * @param filters
-     *        This parameter is not currently supported.
+     *        A filter that specifies one or more DB engine versions to describe.</p>
+     *        <p>
+     *        Supported filters:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>db-parameter-group-family</code> - Accepts parameter groups family names. The results list only
+     *        includes information about the DB engine versions for these parameter group families.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>engine</code> - Accepts engine names. The results list only includes information about the DB engine
+     *        versions for these engines.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>engine-mode</code> - Accepts DB engine modes. The results list only includes information about the
+     *        DB engine versions for these engine modes. Valid DB engine modes are the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>global</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>multimaster</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>parallelquery</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>provisioned</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>serverless</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>engine-version</code> - Accepts engine versions. The results list only includes information about
+     *        the DB engine versions for these engine versions.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>status</code> - Accepts engine version statuses. The results list only includes information about
+     *        the DB engine versions for these statuses. Valid statuses are the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>available</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>deprecated</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -370,11 +1590,158 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * A filter that specifies one or more DB engine versions to describe.
      * </p>
+     * <p>
+     * Supported filters:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db-parameter-group-family</code> - Accepts parameter groups family names. The results list only includes
+     * information about the DB engine versions for these parameter group families.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine</code> - Accepts engine names. The results list only includes information about the DB engine
+     * versions for these engines.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine-mode</code> - Accepts DB engine modes. The results list only includes information about the DB
+     * engine versions for these engine modes. Valid DB engine modes are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>global</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>multimaster</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>parallelquery</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>provisioned</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>serverless</code>
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine-version</code> - Accepts engine versions. The results list only includes information about the DB
+     * engine versions for these engine versions.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>status</code> - Accepts engine version statuses. The results list only includes information about the DB
+     * engine versions for these statuses. Valid statuses are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>available</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>deprecated</code>
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
      * 
      * @param filters
-     *        This parameter is not currently supported.
+     *        A filter that specifies one or more DB engine versions to describe.</p>
+     *        <p>
+     *        Supported filters:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>db-parameter-group-family</code> - Accepts parameter groups family names. The results list only
+     *        includes information about the DB engine versions for these parameter group families.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>engine</code> - Accepts engine names. The results list only includes information about the DB engine
+     *        versions for these engines.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>engine-mode</code> - Accepts DB engine modes. The results list only includes information about the
+     *        DB engine versions for these engine modes. Valid DB engine modes are the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>global</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>multimaster</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>parallelquery</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>provisioned</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>serverless</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>engine-version</code> - Accepts engine versions. The results list only includes information about
+     *        the DB engine versions for these engine versions.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>status</code> - Accepts engine version statuses. The results list only includes information about
+     *        the DB engine versions for these statuses. Valid statuses are the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>available</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>deprecated</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -386,8 +1753,8 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The maximum number of records to include in the response. If more than the <code>MaxRecords</code> value is
-     * available, a pagination token called a marker is included in the response so that the following results can be
-     * retrieved.
+     * available, a pagination token called a marker is included in the response so you can retrieve the remaining
+     * results.
      * </p>
      * <p>
      * Default: 100
@@ -398,8 +1765,8 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more than the <code>MaxRecords</code> value
-     *        is available, a pagination token called a marker is included in the response so that the following results
-     *        can be retrieved. </p>
+     *        is available, a pagination token called a marker is included in the response so you can retrieve the
+     *        remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>
@@ -414,8 +1781,8 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The maximum number of records to include in the response. If more than the <code>MaxRecords</code> value is
-     * available, a pagination token called a marker is included in the response so that the following results can be
-     * retrieved.
+     * available, a pagination token called a marker is included in the response so you can retrieve the remaining
+     * results.
      * </p>
      * <p>
      * Default: 100
@@ -425,8 +1792,8 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * </p>
      * 
      * @return The maximum number of records to include in the response. If more than the <code>MaxRecords</code> value
-     *         is available, a pagination token called a marker is included in the response so that the following
-     *         results can be retrieved. </p>
+     *         is available, a pagination token called a marker is included in the response so you can retrieve the
+     *         remaining results.</p>
      *         <p>
      *         Default: 100
      *         </p>
@@ -441,8 +1808,8 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The maximum number of records to include in the response. If more than the <code>MaxRecords</code> value is
-     * available, a pagination token called a marker is included in the response so that the following results can be
-     * retrieved.
+     * available, a pagination token called a marker is included in the response so you can retrieve the remaining
+     * results.
      * </p>
      * <p>
      * Default: 100
@@ -453,8 +1820,8 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more than the <code>MaxRecords</code> value
-     *        is available, a pagination token called a marker is included in the response so that the following results
-     *        can be retrieved. </p>
+     *        is available, a pagination token called a marker is included in the response so you can retrieve the
+     *        remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>
@@ -516,13 +1883,13 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether only the default version of the specified engine or engine and major version
-     * combination is returned.
+     * Specifies whether to return only the default version of the specified engine or the engine and major version
+     * combination.
      * </p>
      * 
      * @param defaultOnly
-     *        A value that indicates whether only the default version of the specified engine or engine and major
-     *        version combination is returned.
+     *        Specifies whether to return only the default version of the specified engine or the engine and major
+     *        version combination.
      */
 
     public void setDefaultOnly(Boolean defaultOnly) {
@@ -531,12 +1898,12 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether only the default version of the specified engine or engine and major version
-     * combination is returned.
+     * Specifies whether to return only the default version of the specified engine or the engine and major version
+     * combination.
      * </p>
      * 
-     * @return A value that indicates whether only the default version of the specified engine or engine and major
-     *         version combination is returned.
+     * @return Specifies whether to return only the default version of the specified engine or the engine and major
+     *         version combination.
      */
 
     public Boolean getDefaultOnly() {
@@ -545,13 +1912,13 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether only the default version of the specified engine or engine and major version
-     * combination is returned.
+     * Specifies whether to return only the default version of the specified engine or the engine and major version
+     * combination.
      * </p>
      * 
      * @param defaultOnly
-     *        A value that indicates whether only the default version of the specified engine or engine and major
-     *        version combination is returned.
+     *        Specifies whether to return only the default version of the specified engine or the engine and major
+     *        version combination.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -562,12 +1929,12 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether only the default version of the specified engine or engine and major version
-     * combination is returned.
+     * Specifies whether to return only the default version of the specified engine or the engine and major version
+     * combination.
      * </p>
      * 
-     * @return A value that indicates whether only the default version of the specified engine or engine and major
-     *         version combination is returned.
+     * @return Specifies whether to return only the default version of the specified engine or the engine and major
+     *         version combination.
      */
 
     public Boolean isDefaultOnly() {
@@ -576,19 +1943,27 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether to list the supported character sets for each engine version.
+     * Specifies whether to list the supported character sets for each engine version.
      * </p>
      * <p>
      * If this parameter is enabled and the requested engine supports the <code>CharacterSetName</code> parameter for
      * <code>CreateDBInstance</code>, the response includes a list of supported character sets for each engine version.
      * </p>
+     * <p>
+     * For RDS Custom, the default is not to list supported character sets. If you enable this parameter, RDS Custom
+     * returns no results.
+     * </p>
      * 
      * @param listSupportedCharacterSets
-     *        A value that indicates whether to list the supported character sets for each engine version.</p>
+     *        Specifies whether to list the supported character sets for each engine version.</p>
      *        <p>
      *        If this parameter is enabled and the requested engine supports the <code>CharacterSetName</code> parameter
      *        for <code>CreateDBInstance</code>, the response includes a list of supported character sets for each
      *        engine version.
+     *        </p>
+     *        <p>
+     *        For RDS Custom, the default is not to list supported character sets. If you enable this parameter, RDS
+     *        Custom returns no results.
      */
 
     public void setListSupportedCharacterSets(Boolean listSupportedCharacterSets) {
@@ -597,18 +1972,26 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether to list the supported character sets for each engine version.
+     * Specifies whether to list the supported character sets for each engine version.
      * </p>
      * <p>
      * If this parameter is enabled and the requested engine supports the <code>CharacterSetName</code> parameter for
      * <code>CreateDBInstance</code>, the response includes a list of supported character sets for each engine version.
      * </p>
+     * <p>
+     * For RDS Custom, the default is not to list supported character sets. If you enable this parameter, RDS Custom
+     * returns no results.
+     * </p>
      * 
-     * @return A value that indicates whether to list the supported character sets for each engine version.</p>
+     * @return Specifies whether to list the supported character sets for each engine version.</p>
      *         <p>
      *         If this parameter is enabled and the requested engine supports the <code>CharacterSetName</code>
      *         parameter for <code>CreateDBInstance</code>, the response includes a list of supported character sets for
      *         each engine version.
+     *         </p>
+     *         <p>
+     *         For RDS Custom, the default is not to list supported character sets. If you enable this parameter, RDS
+     *         Custom returns no results.
      */
 
     public Boolean getListSupportedCharacterSets() {
@@ -617,19 +2000,27 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether to list the supported character sets for each engine version.
+     * Specifies whether to list the supported character sets for each engine version.
      * </p>
      * <p>
      * If this parameter is enabled and the requested engine supports the <code>CharacterSetName</code> parameter for
      * <code>CreateDBInstance</code>, the response includes a list of supported character sets for each engine version.
      * </p>
+     * <p>
+     * For RDS Custom, the default is not to list supported character sets. If you enable this parameter, RDS Custom
+     * returns no results.
+     * </p>
      * 
      * @param listSupportedCharacterSets
-     *        A value that indicates whether to list the supported character sets for each engine version.</p>
+     *        Specifies whether to list the supported character sets for each engine version.</p>
      *        <p>
      *        If this parameter is enabled and the requested engine supports the <code>CharacterSetName</code> parameter
      *        for <code>CreateDBInstance</code>, the response includes a list of supported character sets for each
      *        engine version.
+     *        </p>
+     *        <p>
+     *        For RDS Custom, the default is not to list supported character sets. If you enable this parameter, RDS
+     *        Custom returns no results.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -640,18 +2031,26 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether to list the supported character sets for each engine version.
+     * Specifies whether to list the supported character sets for each engine version.
      * </p>
      * <p>
      * If this parameter is enabled and the requested engine supports the <code>CharacterSetName</code> parameter for
      * <code>CreateDBInstance</code>, the response includes a list of supported character sets for each engine version.
      * </p>
+     * <p>
+     * For RDS Custom, the default is not to list supported character sets. If you enable this parameter, RDS Custom
+     * returns no results.
+     * </p>
      * 
-     * @return A value that indicates whether to list the supported character sets for each engine version.</p>
+     * @return Specifies whether to list the supported character sets for each engine version.</p>
      *         <p>
      *         If this parameter is enabled and the requested engine supports the <code>CharacterSetName</code>
      *         parameter for <code>CreateDBInstance</code>, the response includes a list of supported character sets for
      *         each engine version.
+     *         </p>
+     *         <p>
+     *         For RDS Custom, the default is not to list supported character sets. If you enable this parameter, RDS
+     *         Custom returns no results.
      */
 
     public Boolean isListSupportedCharacterSets() {
@@ -660,19 +2059,27 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether to list the supported time zones for each engine version.
+     * Specifies whether to list the supported time zones for each engine version.
      * </p>
      * <p>
      * If this parameter is enabled and the requested engine supports the <code>TimeZone</code> parameter for
      * <code>CreateDBInstance</code>, the response includes a list of supported time zones for each engine version.
      * </p>
+     * <p>
+     * For RDS Custom, the default is not to list supported time zones. If you enable this parameter, RDS Custom returns
+     * no results.
+     * </p>
      * 
      * @param listSupportedTimezones
-     *        A value that indicates whether to list the supported time zones for each engine version.</p>
+     *        Specifies whether to list the supported time zones for each engine version.</p>
      *        <p>
      *        If this parameter is enabled and the requested engine supports the <code>TimeZone</code> parameter for
      *        <code>CreateDBInstance</code>, the response includes a list of supported time zones for each engine
      *        version.
+     *        </p>
+     *        <p>
+     *        For RDS Custom, the default is not to list supported time zones. If you enable this parameter, RDS Custom
+     *        returns no results.
      */
 
     public void setListSupportedTimezones(Boolean listSupportedTimezones) {
@@ -681,18 +2088,26 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether to list the supported time zones for each engine version.
+     * Specifies whether to list the supported time zones for each engine version.
      * </p>
      * <p>
      * If this parameter is enabled and the requested engine supports the <code>TimeZone</code> parameter for
      * <code>CreateDBInstance</code>, the response includes a list of supported time zones for each engine version.
      * </p>
+     * <p>
+     * For RDS Custom, the default is not to list supported time zones. If you enable this parameter, RDS Custom returns
+     * no results.
+     * </p>
      * 
-     * @return A value that indicates whether to list the supported time zones for each engine version.</p>
+     * @return Specifies whether to list the supported time zones for each engine version.</p>
      *         <p>
      *         If this parameter is enabled and the requested engine supports the <code>TimeZone</code> parameter for
      *         <code>CreateDBInstance</code>, the response includes a list of supported time zones for each engine
      *         version.
+     *         </p>
+     *         <p>
+     *         For RDS Custom, the default is not to list supported time zones. If you enable this parameter, RDS Custom
+     *         returns no results.
      */
 
     public Boolean getListSupportedTimezones() {
@@ -701,19 +2116,27 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether to list the supported time zones for each engine version.
+     * Specifies whether to list the supported time zones for each engine version.
      * </p>
      * <p>
      * If this parameter is enabled and the requested engine supports the <code>TimeZone</code> parameter for
      * <code>CreateDBInstance</code>, the response includes a list of supported time zones for each engine version.
      * </p>
+     * <p>
+     * For RDS Custom, the default is not to list supported time zones. If you enable this parameter, RDS Custom returns
+     * no results.
+     * </p>
      * 
      * @param listSupportedTimezones
-     *        A value that indicates whether to list the supported time zones for each engine version.</p>
+     *        Specifies whether to list the supported time zones for each engine version.</p>
      *        <p>
      *        If this parameter is enabled and the requested engine supports the <code>TimeZone</code> parameter for
      *        <code>CreateDBInstance</code>, the response includes a list of supported time zones for each engine
      *        version.
+     *        </p>
+     *        <p>
+     *        For RDS Custom, the default is not to list supported time zones. If you enable this parameter, RDS Custom
+     *        returns no results.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -724,18 +2147,26 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether to list the supported time zones for each engine version.
+     * Specifies whether to list the supported time zones for each engine version.
      * </p>
      * <p>
      * If this parameter is enabled and the requested engine supports the <code>TimeZone</code> parameter for
      * <code>CreateDBInstance</code>, the response includes a list of supported time zones for each engine version.
      * </p>
+     * <p>
+     * For RDS Custom, the default is not to list supported time zones. If you enable this parameter, RDS Custom returns
+     * no results.
+     * </p>
      * 
-     * @return A value that indicates whether to list the supported time zones for each engine version.</p>
+     * @return Specifies whether to list the supported time zones for each engine version.</p>
      *         <p>
      *         If this parameter is enabled and the requested engine supports the <code>TimeZone</code> parameter for
      *         <code>CreateDBInstance</code>, the response includes a list of supported time zones for each engine
      *         version.
+     *         </p>
+     *         <p>
+     *         For RDS Custom, the default is not to list supported time zones. If you enable this parameter, RDS Custom
+     *         returns no results.
      */
 
     public Boolean isListSupportedTimezones() {
@@ -744,13 +2175,13 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether to include engine versions that aren't available in the list. The default is to
-     * list only available engine versions.
+     * Specifies whether to also list the engine versions that aren't available. The default is to list only available
+     * engine versions.
      * </p>
      * 
      * @param includeAll
-     *        A value that indicates whether to include engine versions that aren't available in the list. The default
-     *        is to list only available engine versions.
+     *        Specifies whether to also list the engine versions that aren't available. The default is to list only
+     *        available engine versions.
      */
 
     public void setIncludeAll(Boolean includeAll) {
@@ -759,12 +2190,12 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether to include engine versions that aren't available in the list. The default is to
-     * list only available engine versions.
+     * Specifies whether to also list the engine versions that aren't available. The default is to list only available
+     * engine versions.
      * </p>
      * 
-     * @return A value that indicates whether to include engine versions that aren't available in the list. The default
-     *         is to list only available engine versions.
+     * @return Specifies whether to also list the engine versions that aren't available. The default is to list only
+     *         available engine versions.
      */
 
     public Boolean getIncludeAll() {
@@ -773,13 +2204,13 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether to include engine versions that aren't available in the list. The default is to
-     * list only available engine versions.
+     * Specifies whether to also list the engine versions that aren't available. The default is to list only available
+     * engine versions.
      * </p>
      * 
      * @param includeAll
-     *        A value that indicates whether to include engine versions that aren't available in the list. The default
-     *        is to list only available engine versions.
+     *        Specifies whether to also list the engine versions that aren't available. The default is to list only
+     *        available engine versions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -790,12 +2221,12 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A value that indicates whether to include engine versions that aren't available in the list. The default is to
-     * list only available engine versions.
+     * Specifies whether to also list the engine versions that aren't available. The default is to list only available
+     * engine versions.
      * </p>
      * 
-     * @return A value that indicates whether to include engine versions that aren't available in the list. The default
-     *         is to list only available engine versions.
+     * @return Specifies whether to also list the engine versions that aren't available. The default is to list only
+     *         available engine versions.
      */
 
     public Boolean isIncludeAll() {

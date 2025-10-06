@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class DescribeRemediationExecutionStatusRequest extends com.amazonaws.Ama
 
     /**
      * <p>
-     * A list of AWS Config rule names.
+     * A list of Config rule names.
      * </p>
      */
     private String configRuleName;
@@ -41,7 +41,7 @@ public class DescribeRemediationExecutionStatusRequest extends com.amazonaws.Ama
     /**
      * <p>
      * The maximum number of RemediationExecutionStatuses returned on each page. The default is maximum. If you specify
-     * 0, AWS Config uses the default.
+     * 0, Config uses the default.
      * </p>
      */
     private Integer limit;
@@ -55,11 +55,11 @@ public class DescribeRemediationExecutionStatusRequest extends com.amazonaws.Ama
 
     /**
      * <p>
-     * A list of AWS Config rule names.
+     * A list of Config rule names.
      * </p>
      * 
      * @param configRuleName
-     *        A list of AWS Config rule names.
+     *        A list of Config rule names.
      */
 
     public void setConfigRuleName(String configRuleName) {
@@ -68,10 +68,10 @@ public class DescribeRemediationExecutionStatusRequest extends com.amazonaws.Ama
 
     /**
      * <p>
-     * A list of AWS Config rule names.
+     * A list of Config rule names.
      * </p>
      * 
-     * @return A list of AWS Config rule names.
+     * @return A list of Config rule names.
      */
 
     public String getConfigRuleName() {
@@ -80,11 +80,11 @@ public class DescribeRemediationExecutionStatusRequest extends com.amazonaws.Ama
 
     /**
      * <p>
-     * A list of AWS Config rule names.
+     * A list of Config rule names.
      * </p>
      * 
      * @param configRuleName
-     *        A list of AWS Config rule names.
+     *        A list of Config rule names.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -177,12 +177,12 @@ public class DescribeRemediationExecutionStatusRequest extends com.amazonaws.Ama
     /**
      * <p>
      * The maximum number of RemediationExecutionStatuses returned on each page. The default is maximum. If you specify
-     * 0, AWS Config uses the default.
+     * 0, Config uses the default.
      * </p>
      * 
      * @param limit
      *        The maximum number of RemediationExecutionStatuses returned on each page. The default is maximum. If you
-     *        specify 0, AWS Config uses the default.
+     *        specify 0, Config uses the default.
      */
 
     public void setLimit(Integer limit) {
@@ -192,11 +192,11 @@ public class DescribeRemediationExecutionStatusRequest extends com.amazonaws.Ama
     /**
      * <p>
      * The maximum number of RemediationExecutionStatuses returned on each page. The default is maximum. If you specify
-     * 0, AWS Config uses the default.
+     * 0, Config uses the default.
      * </p>
      * 
      * @return The maximum number of RemediationExecutionStatuses returned on each page. The default is maximum. If you
-     *         specify 0, AWS Config uses the default.
+     *         specify 0, Config uses the default.
      */
 
     public Integer getLimit() {
@@ -206,12 +206,12 @@ public class DescribeRemediationExecutionStatusRequest extends com.amazonaws.Ama
     /**
      * <p>
      * The maximum number of RemediationExecutionStatuses returned on each page. The default is maximum. If you specify
-     * 0, AWS Config uses the default.
+     * 0, Config uses the default.
      * </p>
      * 
      * @param limit
      *        The maximum number of RemediationExecutionStatuses returned on each page. The default is maximum. If you
-     *        specify 0, AWS Config uses the default.
+     *        specify 0, Config uses the default.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

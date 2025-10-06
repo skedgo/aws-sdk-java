@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -63,6 +63,57 @@ public class CreateStackInstancesRequestMarshaller implements Marshaller<Request
             }
         }
 
+        {
+            DeploymentTargets deploymentTargets = createStackInstancesRequest.getDeploymentTargets();
+            if (deploymentTargets != null) {
+
+                if (deploymentTargets.getAccounts().isEmpty()
+                        && !((com.amazonaws.internal.SdkInternalList<String>) deploymentTargets.getAccounts()).isAutoConstruct()) {
+                    request.addParameter("DeploymentTargets.Accounts", "");
+                }
+                if (!deploymentTargets.getAccounts().isEmpty()
+                        || !((com.amazonaws.internal.SdkInternalList<String>) deploymentTargets.getAccounts()).isAutoConstruct()) {
+                    com.amazonaws.internal.SdkInternalList<String> accountsList = (com.amazonaws.internal.SdkInternalList<String>) deploymentTargets
+                            .getAccounts();
+                    int accountsListIndex = 1;
+
+                    for (String accountsListValue : accountsList) {
+                        if (accountsListValue != null) {
+                            request.addParameter("DeploymentTargets.Accounts.member." + accountsListIndex, StringUtils.fromString(accountsListValue));
+                        }
+                        accountsListIndex++;
+                    }
+                }
+
+                if (deploymentTargets.getAccountsUrl() != null) {
+                    request.addParameter("DeploymentTargets.AccountsUrl", StringUtils.fromString(deploymentTargets.getAccountsUrl()));
+                }
+
+                if (deploymentTargets.getOrganizationalUnitIds().isEmpty()
+                        && !((com.amazonaws.internal.SdkInternalList<String>) deploymentTargets.getOrganizationalUnitIds()).isAutoConstruct()) {
+                    request.addParameter("DeploymentTargets.OrganizationalUnitIds", "");
+                }
+                if (!deploymentTargets.getOrganizationalUnitIds().isEmpty()
+                        || !((com.amazonaws.internal.SdkInternalList<String>) deploymentTargets.getOrganizationalUnitIds()).isAutoConstruct()) {
+                    com.amazonaws.internal.SdkInternalList<String> organizationalUnitIdsList = (com.amazonaws.internal.SdkInternalList<String>) deploymentTargets
+                            .getOrganizationalUnitIds();
+                    int organizationalUnitIdsListIndex = 1;
+
+                    for (String organizationalUnitIdsListValue : organizationalUnitIdsList) {
+                        if (organizationalUnitIdsListValue != null) {
+                            request.addParameter("DeploymentTargets.OrganizationalUnitIds.member." + organizationalUnitIdsListIndex,
+                                    StringUtils.fromString(organizationalUnitIdsListValue));
+                        }
+                        organizationalUnitIdsListIndex++;
+                    }
+                }
+
+                if (deploymentTargets.getAccountFilterType() != null) {
+                    request.addParameter("DeploymentTargets.AccountFilterType", StringUtils.fromString(deploymentTargets.getAccountFilterType()));
+                }
+            }
+        }
+
         if (createStackInstancesRequest.getRegions().isEmpty()
                 && !((com.amazonaws.internal.SdkInternalList<String>) createStackInstancesRequest.getRegions()).isAutoConstruct()) {
             request.addParameter("Regions", "");
@@ -92,25 +143,27 @@ public class CreateStackInstancesRequestMarshaller implements Marshaller<Request
             int parameterOverridesListIndex = 1;
 
             for (Parameter parameterOverridesListValue : parameterOverridesList) {
+                if (parameterOverridesListValue != null) {
 
-                if (parameterOverridesListValue.getParameterKey() != null) {
-                    request.addParameter("ParameterOverrides.member." + parameterOverridesListIndex + ".ParameterKey",
-                            StringUtils.fromString(parameterOverridesListValue.getParameterKey()));
-                }
+                    if (parameterOverridesListValue.getParameterKey() != null) {
+                        request.addParameter("ParameterOverrides.member." + parameterOverridesListIndex + ".ParameterKey",
+                                StringUtils.fromString(parameterOverridesListValue.getParameterKey()));
+                    }
 
-                if (parameterOverridesListValue.getParameterValue() != null) {
-                    request.addParameter("ParameterOverrides.member." + parameterOverridesListIndex + ".ParameterValue",
-                            StringUtils.fromString(parameterOverridesListValue.getParameterValue()));
-                }
+                    if (parameterOverridesListValue.getParameterValue() != null) {
+                        request.addParameter("ParameterOverrides.member." + parameterOverridesListIndex + ".ParameterValue",
+                                StringUtils.fromString(parameterOverridesListValue.getParameterValue()));
+                    }
 
-                if (parameterOverridesListValue.getUsePreviousValue() != null) {
-                    request.addParameter("ParameterOverrides.member." + parameterOverridesListIndex + ".UsePreviousValue",
-                            StringUtils.fromBoolean(parameterOverridesListValue.getUsePreviousValue()));
-                }
+                    if (parameterOverridesListValue.getUsePreviousValue() != null) {
+                        request.addParameter("ParameterOverrides.member." + parameterOverridesListIndex + ".UsePreviousValue",
+                                StringUtils.fromBoolean(parameterOverridesListValue.getUsePreviousValue()));
+                    }
 
-                if (parameterOverridesListValue.getResolvedValue() != null) {
-                    request.addParameter("ParameterOverrides.member." + parameterOverridesListIndex + ".ResolvedValue",
-                            StringUtils.fromString(parameterOverridesListValue.getResolvedValue()));
+                    if (parameterOverridesListValue.getResolvedValue() != null) {
+                        request.addParameter("ParameterOverrides.member." + parameterOverridesListIndex + ".ResolvedValue",
+                                StringUtils.fromString(parameterOverridesListValue.getResolvedValue()));
+                    }
                 }
                 parameterOverridesListIndex++;
             }
@@ -119,6 +172,10 @@ public class CreateStackInstancesRequestMarshaller implements Marshaller<Request
         {
             StackSetOperationPreferences operationPreferences = createStackInstancesRequest.getOperationPreferences();
             if (operationPreferences != null) {
+
+                if (operationPreferences.getRegionConcurrencyType() != null) {
+                    request.addParameter("OperationPreferences.RegionConcurrencyType", StringUtils.fromString(operationPreferences.getRegionConcurrencyType()));
+                }
 
                 if (operationPreferences.getRegionOrder().isEmpty()
                         && !((com.amazonaws.internal.SdkInternalList<String>) operationPreferences.getRegionOrder()).isAutoConstruct()) {
@@ -156,10 +213,18 @@ public class CreateStackInstancesRequestMarshaller implements Marshaller<Request
                     request.addParameter("OperationPreferences.MaxConcurrentPercentage",
                             StringUtils.fromInteger(operationPreferences.getMaxConcurrentPercentage()));
                 }
+
+                if (operationPreferences.getConcurrencyMode() != null) {
+                    request.addParameter("OperationPreferences.ConcurrencyMode", StringUtils.fromString(operationPreferences.getConcurrencyMode()));
+                }
             }
         }
 
         request.addParameter("OperationId", IdempotentUtils.resolveString(createStackInstancesRequest.getOperationId()));
+
+        if (createStackInstancesRequest.getCallAs() != null) {
+            request.addParameter("CallAs", StringUtils.fromString(createStackInstancesRequest.getCallAs()));
+        }
 
         return request;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,40 +30,72 @@ public class BatchExecuteStatementRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The name of the database.
-     * </p>
-     */
-    private String database;
-    /**
-     * <p>
-     * The parameter set for the batch operation.
-     * </p>
-     */
-    private java.util.List<java.util.List<SqlParameter>> parameterSets;
-    /**
-     * <p>
      * The Amazon Resource Name (ARN) of the Aurora Serverless DB cluster.
      * </p>
      */
     private String resourceArn;
     /**
      * <p>
-     * The name of the database schema.
+     * The ARN of the secret that enables access to the DB cluster. Enter the database user name and password for the
+     * credentials in the secret.
      * </p>
-     */
-    private String schema;
-    /**
      * <p>
-     * The name or ARN of the secret that enables access to the DB cluster.
+     * For information about creating the secret, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_database_secret.html">Create a database
+     * secret</a>.
      * </p>
      */
     private String secretArn;
     /**
      * <p>
-     * The SQL statement to run.
+     * The SQL statement to run. Don't include a semicolon (;) at the end of the SQL statement.
      * </p>
      */
     private String sql;
+    /**
+     * <p>
+     * The name of the database.
+     * </p>
+     */
+    private String database;
+    /**
+     * <p>
+     * The name of the database schema.
+     * </p>
+     * <note>
+     * <p>
+     * Currently, the <code>schema</code> parameter isn't supported.
+     * </p>
+     * </note>
+     */
+    private String schema;
+    /**
+     * <p>
+     * The parameter set for the batch operation.
+     * </p>
+     * <p>
+     * The SQL statement is executed as many times as the number of parameter sets provided. To execute a SQL statement
+     * with no parameters, use one of the following options:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Specify one or more empty parameter sets.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use the <code>ExecuteStatement</code> operation instead of the <code>BatchExecuteStatement</code> operation.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * Array parameters are not supported.
+     * </p>
+     * </note>
+     */
+    private java.util.List<java.util.List<SqlParameter>> parameterSets;
     /**
      * <p>
      * The identifier of a transaction that was started by using the <code>BeginTransaction</code> operation. Specify
@@ -74,116 +106,6 @@ public class BatchExecuteStatementRequest extends com.amazonaws.AmazonWebService
      * </p>
      */
     private String transactionId;
-
-    /**
-     * <p>
-     * The name of the database.
-     * </p>
-     * 
-     * @param database
-     *        The name of the database.
-     */
-
-    public void setDatabase(String database) {
-        this.database = database;
-    }
-
-    /**
-     * <p>
-     * The name of the database.
-     * </p>
-     * 
-     * @return The name of the database.
-     */
-
-    public String getDatabase() {
-        return this.database;
-    }
-
-    /**
-     * <p>
-     * The name of the database.
-     * </p>
-     * 
-     * @param database
-     *        The name of the database.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public BatchExecuteStatementRequest withDatabase(String database) {
-        setDatabase(database);
-        return this;
-    }
-
-    /**
-     * <p>
-     * The parameter set for the batch operation.
-     * </p>
-     * 
-     * @return The parameter set for the batch operation.
-     */
-
-    public java.util.List<java.util.List<SqlParameter>> getParameterSets() {
-        return parameterSets;
-    }
-
-    /**
-     * <p>
-     * The parameter set for the batch operation.
-     * </p>
-     * 
-     * @param parameterSets
-     *        The parameter set for the batch operation.
-     */
-
-    public void setParameterSets(java.util.Collection<java.util.List<SqlParameter>> parameterSets) {
-        if (parameterSets == null) {
-            this.parameterSets = null;
-            return;
-        }
-
-        this.parameterSets = new java.util.ArrayList<java.util.List<SqlParameter>>(parameterSets);
-    }
-
-    /**
-     * <p>
-     * The parameter set for the batch operation.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
-     * {@link #setParameterSets(java.util.Collection)} or {@link #withParameterSets(java.util.Collection)} if you want
-     * to override the existing values.
-     * </p>
-     * 
-     * @param parameterSets
-     *        The parameter set for the batch operation.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public BatchExecuteStatementRequest withParameterSets(java.util.List<SqlParameter>... parameterSets) {
-        if (this.parameterSets == null) {
-            setParameterSets(new java.util.ArrayList<java.util.List<SqlParameter>>(parameterSets.length));
-        }
-        for (java.util.List<SqlParameter> ele : parameterSets) {
-            this.parameterSets.add(ele);
-        }
-        return this;
-    }
-
-    /**
-     * <p>
-     * The parameter set for the batch operation.
-     * </p>
-     * 
-     * @param parameterSets
-     *        The parameter set for the batch operation.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public BatchExecuteStatementRequest withParameterSets(java.util.Collection<java.util.List<SqlParameter>> parameterSets) {
-        setParameterSets(parameterSets);
-        return this;
-    }
 
     /**
      * <p>
@@ -227,51 +149,22 @@ public class BatchExecuteStatementRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The name of the database schema.
+     * The ARN of the secret that enables access to the DB cluster. Enter the database user name and password for the
+     * credentials in the secret.
      * </p>
-     * 
-     * @param schema
-     *        The name of the database schema.
-     */
-
-    public void setSchema(String schema) {
-        this.schema = schema;
-    }
-
-    /**
      * <p>
-     * The name of the database schema.
-     * </p>
-     * 
-     * @return The name of the database schema.
-     */
-
-    public String getSchema() {
-        return this.schema;
-    }
-
-    /**
-     * <p>
-     * The name of the database schema.
-     * </p>
-     * 
-     * @param schema
-     *        The name of the database schema.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public BatchExecuteStatementRequest withSchema(String schema) {
-        setSchema(schema);
-        return this;
-    }
-
-    /**
-     * <p>
-     * The name or ARN of the secret that enables access to the DB cluster.
+     * For information about creating the secret, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_database_secret.html">Create a database
+     * secret</a>.
      * </p>
      * 
      * @param secretArn
-     *        The name or ARN of the secret that enables access to the DB cluster.
+     *        The ARN of the secret that enables access to the DB cluster. Enter the database user name and password for
+     *        the credentials in the secret.</p>
+     *        <p>
+     *        For information about creating the secret, see <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_database_secret.html">Create a
+     *        database secret</a>.
      */
 
     public void setSecretArn(String secretArn) {
@@ -280,10 +173,21 @@ public class BatchExecuteStatementRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The name or ARN of the secret that enables access to the DB cluster.
+     * The ARN of the secret that enables access to the DB cluster. Enter the database user name and password for the
+     * credentials in the secret.
+     * </p>
+     * <p>
+     * For information about creating the secret, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_database_secret.html">Create a database
+     * secret</a>.
      * </p>
      * 
-     * @return The name or ARN of the secret that enables access to the DB cluster.
+     * @return The ARN of the secret that enables access to the DB cluster. Enter the database user name and password
+     *         for the credentials in the secret.</p>
+     *         <p>
+     *         For information about creating the secret, see <a
+     *         href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_database_secret.html">Create a
+     *         database secret</a>.
      */
 
     public String getSecretArn() {
@@ -292,11 +196,22 @@ public class BatchExecuteStatementRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The name or ARN of the secret that enables access to the DB cluster.
+     * The ARN of the secret that enables access to the DB cluster. Enter the database user name and password for the
+     * credentials in the secret.
+     * </p>
+     * <p>
+     * For information about creating the secret, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_database_secret.html">Create a database
+     * secret</a>.
      * </p>
      * 
      * @param secretArn
-     *        The name or ARN of the secret that enables access to the DB cluster.
+     *        The ARN of the secret that enables access to the DB cluster. Enter the database user name and password for
+     *        the credentials in the secret.</p>
+     *        <p>
+     *        For information about creating the secret, see <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_database_secret.html">Create a
+     *        database secret</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -307,11 +222,11 @@ public class BatchExecuteStatementRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The SQL statement to run.
+     * The SQL statement to run. Don't include a semicolon (;) at the end of the SQL statement.
      * </p>
      * 
      * @param sql
-     *        The SQL statement to run.
+     *        The SQL statement to run. Don't include a semicolon (;) at the end of the SQL statement.
      */
 
     public void setSql(String sql) {
@@ -320,10 +235,10 @@ public class BatchExecuteStatementRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The SQL statement to run.
+     * The SQL statement to run. Don't include a semicolon (;) at the end of the SQL statement.
      * </p>
      * 
-     * @return The SQL statement to run.
+     * @return The SQL statement to run. Don't include a semicolon (;) at the end of the SQL statement.
      */
 
     public String getSql() {
@@ -332,16 +247,358 @@ public class BatchExecuteStatementRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The SQL statement to run.
+     * The SQL statement to run. Don't include a semicolon (;) at the end of the SQL statement.
      * </p>
      * 
      * @param sql
-     *        The SQL statement to run.
+     *        The SQL statement to run. Don't include a semicolon (;) at the end of the SQL statement.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public BatchExecuteStatementRequest withSql(String sql) {
         setSql(sql);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the database.
+     * </p>
+     * 
+     * @param database
+     *        The name of the database.
+     */
+
+    public void setDatabase(String database) {
+        this.database = database;
+    }
+
+    /**
+     * <p>
+     * The name of the database.
+     * </p>
+     * 
+     * @return The name of the database.
+     */
+
+    public String getDatabase() {
+        return this.database;
+    }
+
+    /**
+     * <p>
+     * The name of the database.
+     * </p>
+     * 
+     * @param database
+     *        The name of the database.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BatchExecuteStatementRequest withDatabase(String database) {
+        setDatabase(database);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the database schema.
+     * </p>
+     * <note>
+     * <p>
+     * Currently, the <code>schema</code> parameter isn't supported.
+     * </p>
+     * </note>
+     * 
+     * @param schema
+     *        The name of the database schema.</p> <note>
+     *        <p>
+     *        Currently, the <code>schema</code> parameter isn't supported.
+     *        </p>
+     */
+
+    public void setSchema(String schema) {
+        this.schema = schema;
+    }
+
+    /**
+     * <p>
+     * The name of the database schema.
+     * </p>
+     * <note>
+     * <p>
+     * Currently, the <code>schema</code> parameter isn't supported.
+     * </p>
+     * </note>
+     * 
+     * @return The name of the database schema.</p> <note>
+     *         <p>
+     *         Currently, the <code>schema</code> parameter isn't supported.
+     *         </p>
+     */
+
+    public String getSchema() {
+        return this.schema;
+    }
+
+    /**
+     * <p>
+     * The name of the database schema.
+     * </p>
+     * <note>
+     * <p>
+     * Currently, the <code>schema</code> parameter isn't supported.
+     * </p>
+     * </note>
+     * 
+     * @param schema
+     *        The name of the database schema.</p> <note>
+     *        <p>
+     *        Currently, the <code>schema</code> parameter isn't supported.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BatchExecuteStatementRequest withSchema(String schema) {
+        setSchema(schema);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The parameter set for the batch operation.
+     * </p>
+     * <p>
+     * The SQL statement is executed as many times as the number of parameter sets provided. To execute a SQL statement
+     * with no parameters, use one of the following options:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Specify one or more empty parameter sets.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use the <code>ExecuteStatement</code> operation instead of the <code>BatchExecuteStatement</code> operation.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * Array parameters are not supported.
+     * </p>
+     * </note>
+     * 
+     * @return The parameter set for the batch operation.</p>
+     *         <p>
+     *         The SQL statement is executed as many times as the number of parameter sets provided. To execute a SQL
+     *         statement with no parameters, use one of the following options:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Specify one or more empty parameter sets.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Use the <code>ExecuteStatement</code> operation instead of the <code>BatchExecuteStatement</code>
+     *         operation.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         Array parameters are not supported.
+     *         </p>
+     */
+
+    public java.util.List<java.util.List<SqlParameter>> getParameterSets() {
+        return parameterSets;
+    }
+
+    /**
+     * <p>
+     * The parameter set for the batch operation.
+     * </p>
+     * <p>
+     * The SQL statement is executed as many times as the number of parameter sets provided. To execute a SQL statement
+     * with no parameters, use one of the following options:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Specify one or more empty parameter sets.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use the <code>ExecuteStatement</code> operation instead of the <code>BatchExecuteStatement</code> operation.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * Array parameters are not supported.
+     * </p>
+     * </note>
+     * 
+     * @param parameterSets
+     *        The parameter set for the batch operation.</p>
+     *        <p>
+     *        The SQL statement is executed as many times as the number of parameter sets provided. To execute a SQL
+     *        statement with no parameters, use one of the following options:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Specify one or more empty parameter sets.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Use the <code>ExecuteStatement</code> operation instead of the <code>BatchExecuteStatement</code>
+     *        operation.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        Array parameters are not supported.
+     *        </p>
+     */
+
+    public void setParameterSets(java.util.Collection<java.util.List<SqlParameter>> parameterSets) {
+        if (parameterSets == null) {
+            this.parameterSets = null;
+            return;
+        }
+
+        this.parameterSets = new java.util.ArrayList<java.util.List<SqlParameter>>(parameterSets);
+    }
+
+    /**
+     * <p>
+     * The parameter set for the batch operation.
+     * </p>
+     * <p>
+     * The SQL statement is executed as many times as the number of parameter sets provided. To execute a SQL statement
+     * with no parameters, use one of the following options:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Specify one or more empty parameter sets.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use the <code>ExecuteStatement</code> operation instead of the <code>BatchExecuteStatement</code> operation.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * Array parameters are not supported.
+     * </p>
+     * </note>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setParameterSets(java.util.Collection)} or {@link #withParameterSets(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param parameterSets
+     *        The parameter set for the batch operation.</p>
+     *        <p>
+     *        The SQL statement is executed as many times as the number of parameter sets provided. To execute a SQL
+     *        statement with no parameters, use one of the following options:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Specify one or more empty parameter sets.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Use the <code>ExecuteStatement</code> operation instead of the <code>BatchExecuteStatement</code>
+     *        operation.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        Array parameters are not supported.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BatchExecuteStatementRequest withParameterSets(java.util.List<SqlParameter>... parameterSets) {
+        if (this.parameterSets == null) {
+            setParameterSets(new java.util.ArrayList<java.util.List<SqlParameter>>(parameterSets.length));
+        }
+        for (java.util.List<SqlParameter> ele : parameterSets) {
+            this.parameterSets.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The parameter set for the batch operation.
+     * </p>
+     * <p>
+     * The SQL statement is executed as many times as the number of parameter sets provided. To execute a SQL statement
+     * with no parameters, use one of the following options:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Specify one or more empty parameter sets.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use the <code>ExecuteStatement</code> operation instead of the <code>BatchExecuteStatement</code> operation.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * Array parameters are not supported.
+     * </p>
+     * </note>
+     * 
+     * @param parameterSets
+     *        The parameter set for the batch operation.</p>
+     *        <p>
+     *        The SQL statement is executed as many times as the number of parameter sets provided. To execute a SQL
+     *        statement with no parameters, use one of the following options:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Specify one or more empty parameter sets.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Use the <code>ExecuteStatement</code> operation instead of the <code>BatchExecuteStatement</code>
+     *        operation.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        Array parameters are not supported.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BatchExecuteStatementRequest withParameterSets(java.util.Collection<java.util.List<SqlParameter>> parameterSets) {
+        setParameterSets(parameterSets);
         return this;
     }
 
@@ -418,18 +675,18 @@ public class BatchExecuteStatementRequest extends com.amazonaws.AmazonWebService
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        if (getDatabase() != null)
-            sb.append("Database: ").append(getDatabase()).append(",");
-        if (getParameterSets() != null)
-            sb.append("ParameterSets: ").append(getParameterSets()).append(",");
         if (getResourceArn() != null)
             sb.append("ResourceArn: ").append(getResourceArn()).append(",");
-        if (getSchema() != null)
-            sb.append("Schema: ").append(getSchema()).append(",");
         if (getSecretArn() != null)
             sb.append("SecretArn: ").append(getSecretArn()).append(",");
         if (getSql() != null)
             sb.append("Sql: ").append(getSql()).append(",");
+        if (getDatabase() != null)
+            sb.append("Database: ").append(getDatabase()).append(",");
+        if (getSchema() != null)
+            sb.append("Schema: ").append(getSchema()).append(",");
+        if (getParameterSets() != null)
+            sb.append("ParameterSets: ").append(getParameterSets()).append(",");
         if (getTransactionId() != null)
             sb.append("TransactionId: ").append(getTransactionId());
         sb.append("}");
@@ -446,21 +703,9 @@ public class BatchExecuteStatementRequest extends com.amazonaws.AmazonWebService
         if (obj instanceof BatchExecuteStatementRequest == false)
             return false;
         BatchExecuteStatementRequest other = (BatchExecuteStatementRequest) obj;
-        if (other.getDatabase() == null ^ this.getDatabase() == null)
-            return false;
-        if (other.getDatabase() != null && other.getDatabase().equals(this.getDatabase()) == false)
-            return false;
-        if (other.getParameterSets() == null ^ this.getParameterSets() == null)
-            return false;
-        if (other.getParameterSets() != null && other.getParameterSets().equals(this.getParameterSets()) == false)
-            return false;
         if (other.getResourceArn() == null ^ this.getResourceArn() == null)
             return false;
         if (other.getResourceArn() != null && other.getResourceArn().equals(this.getResourceArn()) == false)
-            return false;
-        if (other.getSchema() == null ^ this.getSchema() == null)
-            return false;
-        if (other.getSchema() != null && other.getSchema().equals(this.getSchema()) == false)
             return false;
         if (other.getSecretArn() == null ^ this.getSecretArn() == null)
             return false;
@@ -469,6 +714,18 @@ public class BatchExecuteStatementRequest extends com.amazonaws.AmazonWebService
         if (other.getSql() == null ^ this.getSql() == null)
             return false;
         if (other.getSql() != null && other.getSql().equals(this.getSql()) == false)
+            return false;
+        if (other.getDatabase() == null ^ this.getDatabase() == null)
+            return false;
+        if (other.getDatabase() != null && other.getDatabase().equals(this.getDatabase()) == false)
+            return false;
+        if (other.getSchema() == null ^ this.getSchema() == null)
+            return false;
+        if (other.getSchema() != null && other.getSchema().equals(this.getSchema()) == false)
+            return false;
+        if (other.getParameterSets() == null ^ this.getParameterSets() == null)
+            return false;
+        if (other.getParameterSets() != null && other.getParameterSets().equals(this.getParameterSets()) == false)
             return false;
         if (other.getTransactionId() == null ^ this.getTransactionId() == null)
             return false;
@@ -482,12 +739,12 @@ public class BatchExecuteStatementRequest extends com.amazonaws.AmazonWebService
         final int prime = 31;
         int hashCode = 1;
 
-        hashCode = prime * hashCode + ((getDatabase() == null) ? 0 : getDatabase().hashCode());
-        hashCode = prime * hashCode + ((getParameterSets() == null) ? 0 : getParameterSets().hashCode());
         hashCode = prime * hashCode + ((getResourceArn() == null) ? 0 : getResourceArn().hashCode());
-        hashCode = prime * hashCode + ((getSchema() == null) ? 0 : getSchema().hashCode());
         hashCode = prime * hashCode + ((getSecretArn() == null) ? 0 : getSecretArn().hashCode());
         hashCode = prime * hashCode + ((getSql() == null) ? 0 : getSql().hashCode());
+        hashCode = prime * hashCode + ((getDatabase() == null) ? 0 : getDatabase().hashCode());
+        hashCode = prime * hashCode + ((getSchema() == null) ? 0 : getSchema().hashCode());
+        hashCode = prime * hashCode + ((getParameterSets() == null) ? 0 : getParameterSets().hashCode());
         hashCode = prime * hashCode + ((getTransactionId() == null) ? 0 : getTransactionId().hashCode());
         return hashCode;
     }

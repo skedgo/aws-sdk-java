@@ -54,9 +54,12 @@ final class AddOperations {
         Map<String, Shape> c2jShapes = serviceModel.getShapes();
 
         for (Map.Entry<String, Operation> entry : serviceModel.getOperations().entrySet()) {
-
             final String operationName = entry.getKey();
             final Operation op = entry.getValue();
+
+            if (shouldSkipOperation(op, c2jShapes)) {
+                continue;
+            }
 
             OperationModel operationModel = new OperationModel();
 
@@ -118,6 +121,53 @@ final class AddOperations {
         }
 
         return javaOperationModels;
+    }
+
+    private boolean shouldSkipOperation(Operation operation, Map<String, Shape> c2jShapes) {
+        Input operationInput = operation.getInput();
+        Output operationOutput = operation.getOutput();
+
+        Shape inputShape = operationInput == null ? null : c2jShapes.get(operationInput.getShape());
+        Shape outputShape = operationOutput == null ? null : c2jShapes.get(operationOutput.getShape());
+
+        Shape inputPayloadShape = inputShape == null ? null : getPayloadShape(c2jShapes, inputShape);
+        Shape outputPayloadShape = outputShape == null ? null : getPayloadShape(c2jShapes, outputShape);
+
+        // We skip operations with event stream inputs or outputs
+        boolean hasEventStreamInput = hasEventStreamInput(operation, c2jShapes);
+        boolean hasEventStreamOutput = hasEventStreamOutput(operation, c2jShapes);
+
+        boolean hasStringPayloadInput = inputPayloadShape != null && "String".equals(inputPayloadShape.getType());
+        boolean hasStringPayloadOutput = outputPayloadShape != null && "String".equals(outputPayloadShape.getType());
+
+        return hasEventStreamInput || hasEventStreamOutput || hasStringPayloadInput || hasStringPayloadOutput;
+    }
+
+    private boolean hasEventStreamOutput(Operation operation, Map<String, Shape> c2jShapes) {
+        Output output = operation.getOutput();
+
+        if (output == null) {
+            return false;
+        }
+
+        return hasEventStreamMember(output.getShape(), c2jShapes);
+    }
+
+    private boolean hasEventStreamInput(Operation operation, Map<String, Shape> c2jShapes) {
+        Output input = operation.getOutput();
+
+        if (input == null) {
+            return false;
+        }
+
+        return hasEventStreamMember(input.getShape(), c2jShapes);
+    }
+
+    private boolean hasEventStreamMember(String shape, Map<String, Shape> c2jShapes) {
+        Shape outputShape = c2jShapes.get(shape);
+
+        return outputShape.getMembers().values().stream().map(m -> c2jShapes.get(m.getShape()))
+                .anyMatch(Shape::isEventStream);
     }
 
     /**

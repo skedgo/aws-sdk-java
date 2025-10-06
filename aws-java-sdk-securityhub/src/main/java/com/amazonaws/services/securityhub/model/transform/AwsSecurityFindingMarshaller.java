@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,12 @@ public class AwsSecurityFindingMarshaller {
             .marshallLocationName("Id").build();
     private static final MarshallingInfo<String> PRODUCTARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProductArn").build();
+    private static final MarshallingInfo<String> PRODUCTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProductName").build();
+    private static final MarshallingInfo<String> COMPANYNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CompanyName").build();
+    private static final MarshallingInfo<String> REGION_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Region").build();
     private static final MarshallingInfo<String> GENERATORID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("GeneratorId").build();
     private static final MarshallingInfo<String> AWSACCOUNTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -71,8 +77,12 @@ public class AwsSecurityFindingMarshaller {
             .marshallLocationName("Malware").build();
     private static final MarshallingInfo<StructuredPojo> NETWORK_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Network").build();
+    private static final MarshallingInfo<List> NETWORKPATH_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("NetworkPath").build();
     private static final MarshallingInfo<StructuredPojo> PROCESS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Process").build();
+    private static final MarshallingInfo<List> THREATS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Threats").build();
     private static final MarshallingInfo<List> THREATINTELINDICATORS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ThreatIntelIndicators").build();
     private static final MarshallingInfo<List> RESOURCES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
@@ -83,12 +93,30 @@ public class AwsSecurityFindingMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VerificationState").build();
     private static final MarshallingInfo<String> WORKFLOWSTATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("WorkflowState").build();
+    private static final MarshallingInfo<StructuredPojo> WORKFLOW_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Workflow").build();
     private static final MarshallingInfo<String> RECORDSTATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RecordState").build();
     private static final MarshallingInfo<List> RELATEDFINDINGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RelatedFindings").build();
     private static final MarshallingInfo<StructuredPojo> NOTE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Note").build();
+    private static final MarshallingInfo<List> VULNERABILITIES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Vulnerabilities").build();
+    private static final MarshallingInfo<StructuredPojo> PATCHSUMMARY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PatchSummary").build();
+    private static final MarshallingInfo<StructuredPojo> ACTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Action").build();
+    private static final MarshallingInfo<StructuredPojo> FINDINGPROVIDERFIELDS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FindingProviderFields").build();
+    private static final MarshallingInfo<Boolean> SAMPLE_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Sample").build();
+    private static final MarshallingInfo<StructuredPojo> GENERATORDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("GeneratorDetails").build();
+    private static final MarshallingInfo<String> PROCESSEDAT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProcessedAt").build();
+    private static final MarshallingInfo<String> AWSACCOUNTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AwsAccountName").build();
 
     private static final AwsSecurityFindingMarshaller instance = new AwsSecurityFindingMarshaller();
 
@@ -109,6 +137,9 @@ public class AwsSecurityFindingMarshaller {
             protocolMarshaller.marshall(awsSecurityFinding.getSchemaVersion(), SCHEMAVERSION_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getId(), ID_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getProductArn(), PRODUCTARN_BINDING);
+            protocolMarshaller.marshall(awsSecurityFinding.getProductName(), PRODUCTNAME_BINDING);
+            protocolMarshaller.marshall(awsSecurityFinding.getCompanyName(), COMPANYNAME_BINDING);
+            protocolMarshaller.marshall(awsSecurityFinding.getRegion(), REGION_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getGeneratorId(), GENERATORID_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getAwsAccountId(), AWSACCOUNTID_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getTypes(), TYPES_BINDING);
@@ -127,15 +158,26 @@ public class AwsSecurityFindingMarshaller {
             protocolMarshaller.marshall(awsSecurityFinding.getUserDefinedFields(), USERDEFINEDFIELDS_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getMalware(), MALWARE_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getNetwork(), NETWORK_BINDING);
+            protocolMarshaller.marshall(awsSecurityFinding.getNetworkPath(), NETWORKPATH_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getProcess(), PROCESS_BINDING);
+            protocolMarshaller.marshall(awsSecurityFinding.getThreats(), THREATS_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getThreatIntelIndicators(), THREATINTELINDICATORS_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getResources(), RESOURCES_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getCompliance(), COMPLIANCE_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getVerificationState(), VERIFICATIONSTATE_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getWorkflowState(), WORKFLOWSTATE_BINDING);
+            protocolMarshaller.marshall(awsSecurityFinding.getWorkflow(), WORKFLOW_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getRecordState(), RECORDSTATE_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getRelatedFindings(), RELATEDFINDINGS_BINDING);
             protocolMarshaller.marshall(awsSecurityFinding.getNote(), NOTE_BINDING);
+            protocolMarshaller.marshall(awsSecurityFinding.getVulnerabilities(), VULNERABILITIES_BINDING);
+            protocolMarshaller.marshall(awsSecurityFinding.getPatchSummary(), PATCHSUMMARY_BINDING);
+            protocolMarshaller.marshall(awsSecurityFinding.getAction(), ACTION_BINDING);
+            protocolMarshaller.marshall(awsSecurityFinding.getFindingProviderFields(), FINDINGPROVIDERFIELDS_BINDING);
+            protocolMarshaller.marshall(awsSecurityFinding.getSample(), SAMPLE_BINDING);
+            protocolMarshaller.marshall(awsSecurityFinding.getGeneratorDetails(), GENERATORDETAILS_BINDING);
+            protocolMarshaller.marshall(awsSecurityFinding.getProcessedAt(), PROCESSEDAT_BINDING);
+            protocolMarshaller.marshall(awsSecurityFinding.getAwsAccountName(), AWSACCOUNTNAME_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

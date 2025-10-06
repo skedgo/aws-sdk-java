@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
     private String automationExecutionId;
     /**
      * <p>
-     * The name of the Automation document used during the execution.
+     * The name of the Automation runbook used during the execution.
      * </p>
      */
     private String documentName;
@@ -66,27 +66,27 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
     private String automationExecutionStatus;
     /**
      * <p>
-     * A list of details about the current state of all steps that comprise an execution. An Automation document
-     * contains a list of steps that are run in order.
+     * A list of details about the current state of all steps that comprise an execution. An Automation runbook contains
+     * a list of steps that are run in order.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<StepExecution> stepExecutions;
     /**
      * <p>
      * A boolean value that indicates if the response contains the full list of the Automation step executions. If true,
-     * use the DescribeAutomationStepExecutions API action to get the full list of step executions.
+     * use the DescribeAutomationStepExecutions API operation to get the full list of step executions.
      * </p>
      */
     private Boolean stepExecutionsTruncated;
     /**
      * <p>
-     * The key-value map of execution parameters, which were supplied when calling StartAutomationExecution.
+     * The key-value map of execution parameters, which were supplied when calling <a>StartAutomationExecution</a>.
      * </p>
      */
     private java.util.Map<String, java.util.List<String>> parameters;
     /**
      * <p>
-     * The list of execution outputs as defined in the automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      */
     private java.util.Map<String, java.util.List<String>> outputs;
@@ -152,7 +152,7 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
     private ResolvedTargets resolvedTargets;
     /**
      * <p>
-     * The MaxConcurrency value specified by the user when the execution started.
+     * The <code>MaxConcurrency</code> value specified by the user when the execution started.
      * </p>
      */
     private String maxConcurrency;
@@ -170,17 +170,78 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
     private String target;
     /**
      * <p>
-     * The combination of AWS Regions and/or AWS accounts where you want to run the Automation.
+     * The combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you want to run the
+     * Automation.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<TargetLocation> targetLocations;
     /**
      * <p>
-     * An aggregate of step execution statuses displayed in the AWS Console for a multi-Region and multi-account
-     * Automation execution.
+     * An aggregate of step execution statuses displayed in the Amazon Web Services Systems Manager console for a
+     * multi-Region and multi-account Automation execution.
      * </p>
      */
     private ProgressCounters progressCounters;
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your automation.
+     * </p>
+     */
+    private AlarmConfiguration alarmConfiguration;
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the automation.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<AlarmStateInformation> triggeredAlarms;
+    /**
+     * <p>
+     * The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>.
+     * </p>
+     */
+    private String automationSubtype;
+    /**
+     * <p>
+     * The date and time the Automation operation is scheduled to start.
+     * </p>
+     */
+    private java.util.Date scheduledTime;
+    /**
+     * <p>
+     * Information about the Automation runbooks that are run as part of a runbook workflow.
+     * </p>
+     * <note>
+     * <p>
+     * The Automation runbooks specified for the runbook workflow can't run until all required approvals for the change
+     * request have been received.
+     * </p>
+     * </note>
+     */
+    private com.amazonaws.internal.SdkInternalList<Runbook> runbooks;
+    /**
+     * <p>
+     * The ID of an OpsItem that is created to represent a Change Manager change request.
+     * </p>
+     */
+    private String opsItemId;
+    /**
+     * <p>
+     * The ID of a State Manager association used in the Automation operation.
+     * </p>
+     */
+    private String associationId;
+    /**
+     * <p>
+     * The name of the Change Manager change request.
+     * </p>
+     */
+    private String changeRequestName;
+    /**
+     * <p>
+     * Variables defined for the automation.
+     * </p>
+     */
+    private java.util.Map<String, java.util.List<String>> variables;
 
     /**
      * <p>
@@ -224,11 +285,11 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the Automation document used during the execution.
+     * The name of the Automation runbook used during the execution.
      * </p>
      * 
      * @param documentName
-     *        The name of the Automation document used during the execution.
+     *        The name of the Automation runbook used during the execution.
      */
 
     public void setDocumentName(String documentName) {
@@ -237,10 +298,10 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the Automation document used during the execution.
+     * The name of the Automation runbook used during the execution.
      * </p>
      * 
-     * @return The name of the Automation document used during the execution.
+     * @return The name of the Automation runbook used during the execution.
      */
 
     public String getDocumentName() {
@@ -249,11 +310,11 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the Automation document used during the execution.
+     * The name of the Automation runbook used during the execution.
      * </p>
      * 
      * @param documentName
-     *        The name of the Automation document used during the execution.
+     *        The name of the Automation runbook used during the execution.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -457,11 +518,11 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A list of details about the current state of all steps that comprise an execution. An Automation document
-     * contains a list of steps that are run in order.
+     * A list of details about the current state of all steps that comprise an execution. An Automation runbook contains
+     * a list of steps that are run in order.
      * </p>
      * 
-     * @return A list of details about the current state of all steps that comprise an execution. An Automation document
+     * @return A list of details about the current state of all steps that comprise an execution. An Automation runbook
      *         contains a list of steps that are run in order.
      */
 
@@ -474,12 +535,12 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A list of details about the current state of all steps that comprise an execution. An Automation document
-     * contains a list of steps that are run in order.
+     * A list of details about the current state of all steps that comprise an execution. An Automation runbook contains
+     * a list of steps that are run in order.
      * </p>
      * 
      * @param stepExecutions
-     *        A list of details about the current state of all steps that comprise an execution. An Automation document
+     *        A list of details about the current state of all steps that comprise an execution. An Automation runbook
      *        contains a list of steps that are run in order.
      */
 
@@ -494,8 +555,8 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A list of details about the current state of all steps that comprise an execution. An Automation document
-     * contains a list of steps that are run in order.
+     * A list of details about the current state of all steps that comprise an execution. An Automation runbook contains
+     * a list of steps that are run in order.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -504,7 +565,7 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
      * </p>
      * 
      * @param stepExecutions
-     *        A list of details about the current state of all steps that comprise an execution. An Automation document
+     *        A list of details about the current state of all steps that comprise an execution. An Automation runbook
      *        contains a list of steps that are run in order.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -521,12 +582,12 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A list of details about the current state of all steps that comprise an execution. An Automation document
-     * contains a list of steps that are run in order.
+     * A list of details about the current state of all steps that comprise an execution. An Automation runbook contains
+     * a list of steps that are run in order.
      * </p>
      * 
      * @param stepExecutions
-     *        A list of details about the current state of all steps that comprise an execution. An Automation document
+     *        A list of details about the current state of all steps that comprise an execution. An Automation runbook
      *        contains a list of steps that are run in order.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -539,12 +600,12 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
     /**
      * <p>
      * A boolean value that indicates if the response contains the full list of the Automation step executions. If true,
-     * use the DescribeAutomationStepExecutions API action to get the full list of step executions.
+     * use the DescribeAutomationStepExecutions API operation to get the full list of step executions.
      * </p>
      * 
      * @param stepExecutionsTruncated
      *        A boolean value that indicates if the response contains the full list of the Automation step executions.
-     *        If true, use the DescribeAutomationStepExecutions API action to get the full list of step executions.
+     *        If true, use the DescribeAutomationStepExecutions API operation to get the full list of step executions.
      */
 
     public void setStepExecutionsTruncated(Boolean stepExecutionsTruncated) {
@@ -554,11 +615,11 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
     /**
      * <p>
      * A boolean value that indicates if the response contains the full list of the Automation step executions. If true,
-     * use the DescribeAutomationStepExecutions API action to get the full list of step executions.
+     * use the DescribeAutomationStepExecutions API operation to get the full list of step executions.
      * </p>
      * 
      * @return A boolean value that indicates if the response contains the full list of the Automation step executions.
-     *         If true, use the DescribeAutomationStepExecutions API action to get the full list of step executions.
+     *         If true, use the DescribeAutomationStepExecutions API operation to get the full list of step executions.
      */
 
     public Boolean getStepExecutionsTruncated() {
@@ -568,12 +629,12 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
     /**
      * <p>
      * A boolean value that indicates if the response contains the full list of the Automation step executions. If true,
-     * use the DescribeAutomationStepExecutions API action to get the full list of step executions.
+     * use the DescribeAutomationStepExecutions API operation to get the full list of step executions.
      * </p>
      * 
      * @param stepExecutionsTruncated
      *        A boolean value that indicates if the response contains the full list of the Automation step executions.
-     *        If true, use the DescribeAutomationStepExecutions API action to get the full list of step executions.
+     *        If true, use the DescribeAutomationStepExecutions API operation to get the full list of step executions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -585,11 +646,11 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
     /**
      * <p>
      * A boolean value that indicates if the response contains the full list of the Automation step executions. If true,
-     * use the DescribeAutomationStepExecutions API action to get the full list of step executions.
+     * use the DescribeAutomationStepExecutions API operation to get the full list of step executions.
      * </p>
      * 
      * @return A boolean value that indicates if the response contains the full list of the Automation step executions.
-     *         If true, use the DescribeAutomationStepExecutions API action to get the full list of step executions.
+     *         If true, use the DescribeAutomationStepExecutions API operation to get the full list of step executions.
      */
 
     public Boolean isStepExecutionsTruncated() {
@@ -598,10 +659,11 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The key-value map of execution parameters, which were supplied when calling StartAutomationExecution.
+     * The key-value map of execution parameters, which were supplied when calling <a>StartAutomationExecution</a>.
      * </p>
      * 
-     * @return The key-value map of execution parameters, which were supplied when calling StartAutomationExecution.
+     * @return The key-value map of execution parameters, which were supplied when calling
+     *         <a>StartAutomationExecution</a>.
      */
 
     public java.util.Map<String, java.util.List<String>> getParameters() {
@@ -610,11 +672,12 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The key-value map of execution parameters, which were supplied when calling StartAutomationExecution.
+     * The key-value map of execution parameters, which were supplied when calling <a>StartAutomationExecution</a>.
      * </p>
      * 
      * @param parameters
-     *        The key-value map of execution parameters, which were supplied when calling StartAutomationExecution.
+     *        The key-value map of execution parameters, which were supplied when calling
+     *        <a>StartAutomationExecution</a>.
      */
 
     public void setParameters(java.util.Map<String, java.util.List<String>> parameters) {
@@ -623,11 +686,12 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The key-value map of execution parameters, which were supplied when calling StartAutomationExecution.
+     * The key-value map of execution parameters, which were supplied when calling <a>StartAutomationExecution</a>.
      * </p>
      * 
      * @param parameters
-     *        The key-value map of execution parameters, which were supplied when calling StartAutomationExecution.
+     *        The key-value map of execution parameters, which were supplied when calling
+     *        <a>StartAutomationExecution</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -635,6 +699,13 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
         setParameters(parameters);
         return this;
     }
+
+    /**
+     * Add a single Parameters entry
+     *
+     * @see AutomationExecution#withParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public AutomationExecution addParametersEntry(String key, java.util.List<String> value) {
         if (null == this.parameters) {
@@ -659,10 +730,10 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The list of execution outputs as defined in the automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      * 
-     * @return The list of execution outputs as defined in the automation document.
+     * @return The list of execution outputs as defined in the Automation runbook.
      */
 
     public java.util.Map<String, java.util.List<String>> getOutputs() {
@@ -671,11 +742,11 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The list of execution outputs as defined in the automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      * 
      * @param outputs
-     *        The list of execution outputs as defined in the automation document.
+     *        The list of execution outputs as defined in the Automation runbook.
      */
 
     public void setOutputs(java.util.Map<String, java.util.List<String>> outputs) {
@@ -684,11 +755,11 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The list of execution outputs as defined in the automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      * 
      * @param outputs
-     *        The list of execution outputs as defined in the automation document.
+     *        The list of execution outputs as defined in the Automation runbook.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -696,6 +767,13 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
         setOutputs(outputs);
         return this;
     }
+
+    /**
+     * Add a single Outputs entry
+     *
+     * @see AutomationExecution#withOutputs
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public AutomationExecution addOutputsEntry(String key, java.util.List<String> value) {
         if (null == this.outputs) {
@@ -1219,11 +1297,11 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The MaxConcurrency value specified by the user when the execution started.
+     * The <code>MaxConcurrency</code> value specified by the user when the execution started.
      * </p>
      * 
      * @param maxConcurrency
-     *        The MaxConcurrency value specified by the user when the execution started.
+     *        The <code>MaxConcurrency</code> value specified by the user when the execution started.
      */
 
     public void setMaxConcurrency(String maxConcurrency) {
@@ -1232,10 +1310,10 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The MaxConcurrency value specified by the user when the execution started.
+     * The <code>MaxConcurrency</code> value specified by the user when the execution started.
      * </p>
      * 
-     * @return The MaxConcurrency value specified by the user when the execution started.
+     * @return The <code>MaxConcurrency</code> value specified by the user when the execution started.
      */
 
     public String getMaxConcurrency() {
@@ -1244,11 +1322,11 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The MaxConcurrency value specified by the user when the execution started.
+     * The <code>MaxConcurrency</code> value specified by the user when the execution started.
      * </p>
      * 
      * @param maxConcurrency
-     *        The MaxConcurrency value specified by the user when the execution started.
+     *        The <code>MaxConcurrency</code> value specified by the user when the execution started.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1339,10 +1417,12 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The combination of AWS Regions and/or AWS accounts where you want to run the Automation.
+     * The combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you want to run the
+     * Automation.
      * </p>
      * 
-     * @return The combination of AWS Regions and/or AWS accounts where you want to run the Automation.
+     * @return The combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you want to run
+     *         the Automation.
      */
 
     public java.util.List<TargetLocation> getTargetLocations() {
@@ -1354,11 +1434,13 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The combination of AWS Regions and/or AWS accounts where you want to run the Automation.
+     * The combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you want to run the
+     * Automation.
      * </p>
      * 
      * @param targetLocations
-     *        The combination of AWS Regions and/or AWS accounts where you want to run the Automation.
+     *        The combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you want to run
+     *        the Automation.
      */
 
     public void setTargetLocations(java.util.Collection<TargetLocation> targetLocations) {
@@ -1372,7 +1454,8 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The combination of AWS Regions and/or AWS accounts where you want to run the Automation.
+     * The combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you want to run the
+     * Automation.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1381,7 +1464,8 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
      * </p>
      * 
      * @param targetLocations
-     *        The combination of AWS Regions and/or AWS accounts where you want to run the Automation.
+     *        The combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you want to run
+     *        the Automation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1397,11 +1481,13 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The combination of AWS Regions and/or AWS accounts where you want to run the Automation.
+     * The combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you want to run the
+     * Automation.
      * </p>
      * 
      * @param targetLocations
-     *        The combination of AWS Regions and/or AWS accounts where you want to run the Automation.
+     *        The combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you want to run
+     *        the Automation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1412,13 +1498,13 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * An aggregate of step execution statuses displayed in the AWS Console for a multi-Region and multi-account
-     * Automation execution.
+     * An aggregate of step execution statuses displayed in the Amazon Web Services Systems Manager console for a
+     * multi-Region and multi-account Automation execution.
      * </p>
      * 
      * @param progressCounters
-     *        An aggregate of step execution statuses displayed in the AWS Console for a multi-Region and multi-account
-     *        Automation execution.
+     *        An aggregate of step execution statuses displayed in the Amazon Web Services Systems Manager console for a
+     *        multi-Region and multi-account Automation execution.
      */
 
     public void setProgressCounters(ProgressCounters progressCounters) {
@@ -1427,12 +1513,12 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * An aggregate of step execution statuses displayed in the AWS Console for a multi-Region and multi-account
-     * Automation execution.
+     * An aggregate of step execution statuses displayed in the Amazon Web Services Systems Manager console for a
+     * multi-Region and multi-account Automation execution.
      * </p>
      * 
-     * @return An aggregate of step execution statuses displayed in the AWS Console for a multi-Region and multi-account
-     *         Automation execution.
+     * @return An aggregate of step execution statuses displayed in the Amazon Web Services Systems Manager console for
+     *         a multi-Region and multi-account Automation execution.
      */
 
     public ProgressCounters getProgressCounters() {
@@ -1441,18 +1527,550 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * An aggregate of step execution statuses displayed in the AWS Console for a multi-Region and multi-account
-     * Automation execution.
+     * An aggregate of step execution statuses displayed in the Amazon Web Services Systems Manager console for a
+     * multi-Region and multi-account Automation execution.
      * </p>
      * 
      * @param progressCounters
-     *        An aggregate of step execution statuses displayed in the AWS Console for a multi-Region and multi-account
-     *        Automation execution.
+     *        An aggregate of step execution statuses displayed in the Amazon Web Services Systems Manager console for a
+     *        multi-Region and multi-account Automation execution.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public AutomationExecution withProgressCounters(ProgressCounters progressCounters) {
         setProgressCounters(progressCounters);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your automation.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The details for the CloudWatch alarm applied to your automation.
+     */
+
+    public void setAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        this.alarmConfiguration = alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your automation.
+     * </p>
+     * 
+     * @return The details for the CloudWatch alarm applied to your automation.
+     */
+
+    public AlarmConfiguration getAlarmConfiguration() {
+        return this.alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your automation.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The details for the CloudWatch alarm applied to your automation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecution withAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        setAlarmConfiguration(alarmConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the automation.
+     * </p>
+     * 
+     * @return The CloudWatch alarm that was invoked by the automation.
+     */
+
+    public java.util.List<AlarmStateInformation> getTriggeredAlarms() {
+        if (triggeredAlarms == null) {
+            triggeredAlarms = new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>();
+        }
+        return triggeredAlarms;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the automation.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarm that was invoked by the automation.
+     */
+
+    public void setTriggeredAlarms(java.util.Collection<AlarmStateInformation> triggeredAlarms) {
+        if (triggeredAlarms == null) {
+            this.triggeredAlarms = null;
+            return;
+        }
+
+        this.triggeredAlarms = new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>(triggeredAlarms);
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the automation.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTriggeredAlarms(java.util.Collection)} or {@link #withTriggeredAlarms(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarm that was invoked by the automation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecution withTriggeredAlarms(AlarmStateInformation... triggeredAlarms) {
+        if (this.triggeredAlarms == null) {
+            setTriggeredAlarms(new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>(triggeredAlarms.length));
+        }
+        for (AlarmStateInformation ele : triggeredAlarms) {
+            this.triggeredAlarms.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the automation.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarm that was invoked by the automation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecution withTriggeredAlarms(java.util.Collection<AlarmStateInformation> triggeredAlarms) {
+        setTriggeredAlarms(triggeredAlarms);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>.
+     * </p>
+     * 
+     * @param automationSubtype
+     *        The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>
+     *        .
+     * @see AutomationSubtype
+     */
+
+    public void setAutomationSubtype(String automationSubtype) {
+        this.automationSubtype = automationSubtype;
+    }
+
+    /**
+     * <p>
+     * The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>.
+     * </p>
+     * 
+     * @return The subtype of the Automation operation. Currently, the only supported value is
+     *         <code>ChangeRequest</code>.
+     * @see AutomationSubtype
+     */
+
+    public String getAutomationSubtype() {
+        return this.automationSubtype;
+    }
+
+    /**
+     * <p>
+     * The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>.
+     * </p>
+     * 
+     * @param automationSubtype
+     *        The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>
+     *        .
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AutomationSubtype
+     */
+
+    public AutomationExecution withAutomationSubtype(String automationSubtype) {
+        setAutomationSubtype(automationSubtype);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>.
+     * </p>
+     * 
+     * @param automationSubtype
+     *        The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>
+     *        .
+     * @see AutomationSubtype
+     */
+
+    public void setAutomationSubtype(AutomationSubtype automationSubtype) {
+        withAutomationSubtype(automationSubtype);
+    }
+
+    /**
+     * <p>
+     * The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>.
+     * </p>
+     * 
+     * @param automationSubtype
+     *        The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>
+     *        .
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AutomationSubtype
+     */
+
+    public AutomationExecution withAutomationSubtype(AutomationSubtype automationSubtype) {
+        this.automationSubtype = automationSubtype.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date and time the Automation operation is scheduled to start.
+     * </p>
+     * 
+     * @param scheduledTime
+     *        The date and time the Automation operation is scheduled to start.
+     */
+
+    public void setScheduledTime(java.util.Date scheduledTime) {
+        this.scheduledTime = scheduledTime;
+    }
+
+    /**
+     * <p>
+     * The date and time the Automation operation is scheduled to start.
+     * </p>
+     * 
+     * @return The date and time the Automation operation is scheduled to start.
+     */
+
+    public java.util.Date getScheduledTime() {
+        return this.scheduledTime;
+    }
+
+    /**
+     * <p>
+     * The date and time the Automation operation is scheduled to start.
+     * </p>
+     * 
+     * @param scheduledTime
+     *        The date and time the Automation operation is scheduled to start.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecution withScheduledTime(java.util.Date scheduledTime) {
+        setScheduledTime(scheduledTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the Automation runbooks that are run as part of a runbook workflow.
+     * </p>
+     * <note>
+     * <p>
+     * The Automation runbooks specified for the runbook workflow can't run until all required approvals for the change
+     * request have been received.
+     * </p>
+     * </note>
+     * 
+     * @return Information about the Automation runbooks that are run as part of a runbook workflow.</p> <note>
+     *         <p>
+     *         The Automation runbooks specified for the runbook workflow can't run until all required approvals for the
+     *         change request have been received.
+     *         </p>
+     */
+
+    public java.util.List<Runbook> getRunbooks() {
+        if (runbooks == null) {
+            runbooks = new com.amazonaws.internal.SdkInternalList<Runbook>();
+        }
+        return runbooks;
+    }
+
+    /**
+     * <p>
+     * Information about the Automation runbooks that are run as part of a runbook workflow.
+     * </p>
+     * <note>
+     * <p>
+     * The Automation runbooks specified for the runbook workflow can't run until all required approvals for the change
+     * request have been received.
+     * </p>
+     * </note>
+     * 
+     * @param runbooks
+     *        Information about the Automation runbooks that are run as part of a runbook workflow.</p> <note>
+     *        <p>
+     *        The Automation runbooks specified for the runbook workflow can't run until all required approvals for the
+     *        change request have been received.
+     *        </p>
+     */
+
+    public void setRunbooks(java.util.Collection<Runbook> runbooks) {
+        if (runbooks == null) {
+            this.runbooks = null;
+            return;
+        }
+
+        this.runbooks = new com.amazonaws.internal.SdkInternalList<Runbook>(runbooks);
+    }
+
+    /**
+     * <p>
+     * Information about the Automation runbooks that are run as part of a runbook workflow.
+     * </p>
+     * <note>
+     * <p>
+     * The Automation runbooks specified for the runbook workflow can't run until all required approvals for the change
+     * request have been received.
+     * </p>
+     * </note>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRunbooks(java.util.Collection)} or {@link #withRunbooks(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param runbooks
+     *        Information about the Automation runbooks that are run as part of a runbook workflow.</p> <note>
+     *        <p>
+     *        The Automation runbooks specified for the runbook workflow can't run until all required approvals for the
+     *        change request have been received.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecution withRunbooks(Runbook... runbooks) {
+        if (this.runbooks == null) {
+            setRunbooks(new com.amazonaws.internal.SdkInternalList<Runbook>(runbooks.length));
+        }
+        for (Runbook ele : runbooks) {
+            this.runbooks.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the Automation runbooks that are run as part of a runbook workflow.
+     * </p>
+     * <note>
+     * <p>
+     * The Automation runbooks specified for the runbook workflow can't run until all required approvals for the change
+     * request have been received.
+     * </p>
+     * </note>
+     * 
+     * @param runbooks
+     *        Information about the Automation runbooks that are run as part of a runbook workflow.</p> <note>
+     *        <p>
+     *        The Automation runbooks specified for the runbook workflow can't run until all required approvals for the
+     *        change request have been received.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecution withRunbooks(java.util.Collection<Runbook> runbooks) {
+        setRunbooks(runbooks);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of an OpsItem that is created to represent a Change Manager change request.
+     * </p>
+     * 
+     * @param opsItemId
+     *        The ID of an OpsItem that is created to represent a Change Manager change request.
+     */
+
+    public void setOpsItemId(String opsItemId) {
+        this.opsItemId = opsItemId;
+    }
+
+    /**
+     * <p>
+     * The ID of an OpsItem that is created to represent a Change Manager change request.
+     * </p>
+     * 
+     * @return The ID of an OpsItem that is created to represent a Change Manager change request.
+     */
+
+    public String getOpsItemId() {
+        return this.opsItemId;
+    }
+
+    /**
+     * <p>
+     * The ID of an OpsItem that is created to represent a Change Manager change request.
+     * </p>
+     * 
+     * @param opsItemId
+     *        The ID of an OpsItem that is created to represent a Change Manager change request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecution withOpsItemId(String opsItemId) {
+        setOpsItemId(opsItemId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of a State Manager association used in the Automation operation.
+     * </p>
+     * 
+     * @param associationId
+     *        The ID of a State Manager association used in the Automation operation.
+     */
+
+    public void setAssociationId(String associationId) {
+        this.associationId = associationId;
+    }
+
+    /**
+     * <p>
+     * The ID of a State Manager association used in the Automation operation.
+     * </p>
+     * 
+     * @return The ID of a State Manager association used in the Automation operation.
+     */
+
+    public String getAssociationId() {
+        return this.associationId;
+    }
+
+    /**
+     * <p>
+     * The ID of a State Manager association used in the Automation operation.
+     * </p>
+     * 
+     * @param associationId
+     *        The ID of a State Manager association used in the Automation operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecution withAssociationId(String associationId) {
+        setAssociationId(associationId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the Change Manager change request.
+     * </p>
+     * 
+     * @param changeRequestName
+     *        The name of the Change Manager change request.
+     */
+
+    public void setChangeRequestName(String changeRequestName) {
+        this.changeRequestName = changeRequestName;
+    }
+
+    /**
+     * <p>
+     * The name of the Change Manager change request.
+     * </p>
+     * 
+     * @return The name of the Change Manager change request.
+     */
+
+    public String getChangeRequestName() {
+        return this.changeRequestName;
+    }
+
+    /**
+     * <p>
+     * The name of the Change Manager change request.
+     * </p>
+     * 
+     * @param changeRequestName
+     *        The name of the Change Manager change request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecution withChangeRequestName(String changeRequestName) {
+        setChangeRequestName(changeRequestName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Variables defined for the automation.
+     * </p>
+     * 
+     * @return Variables defined for the automation.
+     */
+
+    public java.util.Map<String, java.util.List<String>> getVariables() {
+        return variables;
+    }
+
+    /**
+     * <p>
+     * Variables defined for the automation.
+     * </p>
+     * 
+     * @param variables
+     *        Variables defined for the automation.
+     */
+
+    public void setVariables(java.util.Map<String, java.util.List<String>> variables) {
+        this.variables = variables;
+    }
+
+    /**
+     * <p>
+     * Variables defined for the automation.
+     * </p>
+     * 
+     * @param variables
+     *        Variables defined for the automation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecution withVariables(java.util.Map<String, java.util.List<String>> variables) {
+        setVariables(variables);
+        return this;
+    }
+
+    /**
+     * Add a single Variables entry
+     *
+     * @see AutomationExecution#withVariables
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecution addVariablesEntry(String key, java.util.List<String> value) {
+        if (null == this.variables) {
+            this.variables = new java.util.HashMap<String, java.util.List<String>>();
+        }
+        if (this.variables.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.variables.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Variables.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecution clearVariablesEntries() {
+        this.variables = null;
         return this;
     }
 
@@ -1517,7 +2135,25 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
         if (getTargetLocations() != null)
             sb.append("TargetLocations: ").append(getTargetLocations()).append(",");
         if (getProgressCounters() != null)
-            sb.append("ProgressCounters: ").append(getProgressCounters());
+            sb.append("ProgressCounters: ").append(getProgressCounters()).append(",");
+        if (getAlarmConfiguration() != null)
+            sb.append("AlarmConfiguration: ").append(getAlarmConfiguration()).append(",");
+        if (getTriggeredAlarms() != null)
+            sb.append("TriggeredAlarms: ").append(getTriggeredAlarms()).append(",");
+        if (getAutomationSubtype() != null)
+            sb.append("AutomationSubtype: ").append(getAutomationSubtype()).append(",");
+        if (getScheduledTime() != null)
+            sb.append("ScheduledTime: ").append(getScheduledTime()).append(",");
+        if (getRunbooks() != null)
+            sb.append("Runbooks: ").append(getRunbooks()).append(",");
+        if (getOpsItemId() != null)
+            sb.append("OpsItemId: ").append(getOpsItemId()).append(",");
+        if (getAssociationId() != null)
+            sb.append("AssociationId: ").append(getAssociationId()).append(",");
+        if (getChangeRequestName() != null)
+            sb.append("ChangeRequestName: ").append(getChangeRequestName()).append(",");
+        if (getVariables() != null)
+            sb.append("Variables: ").append(getVariables());
         sb.append("}");
         return sb.toString();
     }
@@ -1632,6 +2268,42 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getProgressCounters() != null && other.getProgressCounters().equals(this.getProgressCounters()) == false)
             return false;
+        if (other.getAlarmConfiguration() == null ^ this.getAlarmConfiguration() == null)
+            return false;
+        if (other.getAlarmConfiguration() != null && other.getAlarmConfiguration().equals(this.getAlarmConfiguration()) == false)
+            return false;
+        if (other.getTriggeredAlarms() == null ^ this.getTriggeredAlarms() == null)
+            return false;
+        if (other.getTriggeredAlarms() != null && other.getTriggeredAlarms().equals(this.getTriggeredAlarms()) == false)
+            return false;
+        if (other.getAutomationSubtype() == null ^ this.getAutomationSubtype() == null)
+            return false;
+        if (other.getAutomationSubtype() != null && other.getAutomationSubtype().equals(this.getAutomationSubtype()) == false)
+            return false;
+        if (other.getScheduledTime() == null ^ this.getScheduledTime() == null)
+            return false;
+        if (other.getScheduledTime() != null && other.getScheduledTime().equals(this.getScheduledTime()) == false)
+            return false;
+        if (other.getRunbooks() == null ^ this.getRunbooks() == null)
+            return false;
+        if (other.getRunbooks() != null && other.getRunbooks().equals(this.getRunbooks()) == false)
+            return false;
+        if (other.getOpsItemId() == null ^ this.getOpsItemId() == null)
+            return false;
+        if (other.getOpsItemId() != null && other.getOpsItemId().equals(this.getOpsItemId()) == false)
+            return false;
+        if (other.getAssociationId() == null ^ this.getAssociationId() == null)
+            return false;
+        if (other.getAssociationId() != null && other.getAssociationId().equals(this.getAssociationId()) == false)
+            return false;
+        if (other.getChangeRequestName() == null ^ this.getChangeRequestName() == null)
+            return false;
+        if (other.getChangeRequestName() != null && other.getChangeRequestName().equals(this.getChangeRequestName()) == false)
+            return false;
+        if (other.getVariables() == null ^ this.getVariables() == null)
+            return false;
+        if (other.getVariables() != null && other.getVariables().equals(this.getVariables()) == false)
+            return false;
         return true;
     }
 
@@ -1665,6 +2337,15 @@ public class AutomationExecution implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getTarget() == null) ? 0 : getTarget().hashCode());
         hashCode = prime * hashCode + ((getTargetLocations() == null) ? 0 : getTargetLocations().hashCode());
         hashCode = prime * hashCode + ((getProgressCounters() == null) ? 0 : getProgressCounters().hashCode());
+        hashCode = prime * hashCode + ((getAlarmConfiguration() == null) ? 0 : getAlarmConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getTriggeredAlarms() == null) ? 0 : getTriggeredAlarms().hashCode());
+        hashCode = prime * hashCode + ((getAutomationSubtype() == null) ? 0 : getAutomationSubtype().hashCode());
+        hashCode = prime * hashCode + ((getScheduledTime() == null) ? 0 : getScheduledTime().hashCode());
+        hashCode = prime * hashCode + ((getRunbooks() == null) ? 0 : getRunbooks().hashCode());
+        hashCode = prime * hashCode + ((getOpsItemId() == null) ? 0 : getOpsItemId().hashCode());
+        hashCode = prime * hashCode + ((getAssociationId() == null) ? 0 : getAssociationId().hashCode());
+        hashCode = prime * hashCode + ((getChangeRequestName() == null) ? 0 : getChangeRequestName().hashCode());
+        hashCode = prime * hashCode + ((getVariables() == null) ? 0 : getVariables().hashCode());
         return hashCode;
     }
 

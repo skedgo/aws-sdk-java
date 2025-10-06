@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Details of abort criteria to define rules to abort the job.
+ * The criteria that determine when and how a job abort takes place.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -27,39 +27,40 @@ public class AbortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of job execution failure to define a rule to initiate a job abort.
+     * The type of job execution failures that can initiate a job abort.
      * </p>
      */
     private String failureType;
     /**
      * <p>
-     * The type of abort action to initiate a job abort.
+     * The type of job action to take to initiate the job abort.
      * </p>
      */
     private String action;
     /**
      * <p>
-     * The threshold as a percentage of the total number of executed things that will initiate a job abort.
+     * The minimum percentage of job execution failures that must occur to initiate the job abort.
      * </p>
      * <p>
-     * AWS IoT supports up to two digits after the decimal (for example, 10.9 and 10.99, but not 10.999).
+     * Amazon Web Services IoT Core supports up to two digits after the decimal (for example, 10.9 and 10.99, but not
+     * 10.999).
      * </p>
      */
     private Double thresholdPercentage;
     /**
      * <p>
-     * Minimum number of executed things before evaluating an abort rule.
+     * The minimum number of things which must receive job execution notifications before the job can be aborted.
      * </p>
      */
     private Integer minNumberOfExecutedThings;
 
     /**
      * <p>
-     * The type of job execution failure to define a rule to initiate a job abort.
+     * The type of job execution failures that can initiate a job abort.
      * </p>
      * 
      * @param failureType
-     *        The type of job execution failure to define a rule to initiate a job abort.
+     *        The type of job execution failures that can initiate a job abort.
      * @see JobExecutionFailureType
      */
 
@@ -69,10 +70,10 @@ public class AbortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of job execution failure to define a rule to initiate a job abort.
+     * The type of job execution failures that can initiate a job abort.
      * </p>
      * 
-     * @return The type of job execution failure to define a rule to initiate a job abort.
+     * @return The type of job execution failures that can initiate a job abort.
      * @see JobExecutionFailureType
      */
 
@@ -82,11 +83,11 @@ public class AbortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of job execution failure to define a rule to initiate a job abort.
+     * The type of job execution failures that can initiate a job abort.
      * </p>
      * 
      * @param failureType
-     *        The type of job execution failure to define a rule to initiate a job abort.
+     *        The type of job execution failures that can initiate a job abort.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see JobExecutionFailureType
      */
@@ -98,11 +99,11 @@ public class AbortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of job execution failure to define a rule to initiate a job abort.
+     * The type of job execution failures that can initiate a job abort.
      * </p>
      * 
      * @param failureType
-     *        The type of job execution failure to define a rule to initiate a job abort.
+     *        The type of job execution failures that can initiate a job abort.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see JobExecutionFailureType
      */
@@ -114,11 +115,11 @@ public class AbortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of abort action to initiate a job abort.
+     * The type of job action to take to initiate the job abort.
      * </p>
      * 
      * @param action
-     *        The type of abort action to initiate a job abort.
+     *        The type of job action to take to initiate the job abort.
      * @see AbortAction
      */
 
@@ -128,10 +129,10 @@ public class AbortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of abort action to initiate a job abort.
+     * The type of job action to take to initiate the job abort.
      * </p>
      * 
-     * @return The type of abort action to initiate a job abort.
+     * @return The type of job action to take to initiate the job abort.
      * @see AbortAction
      */
 
@@ -141,11 +142,11 @@ public class AbortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of abort action to initiate a job abort.
+     * The type of job action to take to initiate the job abort.
      * </p>
      * 
      * @param action
-     *        The type of abort action to initiate a job abort.
+     *        The type of job action to take to initiate the job abort.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AbortAction
      */
@@ -157,11 +158,11 @@ public class AbortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of abort action to initiate a job abort.
+     * The type of job action to take to initiate the job abort.
      * </p>
      * 
      * @param action
-     *        The type of abort action to initiate a job abort.
+     *        The type of job action to take to initiate the job abort.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AbortAction
      */
@@ -173,16 +174,18 @@ public class AbortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The threshold as a percentage of the total number of executed things that will initiate a job abort.
+     * The minimum percentage of job execution failures that must occur to initiate the job abort.
      * </p>
      * <p>
-     * AWS IoT supports up to two digits after the decimal (for example, 10.9 and 10.99, but not 10.999).
+     * Amazon Web Services IoT Core supports up to two digits after the decimal (for example, 10.9 and 10.99, but not
+     * 10.999).
      * </p>
      * 
      * @param thresholdPercentage
-     *        The threshold as a percentage of the total number of executed things that will initiate a job abort.</p>
+     *        The minimum percentage of job execution failures that must occur to initiate the job abort.</p>
      *        <p>
-     *        AWS IoT supports up to two digits after the decimal (for example, 10.9 and 10.99, but not 10.999).
+     *        Amazon Web Services IoT Core supports up to two digits after the decimal (for example, 10.9 and 10.99, but
+     *        not 10.999).
      */
 
     public void setThresholdPercentage(Double thresholdPercentage) {
@@ -191,15 +194,17 @@ public class AbortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The threshold as a percentage of the total number of executed things that will initiate a job abort.
+     * The minimum percentage of job execution failures that must occur to initiate the job abort.
      * </p>
      * <p>
-     * AWS IoT supports up to two digits after the decimal (for example, 10.9 and 10.99, but not 10.999).
+     * Amazon Web Services IoT Core supports up to two digits after the decimal (for example, 10.9 and 10.99, but not
+     * 10.999).
      * </p>
      * 
-     * @return The threshold as a percentage of the total number of executed things that will initiate a job abort.</p>
+     * @return The minimum percentage of job execution failures that must occur to initiate the job abort.</p>
      *         <p>
-     *         AWS IoT supports up to two digits after the decimal (for example, 10.9 and 10.99, but not 10.999).
+     *         Amazon Web Services IoT Core supports up to two digits after the decimal (for example, 10.9 and 10.99,
+     *         but not 10.999).
      */
 
     public Double getThresholdPercentage() {
@@ -208,16 +213,18 @@ public class AbortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The threshold as a percentage of the total number of executed things that will initiate a job abort.
+     * The minimum percentage of job execution failures that must occur to initiate the job abort.
      * </p>
      * <p>
-     * AWS IoT supports up to two digits after the decimal (for example, 10.9 and 10.99, but not 10.999).
+     * Amazon Web Services IoT Core supports up to two digits after the decimal (for example, 10.9 and 10.99, but not
+     * 10.999).
      * </p>
      * 
      * @param thresholdPercentage
-     *        The threshold as a percentage of the total number of executed things that will initiate a job abort.</p>
+     *        The minimum percentage of job execution failures that must occur to initiate the job abort.</p>
      *        <p>
-     *        AWS IoT supports up to two digits after the decimal (for example, 10.9 and 10.99, but not 10.999).
+     *        Amazon Web Services IoT Core supports up to two digits after the decimal (for example, 10.9 and 10.99, but
+     *        not 10.999).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -228,11 +235,11 @@ public class AbortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Minimum number of executed things before evaluating an abort rule.
+     * The minimum number of things which must receive job execution notifications before the job can be aborted.
      * </p>
      * 
      * @param minNumberOfExecutedThings
-     *        Minimum number of executed things before evaluating an abort rule.
+     *        The minimum number of things which must receive job execution notifications before the job can be aborted.
      */
 
     public void setMinNumberOfExecutedThings(Integer minNumberOfExecutedThings) {
@@ -241,10 +248,11 @@ public class AbortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Minimum number of executed things before evaluating an abort rule.
+     * The minimum number of things which must receive job execution notifications before the job can be aborted.
      * </p>
      * 
-     * @return Minimum number of executed things before evaluating an abort rule.
+     * @return The minimum number of things which must receive job execution notifications before the job can be
+     *         aborted.
      */
 
     public Integer getMinNumberOfExecutedThings() {
@@ -253,11 +261,11 @@ public class AbortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Minimum number of executed things before evaluating an abort rule.
+     * The minimum number of things which must receive job execution notifications before the job can be aborted.
      * </p>
      * 
      * @param minNumberOfExecutedThings
-     *        Minimum number of executed things before evaluating an abort rule.
+     *        The minimum number of things which must receive job execution notifications before the job can be aborted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

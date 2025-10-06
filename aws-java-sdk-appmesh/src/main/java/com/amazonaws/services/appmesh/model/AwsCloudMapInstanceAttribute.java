@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,13 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An object representing the AWS Cloud Map attribute information for your virtual node.
+ * An object that represents the Cloud Map attribute information for your virtual node.
  * </p>
+ * <note>
+ * <p>
+ * Cloud Map is not available in the eu-south-1 Region.
+ * </p>
+ * </note>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/AwsCloudMapInstanceAttribute"
  *      target="_top">AWS API Documentation</a>
@@ -30,28 +35,28 @@ public class AwsCloudMapInstanceAttribute implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The name of an AWS Cloud Map service instance attribute key. Any AWS Cloud Map service instance that contains the
+     * The name of an Cloud Map service instance attribute key. Any Cloud Map service instance that contains the
      * specified key and value is returned.
      * </p>
      */
     private String key;
     /**
      * <p>
-     * The value of an AWS Cloud Map service instance attribute key. Any AWS Cloud Map service instance that contains
-     * the specified key and value is returned.
+     * The value of an Cloud Map service instance attribute key. Any Cloud Map service instance that contains the
+     * specified key and value is returned.
      * </p>
      */
     private String value;
 
     /**
      * <p>
-     * The name of an AWS Cloud Map service instance attribute key. Any AWS Cloud Map service instance that contains the
+     * The name of an Cloud Map service instance attribute key. Any Cloud Map service instance that contains the
      * specified key and value is returned.
      * </p>
      * 
      * @param key
-     *        The name of an AWS Cloud Map service instance attribute key. Any AWS Cloud Map service instance that
-     *        contains the specified key and value is returned.
+     *        The name of an Cloud Map service instance attribute key. Any Cloud Map service instance that contains the
+     *        specified key and value is returned.
      */
 
     public void setKey(String key) {
@@ -60,12 +65,12 @@ public class AwsCloudMapInstanceAttribute implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The name of an AWS Cloud Map service instance attribute key. Any AWS Cloud Map service instance that contains the
+     * The name of an Cloud Map service instance attribute key. Any Cloud Map service instance that contains the
      * specified key and value is returned.
      * </p>
      * 
-     * @return The name of an AWS Cloud Map service instance attribute key. Any AWS Cloud Map service instance that
-     *         contains the specified key and value is returned.
+     * @return The name of an Cloud Map service instance attribute key. Any Cloud Map service instance that contains the
+     *         specified key and value is returned.
      */
 
     public String getKey() {
@@ -74,13 +79,13 @@ public class AwsCloudMapInstanceAttribute implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The name of an AWS Cloud Map service instance attribute key. Any AWS Cloud Map service instance that contains the
+     * The name of an Cloud Map service instance attribute key. Any Cloud Map service instance that contains the
      * specified key and value is returned.
      * </p>
      * 
      * @param key
-     *        The name of an AWS Cloud Map service instance attribute key. Any AWS Cloud Map service instance that
-     *        contains the specified key and value is returned.
+     *        The name of an Cloud Map service instance attribute key. Any Cloud Map service instance that contains the
+     *        specified key and value is returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -91,13 +96,13 @@ public class AwsCloudMapInstanceAttribute implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The value of an AWS Cloud Map service instance attribute key. Any AWS Cloud Map service instance that contains
-     * the specified key and value is returned.
+     * The value of an Cloud Map service instance attribute key. Any Cloud Map service instance that contains the
+     * specified key and value is returned.
      * </p>
      * 
      * @param value
-     *        The value of an AWS Cloud Map service instance attribute key. Any AWS Cloud Map service instance that
-     *        contains the specified key and value is returned.
+     *        The value of an Cloud Map service instance attribute key. Any Cloud Map service instance that contains the
+     *        specified key and value is returned.
      */
 
     public void setValue(String value) {
@@ -106,12 +111,12 @@ public class AwsCloudMapInstanceAttribute implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The value of an AWS Cloud Map service instance attribute key. Any AWS Cloud Map service instance that contains
-     * the specified key and value is returned.
+     * The value of an Cloud Map service instance attribute key. Any Cloud Map service instance that contains the
+     * specified key and value is returned.
      * </p>
      * 
-     * @return The value of an AWS Cloud Map service instance attribute key. Any AWS Cloud Map service instance that
-     *         contains the specified key and value is returned.
+     * @return The value of an Cloud Map service instance attribute key. Any Cloud Map service instance that contains
+     *         the specified key and value is returned.
      */
 
     public String getValue() {
@@ -120,13 +125,13 @@ public class AwsCloudMapInstanceAttribute implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The value of an AWS Cloud Map service instance attribute key. Any AWS Cloud Map service instance that contains
-     * the specified key and value is returned.
+     * The value of an Cloud Map service instance attribute key. Any Cloud Map service instance that contains the
+     * specified key and value is returned.
      * </p>
      * 
      * @param value
-     *        The value of an AWS Cloud Map service instance attribute key. Any AWS Cloud Map service instance that
-     *        contains the specified key and value is returned.
+     *        The value of an Cloud Map service instance attribute key. Any Cloud Map service instance that contains the
+     *        specified key and value is returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -11,6 +11,8 @@
  * and limitations under the License.
  */
 package com.amazonaws.services.fms.model.transform;
+
+import java.util.Map;
 
 import javax.annotation.Generated;
 
@@ -33,6 +35,8 @@ public class ComplianceViolatorMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ViolationReason").build();
     private static final MarshallingInfo<String> RESOURCETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceType").build();
+    private static final MarshallingInfo<Map> METADATA_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Metadata").build();
 
     private static final ComplianceViolatorMarshaller instance = new ComplianceViolatorMarshaller();
 
@@ -53,6 +57,7 @@ public class ComplianceViolatorMarshaller {
             protocolMarshaller.marshall(complianceViolator.getResourceId(), RESOURCEID_BINDING);
             protocolMarshaller.marshall(complianceViolator.getViolationReason(), VIOLATIONREASON_BINDING);
             protocolMarshaller.marshall(complianceViolator.getResourceType(), RESOURCETYPE_BINDING);
+            protocolMarshaller.marshall(complianceViolator.getMetadata(), METADATA_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

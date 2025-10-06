@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,6 +43,11 @@ public class AbstractAWSBudgets implements AWSBudgets {
     }
 
     @Override
+    public CreateBudgetActionResult createBudgetAction(CreateBudgetActionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateNotificationResult createNotification(CreateNotificationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -58,6 +63,11 @@ public class AbstractAWSBudgets implements AWSBudgets {
     }
 
     @Override
+    public DeleteBudgetActionResult deleteBudgetAction(DeleteBudgetActionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteNotificationResult deleteNotification(DeleteNotificationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -69,6 +79,31 @@ public class AbstractAWSBudgets implements AWSBudgets {
 
     @Override
     public DescribeBudgetResult describeBudget(DescribeBudgetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeBudgetActionResult describeBudgetAction(DescribeBudgetActionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeBudgetActionHistoriesResult describeBudgetActionHistories(DescribeBudgetActionHistoriesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeBudgetActionsForAccountResult describeBudgetActionsForAccount(DescribeBudgetActionsForAccountRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeBudgetActionsForBudgetResult describeBudgetActionsForBudget(DescribeBudgetActionsForBudgetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeBudgetNotificationsForAccountResult describeBudgetNotificationsForAccount(DescribeBudgetNotificationsForAccountRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -93,7 +128,32 @@ public class AbstractAWSBudgets implements AWSBudgets {
     }
 
     @Override
+    public ExecuteBudgetActionResult executeBudgetAction(ExecuteBudgetActionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateBudgetResult updateBudget(UpdateBudgetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateBudgetActionResult updateBudgetAction(UpdateBudgetActionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

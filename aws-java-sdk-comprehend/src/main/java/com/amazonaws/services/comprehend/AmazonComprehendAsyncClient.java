@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,9 +26,9 @@ import java.util.concurrent.ExecutorService;
  * notification when an asynchronous operation completes.
  * <p>
  * <p>
- * Amazon Comprehend is an AWS service for gaining insight into the content of documents. Use these actions to determine
- * the topics contained in your documents, the topics they discuss, the predominant sentiment expressed in them, the
- * predominant language used, and more.
+ * Amazon Comprehend is an Amazon Web Services service for gaining insight into the content of documents. Use these
+ * actions to determine the topics contained in your documents, the topics they discuss, the predominant sentiment
+ * expressed in them, the predominant language used, and more.
  * </p>
  */
 @ThreadSafe
@@ -51,7 +51,20 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
      *        Object providing client parameters.
      */
     AmazonComprehendAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon Comprehend using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonComprehendAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -230,6 +243,138 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<BatchDetectTargetedSentimentResult> batchDetectTargetedSentimentAsync(BatchDetectTargetedSentimentRequest request) {
+
+        return batchDetectTargetedSentimentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDetectTargetedSentimentResult> batchDetectTargetedSentimentAsync(final BatchDetectTargetedSentimentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchDetectTargetedSentimentRequest, BatchDetectTargetedSentimentResult> asyncHandler) {
+        final BatchDetectTargetedSentimentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchDetectTargetedSentimentResult>() {
+            @Override
+            public BatchDetectTargetedSentimentResult call() throws Exception {
+                BatchDetectTargetedSentimentResult result = null;
+
+                try {
+                    result = executeBatchDetectTargetedSentiment(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ClassifyDocumentResult> classifyDocumentAsync(ClassifyDocumentRequest request) {
+
+        return classifyDocumentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ClassifyDocumentResult> classifyDocumentAsync(final ClassifyDocumentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ClassifyDocumentRequest, ClassifyDocumentResult> asyncHandler) {
+        final ClassifyDocumentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ClassifyDocumentResult>() {
+            @Override
+            public ClassifyDocumentResult call() throws Exception {
+                ClassifyDocumentResult result = null;
+
+                try {
+                    result = executeClassifyDocument(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ContainsPiiEntitiesResult> containsPiiEntitiesAsync(ContainsPiiEntitiesRequest request) {
+
+        return containsPiiEntitiesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ContainsPiiEntitiesResult> containsPiiEntitiesAsync(final ContainsPiiEntitiesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ContainsPiiEntitiesRequest, ContainsPiiEntitiesResult> asyncHandler) {
+        final ContainsPiiEntitiesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ContainsPiiEntitiesResult>() {
+            @Override
+            public ContainsPiiEntitiesResult call() throws Exception {
+                ContainsPiiEntitiesResult result = null;
+
+                try {
+                    result = executeContainsPiiEntities(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDatasetResult> createDatasetAsync(CreateDatasetRequest request) {
+
+        return createDatasetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDatasetResult> createDatasetAsync(final CreateDatasetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateDatasetRequest, CreateDatasetResult> asyncHandler) {
+        final CreateDatasetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateDatasetResult>() {
+            @Override
+            public CreateDatasetResult call() throws Exception {
+                CreateDatasetResult result = null;
+
+                try {
+                    result = executeCreateDataset(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateDocumentClassifierResult> createDocumentClassifierAsync(CreateDocumentClassifierRequest request) {
 
         return createDocumentClassifierAsync(request, null);
@@ -247,6 +392,39 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
 
                 try {
                     result = executeCreateDocumentClassifier(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateEndpointResult> createEndpointAsync(CreateEndpointRequest request) {
+
+        return createEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateEndpointResult> createEndpointAsync(final CreateEndpointRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateEndpointRequest, CreateEndpointResult> asyncHandler) {
+        final CreateEndpointRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateEndpointResult>() {
+            @Override
+            public CreateEndpointResult call() throws Exception {
+                CreateEndpointResult result = null;
+
+                try {
+                    result = executeCreateEndpoint(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -296,6 +474,39 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<CreateFlywheelResult> createFlywheelAsync(CreateFlywheelRequest request) {
+
+        return createFlywheelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFlywheelResult> createFlywheelAsync(final CreateFlywheelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateFlywheelRequest, CreateFlywheelResult> asyncHandler) {
+        final CreateFlywheelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateFlywheelResult>() {
+            @Override
+            public CreateFlywheelResult call() throws Exception {
+                CreateFlywheelResult result = null;
+
+                try {
+                    result = executeCreateFlywheel(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteDocumentClassifierResult> deleteDocumentClassifierAsync(DeleteDocumentClassifierRequest request) {
 
         return deleteDocumentClassifierAsync(request, null);
@@ -329,6 +540,39 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteEndpointResult> deleteEndpointAsync(DeleteEndpointRequest request) {
+
+        return deleteEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteEndpointResult> deleteEndpointAsync(final DeleteEndpointRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteEndpointRequest, DeleteEndpointResult> asyncHandler) {
+        final DeleteEndpointRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteEndpointResult>() {
+            @Override
+            public DeleteEndpointResult call() throws Exception {
+                DeleteEndpointResult result = null;
+
+                try {
+                    result = executeDeleteEndpoint(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteEntityRecognizerResult> deleteEntityRecognizerAsync(DeleteEntityRecognizerRequest request) {
 
         return deleteEntityRecognizerAsync(request, null);
@@ -346,6 +590,105 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
 
                 try {
                     result = executeDeleteEntityRecognizer(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFlywheelResult> deleteFlywheelAsync(DeleteFlywheelRequest request) {
+
+        return deleteFlywheelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFlywheelResult> deleteFlywheelAsync(final DeleteFlywheelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteFlywheelRequest, DeleteFlywheelResult> asyncHandler) {
+        final DeleteFlywheelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteFlywheelResult>() {
+            @Override
+            public DeleteFlywheelResult call() throws Exception {
+                DeleteFlywheelResult result = null;
+
+                try {
+                    result = executeDeleteFlywheel(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest request) {
+
+        return deleteResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(final DeleteResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteResourcePolicyRequest, DeleteResourcePolicyResult> asyncHandler) {
+        final DeleteResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteResourcePolicyResult>() {
+            @Override
+            public DeleteResourcePolicyResult call() throws Exception {
+                DeleteResourcePolicyResult result = null;
+
+                try {
+                    result = executeDeleteResourcePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDatasetResult> describeDatasetAsync(DescribeDatasetRequest request) {
+
+        return describeDatasetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDatasetResult> describeDatasetAsync(final DescribeDatasetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeDatasetRequest, DescribeDatasetResult> asyncHandler) {
+        final DescribeDatasetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeDatasetResult>() {
+            @Override
+            public DescribeDatasetResult call() throws Exception {
+                DescribeDatasetResult result = null;
+
+                try {
+                    result = executeDescribeDataset(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -465,6 +808,39 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeEndpointResult> describeEndpointAsync(DescribeEndpointRequest request) {
+
+        return describeEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEndpointResult> describeEndpointAsync(final DescribeEndpointRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeEndpointRequest, DescribeEndpointResult> asyncHandler) {
+        final DescribeEndpointRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeEndpointResult>() {
+            @Override
+            public DescribeEndpointResult call() throws Exception {
+                DescribeEndpointResult result = null;
+
+                try {
+                    result = executeDescribeEndpoint(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeEntitiesDetectionJobResult> describeEntitiesDetectionJobAsync(DescribeEntitiesDetectionJobRequest request) {
 
         return describeEntitiesDetectionJobAsync(request, null);
@@ -531,6 +907,105 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeEventsDetectionJobResult> describeEventsDetectionJobAsync(DescribeEventsDetectionJobRequest request) {
+
+        return describeEventsDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEventsDetectionJobResult> describeEventsDetectionJobAsync(final DescribeEventsDetectionJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeEventsDetectionJobRequest, DescribeEventsDetectionJobResult> asyncHandler) {
+        final DescribeEventsDetectionJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeEventsDetectionJobResult>() {
+            @Override
+            public DescribeEventsDetectionJobResult call() throws Exception {
+                DescribeEventsDetectionJobResult result = null;
+
+                try {
+                    result = executeDescribeEventsDetectionJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFlywheelResult> describeFlywheelAsync(DescribeFlywheelRequest request) {
+
+        return describeFlywheelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFlywheelResult> describeFlywheelAsync(final DescribeFlywheelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeFlywheelRequest, DescribeFlywheelResult> asyncHandler) {
+        final DescribeFlywheelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeFlywheelResult>() {
+            @Override
+            public DescribeFlywheelResult call() throws Exception {
+                DescribeFlywheelResult result = null;
+
+                try {
+                    result = executeDescribeFlywheel(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFlywheelIterationResult> describeFlywheelIterationAsync(DescribeFlywheelIterationRequest request) {
+
+        return describeFlywheelIterationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFlywheelIterationResult> describeFlywheelIterationAsync(final DescribeFlywheelIterationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeFlywheelIterationRequest, DescribeFlywheelIterationResult> asyncHandler) {
+        final DescribeFlywheelIterationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeFlywheelIterationResult>() {
+            @Override
+            public DescribeFlywheelIterationResult call() throws Exception {
+                DescribeFlywheelIterationResult result = null;
+
+                try {
+                    result = executeDescribeFlywheelIteration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeKeyPhrasesDetectionJobResult> describeKeyPhrasesDetectionJobAsync(DescribeKeyPhrasesDetectionJobRequest request) {
 
         return describeKeyPhrasesDetectionJobAsync(request, null);
@@ -565,6 +1040,74 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DescribePiiEntitiesDetectionJobResult> describePiiEntitiesDetectionJobAsync(
+            DescribePiiEntitiesDetectionJobRequest request) {
+
+        return describePiiEntitiesDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribePiiEntitiesDetectionJobResult> describePiiEntitiesDetectionJobAsync(
+            final DescribePiiEntitiesDetectionJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribePiiEntitiesDetectionJobRequest, DescribePiiEntitiesDetectionJobResult> asyncHandler) {
+        final DescribePiiEntitiesDetectionJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribePiiEntitiesDetectionJobResult>() {
+            @Override
+            public DescribePiiEntitiesDetectionJobResult call() throws Exception {
+                DescribePiiEntitiesDetectionJobResult result = null;
+
+                try {
+                    result = executeDescribePiiEntitiesDetectionJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeResourcePolicyResult> describeResourcePolicyAsync(DescribeResourcePolicyRequest request) {
+
+        return describeResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeResourcePolicyResult> describeResourcePolicyAsync(final DescribeResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeResourcePolicyRequest, DescribeResourcePolicyResult> asyncHandler) {
+        final DescribeResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeResourcePolicyResult>() {
+            @Override
+            public DescribeResourcePolicyResult call() throws Exception {
+                DescribeResourcePolicyResult result = null;
+
+                try {
+                    result = executeDescribeResourcePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeSentimentDetectionJobResult> describeSentimentDetectionJobAsync(DescribeSentimentDetectionJobRequest request) {
 
         return describeSentimentDetectionJobAsync(request, null);
@@ -583,6 +1126,41 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
 
                 try {
                     result = executeDescribeSentimentDetectionJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTargetedSentimentDetectionJobResult> describeTargetedSentimentDetectionJobAsync(
+            DescribeTargetedSentimentDetectionJobRequest request) {
+
+        return describeTargetedSentimentDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTargetedSentimentDetectionJobResult> describeTargetedSentimentDetectionJobAsync(
+            final DescribeTargetedSentimentDetectionJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeTargetedSentimentDetectionJobRequest, DescribeTargetedSentimentDetectionJobResult> asyncHandler) {
+        final DescribeTargetedSentimentDetectionJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeTargetedSentimentDetectionJobResult>() {
+            @Override
+            public DescribeTargetedSentimentDetectionJobResult call() throws Exception {
+                DescribeTargetedSentimentDetectionJobResult result = null;
+
+                try {
+                    result = executeDescribeTargetedSentimentDetectionJob(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -731,6 +1309,39 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DetectPiiEntitiesResult> detectPiiEntitiesAsync(DetectPiiEntitiesRequest request) {
+
+        return detectPiiEntitiesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetectPiiEntitiesResult> detectPiiEntitiesAsync(final DetectPiiEntitiesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DetectPiiEntitiesRequest, DetectPiiEntitiesResult> asyncHandler) {
+        final DetectPiiEntitiesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DetectPiiEntitiesResult>() {
+            @Override
+            public DetectPiiEntitiesResult call() throws Exception {
+                DetectPiiEntitiesResult result = null;
+
+                try {
+                    result = executeDetectPiiEntities(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DetectSentimentResult> detectSentimentAsync(DetectSentimentRequest request) {
 
         return detectSentimentAsync(request, null);
@@ -797,6 +1408,138 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DetectTargetedSentimentResult> detectTargetedSentimentAsync(DetectTargetedSentimentRequest request) {
+
+        return detectTargetedSentimentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetectTargetedSentimentResult> detectTargetedSentimentAsync(final DetectTargetedSentimentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DetectTargetedSentimentRequest, DetectTargetedSentimentResult> asyncHandler) {
+        final DetectTargetedSentimentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DetectTargetedSentimentResult>() {
+            @Override
+            public DetectTargetedSentimentResult call() throws Exception {
+                DetectTargetedSentimentResult result = null;
+
+                try {
+                    result = executeDetectTargetedSentiment(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetectToxicContentResult> detectToxicContentAsync(DetectToxicContentRequest request) {
+
+        return detectToxicContentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetectToxicContentResult> detectToxicContentAsync(final DetectToxicContentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DetectToxicContentRequest, DetectToxicContentResult> asyncHandler) {
+        final DetectToxicContentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DetectToxicContentResult>() {
+            @Override
+            public DetectToxicContentResult call() throws Exception {
+                DetectToxicContentResult result = null;
+
+                try {
+                    result = executeDetectToxicContent(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportModelResult> importModelAsync(ImportModelRequest request) {
+
+        return importModelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportModelResult> importModelAsync(final ImportModelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ImportModelRequest, ImportModelResult> asyncHandler) {
+        final ImportModelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ImportModelResult>() {
+            @Override
+            public ImportModelResult call() throws Exception {
+                ImportModelResult result = null;
+
+                try {
+                    result = executeImportModel(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDatasetsResult> listDatasetsAsync(ListDatasetsRequest request) {
+
+        return listDatasetsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDatasetsResult> listDatasetsAsync(final ListDatasetsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListDatasetsRequest, ListDatasetsResult> asyncHandler) {
+        final ListDatasetsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListDatasetsResult>() {
+            @Override
+            public ListDatasetsResult call() throws Exception {
+                ListDatasetsResult result = null;
+
+                try {
+                    result = executeListDatasets(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListDocumentClassificationJobsResult> listDocumentClassificationJobsAsync(ListDocumentClassificationJobsRequest request) {
 
         return listDocumentClassificationJobsAsync(request, null);
@@ -815,6 +1558,41 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
 
                 try {
                     result = executeListDocumentClassificationJobs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDocumentClassifierSummariesResult> listDocumentClassifierSummariesAsync(
+            ListDocumentClassifierSummariesRequest request) {
+
+        return listDocumentClassifierSummariesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDocumentClassifierSummariesResult> listDocumentClassifierSummariesAsync(
+            final ListDocumentClassifierSummariesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListDocumentClassifierSummariesRequest, ListDocumentClassifierSummariesResult> asyncHandler) {
+        final ListDocumentClassifierSummariesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListDocumentClassifierSummariesResult>() {
+            @Override
+            public ListDocumentClassifierSummariesResult call() throws Exception {
+                ListDocumentClassifierSummariesResult result = null;
+
+                try {
+                    result = executeListDocumentClassifierSummaries(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -899,6 +1677,39 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<ListEndpointsResult> listEndpointsAsync(ListEndpointsRequest request) {
+
+        return listEndpointsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEndpointsResult> listEndpointsAsync(final ListEndpointsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListEndpointsRequest, ListEndpointsResult> asyncHandler) {
+        final ListEndpointsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListEndpointsResult>() {
+            @Override
+            public ListEndpointsResult call() throws Exception {
+                ListEndpointsResult result = null;
+
+                try {
+                    result = executeListEndpoints(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListEntitiesDetectionJobsResult> listEntitiesDetectionJobsAsync(ListEntitiesDetectionJobsRequest request) {
 
         return listEntitiesDetectionJobsAsync(request, null);
@@ -916,6 +1727,40 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
 
                 try {
                     result = executeListEntitiesDetectionJobs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEntityRecognizerSummariesResult> listEntityRecognizerSummariesAsync(ListEntityRecognizerSummariesRequest request) {
+
+        return listEntityRecognizerSummariesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEntityRecognizerSummariesResult> listEntityRecognizerSummariesAsync(
+            final ListEntityRecognizerSummariesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListEntityRecognizerSummariesRequest, ListEntityRecognizerSummariesResult> asyncHandler) {
+        final ListEntityRecognizerSummariesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListEntityRecognizerSummariesResult>() {
+            @Override
+            public ListEntityRecognizerSummariesResult call() throws Exception {
+                ListEntityRecognizerSummariesResult result = null;
+
+                try {
+                    result = executeListEntityRecognizerSummaries(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -965,6 +1810,105 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<ListEventsDetectionJobsResult> listEventsDetectionJobsAsync(ListEventsDetectionJobsRequest request) {
+
+        return listEventsDetectionJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEventsDetectionJobsResult> listEventsDetectionJobsAsync(final ListEventsDetectionJobsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListEventsDetectionJobsRequest, ListEventsDetectionJobsResult> asyncHandler) {
+        final ListEventsDetectionJobsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListEventsDetectionJobsResult>() {
+            @Override
+            public ListEventsDetectionJobsResult call() throws Exception {
+                ListEventsDetectionJobsResult result = null;
+
+                try {
+                    result = executeListEventsDetectionJobs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFlywheelIterationHistoryResult> listFlywheelIterationHistoryAsync(ListFlywheelIterationHistoryRequest request) {
+
+        return listFlywheelIterationHistoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFlywheelIterationHistoryResult> listFlywheelIterationHistoryAsync(final ListFlywheelIterationHistoryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListFlywheelIterationHistoryRequest, ListFlywheelIterationHistoryResult> asyncHandler) {
+        final ListFlywheelIterationHistoryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListFlywheelIterationHistoryResult>() {
+            @Override
+            public ListFlywheelIterationHistoryResult call() throws Exception {
+                ListFlywheelIterationHistoryResult result = null;
+
+                try {
+                    result = executeListFlywheelIterationHistory(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFlywheelsResult> listFlywheelsAsync(ListFlywheelsRequest request) {
+
+        return listFlywheelsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFlywheelsResult> listFlywheelsAsync(final ListFlywheelsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListFlywheelsRequest, ListFlywheelsResult> asyncHandler) {
+        final ListFlywheelsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListFlywheelsResult>() {
+            @Override
+            public ListFlywheelsResult call() throws Exception {
+                ListFlywheelsResult result = null;
+
+                try {
+                    result = executeListFlywheels(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListKeyPhrasesDetectionJobsResult> listKeyPhrasesDetectionJobsAsync(ListKeyPhrasesDetectionJobsRequest request) {
 
         return listKeyPhrasesDetectionJobsAsync(request, null);
@@ -982,6 +1926,39 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
 
                 try {
                     result = executeListKeyPhrasesDetectionJobs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPiiEntitiesDetectionJobsResult> listPiiEntitiesDetectionJobsAsync(ListPiiEntitiesDetectionJobsRequest request) {
+
+        return listPiiEntitiesDetectionJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPiiEntitiesDetectionJobsResult> listPiiEntitiesDetectionJobsAsync(final ListPiiEntitiesDetectionJobsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListPiiEntitiesDetectionJobsRequest, ListPiiEntitiesDetectionJobsResult> asyncHandler) {
+        final ListPiiEntitiesDetectionJobsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListPiiEntitiesDetectionJobsResult>() {
+            @Override
+            public ListPiiEntitiesDetectionJobsResult call() throws Exception {
+                ListPiiEntitiesDetectionJobsResult result = null;
+
+                try {
+                    result = executeListPiiEntitiesDetectionJobs(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1064,6 +2041,41 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<ListTargetedSentimentDetectionJobsResult> listTargetedSentimentDetectionJobsAsync(
+            ListTargetedSentimentDetectionJobsRequest request) {
+
+        return listTargetedSentimentDetectionJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTargetedSentimentDetectionJobsResult> listTargetedSentimentDetectionJobsAsync(
+            final ListTargetedSentimentDetectionJobsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTargetedSentimentDetectionJobsRequest, ListTargetedSentimentDetectionJobsResult> asyncHandler) {
+        final ListTargetedSentimentDetectionJobsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTargetedSentimentDetectionJobsResult>() {
+            @Override
+            public ListTargetedSentimentDetectionJobsResult call() throws Exception {
+                ListTargetedSentimentDetectionJobsResult result = null;
+
+                try {
+                    result = executeListTargetedSentimentDetectionJobs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListTopicsDetectionJobsResult> listTopicsDetectionJobsAsync(ListTopicsDetectionJobsRequest request) {
 
         return listTopicsDetectionJobsAsync(request, null);
@@ -1081,6 +2093,39 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
 
                 try {
                     result = executeListTopicsDetectionJobs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest request) {
+
+        return putResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(final PutResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutResourcePolicyRequest, PutResourcePolicyResult> asyncHandler) {
+        final PutResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutResourcePolicyResult>() {
+            @Override
+            public PutResourcePolicyResult call() throws Exception {
+                PutResourcePolicyResult result = null;
+
+                try {
+                    result = executePutResourcePolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1199,6 +2244,72 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<StartEventsDetectionJobResult> startEventsDetectionJobAsync(StartEventsDetectionJobRequest request) {
+
+        return startEventsDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartEventsDetectionJobResult> startEventsDetectionJobAsync(final StartEventsDetectionJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartEventsDetectionJobRequest, StartEventsDetectionJobResult> asyncHandler) {
+        final StartEventsDetectionJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartEventsDetectionJobResult>() {
+            @Override
+            public StartEventsDetectionJobResult call() throws Exception {
+                StartEventsDetectionJobResult result = null;
+
+                try {
+                    result = executeStartEventsDetectionJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartFlywheelIterationResult> startFlywheelIterationAsync(StartFlywheelIterationRequest request) {
+
+        return startFlywheelIterationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartFlywheelIterationResult> startFlywheelIterationAsync(final StartFlywheelIterationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartFlywheelIterationRequest, StartFlywheelIterationResult> asyncHandler) {
+        final StartFlywheelIterationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartFlywheelIterationResult>() {
+            @Override
+            public StartFlywheelIterationResult call() throws Exception {
+                StartFlywheelIterationResult result = null;
+
+                try {
+                    result = executeStartFlywheelIteration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<StartKeyPhrasesDetectionJobResult> startKeyPhrasesDetectionJobAsync(StartKeyPhrasesDetectionJobRequest request) {
 
         return startKeyPhrasesDetectionJobAsync(request, null);
@@ -1232,6 +2343,39 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<StartPiiEntitiesDetectionJobResult> startPiiEntitiesDetectionJobAsync(StartPiiEntitiesDetectionJobRequest request) {
+
+        return startPiiEntitiesDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartPiiEntitiesDetectionJobResult> startPiiEntitiesDetectionJobAsync(final StartPiiEntitiesDetectionJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartPiiEntitiesDetectionJobRequest, StartPiiEntitiesDetectionJobResult> asyncHandler) {
+        final StartPiiEntitiesDetectionJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartPiiEntitiesDetectionJobResult>() {
+            @Override
+            public StartPiiEntitiesDetectionJobResult call() throws Exception {
+                StartPiiEntitiesDetectionJobResult result = null;
+
+                try {
+                    result = executeStartPiiEntitiesDetectionJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<StartSentimentDetectionJobResult> startSentimentDetectionJobAsync(StartSentimentDetectionJobRequest request) {
 
         return startSentimentDetectionJobAsync(request, null);
@@ -1249,6 +2393,41 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
 
                 try {
                     result = executeStartSentimentDetectionJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartTargetedSentimentDetectionJobResult> startTargetedSentimentDetectionJobAsync(
+            StartTargetedSentimentDetectionJobRequest request) {
+
+        return startTargetedSentimentDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartTargetedSentimentDetectionJobResult> startTargetedSentimentDetectionJobAsync(
+            final StartTargetedSentimentDetectionJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartTargetedSentimentDetectionJobRequest, StartTargetedSentimentDetectionJobResult> asyncHandler) {
+        final StartTargetedSentimentDetectionJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartTargetedSentimentDetectionJobResult>() {
+            @Override
+            public StartTargetedSentimentDetectionJobResult call() throws Exception {
+                StartTargetedSentimentDetectionJobResult result = null;
+
+                try {
+                    result = executeStartTargetedSentimentDetectionJob(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1366,6 +2545,39 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<StopEventsDetectionJobResult> stopEventsDetectionJobAsync(StopEventsDetectionJobRequest request) {
+
+        return stopEventsDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopEventsDetectionJobResult> stopEventsDetectionJobAsync(final StopEventsDetectionJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StopEventsDetectionJobRequest, StopEventsDetectionJobResult> asyncHandler) {
+        final StopEventsDetectionJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StopEventsDetectionJobResult>() {
+            @Override
+            public StopEventsDetectionJobResult call() throws Exception {
+                StopEventsDetectionJobResult result = null;
+
+                try {
+                    result = executeStopEventsDetectionJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<StopKeyPhrasesDetectionJobResult> stopKeyPhrasesDetectionJobAsync(StopKeyPhrasesDetectionJobRequest request) {
 
         return stopKeyPhrasesDetectionJobAsync(request, null);
@@ -1399,6 +2611,39 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<StopPiiEntitiesDetectionJobResult> stopPiiEntitiesDetectionJobAsync(StopPiiEntitiesDetectionJobRequest request) {
+
+        return stopPiiEntitiesDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopPiiEntitiesDetectionJobResult> stopPiiEntitiesDetectionJobAsync(final StopPiiEntitiesDetectionJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StopPiiEntitiesDetectionJobRequest, StopPiiEntitiesDetectionJobResult> asyncHandler) {
+        final StopPiiEntitiesDetectionJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StopPiiEntitiesDetectionJobResult>() {
+            @Override
+            public StopPiiEntitiesDetectionJobResult call() throws Exception {
+                StopPiiEntitiesDetectionJobResult result = null;
+
+                try {
+                    result = executeStopPiiEntitiesDetectionJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<StopSentimentDetectionJobResult> stopSentimentDetectionJobAsync(StopSentimentDetectionJobRequest request) {
 
         return stopSentimentDetectionJobAsync(request, null);
@@ -1416,6 +2661,41 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
 
                 try {
                     result = executeStopSentimentDetectionJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopTargetedSentimentDetectionJobResult> stopTargetedSentimentDetectionJobAsync(
+            StopTargetedSentimentDetectionJobRequest request) {
+
+        return stopTargetedSentimentDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopTargetedSentimentDetectionJobResult> stopTargetedSentimentDetectionJobAsync(
+            final StopTargetedSentimentDetectionJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StopTargetedSentimentDetectionJobRequest, StopTargetedSentimentDetectionJobResult> asyncHandler) {
+        final StopTargetedSentimentDetectionJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StopTargetedSentimentDetectionJobResult>() {
+            @Override
+            public StopTargetedSentimentDetectionJobResult call() throws Exception {
+                StopTargetedSentimentDetectionJobResult result = null;
+
+                try {
+                    result = executeStopTargetedSentimentDetectionJob(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1549,6 +2829,72 @@ public class AmazonComprehendAsyncClient extends AmazonComprehendClient implemen
 
                 try {
                     result = executeUntagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateEndpointResult> updateEndpointAsync(UpdateEndpointRequest request) {
+
+        return updateEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateEndpointResult> updateEndpointAsync(final UpdateEndpointRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateEndpointRequest, UpdateEndpointResult> asyncHandler) {
+        final UpdateEndpointRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateEndpointResult>() {
+            @Override
+            public UpdateEndpointResult call() throws Exception {
+                UpdateEndpointResult result = null;
+
+                try {
+                    result = executeUpdateEndpoint(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFlywheelResult> updateFlywheelAsync(UpdateFlywheelRequest request) {
+
+        return updateFlywheelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFlywheelResult> updateFlywheelAsync(final UpdateFlywheelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateFlywheelRequest, UpdateFlywheelResult> asyncHandler) {
+        final UpdateFlywheelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateFlywheelResult>() {
+            @Override
+            public UpdateFlywheelResult call() throws Exception {
+                UpdateFlywheelResult result = null;
+
+                try {
+                    result = executeUpdateFlywheel(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

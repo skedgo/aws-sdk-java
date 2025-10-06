@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,51 +19,138 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Use <code>Expression</code> to filter by cost or by usage. There are two patterns:
+ * Use <code>Expression</code> to filter in various Cost Explorer APIs.
+ * </p>
+ * <p>
+ * Not all <code>Expression</code> types are supported in each API. Refer to the documentation for each specific API to
+ * see what is supported.
+ * </p>
+ * <p>
+ * There are two patterns:
  * </p>
  * <ul>
  * <li>
  * <p>
- * Simple dimension values - You can set the dimension name and values for the filters that you plan to use. For
- * example, you can filter for <code>REGION==us-east-1 OR REGION==us-west-1</code>. The <code>Expression</code> for that
- * looks like this:
+ * Simple dimension values.
  * </p>
+ * <ul>
+ * <li>
  * <p>
- * <code>{ "Dimensions": { "Key": "REGION", "Values": [ "us-east-1", “us-west-1” ] } }</code>
+ * There are three types of simple dimension values: <code>CostCategories</code>, <code>Tags</code>, and
+ * <code>Dimensions</code>.
  * </p>
+ * <ul>
+ * <li>
  * <p>
- * The list of dimension values are OR'd together to retrieve cost or usage data. You can create <code>Expression</code>
- * and <code>DimensionValues</code> objects using either <code>with*</code> methods or <code>set*</code> methods in
- * multiple lines.
+ * Specify the <code>CostCategories</code> field to define a filter that acts on Cost Categories.
  * </p>
  * </li>
  * <li>
  * <p>
- * Compound dimension values with logical operations - You can use multiple <code>Expression</code> types and the
- * logical operators <code>AND/OR/NOT</code> to create a list of one or more <code>Expression</code> objects. This
- * allows you to filter on more advanced options. For example, you can filter on
+ * Specify the <code>Tags</code> field to define a filter that acts on Cost Allocation Tags.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Specify the <code>Dimensions</code> field to define a filter that acts on the <a
+ * href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_DimensionValues.html">
+ * <code>DimensionValues</code> </a>.
+ * </p>
+ * </li>
+ * </ul>
+ * </li>
+ * <li>
+ * <p>
+ * For each filter type, you can set the dimension name and values for the filters that you plan to use.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * For example, you can filter for <code>REGION==us-east-1 OR REGION==us-west-1</code>. For
+ * <code>GetRightsizingRecommendation</code>, the Region is a full name (for example,
+ * <code>REGION==US East (N. Virginia)</code>.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * The corresponding <code>Expression</code> for this example is as follows:
+ * <code>{ "Dimensions": { "Key": "REGION", "Values": [ "us-east-1", "us-west-1" ] } }</code>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * As shown in the previous example, lists of dimension values are combined with <code>OR</code> when applying the
+ * filter.
+ * </p>
+ * </li>
+ * </ul>
+ * </li>
+ * <li>
+ * <p>
+ * You can also set different match options to further control how the filter behaves. Not all APIs support match
+ * options. Refer to the documentation for each specific API to see what is supported.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * For example, you can filter for linked account names that start with "a".
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * The corresponding <code>Expression</code> for this example is as follows:
+ * <code>{ "Dimensions": { "Key": "LINKED_ACCOUNT_NAME", "MatchOptions": [ "STARTS_WITH" ], "Values": [ "a" ] } }</code>
+ * </p>
+ * </li>
+ * </ul>
+ * </li>
+ * </ul>
+ * </li>
+ * <li>
+ * <p>
+ * Compound <code>Expression</code> types with logical operations.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * You can use multiple <code>Expression</code> types and the logical operators <code>AND/OR/NOT</code> to create a list
+ * of one or more <code>Expression</code> objects. By doing this, you can filter by more advanced options.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * For example, you can filter by
  * <code>((REGION == us-east-1 OR REGION == us-west-1) OR (TAG.Type == Type1)) AND (USAGE_TYPE != DataTransfer)</code>.
- * The <code>Expression</code> for that looks like this:
  * </p>
+ * </li>
+ * <li>
  * <p>
+ * The corresponding <code>Expression</code> for this example is as follows:
  * <code>{ "And": [ {"Or": [ {"Dimensions": { "Key": "REGION", "Values": [ "us-east-1", "us-west-1" ] }}, {"Tags": { "Key": "TagName", "Values": ["Value1"] } } ]}, {"Not": {"Dimensions": { "Key": "USAGE_TYPE", "Values": ["DataTransfer"] }}} ] } </code>
- * </p>
- * <note>
- * <p>
- * Because each <code>Expression</code> can have only one operator, the service returns an error if more than one is
- * specified. The following example shows an <code>Expression</code> object that creates an error.
- * </p>
- * </note>
- * <p>
- * <code> { "And": [ ... ], "DimensionValues": { "Dimension": "USAGE_TYPE", "Values": [ "DataTransfer" ] } } </code>
  * </p>
  * </li>
  * </ul>
  * <note>
  * <p>
- * For <code>GetRightsizingRecommendation</code> action, a combination of OR and NOT is not supported. OR is not
- * supported between different dimensions, or dimensions and tags. NOT operators aren't supported. Dimentions are also
+ * Because each <code>Expression</code> can have only one operator, the service returns an error if more than one is
+ * specified. The following example shows an <code>Expression</code> object that creates an error:
+ * <code> { "And": [ ... ], "Dimensions": { "Key": "USAGE_TYPE", "Values": [ "DataTransfer" ] } } </code>
+ * </p>
+ * <p>
+ * The following is an example of the corresponding error message:
+ * <code>"Expression has more than one roots. Only one root operator is allowed for each expression: And, Or, Not, Dimensions, Tags, CostCategories"</code>
+ * </p>
+ * </note></li>
+ * </ul>
+ * <note>
+ * <p>
+ * For the <code>GetRightsizingRecommendation</code> action, a combination of OR and NOT isn't supported. OR isn't
+ * supported between different dimensions, or dimensions and tags. NOT operators aren't supported. Dimensions are also
  * limited to <code>LINKED_ACCOUNT</code>, <code>REGION</code>, or <code>RIGHTSIZING_TYPE</code>.
+ * </p>
+ * <p>
+ * For the <code>GetReservationPurchaseRecommendation</code> action, only NOT is supported. AND and OR aren't supported.
+ * Dimensions are limited to <code>LINKED_ACCOUNT</code>.
  * </p>
  * </note>
  * 
@@ -103,6 +190,12 @@ public class Expression implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private TagValues tags;
+    /**
+     * <p>
+     * The filter that's based on <code>CostCategory</code> values.
+     * </p>
+     */
+    private CostCategoryValues costCategories;
 
     /**
      * <p>
@@ -365,6 +458,46 @@ public class Expression implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The filter that's based on <code>CostCategory</code> values.
+     * </p>
+     * 
+     * @param costCategories
+     *        The filter that's based on <code>CostCategory</code> values.
+     */
+
+    public void setCostCategories(CostCategoryValues costCategories) {
+        this.costCategories = costCategories;
+    }
+
+    /**
+     * <p>
+     * The filter that's based on <code>CostCategory</code> values.
+     * </p>
+     * 
+     * @return The filter that's based on <code>CostCategory</code> values.
+     */
+
+    public CostCategoryValues getCostCategories() {
+        return this.costCategories;
+    }
+
+    /**
+     * <p>
+     * The filter that's based on <code>CostCategory</code> values.
+     * </p>
+     * 
+     * @param costCategories
+     *        The filter that's based on <code>CostCategory</code> values.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Expression withCostCategories(CostCategoryValues costCategories) {
+        setCostCategories(costCategories);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -385,7 +518,9 @@ public class Expression implements Serializable, Cloneable, StructuredPojo {
         if (getDimensions() != null)
             sb.append("Dimensions: ").append(getDimensions()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getCostCategories() != null)
+            sb.append("CostCategories: ").append(getCostCategories());
         sb.append("}");
         return sb.toString();
     }
@@ -420,6 +555,10 @@ public class Expression implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getCostCategories() == null ^ this.getCostCategories() == null)
+            return false;
+        if (other.getCostCategories() != null && other.getCostCategories().equals(this.getCostCategories()) == false)
+            return false;
         return true;
     }
 
@@ -433,6 +572,7 @@ public class Expression implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getNot() == null) ? 0 : getNot().hashCode());
         hashCode = prime * hashCode + ((getDimensions() == null) ? 0 : getDimensions().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getCostCategories() == null) ? 0 : getCostCategories().hashCode());
         return hashCode;
     }
 

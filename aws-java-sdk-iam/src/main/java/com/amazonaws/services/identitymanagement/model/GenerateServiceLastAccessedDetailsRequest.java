@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,20 +28,29 @@ public class GenerateServiceLastAccessedDetailsRequest extends com.amazonaws.Ama
     /**
      * <p>
      * The ARN of the IAM resource (user, group, role, or managed policy) used to generate information about when the
-     * resource was last used in an attempt to access an AWS service.
+     * resource was last used in an attempt to access an Amazon Web Services service.
      * </p>
      */
     private String arn;
+    /**
+     * <p>
+     * The level of detail that you want to generate. You can specify whether you want to generate information about the
+     * last attempt to access services or actions. If you specify service-level granularity, this operation generates
+     * only service data. If you specify action-level granularity, it generates service and action data. If you don't
+     * include this optional parameter, the operation generates service data.
+     * </p>
+     */
+    private String granularity;
 
     /**
      * <p>
      * The ARN of the IAM resource (user, group, role, or managed policy) used to generate information about when the
-     * resource was last used in an attempt to access an AWS service.
+     * resource was last used in an attempt to access an Amazon Web Services service.
      * </p>
      * 
      * @param arn
      *        The ARN of the IAM resource (user, group, role, or managed policy) used to generate information about when
-     *        the resource was last used in an attempt to access an AWS service.
+     *        the resource was last used in an attempt to access an Amazon Web Services service.
      */
 
     public void setArn(String arn) {
@@ -51,11 +60,11 @@ public class GenerateServiceLastAccessedDetailsRequest extends com.amazonaws.Ama
     /**
      * <p>
      * The ARN of the IAM resource (user, group, role, or managed policy) used to generate information about when the
-     * resource was last used in an attempt to access an AWS service.
+     * resource was last used in an attempt to access an Amazon Web Services service.
      * </p>
      * 
      * @return The ARN of the IAM resource (user, group, role, or managed policy) used to generate information about
-     *         when the resource was last used in an attempt to access an AWS service.
+     *         when the resource was last used in an attempt to access an Amazon Web Services service.
      */
 
     public String getArn() {
@@ -65,17 +74,100 @@ public class GenerateServiceLastAccessedDetailsRequest extends com.amazonaws.Ama
     /**
      * <p>
      * The ARN of the IAM resource (user, group, role, or managed policy) used to generate information about when the
-     * resource was last used in an attempt to access an AWS service.
+     * resource was last used in an attempt to access an Amazon Web Services service.
      * </p>
      * 
      * @param arn
      *        The ARN of the IAM resource (user, group, role, or managed policy) used to generate information about when
-     *        the resource was last used in an attempt to access an AWS service.
+     *        the resource was last used in an attempt to access an Amazon Web Services service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GenerateServiceLastAccessedDetailsRequest withArn(String arn) {
         setArn(arn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The level of detail that you want to generate. You can specify whether you want to generate information about the
+     * last attempt to access services or actions. If you specify service-level granularity, this operation generates
+     * only service data. If you specify action-level granularity, it generates service and action data. If you don't
+     * include this optional parameter, the operation generates service data.
+     * </p>
+     * 
+     * @param granularity
+     *        The level of detail that you want to generate. You can specify whether you want to generate information
+     *        about the last attempt to access services or actions. If you specify service-level granularity, this
+     *        operation generates only service data. If you specify action-level granularity, it generates service and
+     *        action data. If you don't include this optional parameter, the operation generates service data.
+     * @see AccessAdvisorUsageGranularityType
+     */
+
+    public void setGranularity(String granularity) {
+        this.granularity = granularity;
+    }
+
+    /**
+     * <p>
+     * The level of detail that you want to generate. You can specify whether you want to generate information about the
+     * last attempt to access services or actions. If you specify service-level granularity, this operation generates
+     * only service data. If you specify action-level granularity, it generates service and action data. If you don't
+     * include this optional parameter, the operation generates service data.
+     * </p>
+     * 
+     * @return The level of detail that you want to generate. You can specify whether you want to generate information
+     *         about the last attempt to access services or actions. If you specify service-level granularity, this
+     *         operation generates only service data. If you specify action-level granularity, it generates service and
+     *         action data. If you don't include this optional parameter, the operation generates service data.
+     * @see AccessAdvisorUsageGranularityType
+     */
+
+    public String getGranularity() {
+        return this.granularity;
+    }
+
+    /**
+     * <p>
+     * The level of detail that you want to generate. You can specify whether you want to generate information about the
+     * last attempt to access services or actions. If you specify service-level granularity, this operation generates
+     * only service data. If you specify action-level granularity, it generates service and action data. If you don't
+     * include this optional parameter, the operation generates service data.
+     * </p>
+     * 
+     * @param granularity
+     *        The level of detail that you want to generate. You can specify whether you want to generate information
+     *        about the last attempt to access services or actions. If you specify service-level granularity, this
+     *        operation generates only service data. If you specify action-level granularity, it generates service and
+     *        action data. If you don't include this optional parameter, the operation generates service data.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AccessAdvisorUsageGranularityType
+     */
+
+    public GenerateServiceLastAccessedDetailsRequest withGranularity(String granularity) {
+        setGranularity(granularity);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The level of detail that you want to generate. You can specify whether you want to generate information about the
+     * last attempt to access services or actions. If you specify service-level granularity, this operation generates
+     * only service data. If you specify action-level granularity, it generates service and action data. If you don't
+     * include this optional parameter, the operation generates service data.
+     * </p>
+     * 
+     * @param granularity
+     *        The level of detail that you want to generate. You can specify whether you want to generate information
+     *        about the last attempt to access services or actions. If you specify service-level granularity, this
+     *        operation generates only service data. If you specify action-level granularity, it generates service and
+     *        action data. If you don't include this optional parameter, the operation generates service data.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AccessAdvisorUsageGranularityType
+     */
+
+    public GenerateServiceLastAccessedDetailsRequest withGranularity(AccessAdvisorUsageGranularityType granularity) {
+        this.granularity = granularity.toString();
         return this;
     }
 
@@ -92,7 +184,9 @@ public class GenerateServiceLastAccessedDetailsRequest extends com.amazonaws.Ama
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getArn() != null)
-            sb.append("Arn: ").append(getArn());
+            sb.append("Arn: ").append(getArn()).append(",");
+        if (getGranularity() != null)
+            sb.append("Granularity: ").append(getGranularity());
         sb.append("}");
         return sb.toString();
     }
@@ -111,6 +205,10 @@ public class GenerateServiceLastAccessedDetailsRequest extends com.amazonaws.Ama
             return false;
         if (other.getArn() != null && other.getArn().equals(this.getArn()) == false)
             return false;
+        if (other.getGranularity() == null ^ this.getGranularity() == null)
+            return false;
+        if (other.getGranularity() != null && other.getGranularity().equals(this.getGranularity()) == false)
+            return false;
         return true;
     }
 
@@ -120,6 +218,7 @@ public class GenerateServiceLastAccessedDetailsRequest extends com.amazonaws.Ama
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
+        hashCode = prime * hashCode + ((getGranularity() == null) ? 0 : getGranularity().hashCode());
         return hashCode;
     }
 

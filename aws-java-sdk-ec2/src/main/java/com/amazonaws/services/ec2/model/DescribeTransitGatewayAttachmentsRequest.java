@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,19 +55,21 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * <code>resource-owner-id</code> - The ID of the AWS account that owns the resource.
+     * <code>resource-owner-id</code> - The ID of the Amazon Web Services account that owns the resource.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>resource-type</code> - The resource type (<code>vpc</code> | <code>vpn</code>).
+     * <code>resource-type</code> - The resource type. Valid values are <code>vpc</code> | <code>vpn</code> |
+     * <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     * <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     * <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     * <code>state</code> - The state of the attachment. Valid values are <code>available</code> | <code>deleted</code>
+     * | <code>deleting</code> | <code>failed</code> | <code>failing</code> | <code>initiatingRequest</code> |
+     * <code>modifying</code> | <code>pendingAcceptance</code> | <code>pending</code> | <code>rollingBack</code> |
+     * <code>rejected</code> | <code>rejecting</code>.
      * </p>
      * </li>
      * <li>
@@ -82,7 +84,7 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * <code>transit-gateway-owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     * <code>transit-gateway-owner-id</code> - The ID of the Amazon Web Services account that owns the transit gateway.
      * </p>
      * </li>
      * </ul>
@@ -198,19 +200,21 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * <code>resource-owner-id</code> - The ID of the AWS account that owns the resource.
+     * <code>resource-owner-id</code> - The ID of the Amazon Web Services account that owns the resource.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>resource-type</code> - The resource type (<code>vpc</code> | <code>vpn</code>).
+     * <code>resource-type</code> - The resource type. Valid values are <code>vpc</code> | <code>vpn</code> |
+     * <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     * <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     * <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     * <code>state</code> - The state of the attachment. Valid values are <code>available</code> | <code>deleted</code>
+     * | <code>deleting</code> | <code>failed</code> | <code>failing</code> | <code>initiatingRequest</code> |
+     * <code>modifying</code> | <code>pendingAcceptance</code> | <code>pending</code> | <code>rollingBack</code> |
+     * <code>rejected</code> | <code>rejecting</code>.
      * </p>
      * </li>
      * <li>
@@ -225,7 +229,7 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * <code>transit-gateway-owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     * <code>transit-gateway-owner-id</code> - The ID of the Amazon Web Services account that owns the transit gateway.
      * </p>
      * </li>
      * </ul>
@@ -251,19 +255,21 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      *         </li>
      *         <li>
      *         <p>
-     *         <code>resource-owner-id</code> - The ID of the AWS account that owns the resource.
+     *         <code>resource-owner-id</code> - The ID of the Amazon Web Services account that owns the resource.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>resource-type</code> - The resource type (<code>vpc</code> | <code>vpn</code>).
+     *         <code>resource-type</code> - The resource type. Valid values are <code>vpc</code> | <code>vpn</code> |
+     *         <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     *         <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     *         <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     *         <code>state</code> - The state of the attachment. Valid values are <code>available</code> |
+     *         <code>deleted</code> | <code>deleting</code> | <code>failed</code> | <code>failing</code> |
+     *         <code>initiatingRequest</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
+     *         <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>.
      *         </p>
      *         </li>
      *         <li>
@@ -278,7 +284,8 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      *         </li>
      *         <li>
      *         <p>
-     *         <code>transit-gateway-owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     *         <code>transit-gateway-owner-id</code> - The ID of the Amazon Web Services account that owns the transit
+     *         gateway.
      *         </p>
      *         </li>
      */
@@ -313,19 +320,21 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * <code>resource-owner-id</code> - The ID of the AWS account that owns the resource.
+     * <code>resource-owner-id</code> - The ID of the Amazon Web Services account that owns the resource.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>resource-type</code> - The resource type (<code>vpc</code> | <code>vpn</code>).
+     * <code>resource-type</code> - The resource type. Valid values are <code>vpc</code> | <code>vpn</code> |
+     * <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     * <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     * <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     * <code>state</code> - The state of the attachment. Valid values are <code>available</code> | <code>deleted</code>
+     * | <code>deleting</code> | <code>failed</code> | <code>failing</code> | <code>initiatingRequest</code> |
+     * <code>modifying</code> | <code>pendingAcceptance</code> | <code>pending</code> | <code>rollingBack</code> |
+     * <code>rejected</code> | <code>rejecting</code>.
      * </p>
      * </li>
      * <li>
@@ -340,7 +349,7 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * <code>transit-gateway-owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     * <code>transit-gateway-owner-id</code> - The ID of the Amazon Web Services account that owns the transit gateway.
      * </p>
      * </li>
      * </ul>
@@ -367,19 +376,21 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      *        </li>
      *        <li>
      *        <p>
-     *        <code>resource-owner-id</code> - The ID of the AWS account that owns the resource.
+     *        <code>resource-owner-id</code> - The ID of the Amazon Web Services account that owns the resource.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>resource-type</code> - The resource type (<code>vpc</code> | <code>vpn</code>).
+     *        <code>resource-type</code> - The resource type. Valid values are <code>vpc</code> | <code>vpn</code> |
+     *        <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     *        <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     *        <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     *        <code>state</code> - The state of the attachment. Valid values are <code>available</code> |
+     *        <code>deleted</code> | <code>deleting</code> | <code>failed</code> | <code>failing</code> |
+     *        <code>initiatingRequest</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
+     *        <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -394,7 +405,8 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      *        </li>
      *        <li>
      *        <p>
-     *        <code>transit-gateway-owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     *        <code>transit-gateway-owner-id</code> - The ID of the Amazon Web Services account that owns the transit
+     *        gateway.
      *        </p>
      *        </li>
      */
@@ -431,19 +443,21 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * <code>resource-owner-id</code> - The ID of the AWS account that owns the resource.
+     * <code>resource-owner-id</code> - The ID of the Amazon Web Services account that owns the resource.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>resource-type</code> - The resource type (<code>vpc</code> | <code>vpn</code>).
+     * <code>resource-type</code> - The resource type. Valid values are <code>vpc</code> | <code>vpn</code> |
+     * <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     * <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     * <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     * <code>state</code> - The state of the attachment. Valid values are <code>available</code> | <code>deleted</code>
+     * | <code>deleting</code> | <code>failed</code> | <code>failing</code> | <code>initiatingRequest</code> |
+     * <code>modifying</code> | <code>pendingAcceptance</code> | <code>pending</code> | <code>rollingBack</code> |
+     * <code>rejected</code> | <code>rejecting</code>.
      * </p>
      * </li>
      * <li>
@@ -458,7 +472,7 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * <code>transit-gateway-owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     * <code>transit-gateway-owner-id</code> - The ID of the Amazon Web Services account that owns the transit gateway.
      * </p>
      * </li>
      * </ul>
@@ -490,19 +504,21 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      *        </li>
      *        <li>
      *        <p>
-     *        <code>resource-owner-id</code> - The ID of the AWS account that owns the resource.
+     *        <code>resource-owner-id</code> - The ID of the Amazon Web Services account that owns the resource.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>resource-type</code> - The resource type (<code>vpc</code> | <code>vpn</code>).
+     *        <code>resource-type</code> - The resource type. Valid values are <code>vpc</code> | <code>vpn</code> |
+     *        <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     *        <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     *        <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     *        <code>state</code> - The state of the attachment. Valid values are <code>available</code> |
+     *        <code>deleted</code> | <code>deleting</code> | <code>failed</code> | <code>failing</code> |
+     *        <code>initiatingRequest</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
+     *        <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -517,7 +533,8 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      *        </li>
      *        <li>
      *        <p>
-     *        <code>transit-gateway-owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     *        <code>transit-gateway-owner-id</code> - The ID of the Amazon Web Services account that owns the transit
+     *        gateway.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -556,19 +573,21 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * <code>resource-owner-id</code> - The ID of the AWS account that owns the resource.
+     * <code>resource-owner-id</code> - The ID of the Amazon Web Services account that owns the resource.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>resource-type</code> - The resource type (<code>vpc</code> | <code>vpn</code>).
+     * <code>resource-type</code> - The resource type. Valid values are <code>vpc</code> | <code>vpn</code> |
+     * <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     * <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     * <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     * <code>state</code> - The state of the attachment. Valid values are <code>available</code> | <code>deleted</code>
+     * | <code>deleting</code> | <code>failed</code> | <code>failing</code> | <code>initiatingRequest</code> |
+     * <code>modifying</code> | <code>pendingAcceptance</code> | <code>pending</code> | <code>rollingBack</code> |
+     * <code>rejected</code> | <code>rejecting</code>.
      * </p>
      * </li>
      * <li>
@@ -583,7 +602,7 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * <code>transit-gateway-owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     * <code>transit-gateway-owner-id</code> - The ID of the Amazon Web Services account that owns the transit gateway.
      * </p>
      * </li>
      * </ul>
@@ -610,19 +629,21 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      *        </li>
      *        <li>
      *        <p>
-     *        <code>resource-owner-id</code> - The ID of the AWS account that owns the resource.
+     *        <code>resource-owner-id</code> - The ID of the Amazon Web Services account that owns the resource.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>resource-type</code> - The resource type (<code>vpc</code> | <code>vpn</code>).
+     *        <code>resource-type</code> - The resource type. Valid values are <code>vpc</code> | <code>vpn</code> |
+     *        <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     *        <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     *        <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     *        <code>state</code> - The state of the attachment. Valid values are <code>available</code> |
+     *        <code>deleted</code> | <code>deleting</code> | <code>failed</code> | <code>failing</code> |
+     *        <code>initiatingRequest</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
+     *        <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -637,7 +658,8 @@ public class DescribeTransitGatewayAttachmentsRequest extends AmazonWebServiceRe
      *        </li>
      *        <li>
      *        <p>
-     *        <code>transit-gateway-owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     *        <code>transit-gateway-owner-id</code> - The ID of the Amazon Web Services account that owns the transit
+     *        gateway.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

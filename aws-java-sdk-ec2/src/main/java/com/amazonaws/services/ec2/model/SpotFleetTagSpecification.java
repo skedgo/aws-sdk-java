@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,10 @@ public class SpotFleetTagSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of resource. Currently, the only resource type that is supported is <code>instance</code>.
+     * The type of resource. Currently, the only resource type that is supported is <code>instance</code>. To tag the
+     * Spot Fleet request on creation, use the <code>TagSpecifications</code> parameter in
+     * <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html">SpotFleetRequestConfigData</a> </code>
+     * .
      * </p>
      */
     private String resourceType;
@@ -41,11 +44,17 @@ public class SpotFleetTagSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of resource. Currently, the only resource type that is supported is <code>instance</code>.
+     * The type of resource. Currently, the only resource type that is supported is <code>instance</code>. To tag the
+     * Spot Fleet request on creation, use the <code>TagSpecifications</code> parameter in
+     * <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html">SpotFleetRequestConfigData</a> </code>
+     * .
      * </p>
      * 
      * @param resourceType
-     *        The type of resource. Currently, the only resource type that is supported is <code>instance</code>.
+     *        The type of resource. Currently, the only resource type that is supported is <code>instance</code>. To tag
+     *        the Spot Fleet request on creation, use the <code>TagSpecifications</code> parameter in
+     *        <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html">SpotFleetRequestConfigData</a> </code>
+     *        .
      * @see ResourceType
      */
 
@@ -55,10 +64,16 @@ public class SpotFleetTagSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of resource. Currently, the only resource type that is supported is <code>instance</code>.
+     * The type of resource. Currently, the only resource type that is supported is <code>instance</code>. To tag the
+     * Spot Fleet request on creation, use the <code>TagSpecifications</code> parameter in
+     * <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html">SpotFleetRequestConfigData</a> </code>
+     * .
      * </p>
      * 
-     * @return The type of resource. Currently, the only resource type that is supported is <code>instance</code>.
+     * @return The type of resource. Currently, the only resource type that is supported is <code>instance</code>. To
+     *         tag the Spot Fleet request on creation, use the <code>TagSpecifications</code> parameter in
+     *         <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html">SpotFleetRequestConfigData</a> </code>
+     *         .
      * @see ResourceType
      */
 
@@ -68,11 +83,17 @@ public class SpotFleetTagSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of resource. Currently, the only resource type that is supported is <code>instance</code>.
+     * The type of resource. Currently, the only resource type that is supported is <code>instance</code>. To tag the
+     * Spot Fleet request on creation, use the <code>TagSpecifications</code> parameter in
+     * <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html">SpotFleetRequestConfigData</a> </code>
+     * .
      * </p>
      * 
      * @param resourceType
-     *        The type of resource. Currently, the only resource type that is supported is <code>instance</code>.
+     *        The type of resource. Currently, the only resource type that is supported is <code>instance</code>. To tag
+     *        the Spot Fleet request on creation, use the <code>TagSpecifications</code> parameter in
+     *        <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html">SpotFleetRequestConfigData</a> </code>
+     *        .
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceType
      */
@@ -84,11 +105,17 @@ public class SpotFleetTagSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of resource. Currently, the only resource type that is supported is <code>instance</code>.
+     * The type of resource. Currently, the only resource type that is supported is <code>instance</code>. To tag the
+     * Spot Fleet request on creation, use the <code>TagSpecifications</code> parameter in
+     * <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html">SpotFleetRequestConfigData</a> </code>
+     * .
      * </p>
      * 
      * @param resourceType
-     *        The type of resource. Currently, the only resource type that is supported is <code>instance</code>.
+     *        The type of resource. Currently, the only resource type that is supported is <code>instance</code>. To tag
+     *        the Spot Fleet request on creation, use the <code>TagSpecifications</code> parameter in
+     *        <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html">SpotFleetRequestConfigData</a> </code>
+     *        .
      * @see ResourceType
      */
 
@@ -98,11 +125,17 @@ public class SpotFleetTagSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of resource. Currently, the only resource type that is supported is <code>instance</code>.
+     * The type of resource. Currently, the only resource type that is supported is <code>instance</code>. To tag the
+     * Spot Fleet request on creation, use the <code>TagSpecifications</code> parameter in
+     * <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html">SpotFleetRequestConfigData</a> </code>
+     * .
      * </p>
      * 
      * @param resourceType
-     *        The type of resource. Currently, the only resource type that is supported is <code>instance</code>.
+     *        The type of resource. Currently, the only resource type that is supported is <code>instance</code>. To tag
+     *        the Spot Fleet request on creation, use the <code>TagSpecifications</code> parameter in
+     *        <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetRequestConfigData.html">SpotFleetRequestConfigData</a> </code>
+     *        .
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceType
      */

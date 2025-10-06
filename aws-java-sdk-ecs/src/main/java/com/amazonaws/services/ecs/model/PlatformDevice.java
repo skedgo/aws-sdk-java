@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,27 +30,27 @@ public class PlatformDevice implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID for the GPU(s) on the container instance. The available GPU IDs can also be obtained on the container
+     * The ID for the GPUs on the container instance. The available GPU IDs can also be obtained on the container
      * instance in the <code>/var/lib/ecs/gpu/nvidia_gpu_info.json</code> file.
      * </p>
      */
     private String id;
     /**
      * <p>
-     * The type of device that is available on the container instance. The only supported value is <code>GPU</code>.
+     * The type of device that's available on the container instance. The only supported value is <code>GPU</code>.
      * </p>
      */
     private String type;
 
     /**
      * <p>
-     * The ID for the GPU(s) on the container instance. The available GPU IDs can also be obtained on the container
+     * The ID for the GPUs on the container instance. The available GPU IDs can also be obtained on the container
      * instance in the <code>/var/lib/ecs/gpu/nvidia_gpu_info.json</code> file.
      * </p>
      * 
      * @param id
-     *        The ID for the GPU(s) on the container instance. The available GPU IDs can also be obtained on the
-     *        container instance in the <code>/var/lib/ecs/gpu/nvidia_gpu_info.json</code> file.
+     *        The ID for the GPUs on the container instance. The available GPU IDs can also be obtained on the container
+     *        instance in the <code>/var/lib/ecs/gpu/nvidia_gpu_info.json</code> file.
      */
 
     public void setId(String id) {
@@ -59,11 +59,11 @@ public class PlatformDevice implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID for the GPU(s) on the container instance. The available GPU IDs can also be obtained on the container
+     * The ID for the GPUs on the container instance. The available GPU IDs can also be obtained on the container
      * instance in the <code>/var/lib/ecs/gpu/nvidia_gpu_info.json</code> file.
      * </p>
      * 
-     * @return The ID for the GPU(s) on the container instance. The available GPU IDs can also be obtained on the
+     * @return The ID for the GPUs on the container instance. The available GPU IDs can also be obtained on the
      *         container instance in the <code>/var/lib/ecs/gpu/nvidia_gpu_info.json</code> file.
      */
 
@@ -73,13 +73,13 @@ public class PlatformDevice implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID for the GPU(s) on the container instance. The available GPU IDs can also be obtained on the container
+     * The ID for the GPUs on the container instance. The available GPU IDs can also be obtained on the container
      * instance in the <code>/var/lib/ecs/gpu/nvidia_gpu_info.json</code> file.
      * </p>
      * 
      * @param id
-     *        The ID for the GPU(s) on the container instance. The available GPU IDs can also be obtained on the
-     *        container instance in the <code>/var/lib/ecs/gpu/nvidia_gpu_info.json</code> file.
+     *        The ID for the GPUs on the container instance. The available GPU IDs can also be obtained on the container
+     *        instance in the <code>/var/lib/ecs/gpu/nvidia_gpu_info.json</code> file.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -90,11 +90,11 @@ public class PlatformDevice implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of device that is available on the container instance. The only supported value is <code>GPU</code>.
+     * The type of device that's available on the container instance. The only supported value is <code>GPU</code>.
      * </p>
      * 
      * @param type
-     *        The type of device that is available on the container instance. The only supported value is
+     *        The type of device that's available on the container instance. The only supported value is
      *        <code>GPU</code>.
      * @see PlatformDeviceType
      */
@@ -105,10 +105,10 @@ public class PlatformDevice implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of device that is available on the container instance. The only supported value is <code>GPU</code>.
+     * The type of device that's available on the container instance. The only supported value is <code>GPU</code>.
      * </p>
      * 
-     * @return The type of device that is available on the container instance. The only supported value is
+     * @return The type of device that's available on the container instance. The only supported value is
      *         <code>GPU</code>.
      * @see PlatformDeviceType
      */
@@ -119,11 +119,11 @@ public class PlatformDevice implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of device that is available on the container instance. The only supported value is <code>GPU</code>.
+     * The type of device that's available on the container instance. The only supported value is <code>GPU</code>.
      * </p>
      * 
      * @param type
-     *        The type of device that is available on the container instance. The only supported value is
+     *        The type of device that's available on the container instance. The only supported value is
      *        <code>GPU</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PlatformDeviceType
@@ -136,11 +136,11 @@ public class PlatformDevice implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of device that is available on the container instance. The only supported value is <code>GPU</code>.
+     * The type of device that's available on the container instance. The only supported value is <code>GPU</code>.
      * </p>
      * 
      * @param type
-     *        The type of device that is available on the container instance. The only supported value is
+     *        The type of device that's available on the container instance. The only supported value is
      *        <code>GPU</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PlatformDeviceType

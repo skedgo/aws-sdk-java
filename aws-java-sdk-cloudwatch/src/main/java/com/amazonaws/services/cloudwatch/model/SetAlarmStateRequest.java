@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class SetAlarmStateRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name for the alarm. This name must be unique within the AWS account. The maximum length is 255 characters.
+     * The name of the alarm.
      * </p>
      */
     private String alarmName;
@@ -47,17 +47,20 @@ public class SetAlarmStateRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The reason that this alarm is set to this specific state, in JSON format.
      * </p>
+     * <p>
+     * For SNS or EC2 alarm actions, this is just informational. But for EC2 Auto Scaling or application Auto Scaling
+     * alarm actions, the Auto Scaling policy uses the information in this field to take the correct action.
+     * </p>
      */
     private String stateReasonData;
 
     /**
      * <p>
-     * The name for the alarm. This name must be unique within the AWS account. The maximum length is 255 characters.
+     * The name of the alarm.
      * </p>
      * 
      * @param alarmName
-     *        The name for the alarm. This name must be unique within the AWS account. The maximum length is 255
-     *        characters.
+     *        The name of the alarm.
      */
 
     public void setAlarmName(String alarmName) {
@@ -66,11 +69,10 @@ public class SetAlarmStateRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name for the alarm. This name must be unique within the AWS account. The maximum length is 255 characters.
+     * The name of the alarm.
      * </p>
      * 
-     * @return The name for the alarm. This name must be unique within the AWS account. The maximum length is 255
-     *         characters.
+     * @return The name of the alarm.
      */
 
     public String getAlarmName() {
@@ -79,12 +81,11 @@ public class SetAlarmStateRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name for the alarm. This name must be unique within the AWS account. The maximum length is 255 characters.
+     * The name of the alarm.
      * </p>
      * 
      * @param alarmName
-     *        The name for the alarm. This name must be unique within the AWS account. The maximum length is 255
-     *        characters.
+     *        The name of the alarm.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -210,9 +211,17 @@ public class SetAlarmStateRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The reason that this alarm is set to this specific state, in JSON format.
      * </p>
+     * <p>
+     * For SNS or EC2 alarm actions, this is just informational. But for EC2 Auto Scaling or application Auto Scaling
+     * alarm actions, the Auto Scaling policy uses the information in this field to take the correct action.
+     * </p>
      * 
      * @param stateReasonData
-     *        The reason that this alarm is set to this specific state, in JSON format.
+     *        The reason that this alarm is set to this specific state, in JSON format.</p>
+     *        <p>
+     *        For SNS or EC2 alarm actions, this is just informational. But for EC2 Auto Scaling or application Auto
+     *        Scaling alarm actions, the Auto Scaling policy uses the information in this field to take the correct
+     *        action.
      */
 
     public void setStateReasonData(String stateReasonData) {
@@ -223,8 +232,16 @@ public class SetAlarmStateRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The reason that this alarm is set to this specific state, in JSON format.
      * </p>
+     * <p>
+     * For SNS or EC2 alarm actions, this is just informational. But for EC2 Auto Scaling or application Auto Scaling
+     * alarm actions, the Auto Scaling policy uses the information in this field to take the correct action.
+     * </p>
      * 
-     * @return The reason that this alarm is set to this specific state, in JSON format.
+     * @return The reason that this alarm is set to this specific state, in JSON format.</p>
+     *         <p>
+     *         For SNS or EC2 alarm actions, this is just informational. But for EC2 Auto Scaling or application Auto
+     *         Scaling alarm actions, the Auto Scaling policy uses the information in this field to take the correct
+     *         action.
      */
 
     public String getStateReasonData() {
@@ -235,9 +252,17 @@ public class SetAlarmStateRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The reason that this alarm is set to this specific state, in JSON format.
      * </p>
+     * <p>
+     * For SNS or EC2 alarm actions, this is just informational. But for EC2 Auto Scaling or application Auto Scaling
+     * alarm actions, the Auto Scaling policy uses the information in this field to take the correct action.
+     * </p>
      * 
      * @param stateReasonData
-     *        The reason that this alarm is set to this specific state, in JSON format.
+     *        The reason that this alarm is set to this specific state, in JSON format.</p>
+     *        <p>
+     *        For SNS or EC2 alarm actions, this is just informational. But for EC2 Auto Scaling or application Auto
+     *        Scaling alarm actions, the Auto Scaling policy uses the information in this field to take the correct
+     *        action.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

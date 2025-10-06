@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class NotificationWithSubscribers implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The notification that is associated with a budget.
+     * The notification that's associated with a budget.
      * </p>
      */
     private Notification notification;
@@ -41,11 +41,11 @@ public class NotificationWithSubscribers implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The notification that is associated with a budget.
+     * The notification that's associated with a budget.
      * </p>
      * 
      * @param notification
-     *        The notification that is associated with a budget.
+     *        The notification that's associated with a budget.
      */
 
     public void setNotification(Notification notification) {
@@ -54,10 +54,10 @@ public class NotificationWithSubscribers implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The notification that is associated with a budget.
+     * The notification that's associated with a budget.
      * </p>
      * 
-     * @return The notification that is associated with a budget.
+     * @return The notification that's associated with a budget.
      */
 
     public Notification getNotification() {
@@ -66,11 +66,11 @@ public class NotificationWithSubscribers implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The notification that is associated with a budget.
+     * The notification that's associated with a budget.
      * </p>
      * 
      * @param notification
-     *        The notification that is associated with a budget.
+     *        The notification that's associated with a budget.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

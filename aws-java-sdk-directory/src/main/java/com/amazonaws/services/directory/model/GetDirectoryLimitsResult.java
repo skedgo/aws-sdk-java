@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,18 +28,18 @@ public class GetDirectoryLimitsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * A <a>DirectoryLimits</a> object that contains the directory limits for the current region.
+     * A <a>DirectoryLimits</a> object that contains the directory limits for the current Region.
      * </p>
      */
     private DirectoryLimits directoryLimits;
 
     /**
      * <p>
-     * A <a>DirectoryLimits</a> object that contains the directory limits for the current region.
+     * A <a>DirectoryLimits</a> object that contains the directory limits for the current Region.
      * </p>
      * 
      * @param directoryLimits
-     *        A <a>DirectoryLimits</a> object that contains the directory limits for the current region.
+     *        A <a>DirectoryLimits</a> object that contains the directory limits for the current Region.
      */
 
     public void setDirectoryLimits(DirectoryLimits directoryLimits) {
@@ -48,10 +48,10 @@ public class GetDirectoryLimitsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * A <a>DirectoryLimits</a> object that contains the directory limits for the current region.
+     * A <a>DirectoryLimits</a> object that contains the directory limits for the current Region.
      * </p>
      * 
-     * @return A <a>DirectoryLimits</a> object that contains the directory limits for the current region.
+     * @return A <a>DirectoryLimits</a> object that contains the directory limits for the current Region.
      */
 
     public DirectoryLimits getDirectoryLimits() {
@@ -60,11 +60,11 @@ public class GetDirectoryLimitsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * A <a>DirectoryLimits</a> object that contains the directory limits for the current region.
+     * A <a>DirectoryLimits</a> object that contains the directory limits for the current Region.
      * </p>
      * 
      * @param directoryLimits
-     *        A <a>DirectoryLimits</a> object that contains the directory limits for the current region.
+     *        A <a>DirectoryLimits</a> object that contains the directory limits for the current Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -11,6 +11,8 @@
  * and limitations under the License.
  */
 package com.amazonaws.services.ec2.model.transform;
+
+import java.util.ArrayList;
 
 import javax.xml.stream.events.XMLEvent;
 import javax.annotation.Generated;
@@ -43,6 +45,16 @@ public class ModifyVpcEndpointServicePermissionsResultStaxUnmarshaller implement
                 return modifyVpcEndpointServicePermissionsResult;
 
             if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
+
+                if (context.testExpression("addedPrincipalSet", targetDepth)) {
+                    modifyVpcEndpointServicePermissionsResult.withAddedPrincipals(new ArrayList<AddedPrincipal>());
+                    continue;
+                }
+
+                if (context.testExpression("addedPrincipalSet/item", targetDepth)) {
+                    modifyVpcEndpointServicePermissionsResult.withAddedPrincipals(AddedPrincipalStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
 
                 if (context.testExpression("return", targetDepth)) {
                     modifyVpcEndpointServicePermissionsResult.setReturnValue(BooleanStaxUnmarshaller.getInstance().unmarshall(context));

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,8 +15,9 @@ package com.amazonaws.services.mediaconvert.model;
 import javax.annotation.Generated;
 
 /**
- * Applies only to HLS outputs. Use this setting to specify whether the service inserts the ID3 timed metadata from the
- * input in this output.
+ * Set ID3 metadata to Passthrough to include ID3 metadata in this output. This includes ID3 metadata from the following
+ * features: ID3 timestamp period, and Custom ID3 metadata inserter. To exclude this ID3 metadata in this output: set
+ * ID3 metadata to None or leave blank.
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum TimedMetadata {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -132,6 +132,19 @@ public class AbstractAmazonNeptuneAsync extends AbstractAmazonNeptune implements
     }
 
     @Override
+    public java.util.concurrent.Future<CreateDBClusterEndpointResult> createDBClusterEndpointAsync(CreateDBClusterEndpointRequest request) {
+
+        return createDBClusterEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDBClusterEndpointResult> createDBClusterEndpointAsync(CreateDBClusterEndpointRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateDBClusterEndpointRequest, CreateDBClusterEndpointResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DBClusterParameterGroup> createDBClusterParameterGroupAsync(CreateDBClusterParameterGroupRequest request) {
 
         return createDBClusterParameterGroupAsync(request, null);
@@ -210,6 +223,19 @@ public class AbstractAmazonNeptuneAsync extends AbstractAmazonNeptune implements
     }
 
     @Override
+    public java.util.concurrent.Future<GlobalCluster> createGlobalClusterAsync(CreateGlobalClusterRequest request) {
+
+        return createGlobalClusterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalCluster> createGlobalClusterAsync(CreateGlobalClusterRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateGlobalClusterRequest, GlobalCluster> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DBCluster> deleteDBClusterAsync(DeleteDBClusterRequest request) {
 
         return deleteDBClusterAsync(request, null);
@@ -218,6 +244,19 @@ public class AbstractAmazonNeptuneAsync extends AbstractAmazonNeptune implements
     @Override
     public java.util.concurrent.Future<DBCluster> deleteDBClusterAsync(DeleteDBClusterRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteDBClusterRequest, DBCluster> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteDBClusterEndpointResult> deleteDBClusterEndpointAsync(DeleteDBClusterEndpointRequest request) {
+
+        return deleteDBClusterEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteDBClusterEndpointResult> deleteDBClusterEndpointAsync(DeleteDBClusterEndpointRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteDBClusterEndpointRequest, DeleteDBClusterEndpointResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -296,6 +335,32 @@ public class AbstractAmazonNeptuneAsync extends AbstractAmazonNeptune implements
     @Override
     public java.util.concurrent.Future<EventSubscription> deleteEventSubscriptionAsync(DeleteEventSubscriptionRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteEventSubscriptionRequest, EventSubscription> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalCluster> deleteGlobalClusterAsync(DeleteGlobalClusterRequest request) {
+
+        return deleteGlobalClusterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalCluster> deleteGlobalClusterAsync(DeleteGlobalClusterRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteGlobalClusterRequest, GlobalCluster> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDBClusterEndpointsResult> describeDBClusterEndpointsAsync(DescribeDBClusterEndpointsRequest request) {
+
+        return describeDBClusterEndpointsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDBClusterEndpointsResult> describeDBClusterEndpointsAsync(DescribeDBClusterEndpointsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeDBClusterEndpointsRequest, DescribeDBClusterEndpointsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -500,6 +565,19 @@ public class AbstractAmazonNeptuneAsync extends AbstractAmazonNeptune implements
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeGlobalClustersResult> describeGlobalClustersAsync(DescribeGlobalClustersRequest request) {
+
+        return describeGlobalClustersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeGlobalClustersResult> describeGlobalClustersAsync(DescribeGlobalClustersRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeGlobalClustersRequest, DescribeGlobalClustersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeOrderableDBInstanceOptionsResult> describeOrderableDBInstanceOptionsAsync(
             DescribeOrderableDBInstanceOptionsRequest request) {
 
@@ -558,6 +636,19 @@ public class AbstractAmazonNeptuneAsync extends AbstractAmazonNeptune implements
     }
 
     @Override
+    public java.util.concurrent.Future<GlobalCluster> failoverGlobalClusterAsync(FailoverGlobalClusterRequest request) {
+
+        return failoverGlobalClusterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalCluster> failoverGlobalClusterAsync(FailoverGlobalClusterRequest request,
+            com.amazonaws.handlers.AsyncHandler<FailoverGlobalClusterRequest, GlobalCluster> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
 
         return listTagsForResourceAsync(request, null);
@@ -579,6 +670,19 @@ public class AbstractAmazonNeptuneAsync extends AbstractAmazonNeptune implements
     @Override
     public java.util.concurrent.Future<DBCluster> modifyDBClusterAsync(ModifyDBClusterRequest request,
             com.amazonaws.handlers.AsyncHandler<ModifyDBClusterRequest, DBCluster> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyDBClusterEndpointResult> modifyDBClusterEndpointAsync(ModifyDBClusterEndpointRequest request) {
+
+        return modifyDBClusterEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyDBClusterEndpointResult> modifyDBClusterEndpointAsync(ModifyDBClusterEndpointRequest request,
+            com.amazonaws.handlers.AsyncHandler<ModifyDBClusterEndpointRequest, ModifyDBClusterEndpointResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -663,6 +767,19 @@ public class AbstractAmazonNeptuneAsync extends AbstractAmazonNeptune implements
     }
 
     @Override
+    public java.util.concurrent.Future<GlobalCluster> modifyGlobalClusterAsync(ModifyGlobalClusterRequest request) {
+
+        return modifyGlobalClusterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalCluster> modifyGlobalClusterAsync(ModifyGlobalClusterRequest request,
+            com.amazonaws.handlers.AsyncHandler<ModifyGlobalClusterRequest, GlobalCluster> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DBCluster> promoteReadReplicaDBClusterAsync(PromoteReadReplicaDBClusterRequest request) {
 
         return promoteReadReplicaDBClusterAsync(request, null);
@@ -684,6 +801,19 @@ public class AbstractAmazonNeptuneAsync extends AbstractAmazonNeptune implements
     @Override
     public java.util.concurrent.Future<DBInstance> rebootDBInstanceAsync(RebootDBInstanceRequest request,
             com.amazonaws.handlers.AsyncHandler<RebootDBInstanceRequest, DBInstance> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalCluster> removeFromGlobalClusterAsync(RemoveFromGlobalClusterRequest request) {
+
+        return removeFromGlobalClusterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalCluster> removeFromGlobalClusterAsync(RemoveFromGlobalClusterRequest request,
+            com.amazonaws.handlers.AsyncHandler<RemoveFromGlobalClusterRequest, GlobalCluster> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -775,6 +905,32 @@ public class AbstractAmazonNeptuneAsync extends AbstractAmazonNeptune implements
     @Override
     public java.util.concurrent.Future<DBCluster> restoreDBClusterToPointInTimeAsync(RestoreDBClusterToPointInTimeRequest request,
             com.amazonaws.handlers.AsyncHandler<RestoreDBClusterToPointInTimeRequest, DBCluster> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DBCluster> startDBClusterAsync(StartDBClusterRequest request) {
+
+        return startDBClusterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DBCluster> startDBClusterAsync(StartDBClusterRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartDBClusterRequest, DBCluster> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DBCluster> stopDBClusterAsync(StopDBClusterRequest request) {
+
+        return stopDBClusterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DBCluster> stopDBClusterAsync(StopDBClusterRequest request,
+            com.amazonaws.handlers.AsyncHandler<StopDBClusterRequest, DBCluster> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

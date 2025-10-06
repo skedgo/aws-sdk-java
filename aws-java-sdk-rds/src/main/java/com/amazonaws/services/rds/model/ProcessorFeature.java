@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -81,9 +81,30 @@ import javax.annotation.Generated;
  * </li>
  * </ul>
  * <p>
+ * If you call <code>DescribeDBInstances</code>, <code>ProcessorFeature</code> returns non-null values only if the
+ * following conditions are met:
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * You are accessing an Oracle DB instance.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Your Oracle DB instance class supports configuring the number of CPU cores and threads per core.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * The current number CPU cores and threads is set to a non-default value.
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
  * For more information, see <a
- * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#USER_ConfigureProcessor"
- * >Configuring the Processor of the DB Instance Class</a> in the <i>Amazon RDS User Guide. </i>
+ * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#USER_ConfigureProcessor">
+ * Configuring the processor for a DB instance class in RDS for Oracle</a> in the <i>Amazon RDS User Guide. </i>
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ProcessorFeature" target="_top">AWS API
@@ -100,7 +121,7 @@ public class ProcessorFeature implements Serializable, Cloneable {
     private String name;
     /**
      * <p>
-     * The value of a processor feature name.
+     * The value of a processor feature.
      * </p>
      */
     private String value;
@@ -148,11 +169,11 @@ public class ProcessorFeature implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The value of a processor feature name.
+     * The value of a processor feature.
      * </p>
      * 
      * @param value
-     *        The value of a processor feature name.
+     *        The value of a processor feature.
      */
 
     public void setValue(String value) {
@@ -161,10 +182,10 @@ public class ProcessorFeature implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The value of a processor feature name.
+     * The value of a processor feature.
      * </p>
      * 
-     * @return The value of a processor feature name.
+     * @return The value of a processor feature.
      */
 
     public String getValue() {
@@ -173,11 +194,11 @@ public class ProcessorFeature implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The value of a processor feature name.
+     * The value of a processor feature.
      * </p>
      * 
      * @param value
-     *        The value of a processor feature name.
+     *        The value of a processor feature.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Specifies configurations for one or more training jobs that Amazon SageMaker runs to test the algorithm.
+ * Specifies configurations for one or more training jobs that SageMaker runs to test the algorithm.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/AlgorithmValidationSpecification"
@@ -30,25 +30,25 @@ public class AlgorithmValidationSpecification implements Serializable, Cloneable
 
     /**
      * <p>
-     * The IAM roles that Amazon SageMaker uses to run the training jobs.
+     * The IAM roles that SageMaker uses to run the training jobs.
      * </p>
      */
     private String validationRole;
     /**
      * <p>
      * An array of <code>AlgorithmValidationProfile</code> objects, each of which specifies a training job and batch
-     * transform job that Amazon SageMaker runs to validate your algorithm.
+     * transform job that SageMaker runs to validate your algorithm.
      * </p>
      */
     private java.util.List<AlgorithmValidationProfile> validationProfiles;
 
     /**
      * <p>
-     * The IAM roles that Amazon SageMaker uses to run the training jobs.
+     * The IAM roles that SageMaker uses to run the training jobs.
      * </p>
      * 
      * @param validationRole
-     *        The IAM roles that Amazon SageMaker uses to run the training jobs.
+     *        The IAM roles that SageMaker uses to run the training jobs.
      */
 
     public void setValidationRole(String validationRole) {
@@ -57,10 +57,10 @@ public class AlgorithmValidationSpecification implements Serializable, Cloneable
 
     /**
      * <p>
-     * The IAM roles that Amazon SageMaker uses to run the training jobs.
+     * The IAM roles that SageMaker uses to run the training jobs.
      * </p>
      * 
-     * @return The IAM roles that Amazon SageMaker uses to run the training jobs.
+     * @return The IAM roles that SageMaker uses to run the training jobs.
      */
 
     public String getValidationRole() {
@@ -69,11 +69,11 @@ public class AlgorithmValidationSpecification implements Serializable, Cloneable
 
     /**
      * <p>
-     * The IAM roles that Amazon SageMaker uses to run the training jobs.
+     * The IAM roles that SageMaker uses to run the training jobs.
      * </p>
      * 
      * @param validationRole
-     *        The IAM roles that Amazon SageMaker uses to run the training jobs.
+     *        The IAM roles that SageMaker uses to run the training jobs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -85,11 +85,11 @@ public class AlgorithmValidationSpecification implements Serializable, Cloneable
     /**
      * <p>
      * An array of <code>AlgorithmValidationProfile</code> objects, each of which specifies a training job and batch
-     * transform job that Amazon SageMaker runs to validate your algorithm.
+     * transform job that SageMaker runs to validate your algorithm.
      * </p>
      * 
      * @return An array of <code>AlgorithmValidationProfile</code> objects, each of which specifies a training job and
-     *         batch transform job that Amazon SageMaker runs to validate your algorithm.
+     *         batch transform job that SageMaker runs to validate your algorithm.
      */
 
     public java.util.List<AlgorithmValidationProfile> getValidationProfiles() {
@@ -99,12 +99,12 @@ public class AlgorithmValidationSpecification implements Serializable, Cloneable
     /**
      * <p>
      * An array of <code>AlgorithmValidationProfile</code> objects, each of which specifies a training job and batch
-     * transform job that Amazon SageMaker runs to validate your algorithm.
+     * transform job that SageMaker runs to validate your algorithm.
      * </p>
      * 
      * @param validationProfiles
      *        An array of <code>AlgorithmValidationProfile</code> objects, each of which specifies a training job and
-     *        batch transform job that Amazon SageMaker runs to validate your algorithm.
+     *        batch transform job that SageMaker runs to validate your algorithm.
      */
 
     public void setValidationProfiles(java.util.Collection<AlgorithmValidationProfile> validationProfiles) {
@@ -119,7 +119,7 @@ public class AlgorithmValidationSpecification implements Serializable, Cloneable
     /**
      * <p>
      * An array of <code>AlgorithmValidationProfile</code> objects, each of which specifies a training job and batch
-     * transform job that Amazon SageMaker runs to validate your algorithm.
+     * transform job that SageMaker runs to validate your algorithm.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -129,7 +129,7 @@ public class AlgorithmValidationSpecification implements Serializable, Cloneable
      * 
      * @param validationProfiles
      *        An array of <code>AlgorithmValidationProfile</code> objects, each of which specifies a training job and
-     *        batch transform job that Amazon SageMaker runs to validate your algorithm.
+     *        batch transform job that SageMaker runs to validate your algorithm.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -146,12 +146,12 @@ public class AlgorithmValidationSpecification implements Serializable, Cloneable
     /**
      * <p>
      * An array of <code>AlgorithmValidationProfile</code> objects, each of which specifies a training job and batch
-     * transform job that Amazon SageMaker runs to validate your algorithm.
+     * transform job that SageMaker runs to validate your algorithm.
      * </p>
      * 
      * @param validationProfiles
      *        An array of <code>AlgorithmValidationProfile</code> objects, each of which specifies a training job and
-     *        batch transform job that Amazon SageMaker runs to validate your algorithm.
+     *        batch transform job that SageMaker runs to validate your algorithm.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

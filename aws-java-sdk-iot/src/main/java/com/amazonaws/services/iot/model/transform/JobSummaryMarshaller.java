@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,6 +43,8 @@ public class JobSummaryMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("lastUpdatedAt").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<java.util.Date> COMPLETEDAT_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("completedAt").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<Boolean> ISCONCURRENT_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("isConcurrent").build();
 
     private static final JobSummaryMarshaller instance = new JobSummaryMarshaller();
 
@@ -68,6 +70,7 @@ public class JobSummaryMarshaller {
             protocolMarshaller.marshall(jobSummary.getCreatedAt(), CREATEDAT_BINDING);
             protocolMarshaller.marshall(jobSummary.getLastUpdatedAt(), LASTUPDATEDAT_BINDING);
             protocolMarshaller.marshall(jobSummary.getCompletedAt(), COMPLETEDAT_BINDING);
+            protocolMarshaller.marshall(jobSummary.getIsConcurrent(), ISCONCURRENT_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

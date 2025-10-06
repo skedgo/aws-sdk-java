@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,10 +27,10 @@ public class ScheduleKeyDeletionRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The unique identifier of the customer master key (CMK) to delete.
+     * The unique identifier of the KMS key to delete.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -48,28 +48,34 @@ public class ScheduleKeyDeletionRequest extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      */
     private String keyId;
     /**
      * <p>
-     * The waiting period, specified in number of days. After the waiting period ends, AWS KMS deletes the customer
-     * master key (CMK).
+     * The waiting period, specified in number of days. After the waiting period ends, KMS deletes the KMS key.
+     * </p>
+     * <p>
+     * If the KMS key is a multi-Region primary key with replica keys, the waiting period begins when the last of its
+     * replica keys is deleted. Otherwise, the waiting period begins immediately.
      * </p>
      * <p>
      * This value is optional. If you include a value, it must be between 7 and 30, inclusive. If you do not include a
-     * value, it defaults to 30.
+     * value, it defaults to 30. You can use the <a href=
+     * "https://docs.aws.amazon.com/kms/latest/developerguide/conditions-kms.html#conditions-kms-schedule-key-deletion-pending-window-in-days"
+     * > <code>kms:ScheduleKeyDeletionPendingWindowInDays</code> </a> condition key to further constrain the values that
+     * principals can specify in the <code>PendingWindowInDays</code> parameter.
      * </p>
      */
     private Integer pendingWindowInDays;
 
     /**
      * <p>
-     * The unique identifier of the customer master key (CMK) to delete.
+     * The unique identifier of the KMS key to delete.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -87,13 +93,13 @@ public class ScheduleKeyDeletionRequest extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
      * @param keyId
-     *        The unique identifier of the customer master key (CMK) to delete.</p>
+     *        The unique identifier of the KMS key to delete.</p>
      *        <p>
-     *        Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     *        Specify the key ID or key ARN of the KMS key.
      *        </p>
      *        <p>
      *        For example:
@@ -111,7 +117,7 @@ public class ScheduleKeyDeletionRequest extends com.amazonaws.AmazonWebServiceRe
      *        </li>
      *        </ul>
      *        <p>
-     *        To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *        To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      */
 
     public void setKeyId(String keyId) {
@@ -120,10 +126,10 @@ public class ScheduleKeyDeletionRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The unique identifier of the customer master key (CMK) to delete.
+     * The unique identifier of the KMS key to delete.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -141,12 +147,12 @@ public class ScheduleKeyDeletionRequest extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
-     * @return The unique identifier of the customer master key (CMK) to delete.</p>
+     * @return The unique identifier of the KMS key to delete.</p>
      *         <p>
-     *         Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     *         Specify the key ID or key ARN of the KMS key.
      *         </p>
      *         <p>
      *         For example:
@@ -164,7 +170,7 @@ public class ScheduleKeyDeletionRequest extends com.amazonaws.AmazonWebServiceRe
      *         </li>
      *         </ul>
      *         <p>
-     *         To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *         To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      */
 
     public String getKeyId() {
@@ -173,10 +179,10 @@ public class ScheduleKeyDeletionRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The unique identifier of the customer master key (CMK) to delete.
+     * The unique identifier of the KMS key to delete.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -194,13 +200,13 @@ public class ScheduleKeyDeletionRequest extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
      * @param keyId
-     *        The unique identifier of the customer master key (CMK) to delete.</p>
+     *        The unique identifier of the KMS key to delete.</p>
      *        <p>
-     *        Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     *        Specify the key ID or key ARN of the KMS key.
      *        </p>
      *        <p>
      *        For example:
@@ -218,7 +224,7 @@ public class ScheduleKeyDeletionRequest extends com.amazonaws.AmazonWebServiceRe
      *        </li>
      *        </ul>
      *        <p>
-     *        To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *        To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -229,20 +235,33 @@ public class ScheduleKeyDeletionRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The waiting period, specified in number of days. After the waiting period ends, AWS KMS deletes the customer
-     * master key (CMK).
+     * The waiting period, specified in number of days. After the waiting period ends, KMS deletes the KMS key.
+     * </p>
+     * <p>
+     * If the KMS key is a multi-Region primary key with replica keys, the waiting period begins when the last of its
+     * replica keys is deleted. Otherwise, the waiting period begins immediately.
      * </p>
      * <p>
      * This value is optional. If you include a value, it must be between 7 and 30, inclusive. If you do not include a
-     * value, it defaults to 30.
+     * value, it defaults to 30. You can use the <a href=
+     * "https://docs.aws.amazon.com/kms/latest/developerguide/conditions-kms.html#conditions-kms-schedule-key-deletion-pending-window-in-days"
+     * > <code>kms:ScheduleKeyDeletionPendingWindowInDays</code> </a> condition key to further constrain the values that
+     * principals can specify in the <code>PendingWindowInDays</code> parameter.
      * </p>
      * 
      * @param pendingWindowInDays
-     *        The waiting period, specified in number of days. After the waiting period ends, AWS KMS deletes the
-     *        customer master key (CMK).</p>
+     *        The waiting period, specified in number of days. After the waiting period ends, KMS deletes the KMS
+     *        key.</p>
+     *        <p>
+     *        If the KMS key is a multi-Region primary key with replica keys, the waiting period begins when the last of
+     *        its replica keys is deleted. Otherwise, the waiting period begins immediately.
+     *        </p>
      *        <p>
      *        This value is optional. If you include a value, it must be between 7 and 30, inclusive. If you do not
-     *        include a value, it defaults to 30.
+     *        include a value, it defaults to 30. You can use the <a href=
+     *        "https://docs.aws.amazon.com/kms/latest/developerguide/conditions-kms.html#conditions-kms-schedule-key-deletion-pending-window-in-days"
+     *        > <code>kms:ScheduleKeyDeletionPendingWindowInDays</code> </a> condition key to further constrain the
+     *        values that principals can specify in the <code>PendingWindowInDays</code> parameter.
      */
 
     public void setPendingWindowInDays(Integer pendingWindowInDays) {
@@ -251,19 +270,32 @@ public class ScheduleKeyDeletionRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The waiting period, specified in number of days. After the waiting period ends, AWS KMS deletes the customer
-     * master key (CMK).
+     * The waiting period, specified in number of days. After the waiting period ends, KMS deletes the KMS key.
+     * </p>
+     * <p>
+     * If the KMS key is a multi-Region primary key with replica keys, the waiting period begins when the last of its
+     * replica keys is deleted. Otherwise, the waiting period begins immediately.
      * </p>
      * <p>
      * This value is optional. If you include a value, it must be between 7 and 30, inclusive. If you do not include a
-     * value, it defaults to 30.
+     * value, it defaults to 30. You can use the <a href=
+     * "https://docs.aws.amazon.com/kms/latest/developerguide/conditions-kms.html#conditions-kms-schedule-key-deletion-pending-window-in-days"
+     * > <code>kms:ScheduleKeyDeletionPendingWindowInDays</code> </a> condition key to further constrain the values that
+     * principals can specify in the <code>PendingWindowInDays</code> parameter.
      * </p>
      * 
-     * @return The waiting period, specified in number of days. After the waiting period ends, AWS KMS deletes the
-     *         customer master key (CMK).</p>
+     * @return The waiting period, specified in number of days. After the waiting period ends, KMS deletes the KMS
+     *         key.</p>
+     *         <p>
+     *         If the KMS key is a multi-Region primary key with replica keys, the waiting period begins when the last
+     *         of its replica keys is deleted. Otherwise, the waiting period begins immediately.
+     *         </p>
      *         <p>
      *         This value is optional. If you include a value, it must be between 7 and 30, inclusive. If you do not
-     *         include a value, it defaults to 30.
+     *         include a value, it defaults to 30. You can use the <a href=
+     *         "https://docs.aws.amazon.com/kms/latest/developerguide/conditions-kms.html#conditions-kms-schedule-key-deletion-pending-window-in-days"
+     *         > <code>kms:ScheduleKeyDeletionPendingWindowInDays</code> </a> condition key to further constrain the
+     *         values that principals can specify in the <code>PendingWindowInDays</code> parameter.
      */
 
     public Integer getPendingWindowInDays() {
@@ -272,20 +304,33 @@ public class ScheduleKeyDeletionRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The waiting period, specified in number of days. After the waiting period ends, AWS KMS deletes the customer
-     * master key (CMK).
+     * The waiting period, specified in number of days. After the waiting period ends, KMS deletes the KMS key.
+     * </p>
+     * <p>
+     * If the KMS key is a multi-Region primary key with replica keys, the waiting period begins when the last of its
+     * replica keys is deleted. Otherwise, the waiting period begins immediately.
      * </p>
      * <p>
      * This value is optional. If you include a value, it must be between 7 and 30, inclusive. If you do not include a
-     * value, it defaults to 30.
+     * value, it defaults to 30. You can use the <a href=
+     * "https://docs.aws.amazon.com/kms/latest/developerguide/conditions-kms.html#conditions-kms-schedule-key-deletion-pending-window-in-days"
+     * > <code>kms:ScheduleKeyDeletionPendingWindowInDays</code> </a> condition key to further constrain the values that
+     * principals can specify in the <code>PendingWindowInDays</code> parameter.
      * </p>
      * 
      * @param pendingWindowInDays
-     *        The waiting period, specified in number of days. After the waiting period ends, AWS KMS deletes the
-     *        customer master key (CMK).</p>
+     *        The waiting period, specified in number of days. After the waiting period ends, KMS deletes the KMS
+     *        key.</p>
+     *        <p>
+     *        If the KMS key is a multi-Region primary key with replica keys, the waiting period begins when the last of
+     *        its replica keys is deleted. Otherwise, the waiting period begins immediately.
+     *        </p>
      *        <p>
      *        This value is optional. If you include a value, it must be between 7 and 30, inclusive. If you do not
-     *        include a value, it defaults to 30.
+     *        include a value, it defaults to 30. You can use the <a href=
+     *        "https://docs.aws.amazon.com/kms/latest/developerguide/conditions-kms.html#conditions-kms-schedule-key-deletion-pending-window-in-days"
+     *        > <code>kms:ScheduleKeyDeletionPendingWindowInDays</code> </a> condition key to further constrain the
+     *        values that principals can specify in the <code>PendingWindowInDays</code> parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

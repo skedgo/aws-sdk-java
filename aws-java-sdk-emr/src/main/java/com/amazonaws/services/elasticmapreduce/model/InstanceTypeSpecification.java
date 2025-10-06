@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,7 +23,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * </p>
  * <note>
  * <p>
- * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.
+ * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x versions.
  * </p>
  * </note>
  * 
@@ -35,7 +35,7 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The EC2 instance type, for example <code>m3.xlarge</code>.
+     * The Amazon EC2 instance type, for example <code>m3.xlarge</code>.
      * </p>
      */
     private String instanceType;
@@ -49,13 +49,13 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
     private Integer weightedCapacity;
     /**
      * <p>
-     * The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD.
+     * The bid price for each Amazon EC2 Spot Instance type as defined by <code>InstanceType</code>. Expressed in USD.
      * </p>
      */
     private String bidPrice;
     /**
      * <p>
-     * The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by
+     * The bid price, as a percentage of On-Demand price, for each Amazon EC2 Spot Instance as defined by
      * <code>InstanceType</code>. Expressed as a number (for example, 20 specifies 20%).
      * </p>
      */
@@ -69,7 +69,7 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
     private com.amazonaws.internal.SdkInternalList<Configuration> configurations;
     /**
      * <p>
-     * The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     * The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      * <code>InstanceType</code>.
      * </p>
      */
@@ -80,14 +80,27 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
      * </p>
      */
     private Boolean ebsOptimized;
+    /**
+     * <p>
+     * The custom AMI ID to use for the instance type.
+     * </p>
+     */
+    private String customAmiId;
+    /**
+     * <p>
+     * The priority at which Amazon EMR launches the Amazon EC2 instances with this instance type. Priority starts at 0,
+     * which is the highest priority. Amazon EMR considers the highest priority first.
+     * </p>
+     */
+    private Double priority;
 
     /**
      * <p>
-     * The EC2 instance type, for example <code>m3.xlarge</code>.
+     * The Amazon EC2 instance type, for example <code>m3.xlarge</code>.
      * </p>
      * 
      * @param instanceType
-     *        The EC2 instance type, for example <code>m3.xlarge</code>.
+     *        The Amazon EC2 instance type, for example <code>m3.xlarge</code>.
      */
 
     public void setInstanceType(String instanceType) {
@@ -96,10 +109,10 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The EC2 instance type, for example <code>m3.xlarge</code>.
+     * The Amazon EC2 instance type, for example <code>m3.xlarge</code>.
      * </p>
      * 
-     * @return The EC2 instance type, for example <code>m3.xlarge</code>.
+     * @return The Amazon EC2 instance type, for example <code>m3.xlarge</code>.
      */
 
     public String getInstanceType() {
@@ -108,11 +121,11 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The EC2 instance type, for example <code>m3.xlarge</code>.
+     * The Amazon EC2 instance type, for example <code>m3.xlarge</code>.
      * </p>
      * 
      * @param instanceType
-     *        The EC2 instance type, for example <code>m3.xlarge</code>.
+     *        The Amazon EC2 instance type, for example <code>m3.xlarge</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -175,11 +188,12 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD.
+     * The bid price for each Amazon EC2 Spot Instance type as defined by <code>InstanceType</code>. Expressed in USD.
      * </p>
      * 
      * @param bidPrice
-     *        The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD.
+     *        The bid price for each Amazon EC2 Spot Instance type as defined by <code>InstanceType</code>. Expressed in
+     *        USD.
      */
 
     public void setBidPrice(String bidPrice) {
@@ -188,10 +202,11 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD.
+     * The bid price for each Amazon EC2 Spot Instance type as defined by <code>InstanceType</code>. Expressed in USD.
      * </p>
      * 
-     * @return The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD.
+     * @return The bid price for each Amazon EC2 Spot Instance type as defined by <code>InstanceType</code>. Expressed
+     *         in USD.
      */
 
     public String getBidPrice() {
@@ -200,11 +215,12 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD.
+     * The bid price for each Amazon EC2 Spot Instance type as defined by <code>InstanceType</code>. Expressed in USD.
      * </p>
      * 
      * @param bidPrice
-     *        The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD.
+     *        The bid price for each Amazon EC2 Spot Instance type as defined by <code>InstanceType</code>. Expressed in
+     *        USD.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -215,12 +231,12 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by
+     * The bid price, as a percentage of On-Demand price, for each Amazon EC2 Spot Instance as defined by
      * <code>InstanceType</code>. Expressed as a number (for example, 20 specifies 20%).
      * </p>
      * 
      * @param bidPriceAsPercentageOfOnDemandPrice
-     *        The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by
+     *        The bid price, as a percentage of On-Demand price, for each Amazon EC2 Spot Instance as defined by
      *        <code>InstanceType</code>. Expressed as a number (for example, 20 specifies 20%).
      */
 
@@ -230,11 +246,11 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by
+     * The bid price, as a percentage of On-Demand price, for each Amazon EC2 Spot Instance as defined by
      * <code>InstanceType</code>. Expressed as a number (for example, 20 specifies 20%).
      * </p>
      * 
-     * @return The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by
+     * @return The bid price, as a percentage of On-Demand price, for each Amazon EC2 Spot Instance as defined by
      *         <code>InstanceType</code>. Expressed as a number (for example, 20 specifies 20%).
      */
 
@@ -244,12 +260,12 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by
+     * The bid price, as a percentage of On-Demand price, for each Amazon EC2 Spot Instance as defined by
      * <code>InstanceType</code>. Expressed as a number (for example, 20 specifies 20%).
      * </p>
      * 
      * @param bidPriceAsPercentageOfOnDemandPrice
-     *        The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by
+     *        The bid price, as a percentage of On-Demand price, for each Amazon EC2 Spot Instance as defined by
      *        <code>InstanceType</code>. Expressed as a number (for example, 20 specifies 20%).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -342,11 +358,11 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     * The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      * <code>InstanceType</code>.
      * </p>
      * 
-     * @return The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     * @return The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      *         <code>InstanceType</code>.
      */
 
@@ -359,12 +375,12 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     * The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      * <code>InstanceType</code>.
      * </p>
      * 
      * @param ebsBlockDevices
-     *        The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     *        The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      *        <code>InstanceType</code>.
      */
 
@@ -379,7 +395,7 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     * The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      * <code>InstanceType</code>.
      * </p>
      * <p>
@@ -389,7 +405,7 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
      * </p>
      * 
      * @param ebsBlockDevices
-     *        The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     *        The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      *        <code>InstanceType</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -406,12 +422,12 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     * The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      * <code>InstanceType</code>.
      * </p>
      * 
      * @param ebsBlockDevices
-     *        The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     *        The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      *        <code>InstanceType</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -474,6 +490,92 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
     }
 
     /**
+     * <p>
+     * The custom AMI ID to use for the instance type.
+     * </p>
+     * 
+     * @param customAmiId
+     *        The custom AMI ID to use for the instance type.
+     */
+
+    public void setCustomAmiId(String customAmiId) {
+        this.customAmiId = customAmiId;
+    }
+
+    /**
+     * <p>
+     * The custom AMI ID to use for the instance type.
+     * </p>
+     * 
+     * @return The custom AMI ID to use for the instance type.
+     */
+
+    public String getCustomAmiId() {
+        return this.customAmiId;
+    }
+
+    /**
+     * <p>
+     * The custom AMI ID to use for the instance type.
+     * </p>
+     * 
+     * @param customAmiId
+     *        The custom AMI ID to use for the instance type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceTypeSpecification withCustomAmiId(String customAmiId) {
+        setCustomAmiId(customAmiId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The priority at which Amazon EMR launches the Amazon EC2 instances with this instance type. Priority starts at 0,
+     * which is the highest priority. Amazon EMR considers the highest priority first.
+     * </p>
+     * 
+     * @param priority
+     *        The priority at which Amazon EMR launches the Amazon EC2 instances with this instance type. Priority
+     *        starts at 0, which is the highest priority. Amazon EMR considers the highest priority first.
+     */
+
+    public void setPriority(Double priority) {
+        this.priority = priority;
+    }
+
+    /**
+     * <p>
+     * The priority at which Amazon EMR launches the Amazon EC2 instances with this instance type. Priority starts at 0,
+     * which is the highest priority. Amazon EMR considers the highest priority first.
+     * </p>
+     * 
+     * @return The priority at which Amazon EMR launches the Amazon EC2 instances with this instance type. Priority
+     *         starts at 0, which is the highest priority. Amazon EMR considers the highest priority first.
+     */
+
+    public Double getPriority() {
+        return this.priority;
+    }
+
+    /**
+     * <p>
+     * The priority at which Amazon EMR launches the Amazon EC2 instances with this instance type. Priority starts at 0,
+     * which is the highest priority. Amazon EMR considers the highest priority first.
+     * </p>
+     * 
+     * @param priority
+     *        The priority at which Amazon EMR launches the Amazon EC2 instances with this instance type. Priority
+     *        starts at 0, which is the highest priority. Amazon EMR considers the highest priority first.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceTypeSpecification withPriority(Double priority) {
+        setPriority(priority);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -498,7 +600,11 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
         if (getEbsBlockDevices() != null)
             sb.append("EbsBlockDevices: ").append(getEbsBlockDevices()).append(",");
         if (getEbsOptimized() != null)
-            sb.append("EbsOptimized: ").append(getEbsOptimized());
+            sb.append("EbsOptimized: ").append(getEbsOptimized()).append(",");
+        if (getCustomAmiId() != null)
+            sb.append("CustomAmiId: ").append(getCustomAmiId()).append(",");
+        if (getPriority() != null)
+            sb.append("Priority: ").append(getPriority());
         sb.append("}");
         return sb.toString();
     }
@@ -542,6 +648,14 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
             return false;
         if (other.getEbsOptimized() != null && other.getEbsOptimized().equals(this.getEbsOptimized()) == false)
             return false;
+        if (other.getCustomAmiId() == null ^ this.getCustomAmiId() == null)
+            return false;
+        if (other.getCustomAmiId() != null && other.getCustomAmiId().equals(this.getCustomAmiId()) == false)
+            return false;
+        if (other.getPriority() == null ^ this.getPriority() == null)
+            return false;
+        if (other.getPriority() != null && other.getPriority().equals(this.getPriority()) == false)
+            return false;
         return true;
     }
 
@@ -557,6 +671,8 @@ public class InstanceTypeSpecification implements Serializable, Cloneable, Struc
         hashCode = prime * hashCode + ((getConfigurations() == null) ? 0 : getConfigurations().hashCode());
         hashCode = prime * hashCode + ((getEbsBlockDevices() == null) ? 0 : getEbsBlockDevices().hashCode());
         hashCode = prime * hashCode + ((getEbsOptimized() == null) ? 0 : getEbsOptimized().hashCode());
+        hashCode = prime * hashCode + ((getCustomAmiId() == null) ? 0 : getCustomAmiId().hashCode());
+        hashCode = prime * hashCode + ((getPriority() == null) ? 0 : getPriority().hashCode());
         return hashCode;
     }
 

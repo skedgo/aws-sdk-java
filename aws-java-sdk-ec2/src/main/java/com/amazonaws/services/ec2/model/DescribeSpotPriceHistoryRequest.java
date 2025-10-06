@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -46,7 +46,8 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * <li>
      * <p>
      * <code>product-description</code> - The product description for the Spot price (<code>Linux/UNIX</code> |
-     * <code>SUSE Linux</code> | <code>Windows</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     * <code>Red Hat Enterprise Linux</code> | <code>SUSE Linux</code> | <code>Windows</code> |
+     * <code>Linux/UNIX (Amazon VPC)</code> | <code>Red Hat Enterprise Linux (Amazon VPC)</code> |
      * <code>SUSE Linux (Amazon VPC)</code> | <code>Windows (Amazon VPC)</code>).
      * </p>
      * </li>
@@ -58,9 +59,9 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
-     * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater than or
-     * less than comparison is not supported.
+     * <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example, <i>ddd MMM dd
+     * HH</i>:<i>mm</i>:<i>ss</i> UTC <i>YYYY</i>). You can use wildcards (<code>*</code> and <code>?</code>). Greater
+     * than or less than comparison is not supported.
      * </p>
      * </li>
      * </ul>
@@ -87,14 +88,16 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
     private com.amazonaws.internal.SdkInternalList<String> instanceTypes;
     /**
      * <p>
-     * The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default value
-     * is 1000. To retrieve the remaining results, make another call with the returned <code>NextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      */
     private Integer maxResults;
     /**
      * <p>
-     * The token for the next set of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      */
     private String nextToken;
@@ -114,7 +117,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -130,7 +133,8 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * <li>
      * <p>
      * <code>product-description</code> - The product description for the Spot price (<code>Linux/UNIX</code> |
-     * <code>SUSE Linux</code> | <code>Windows</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     * <code>Red Hat Enterprise Linux</code> | <code>SUSE Linux</code> | <code>Windows</code> |
+     * <code>Linux/UNIX (Amazon VPC)</code> | <code>Red Hat Enterprise Linux (Amazon VPC)</code> |
      * <code>SUSE Linux (Amazon VPC)</code> | <code>Windows (Amazon VPC)</code>).
      * </p>
      * </li>
@@ -142,14 +146,14 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
-     * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater than or
-     * less than comparison is not supported.
+     * <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example, <i>ddd MMM dd
+     * HH</i>:<i>mm</i>:<i>ss</i> UTC <i>YYYY</i>). You can use wildcards (<code>*</code> and <code>?</code>). Greater
+     * than or less than comparison is not supported.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return One or more filters.</p>
+     * @return The filters.</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -164,7 +168,8 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      *         <li>
      *         <p>
      *         <code>product-description</code> - The product description for the Spot price (<code>Linux/UNIX</code> |
-     *         <code>SUSE Linux</code> | <code>Windows</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     *         <code>Red Hat Enterprise Linux</code> | <code>SUSE Linux</code> | <code>Windows</code> |
+     *         <code>Linux/UNIX (Amazon VPC)</code> | <code>Red Hat Enterprise Linux (Amazon VPC)</code> |
      *         <code>SUSE Linux (Amazon VPC)</code> | <code>Windows (Amazon VPC)</code>).
      *         </p>
      *         </li>
@@ -176,9 +181,9 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      *         </li>
      *         <li>
      *         <p>
-     *         <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
-     *         <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater
-     *         than or less than comparison is not supported.
+     *         <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example, <i>ddd MMM
+     *         dd HH</i>:<i>mm</i>:<i>ss</i> UTC <i>YYYY</i>). You can use wildcards (<code>*</code> and <code>?</code>
+     *         ). Greater than or less than comparison is not supported.
      *         </p>
      *         </li>
      */
@@ -192,7 +197,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -208,7 +213,8 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * <li>
      * <p>
      * <code>product-description</code> - The product description for the Spot price (<code>Linux/UNIX</code> |
-     * <code>SUSE Linux</code> | <code>Windows</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     * <code>Red Hat Enterprise Linux</code> | <code>SUSE Linux</code> | <code>Windows</code> |
+     * <code>Linux/UNIX (Amazon VPC)</code> | <code>Red Hat Enterprise Linux (Amazon VPC)</code> |
      * <code>SUSE Linux (Amazon VPC)</code> | <code>Windows (Amazon VPC)</code>).
      * </p>
      * </li>
@@ -220,15 +226,15 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
-     * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater than or
-     * less than comparison is not supported.
+     * <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example, <i>ddd MMM dd
+     * HH</i>:<i>mm</i>:<i>ss</i> UTC <i>YYYY</i>). You can use wildcards (<code>*</code> and <code>?</code>). Greater
+     * than or less than comparison is not supported.
      * </p>
      * </li>
      * </ul>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -243,7 +249,8 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      *        <li>
      *        <p>
      *        <code>product-description</code> - The product description for the Spot price (<code>Linux/UNIX</code> |
-     *        <code>SUSE Linux</code> | <code>Windows</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     *        <code>Red Hat Enterprise Linux</code> | <code>SUSE Linux</code> | <code>Windows</code> |
+     *        <code>Linux/UNIX (Amazon VPC)</code> | <code>Red Hat Enterprise Linux (Amazon VPC)</code> |
      *        <code>SUSE Linux (Amazon VPC)</code> | <code>Windows (Amazon VPC)</code>).
      *        </p>
      *        </li>
@@ -255,9 +262,9 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      *        </li>
      *        <li>
      *        <p>
-     *        <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
-     *        <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater
-     *        than or less than comparison is not supported.
+     *        <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example, <i>ddd MMM
+     *        dd HH</i>:<i>mm</i>:<i>ss</i> UTC <i>YYYY</i>). You can use wildcards (<code>*</code> and <code>?</code>).
+     *        Greater than or less than comparison is not supported.
      *        </p>
      *        </li>
      */
@@ -273,7 +280,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -289,7 +296,8 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * <li>
      * <p>
      * <code>product-description</code> - The product description for the Spot price (<code>Linux/UNIX</code> |
-     * <code>SUSE Linux</code> | <code>Windows</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     * <code>Red Hat Enterprise Linux</code> | <code>SUSE Linux</code> | <code>Windows</code> |
+     * <code>Linux/UNIX (Amazon VPC)</code> | <code>Red Hat Enterprise Linux (Amazon VPC)</code> |
      * <code>SUSE Linux (Amazon VPC)</code> | <code>Windows (Amazon VPC)</code>).
      * </p>
      * </li>
@@ -301,9 +309,9 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
-     * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater than or
-     * less than comparison is not supported.
+     * <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example, <i>ddd MMM dd
+     * HH</i>:<i>mm</i>:<i>ss</i> UTC <i>YYYY</i>). You can use wildcards (<code>*</code> and <code>?</code>). Greater
+     * than or less than comparison is not supported.
      * </p>
      * </li>
      * </ul>
@@ -314,7 +322,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * </p>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -329,7 +337,8 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      *        <li>
      *        <p>
      *        <code>product-description</code> - The product description for the Spot price (<code>Linux/UNIX</code> |
-     *        <code>SUSE Linux</code> | <code>Windows</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     *        <code>Red Hat Enterprise Linux</code> | <code>SUSE Linux</code> | <code>Windows</code> |
+     *        <code>Linux/UNIX (Amazon VPC)</code> | <code>Red Hat Enterprise Linux (Amazon VPC)</code> |
      *        <code>SUSE Linux (Amazon VPC)</code> | <code>Windows (Amazon VPC)</code>).
      *        </p>
      *        </li>
@@ -341,9 +350,9 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      *        </li>
      *        <li>
      *        <p>
-     *        <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
-     *        <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater
-     *        than or less than comparison is not supported.
+     *        <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example, <i>ddd MMM
+     *        dd HH</i>:<i>mm</i>:<i>ss</i> UTC <i>YYYY</i>). You can use wildcards (<code>*</code> and <code>?</code>).
+     *        Greater than or less than comparison is not supported.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -361,7 +370,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -377,7 +386,8 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * <li>
      * <p>
      * <code>product-description</code> - The product description for the Spot price (<code>Linux/UNIX</code> |
-     * <code>SUSE Linux</code> | <code>Windows</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     * <code>Red Hat Enterprise Linux</code> | <code>SUSE Linux</code> | <code>Windows</code> |
+     * <code>Linux/UNIX (Amazon VPC)</code> | <code>Red Hat Enterprise Linux (Amazon VPC)</code> |
      * <code>SUSE Linux (Amazon VPC)</code> | <code>Windows (Amazon VPC)</code>).
      * </p>
      * </li>
@@ -389,15 +399,15 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
-     * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater than or
-     * less than comparison is not supported.
+     * <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example, <i>ddd MMM dd
+     * HH</i>:<i>mm</i>:<i>ss</i> UTC <i>YYYY</i>). You can use wildcards (<code>*</code> and <code>?</code>). Greater
+     * than or less than comparison is not supported.
      * </p>
      * </li>
      * </ul>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -412,7 +422,8 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      *        <li>
      *        <p>
      *        <code>product-description</code> - The product description for the Spot price (<code>Linux/UNIX</code> |
-     *        <code>SUSE Linux</code> | <code>Windows</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     *        <code>Red Hat Enterprise Linux</code> | <code>SUSE Linux</code> | <code>Windows</code> |
+     *        <code>Linux/UNIX (Amazon VPC)</code> | <code>Red Hat Enterprise Linux (Amazon VPC)</code> |
      *        <code>SUSE Linux (Amazon VPC)</code> | <code>Windows (Amazon VPC)</code>).
      *        </p>
      *        </li>
@@ -424,9 +435,9 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      *        </li>
      *        <li>
      *        <p>
-     *        <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
-     *        <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater
-     *        than or less than comparison is not supported.
+     *        <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example, <i>ddd MMM
+     *        dd HH</i>:<i>mm</i>:<i>ss</i> UTC <i>YYYY</i>). You can use wildcards (<code>*</code> and <code>?</code>).
+     *        Greater than or less than comparison is not supported.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -626,14 +637,16 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default value
-     * is 1000. To retrieve the remaining results, make another call with the returned <code>NextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default
-     *        value is 1000. To retrieve the remaining results, make another call with the returned
-     *        <code>NextToken</code> value.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -642,13 +655,15 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default value
-     * is 1000. To retrieve the remaining results, make another call with the returned <code>NextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
-     * @return The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default
-     *         value is 1000. To retrieve the remaining results, make another call with the returned
-     *         <code>NextToken</code> value.
+     * @return The maximum number of items to return for this request. To get the next page of items, make another
+     *         request with the token returned in the output. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *         >Pagination</a>.
      */
 
     public Integer getMaxResults() {
@@ -657,14 +672,16 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default value
-     * is 1000. To retrieve the remaining results, make another call with the returned <code>NextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default
-     *        value is 1000. To retrieve the remaining results, make another call with the returned
-     *        <code>NextToken</code> value.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -675,11 +692,13 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The token for the next set of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next set of results.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      */
 
     public void setNextToken(String nextToken) {
@@ -688,10 +707,12 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The token for the next set of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
-     * @return The token for the next set of results.
+     * @return The token returned from a previous paginated request. Pagination continues from the end of the items
+     *         returned by the previous request.
      */
 
     public String getNextToken() {
@@ -700,11 +721,13 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The token for the next set of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next set of results.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

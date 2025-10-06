@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,32 +43,32 @@ public class GetSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
     private String versionId;
     /**
      * <p>
-     * The decrypted part of the protected secret information that was originally provided as binary data in the form of
-     * a byte array. The response parameter represents the binary data as a <a
-     * href="https://tools.ietf.org/html/rfc4648#section-4">base64-encoded</a> string.
+     * The decrypted secret value, if the secret value was originally provided as binary data in the form of a byte
+     * array. When you retrieve a <code>SecretBinary</code> using the HTTP API, the Python SDK, or the Amazon Web
+     * Services CLI, the value is Base64-encoded. Otherwise, it is not encoded.
      * </p>
      * <p>
-     * This parameter is not used if the secret is created by the Secrets Manager console.
+     * If the secret was created by using the Secrets Manager console, or if the secret value was originally provided as
+     * a string, then this field is omitted. The secret value appears in <code>SecretString</code> instead.
      * </p>
      * <p>
-     * If you store custom information in this field of the secret, then you must code your Lambda rotation function to
-     * parse and interpret whatever you store in the <code>SecretString</code> or <code>SecretBinary</code> fields.
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      */
     private java.nio.ByteBuffer secretBinary;
     /**
      * <p>
-     * The decrypted part of the protected secret information that was originally provided as a string.
+     * The decrypted secret value, if the secret value was originally provided as a string or through the Secrets
+     * Manager console.
      * </p>
      * <p>
-     * If you create this secret by using the Secrets Manager console then only the <code>SecretString</code> parameter
-     * contains data. Secrets Manager stores the information as a JSON structure of key/value pairs that the Lambda
-     * rotation function knows how to parse.
+     * If this secret was created by using the console, then Secrets Manager stores the information as a JSON structure
+     * of key/value pairs.
      * </p>
      * <p>
-     * If you store custom information in the secret by using the <a>CreateSecret</a>, <a>UpdateSecret</a>, or
-     * <a>PutSecretValue</a> API operations instead of the Secrets Manager console, or by using the <b>Other secret
-     * type</b> in the console, then you must code your Lambda rotation function to parse and interpret those values.
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      */
     private String secretString;
@@ -80,7 +80,9 @@ public class GetSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
     private java.util.List<String> versionStages;
     /**
      * <p>
-     * The date and time that this version of the secret was created.
+     * The date and time that this version of the secret was created. If you don't specify which version in
+     * <code>VersionId</code> or <code>VersionStage</code>, then Secrets Manager uses the <code>AWSCURRENT</code>
+     * version.
      * </p>
      */
     private java.util.Date createdDate;
@@ -207,16 +209,17 @@ public class GetSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The decrypted part of the protected secret information that was originally provided as binary data in the form of
-     * a byte array. The response parameter represents the binary data as a <a
-     * href="https://tools.ietf.org/html/rfc4648#section-4">base64-encoded</a> string.
+     * The decrypted secret value, if the secret value was originally provided as binary data in the form of a byte
+     * array. When you retrieve a <code>SecretBinary</code> using the HTTP API, the Python SDK, or the Amazon Web
+     * Services CLI, the value is Base64-encoded. Otherwise, it is not encoded.
      * </p>
      * <p>
-     * This parameter is not used if the secret is created by the Secrets Manager console.
+     * If the secret was created by using the Secrets Manager console, or if the secret value was originally provided as
+     * a string, then this field is omitted. The secret value appears in <code>SecretString</code> instead.
      * </p>
      * <p>
-     * If you store custom information in this field of the secret, then you must code your Lambda rotation function to
-     * parse and interpret whatever you store in the <code>SecretString</code> or <code>SecretBinary</code> fields.
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -230,16 +233,17 @@ public class GetSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
      * </p>
      * 
      * @param secretBinary
-     *        The decrypted part of the protected secret information that was originally provided as binary data in the
-     *        form of a byte array. The response parameter represents the binary data as a <a
-     *        href="https://tools.ietf.org/html/rfc4648#section-4">base64-encoded</a> string.</p>
+     *        The decrypted secret value, if the secret value was originally provided as binary data in the form of a
+     *        byte array. When you retrieve a <code>SecretBinary</code> using the HTTP API, the Python SDK, or the
+     *        Amazon Web Services CLI, the value is Base64-encoded. Otherwise, it is not encoded.</p>
      *        <p>
-     *        This parameter is not used if the secret is created by the Secrets Manager console.
+     *        If the secret was created by using the Secrets Manager console, or if the secret value was originally
+     *        provided as a string, then this field is omitted. The secret value appears in <code>SecretString</code>
+     *        instead.
      *        </p>
      *        <p>
-     *        If you store custom information in this field of the secret, then you must code your Lambda rotation
-     *        function to parse and interpret whatever you store in the <code>SecretString</code> or
-     *        <code>SecretBinary</code> fields.
+     *        Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     *        entries. If you create your own log entries, you must also avoid logging the information in this field.
      */
 
     public void setSecretBinary(java.nio.ByteBuffer secretBinary) {
@@ -248,16 +252,17 @@ public class GetSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The decrypted part of the protected secret information that was originally provided as binary data in the form of
-     * a byte array. The response parameter represents the binary data as a <a
-     * href="https://tools.ietf.org/html/rfc4648#section-4">base64-encoded</a> string.
+     * The decrypted secret value, if the secret value was originally provided as binary data in the form of a byte
+     * array. When you retrieve a <code>SecretBinary</code> using the HTTP API, the Python SDK, or the Amazon Web
+     * Services CLI, the value is Base64-encoded. Otherwise, it is not encoded.
      * </p>
      * <p>
-     * This parameter is not used if the secret is created by the Secrets Manager console.
+     * If the secret was created by using the Secrets Manager console, or if the secret value was originally provided as
+     * a string, then this field is omitted. The secret value appears in <code>SecretString</code> instead.
      * </p>
      * <p>
-     * If you store custom information in this field of the secret, then you must code your Lambda rotation function to
-     * parse and interpret whatever you store in the <code>SecretString</code> or <code>SecretBinary</code> fields.
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      * <p>
      * {@code ByteBuffer}s are stateful. Calling their {@code get} methods changes their {@code position}. We recommend
@@ -267,16 +272,18 @@ public class GetSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
      * {@code position}.
      * </p>
      * 
-     * @return The decrypted part of the protected secret information that was originally provided as binary data in the
-     *         form of a byte array. The response parameter represents the binary data as a <a
-     *         href="https://tools.ietf.org/html/rfc4648#section-4">base64-encoded</a> string.</p>
+     * @return The decrypted secret value, if the secret value was originally provided as binary data in the form of a
+     *         byte array. When you retrieve a <code>SecretBinary</code> using the HTTP API, the Python SDK, or the
+     *         Amazon Web Services CLI, the value is Base64-encoded. Otherwise, it is not encoded.</p>
      *         <p>
-     *         This parameter is not used if the secret is created by the Secrets Manager console.
+     *         If the secret was created by using the Secrets Manager console, or if the secret value was originally
+     *         provided as a string, then this field is omitted. The secret value appears in <code>SecretString</code>
+     *         instead.
      *         </p>
      *         <p>
-     *         If you store custom information in this field of the secret, then you must code your Lambda rotation
-     *         function to parse and interpret whatever you store in the <code>SecretString</code> or
-     *         <code>SecretBinary</code> fields.
+     *         Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail
+     *         log entries. If you create your own log entries, you must also avoid logging the information in this
+     *         field.
      */
 
     public java.nio.ByteBuffer getSecretBinary() {
@@ -285,16 +292,17 @@ public class GetSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The decrypted part of the protected secret information that was originally provided as binary data in the form of
-     * a byte array. The response parameter represents the binary data as a <a
-     * href="https://tools.ietf.org/html/rfc4648#section-4">base64-encoded</a> string.
+     * The decrypted secret value, if the secret value was originally provided as binary data in the form of a byte
+     * array. When you retrieve a <code>SecretBinary</code> using the HTTP API, the Python SDK, or the Amazon Web
+     * Services CLI, the value is Base64-encoded. Otherwise, it is not encoded.
      * </p>
      * <p>
-     * This parameter is not used if the secret is created by the Secrets Manager console.
+     * If the secret was created by using the Secrets Manager console, or if the secret value was originally provided as
+     * a string, then this field is omitted. The secret value appears in <code>SecretString</code> instead.
      * </p>
      * <p>
-     * If you store custom information in this field of the secret, then you must code your Lambda rotation function to
-     * parse and interpret whatever you store in the <code>SecretString</code> or <code>SecretBinary</code> fields.
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -308,16 +316,17 @@ public class GetSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
      * </p>
      * 
      * @param secretBinary
-     *        The decrypted part of the protected secret information that was originally provided as binary data in the
-     *        form of a byte array. The response parameter represents the binary data as a <a
-     *        href="https://tools.ietf.org/html/rfc4648#section-4">base64-encoded</a> string.</p>
+     *        The decrypted secret value, if the secret value was originally provided as binary data in the form of a
+     *        byte array. When you retrieve a <code>SecretBinary</code> using the HTTP API, the Python SDK, or the
+     *        Amazon Web Services CLI, the value is Base64-encoded. Otherwise, it is not encoded.</p>
      *        <p>
-     *        This parameter is not used if the secret is created by the Secrets Manager console.
+     *        If the secret was created by using the Secrets Manager console, or if the secret value was originally
+     *        provided as a string, then this field is omitted. The secret value appears in <code>SecretString</code>
+     *        instead.
      *        </p>
      *        <p>
-     *        If you store custom information in this field of the secret, then you must code your Lambda rotation
-     *        function to parse and interpret whatever you store in the <code>SecretString</code> or
-     *        <code>SecretBinary</code> fields.
+     *        Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     *        entries. If you create your own log entries, you must also avoid logging the information in this field.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -328,31 +337,28 @@ public class GetSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The decrypted part of the protected secret information that was originally provided as a string.
+     * The decrypted secret value, if the secret value was originally provided as a string or through the Secrets
+     * Manager console.
      * </p>
      * <p>
-     * If you create this secret by using the Secrets Manager console then only the <code>SecretString</code> parameter
-     * contains data. Secrets Manager stores the information as a JSON structure of key/value pairs that the Lambda
-     * rotation function knows how to parse.
+     * If this secret was created by using the console, then Secrets Manager stores the information as a JSON structure
+     * of key/value pairs.
      * </p>
      * <p>
-     * If you store custom information in the secret by using the <a>CreateSecret</a>, <a>UpdateSecret</a>, or
-     * <a>PutSecretValue</a> API operations instead of the Secrets Manager console, or by using the <b>Other secret
-     * type</b> in the console, then you must code your Lambda rotation function to parse and interpret those values.
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      * 
      * @param secretString
-     *        The decrypted part of the protected secret information that was originally provided as a string.</p>
+     *        The decrypted secret value, if the secret value was originally provided as a string or through the Secrets
+     *        Manager console.</p>
      *        <p>
-     *        If you create this secret by using the Secrets Manager console then only the <code>SecretString</code>
-     *        parameter contains data. Secrets Manager stores the information as a JSON structure of key/value pairs
-     *        that the Lambda rotation function knows how to parse.
+     *        If this secret was created by using the console, then Secrets Manager stores the information as a JSON
+     *        structure of key/value pairs.
      *        </p>
      *        <p>
-     *        If you store custom information in the secret by using the <a>CreateSecret</a>, <a>UpdateSecret</a>, or
-     *        <a>PutSecretValue</a> API operations instead of the Secrets Manager console, or by using the <b>Other
-     *        secret type</b> in the console, then you must code your Lambda rotation function to parse and interpret
-     *        those values.
+     *        Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     *        entries. If you create your own log entries, you must also avoid logging the information in this field.
      */
 
     public void setSecretString(String secretString) {
@@ -361,30 +367,28 @@ public class GetSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The decrypted part of the protected secret information that was originally provided as a string.
+     * The decrypted secret value, if the secret value was originally provided as a string or through the Secrets
+     * Manager console.
      * </p>
      * <p>
-     * If you create this secret by using the Secrets Manager console then only the <code>SecretString</code> parameter
-     * contains data. Secrets Manager stores the information as a JSON structure of key/value pairs that the Lambda
-     * rotation function knows how to parse.
+     * If this secret was created by using the console, then Secrets Manager stores the information as a JSON structure
+     * of key/value pairs.
      * </p>
      * <p>
-     * If you store custom information in the secret by using the <a>CreateSecret</a>, <a>UpdateSecret</a>, or
-     * <a>PutSecretValue</a> API operations instead of the Secrets Manager console, or by using the <b>Other secret
-     * type</b> in the console, then you must code your Lambda rotation function to parse and interpret those values.
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      * 
-     * @return The decrypted part of the protected secret information that was originally provided as a string.</p>
+     * @return The decrypted secret value, if the secret value was originally provided as a string or through the
+     *         Secrets Manager console.</p>
      *         <p>
-     *         If you create this secret by using the Secrets Manager console then only the <code>SecretString</code>
-     *         parameter contains data. Secrets Manager stores the information as a JSON structure of key/value pairs
-     *         that the Lambda rotation function knows how to parse.
+     *         If this secret was created by using the console, then Secrets Manager stores the information as a JSON
+     *         structure of key/value pairs.
      *         </p>
      *         <p>
-     *         If you store custom information in the secret by using the <a>CreateSecret</a>, <a>UpdateSecret</a>, or
-     *         <a>PutSecretValue</a> API operations instead of the Secrets Manager console, or by using the <b>Other
-     *         secret type</b> in the console, then you must code your Lambda rotation function to parse and interpret
-     *         those values.
+     *         Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail
+     *         log entries. If you create your own log entries, you must also avoid logging the information in this
+     *         field.
      */
 
     public String getSecretString() {
@@ -393,31 +397,28 @@ public class GetSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The decrypted part of the protected secret information that was originally provided as a string.
+     * The decrypted secret value, if the secret value was originally provided as a string or through the Secrets
+     * Manager console.
      * </p>
      * <p>
-     * If you create this secret by using the Secrets Manager console then only the <code>SecretString</code> parameter
-     * contains data. Secrets Manager stores the information as a JSON structure of key/value pairs that the Lambda
-     * rotation function knows how to parse.
+     * If this secret was created by using the console, then Secrets Manager stores the information as a JSON structure
+     * of key/value pairs.
      * </p>
      * <p>
-     * If you store custom information in the secret by using the <a>CreateSecret</a>, <a>UpdateSecret</a>, or
-     * <a>PutSecretValue</a> API operations instead of the Secrets Manager console, or by using the <b>Other secret
-     * type</b> in the console, then you must code your Lambda rotation function to parse and interpret those values.
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      * 
      * @param secretString
-     *        The decrypted part of the protected secret information that was originally provided as a string.</p>
+     *        The decrypted secret value, if the secret value was originally provided as a string or through the Secrets
+     *        Manager console.</p>
      *        <p>
-     *        If you create this secret by using the Secrets Manager console then only the <code>SecretString</code>
-     *        parameter contains data. Secrets Manager stores the information as a JSON structure of key/value pairs
-     *        that the Lambda rotation function knows how to parse.
+     *        If this secret was created by using the console, then Secrets Manager stores the information as a JSON
+     *        structure of key/value pairs.
      *        </p>
      *        <p>
-     *        If you store custom information in the secret by using the <a>CreateSecret</a>, <a>UpdateSecret</a>, or
-     *        <a>PutSecretValue</a> API operations instead of the Secrets Manager console, or by using the <b>Other
-     *        secret type</b> in the console, then you must code your Lambda rotation function to parse and interpret
-     *        those values.
+     *        Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     *        entries. If you create your own log entries, you must also avoid logging the information in this field.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -498,11 +499,15 @@ public class GetSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The date and time that this version of the secret was created.
+     * The date and time that this version of the secret was created. If you don't specify which version in
+     * <code>VersionId</code> or <code>VersionStage</code>, then Secrets Manager uses the <code>AWSCURRENT</code>
+     * version.
      * </p>
      * 
      * @param createdDate
-     *        The date and time that this version of the secret was created.
+     *        The date and time that this version of the secret was created. If you don't specify which version in
+     *        <code>VersionId</code> or <code>VersionStage</code>, then Secrets Manager uses the <code>AWSCURRENT</code>
+     *        version.
      */
 
     public void setCreatedDate(java.util.Date createdDate) {
@@ -511,10 +516,14 @@ public class GetSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The date and time that this version of the secret was created.
+     * The date and time that this version of the secret was created. If you don't specify which version in
+     * <code>VersionId</code> or <code>VersionStage</code>, then Secrets Manager uses the <code>AWSCURRENT</code>
+     * version.
      * </p>
      * 
-     * @return The date and time that this version of the secret was created.
+     * @return The date and time that this version of the secret was created. If you don't specify which version in
+     *         <code>VersionId</code> or <code>VersionStage</code>, then Secrets Manager uses the
+     *         <code>AWSCURRENT</code> version.
      */
 
     public java.util.Date getCreatedDate() {
@@ -523,11 +532,15 @@ public class GetSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The date and time that this version of the secret was created.
+     * The date and time that this version of the secret was created. If you don't specify which version in
+     * <code>VersionId</code> or <code>VersionStage</code>, then Secrets Manager uses the <code>AWSCURRENT</code>
+     * version.
      * </p>
      * 
      * @param createdDate
-     *        The date and time that this version of the secret was created.
+     *        The date and time that this version of the secret was created. If you don't specify which version in
+     *        <code>VersionId</code> or <code>VersionStage</code>, then Secrets Manager uses the <code>AWSCURRENT</code>
+     *        version.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

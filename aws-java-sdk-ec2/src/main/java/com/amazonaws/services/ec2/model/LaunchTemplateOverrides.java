@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,8 +34,16 @@ public class LaunchTemplateOverrides implements Serializable, Cloneable {
     private String instanceType;
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      */
     private String spotPrice;
     /**
@@ -52,20 +60,56 @@ public class LaunchTemplateOverrides implements Serializable, Cloneable {
     private String availabilityZone;
     /**
      * <p>
-     * The number of units provided by the specified instance type.
+     * The number of units provided by the specified instance type. These are the same units that you chose to set the
+     * target capacity in terms of instances, or a performance characteristic such as vCPUs, memory, or I/O.
      * </p>
+     * <p>
+     * If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of instances to
+     * the next whole number. If this value is not specified, the default is 1.
+     * </p>
+     * <note>
+     * <p>
+     * When specifying weights, the price used in the <code>lowestPrice</code> and <code>priceCapacityOptimized</code>
+     * allocation strategies is per <i>unit</i> hour (where the instance price is divided by the specified weight).
+     * However, if all the specified weights are above the requested <code>TargetCapacity</code>, resulting in only 1
+     * instance being launched, the price used is per <i>instance</i> hour.
+     * </p>
+     * </note>
      */
     private Double weightedCapacity;
     /**
      * <p>
-     * The priority for the launch template override. If <b>OnDemandAllocationStrategy</b> is set to
-     * <code>prioritized</code>, Spot Fleet uses priority to determine which launch template override to use first in
-     * fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole numbers starting at
-     * <code>0</code>. The lower the number, the higher the priority. If no number is set, the launch template override
-     * has the lowest priority.
+     * The priority for the launch template override. The highest priority is launched first.
+     * </p>
+     * <p>
+     * If <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>, Spot Fleet uses priority to
+     * determine which launch template override to use first in fulfilling On-Demand capacity.
+     * </p>
+     * <p>
+     * If the Spot <code>AllocationStrategy</code> is set to <code>capacityOptimizedPrioritized</code>, Spot Fleet uses
+     * priority on a best-effort basis to determine which launch template override to use in fulfilling Spot capacity,
+     * but optimizes for capacity first.
+     * </p>
+     * <p>
+     * Valid values are whole numbers starting at <code>0</code>. The lower the number, the higher the priority. If no
+     * number is set, the launch template override has the lowest priority. You can set the same priority for different
+     * launch template overrides.
      * </p>
      */
     private Double priority;
+    /**
+     * <p>
+     * The instance requirements. When you specify instance requirements, Amazon EC2 will identify instance types with
+     * the provided requirements, and then use your On-Demand and Spot allocation strategies to launch instances from
+     * these instance types, in the same way as when you specify a list of instance types.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * </note>
+     */
+    private InstanceRequirements instanceRequirements;
 
     /**
      * <p>
@@ -128,11 +172,25 @@ public class LaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      * 
      * @param spotPrice
-     *        The maximum price per unit hour that you are willing to pay for a Spot Instance.
+     *        The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using
+     *        this parameter because it can lead to increased interruptions. If you do not specify this parameter, you
+     *        will pay the current Spot price.</p> <important>
+     *        <p>
+     *        If you specify a maximum price, your instances will be interrupted more frequently than if you do not
+     *        specify this parameter.
+     *        </p>
      */
 
     public void setSpotPrice(String spotPrice) {
@@ -141,10 +199,24 @@ public class LaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      * 
-     * @return The maximum price per unit hour that you are willing to pay for a Spot Instance.
+     * @return The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend
+     *         using this parameter because it can lead to increased interruptions. If you do not specify this
+     *         parameter, you will pay the current Spot price.</p> <important>
+     *         <p>
+     *         If you specify a maximum price, your instances will be interrupted more frequently than if you do not
+     *         specify this parameter.
+     *         </p>
      */
 
     public String getSpotPrice() {
@@ -153,11 +225,25 @@ public class LaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      * 
      * @param spotPrice
-     *        The maximum price per unit hour that you are willing to pay for a Spot Instance.
+     *        The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using
+     *        this parameter because it can lead to increased interruptions. If you do not specify this parameter, you
+     *        will pay the current Spot price.</p> <important>
+     *        <p>
+     *        If you specify a maximum price, your instances will be interrupted more frequently than if you do not
+     *        specify this parameter.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -248,11 +334,38 @@ public class LaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of units provided by the specified instance type.
+     * The number of units provided by the specified instance type. These are the same units that you chose to set the
+     * target capacity in terms of instances, or a performance characteristic such as vCPUs, memory, or I/O.
      * </p>
+     * <p>
+     * If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of instances to
+     * the next whole number. If this value is not specified, the default is 1.
+     * </p>
+     * <note>
+     * <p>
+     * When specifying weights, the price used in the <code>lowestPrice</code> and <code>priceCapacityOptimized</code>
+     * allocation strategies is per <i>unit</i> hour (where the instance price is divided by the specified weight).
+     * However, if all the specified weights are above the requested <code>TargetCapacity</code>, resulting in only 1
+     * instance being launched, the price used is per <i>instance</i> hour.
+     * </p>
+     * </note>
      * 
      * @param weightedCapacity
-     *        The number of units provided by the specified instance type.
+     *        The number of units provided by the specified instance type. These are the same units that you chose to
+     *        set the target capacity in terms of instances, or a performance characteristic such as vCPUs, memory, or
+     *        I/O.</p>
+     *        <p>
+     *        If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of
+     *        instances to the next whole number. If this value is not specified, the default is 1.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        When specifying weights, the price used in the <code>lowestPrice</code> and
+     *        <code>priceCapacityOptimized</code> allocation strategies is per <i>unit</i> hour (where the instance
+     *        price is divided by the specified weight). However, if all the specified weights are above the requested
+     *        <code>TargetCapacity</code>, resulting in only 1 instance being launched, the price used is per
+     *        <i>instance</i> hour.
+     *        </p>
      */
 
     public void setWeightedCapacity(Double weightedCapacity) {
@@ -261,10 +374,37 @@ public class LaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of units provided by the specified instance type.
+     * The number of units provided by the specified instance type. These are the same units that you chose to set the
+     * target capacity in terms of instances, or a performance characteristic such as vCPUs, memory, or I/O.
      * </p>
+     * <p>
+     * If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of instances to
+     * the next whole number. If this value is not specified, the default is 1.
+     * </p>
+     * <note>
+     * <p>
+     * When specifying weights, the price used in the <code>lowestPrice</code> and <code>priceCapacityOptimized</code>
+     * allocation strategies is per <i>unit</i> hour (where the instance price is divided by the specified weight).
+     * However, if all the specified weights are above the requested <code>TargetCapacity</code>, resulting in only 1
+     * instance being launched, the price used is per <i>instance</i> hour.
+     * </p>
+     * </note>
      * 
-     * @return The number of units provided by the specified instance type.
+     * @return The number of units provided by the specified instance type. These are the same units that you chose to
+     *         set the target capacity in terms of instances, or a performance characteristic such as vCPUs, memory, or
+     *         I/O.</p>
+     *         <p>
+     *         If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of
+     *         instances to the next whole number. If this value is not specified, the default is 1.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         When specifying weights, the price used in the <code>lowestPrice</code> and
+     *         <code>priceCapacityOptimized</code> allocation strategies is per <i>unit</i> hour (where the instance
+     *         price is divided by the specified weight). However, if all the specified weights are above the requested
+     *         <code>TargetCapacity</code>, resulting in only 1 instance being launched, the price used is per
+     *         <i>instance</i> hour.
+     *         </p>
      */
 
     public Double getWeightedCapacity() {
@@ -273,11 +413,38 @@ public class LaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of units provided by the specified instance type.
+     * The number of units provided by the specified instance type. These are the same units that you chose to set the
+     * target capacity in terms of instances, or a performance characteristic such as vCPUs, memory, or I/O.
      * </p>
+     * <p>
+     * If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of instances to
+     * the next whole number. If this value is not specified, the default is 1.
+     * </p>
+     * <note>
+     * <p>
+     * When specifying weights, the price used in the <code>lowestPrice</code> and <code>priceCapacityOptimized</code>
+     * allocation strategies is per <i>unit</i> hour (where the instance price is divided by the specified weight).
+     * However, if all the specified weights are above the requested <code>TargetCapacity</code>, resulting in only 1
+     * instance being launched, the price used is per <i>instance</i> hour.
+     * </p>
+     * </note>
      * 
      * @param weightedCapacity
-     *        The number of units provided by the specified instance type.
+     *        The number of units provided by the specified instance type. These are the same units that you chose to
+     *        set the target capacity in terms of instances, or a performance characteristic such as vCPUs, memory, or
+     *        I/O.</p>
+     *        <p>
+     *        If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of
+     *        instances to the next whole number. If this value is not specified, the default is 1.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        When specifying weights, the price used in the <code>lowestPrice</code> and
+     *        <code>priceCapacityOptimized</code> allocation strategies is per <i>unit</i> hour (where the instance
+     *        price is divided by the specified weight). However, if all the specified weights are above the requested
+     *        <code>TargetCapacity</code>, resulting in only 1 instance being launched, the price used is per
+     *        <i>instance</i> hour.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -288,19 +455,38 @@ public class LaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The priority for the launch template override. If <b>OnDemandAllocationStrategy</b> is set to
-     * <code>prioritized</code>, Spot Fleet uses priority to determine which launch template override to use first in
-     * fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole numbers starting at
-     * <code>0</code>. The lower the number, the higher the priority. If no number is set, the launch template override
-     * has the lowest priority.
+     * The priority for the launch template override. The highest priority is launched first.
+     * </p>
+     * <p>
+     * If <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>, Spot Fleet uses priority to
+     * determine which launch template override to use first in fulfilling On-Demand capacity.
+     * </p>
+     * <p>
+     * If the Spot <code>AllocationStrategy</code> is set to <code>capacityOptimizedPrioritized</code>, Spot Fleet uses
+     * priority on a best-effort basis to determine which launch template override to use in fulfilling Spot capacity,
+     * but optimizes for capacity first.
+     * </p>
+     * <p>
+     * Valid values are whole numbers starting at <code>0</code>. The lower the number, the higher the priority. If no
+     * number is set, the launch template override has the lowest priority. You can set the same priority for different
+     * launch template overrides.
      * </p>
      * 
      * @param priority
-     *        The priority for the launch template override. If <b>OnDemandAllocationStrategy</b> is set to
-     *        <code>prioritized</code>, Spot Fleet uses priority to determine which launch template override to use
-     *        first in fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole
-     *        numbers starting at <code>0</code>. The lower the number, the higher the priority. If no number is set,
-     *        the launch template override has the lowest priority.
+     *        The priority for the launch template override. The highest priority is launched first.</p>
+     *        <p>
+     *        If <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>, Spot Fleet uses priority to
+     *        determine which launch template override to use first in fulfilling On-Demand capacity.
+     *        </p>
+     *        <p>
+     *        If the Spot <code>AllocationStrategy</code> is set to <code>capacityOptimizedPrioritized</code>, Spot
+     *        Fleet uses priority on a best-effort basis to determine which launch template override to use in
+     *        fulfilling Spot capacity, but optimizes for capacity first.
+     *        </p>
+     *        <p>
+     *        Valid values are whole numbers starting at <code>0</code>. The lower the number, the higher the priority.
+     *        If no number is set, the launch template override has the lowest priority. You can set the same priority
+     *        for different launch template overrides.
      */
 
     public void setPriority(Double priority) {
@@ -309,18 +495,37 @@ public class LaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The priority for the launch template override. If <b>OnDemandAllocationStrategy</b> is set to
-     * <code>prioritized</code>, Spot Fleet uses priority to determine which launch template override to use first in
-     * fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole numbers starting at
-     * <code>0</code>. The lower the number, the higher the priority. If no number is set, the launch template override
-     * has the lowest priority.
+     * The priority for the launch template override. The highest priority is launched first.
+     * </p>
+     * <p>
+     * If <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>, Spot Fleet uses priority to
+     * determine which launch template override to use first in fulfilling On-Demand capacity.
+     * </p>
+     * <p>
+     * If the Spot <code>AllocationStrategy</code> is set to <code>capacityOptimizedPrioritized</code>, Spot Fleet uses
+     * priority on a best-effort basis to determine which launch template override to use in fulfilling Spot capacity,
+     * but optimizes for capacity first.
+     * </p>
+     * <p>
+     * Valid values are whole numbers starting at <code>0</code>. The lower the number, the higher the priority. If no
+     * number is set, the launch template override has the lowest priority. You can set the same priority for different
+     * launch template overrides.
      * </p>
      * 
-     * @return The priority for the launch template override. If <b>OnDemandAllocationStrategy</b> is set to
-     *         <code>prioritized</code>, Spot Fleet uses priority to determine which launch template override to use
-     *         first in fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole
-     *         numbers starting at <code>0</code>. The lower the number, the higher the priority. If no number is set,
-     *         the launch template override has the lowest priority.
+     * @return The priority for the launch template override. The highest priority is launched first.</p>
+     *         <p>
+     *         If <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>, Spot Fleet uses priority
+     *         to determine which launch template override to use first in fulfilling On-Demand capacity.
+     *         </p>
+     *         <p>
+     *         If the Spot <code>AllocationStrategy</code> is set to <code>capacityOptimizedPrioritized</code>, Spot
+     *         Fleet uses priority on a best-effort basis to determine which launch template override to use in
+     *         fulfilling Spot capacity, but optimizes for capacity first.
+     *         </p>
+     *         <p>
+     *         Valid values are whole numbers starting at <code>0</code>. The lower the number, the higher the priority.
+     *         If no number is set, the launch template override has the lowest priority. You can set the same priority
+     *         for different launch template overrides.
      */
 
     public Double getPriority() {
@@ -329,24 +534,122 @@ public class LaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The priority for the launch template override. If <b>OnDemandAllocationStrategy</b> is set to
-     * <code>prioritized</code>, Spot Fleet uses priority to determine which launch template override to use first in
-     * fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole numbers starting at
-     * <code>0</code>. The lower the number, the higher the priority. If no number is set, the launch template override
-     * has the lowest priority.
+     * The priority for the launch template override. The highest priority is launched first.
+     * </p>
+     * <p>
+     * If <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>, Spot Fleet uses priority to
+     * determine which launch template override to use first in fulfilling On-Demand capacity.
+     * </p>
+     * <p>
+     * If the Spot <code>AllocationStrategy</code> is set to <code>capacityOptimizedPrioritized</code>, Spot Fleet uses
+     * priority on a best-effort basis to determine which launch template override to use in fulfilling Spot capacity,
+     * but optimizes for capacity first.
+     * </p>
+     * <p>
+     * Valid values are whole numbers starting at <code>0</code>. The lower the number, the higher the priority. If no
+     * number is set, the launch template override has the lowest priority. You can set the same priority for different
+     * launch template overrides.
      * </p>
      * 
      * @param priority
-     *        The priority for the launch template override. If <b>OnDemandAllocationStrategy</b> is set to
-     *        <code>prioritized</code>, Spot Fleet uses priority to determine which launch template override to use
-     *        first in fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole
-     *        numbers starting at <code>0</code>. The lower the number, the higher the priority. If no number is set,
-     *        the launch template override has the lowest priority.
+     *        The priority for the launch template override. The highest priority is launched first.</p>
+     *        <p>
+     *        If <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>, Spot Fleet uses priority to
+     *        determine which launch template override to use first in fulfilling On-Demand capacity.
+     *        </p>
+     *        <p>
+     *        If the Spot <code>AllocationStrategy</code> is set to <code>capacityOptimizedPrioritized</code>, Spot
+     *        Fleet uses priority on a best-effort basis to determine which launch template override to use in
+     *        fulfilling Spot capacity, but optimizes for capacity first.
+     *        </p>
+     *        <p>
+     *        Valid values are whole numbers starting at <code>0</code>. The lower the number, the higher the priority.
+     *        If no number is set, the launch template override has the lowest priority. You can set the same priority
+     *        for different launch template overrides.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public LaunchTemplateOverrides withPriority(Double priority) {
         setPriority(priority);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The instance requirements. When you specify instance requirements, Amazon EC2 will identify instance types with
+     * the provided requirements, and then use your On-Demand and Spot allocation strategies to launch instances from
+     * these instance types, in the same way as when you specify a list of instance types.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * </note>
+     * 
+     * @param instanceRequirements
+     *        The instance requirements. When you specify instance requirements, Amazon EC2 will identify instance types
+     *        with the provided requirements, and then use your On-Demand and Spot allocation strategies to launch
+     *        instances from these instance types, in the same way as when you specify a list of instance types.</p>
+     *        <note>
+     *        <p>
+     *        If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     *        </p>
+     */
+
+    public void setInstanceRequirements(InstanceRequirements instanceRequirements) {
+        this.instanceRequirements = instanceRequirements;
+    }
+
+    /**
+     * <p>
+     * The instance requirements. When you specify instance requirements, Amazon EC2 will identify instance types with
+     * the provided requirements, and then use your On-Demand and Spot allocation strategies to launch instances from
+     * these instance types, in the same way as when you specify a list of instance types.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * </note>
+     * 
+     * @return The instance requirements. When you specify instance requirements, Amazon EC2 will identify instance
+     *         types with the provided requirements, and then use your On-Demand and Spot allocation strategies to
+     *         launch instances from these instance types, in the same way as when you specify a list of instance
+     *         types.</p> <note>
+     *         <p>
+     *         If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     *         </p>
+     */
+
+    public InstanceRequirements getInstanceRequirements() {
+        return this.instanceRequirements;
+    }
+
+    /**
+     * <p>
+     * The instance requirements. When you specify instance requirements, Amazon EC2 will identify instance types with
+     * the provided requirements, and then use your On-Demand and Spot allocation strategies to launch instances from
+     * these instance types, in the same way as when you specify a list of instance types.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * </note>
+     * 
+     * @param instanceRequirements
+     *        The instance requirements. When you specify instance requirements, Amazon EC2 will identify instance types
+     *        with the provided requirements, and then use your On-Demand and Spot allocation strategies to launch
+     *        instances from these instance types, in the same way as when you specify a list of instance types.</p>
+     *        <note>
+     *        <p>
+     *        If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LaunchTemplateOverrides withInstanceRequirements(InstanceRequirements instanceRequirements) {
+        setInstanceRequirements(instanceRequirements);
         return this;
     }
 
@@ -373,7 +676,9 @@ public class LaunchTemplateOverrides implements Serializable, Cloneable {
         if (getWeightedCapacity() != null)
             sb.append("WeightedCapacity: ").append(getWeightedCapacity()).append(",");
         if (getPriority() != null)
-            sb.append("Priority: ").append(getPriority());
+            sb.append("Priority: ").append(getPriority()).append(",");
+        if (getInstanceRequirements() != null)
+            sb.append("InstanceRequirements: ").append(getInstanceRequirements());
         sb.append("}");
         return sb.toString();
     }
@@ -412,6 +717,10 @@ public class LaunchTemplateOverrides implements Serializable, Cloneable {
             return false;
         if (other.getPriority() != null && other.getPriority().equals(this.getPriority()) == false)
             return false;
+        if (other.getInstanceRequirements() == null ^ this.getInstanceRequirements() == null)
+            return false;
+        if (other.getInstanceRequirements() != null && other.getInstanceRequirements().equals(this.getInstanceRequirements()) == false)
+            return false;
         return true;
     }
 
@@ -426,6 +735,7 @@ public class LaunchTemplateOverrides implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getAvailabilityZone() == null) ? 0 : getAvailabilityZone().hashCode());
         hashCode = prime * hashCode + ((getWeightedCapacity() == null) ? 0 : getWeightedCapacity().hashCode());
         hashCode = prime * hashCode + ((getPriority() == null) ? 0 : getPriority().hashCode());
+        hashCode = prime * hashCode + ((getInstanceRequirements() == null) ? 0 : getInstanceRequirements().hashCode());
         return hashCode;
     }
 

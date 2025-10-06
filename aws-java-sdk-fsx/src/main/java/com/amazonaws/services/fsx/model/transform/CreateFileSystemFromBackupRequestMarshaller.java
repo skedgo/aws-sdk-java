@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,6 +43,18 @@ public class CreateFileSystemFromBackupRequestMarshaller {
             .marshallLocationName("Tags").build();
     private static final MarshallingInfo<StructuredPojo> WINDOWSCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("WindowsConfiguration").build();
+    private static final MarshallingInfo<StructuredPojo> LUSTRECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LustreConfiguration").build();
+    private static final MarshallingInfo<String> STORAGETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StorageType").build();
+    private static final MarshallingInfo<String> KMSKEYID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("KmsKeyId").build();
+    private static final MarshallingInfo<String> FILESYSTEMTYPEVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FileSystemTypeVersion").build();
+    private static final MarshallingInfo<StructuredPojo> OPENZFSCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OpenZFSConfiguration").build();
+    private static final MarshallingInfo<Integer> STORAGECAPACITY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StorageCapacity").build();
 
     private static final CreateFileSystemFromBackupRequestMarshaller instance = new CreateFileSystemFromBackupRequestMarshaller();
 
@@ -66,6 +78,12 @@ public class CreateFileSystemFromBackupRequestMarshaller {
             protocolMarshaller.marshall(createFileSystemFromBackupRequest.getSecurityGroupIds(), SECURITYGROUPIDS_BINDING);
             protocolMarshaller.marshall(createFileSystemFromBackupRequest.getTags(), TAGS_BINDING);
             protocolMarshaller.marshall(createFileSystemFromBackupRequest.getWindowsConfiguration(), WINDOWSCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(createFileSystemFromBackupRequest.getLustreConfiguration(), LUSTRECONFIGURATION_BINDING);
+            protocolMarshaller.marshall(createFileSystemFromBackupRequest.getStorageType(), STORAGETYPE_BINDING);
+            protocolMarshaller.marshall(createFileSystemFromBackupRequest.getKmsKeyId(), KMSKEYID_BINDING);
+            protocolMarshaller.marshall(createFileSystemFromBackupRequest.getFileSystemTypeVersion(), FILESYSTEMTYPEVERSION_BINDING);
+            protocolMarshaller.marshall(createFileSystemFromBackupRequest.getOpenZFSConfiguration(), OPENZFSCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(createFileSystemFromBackupRequest.getStorageCapacity(), STORAGECAPACITY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

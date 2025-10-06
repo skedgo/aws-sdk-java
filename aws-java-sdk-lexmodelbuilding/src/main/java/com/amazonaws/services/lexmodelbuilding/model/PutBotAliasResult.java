@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -66,6 +66,18 @@ public class PutBotAliasResult extends com.amazonaws.AmazonWebServiceResult<com.
      * </p>
      */
     private String checksum;
+    /**
+     * <p>
+     * The settings that determine how Amazon Lex uses conversation logs for the alias.
+     * </p>
+     */
+    private ConversationLogsResponse conversationLogs;
+    /**
+     * <p>
+     * A list of tags associated with a bot.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
 
     /**
      * <p>
@@ -354,6 +366,116 @@ public class PutBotAliasResult extends com.amazonaws.AmazonWebServiceResult<com.
     }
 
     /**
+     * <p>
+     * The settings that determine how Amazon Lex uses conversation logs for the alias.
+     * </p>
+     * 
+     * @param conversationLogs
+     *        The settings that determine how Amazon Lex uses conversation logs for the alias.
+     */
+
+    public void setConversationLogs(ConversationLogsResponse conversationLogs) {
+        this.conversationLogs = conversationLogs;
+    }
+
+    /**
+     * <p>
+     * The settings that determine how Amazon Lex uses conversation logs for the alias.
+     * </p>
+     * 
+     * @return The settings that determine how Amazon Lex uses conversation logs for the alias.
+     */
+
+    public ConversationLogsResponse getConversationLogs() {
+        return this.conversationLogs;
+    }
+
+    /**
+     * <p>
+     * The settings that determine how Amazon Lex uses conversation logs for the alias.
+     * </p>
+     * 
+     * @param conversationLogs
+     *        The settings that determine how Amazon Lex uses conversation logs for the alias.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutBotAliasResult withConversationLogs(ConversationLogsResponse conversationLogs) {
+        setConversationLogs(conversationLogs);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of tags associated with a bot.
+     * </p>
+     * 
+     * @return A list of tags associated with a bot.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * A list of tags associated with a bot.
+     * </p>
+     * 
+     * @param tags
+     *        A list of tags associated with a bot.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * A list of tags associated with a bot.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        A list of tags associated with a bot.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutBotAliasResult withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of tags associated with a bot.
+     * </p>
+     * 
+     * @param tags
+     *        A list of tags associated with a bot.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutBotAliasResult withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -378,7 +500,11 @@ public class PutBotAliasResult extends com.amazonaws.AmazonWebServiceResult<com.
         if (getCreatedDate() != null)
             sb.append("CreatedDate: ").append(getCreatedDate()).append(",");
         if (getChecksum() != null)
-            sb.append("Checksum: ").append(getChecksum());
+            sb.append("Checksum: ").append(getChecksum()).append(",");
+        if (getConversationLogs() != null)
+            sb.append("ConversationLogs: ").append(getConversationLogs()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -421,6 +547,14 @@ public class PutBotAliasResult extends com.amazonaws.AmazonWebServiceResult<com.
             return false;
         if (other.getChecksum() != null && other.getChecksum().equals(this.getChecksum()) == false)
             return false;
+        if (other.getConversationLogs() == null ^ this.getConversationLogs() == null)
+            return false;
+        if (other.getConversationLogs() != null && other.getConversationLogs().equals(this.getConversationLogs()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -436,6 +570,8 @@ public class PutBotAliasResult extends com.amazonaws.AmazonWebServiceResult<com.
         hashCode = prime * hashCode + ((getLastUpdatedDate() == null) ? 0 : getLastUpdatedDate().hashCode());
         hashCode = prime * hashCode + ((getCreatedDate() == null) ? 0 : getCreatedDate().hashCode());
         hashCode = prime * hashCode + ((getChecksum() == null) ? 0 : getChecksum().hashCode());
+        hashCode = prime * hashCode + ((getConversationLogs() == null) ? 0 : getConversationLogs().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

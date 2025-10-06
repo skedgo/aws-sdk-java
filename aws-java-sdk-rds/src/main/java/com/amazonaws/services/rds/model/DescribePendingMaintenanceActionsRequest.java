@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,13 +43,13 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
      * <li>
      * <p>
      * <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The
-     * results list will only include pending maintenance actions for the DB clusters identified by these ARNs.
+     * results list only includes pending maintenance actions for the DB clusters identified by these ARNs.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list will only
-     * include pending maintenance actions for the DB instances identified by these ARNs.
+     * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list only
+     * includes pending maintenance actions for the DB instances identified by these ARNs.
      * </p>
      * </li>
      * </ul>
@@ -66,8 +66,8 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -129,13 +129,13 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
      * <li>
      * <p>
      * <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The
-     * results list will only include pending maintenance actions for the DB clusters identified by these ARNs.
+     * results list only includes pending maintenance actions for the DB clusters identified by these ARNs.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list will only
-     * include pending maintenance actions for the DB instances identified by these ARNs.
+     * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list only
+     * includes pending maintenance actions for the DB instances identified by these ARNs.
      * </p>
      * </li>
      * </ul>
@@ -148,14 +148,13 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
      *         <li>
      *         <p>
      *         <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs).
-     *         The results list will only include pending maintenance actions for the DB clusters identified by these
-     *         ARNs.
+     *         The results list only includes pending maintenance actions for the DB clusters identified by these ARNs.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list will
-     *         only include pending maintenance actions for the DB instances identified by these ARNs.
+     *         <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list only
+     *         includes pending maintenance actions for the DB instances identified by these ARNs.
      *         </p>
      *         </li>
      */
@@ -178,13 +177,13 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
      * <li>
      * <p>
      * <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The
-     * results list will only include pending maintenance actions for the DB clusters identified by these ARNs.
+     * results list only includes pending maintenance actions for the DB clusters identified by these ARNs.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list will only
-     * include pending maintenance actions for the DB instances identified by these ARNs.
+     * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list only
+     * includes pending maintenance actions for the DB instances identified by these ARNs.
      * </p>
      * </li>
      * </ul>
@@ -198,14 +197,13 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
      *        <li>
      *        <p>
      *        <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs).
-     *        The results list will only include pending maintenance actions for the DB clusters identified by these
-     *        ARNs.
+     *        The results list only includes pending maintenance actions for the DB clusters identified by these ARNs.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list will
-     *        only include pending maintenance actions for the DB instances identified by these ARNs.
+     *        <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list only
+     *        includes pending maintenance actions for the DB instances identified by these ARNs.
      *        </p>
      *        </li>
      */
@@ -230,13 +228,13 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
      * <li>
      * <p>
      * <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The
-     * results list will only include pending maintenance actions for the DB clusters identified by these ARNs.
+     * results list only includes pending maintenance actions for the DB clusters identified by these ARNs.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list will only
-     * include pending maintenance actions for the DB instances identified by these ARNs.
+     * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list only
+     * includes pending maintenance actions for the DB instances identified by these ARNs.
      * </p>
      * </li>
      * </ul>
@@ -255,14 +253,13 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
      *        <li>
      *        <p>
      *        <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs).
-     *        The results list will only include pending maintenance actions for the DB clusters identified by these
-     *        ARNs.
+     *        The results list only includes pending maintenance actions for the DB clusters identified by these ARNs.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list will
-     *        only include pending maintenance actions for the DB instances identified by these ARNs.
+     *        <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list only
+     *        includes pending maintenance actions for the DB instances identified by these ARNs.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -289,13 +286,13 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
      * <li>
      * <p>
      * <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The
-     * results list will only include pending maintenance actions for the DB clusters identified by these ARNs.
+     * results list only includes pending maintenance actions for the DB clusters identified by these ARNs.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list will only
-     * include pending maintenance actions for the DB instances identified by these ARNs.
+     * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list only
+     * includes pending maintenance actions for the DB instances identified by these ARNs.
      * </p>
      * </li>
      * </ul>
@@ -309,14 +306,13 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
      *        <li>
      *        <p>
      *        <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs).
-     *        The results list will only include pending maintenance actions for the DB clusters identified by these
-     *        ARNs.
+     *        The results list only includes pending maintenance actions for the DB clusters identified by these ARNs.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list will
-     *        only include pending maintenance actions for the DB instances identified by these ARNs.
+     *        <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance ARNs. The results list only
+     *        includes pending maintenance actions for the DB instances identified by these ARNs.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -382,8 +378,8 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -394,8 +390,8 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more records exist than the specified
-     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *        remaining results can be retrieved. </p>
+     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you
+     *        can retrieve the remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>
@@ -410,8 +406,8 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -421,8 +417,8 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
      * </p>
      * 
      * @return The maximum number of records to include in the response. If more records exist than the specified
-     *         <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *         remaining results can be retrieved. </p>
+     *         <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you
+     *         can retrieve the remaining results.</p>
      *         <p>
      *         Default: 100
      *         </p>
@@ -437,8 +433,8 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -449,8 +445,8 @@ public class DescribePendingMaintenanceActionsRequest extends com.amazonaws.Amaz
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more records exist than the specified
-     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *        remaining results can be retrieved. </p>
+     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you
+     *        can retrieve the remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>

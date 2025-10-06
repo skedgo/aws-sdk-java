@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,11 +32,6 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -56,30 +51,49 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
     private String portfolioId;
     /**
      * <p>
-     * The AWS account ID. For example, <code>123456789012</code>.
+     * The Amazon Web Services account ID. For example, <code>123456789012</code>.
      * </p>
      */
     private String accountId;
     /**
      * <p>
-     * The organization node to whom you are going to share. If <code>OrganizationNode</code> is passed in,
-     * <code>PortfolioShare</code> will be created for the node and its children (when applies), and a
-     * <code>PortfolioShareToken</code> will be returned in the output in order for the administrator to monitor the
-     * status of the <code>PortfolioShare</code> creation process.
+     * The organization node to whom you are going to share. When you pass <code>OrganizationNode</code>, it creates
+     * <code>PortfolioShare</code> for all of the Amazon Web Services accounts that are associated to the
+     * <code>OrganizationNode</code>. The output returns a <code>PortfolioShareToken</code>, which enables the
+     * administrator to monitor the status of the <code>PortfolioShare</code> creation process.
      * </p>
      */
     private OrganizationNode organizationNode;
+    /**
+     * <p>
+     * Enables or disables <code>TagOptions </code> sharing when creating the portfolio share. If this flag is not
+     * provided, TagOptions sharing is disabled.
+     * </p>
+     */
+    private Boolean shareTagOptions;
+    /**
+     * <p>
+     * This parameter is only supported for portfolios with an <b>OrganizationalNode</b> Type of
+     * <code>ORGANIZATION</code> or <code>ORGANIZATIONAL_UNIT</code>.
+     * </p>
+     * <p>
+     * Enables or disables <code>Principal</code> sharing when creating the portfolio share. If you do <b>not</b>
+     * provide this flag, principal sharing is disabled.
+     * </p>
+     * <p>
+     * When you enable Principal Name Sharing for a portfolio share, the share recipient account end users with a
+     * principal that matches any of the associated IAM patterns can provision products from the portfolio. Once shared,
+     * the share recipient can view associations of <code>PrincipalType</code>: <code>IAM_PATTERN</code> on their
+     * portfolio. You can create the principals in the recipient account before or after creating the share.
+     * </p>
+     */
+    private Boolean sharePrincipals;
 
     /**
      * <p>
      * The language code.
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
      * <li>
      * <p>
      * <code>jp</code> - Japanese
@@ -95,11 +109,6 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -123,11 +132,6 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -140,11 +144,6 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * 
      * @return The language code.</p>
      *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>en</code> - English (default)
-     *         </p>
-     *         </li>
      *         <li>
      *         <p>
      *         <code>jp</code> - Japanese
@@ -168,11 +167,6 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -186,11 +180,6 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -251,11 +240,11 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The AWS account ID. For example, <code>123456789012</code>.
+     * The Amazon Web Services account ID. For example, <code>123456789012</code>.
      * </p>
      * 
      * @param accountId
-     *        The AWS account ID. For example, <code>123456789012</code>.
+     *        The Amazon Web Services account ID. For example, <code>123456789012</code>.
      */
 
     public void setAccountId(String accountId) {
@@ -264,10 +253,10 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The AWS account ID. For example, <code>123456789012</code>.
+     * The Amazon Web Services account ID. For example, <code>123456789012</code>.
      * </p>
      * 
-     * @return The AWS account ID. For example, <code>123456789012</code>.
+     * @return The Amazon Web Services account ID. For example, <code>123456789012</code>.
      */
 
     public String getAccountId() {
@@ -276,11 +265,11 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The AWS account ID. For example, <code>123456789012</code>.
+     * The Amazon Web Services account ID. For example, <code>123456789012</code>.
      * </p>
      * 
      * @param accountId
-     *        The AWS account ID. For example, <code>123456789012</code>.
+     *        The Amazon Web Services account ID. For example, <code>123456789012</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -291,17 +280,17 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The organization node to whom you are going to share. If <code>OrganizationNode</code> is passed in,
-     * <code>PortfolioShare</code> will be created for the node and its children (when applies), and a
-     * <code>PortfolioShareToken</code> will be returned in the output in order for the administrator to monitor the
-     * status of the <code>PortfolioShare</code> creation process.
+     * The organization node to whom you are going to share. When you pass <code>OrganizationNode</code>, it creates
+     * <code>PortfolioShare</code> for all of the Amazon Web Services accounts that are associated to the
+     * <code>OrganizationNode</code>. The output returns a <code>PortfolioShareToken</code>, which enables the
+     * administrator to monitor the status of the <code>PortfolioShare</code> creation process.
      * </p>
      * 
      * @param organizationNode
-     *        The organization node to whom you are going to share. If <code>OrganizationNode</code> is passed in,
-     *        <code>PortfolioShare</code> will be created for the node and its children (when applies), and a
-     *        <code>PortfolioShareToken</code> will be returned in the output in order for the administrator to monitor
-     *        the status of the <code>PortfolioShare</code> creation process.
+     *        The organization node to whom you are going to share. When you pass <code>OrganizationNode</code>, it
+     *        creates <code>PortfolioShare</code> for all of the Amazon Web Services accounts that are associated to the
+     *        <code>OrganizationNode</code>. The output returns a <code>PortfolioShareToken</code>, which enables the
+     *        administrator to monitor the status of the <code>PortfolioShare</code> creation process.
      */
 
     public void setOrganizationNode(OrganizationNode organizationNode) {
@@ -310,16 +299,16 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The organization node to whom you are going to share. If <code>OrganizationNode</code> is passed in,
-     * <code>PortfolioShare</code> will be created for the node and its children (when applies), and a
-     * <code>PortfolioShareToken</code> will be returned in the output in order for the administrator to monitor the
-     * status of the <code>PortfolioShare</code> creation process.
+     * The organization node to whom you are going to share. When you pass <code>OrganizationNode</code>, it creates
+     * <code>PortfolioShare</code> for all of the Amazon Web Services accounts that are associated to the
+     * <code>OrganizationNode</code>. The output returns a <code>PortfolioShareToken</code>, which enables the
+     * administrator to monitor the status of the <code>PortfolioShare</code> creation process.
      * </p>
      * 
-     * @return The organization node to whom you are going to share. If <code>OrganizationNode</code> is passed in,
-     *         <code>PortfolioShare</code> will be created for the node and its children (when applies), and a
-     *         <code>PortfolioShareToken</code> will be returned in the output in order for the administrator to monitor
-     *         the status of the <code>PortfolioShare</code> creation process.
+     * @return The organization node to whom you are going to share. When you pass <code>OrganizationNode</code>, it
+     *         creates <code>PortfolioShare</code> for all of the Amazon Web Services accounts that are associated to
+     *         the <code>OrganizationNode</code>. The output returns a <code>PortfolioShareToken</code>, which enables
+     *         the administrator to monitor the status of the <code>PortfolioShare</code> creation process.
      */
 
     public OrganizationNode getOrganizationNode() {
@@ -328,23 +317,223 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The organization node to whom you are going to share. If <code>OrganizationNode</code> is passed in,
-     * <code>PortfolioShare</code> will be created for the node and its children (when applies), and a
-     * <code>PortfolioShareToken</code> will be returned in the output in order for the administrator to monitor the
-     * status of the <code>PortfolioShare</code> creation process.
+     * The organization node to whom you are going to share. When you pass <code>OrganizationNode</code>, it creates
+     * <code>PortfolioShare</code> for all of the Amazon Web Services accounts that are associated to the
+     * <code>OrganizationNode</code>. The output returns a <code>PortfolioShareToken</code>, which enables the
+     * administrator to monitor the status of the <code>PortfolioShare</code> creation process.
      * </p>
      * 
      * @param organizationNode
-     *        The organization node to whom you are going to share. If <code>OrganizationNode</code> is passed in,
-     *        <code>PortfolioShare</code> will be created for the node and its children (when applies), and a
-     *        <code>PortfolioShareToken</code> will be returned in the output in order for the administrator to monitor
-     *        the status of the <code>PortfolioShare</code> creation process.
+     *        The organization node to whom you are going to share. When you pass <code>OrganizationNode</code>, it
+     *        creates <code>PortfolioShare</code> for all of the Amazon Web Services accounts that are associated to the
+     *        <code>OrganizationNode</code>. The output returns a <code>PortfolioShareToken</code>, which enables the
+     *        administrator to monitor the status of the <code>PortfolioShare</code> creation process.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreatePortfolioShareRequest withOrganizationNode(OrganizationNode organizationNode) {
         setOrganizationNode(organizationNode);
         return this;
+    }
+
+    /**
+     * <p>
+     * Enables or disables <code>TagOptions </code> sharing when creating the portfolio share. If this flag is not
+     * provided, TagOptions sharing is disabled.
+     * </p>
+     * 
+     * @param shareTagOptions
+     *        Enables or disables <code>TagOptions </code> sharing when creating the portfolio share. If this flag is
+     *        not provided, TagOptions sharing is disabled.
+     */
+
+    public void setShareTagOptions(Boolean shareTagOptions) {
+        this.shareTagOptions = shareTagOptions;
+    }
+
+    /**
+     * <p>
+     * Enables or disables <code>TagOptions </code> sharing when creating the portfolio share. If this flag is not
+     * provided, TagOptions sharing is disabled.
+     * </p>
+     * 
+     * @return Enables or disables <code>TagOptions </code> sharing when creating the portfolio share. If this flag is
+     *         not provided, TagOptions sharing is disabled.
+     */
+
+    public Boolean getShareTagOptions() {
+        return this.shareTagOptions;
+    }
+
+    /**
+     * <p>
+     * Enables or disables <code>TagOptions </code> sharing when creating the portfolio share. If this flag is not
+     * provided, TagOptions sharing is disabled.
+     * </p>
+     * 
+     * @param shareTagOptions
+     *        Enables or disables <code>TagOptions </code> sharing when creating the portfolio share. If this flag is
+     *        not provided, TagOptions sharing is disabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreatePortfolioShareRequest withShareTagOptions(Boolean shareTagOptions) {
+        setShareTagOptions(shareTagOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables or disables <code>TagOptions </code> sharing when creating the portfolio share. If this flag is not
+     * provided, TagOptions sharing is disabled.
+     * </p>
+     * 
+     * @return Enables or disables <code>TagOptions </code> sharing when creating the portfolio share. If this flag is
+     *         not provided, TagOptions sharing is disabled.
+     */
+
+    public Boolean isShareTagOptions() {
+        return this.shareTagOptions;
+    }
+
+    /**
+     * <p>
+     * This parameter is only supported for portfolios with an <b>OrganizationalNode</b> Type of
+     * <code>ORGANIZATION</code> or <code>ORGANIZATIONAL_UNIT</code>.
+     * </p>
+     * <p>
+     * Enables or disables <code>Principal</code> sharing when creating the portfolio share. If you do <b>not</b>
+     * provide this flag, principal sharing is disabled.
+     * </p>
+     * <p>
+     * When you enable Principal Name Sharing for a portfolio share, the share recipient account end users with a
+     * principal that matches any of the associated IAM patterns can provision products from the portfolio. Once shared,
+     * the share recipient can view associations of <code>PrincipalType</code>: <code>IAM_PATTERN</code> on their
+     * portfolio. You can create the principals in the recipient account before or after creating the share.
+     * </p>
+     * 
+     * @param sharePrincipals
+     *        This parameter is only supported for portfolios with an <b>OrganizationalNode</b> Type of
+     *        <code>ORGANIZATION</code> or <code>ORGANIZATIONAL_UNIT</code>. </p>
+     *        <p>
+     *        Enables or disables <code>Principal</code> sharing when creating the portfolio share. If you do <b>not</b>
+     *        provide this flag, principal sharing is disabled.
+     *        </p>
+     *        <p>
+     *        When you enable Principal Name Sharing for a portfolio share, the share recipient account end users with a
+     *        principal that matches any of the associated IAM patterns can provision products from the portfolio. Once
+     *        shared, the share recipient can view associations of <code>PrincipalType</code>: <code>IAM_PATTERN</code>
+     *        on their portfolio. You can create the principals in the recipient account before or after creating the
+     *        share.
+     */
+
+    public void setSharePrincipals(Boolean sharePrincipals) {
+        this.sharePrincipals = sharePrincipals;
+    }
+
+    /**
+     * <p>
+     * This parameter is only supported for portfolios with an <b>OrganizationalNode</b> Type of
+     * <code>ORGANIZATION</code> or <code>ORGANIZATIONAL_UNIT</code>.
+     * </p>
+     * <p>
+     * Enables or disables <code>Principal</code> sharing when creating the portfolio share. If you do <b>not</b>
+     * provide this flag, principal sharing is disabled.
+     * </p>
+     * <p>
+     * When you enable Principal Name Sharing for a portfolio share, the share recipient account end users with a
+     * principal that matches any of the associated IAM patterns can provision products from the portfolio. Once shared,
+     * the share recipient can view associations of <code>PrincipalType</code>: <code>IAM_PATTERN</code> on their
+     * portfolio. You can create the principals in the recipient account before or after creating the share.
+     * </p>
+     * 
+     * @return This parameter is only supported for portfolios with an <b>OrganizationalNode</b> Type of
+     *         <code>ORGANIZATION</code> or <code>ORGANIZATIONAL_UNIT</code>. </p>
+     *         <p>
+     *         Enables or disables <code>Principal</code> sharing when creating the portfolio share. If you do
+     *         <b>not</b> provide this flag, principal sharing is disabled.
+     *         </p>
+     *         <p>
+     *         When you enable Principal Name Sharing for a portfolio share, the share recipient account end users with
+     *         a principal that matches any of the associated IAM patterns can provision products from the portfolio.
+     *         Once shared, the share recipient can view associations of <code>PrincipalType</code>:
+     *         <code>IAM_PATTERN</code> on their portfolio. You can create the principals in the recipient account
+     *         before or after creating the share.
+     */
+
+    public Boolean getSharePrincipals() {
+        return this.sharePrincipals;
+    }
+
+    /**
+     * <p>
+     * This parameter is only supported for portfolios with an <b>OrganizationalNode</b> Type of
+     * <code>ORGANIZATION</code> or <code>ORGANIZATIONAL_UNIT</code>.
+     * </p>
+     * <p>
+     * Enables or disables <code>Principal</code> sharing when creating the portfolio share. If you do <b>not</b>
+     * provide this flag, principal sharing is disabled.
+     * </p>
+     * <p>
+     * When you enable Principal Name Sharing for a portfolio share, the share recipient account end users with a
+     * principal that matches any of the associated IAM patterns can provision products from the portfolio. Once shared,
+     * the share recipient can view associations of <code>PrincipalType</code>: <code>IAM_PATTERN</code> on their
+     * portfolio. You can create the principals in the recipient account before or after creating the share.
+     * </p>
+     * 
+     * @param sharePrincipals
+     *        This parameter is only supported for portfolios with an <b>OrganizationalNode</b> Type of
+     *        <code>ORGANIZATION</code> or <code>ORGANIZATIONAL_UNIT</code>. </p>
+     *        <p>
+     *        Enables or disables <code>Principal</code> sharing when creating the portfolio share. If you do <b>not</b>
+     *        provide this flag, principal sharing is disabled.
+     *        </p>
+     *        <p>
+     *        When you enable Principal Name Sharing for a portfolio share, the share recipient account end users with a
+     *        principal that matches any of the associated IAM patterns can provision products from the portfolio. Once
+     *        shared, the share recipient can view associations of <code>PrincipalType</code>: <code>IAM_PATTERN</code>
+     *        on their portfolio. You can create the principals in the recipient account before or after creating the
+     *        share.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreatePortfolioShareRequest withSharePrincipals(Boolean sharePrincipals) {
+        setSharePrincipals(sharePrincipals);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This parameter is only supported for portfolios with an <b>OrganizationalNode</b> Type of
+     * <code>ORGANIZATION</code> or <code>ORGANIZATIONAL_UNIT</code>.
+     * </p>
+     * <p>
+     * Enables or disables <code>Principal</code> sharing when creating the portfolio share. If you do <b>not</b>
+     * provide this flag, principal sharing is disabled.
+     * </p>
+     * <p>
+     * When you enable Principal Name Sharing for a portfolio share, the share recipient account end users with a
+     * principal that matches any of the associated IAM patterns can provision products from the portfolio. Once shared,
+     * the share recipient can view associations of <code>PrincipalType</code>: <code>IAM_PATTERN</code> on their
+     * portfolio. You can create the principals in the recipient account before or after creating the share.
+     * </p>
+     * 
+     * @return This parameter is only supported for portfolios with an <b>OrganizationalNode</b> Type of
+     *         <code>ORGANIZATION</code> or <code>ORGANIZATIONAL_UNIT</code>. </p>
+     *         <p>
+     *         Enables or disables <code>Principal</code> sharing when creating the portfolio share. If you do
+     *         <b>not</b> provide this flag, principal sharing is disabled.
+     *         </p>
+     *         <p>
+     *         When you enable Principal Name Sharing for a portfolio share, the share recipient account end users with
+     *         a principal that matches any of the associated IAM patterns can provision products from the portfolio.
+     *         Once shared, the share recipient can view associations of <code>PrincipalType</code>:
+     *         <code>IAM_PATTERN</code> on their portfolio. You can create the principals in the recipient account
+     *         before or after creating the share.
+     */
+
+    public Boolean isSharePrincipals() {
+        return this.sharePrincipals;
     }
 
     /**
@@ -366,7 +555,11 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
         if (getAccountId() != null)
             sb.append("AccountId: ").append(getAccountId()).append(",");
         if (getOrganizationNode() != null)
-            sb.append("OrganizationNode: ").append(getOrganizationNode());
+            sb.append("OrganizationNode: ").append(getOrganizationNode()).append(",");
+        if (getShareTagOptions() != null)
+            sb.append("ShareTagOptions: ").append(getShareTagOptions()).append(",");
+        if (getSharePrincipals() != null)
+            sb.append("SharePrincipals: ").append(getSharePrincipals());
         sb.append("}");
         return sb.toString();
     }
@@ -397,6 +590,14 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getOrganizationNode() != null && other.getOrganizationNode().equals(this.getOrganizationNode()) == false)
             return false;
+        if (other.getShareTagOptions() == null ^ this.getShareTagOptions() == null)
+            return false;
+        if (other.getShareTagOptions() != null && other.getShareTagOptions().equals(this.getShareTagOptions()) == false)
+            return false;
+        if (other.getSharePrincipals() == null ^ this.getSharePrincipals() == null)
+            return false;
+        if (other.getSharePrincipals() != null && other.getSharePrincipals().equals(this.getSharePrincipals()) == false)
+            return false;
         return true;
     }
 
@@ -409,6 +610,8 @@ public class CreatePortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
         hashCode = prime * hashCode + ((getPortfolioId() == null) ? 0 : getPortfolioId().hashCode());
         hashCode = prime * hashCode + ((getAccountId() == null) ? 0 : getAccountId().hashCode());
         hashCode = prime * hashCode + ((getOrganizationNode() == null) ? 0 : getOrganizationNode().hashCode());
+        hashCode = prime * hashCode + ((getShareTagOptions() == null) ? 0 : getShareTagOptions().hashCode());
+        hashCode = prime * hashCode + ((getSharePrincipals() == null) ? 0 : getSharePrincipals().hashCode());
         return hashCode;
     }
 

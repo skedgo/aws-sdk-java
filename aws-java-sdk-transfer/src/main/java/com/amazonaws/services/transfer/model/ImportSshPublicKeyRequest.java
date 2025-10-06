@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class ImportSshPublicKeyRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server.
+     * A system-assigned unique identifier for a server.
      * </p>
      */
     private String serverId;
@@ -35,22 +35,25 @@ public class ImportSshPublicKeyRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * The public key portion of an SSH key pair.
      * </p>
+     * <p>
+     * Transfer Family accepts RSA, ECDSA, and ED25519 keys.
+     * </p>
      */
     private String sshPublicKeyBody;
     /**
      * <p>
-     * The name of the user account that is assigned to one or more servers.
+     * The name of the Transfer Family user that is assigned to one or more servers.
      * </p>
      */
     private String userName;
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server.
+     * A system-assigned unique identifier for a server.
      * </p>
      * 
      * @param serverId
-     *        A system-assigned unique identifier for an SFTP server.
+     *        A system-assigned unique identifier for a server.
      */
 
     public void setServerId(String serverId) {
@@ -59,10 +62,10 @@ public class ImportSshPublicKeyRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server.
+     * A system-assigned unique identifier for a server.
      * </p>
      * 
-     * @return A system-assigned unique identifier for an SFTP server.
+     * @return A system-assigned unique identifier for a server.
      */
 
     public String getServerId() {
@@ -71,11 +74,11 @@ public class ImportSshPublicKeyRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server.
+     * A system-assigned unique identifier for a server.
      * </p>
      * 
      * @param serverId
-     *        A system-assigned unique identifier for an SFTP server.
+     *        A system-assigned unique identifier for a server.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -88,9 +91,14 @@ public class ImportSshPublicKeyRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * The public key portion of an SSH key pair.
      * </p>
+     * <p>
+     * Transfer Family accepts RSA, ECDSA, and ED25519 keys.
+     * </p>
      * 
      * @param sshPublicKeyBody
-     *        The public key portion of an SSH key pair.
+     *        The public key portion of an SSH key pair.</p>
+     *        <p>
+     *        Transfer Family accepts RSA, ECDSA, and ED25519 keys.
      */
 
     public void setSshPublicKeyBody(String sshPublicKeyBody) {
@@ -101,8 +109,13 @@ public class ImportSshPublicKeyRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * The public key portion of an SSH key pair.
      * </p>
+     * <p>
+     * Transfer Family accepts RSA, ECDSA, and ED25519 keys.
+     * </p>
      * 
-     * @return The public key portion of an SSH key pair.
+     * @return The public key portion of an SSH key pair.</p>
+     *         <p>
+     *         Transfer Family accepts RSA, ECDSA, and ED25519 keys.
      */
 
     public String getSshPublicKeyBody() {
@@ -113,9 +126,14 @@ public class ImportSshPublicKeyRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * The public key portion of an SSH key pair.
      * </p>
+     * <p>
+     * Transfer Family accepts RSA, ECDSA, and ED25519 keys.
+     * </p>
      * 
      * @param sshPublicKeyBody
-     *        The public key portion of an SSH key pair.
+     *        The public key portion of an SSH key pair.</p>
+     *        <p>
+     *        Transfer Family accepts RSA, ECDSA, and ED25519 keys.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -126,11 +144,11 @@ public class ImportSshPublicKeyRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the user account that is assigned to one or more servers.
+     * The name of the Transfer Family user that is assigned to one or more servers.
      * </p>
      * 
      * @param userName
-     *        The name of the user account that is assigned to one or more servers.
+     *        The name of the Transfer Family user that is assigned to one or more servers.
      */
 
     public void setUserName(String userName) {
@@ -139,10 +157,10 @@ public class ImportSshPublicKeyRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the user account that is assigned to one or more servers.
+     * The name of the Transfer Family user that is assigned to one or more servers.
      * </p>
      * 
-     * @return The name of the user account that is assigned to one or more servers.
+     * @return The name of the Transfer Family user that is assigned to one or more servers.
      */
 
     public String getUserName() {
@@ -151,11 +169,11 @@ public class ImportSshPublicKeyRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the user account that is assigned to one or more servers.
+     * The name of the Transfer Family user that is assigned to one or more servers.
      * </p>
      * 
      * @param userName
-     *        The name of the user account that is assigned to one or more servers.
+     *        The name of the Transfer Family user that is assigned to one or more servers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

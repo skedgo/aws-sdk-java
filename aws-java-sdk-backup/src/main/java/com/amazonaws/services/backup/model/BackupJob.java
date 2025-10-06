@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,15 +30,21 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Uniquely identifies a request to AWS Backup to back up a resource.
+     * The account ID that owns the backup job.
+     * </p>
+     */
+    private String accountId;
+    /**
+     * <p>
+     * Uniquely identifies a request to Backup to back up a resource.
      * </p>
      */
     private String backupJobId;
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      */
     private String backupVaultName;
@@ -80,7 +86,7 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
     private java.util.Date completionDate;
     /**
      * <p>
-     * The current state of a resource recovery point.
+     * The current state of a backup job.
      * </p>
      */
     private String state;
@@ -104,8 +110,10 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
     private Long backupSizeInBytes;
     /**
      * <p>
-     * Specifies the IAM role ARN used to create the target recovery point; for example,
-     * <code>arn:aws:iam::123456789012:role/S3Access</code>.
+     * Specifies the IAM role ARN used to create the target recovery point. IAM roles other than the default role must
+     * include either <code>AWSBackup</code> or <code>AwsBackup</code> in the role name. For example,
+     * <code>arn:aws:iam::123456789012:role/AWSBackupRDSAccess</code>. Role names without those strings lack permissions
+     * to perform backup jobs.
      * </p>
      */
     private String iamRoleArn;
@@ -137,8 +145,9 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
     private java.util.Date startBy;
     /**
      * <p>
-     * The type of AWS resource to be backed-up; for example, an Amazon Elastic Block Store (Amazon EBS) volume or an
-     * Amazon Relational Database Service (Amazon RDS) database.
+     * The type of Amazon Web Services resource to be backed up; for example, an Amazon Elastic Block Store (Amazon EBS)
+     * volume or an Amazon Relational Database Service (Amazon RDS) database. For Windows Volume Shadow Copy Service
+     * (VSS) backups, the only supported resource type is Amazon EC2.
      * </p>
      */
     private String resourceType;
@@ -148,14 +157,115 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private Long bytesTransferred;
+    /**
+     * <p>
+     * Specifies the backup option for a selected resource. This option is only available for Windows Volume Shadow Copy
+     * Service (VSS) backup jobs.
+     * </p>
+     * <p>
+     * Valid values: Set to <code>"WindowsVSS":"enabled"</code> to enable the <code>WindowsVSS</code> backup option and
+     * create a Windows VSS backup. Set to <code>"WindowsVSS":"disabled"</code> to create a regular backup. If you
+     * specify an invalid option, you get an <code>InvalidParameterValueException</code> exception.
+     * </p>
+     */
+    private java.util.Map<String, String> backupOptions;
+    /**
+     * <p>
+     * Represents the type of backup for a backup job.
+     * </p>
+     */
+    private String backupType;
+    /**
+     * <p>
+     * This uniquely identifies a request to Backup to back up a resource. The return will be the parent (composite) job
+     * ID.
+     * </p>
+     */
+    private String parentJobId;
+    /**
+     * <p>
+     * This is a boolean value indicating this is a parent (composite) backup job.
+     * </p>
+     */
+    private Boolean isParent;
+    /**
+     * <p>
+     * This is the non-unique name of the resource that belongs to the specified backup.
+     * </p>
+     */
+    private String resourceName;
+    /**
+     * <p>
+     * This is the date on which the backup job was initiated.
+     * </p>
+     */
+    private java.util.Date initiationDate;
+    /**
+     * <p>
+     * This parameter is the job count for the specified message category.
+     * </p>
+     * <p>
+     * Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>, and
+     * <code>INVALIDPARAMETERS</code>. See <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a> for a list of
+     * MessageCategory strings.
+     * </p>
+     * <p>
+     * The the value ANY returns count of all message categories.
+     * </p>
+     * <p>
+     * <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.
+     * </p>
+     */
+    private String messageCategory;
 
     /**
      * <p>
-     * Uniquely identifies a request to AWS Backup to back up a resource.
+     * The account ID that owns the backup job.
+     * </p>
+     * 
+     * @param accountId
+     *        The account ID that owns the backup job.
+     */
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    /**
+     * <p>
+     * The account ID that owns the backup job.
+     * </p>
+     * 
+     * @return The account ID that owns the backup job.
+     */
+
+    public String getAccountId() {
+        return this.accountId;
+    }
+
+    /**
+     * <p>
+     * The account ID that owns the backup job.
+     * </p>
+     * 
+     * @param accountId
+     *        The account ID that owns the backup job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupJob withAccountId(String accountId) {
+        setAccountId(accountId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Uniquely identifies a request to Backup to back up a resource.
      * </p>
      * 
      * @param backupJobId
-     *        Uniquely identifies a request to AWS Backup to back up a resource.
+     *        Uniquely identifies a request to Backup to back up a resource.
      */
 
     public void setBackupJobId(String backupJobId) {
@@ -164,10 +274,10 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Uniquely identifies a request to AWS Backup to back up a resource.
+     * Uniquely identifies a request to Backup to back up a resource.
      * </p>
      * 
-     * @return Uniquely identifies a request to AWS Backup to back up a resource.
+     * @return Uniquely identifies a request to Backup to back up a resource.
      */
 
     public String getBackupJobId() {
@@ -176,11 +286,11 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Uniquely identifies a request to AWS Backup to back up a resource.
+     * Uniquely identifies a request to Backup to back up a resource.
      * </p>
      * 
      * @param backupJobId
-     *        Uniquely identifies a request to AWS Backup to back up a resource.
+     *        Uniquely identifies a request to Backup to back up a resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -192,14 +302,14 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @param backupVaultName
      *        The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *        unique to the account used to create them and the AWS Region where they are created. They consist of
-     *        lowercase letters, numbers, and hyphens.
+     *        unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *        consist of lowercase letters, numbers, and hyphens.
      */
 
     public void setBackupVaultName(String backupVaultName) {
@@ -209,13 +319,13 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @return The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *         unique to the account used to create them and the AWS Region where they are created. They consist of
-     *         lowercase letters, numbers, and hyphens.
+     *         unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *         consist of lowercase letters, numbers, and hyphens.
      */
 
     public String getBackupVaultName() {
@@ -225,14 +335,14 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @param backupVaultName
      *        The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *        unique to the account used to create them and the AWS Region where they are created. They consist of
-     *        lowercase letters, numbers, and hyphens.
+     *        unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *        consist of lowercase letters, numbers, and hyphens.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -479,11 +589,11 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The current state of a resource recovery point.
+     * The current state of a backup job.
      * </p>
      * 
      * @param state
-     *        The current state of a resource recovery point.
+     *        The current state of a backup job.
      * @see BackupJobState
      */
 
@@ -493,10 +603,10 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The current state of a resource recovery point.
+     * The current state of a backup job.
      * </p>
      * 
-     * @return The current state of a resource recovery point.
+     * @return The current state of a backup job.
      * @see BackupJobState
      */
 
@@ -506,11 +616,11 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The current state of a resource recovery point.
+     * The current state of a backup job.
      * </p>
      * 
      * @param state
-     *        The current state of a resource recovery point.
+     *        The current state of a backup job.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see BackupJobState
      */
@@ -522,11 +632,11 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The current state of a resource recovery point.
+     * The current state of a backup job.
      * </p>
      * 
      * @param state
-     *        The current state of a resource recovery point.
+     *        The current state of a backup job.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see BackupJobState
      */
@@ -658,13 +768,17 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the IAM role ARN used to create the target recovery point; for example,
-     * <code>arn:aws:iam::123456789012:role/S3Access</code>.
+     * Specifies the IAM role ARN used to create the target recovery point. IAM roles other than the default role must
+     * include either <code>AWSBackup</code> or <code>AwsBackup</code> in the role name. For example,
+     * <code>arn:aws:iam::123456789012:role/AWSBackupRDSAccess</code>. Role names without those strings lack permissions
+     * to perform backup jobs.
      * </p>
      * 
      * @param iamRoleArn
-     *        Specifies the IAM role ARN used to create the target recovery point; for example,
-     *        <code>arn:aws:iam::123456789012:role/S3Access</code>.
+     *        Specifies the IAM role ARN used to create the target recovery point. IAM roles other than the default role
+     *        must include either <code>AWSBackup</code> or <code>AwsBackup</code> in the role name. For example,
+     *        <code>arn:aws:iam::123456789012:role/AWSBackupRDSAccess</code>. Role names without those strings lack
+     *        permissions to perform backup jobs.
      */
 
     public void setIamRoleArn(String iamRoleArn) {
@@ -673,12 +787,16 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the IAM role ARN used to create the target recovery point; for example,
-     * <code>arn:aws:iam::123456789012:role/S3Access</code>.
+     * Specifies the IAM role ARN used to create the target recovery point. IAM roles other than the default role must
+     * include either <code>AWSBackup</code> or <code>AwsBackup</code> in the role name. For example,
+     * <code>arn:aws:iam::123456789012:role/AWSBackupRDSAccess</code>. Role names without those strings lack permissions
+     * to perform backup jobs.
      * </p>
      * 
-     * @return Specifies the IAM role ARN used to create the target recovery point; for example,
-     *         <code>arn:aws:iam::123456789012:role/S3Access</code>.
+     * @return Specifies the IAM role ARN used to create the target recovery point. IAM roles other than the default
+     *         role must include either <code>AWSBackup</code> or <code>AwsBackup</code> in the role name. For example,
+     *         <code>arn:aws:iam::123456789012:role/AWSBackupRDSAccess</code>. Role names without those strings lack
+     *         permissions to perform backup jobs.
      */
 
     public String getIamRoleArn() {
@@ -687,13 +805,17 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the IAM role ARN used to create the target recovery point; for example,
-     * <code>arn:aws:iam::123456789012:role/S3Access</code>.
+     * Specifies the IAM role ARN used to create the target recovery point. IAM roles other than the default role must
+     * include either <code>AWSBackup</code> or <code>AwsBackup</code> in the role name. For example,
+     * <code>arn:aws:iam::123456789012:role/AWSBackupRDSAccess</code>. Role names without those strings lack permissions
+     * to perform backup jobs.
      * </p>
      * 
      * @param iamRoleArn
-     *        Specifies the IAM role ARN used to create the target recovery point; for example,
-     *        <code>arn:aws:iam::123456789012:role/S3Access</code>.
+     *        Specifies the IAM role ARN used to create the target recovery point. IAM roles other than the default role
+     *        must include either <code>AWSBackup</code> or <code>AwsBackup</code> in the role name. For example,
+     *        <code>arn:aws:iam::123456789012:role/AWSBackupRDSAccess</code>. Role names without those strings lack
+     *        permissions to perform backup jobs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -872,13 +994,15 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of AWS resource to be backed-up; for example, an Amazon Elastic Block Store (Amazon EBS) volume or an
-     * Amazon Relational Database Service (Amazon RDS) database.
+     * The type of Amazon Web Services resource to be backed up; for example, an Amazon Elastic Block Store (Amazon EBS)
+     * volume or an Amazon Relational Database Service (Amazon RDS) database. For Windows Volume Shadow Copy Service
+     * (VSS) backups, the only supported resource type is Amazon EC2.
      * </p>
      * 
      * @param resourceType
-     *        The type of AWS resource to be backed-up; for example, an Amazon Elastic Block Store (Amazon EBS) volume
-     *        or an Amazon Relational Database Service (Amazon RDS) database.
+     *        The type of Amazon Web Services resource to be backed up; for example, an Amazon Elastic Block Store
+     *        (Amazon EBS) volume or an Amazon Relational Database Service (Amazon RDS) database. For Windows Volume
+     *        Shadow Copy Service (VSS) backups, the only supported resource type is Amazon EC2.
      */
 
     public void setResourceType(String resourceType) {
@@ -887,12 +1011,14 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of AWS resource to be backed-up; for example, an Amazon Elastic Block Store (Amazon EBS) volume or an
-     * Amazon Relational Database Service (Amazon RDS) database.
+     * The type of Amazon Web Services resource to be backed up; for example, an Amazon Elastic Block Store (Amazon EBS)
+     * volume or an Amazon Relational Database Service (Amazon RDS) database. For Windows Volume Shadow Copy Service
+     * (VSS) backups, the only supported resource type is Amazon EC2.
      * </p>
      * 
-     * @return The type of AWS resource to be backed-up; for example, an Amazon Elastic Block Store (Amazon EBS) volume
-     *         or an Amazon Relational Database Service (Amazon RDS) database.
+     * @return The type of Amazon Web Services resource to be backed up; for example, an Amazon Elastic Block Store
+     *         (Amazon EBS) volume or an Amazon Relational Database Service (Amazon RDS) database. For Windows Volume
+     *         Shadow Copy Service (VSS) backups, the only supported resource type is Amazon EC2.
      */
 
     public String getResourceType() {
@@ -901,13 +1027,15 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of AWS resource to be backed-up; for example, an Amazon Elastic Block Store (Amazon EBS) volume or an
-     * Amazon Relational Database Service (Amazon RDS) database.
+     * The type of Amazon Web Services resource to be backed up; for example, an Amazon Elastic Block Store (Amazon EBS)
+     * volume or an Amazon Relational Database Service (Amazon RDS) database. For Windows Volume Shadow Copy Service
+     * (VSS) backups, the only supported resource type is Amazon EC2.
      * </p>
      * 
      * @param resourceType
-     *        The type of AWS resource to be backed-up; for example, an Amazon Elastic Block Store (Amazon EBS) volume
-     *        or an Amazon Relational Database Service (Amazon RDS) database.
+     *        The type of Amazon Web Services resource to be backed up; for example, an Amazon Elastic Block Store
+     *        (Amazon EBS) volume or an Amazon Relational Database Service (Amazon RDS) database. For Windows Volume
+     *        Shadow Copy Service (VSS) backups, the only supported resource type is Amazon EC2.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -957,6 +1085,437 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * Specifies the backup option for a selected resource. This option is only available for Windows Volume Shadow Copy
+     * Service (VSS) backup jobs.
+     * </p>
+     * <p>
+     * Valid values: Set to <code>"WindowsVSS":"enabled"</code> to enable the <code>WindowsVSS</code> backup option and
+     * create a Windows VSS backup. Set to <code>"WindowsVSS":"disabled"</code> to create a regular backup. If you
+     * specify an invalid option, you get an <code>InvalidParameterValueException</code> exception.
+     * </p>
+     * 
+     * @return Specifies the backup option for a selected resource. This option is only available for Windows Volume
+     *         Shadow Copy Service (VSS) backup jobs.</p>
+     *         <p>
+     *         Valid values: Set to <code>"WindowsVSS":"enabled"</code> to enable the <code>WindowsVSS</code> backup
+     *         option and create a Windows VSS backup. Set to <code>"WindowsVSS":"disabled"</code> to create a regular
+     *         backup. If you specify an invalid option, you get an <code>InvalidParameterValueException</code>
+     *         exception.
+     */
+
+    public java.util.Map<String, String> getBackupOptions() {
+        return backupOptions;
+    }
+
+    /**
+     * <p>
+     * Specifies the backup option for a selected resource. This option is only available for Windows Volume Shadow Copy
+     * Service (VSS) backup jobs.
+     * </p>
+     * <p>
+     * Valid values: Set to <code>"WindowsVSS":"enabled"</code> to enable the <code>WindowsVSS</code> backup option and
+     * create a Windows VSS backup. Set to <code>"WindowsVSS":"disabled"</code> to create a regular backup. If you
+     * specify an invalid option, you get an <code>InvalidParameterValueException</code> exception.
+     * </p>
+     * 
+     * @param backupOptions
+     *        Specifies the backup option for a selected resource. This option is only available for Windows Volume
+     *        Shadow Copy Service (VSS) backup jobs.</p>
+     *        <p>
+     *        Valid values: Set to <code>"WindowsVSS":"enabled"</code> to enable the <code>WindowsVSS</code> backup
+     *        option and create a Windows VSS backup. Set to <code>"WindowsVSS":"disabled"</code> to create a regular
+     *        backup. If you specify an invalid option, you get an <code>InvalidParameterValueException</code>
+     *        exception.
+     */
+
+    public void setBackupOptions(java.util.Map<String, String> backupOptions) {
+        this.backupOptions = backupOptions;
+    }
+
+    /**
+     * <p>
+     * Specifies the backup option for a selected resource. This option is only available for Windows Volume Shadow Copy
+     * Service (VSS) backup jobs.
+     * </p>
+     * <p>
+     * Valid values: Set to <code>"WindowsVSS":"enabled"</code> to enable the <code>WindowsVSS</code> backup option and
+     * create a Windows VSS backup. Set to <code>"WindowsVSS":"disabled"</code> to create a regular backup. If you
+     * specify an invalid option, you get an <code>InvalidParameterValueException</code> exception.
+     * </p>
+     * 
+     * @param backupOptions
+     *        Specifies the backup option for a selected resource. This option is only available for Windows Volume
+     *        Shadow Copy Service (VSS) backup jobs.</p>
+     *        <p>
+     *        Valid values: Set to <code>"WindowsVSS":"enabled"</code> to enable the <code>WindowsVSS</code> backup
+     *        option and create a Windows VSS backup. Set to <code>"WindowsVSS":"disabled"</code> to create a regular
+     *        backup. If you specify an invalid option, you get an <code>InvalidParameterValueException</code>
+     *        exception.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupJob withBackupOptions(java.util.Map<String, String> backupOptions) {
+        setBackupOptions(backupOptions);
+        return this;
+    }
+
+    /**
+     * Add a single BackupOptions entry
+     *
+     * @see BackupJob#withBackupOptions
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupJob addBackupOptionsEntry(String key, String value) {
+        if (null == this.backupOptions) {
+            this.backupOptions = new java.util.HashMap<String, String>();
+        }
+        if (this.backupOptions.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.backupOptions.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into BackupOptions.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupJob clearBackupOptionsEntries() {
+        this.backupOptions = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * Represents the type of backup for a backup job.
+     * </p>
+     * 
+     * @param backupType
+     *        Represents the type of backup for a backup job.
+     */
+
+    public void setBackupType(String backupType) {
+        this.backupType = backupType;
+    }
+
+    /**
+     * <p>
+     * Represents the type of backup for a backup job.
+     * </p>
+     * 
+     * @return Represents the type of backup for a backup job.
+     */
+
+    public String getBackupType() {
+        return this.backupType;
+    }
+
+    /**
+     * <p>
+     * Represents the type of backup for a backup job.
+     * </p>
+     * 
+     * @param backupType
+     *        Represents the type of backup for a backup job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupJob withBackupType(String backupType) {
+        setBackupType(backupType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This uniquely identifies a request to Backup to back up a resource. The return will be the parent (composite) job
+     * ID.
+     * </p>
+     * 
+     * @param parentJobId
+     *        This uniquely identifies a request to Backup to back up a resource. The return will be the parent
+     *        (composite) job ID.
+     */
+
+    public void setParentJobId(String parentJobId) {
+        this.parentJobId = parentJobId;
+    }
+
+    /**
+     * <p>
+     * This uniquely identifies a request to Backup to back up a resource. The return will be the parent (composite) job
+     * ID.
+     * </p>
+     * 
+     * @return This uniquely identifies a request to Backup to back up a resource. The return will be the parent
+     *         (composite) job ID.
+     */
+
+    public String getParentJobId() {
+        return this.parentJobId;
+    }
+
+    /**
+     * <p>
+     * This uniquely identifies a request to Backup to back up a resource. The return will be the parent (composite) job
+     * ID.
+     * </p>
+     * 
+     * @param parentJobId
+     *        This uniquely identifies a request to Backup to back up a resource. The return will be the parent
+     *        (composite) job ID.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupJob withParentJobId(String parentJobId) {
+        setParentJobId(parentJobId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is a boolean value indicating this is a parent (composite) backup job.
+     * </p>
+     * 
+     * @param isParent
+     *        This is a boolean value indicating this is a parent (composite) backup job.
+     */
+
+    public void setIsParent(Boolean isParent) {
+        this.isParent = isParent;
+    }
+
+    /**
+     * <p>
+     * This is a boolean value indicating this is a parent (composite) backup job.
+     * </p>
+     * 
+     * @return This is a boolean value indicating this is a parent (composite) backup job.
+     */
+
+    public Boolean getIsParent() {
+        return this.isParent;
+    }
+
+    /**
+     * <p>
+     * This is a boolean value indicating this is a parent (composite) backup job.
+     * </p>
+     * 
+     * @param isParent
+     *        This is a boolean value indicating this is a parent (composite) backup job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupJob withIsParent(Boolean isParent) {
+        setIsParent(isParent);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is a boolean value indicating this is a parent (composite) backup job.
+     * </p>
+     * 
+     * @return This is a boolean value indicating this is a parent (composite) backup job.
+     */
+
+    public Boolean isParent() {
+        return this.isParent;
+    }
+
+    /**
+     * <p>
+     * This is the non-unique name of the resource that belongs to the specified backup.
+     * </p>
+     * 
+     * @param resourceName
+     *        This is the non-unique name of the resource that belongs to the specified backup.
+     */
+
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
+    }
+
+    /**
+     * <p>
+     * This is the non-unique name of the resource that belongs to the specified backup.
+     * </p>
+     * 
+     * @return This is the non-unique name of the resource that belongs to the specified backup.
+     */
+
+    public String getResourceName() {
+        return this.resourceName;
+    }
+
+    /**
+     * <p>
+     * This is the non-unique name of the resource that belongs to the specified backup.
+     * </p>
+     * 
+     * @param resourceName
+     *        This is the non-unique name of the resource that belongs to the specified backup.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupJob withResourceName(String resourceName) {
+        setResourceName(resourceName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is the date on which the backup job was initiated.
+     * </p>
+     * 
+     * @param initiationDate
+     *        This is the date on which the backup job was initiated.
+     */
+
+    public void setInitiationDate(java.util.Date initiationDate) {
+        this.initiationDate = initiationDate;
+    }
+
+    /**
+     * <p>
+     * This is the date on which the backup job was initiated.
+     * </p>
+     * 
+     * @return This is the date on which the backup job was initiated.
+     */
+
+    public java.util.Date getInitiationDate() {
+        return this.initiationDate;
+    }
+
+    /**
+     * <p>
+     * This is the date on which the backup job was initiated.
+     * </p>
+     * 
+     * @param initiationDate
+     *        This is the date on which the backup job was initiated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupJob withInitiationDate(java.util.Date initiationDate) {
+        setInitiationDate(initiationDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This parameter is the job count for the specified message category.
+     * </p>
+     * <p>
+     * Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>, and
+     * <code>INVALIDPARAMETERS</code>. See <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a> for a list of
+     * MessageCategory strings.
+     * </p>
+     * <p>
+     * The the value ANY returns count of all message categories.
+     * </p>
+     * <p>
+     * <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.
+     * </p>
+     * 
+     * @param messageCategory
+     *        This parameter is the job count for the specified message category.</p>
+     *        <p>
+     *        Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>,
+     *        and <code>INVALIDPARAMETERS</code>. See <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a> for a list of
+     *        MessageCategory strings.
+     *        </p>
+     *        <p>
+     *        The the value ANY returns count of all message categories.
+     *        </p>
+     *        <p>
+     *        <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.
+     */
+
+    public void setMessageCategory(String messageCategory) {
+        this.messageCategory = messageCategory;
+    }
+
+    /**
+     * <p>
+     * This parameter is the job count for the specified message category.
+     * </p>
+     * <p>
+     * Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>, and
+     * <code>INVALIDPARAMETERS</code>. See <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a> for a list of
+     * MessageCategory strings.
+     * </p>
+     * <p>
+     * The the value ANY returns count of all message categories.
+     * </p>
+     * <p>
+     * <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.
+     * </p>
+     * 
+     * @return This parameter is the job count for the specified message category.</p>
+     *         <p>
+     *         Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>,
+     *         and <code>INVALIDPARAMETERS</code>. See <a
+     *         href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a> for a list
+     *         of MessageCategory strings.
+     *         </p>
+     *         <p>
+     *         The the value ANY returns count of all message categories.
+     *         </p>
+     *         <p>
+     *         <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.
+     */
+
+    public String getMessageCategory() {
+        return this.messageCategory;
+    }
+
+    /**
+     * <p>
+     * This parameter is the job count for the specified message category.
+     * </p>
+     * <p>
+     * Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>, and
+     * <code>INVALIDPARAMETERS</code>. See <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a> for a list of
+     * MessageCategory strings.
+     * </p>
+     * <p>
+     * The the value ANY returns count of all message categories.
+     * </p>
+     * <p>
+     * <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.
+     * </p>
+     * 
+     * @param messageCategory
+     *        This parameter is the job count for the specified message category.</p>
+     *        <p>
+     *        Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>,
+     *        and <code>INVALIDPARAMETERS</code>. See <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a> for a list of
+     *        MessageCategory strings.
+     *        </p>
+     *        <p>
+     *        The the value ANY returns count of all message categories.
+     *        </p>
+     *        <p>
+     *        <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupJob withMessageCategory(String messageCategory) {
+        setMessageCategory(messageCategory);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -968,6 +1527,8 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getAccountId() != null)
+            sb.append("AccountId: ").append(getAccountId()).append(",");
         if (getBackupJobId() != null)
             sb.append("BackupJobId: ").append(getBackupJobId()).append(",");
         if (getBackupVaultName() != null)
@@ -1001,7 +1562,21 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
         if (getResourceType() != null)
             sb.append("ResourceType: ").append(getResourceType()).append(",");
         if (getBytesTransferred() != null)
-            sb.append("BytesTransferred: ").append(getBytesTransferred());
+            sb.append("BytesTransferred: ").append(getBytesTransferred()).append(",");
+        if (getBackupOptions() != null)
+            sb.append("BackupOptions: ").append(getBackupOptions()).append(",");
+        if (getBackupType() != null)
+            sb.append("BackupType: ").append(getBackupType()).append(",");
+        if (getParentJobId() != null)
+            sb.append("ParentJobId: ").append(getParentJobId()).append(",");
+        if (getIsParent() != null)
+            sb.append("IsParent: ").append(getIsParent()).append(",");
+        if (getResourceName() != null)
+            sb.append("ResourceName: ").append(getResourceName()).append(",");
+        if (getInitiationDate() != null)
+            sb.append("InitiationDate: ").append(getInitiationDate()).append(",");
+        if (getMessageCategory() != null)
+            sb.append("MessageCategory: ").append(getMessageCategory());
         sb.append("}");
         return sb.toString();
     }
@@ -1016,6 +1591,10 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
         if (obj instanceof BackupJob == false)
             return false;
         BackupJob other = (BackupJob) obj;
+        if (other.getAccountId() == null ^ this.getAccountId() == null)
+            return false;
+        if (other.getAccountId() != null && other.getAccountId().equals(this.getAccountId()) == false)
+            return false;
         if (other.getBackupJobId() == null ^ this.getBackupJobId() == null)
             return false;
         if (other.getBackupJobId() != null && other.getBackupJobId().equals(this.getBackupJobId()) == false)
@@ -1084,6 +1663,34 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getBytesTransferred() != null && other.getBytesTransferred().equals(this.getBytesTransferred()) == false)
             return false;
+        if (other.getBackupOptions() == null ^ this.getBackupOptions() == null)
+            return false;
+        if (other.getBackupOptions() != null && other.getBackupOptions().equals(this.getBackupOptions()) == false)
+            return false;
+        if (other.getBackupType() == null ^ this.getBackupType() == null)
+            return false;
+        if (other.getBackupType() != null && other.getBackupType().equals(this.getBackupType()) == false)
+            return false;
+        if (other.getParentJobId() == null ^ this.getParentJobId() == null)
+            return false;
+        if (other.getParentJobId() != null && other.getParentJobId().equals(this.getParentJobId()) == false)
+            return false;
+        if (other.getIsParent() == null ^ this.getIsParent() == null)
+            return false;
+        if (other.getIsParent() != null && other.getIsParent().equals(this.getIsParent()) == false)
+            return false;
+        if (other.getResourceName() == null ^ this.getResourceName() == null)
+            return false;
+        if (other.getResourceName() != null && other.getResourceName().equals(this.getResourceName()) == false)
+            return false;
+        if (other.getInitiationDate() == null ^ this.getInitiationDate() == null)
+            return false;
+        if (other.getInitiationDate() != null && other.getInitiationDate().equals(this.getInitiationDate()) == false)
+            return false;
+        if (other.getMessageCategory() == null ^ this.getMessageCategory() == null)
+            return false;
+        if (other.getMessageCategory() != null && other.getMessageCategory().equals(this.getMessageCategory()) == false)
+            return false;
         return true;
     }
 
@@ -1092,6 +1699,7 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getAccountId() == null) ? 0 : getAccountId().hashCode());
         hashCode = prime * hashCode + ((getBackupJobId() == null) ? 0 : getBackupJobId().hashCode());
         hashCode = prime * hashCode + ((getBackupVaultName() == null) ? 0 : getBackupVaultName().hashCode());
         hashCode = prime * hashCode + ((getBackupVaultArn() == null) ? 0 : getBackupVaultArn().hashCode());
@@ -1109,6 +1717,13 @@ public class BackupJob implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getStartBy() == null) ? 0 : getStartBy().hashCode());
         hashCode = prime * hashCode + ((getResourceType() == null) ? 0 : getResourceType().hashCode());
         hashCode = prime * hashCode + ((getBytesTransferred() == null) ? 0 : getBytesTransferred().hashCode());
+        hashCode = prime * hashCode + ((getBackupOptions() == null) ? 0 : getBackupOptions().hashCode());
+        hashCode = prime * hashCode + ((getBackupType() == null) ? 0 : getBackupType().hashCode());
+        hashCode = prime * hashCode + ((getParentJobId() == null) ? 0 : getParentJobId().hashCode());
+        hashCode = prime * hashCode + ((getIsParent() == null) ? 0 : getIsParent().hashCode());
+        hashCode = prime * hashCode + ((getResourceName() == null) ? 0 : getResourceName().hashCode());
+        hashCode = prime * hashCode + ((getInitiationDate() == null) ? 0 : getInitiationDate().hashCode());
+        hashCode = prime * hashCode + ((getMessageCategory() == null) ? 0 : getMessageCategory().hashCode());
         return hashCode;
     }
 

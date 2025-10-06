@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,8 +33,14 @@ public class ListCommandsRequest extends com.amazonaws.AmazonWebServiceRequest i
     private String commandId;
     /**
      * <p>
-     * (Optional) Lists commands issued against this instance ID.
+     * (Optional) Lists commands issued against this managed node ID.
      * </p>
+     * <note>
+     * <p>
+     * You can't specify a managed node ID in the same command that you specify <code>Status</code> =
+     * <code>Pending</code>. This is because the command hasn't reached the managed node yet.
+     * </p>
+     * </note>
      */
     private String instanceId;
     /**
@@ -99,11 +105,21 @@ public class ListCommandsRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Lists commands issued against this instance ID.
+     * (Optional) Lists commands issued against this managed node ID.
      * </p>
+     * <note>
+     * <p>
+     * You can't specify a managed node ID in the same command that you specify <code>Status</code> =
+     * <code>Pending</code>. This is because the command hasn't reached the managed node yet.
+     * </p>
+     * </note>
      * 
      * @param instanceId
-     *        (Optional) Lists commands issued against this instance ID.
+     *        (Optional) Lists commands issued against this managed node ID.</p> <note>
+     *        <p>
+     *        You can't specify a managed node ID in the same command that you specify <code>Status</code> =
+     *        <code>Pending</code>. This is because the command hasn't reached the managed node yet.
+     *        </p>
      */
 
     public void setInstanceId(String instanceId) {
@@ -112,10 +128,20 @@ public class ListCommandsRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Lists commands issued against this instance ID.
+     * (Optional) Lists commands issued against this managed node ID.
      * </p>
+     * <note>
+     * <p>
+     * You can't specify a managed node ID in the same command that you specify <code>Status</code> =
+     * <code>Pending</code>. This is because the command hasn't reached the managed node yet.
+     * </p>
+     * </note>
      * 
-     * @return (Optional) Lists commands issued against this instance ID.
+     * @return (Optional) Lists commands issued against this managed node ID.</p> <note>
+     *         <p>
+     *         You can't specify a managed node ID in the same command that you specify <code>Status</code> =
+     *         <code>Pending</code>. This is because the command hasn't reached the managed node yet.
+     *         </p>
      */
 
     public String getInstanceId() {
@@ -124,11 +150,21 @@ public class ListCommandsRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Lists commands issued against this instance ID.
+     * (Optional) Lists commands issued against this managed node ID.
      * </p>
+     * <note>
+     * <p>
+     * You can't specify a managed node ID in the same command that you specify <code>Status</code> =
+     * <code>Pending</code>. This is because the command hasn't reached the managed node yet.
+     * </p>
+     * </note>
      * 
      * @param instanceId
-     *        (Optional) Lists commands issued against this instance ID.
+     *        (Optional) Lists commands issued against this managed node ID.</p> <note>
+     *        <p>
+     *        You can't specify a managed node ID in the same command that you specify <code>Status</code> =
+     *        <code>Pending</code>. This is because the command hasn't reached the managed node yet.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

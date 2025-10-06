@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class CreateJobRequestMarshaller {
             .marshallLocationName("JobType").build();
     private static final MarshallingInfo<StructuredPojo> RESOURCES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Resources").build();
+    private static final MarshallingInfo<StructuredPojo> ONDEVICESERVICECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OnDeviceServiceConfiguration").build();
     private static final MarshallingInfo<String> DESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Description").build();
     private static final MarshallingInfo<String> ADDRESSID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -51,6 +53,18 @@ public class CreateJobRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SnowballType").build();
     private static final MarshallingInfo<String> FORWARDINGADDRESSID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ForwardingAddressId").build();
+    private static final MarshallingInfo<StructuredPojo> TAXDOCUMENTS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TaxDocuments").build();
+    private static final MarshallingInfo<StructuredPojo> DEVICECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DeviceConfiguration").build();
+    private static final MarshallingInfo<String> REMOTEMANAGEMENT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RemoteManagement").build();
+    private static final MarshallingInfo<String> LONGTERMPRICINGID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LongTermPricingId").build();
+    private static final MarshallingInfo<String> IMPACTLEVEL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ImpactLevel").build();
+    private static final MarshallingInfo<StructuredPojo> PICKUPDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PickupDetails").build();
 
     private static final CreateJobRequestMarshaller instance = new CreateJobRequestMarshaller();
 
@@ -70,6 +84,7 @@ public class CreateJobRequestMarshaller {
         try {
             protocolMarshaller.marshall(createJobRequest.getJobType(), JOBTYPE_BINDING);
             protocolMarshaller.marshall(createJobRequest.getResources(), RESOURCES_BINDING);
+            protocolMarshaller.marshall(createJobRequest.getOnDeviceServiceConfiguration(), ONDEVICESERVICECONFIGURATION_BINDING);
             protocolMarshaller.marshall(createJobRequest.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(createJobRequest.getAddressId(), ADDRESSID_BINDING);
             protocolMarshaller.marshall(createJobRequest.getKmsKeyARN(), KMSKEYARN_BINDING);
@@ -80,6 +95,12 @@ public class CreateJobRequestMarshaller {
             protocolMarshaller.marshall(createJobRequest.getClusterId(), CLUSTERID_BINDING);
             protocolMarshaller.marshall(createJobRequest.getSnowballType(), SNOWBALLTYPE_BINDING);
             protocolMarshaller.marshall(createJobRequest.getForwardingAddressId(), FORWARDINGADDRESSID_BINDING);
+            protocolMarshaller.marshall(createJobRequest.getTaxDocuments(), TAXDOCUMENTS_BINDING);
+            protocolMarshaller.marshall(createJobRequest.getDeviceConfiguration(), DEVICECONFIGURATION_BINDING);
+            protocolMarshaller.marshall(createJobRequest.getRemoteManagement(), REMOTEMANAGEMENT_BINDING);
+            protocolMarshaller.marshall(createJobRequest.getLongTermPricingId(), LONGTERMPRICINGID_BINDING);
+            protocolMarshaller.marshall(createJobRequest.getImpactLevel(), IMPACTLEVEL_BINDING);
+            protocolMarshaller.marshall(createJobRequest.getPickupDetails(), PICKUPDETAILS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

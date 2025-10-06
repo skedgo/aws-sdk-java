@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,14 @@ public class VideoCodecSettingsJsonUnmarshaller implements Unmarshaller<VideoCod
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("av1Settings", targetDepth)) {
+                    context.nextToken();
+                    videoCodecSettings.setAv1Settings(Av1SettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("avcIntraSettings", targetDepth)) {
+                    context.nextToken();
+                    videoCodecSettings.setAvcIntraSettings(AvcIntraSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("codec", targetDepth)) {
                     context.nextToken();
                     videoCodecSettings.setCodec(context.getUnmarshaller(String.class).unmarshall(context));
@@ -71,6 +79,26 @@ public class VideoCodecSettingsJsonUnmarshaller implements Unmarshaller<VideoCod
                 if (context.testExpression("proresSettings", targetDepth)) {
                     context.nextToken();
                     videoCodecSettings.setProresSettings(ProresSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("uncompressedSettings", targetDepth)) {
+                    context.nextToken();
+                    videoCodecSettings.setUncompressedSettings(UncompressedSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("vc3Settings", targetDepth)) {
+                    context.nextToken();
+                    videoCodecSettings.setVc3Settings(Vc3SettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("vp8Settings", targetDepth)) {
+                    context.nextToken();
+                    videoCodecSettings.setVp8Settings(Vp8SettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("vp9Settings", targetDepth)) {
+                    context.nextToken();
+                    videoCodecSettings.setVp9Settings(Vp9SettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("xavcSettings", targetDepth)) {
+                    context.nextToken();
+                    videoCodecSettings.setXavcSettings(XavcSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

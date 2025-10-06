@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,7 @@ import com.amazonaws.*;
 import com.amazonaws.regions.*;
 
 import com.amazonaws.services.ecr.model.*;
+import com.amazonaws.services.ecr.waiters.AmazonECRWaiters;
 
 /**
  * Interface for accessing Amazon ECR.
@@ -28,10 +29,16 @@ import com.amazonaws.services.ecr.model.*;
  * <p>
  * <fullname>Amazon Elastic Container Registry</fullname>
  * <p>
- * Amazon Elastic Container Registry (Amazon ECR) is a managed Docker registry service. Customers can use the familiar
- * Docker CLI to push, pull, and manage images. Amazon ECR provides a secure, scalable, and reliable registry. Amazon
- * ECR supports private Docker repositories with resource-based permissions using IAM so that specific users or Amazon
- * EC2 instances can access repositories and images. Developers can use the Docker CLI to author and manage images.
+ * Amazon Elastic Container Registry (Amazon ECR) is a managed container image registry service. Customers can use the
+ * familiar Docker CLI, or their preferred client, to push, pull, and manage images. Amazon ECR provides a secure,
+ * scalable, and reliable registry for your Docker or Open Container Initiative (OCI) images. Amazon ECR supports
+ * private repositories with resource-based permissions using IAM so that specific users or Amazon EC2 instances can
+ * access repositories and images.
+ * </p>
+ * <p>
+ * Amazon ECR has service endpoints in each supported Region. For more information, see <a
+ * href="https://docs.aws.amazon.com/general/latest/gr/ecr.html">Amazon ECR endpoints</a> in the <i>Amazon Web Services
+ * General Reference</i>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -98,12 +105,16 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Check the availability of multiple image layers in a specified registry and repository.
+     * Checks the availability of one or more image layers in a repository.
+     * </p>
+     * <p>
+     * When an image is pushed to a repository, each image layer is checked to verify if it has been uploaded before. If
+     * it has been uploaded, then the image layer is skipped.
      * </p>
      * <note>
      * <p>
-     * This operation is used by the Amazon ECR proxy, and it is not intended for general use by customers for pulling
-     * and pushing images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
+     * This operation is used by the Amazon ECR proxy and is not generally used by customers for pulling and pushing
+     * images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
      * </p>
      * </note>
      * 
@@ -124,8 +135,8 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Deletes a list of specified images within a specified repository. Images are specified with either
-     * <code>imageTag</code> or <code>imageDigest</code>.
+     * Deletes a list of specified images within a repository. Images are specified with either an <code>imageTag</code>
+     * or <code>imageDigest</code>.
      * </p>
      * <p>
      * You can remove a tag from an image by specifying the image's tag in your request. When you remove the last tag
@@ -154,8 +165,11 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Gets detailed information for specified images within a specified repository. Images are specified with either
-     * <code>imageTag</code> or <code>imageDigest</code>.
+     * Gets detailed information for an image. Images are specified with either an <code>imageTag</code> or
+     * <code>imageDigest</code>.
+     * </p>
+     * <p>
+     * When an image is pulled, the BatchGetImage API is called once to retrieve the image manifest.
      * </p>
      * 
      * @param batchGetImageRequest
@@ -167,6 +181,14 @@ public interface AmazonECR {
      * @throws RepositoryNotFoundException
      *         The specified repository could not be found. Check the spelling of the specified repository and ensure
      *         that you are performing operations on the correct registry.
+     * @throws LimitExceededException
+     *         The operation did not succeed because it would have exceeded a service limit for your account. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service
+     *         quotas</a> in the Amazon Elastic Container Registry User Guide.
+     * @throws UnableToGetUpstreamImageException
+     *         The image or images were unable to be pulled using the pull through cache rule. This is usually caused
+     *         because of an issue with the Secrets Manager secret containing the credentials for the upstream registry.
      * @sample AmazonECR.BatchGetImage
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/BatchGetImage" target="_top">AWS API
      *      Documentation</a>
@@ -175,14 +197,41 @@ public interface AmazonECR {
 
     /**
      * <p>
+     * Gets the scanning configuration for one or more repositories.
+     * </p>
+     * 
+     * @param batchGetRepositoryScanningConfigurationRequest
+     * @return Result of the BatchGetRepositoryScanningConfiguration operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws RepositoryNotFoundException
+     *         The specified repository could not be found. Check the spelling of the specified repository and ensure
+     *         that you are performing operations on the correct registry.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.BatchGetRepositoryScanningConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/BatchGetRepositoryScanningConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    BatchGetRepositoryScanningConfigurationResult batchGetRepositoryScanningConfiguration(
+            BatchGetRepositoryScanningConfigurationRequest batchGetRepositoryScanningConfigurationRequest);
+
+    /**
+     * <p>
      * Informs Amazon ECR that the image layer upload has completed for a specified registry, repository name, and
      * upload ID. You can optionally provide a <code>sha256</code> digest of the image layer for data validation
      * purposes.
      * </p>
+     * <p>
+     * When an image is pushed, the CompleteLayerUpload API is called once per each new image layer to verify that the
+     * upload has completed.
+     * </p>
      * <note>
      * <p>
-     * This operation is used by the Amazon ECR proxy, and it is not intended for general use by customers for pulling
-     * and pushing images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
+     * This operation is used by the Amazon ECR proxy and is not generally used by customers for pulling and pushing
+     * images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
      * </p>
      * </note>
      * 
@@ -196,7 +245,7 @@ public interface AmazonECR {
      *         The specified repository could not be found. Check the spelling of the specified repository and ensure
      *         that you are performing operations on the correct registry.
      * @throws UploadNotFoundException
-     *         The upload could not be found, or the specified upload id is not valid for this repository.
+     *         The upload could not be found, or the specified upload ID is not valid for this repository.
      * @throws InvalidLayerException
      *         The layer digest calculation performed by Amazon ECR upon receipt of the image layer does not match the
      *         digest specified.
@@ -206,6 +255,8 @@ public interface AmazonECR {
      *         The image layer already exists in the associated repository.
      * @throws EmptyUploadException
      *         The specified layer upload does not contain any layer parts.
+     * @throws KmsException
+     *         The operation failed due to a KMS exception.
      * @sample AmazonECR.CompleteLayerUpload
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/CompleteLayerUpload" target="_top">AWS API
      *      Documentation</a>
@@ -214,7 +265,47 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Creates an image repository.
+     * Creates a pull through cache rule. A pull through cache rule provides a way to cache images from an upstream
+     * registry source in your Amazon ECR private registry. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/pull-through-cache.html">Using pull through cache
+     * rules</a> in the <i>Amazon Elastic Container Registry User Guide</i>.
+     * </p>
+     * 
+     * @param createPullThroughCacheRuleRequest
+     * @return Result of the CreatePullThroughCacheRule operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws PullThroughCacheRuleAlreadyExistsException
+     *         A pull through cache rule with these settings already exists for the private registry.
+     * @throws UnsupportedUpstreamRegistryException
+     *         The specified upstream registry isn't supported.
+     * @throws LimitExceededException
+     *         The operation did not succeed because it would have exceeded a service limit for your account. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service
+     *         quotas</a> in the Amazon Elastic Container Registry User Guide.
+     * @throws UnableToAccessSecretException
+     *         The secret is unable to be accessed. Verify the resource permissions for the secret and try again.
+     * @throws SecretNotFoundException
+     *         The ARN of the secret specified in the pull through cache rule was not found. Update the pull through
+     *         cache rule with a valid secret ARN and try again.
+     * @throws UnableToDecryptSecretValueException
+     *         The secret is accessible but is unable to be decrypted. Verify the resource permisisons and try again.
+     * @sample AmazonECR.CreatePullThroughCacheRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/CreatePullThroughCacheRule" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreatePullThroughCacheRuleResult createPullThroughCacheRule(CreatePullThroughCacheRuleRequest createPullThroughCacheRuleRequest);
+
+    /**
+     * <p>
+     * Creates a repository. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/Repositories.html">Amazon ECR repositories</a> in
+     * the <i>Amazon Elastic Container Registry User Guide</i>.
      * </p>
      * 
      * @param createRepositoryRequest
@@ -234,8 +325,10 @@ public interface AmazonECR {
      * @throws LimitExceededException
      *         The operation did not succeed because it would have exceeded a service limit for your account. For more
      *         information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service_limits.html">Amazon ECR Default
-     *         Service Limits</a> in the Amazon Elastic Container Registry User Guide.
+     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service
+     *         quotas</a> in the Amazon Elastic Container Registry User Guide.
+     * @throws KmsException
+     *         The operation failed due to a KMS exception.
      * @sample AmazonECR.CreateRepository
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/CreateRepository" target="_top">AWS API
      *      Documentation</a>
@@ -244,7 +337,37 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Deletes the specified lifecycle policy.
+     * Creates a repository creation template. This template is used to define the settings for repositories created by
+     * Amazon ECR on your behalf. For example, repositories created through pull through cache actions. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-creation-templates.html">Private
+     * repository creation templates</a> in the <i>Amazon Elastic Container Registry User Guide</i>.
+     * </p>
+     * 
+     * @param createRepositoryCreationTemplateRequest
+     * @return Result of the CreateRepositoryCreationTemplate operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws LimitExceededException
+     *         The operation did not succeed because it would have exceeded a service limit for your account. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service
+     *         quotas</a> in the Amazon Elastic Container Registry User Guide.
+     * @throws TemplateAlreadyExistsException
+     *         The repository creation template already exists. Specify a unique prefix and try again.
+     * @sample AmazonECR.CreateRepositoryCreationTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/CreateRepositoryCreationTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateRepositoryCreationTemplateResult createRepositoryCreationTemplate(CreateRepositoryCreationTemplateRequest createRepositoryCreationTemplateRequest);
+
+    /**
+     * <p>
+     * Deletes the lifecycle policy associated with the specified repository.
      * </p>
      * 
      * @param deleteLifecyclePolicyRequest
@@ -258,6 +381,8 @@ public interface AmazonECR {
      *         that you are performing operations on the correct registry.
      * @throws LifecyclePolicyNotFoundException
      *         The lifecycle policy could not be found, and no policy is set to the repository.
+     * @throws ValidationException
+     *         There was an exception validating this request.
      * @sample AmazonECR.DeleteLifecyclePolicy
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteLifecyclePolicy" target="_top">AWS API
      *      Documentation</a>
@@ -266,8 +391,51 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Deletes an existing image repository. If a repository contains images, you must use the <code>force</code> option
-     * to delete it.
+     * Deletes a pull through cache rule.
+     * </p>
+     * 
+     * @param deletePullThroughCacheRuleRequest
+     * @return Result of the DeletePullThroughCacheRule operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws PullThroughCacheRuleNotFoundException
+     *         The pull through cache rule was not found. Specify a valid pull through cache rule and try again.
+     * @sample AmazonECR.DeletePullThroughCacheRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeletePullThroughCacheRule" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeletePullThroughCacheRuleResult deletePullThroughCacheRule(DeletePullThroughCacheRuleRequest deletePullThroughCacheRuleRequest);
+
+    /**
+     * <p>
+     * Deletes the registry permissions policy.
+     * </p>
+     * 
+     * @param deleteRegistryPolicyRequest
+     * @return Result of the DeleteRegistryPolicy operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws RegistryPolicyNotFoundException
+     *         The registry doesn't have an associated registry policy.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.DeleteRegistryPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteRegistryPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteRegistryPolicyResult deleteRegistryPolicy(DeleteRegistryPolicyRequest deleteRegistryPolicyRequest);
+
+    /**
+     * <p>
+     * Deletes a repository. If the repository isn't empty, you must either delete the contents of the repository or use
+     * the <code>force</code> option to delete the repository and have Amazon ECR delete all of its contents on your
+     * behalf.
      * </p>
      * 
      * @param deleteRepositoryRequest
@@ -282,6 +450,8 @@ public interface AmazonECR {
      * @throws RepositoryNotEmptyException
      *         The specified repository contains images. To delete a repository that contains images, you must force the
      *         deletion with the <code>force</code> parameter.
+     * @throws KmsException
+     *         The operation failed due to a KMS exception.
      * @sample AmazonECR.DeleteRepository
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteRepository" target="_top">AWS API
      *      Documentation</a>
@@ -290,7 +460,29 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Deletes the repository policy from a specified repository.
+     * Deletes a repository creation template.
+     * </p>
+     * 
+     * @param deleteRepositoryCreationTemplateRequest
+     * @return Result of the DeleteRepositoryCreationTemplate operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws TemplateNotFoundException
+     *         The specified repository creation template can't be found. Verify the registry ID and prefix and try
+     *         again.
+     * @sample AmazonECR.DeleteRepositoryCreationTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteRepositoryCreationTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteRepositoryCreationTemplateResult deleteRepositoryCreationTemplate(DeleteRepositoryCreationTemplateRequest deleteRepositoryCreationTemplateRequest);
+
+    /**
+     * <p>
+     * Deletes the repository policy associated with the specified repository.
      * </p>
      * 
      * @param deleteRepositoryPolicyRequest
@@ -312,7 +504,58 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Returns metadata about the images in a repository, including image size, image tags, and creation date.
+     * Returns the replication status for a specified image.
+     * </p>
+     * 
+     * @param describeImageReplicationStatusRequest
+     * @return Result of the DescribeImageReplicationStatus operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ImageNotFoundException
+     *         The image requested does not exist in the specified repository.
+     * @throws RepositoryNotFoundException
+     *         The specified repository could not be found. Check the spelling of the specified repository and ensure
+     *         that you are performing operations on the correct registry.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.DescribeImageReplicationStatus
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DescribeImageReplicationStatus"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeImageReplicationStatusResult describeImageReplicationStatus(DescribeImageReplicationStatusRequest describeImageReplicationStatusRequest);
+
+    /**
+     * <p>
+     * Returns the scan findings for the specified image.
+     * </p>
+     * 
+     * @param describeImageScanFindingsRequest
+     * @return Result of the DescribeImageScanFindings operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws RepositoryNotFoundException
+     *         The specified repository could not be found. Check the spelling of the specified repository and ensure
+     *         that you are performing operations on the correct registry.
+     * @throws ImageNotFoundException
+     *         The image requested does not exist in the specified repository.
+     * @throws ScanNotFoundException
+     *         The specified image scan could not be found. Ensure that image scanning is enabled on the repository and
+     *         try again.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.DescribeImageScanFindings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DescribeImageScanFindings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DescribeImageScanFindingsResult describeImageScanFindings(DescribeImageScanFindingsRequest describeImageScanFindingsRequest);
+
+    /**
+     * <p>
+     * Returns metadata about the images in a repository.
      * </p>
      * <note>
      * <p>
@@ -341,6 +584,47 @@ public interface AmazonECR {
 
     /**
      * <p>
+     * Returns the pull through cache rules for a registry.
+     * </p>
+     * 
+     * @param describePullThroughCacheRulesRequest
+     * @return Result of the DescribePullThroughCacheRules operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws PullThroughCacheRuleNotFoundException
+     *         The pull through cache rule was not found. Specify a valid pull through cache rule and try again.
+     * @sample AmazonECR.DescribePullThroughCacheRules
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DescribePullThroughCacheRules"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribePullThroughCacheRulesResult describePullThroughCacheRules(DescribePullThroughCacheRulesRequest describePullThroughCacheRulesRequest);
+
+    /**
+     * <p>
+     * Describes the settings for a registry. The replication configuration for a repository can be created or updated
+     * with the <a>PutReplicationConfiguration</a> API action.
+     * </p>
+     * 
+     * @param describeRegistryRequest
+     * @return Result of the DescribeRegistry operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.DescribeRegistry
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DescribeRegistry" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DescribeRegistryResult describeRegistry(DescribeRegistryRequest describeRegistryRequest);
+
+    /**
+     * <p>
      * Describes image repositories in a registry.
      * </p>
      * 
@@ -361,14 +645,37 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Retrieves a token that is valid for a specified registry for 12 hours. This command allows you to use the
-     * <code>docker</code> CLI to push and pull images with Amazon ECR. If you do not specify a registry, the default
-     * registry is assumed.
+     * Returns details about the repository creation templates in a registry. The <code>prefixes</code> request
+     * parameter can be used to return the details for a specific repository creation template.
+     * </p>
+     * 
+     * @param describeRepositoryCreationTemplatesRequest
+     * @return Result of the DescribeRepositoryCreationTemplates operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @sample AmazonECR.DescribeRepositoryCreationTemplates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DescribeRepositoryCreationTemplates"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeRepositoryCreationTemplatesResult describeRepositoryCreationTemplates(
+            DescribeRepositoryCreationTemplatesRequest describeRepositoryCreationTemplatesRequest);
+
+    /**
+     * <p>
+     * Retrieves an authorization token. An authorization token represents your IAM authentication credentials and can
+     * be used to access any Amazon ECR registry that your IAM principal has access to. The authorization token is valid
+     * for 12 hours.
      * </p>
      * <p>
-     * The <code>authorizationToken</code> returned for each registry specified is a base64 encoded string that can be
-     * decoded and used in a <code>docker login</code> command to authenticate to a registry. The AWS CLI offers an
-     * <code>aws ecr get-login</code> command that simplifies the login process.
+     * The <code>authorizationToken</code> returned is a base64 encoded string that can be decoded and used in a
+     * <code>docker login</code> command to authenticate to a registry. The CLI offers an
+     * <code>get-login-password</code> command that simplifies the login process. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth">Registry
+     * authentication</a> in the <i>Amazon Elastic Container Registry User Guide</i>.
      * </p>
      * 
      * @param getAuthorizationTokenRequest
@@ -388,10 +695,14 @@ public interface AmazonECR {
      * Retrieves the pre-signed Amazon S3 download URL corresponding to an image layer. You can only get URLs for image
      * layers that are referenced in an image.
      * </p>
+     * <p>
+     * When an image is pulled, the GetDownloadUrlForLayer API is called once per image layer that is not already
+     * cached.
+     * </p>
      * <note>
      * <p>
-     * This operation is used by the Amazon ECR proxy, and it is not intended for general use by customers for pulling
-     * and pushing images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
+     * This operation is used by the Amazon ECR proxy and is not generally used by customers for pulling and pushing
+     * images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
      * </p>
      * </note>
      * 
@@ -409,6 +720,8 @@ public interface AmazonECR {
      * @throws RepositoryNotFoundException
      *         The specified repository could not be found. Check the spelling of the specified repository and ensure
      *         that you are performing operations on the correct registry.
+     * @throws UnableToGetUpstreamLayerException
+     *         There was an issue getting the upstream layer matching the pull through cache rule.
      * @sample AmazonECR.GetDownloadUrlForLayer
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetDownloadUrlForLayer" target="_top">AWS API
      *      Documentation</a>
@@ -417,7 +730,7 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Retrieves the specified lifecycle policy.
+     * Retrieves the lifecycle policy for the specified repository.
      * </p>
      * 
      * @param getLifecyclePolicyRequest
@@ -431,6 +744,8 @@ public interface AmazonECR {
      *         that you are performing operations on the correct registry.
      * @throws LifecyclePolicyNotFoundException
      *         The lifecycle policy could not be found, and no policy is set to the repository.
+     * @throws ValidationException
+     *         There was an exception validating this request.
      * @sample AmazonECR.GetLifecyclePolicy
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicy" target="_top">AWS API
      *      Documentation</a>
@@ -439,7 +754,7 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Retrieves the results of the specified lifecycle policy preview request.
+     * Retrieves the results of the lifecycle policy preview request for the specified repository.
      * </p>
      * 
      * @param getLifecyclePolicyPreviewRequest
@@ -453,6 +768,8 @@ public interface AmazonECR {
      *         that you are performing operations on the correct registry.
      * @throws LifecyclePolicyPreviewNotFoundException
      *         There is no dry run for this repository.
+     * @throws ValidationException
+     *         There was an exception validating this request.
      * @sample AmazonECR.GetLifecyclePolicyPreview
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicyPreview" target="_top">AWS
      *      API Documentation</a>
@@ -461,7 +778,47 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Retrieves the repository policy for a specified repository.
+     * Retrieves the permissions policy for a registry.
+     * </p>
+     * 
+     * @param getRegistryPolicyRequest
+     * @return Result of the GetRegistryPolicy operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws RegistryPolicyNotFoundException
+     *         The registry doesn't have an associated registry policy.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.GetRegistryPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetRegistryPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetRegistryPolicyResult getRegistryPolicy(GetRegistryPolicyRequest getRegistryPolicyRequest);
+
+    /**
+     * <p>
+     * Retrieves the scanning configuration for a registry.
+     * </p>
+     * 
+     * @param getRegistryScanningConfigurationRequest
+     * @return Result of the GetRegistryScanningConfiguration operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.GetRegistryScanningConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetRegistryScanningConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetRegistryScanningConfigurationResult getRegistryScanningConfiguration(GetRegistryScanningConfigurationRequest getRegistryScanningConfigurationRequest);
+
+    /**
+     * <p>
+     * Retrieves the repository policy for the specified repository.
      * </p>
      * 
      * @param getRepositoryPolicyRequest
@@ -483,12 +840,17 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Notify Amazon ECR that you intend to upload an image layer.
+     * Notifies Amazon ECR that you intend to upload an image layer.
+     * </p>
+     * <p>
+     * When an image is pushed, the InitiateLayerUpload API is called once per image layer that has not already been
+     * uploaded. Whether or not an image layer has been uploaded is determined by the BatchCheckLayerAvailability API
+     * action.
      * </p>
      * <note>
      * <p>
-     * This operation is used by the Amazon ECR proxy, and it is not intended for general use by customers for pulling
-     * and pushing images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
+     * This operation is used by the Amazon ECR proxy and is not generally used by customers for pulling and pushing
+     * images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
      * </p>
      * </note>
      * 
@@ -501,6 +863,8 @@ public interface AmazonECR {
      * @throws RepositoryNotFoundException
      *         The specified repository could not be found. Check the spelling of the specified repository and ensure
      *         that you are performing operations on the correct registry.
+     * @throws KmsException
+     *         The operation failed due to a KMS exception.
      * @sample AmazonECR.InitiateLayerUpload
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/InitiateLayerUpload" target="_top">AWS API
      *      Documentation</a>
@@ -509,13 +873,14 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Lists all the image IDs for a given repository.
+     * Lists all the image IDs for the specified repository.
      * </p>
      * <p>
-     * You can filter images based on whether or not they are tagged by setting the <code>tagStatus</code> parameter to
-     * <code>TAGGED</code> or <code>UNTAGGED</code>. For example, you can filter your results to return only
-     * <code>UNTAGGED</code> images and then pipe that result to a <a>BatchDeleteImage</a> operation to delete them. Or,
-     * you can filter your results to return only <code>TAGGED</code> images to list all of the tags in your repository.
+     * You can filter images based on whether or not they are tagged by using the <code>tagStatus</code> filter and
+     * specifying either <code>TAGGED</code>, <code>UNTAGGED</code> or <code>ANY</code>. For example, you can filter
+     * your results to return only <code>UNTAGGED</code> images and then pipe that result to a <a>BatchDeleteImage</a>
+     * operation to delete them. Or, you can filter your results to return only <code>TAGGED</code> images to list all
+     * of the tags in your repository.
      * </p>
      * 
      * @param listImagesRequest
@@ -557,10 +922,14 @@ public interface AmazonECR {
      * <p>
      * Creates or updates the image manifest and tags associated with an image.
      * </p>
+     * <p>
+     * When an image is pushed and all new image layers have been uploaded, the PutImage API is called once to create or
+     * update the image manifest and the tags associated with the image.
+     * </p>
      * <note>
      * <p>
-     * This operation is used by the Amazon ECR proxy, and it is not intended for general use by customers for pulling
-     * and pushing images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
+     * This operation is used by the Amazon ECR proxy and is not generally used by customers for pulling and pushing
+     * images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
      * </p>
      * </note>
      * 
@@ -578,14 +947,20 @@ public interface AmazonECR {
      *         the last push.
      * @throws LayersNotFoundException
      *         The specified layers could not be found, or the specified layer is not valid for this repository.
+     * @throws ReferencedImagesNotFoundException
+     *         The manifest list is referencing an image that does not exist.
      * @throws LimitExceededException
      *         The operation did not succeed because it would have exceeded a service limit for your account. For more
      *         information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service_limits.html">Amazon ECR Default
-     *         Service Limits</a> in the Amazon Elastic Container Registry User Guide.
+     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service
+     *         quotas</a> in the Amazon Elastic Container Registry User Guide.
      * @throws ImageTagAlreadyExistsException
      *         The specified image is tagged with a tag that already exists. The repository is configured for tag
      *         immutability.
+     * @throws ImageDigestDoesNotMatchException
+     *         The specified image digest does not match the digest that Amazon ECR calculated for the image.
+     * @throws KmsException
+     *         The operation failed due to a KMS exception.
      * @sample AmazonECR.PutImage
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutImage" target="_top">AWS API
      *      Documentation</a>
@@ -593,8 +968,38 @@ public interface AmazonECR {
     PutImageResult putImage(PutImageRequest putImageRequest);
 
     /**
+     * <important>
      * <p>
-     * Updates the image tag mutability settings for a repository.
+     * The <code>PutImageScanningConfiguration</code> API is being deprecated, in favor of specifying the image scanning
+     * configuration at the registry level. For more information, see <a>PutRegistryScanningConfiguration</a>.
+     * </p>
+     * </important>
+     * <p>
+     * Updates the image scanning configuration for the specified repository.
+     * </p>
+     * 
+     * @param putImageScanningConfigurationRequest
+     * @return Result of the PutImageScanningConfiguration operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws RepositoryNotFoundException
+     *         The specified repository could not be found. Check the spelling of the specified repository and ensure
+     *         that you are performing operations on the correct registry.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.PutImageScanningConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutImageScanningConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    PutImageScanningConfigurationResult putImageScanningConfiguration(PutImageScanningConfigurationRequest putImageScanningConfigurationRequest);
+
+    /**
+     * <p>
+     * Updates the image tag mutability settings for the specified repository. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-tag-mutability.html">Image tag mutability</a>
+     * in the <i>Amazon Elastic Container Registry User Guide</i>.
      * </p>
      * 
      * @param putImageTagMutabilityRequest
@@ -614,9 +1019,9 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Creates or updates a lifecycle policy. For information about lifecycle policy syntax, see <a
-     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html">Lifecycle Policy
-     * Template</a>.
+     * Creates or updates the lifecycle policy for the specified repository. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html">Lifecycle policy
+     * template</a>.
      * </p>
      * 
      * @param putLifecyclePolicyRequest
@@ -628,6 +1033,8 @@ public interface AmazonECR {
      * @throws RepositoryNotFoundException
      *         The specified repository could not be found. Check the spelling of the specified repository and ensure
      *         that you are performing operations on the correct registry.
+     * @throws ValidationException
+     *         There was an exception validating this request.
      * @sample AmazonECR.PutLifecyclePolicy
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutLifecyclePolicy" target="_top">AWS API
      *      Documentation</a>
@@ -636,9 +1043,87 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Applies a repository policy on a specified repository to control access permissions. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/RepositoryPolicies.html">Amazon ECR Repository
-     * Policies</a> in the <i>Amazon Elastic Container Registry User Guide</i>.
+     * Creates or updates the permissions policy for your registry.
+     * </p>
+     * <p>
+     * A registry policy is used to specify permissions for another Amazon Web Services account and is used when
+     * configuring cross-account replication. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/registry-permissions.html">Registry permissions</a>
+     * in the <i>Amazon Elastic Container Registry User Guide</i>.
+     * </p>
+     * 
+     * @param putRegistryPolicyRequest
+     * @return Result of the PutRegistryPolicy operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.PutRegistryPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutRegistryPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    PutRegistryPolicyResult putRegistryPolicy(PutRegistryPolicyRequest putRegistryPolicyRequest);
+
+    /**
+     * <p>
+     * Creates or updates the scanning configuration for your private registry.
+     * </p>
+     * 
+     * @param putRegistryScanningConfigurationRequest
+     * @return Result of the PutRegistryScanningConfiguration operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.PutRegistryScanningConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutRegistryScanningConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    PutRegistryScanningConfigurationResult putRegistryScanningConfiguration(PutRegistryScanningConfigurationRequest putRegistryScanningConfigurationRequest);
+
+    /**
+     * <p>
+     * Creates or updates the replication configuration for a registry. The existing replication configuration for a
+     * repository can be retrieved with the <a>DescribeRegistry</a> API action. The first time the
+     * PutReplicationConfiguration API is called, a service-linked IAM role is created in your account for the
+     * replication process. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/using-service-linked-roles.html">Using
+     * service-linked roles for Amazon ECR</a> in the <i>Amazon Elastic Container Registry User Guide</i>. For more
+     * information on the custom role for replication, see <a href=
+     * "https://docs.aws.amazon.com/AmazonECR/latest/userguide/replication-creation-templates.html#roles-creatingrole-user-console"
+     * >Creating an IAM role for replication</a>.
+     * </p>
+     * <note>
+     * <p>
+     * When configuring cross-account replication, the destination account must grant the source account permission to
+     * replicate. This permission is controlled using a registry permissions policy. For more information, see
+     * <a>PutRegistryPolicy</a>.
+     * </p>
+     * </note>
+     * 
+     * @param putReplicationConfigurationRequest
+     * @return Result of the PutReplicationConfiguration operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.PutReplicationConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutReplicationConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    PutReplicationConfigurationResult putReplicationConfiguration(PutReplicationConfigurationRequest putReplicationConfigurationRequest);
+
+    /**
+     * <p>
+     * Applies a repository policy to the specified repository to control access permissions. For more information, see
+     * <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-policies.html">Amazon ECR Repository
+     * policies</a> in the <i>Amazon Elastic Container Registry User Guide</i>.
      * </p>
      * 
      * @param setRepositoryPolicyRequest
@@ -658,8 +1143,42 @@ public interface AmazonECR {
 
     /**
      * <p>
-     * Starts a preview of the specified lifecycle policy. This allows you to see the results before creating the
-     * lifecycle policy.
+     * Starts an image vulnerability scan. An image scan can only be started once per 24 hours on an individual image.
+     * This limit includes if an image was scanned on initial push. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html">Image scanning</a> in the
+     * <i>Amazon Elastic Container Registry User Guide</i>.
+     * </p>
+     * 
+     * @param startImageScanRequest
+     * @return Result of the StartImageScan operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws UnsupportedImageTypeException
+     *         The image is of a type that cannot be scanned.
+     * @throws LimitExceededException
+     *         The operation did not succeed because it would have exceeded a service limit for your account. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service
+     *         quotas</a> in the Amazon Elastic Container Registry User Guide.
+     * @throws RepositoryNotFoundException
+     *         The specified repository could not be found. Check the spelling of the specified repository and ensure
+     *         that you are performing operations on the correct registry.
+     * @throws ImageNotFoundException
+     *         The image requested does not exist in the specified repository.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.StartImageScan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/StartImageScan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    StartImageScanResult startImageScan(StartImageScanRequest startImageScanRequest);
+
+    /**
+     * <p>
+     * Starts a preview of a lifecycle policy for the specified repository. This allows you to see the results before
+     * associating the lifecycle policy with the repository.
      * </p>
      * 
      * @param startLifecyclePolicyPreviewRequest
@@ -674,7 +1193,9 @@ public interface AmazonECR {
      * @throws LifecyclePolicyNotFoundException
      *         The lifecycle policy could not be found, and no policy is set to the repository.
      * @throws LifecyclePolicyPreviewInProgressException
-     *         The previous lifecycle policy preview request has not completed. Please try again later.
+     *         The previous lifecycle policy preview request has not completed. Wait and try again.
+     * @throws ValidationException
+     *         There was an exception validating this request.
      * @sample AmazonECR.StartLifecyclePolicyPreview
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/StartLifecyclePolicyPreview"
      *      target="_top">AWS API Documentation</a>
@@ -736,12 +1257,66 @@ public interface AmazonECR {
 
     /**
      * <p>
+     * Updates an existing pull through cache rule.
+     * </p>
+     * 
+     * @param updatePullThroughCacheRuleRequest
+     * @return Result of the UpdatePullThroughCacheRule operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws UnableToAccessSecretException
+     *         The secret is unable to be accessed. Verify the resource permissions for the secret and try again.
+     * @throws PullThroughCacheRuleNotFoundException
+     *         The pull through cache rule was not found. Specify a valid pull through cache rule and try again.
+     * @throws SecretNotFoundException
+     *         The ARN of the secret specified in the pull through cache rule was not found. Update the pull through
+     *         cache rule with a valid secret ARN and try again.
+     * @throws UnableToDecryptSecretValueException
+     *         The secret is accessible but is unable to be decrypted. Verify the resource permisisons and try again.
+     * @sample AmazonECR.UpdatePullThroughCacheRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/UpdatePullThroughCacheRule" target="_top">AWS
+     *      API Documentation</a>
+     */
+    UpdatePullThroughCacheRuleResult updatePullThroughCacheRule(UpdatePullThroughCacheRuleRequest updatePullThroughCacheRuleRequest);
+
+    /**
+     * <p>
+     * Updates an existing repository creation template.
+     * </p>
+     * 
+     * @param updateRepositoryCreationTemplateRequest
+     * @return Result of the UpdateRepositoryCreationTemplate operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws TemplateNotFoundException
+     *         The specified repository creation template can't be found. Verify the registry ID and prefix and try
+     *         again.
+     * @sample AmazonECR.UpdateRepositoryCreationTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/UpdateRepositoryCreationTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateRepositoryCreationTemplateResult updateRepositoryCreationTemplate(UpdateRepositoryCreationTemplateRequest updateRepositoryCreationTemplateRequest);
+
+    /**
+     * <p>
      * Uploads an image layer part to Amazon ECR.
+     * </p>
+     * <p>
+     * When an image is pushed, each new image layer is uploaded in parts. The maximum size of each image layer part can
+     * be 20971520 bytes (or about 20MB). The UploadLayerPart API is called once per each new image layer part.
      * </p>
      * <note>
      * <p>
-     * This operation is used by the Amazon ECR proxy, and it is not intended for general use by customers for pulling
-     * and pushing images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
+     * This operation is used by the Amazon ECR proxy and is not generally used by customers for pulling and pushing
+     * images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
      * </p>
      * </note>
      * 
@@ -758,17 +1333,42 @@ public interface AmazonECR {
      *         The specified repository could not be found. Check the spelling of the specified repository and ensure
      *         that you are performing operations on the correct registry.
      * @throws UploadNotFoundException
-     *         The upload could not be found, or the specified upload id is not valid for this repository.
+     *         The upload could not be found, or the specified upload ID is not valid for this repository.
      * @throws LimitExceededException
      *         The operation did not succeed because it would have exceeded a service limit for your account. For more
      *         information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service_limits.html">Amazon ECR Default
-     *         Service Limits</a> in the Amazon Elastic Container Registry User Guide.
+     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service
+     *         quotas</a> in the Amazon Elastic Container Registry User Guide.
+     * @throws KmsException
+     *         The operation failed due to a KMS exception.
      * @sample AmazonECR.UploadLayerPart
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/UploadLayerPart" target="_top">AWS API
      *      Documentation</a>
      */
     UploadLayerPartResult uploadLayerPart(UploadLayerPartRequest uploadLayerPartRequest);
+
+    /**
+     * <p>
+     * Validates an existing pull through cache rule for an upstream registry that requires authentication. This will
+     * retrieve the contents of the Amazon Web Services Secrets Manager secret, verify the syntax, and then validate
+     * that authentication to the upstream registry is successful.
+     * </p>
+     * 
+     * @param validatePullThroughCacheRuleRequest
+     * @return Result of the ValidatePullThroughCacheRule operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws PullThroughCacheRuleNotFoundException
+     *         The pull through cache rule was not found. Specify a valid pull through cache rule and try again.
+     * @sample AmazonECR.ValidatePullThroughCacheRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ValidatePullThroughCacheRule"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ValidatePullThroughCacheRuleResult validatePullThroughCacheRule(ValidatePullThroughCacheRuleRequest validatePullThroughCacheRuleRequest);
 
     /**
      * Shuts down this client object, releasing any resources that might be held open. This is an optional method, and
@@ -792,5 +1392,7 @@ public interface AmazonECR {
      * @return The response metadata for the specified request, or null if none is available.
      */
     ResponseMetadata getCachedResponseMetadata(AmazonWebServiceRequest request);
+
+    AmazonECRWaiters waiters();
 
 }

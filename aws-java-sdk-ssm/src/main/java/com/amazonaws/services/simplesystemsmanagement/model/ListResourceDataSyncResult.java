@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,7 @@ public class ListResourceDataSyncResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A list of your current Resource Data Sync configurations and their statuses.
+     * A list of your current resource data sync configurations and their statuses.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<ResourceDataSyncItem> resourceDataSyncItems;
@@ -38,10 +38,10 @@ public class ListResourceDataSyncResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A list of your current Resource Data Sync configurations and their statuses.
+     * A list of your current resource data sync configurations and their statuses.
      * </p>
      * 
-     * @return A list of your current Resource Data Sync configurations and their statuses.
+     * @return A list of your current resource data sync configurations and their statuses.
      */
 
     public java.util.List<ResourceDataSyncItem> getResourceDataSyncItems() {
@@ -53,11 +53,11 @@ public class ListResourceDataSyncResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A list of your current Resource Data Sync configurations and their statuses.
+     * A list of your current resource data sync configurations and their statuses.
      * </p>
      * 
      * @param resourceDataSyncItems
-     *        A list of your current Resource Data Sync configurations and their statuses.
+     *        A list of your current resource data sync configurations and their statuses.
      */
 
     public void setResourceDataSyncItems(java.util.Collection<ResourceDataSyncItem> resourceDataSyncItems) {
@@ -71,7 +71,7 @@ public class ListResourceDataSyncResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A list of your current Resource Data Sync configurations and their statuses.
+     * A list of your current resource data sync configurations and their statuses.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -80,7 +80,7 @@ public class ListResourceDataSyncResult extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param resourceDataSyncItems
-     *        A list of your current Resource Data Sync configurations and their statuses.
+     *        A list of your current resource data sync configurations and their statuses.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -96,11 +96,11 @@ public class ListResourceDataSyncResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A list of your current Resource Data Sync configurations and their statuses.
+     * A list of your current resource data sync configurations and their statuses.
      * </p>
      * 
      * @param resourceDataSyncItems
-     *        A list of your current Resource Data Sync configurations and their statuses.
+     *        A list of your current resource data sync configurations and their statuses.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

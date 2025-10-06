@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,7 +42,7 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      * <ul>
      * <li>
      * <p>
-     * <code>ACCOUNT</code> - Specifies an AWS account ID number.
+     * <code>ACCOUNT</code> - Specifies an Amazon Web Services account ID number.
      * </p>
      * </li>
      * <li>
@@ -57,14 +57,14 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * <code>OWNER_EMAIL</code> - Specifies the email address associated with the master account. Included as
+     * <code>OWNER_EMAIL</code> - Specifies the email address associated with the management account. Included as
      * information about an organization.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>OWNER_NAME</code> - Specifies the name associated with the master account. Included as information about an
-     * organization.
+     * <code>OWNER_NAME</code> - Specifies the name associated with the management account. Included as information
+     * about an organization.
      * </p>
      * </li>
      * <li>
@@ -135,7 +135,7 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      * <ul>
      * <li>
      * <p>
-     * <code>ACCOUNT</code> - Specifies an AWS account ID number.
+     * <code>ACCOUNT</code> - Specifies an Amazon Web Services account ID number.
      * </p>
      * </li>
      * <li>
@@ -150,14 +150,14 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * <code>OWNER_EMAIL</code> - Specifies the email address associated with the master account. Included as
+     * <code>OWNER_EMAIL</code> - Specifies the email address associated with the management account. Included as
      * information about an organization.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>OWNER_NAME</code> - Specifies the name associated with the master account. Included as information about an
-     * organization.
+     * <code>OWNER_NAME</code> - Specifies the name associated with the management account. Included as information
+     * about an organization.
      * </p>
      * </li>
      * <li>
@@ -173,7 +173,7 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>ACCOUNT</code> - Specifies an AWS account ID number.
+     *        <code>ACCOUNT</code> - Specifies an Amazon Web Services account ID number.
      *        </p>
      *        </li>
      *        <li>
@@ -189,14 +189,14 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      *        </li>
      *        <li>
      *        <p>
-     *        <code>OWNER_EMAIL</code> - Specifies the email address associated with the master account. Included as
+     *        <code>OWNER_EMAIL</code> - Specifies the email address associated with the management account. Included as
      *        information about an organization.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>OWNER_NAME</code> - Specifies the name associated with the master account. Included as information
-     *        about an organization.
+     *        <code>OWNER_NAME</code> - Specifies the name associated with the management account. Included as
+     *        information about an organization.
      *        </p>
      *        </li>
      *        <li>
@@ -219,7 +219,7 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      * <ul>
      * <li>
      * <p>
-     * <code>ACCOUNT</code> - Specifies an AWS account ID number.
+     * <code>ACCOUNT</code> - Specifies an Amazon Web Services account ID number.
      * </p>
      * </li>
      * <li>
@@ -234,14 +234,14 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * <code>OWNER_EMAIL</code> - Specifies the email address associated with the master account. Included as
+     * <code>OWNER_EMAIL</code> - Specifies the email address associated with the management account. Included as
      * information about an organization.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>OWNER_NAME</code> - Specifies the name associated with the master account. Included as information about an
-     * organization.
+     * <code>OWNER_NAME</code> - Specifies the name associated with the management account. Included as information
+     * about an organization.
      * </p>
      * </li>
      * <li>
@@ -256,7 +256,7 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>ACCOUNT</code> - Specifies an AWS account ID number.
+     *         <code>ACCOUNT</code> - Specifies an Amazon Web Services account ID number.
      *         </p>
      *         </li>
      *         <li>
@@ -272,14 +272,14 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      *         </li>
      *         <li>
      *         <p>
-     *         <code>OWNER_EMAIL</code> - Specifies the email address associated with the master account. Included as
-     *         information about an organization.
+     *         <code>OWNER_EMAIL</code> - Specifies the email address associated with the management account. Included
+     *         as information about an organization.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>OWNER_NAME</code> - Specifies the name associated with the master account. Included as information
-     *         about an organization.
+     *         <code>OWNER_NAME</code> - Specifies the name associated with the management account. Included as
+     *         information about an organization.
      *         </p>
      *         </li>
      *         <li>
@@ -302,7 +302,7 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      * <ul>
      * <li>
      * <p>
-     * <code>ACCOUNT</code> - Specifies an AWS account ID number.
+     * <code>ACCOUNT</code> - Specifies an Amazon Web Services account ID number.
      * </p>
      * </li>
      * <li>
@@ -317,14 +317,14 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * <code>OWNER_EMAIL</code> - Specifies the email address associated with the master account. Included as
+     * <code>OWNER_EMAIL</code> - Specifies the email address associated with the management account. Included as
      * information about an organization.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>OWNER_NAME</code> - Specifies the name associated with the master account. Included as information about an
-     * organization.
+     * <code>OWNER_NAME</code> - Specifies the name associated with the management account. Included as information
+     * about an organization.
      * </p>
      * </li>
      * <li>
@@ -340,7 +340,7 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>ACCOUNT</code> - Specifies an AWS account ID number.
+     *        <code>ACCOUNT</code> - Specifies an Amazon Web Services account ID number.
      *        </p>
      *        </li>
      *        <li>
@@ -356,14 +356,14 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      *        </li>
      *        <li>
      *        <p>
-     *        <code>OWNER_EMAIL</code> - Specifies the email address associated with the master account. Included as
+     *        <code>OWNER_EMAIL</code> - Specifies the email address associated with the management account. Included as
      *        information about an organization.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>OWNER_NAME</code> - Specifies the name associated with the master account. Included as information
-     *        about an organization.
+     *        <code>OWNER_NAME</code> - Specifies the name associated with the management account. Included as
+     *        information about an organization.
      *        </p>
      *        </li>
      *        <li>
@@ -388,7 +388,7 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      * <ul>
      * <li>
      * <p>
-     * <code>ACCOUNT</code> - Specifies an AWS account ID number.
+     * <code>ACCOUNT</code> - Specifies an Amazon Web Services account ID number.
      * </p>
      * </li>
      * <li>
@@ -403,14 +403,14 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * <code>OWNER_EMAIL</code> - Specifies the email address associated with the master account. Included as
+     * <code>OWNER_EMAIL</code> - Specifies the email address associated with the management account. Included as
      * information about an organization.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>OWNER_NAME</code> - Specifies the name associated with the master account. Included as information about an
-     * organization.
+     * <code>OWNER_NAME</code> - Specifies the name associated with the management account. Included as information
+     * about an organization.
      * </p>
      * </li>
      * <li>
@@ -426,7 +426,7 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>ACCOUNT</code> - Specifies an AWS account ID number.
+     *        <code>ACCOUNT</code> - Specifies an Amazon Web Services account ID number.
      *        </p>
      *        </li>
      *        <li>
@@ -442,14 +442,14 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      *        </li>
      *        <li>
      *        <p>
-     *        <code>OWNER_EMAIL</code> - Specifies the email address associated with the master account. Included as
+     *        <code>OWNER_EMAIL</code> - Specifies the email address associated with the management account. Included as
      *        information about an organization.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>OWNER_NAME</code> - Specifies the name associated with the master account. Included as information
-     *        about an organization.
+     *        <code>OWNER_NAME</code> - Specifies the name associated with the management account. Included as
+     *        information about an organization.
      *        </p>
      *        </li>
      *        <li>
@@ -472,7 +472,7 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      * <ul>
      * <li>
      * <p>
-     * <code>ACCOUNT</code> - Specifies an AWS account ID number.
+     * <code>ACCOUNT</code> - Specifies an Amazon Web Services account ID number.
      * </p>
      * </li>
      * <li>
@@ -487,14 +487,14 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * <code>OWNER_EMAIL</code> - Specifies the email address associated with the master account. Included as
+     * <code>OWNER_EMAIL</code> - Specifies the email address associated with the management account. Included as
      * information about an organization.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>OWNER_NAME</code> - Specifies the name associated with the master account. Included as information about an
-     * organization.
+     * <code>OWNER_NAME</code> - Specifies the name associated with the management account. Included as information
+     * about an organization.
      * </p>
      * </li>
      * <li>
@@ -510,7 +510,7 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>ACCOUNT</code> - Specifies an AWS account ID number.
+     *        <code>ACCOUNT</code> - Specifies an Amazon Web Services account ID number.
      *        </p>
      *        </li>
      *        <li>
@@ -526,14 +526,14 @@ public class HandshakeResource implements Serializable, Cloneable, StructuredPoj
      *        </li>
      *        <li>
      *        <p>
-     *        <code>OWNER_EMAIL</code> - Specifies the email address associated with the master account. Included as
+     *        <code>OWNER_EMAIL</code> - Specifies the email address associated with the management account. Included as
      *        information about an organization.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>OWNER_NAME</code> - Specifies the name associated with the master account. Included as information
-     *        about an organization.
+     *        <code>OWNER_NAME</code> - Specifies the name associated with the management account. Included as
+     *        information about an organization.
      *        </p>
      *        </li>
      *        <li>

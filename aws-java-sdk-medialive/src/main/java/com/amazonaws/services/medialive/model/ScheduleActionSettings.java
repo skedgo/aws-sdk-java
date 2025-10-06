@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,12 +26,22 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class ScheduleActionSettings implements Serializable, Cloneable, StructuredPojo {
 
+    /** Action to insert HLS ID3 segment tagging */
+    private HlsId3SegmentTaggingScheduleActionSettings hlsId3SegmentTaggingSettings;
     /** Action to insert HLS metadata */
     private HlsTimedMetadataScheduleActionSettings hlsTimedMetadataSettings;
+    /** Action to prepare an input for a future immediate input switch */
+    private InputPrepareScheduleActionSettings inputPrepareSettings;
     /** Action to switch the input */
     private InputSwitchScheduleActionSettings inputSwitchSettings;
+    /** Action to activate a motion graphics image overlay */
+    private MotionGraphicsActivateScheduleActionSettings motionGraphicsImageActivateSettings;
+    /** Action to deactivate a motion graphics image overlay */
+    private MotionGraphicsDeactivateScheduleActionSettings motionGraphicsImageDeactivateSettings;
     /** Action to pause or unpause one or both channel pipelines */
     private PauseStateScheduleActionSettings pauseStateSettings;
+    /** Action to specify scte35 input */
+    private Scte35InputScheduleActionSettings scte35InputSettings;
     /** Action to insert SCTE-35 return_to_network message */
     private Scte35ReturnToNetworkScheduleActionSettings scte35ReturnToNetworkSettings;
     /** Action to insert SCTE-35 splice_insert message */
@@ -42,6 +52,44 @@ public class ScheduleActionSettings implements Serializable, Cloneable, Structur
     private StaticImageActivateScheduleActionSettings staticImageActivateSettings;
     /** Action to deactivate a static image overlay */
     private StaticImageDeactivateScheduleActionSettings staticImageDeactivateSettings;
+    /** Action to activate a static image overlay in one or more specified outputs */
+    private StaticImageOutputActivateScheduleActionSettings staticImageOutputActivateSettings;
+    /** Action to deactivate a static image overlay in one or more specified outputs */
+    private StaticImageOutputDeactivateScheduleActionSettings staticImageOutputDeactivateSettings;
+
+    /**
+     * Action to insert HLS ID3 segment tagging
+     * 
+     * @param hlsId3SegmentTaggingSettings
+     *        Action to insert HLS ID3 segment tagging
+     */
+
+    public void setHlsId3SegmentTaggingSettings(HlsId3SegmentTaggingScheduleActionSettings hlsId3SegmentTaggingSettings) {
+        this.hlsId3SegmentTaggingSettings = hlsId3SegmentTaggingSettings;
+    }
+
+    /**
+     * Action to insert HLS ID3 segment tagging
+     * 
+     * @return Action to insert HLS ID3 segment tagging
+     */
+
+    public HlsId3SegmentTaggingScheduleActionSettings getHlsId3SegmentTaggingSettings() {
+        return this.hlsId3SegmentTaggingSettings;
+    }
+
+    /**
+     * Action to insert HLS ID3 segment tagging
+     * 
+     * @param hlsId3SegmentTaggingSettings
+     *        Action to insert HLS ID3 segment tagging
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ScheduleActionSettings withHlsId3SegmentTaggingSettings(HlsId3SegmentTaggingScheduleActionSettings hlsId3SegmentTaggingSettings) {
+        setHlsId3SegmentTaggingSettings(hlsId3SegmentTaggingSettings);
+        return this;
+    }
 
     /**
      * Action to insert HLS metadata
@@ -74,6 +122,40 @@ public class ScheduleActionSettings implements Serializable, Cloneable, Structur
 
     public ScheduleActionSettings withHlsTimedMetadataSettings(HlsTimedMetadataScheduleActionSettings hlsTimedMetadataSettings) {
         setHlsTimedMetadataSettings(hlsTimedMetadataSettings);
+        return this;
+    }
+
+    /**
+     * Action to prepare an input for a future immediate input switch
+     * 
+     * @param inputPrepareSettings
+     *        Action to prepare an input for a future immediate input switch
+     */
+
+    public void setInputPrepareSettings(InputPrepareScheduleActionSettings inputPrepareSettings) {
+        this.inputPrepareSettings = inputPrepareSettings;
+    }
+
+    /**
+     * Action to prepare an input for a future immediate input switch
+     * 
+     * @return Action to prepare an input for a future immediate input switch
+     */
+
+    public InputPrepareScheduleActionSettings getInputPrepareSettings() {
+        return this.inputPrepareSettings;
+    }
+
+    /**
+     * Action to prepare an input for a future immediate input switch
+     * 
+     * @param inputPrepareSettings
+     *        Action to prepare an input for a future immediate input switch
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ScheduleActionSettings withInputPrepareSettings(InputPrepareScheduleActionSettings inputPrepareSettings) {
+        setInputPrepareSettings(inputPrepareSettings);
         return this;
     }
 
@@ -112,6 +194,74 @@ public class ScheduleActionSettings implements Serializable, Cloneable, Structur
     }
 
     /**
+     * Action to activate a motion graphics image overlay
+     * 
+     * @param motionGraphicsImageActivateSettings
+     *        Action to activate a motion graphics image overlay
+     */
+
+    public void setMotionGraphicsImageActivateSettings(MotionGraphicsActivateScheduleActionSettings motionGraphicsImageActivateSettings) {
+        this.motionGraphicsImageActivateSettings = motionGraphicsImageActivateSettings;
+    }
+
+    /**
+     * Action to activate a motion graphics image overlay
+     * 
+     * @return Action to activate a motion graphics image overlay
+     */
+
+    public MotionGraphicsActivateScheduleActionSettings getMotionGraphicsImageActivateSettings() {
+        return this.motionGraphicsImageActivateSettings;
+    }
+
+    /**
+     * Action to activate a motion graphics image overlay
+     * 
+     * @param motionGraphicsImageActivateSettings
+     *        Action to activate a motion graphics image overlay
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ScheduleActionSettings withMotionGraphicsImageActivateSettings(MotionGraphicsActivateScheduleActionSettings motionGraphicsImageActivateSettings) {
+        setMotionGraphicsImageActivateSettings(motionGraphicsImageActivateSettings);
+        return this;
+    }
+
+    /**
+     * Action to deactivate a motion graphics image overlay
+     * 
+     * @param motionGraphicsImageDeactivateSettings
+     *        Action to deactivate a motion graphics image overlay
+     */
+
+    public void setMotionGraphicsImageDeactivateSettings(MotionGraphicsDeactivateScheduleActionSettings motionGraphicsImageDeactivateSettings) {
+        this.motionGraphicsImageDeactivateSettings = motionGraphicsImageDeactivateSettings;
+    }
+
+    /**
+     * Action to deactivate a motion graphics image overlay
+     * 
+     * @return Action to deactivate a motion graphics image overlay
+     */
+
+    public MotionGraphicsDeactivateScheduleActionSettings getMotionGraphicsImageDeactivateSettings() {
+        return this.motionGraphicsImageDeactivateSettings;
+    }
+
+    /**
+     * Action to deactivate a motion graphics image overlay
+     * 
+     * @param motionGraphicsImageDeactivateSettings
+     *        Action to deactivate a motion graphics image overlay
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ScheduleActionSettings withMotionGraphicsImageDeactivateSettings(MotionGraphicsDeactivateScheduleActionSettings motionGraphicsImageDeactivateSettings) {
+        setMotionGraphicsImageDeactivateSettings(motionGraphicsImageDeactivateSettings);
+        return this;
+    }
+
+    /**
      * Action to pause or unpause one or both channel pipelines
      * 
      * @param pauseStateSettings
@@ -142,6 +292,40 @@ public class ScheduleActionSettings implements Serializable, Cloneable, Structur
 
     public ScheduleActionSettings withPauseStateSettings(PauseStateScheduleActionSettings pauseStateSettings) {
         setPauseStateSettings(pauseStateSettings);
+        return this;
+    }
+
+    /**
+     * Action to specify scte35 input
+     * 
+     * @param scte35InputSettings
+     *        Action to specify scte35 input
+     */
+
+    public void setScte35InputSettings(Scte35InputScheduleActionSettings scte35InputSettings) {
+        this.scte35InputSettings = scte35InputSettings;
+    }
+
+    /**
+     * Action to specify scte35 input
+     * 
+     * @return Action to specify scte35 input
+     */
+
+    public Scte35InputScheduleActionSettings getScte35InputSettings() {
+        return this.scte35InputSettings;
+    }
+
+    /**
+     * Action to specify scte35 input
+     * 
+     * @param scte35InputSettings
+     *        Action to specify scte35 input
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ScheduleActionSettings withScte35InputSettings(Scte35InputScheduleActionSettings scte35InputSettings) {
+        setScte35InputSettings(scte35InputSettings);
         return this;
     }
 
@@ -316,6 +500,74 @@ public class ScheduleActionSettings implements Serializable, Cloneable, Structur
     }
 
     /**
+     * Action to activate a static image overlay in one or more specified outputs
+     * 
+     * @param staticImageOutputActivateSettings
+     *        Action to activate a static image overlay in one or more specified outputs
+     */
+
+    public void setStaticImageOutputActivateSettings(StaticImageOutputActivateScheduleActionSettings staticImageOutputActivateSettings) {
+        this.staticImageOutputActivateSettings = staticImageOutputActivateSettings;
+    }
+
+    /**
+     * Action to activate a static image overlay in one or more specified outputs
+     * 
+     * @return Action to activate a static image overlay in one or more specified outputs
+     */
+
+    public StaticImageOutputActivateScheduleActionSettings getStaticImageOutputActivateSettings() {
+        return this.staticImageOutputActivateSettings;
+    }
+
+    /**
+     * Action to activate a static image overlay in one or more specified outputs
+     * 
+     * @param staticImageOutputActivateSettings
+     *        Action to activate a static image overlay in one or more specified outputs
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ScheduleActionSettings withStaticImageOutputActivateSettings(StaticImageOutputActivateScheduleActionSettings staticImageOutputActivateSettings) {
+        setStaticImageOutputActivateSettings(staticImageOutputActivateSettings);
+        return this;
+    }
+
+    /**
+     * Action to deactivate a static image overlay in one or more specified outputs
+     * 
+     * @param staticImageOutputDeactivateSettings
+     *        Action to deactivate a static image overlay in one or more specified outputs
+     */
+
+    public void setStaticImageOutputDeactivateSettings(StaticImageOutputDeactivateScheduleActionSettings staticImageOutputDeactivateSettings) {
+        this.staticImageOutputDeactivateSettings = staticImageOutputDeactivateSettings;
+    }
+
+    /**
+     * Action to deactivate a static image overlay in one or more specified outputs
+     * 
+     * @return Action to deactivate a static image overlay in one or more specified outputs
+     */
+
+    public StaticImageOutputDeactivateScheduleActionSettings getStaticImageOutputDeactivateSettings() {
+        return this.staticImageOutputDeactivateSettings;
+    }
+
+    /**
+     * Action to deactivate a static image overlay in one or more specified outputs
+     * 
+     * @param staticImageOutputDeactivateSettings
+     *        Action to deactivate a static image overlay in one or more specified outputs
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ScheduleActionSettings withStaticImageOutputDeactivateSettings(StaticImageOutputDeactivateScheduleActionSettings staticImageOutputDeactivateSettings) {
+        setStaticImageOutputDeactivateSettings(staticImageOutputDeactivateSettings);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -327,12 +579,22 @@ public class ScheduleActionSettings implements Serializable, Cloneable, Structur
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getHlsId3SegmentTaggingSettings() != null)
+            sb.append("HlsId3SegmentTaggingSettings: ").append(getHlsId3SegmentTaggingSettings()).append(",");
         if (getHlsTimedMetadataSettings() != null)
             sb.append("HlsTimedMetadataSettings: ").append(getHlsTimedMetadataSettings()).append(",");
+        if (getInputPrepareSettings() != null)
+            sb.append("InputPrepareSettings: ").append(getInputPrepareSettings()).append(",");
         if (getInputSwitchSettings() != null)
             sb.append("InputSwitchSettings: ").append(getInputSwitchSettings()).append(",");
+        if (getMotionGraphicsImageActivateSettings() != null)
+            sb.append("MotionGraphicsImageActivateSettings: ").append(getMotionGraphicsImageActivateSettings()).append(",");
+        if (getMotionGraphicsImageDeactivateSettings() != null)
+            sb.append("MotionGraphicsImageDeactivateSettings: ").append(getMotionGraphicsImageDeactivateSettings()).append(",");
         if (getPauseStateSettings() != null)
             sb.append("PauseStateSettings: ").append(getPauseStateSettings()).append(",");
+        if (getScte35InputSettings() != null)
+            sb.append("Scte35InputSettings: ").append(getScte35InputSettings()).append(",");
         if (getScte35ReturnToNetworkSettings() != null)
             sb.append("Scte35ReturnToNetworkSettings: ").append(getScte35ReturnToNetworkSettings()).append(",");
         if (getScte35SpliceInsertSettings() != null)
@@ -342,7 +604,11 @@ public class ScheduleActionSettings implements Serializable, Cloneable, Structur
         if (getStaticImageActivateSettings() != null)
             sb.append("StaticImageActivateSettings: ").append(getStaticImageActivateSettings()).append(",");
         if (getStaticImageDeactivateSettings() != null)
-            sb.append("StaticImageDeactivateSettings: ").append(getStaticImageDeactivateSettings());
+            sb.append("StaticImageDeactivateSettings: ").append(getStaticImageDeactivateSettings()).append(",");
+        if (getStaticImageOutputActivateSettings() != null)
+            sb.append("StaticImageOutputActivateSettings: ").append(getStaticImageOutputActivateSettings()).append(",");
+        if (getStaticImageOutputDeactivateSettings() != null)
+            sb.append("StaticImageOutputDeactivateSettings: ").append(getStaticImageOutputDeactivateSettings());
         sb.append("}");
         return sb.toString();
     }
@@ -357,17 +623,39 @@ public class ScheduleActionSettings implements Serializable, Cloneable, Structur
         if (obj instanceof ScheduleActionSettings == false)
             return false;
         ScheduleActionSettings other = (ScheduleActionSettings) obj;
+        if (other.getHlsId3SegmentTaggingSettings() == null ^ this.getHlsId3SegmentTaggingSettings() == null)
+            return false;
+        if (other.getHlsId3SegmentTaggingSettings() != null && other.getHlsId3SegmentTaggingSettings().equals(this.getHlsId3SegmentTaggingSettings()) == false)
+            return false;
         if (other.getHlsTimedMetadataSettings() == null ^ this.getHlsTimedMetadataSettings() == null)
             return false;
         if (other.getHlsTimedMetadataSettings() != null && other.getHlsTimedMetadataSettings().equals(this.getHlsTimedMetadataSettings()) == false)
+            return false;
+        if (other.getInputPrepareSettings() == null ^ this.getInputPrepareSettings() == null)
+            return false;
+        if (other.getInputPrepareSettings() != null && other.getInputPrepareSettings().equals(this.getInputPrepareSettings()) == false)
             return false;
         if (other.getInputSwitchSettings() == null ^ this.getInputSwitchSettings() == null)
             return false;
         if (other.getInputSwitchSettings() != null && other.getInputSwitchSettings().equals(this.getInputSwitchSettings()) == false)
             return false;
+        if (other.getMotionGraphicsImageActivateSettings() == null ^ this.getMotionGraphicsImageActivateSettings() == null)
+            return false;
+        if (other.getMotionGraphicsImageActivateSettings() != null
+                && other.getMotionGraphicsImageActivateSettings().equals(this.getMotionGraphicsImageActivateSettings()) == false)
+            return false;
+        if (other.getMotionGraphicsImageDeactivateSettings() == null ^ this.getMotionGraphicsImageDeactivateSettings() == null)
+            return false;
+        if (other.getMotionGraphicsImageDeactivateSettings() != null
+                && other.getMotionGraphicsImageDeactivateSettings().equals(this.getMotionGraphicsImageDeactivateSettings()) == false)
+            return false;
         if (other.getPauseStateSettings() == null ^ this.getPauseStateSettings() == null)
             return false;
         if (other.getPauseStateSettings() != null && other.getPauseStateSettings().equals(this.getPauseStateSettings()) == false)
+            return false;
+        if (other.getScte35InputSettings() == null ^ this.getScte35InputSettings() == null)
+            return false;
+        if (other.getScte35InputSettings() != null && other.getScte35InputSettings().equals(this.getScte35InputSettings()) == false)
             return false;
         if (other.getScte35ReturnToNetworkSettings() == null ^ this.getScte35ReturnToNetworkSettings() == null)
             return false;
@@ -391,6 +679,16 @@ public class ScheduleActionSettings implements Serializable, Cloneable, Structur
         if (other.getStaticImageDeactivateSettings() != null
                 && other.getStaticImageDeactivateSettings().equals(this.getStaticImageDeactivateSettings()) == false)
             return false;
+        if (other.getStaticImageOutputActivateSettings() == null ^ this.getStaticImageOutputActivateSettings() == null)
+            return false;
+        if (other.getStaticImageOutputActivateSettings() != null
+                && other.getStaticImageOutputActivateSettings().equals(this.getStaticImageOutputActivateSettings()) == false)
+            return false;
+        if (other.getStaticImageOutputDeactivateSettings() == null ^ this.getStaticImageOutputDeactivateSettings() == null)
+            return false;
+        if (other.getStaticImageOutputDeactivateSettings() != null
+                && other.getStaticImageOutputDeactivateSettings().equals(this.getStaticImageOutputDeactivateSettings()) == false)
+            return false;
         return true;
     }
 
@@ -399,14 +697,21 @@ public class ScheduleActionSettings implements Serializable, Cloneable, Structur
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getHlsId3SegmentTaggingSettings() == null) ? 0 : getHlsId3SegmentTaggingSettings().hashCode());
         hashCode = prime * hashCode + ((getHlsTimedMetadataSettings() == null) ? 0 : getHlsTimedMetadataSettings().hashCode());
+        hashCode = prime * hashCode + ((getInputPrepareSettings() == null) ? 0 : getInputPrepareSettings().hashCode());
         hashCode = prime * hashCode + ((getInputSwitchSettings() == null) ? 0 : getInputSwitchSettings().hashCode());
+        hashCode = prime * hashCode + ((getMotionGraphicsImageActivateSettings() == null) ? 0 : getMotionGraphicsImageActivateSettings().hashCode());
+        hashCode = prime * hashCode + ((getMotionGraphicsImageDeactivateSettings() == null) ? 0 : getMotionGraphicsImageDeactivateSettings().hashCode());
         hashCode = prime * hashCode + ((getPauseStateSettings() == null) ? 0 : getPauseStateSettings().hashCode());
+        hashCode = prime * hashCode + ((getScte35InputSettings() == null) ? 0 : getScte35InputSettings().hashCode());
         hashCode = prime * hashCode + ((getScte35ReturnToNetworkSettings() == null) ? 0 : getScte35ReturnToNetworkSettings().hashCode());
         hashCode = prime * hashCode + ((getScte35SpliceInsertSettings() == null) ? 0 : getScte35SpliceInsertSettings().hashCode());
         hashCode = prime * hashCode + ((getScte35TimeSignalSettings() == null) ? 0 : getScte35TimeSignalSettings().hashCode());
         hashCode = prime * hashCode + ((getStaticImageActivateSettings() == null) ? 0 : getStaticImageActivateSettings().hashCode());
         hashCode = prime * hashCode + ((getStaticImageDeactivateSettings() == null) ? 0 : getStaticImageDeactivateSettings().hashCode());
+        hashCode = prime * hashCode + ((getStaticImageOutputActivateSettings() == null) ? 0 : getStaticImageOutputActivateSettings().hashCode());
+        hashCode = prime * hashCode + ((getStaticImageOutputDeactivateSettings() == null) ? 0 : getStaticImageOutputDeactivateSettings().hashCode());
         return hashCode;
     }
 

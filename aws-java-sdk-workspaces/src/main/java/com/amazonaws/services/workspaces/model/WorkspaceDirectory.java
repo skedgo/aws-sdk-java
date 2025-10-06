@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes an AWS Directory Service directory that is used with Amazon WorkSpaces.
+ * Describes a directory that is used with Amazon WorkSpaces.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/WorkspaceDirectory" target="_top">AWS API
@@ -92,7 +92,12 @@ public class WorkspaceDirectory implements Serializable, Cloneable, StructuredPo
     private String workspaceSecurityGroupId;
     /**
      * <p>
-     * The state of the directory's registration with Amazon WorkSpaces
+     * The state of the directory's registration with Amazon WorkSpaces. After a directory is deregistered, the
+     * <code>DEREGISTERED</code> state is returned very briefly before the directory metadata is cleaned up, so this
+     * state is rarely returned. To confirm that a directory is deregistered, check for the directory ID by using <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceDirectories.html">
+     * DescribeWorkspaceDirectories</a>. If the directory ID isn't returned, then the directory has been successfully
+     * deregistered.
      * </p>
      */
     private String state;
@@ -108,6 +113,83 @@ public class WorkspaceDirectory implements Serializable, Cloneable, StructuredPo
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> ipGroupIds;
+    /**
+     * <p>
+     * The devices and operating systems that users can use to access WorkSpaces.
+     * </p>
+     */
+    private WorkspaceAccessProperties workspaceAccessProperties;
+    /**
+     * <p>
+     * Specifies whether the directory is dedicated or shared. To use Bring Your Own License (BYOL), this value must be
+     * set to <code>DEDICATED</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own Windows
+     * Desktop Images</a>.
+     * </p>
+     */
+    private String tenancy;
+    /**
+     * <p>
+     * The default self-service permissions for WorkSpaces in the directory.
+     * </p>
+     */
+    private SelfservicePermissions selfservicePermissions;
+    /**
+     * <p>
+     * Describes the enablement status, user access URL, and relay state parameter name that are used for configuring
+     * federation with an SAML 2.0 identity provider.
+     * </p>
+     */
+    private SamlProperties samlProperties;
+    /**
+     * <p>
+     * The certificate-based authentication properties used to authenticate SAML 2.0 Identity Provider (IdP) user
+     * identities to Active Directory for WorkSpaces login.
+     * </p>
+     */
+    private CertificateBasedAuthProperties certificateBasedAuthProperties;
+    /**
+     * <p>
+     * The name fo the WorkSpace directory.
+     * </p>
+     */
+    private String workspaceDirectoryName;
+    /**
+     * <p>
+     * The description of the WorkSpace directory
+     * </p>
+     */
+    private String workspaceDirectoryDescription;
+    /**
+     * <p>
+     * Indicates the identity type of the specifired user.
+     * </p>
+     */
+    private String userIdentityType;
+    /**
+     * <p>
+     * Indicates whether the directory's WorkSpace type is personal or pools.
+     * </p>
+     */
+    private String workspaceType;
+    /**
+     * <p>
+     * Information about the Active Directory config.
+     * </p>
+     */
+    private ActiveDirectoryConfig activeDirectoryConfig;
+    /**
+     * <p>
+     * The streaming properties to configure.
+     * </p>
+     */
+    private StreamingProperties streamingProperties;
+    /**
+     * <p>
+     * The error message returned.
+     * </p>
+     */
+    private String errorMessage;
 
     /**
      * <p>
@@ -622,11 +704,21 @@ public class WorkspaceDirectory implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The state of the directory's registration with Amazon WorkSpaces
+     * The state of the directory's registration with Amazon WorkSpaces. After a directory is deregistered, the
+     * <code>DEREGISTERED</code> state is returned very briefly before the directory metadata is cleaned up, so this
+     * state is rarely returned. To confirm that a directory is deregistered, check for the directory ID by using <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceDirectories.html">
+     * DescribeWorkspaceDirectories</a>. If the directory ID isn't returned, then the directory has been successfully
+     * deregistered.
      * </p>
      * 
      * @param state
-     *        The state of the directory's registration with Amazon WorkSpaces
+     *        The state of the directory's registration with Amazon WorkSpaces. After a directory is deregistered, the
+     *        <code>DEREGISTERED</code> state is returned very briefly before the directory metadata is cleaned up, so
+     *        this state is rarely returned. To confirm that a directory is deregistered, check for the directory ID by
+     *        using <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceDirectories.html">
+     *        DescribeWorkspaceDirectories</a>. If the directory ID isn't returned, then the directory has been
+     *        successfully deregistered.
      * @see WorkspaceDirectoryState
      */
 
@@ -636,10 +728,20 @@ public class WorkspaceDirectory implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The state of the directory's registration with Amazon WorkSpaces
+     * The state of the directory's registration with Amazon WorkSpaces. After a directory is deregistered, the
+     * <code>DEREGISTERED</code> state is returned very briefly before the directory metadata is cleaned up, so this
+     * state is rarely returned. To confirm that a directory is deregistered, check for the directory ID by using <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceDirectories.html">
+     * DescribeWorkspaceDirectories</a>. If the directory ID isn't returned, then the directory has been successfully
+     * deregistered.
      * </p>
      * 
-     * @return The state of the directory's registration with Amazon WorkSpaces
+     * @return The state of the directory's registration with Amazon WorkSpaces. After a directory is deregistered, the
+     *         <code>DEREGISTERED</code> state is returned very briefly before the directory metadata is cleaned up, so
+     *         this state is rarely returned. To confirm that a directory is deregistered, check for the directory ID by
+     *         using <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceDirectories.html">
+     *         DescribeWorkspaceDirectories</a>. If the directory ID isn't returned, then the directory has been
+     *         successfully deregistered.
      * @see WorkspaceDirectoryState
      */
 
@@ -649,11 +751,21 @@ public class WorkspaceDirectory implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The state of the directory's registration with Amazon WorkSpaces
+     * The state of the directory's registration with Amazon WorkSpaces. After a directory is deregistered, the
+     * <code>DEREGISTERED</code> state is returned very briefly before the directory metadata is cleaned up, so this
+     * state is rarely returned. To confirm that a directory is deregistered, check for the directory ID by using <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceDirectories.html">
+     * DescribeWorkspaceDirectories</a>. If the directory ID isn't returned, then the directory has been successfully
+     * deregistered.
      * </p>
      * 
      * @param state
-     *        The state of the directory's registration with Amazon WorkSpaces
+     *        The state of the directory's registration with Amazon WorkSpaces. After a directory is deregistered, the
+     *        <code>DEREGISTERED</code> state is returned very briefly before the directory metadata is cleaned up, so
+     *        this state is rarely returned. To confirm that a directory is deregistered, check for the directory ID by
+     *        using <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceDirectories.html">
+     *        DescribeWorkspaceDirectories</a>. If the directory ID isn't returned, then the directory has been
+     *        successfully deregistered.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see WorkspaceDirectoryState
      */
@@ -665,11 +777,21 @@ public class WorkspaceDirectory implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The state of the directory's registration with Amazon WorkSpaces
+     * The state of the directory's registration with Amazon WorkSpaces. After a directory is deregistered, the
+     * <code>DEREGISTERED</code> state is returned very briefly before the directory metadata is cleaned up, so this
+     * state is rarely returned. To confirm that a directory is deregistered, check for the directory ID by using <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceDirectories.html">
+     * DescribeWorkspaceDirectories</a>. If the directory ID isn't returned, then the directory has been successfully
+     * deregistered.
      * </p>
      * 
      * @param state
-     *        The state of the directory's registration with Amazon WorkSpaces
+     *        The state of the directory's registration with Amazon WorkSpaces. After a directory is deregistered, the
+     *        <code>DEREGISTERED</code> state is returned very briefly before the directory metadata is cleaned up, so
+     *        this state is rarely returned. To confirm that a directory is deregistered, check for the directory ID by
+     *        using <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceDirectories.html">
+     *        DescribeWorkspaceDirectories</a>. If the directory ID isn't returned, then the directory has been
+     *        successfully deregistered.
      * @see WorkspaceDirectoryState
      */
 
@@ -679,11 +801,21 @@ public class WorkspaceDirectory implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The state of the directory's registration with Amazon WorkSpaces
+     * The state of the directory's registration with Amazon WorkSpaces. After a directory is deregistered, the
+     * <code>DEREGISTERED</code> state is returned very briefly before the directory metadata is cleaned up, so this
+     * state is rarely returned. To confirm that a directory is deregistered, check for the directory ID by using <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceDirectories.html">
+     * DescribeWorkspaceDirectories</a>. If the directory ID isn't returned, then the directory has been successfully
+     * deregistered.
      * </p>
      * 
      * @param state
-     *        The state of the directory's registration with Amazon WorkSpaces
+     *        The state of the directory's registration with Amazon WorkSpaces. After a directory is deregistered, the
+     *        <code>DEREGISTERED</code> state is returned very briefly before the directory metadata is cleaned up, so
+     *        this state is rarely returned. To confirm that a directory is deregistered, check for the directory ID by
+     *        using <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceDirectories.html">
+     *        DescribeWorkspaceDirectories</a>. If the directory ID isn't returned, then the directory has been
+     *        successfully deregistered.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see WorkspaceDirectoryState
      */
@@ -807,6 +939,627 @@ public class WorkspaceDirectory implements Serializable, Cloneable, StructuredPo
     }
 
     /**
+     * <p>
+     * The devices and operating systems that users can use to access WorkSpaces.
+     * </p>
+     * 
+     * @param workspaceAccessProperties
+     *        The devices and operating systems that users can use to access WorkSpaces.
+     */
+
+    public void setWorkspaceAccessProperties(WorkspaceAccessProperties workspaceAccessProperties) {
+        this.workspaceAccessProperties = workspaceAccessProperties;
+    }
+
+    /**
+     * <p>
+     * The devices and operating systems that users can use to access WorkSpaces.
+     * </p>
+     * 
+     * @return The devices and operating systems that users can use to access WorkSpaces.
+     */
+
+    public WorkspaceAccessProperties getWorkspaceAccessProperties() {
+        return this.workspaceAccessProperties;
+    }
+
+    /**
+     * <p>
+     * The devices and operating systems that users can use to access WorkSpaces.
+     * </p>
+     * 
+     * @param workspaceAccessProperties
+     *        The devices and operating systems that users can use to access WorkSpaces.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkspaceDirectory withWorkspaceAccessProperties(WorkspaceAccessProperties workspaceAccessProperties) {
+        setWorkspaceAccessProperties(workspaceAccessProperties);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the directory is dedicated or shared. To use Bring Your Own License (BYOL), this value must be
+     * set to <code>DEDICATED</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own Windows
+     * Desktop Images</a>.
+     * </p>
+     * 
+     * @param tenancy
+     *        Specifies whether the directory is dedicated or shared. To use Bring Your Own License (BYOL), this value
+     *        must be set to <code>DEDICATED</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own
+     *        Windows Desktop Images</a>.
+     * @see Tenancy
+     */
+
+    public void setTenancy(String tenancy) {
+        this.tenancy = tenancy;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the directory is dedicated or shared. To use Bring Your Own License (BYOL), this value must be
+     * set to <code>DEDICATED</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own Windows
+     * Desktop Images</a>.
+     * </p>
+     * 
+     * @return Specifies whether the directory is dedicated or shared. To use Bring Your Own License (BYOL), this value
+     *         must be set to <code>DEDICATED</code>. For more information, see <a
+     *         href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own
+     *         Windows Desktop Images</a>.
+     * @see Tenancy
+     */
+
+    public String getTenancy() {
+        return this.tenancy;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the directory is dedicated or shared. To use Bring Your Own License (BYOL), this value must be
+     * set to <code>DEDICATED</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own Windows
+     * Desktop Images</a>.
+     * </p>
+     * 
+     * @param tenancy
+     *        Specifies whether the directory is dedicated or shared. To use Bring Your Own License (BYOL), this value
+     *        must be set to <code>DEDICATED</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own
+     *        Windows Desktop Images</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Tenancy
+     */
+
+    public WorkspaceDirectory withTenancy(String tenancy) {
+        setTenancy(tenancy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the directory is dedicated or shared. To use Bring Your Own License (BYOL), this value must be
+     * set to <code>DEDICATED</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own Windows
+     * Desktop Images</a>.
+     * </p>
+     * 
+     * @param tenancy
+     *        Specifies whether the directory is dedicated or shared. To use Bring Your Own License (BYOL), this value
+     *        must be set to <code>DEDICATED</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own
+     *        Windows Desktop Images</a>.
+     * @see Tenancy
+     */
+
+    public void setTenancy(Tenancy tenancy) {
+        withTenancy(tenancy);
+    }
+
+    /**
+     * <p>
+     * Specifies whether the directory is dedicated or shared. To use Bring Your Own License (BYOL), this value must be
+     * set to <code>DEDICATED</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own Windows
+     * Desktop Images</a>.
+     * </p>
+     * 
+     * @param tenancy
+     *        Specifies whether the directory is dedicated or shared. To use Bring Your Own License (BYOL), this value
+     *        must be set to <code>DEDICATED</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own
+     *        Windows Desktop Images</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Tenancy
+     */
+
+    public WorkspaceDirectory withTenancy(Tenancy tenancy) {
+        this.tenancy = tenancy.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The default self-service permissions for WorkSpaces in the directory.
+     * </p>
+     * 
+     * @param selfservicePermissions
+     *        The default self-service permissions for WorkSpaces in the directory.
+     */
+
+    public void setSelfservicePermissions(SelfservicePermissions selfservicePermissions) {
+        this.selfservicePermissions = selfservicePermissions;
+    }
+
+    /**
+     * <p>
+     * The default self-service permissions for WorkSpaces in the directory.
+     * </p>
+     * 
+     * @return The default self-service permissions for WorkSpaces in the directory.
+     */
+
+    public SelfservicePermissions getSelfservicePermissions() {
+        return this.selfservicePermissions;
+    }
+
+    /**
+     * <p>
+     * The default self-service permissions for WorkSpaces in the directory.
+     * </p>
+     * 
+     * @param selfservicePermissions
+     *        The default self-service permissions for WorkSpaces in the directory.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkspaceDirectory withSelfservicePermissions(SelfservicePermissions selfservicePermissions) {
+        setSelfservicePermissions(selfservicePermissions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes the enablement status, user access URL, and relay state parameter name that are used for configuring
+     * federation with an SAML 2.0 identity provider.
+     * </p>
+     * 
+     * @param samlProperties
+     *        Describes the enablement status, user access URL, and relay state parameter name that are used for
+     *        configuring federation with an SAML 2.0 identity provider.
+     */
+
+    public void setSamlProperties(SamlProperties samlProperties) {
+        this.samlProperties = samlProperties;
+    }
+
+    /**
+     * <p>
+     * Describes the enablement status, user access URL, and relay state parameter name that are used for configuring
+     * federation with an SAML 2.0 identity provider.
+     * </p>
+     * 
+     * @return Describes the enablement status, user access URL, and relay state parameter name that are used for
+     *         configuring federation with an SAML 2.0 identity provider.
+     */
+
+    public SamlProperties getSamlProperties() {
+        return this.samlProperties;
+    }
+
+    /**
+     * <p>
+     * Describes the enablement status, user access URL, and relay state parameter name that are used for configuring
+     * federation with an SAML 2.0 identity provider.
+     * </p>
+     * 
+     * @param samlProperties
+     *        Describes the enablement status, user access URL, and relay state parameter name that are used for
+     *        configuring federation with an SAML 2.0 identity provider.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkspaceDirectory withSamlProperties(SamlProperties samlProperties) {
+        setSamlProperties(samlProperties);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The certificate-based authentication properties used to authenticate SAML 2.0 Identity Provider (IdP) user
+     * identities to Active Directory for WorkSpaces login.
+     * </p>
+     * 
+     * @param certificateBasedAuthProperties
+     *        The certificate-based authentication properties used to authenticate SAML 2.0 Identity Provider (IdP) user
+     *        identities to Active Directory for WorkSpaces login.
+     */
+
+    public void setCertificateBasedAuthProperties(CertificateBasedAuthProperties certificateBasedAuthProperties) {
+        this.certificateBasedAuthProperties = certificateBasedAuthProperties;
+    }
+
+    /**
+     * <p>
+     * The certificate-based authentication properties used to authenticate SAML 2.0 Identity Provider (IdP) user
+     * identities to Active Directory for WorkSpaces login.
+     * </p>
+     * 
+     * @return The certificate-based authentication properties used to authenticate SAML 2.0 Identity Provider (IdP)
+     *         user identities to Active Directory for WorkSpaces login.
+     */
+
+    public CertificateBasedAuthProperties getCertificateBasedAuthProperties() {
+        return this.certificateBasedAuthProperties;
+    }
+
+    /**
+     * <p>
+     * The certificate-based authentication properties used to authenticate SAML 2.0 Identity Provider (IdP) user
+     * identities to Active Directory for WorkSpaces login.
+     * </p>
+     * 
+     * @param certificateBasedAuthProperties
+     *        The certificate-based authentication properties used to authenticate SAML 2.0 Identity Provider (IdP) user
+     *        identities to Active Directory for WorkSpaces login.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkspaceDirectory withCertificateBasedAuthProperties(CertificateBasedAuthProperties certificateBasedAuthProperties) {
+        setCertificateBasedAuthProperties(certificateBasedAuthProperties);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name fo the WorkSpace directory.
+     * </p>
+     * 
+     * @param workspaceDirectoryName
+     *        The name fo the WorkSpace directory.
+     */
+
+    public void setWorkspaceDirectoryName(String workspaceDirectoryName) {
+        this.workspaceDirectoryName = workspaceDirectoryName;
+    }
+
+    /**
+     * <p>
+     * The name fo the WorkSpace directory.
+     * </p>
+     * 
+     * @return The name fo the WorkSpace directory.
+     */
+
+    public String getWorkspaceDirectoryName() {
+        return this.workspaceDirectoryName;
+    }
+
+    /**
+     * <p>
+     * The name fo the WorkSpace directory.
+     * </p>
+     * 
+     * @param workspaceDirectoryName
+     *        The name fo the WorkSpace directory.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkspaceDirectory withWorkspaceDirectoryName(String workspaceDirectoryName) {
+        setWorkspaceDirectoryName(workspaceDirectoryName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The description of the WorkSpace directory
+     * </p>
+     * 
+     * @param workspaceDirectoryDescription
+     *        The description of the WorkSpace directory
+     */
+
+    public void setWorkspaceDirectoryDescription(String workspaceDirectoryDescription) {
+        this.workspaceDirectoryDescription = workspaceDirectoryDescription;
+    }
+
+    /**
+     * <p>
+     * The description of the WorkSpace directory
+     * </p>
+     * 
+     * @return The description of the WorkSpace directory
+     */
+
+    public String getWorkspaceDirectoryDescription() {
+        return this.workspaceDirectoryDescription;
+    }
+
+    /**
+     * <p>
+     * The description of the WorkSpace directory
+     * </p>
+     * 
+     * @param workspaceDirectoryDescription
+     *        The description of the WorkSpace directory
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkspaceDirectory withWorkspaceDirectoryDescription(String workspaceDirectoryDescription) {
+        setWorkspaceDirectoryDescription(workspaceDirectoryDescription);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates the identity type of the specifired user.
+     * </p>
+     * 
+     * @param userIdentityType
+     *        Indicates the identity type of the specifired user.
+     * @see UserIdentityType
+     */
+
+    public void setUserIdentityType(String userIdentityType) {
+        this.userIdentityType = userIdentityType;
+    }
+
+    /**
+     * <p>
+     * Indicates the identity type of the specifired user.
+     * </p>
+     * 
+     * @return Indicates the identity type of the specifired user.
+     * @see UserIdentityType
+     */
+
+    public String getUserIdentityType() {
+        return this.userIdentityType;
+    }
+
+    /**
+     * <p>
+     * Indicates the identity type of the specifired user.
+     * </p>
+     * 
+     * @param userIdentityType
+     *        Indicates the identity type of the specifired user.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see UserIdentityType
+     */
+
+    public WorkspaceDirectory withUserIdentityType(String userIdentityType) {
+        setUserIdentityType(userIdentityType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates the identity type of the specifired user.
+     * </p>
+     * 
+     * @param userIdentityType
+     *        Indicates the identity type of the specifired user.
+     * @see UserIdentityType
+     */
+
+    public void setUserIdentityType(UserIdentityType userIdentityType) {
+        withUserIdentityType(userIdentityType);
+    }
+
+    /**
+     * <p>
+     * Indicates the identity type of the specifired user.
+     * </p>
+     * 
+     * @param userIdentityType
+     *        Indicates the identity type of the specifired user.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see UserIdentityType
+     */
+
+    public WorkspaceDirectory withUserIdentityType(UserIdentityType userIdentityType) {
+        this.userIdentityType = userIdentityType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the directory's WorkSpace type is personal or pools.
+     * </p>
+     * 
+     * @param workspaceType
+     *        Indicates whether the directory's WorkSpace type is personal or pools.
+     * @see WorkspaceType
+     */
+
+    public void setWorkspaceType(String workspaceType) {
+        this.workspaceType = workspaceType;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the directory's WorkSpace type is personal or pools.
+     * </p>
+     * 
+     * @return Indicates whether the directory's WorkSpace type is personal or pools.
+     * @see WorkspaceType
+     */
+
+    public String getWorkspaceType() {
+        return this.workspaceType;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the directory's WorkSpace type is personal or pools.
+     * </p>
+     * 
+     * @param workspaceType
+     *        Indicates whether the directory's WorkSpace type is personal or pools.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WorkspaceType
+     */
+
+    public WorkspaceDirectory withWorkspaceType(String workspaceType) {
+        setWorkspaceType(workspaceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the directory's WorkSpace type is personal or pools.
+     * </p>
+     * 
+     * @param workspaceType
+     *        Indicates whether the directory's WorkSpace type is personal or pools.
+     * @see WorkspaceType
+     */
+
+    public void setWorkspaceType(WorkspaceType workspaceType) {
+        withWorkspaceType(workspaceType);
+    }
+
+    /**
+     * <p>
+     * Indicates whether the directory's WorkSpace type is personal or pools.
+     * </p>
+     * 
+     * @param workspaceType
+     *        Indicates whether the directory's WorkSpace type is personal or pools.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WorkspaceType
+     */
+
+    public WorkspaceDirectory withWorkspaceType(WorkspaceType workspaceType) {
+        this.workspaceType = workspaceType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the Active Directory config.
+     * </p>
+     * 
+     * @param activeDirectoryConfig
+     *        Information about the Active Directory config.
+     */
+
+    public void setActiveDirectoryConfig(ActiveDirectoryConfig activeDirectoryConfig) {
+        this.activeDirectoryConfig = activeDirectoryConfig;
+    }
+
+    /**
+     * <p>
+     * Information about the Active Directory config.
+     * </p>
+     * 
+     * @return Information about the Active Directory config.
+     */
+
+    public ActiveDirectoryConfig getActiveDirectoryConfig() {
+        return this.activeDirectoryConfig;
+    }
+
+    /**
+     * <p>
+     * Information about the Active Directory config.
+     * </p>
+     * 
+     * @param activeDirectoryConfig
+     *        Information about the Active Directory config.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkspaceDirectory withActiveDirectoryConfig(ActiveDirectoryConfig activeDirectoryConfig) {
+        setActiveDirectoryConfig(activeDirectoryConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The streaming properties to configure.
+     * </p>
+     * 
+     * @param streamingProperties
+     *        The streaming properties to configure.
+     */
+
+    public void setStreamingProperties(StreamingProperties streamingProperties) {
+        this.streamingProperties = streamingProperties;
+    }
+
+    /**
+     * <p>
+     * The streaming properties to configure.
+     * </p>
+     * 
+     * @return The streaming properties to configure.
+     */
+
+    public StreamingProperties getStreamingProperties() {
+        return this.streamingProperties;
+    }
+
+    /**
+     * <p>
+     * The streaming properties to configure.
+     * </p>
+     * 
+     * @param streamingProperties
+     *        The streaming properties to configure.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkspaceDirectory withStreamingProperties(StreamingProperties streamingProperties) {
+        setStreamingProperties(streamingProperties);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The error message returned.
+     * </p>
+     * 
+     * @param errorMessage
+     *        The error message returned.
+     */
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    /**
+     * <p>
+     * The error message returned.
+     * </p>
+     * 
+     * @return The error message returned.
+     */
+
+    public String getErrorMessage() {
+        return this.errorMessage;
+    }
+
+    /**
+     * <p>
+     * The error message returned.
+     * </p>
+     * 
+     * @param errorMessage
+     *        The error message returned.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkspaceDirectory withErrorMessage(String errorMessage) {
+        setErrorMessage(errorMessage);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -843,7 +1596,31 @@ public class WorkspaceDirectory implements Serializable, Cloneable, StructuredPo
         if (getWorkspaceCreationProperties() != null)
             sb.append("WorkspaceCreationProperties: ").append(getWorkspaceCreationProperties()).append(",");
         if (getIpGroupIds() != null)
-            sb.append("IpGroupIds: ").append(getIpGroupIds());
+            sb.append("IpGroupIds: ").append(getIpGroupIds()).append(",");
+        if (getWorkspaceAccessProperties() != null)
+            sb.append("WorkspaceAccessProperties: ").append(getWorkspaceAccessProperties()).append(",");
+        if (getTenancy() != null)
+            sb.append("Tenancy: ").append(getTenancy()).append(",");
+        if (getSelfservicePermissions() != null)
+            sb.append("SelfservicePermissions: ").append(getSelfservicePermissions()).append(",");
+        if (getSamlProperties() != null)
+            sb.append("SamlProperties: ").append(getSamlProperties()).append(",");
+        if (getCertificateBasedAuthProperties() != null)
+            sb.append("CertificateBasedAuthProperties: ").append(getCertificateBasedAuthProperties()).append(",");
+        if (getWorkspaceDirectoryName() != null)
+            sb.append("WorkspaceDirectoryName: ").append(getWorkspaceDirectoryName()).append(",");
+        if (getWorkspaceDirectoryDescription() != null)
+            sb.append("WorkspaceDirectoryDescription: ").append(getWorkspaceDirectoryDescription()).append(",");
+        if (getUserIdentityType() != null)
+            sb.append("UserIdentityType: ").append(getUserIdentityType()).append(",");
+        if (getWorkspaceType() != null)
+            sb.append("WorkspaceType: ").append(getWorkspaceType()).append(",");
+        if (getActiveDirectoryConfig() != null)
+            sb.append("ActiveDirectoryConfig: ").append(getActiveDirectoryConfig()).append(",");
+        if (getStreamingProperties() != null)
+            sb.append("StreamingProperties: ").append(getStreamingProperties()).append(",");
+        if (getErrorMessage() != null)
+            sb.append("ErrorMessage: ").append(getErrorMessage());
         sb.append("}");
         return sb.toString();
     }
@@ -910,6 +1687,56 @@ public class WorkspaceDirectory implements Serializable, Cloneable, StructuredPo
             return false;
         if (other.getIpGroupIds() != null && other.getIpGroupIds().equals(this.getIpGroupIds()) == false)
             return false;
+        if (other.getWorkspaceAccessProperties() == null ^ this.getWorkspaceAccessProperties() == null)
+            return false;
+        if (other.getWorkspaceAccessProperties() != null && other.getWorkspaceAccessProperties().equals(this.getWorkspaceAccessProperties()) == false)
+            return false;
+        if (other.getTenancy() == null ^ this.getTenancy() == null)
+            return false;
+        if (other.getTenancy() != null && other.getTenancy().equals(this.getTenancy()) == false)
+            return false;
+        if (other.getSelfservicePermissions() == null ^ this.getSelfservicePermissions() == null)
+            return false;
+        if (other.getSelfservicePermissions() != null && other.getSelfservicePermissions().equals(this.getSelfservicePermissions()) == false)
+            return false;
+        if (other.getSamlProperties() == null ^ this.getSamlProperties() == null)
+            return false;
+        if (other.getSamlProperties() != null && other.getSamlProperties().equals(this.getSamlProperties()) == false)
+            return false;
+        if (other.getCertificateBasedAuthProperties() == null ^ this.getCertificateBasedAuthProperties() == null)
+            return false;
+        if (other.getCertificateBasedAuthProperties() != null
+                && other.getCertificateBasedAuthProperties().equals(this.getCertificateBasedAuthProperties()) == false)
+            return false;
+        if (other.getWorkspaceDirectoryName() == null ^ this.getWorkspaceDirectoryName() == null)
+            return false;
+        if (other.getWorkspaceDirectoryName() != null && other.getWorkspaceDirectoryName().equals(this.getWorkspaceDirectoryName()) == false)
+            return false;
+        if (other.getWorkspaceDirectoryDescription() == null ^ this.getWorkspaceDirectoryDescription() == null)
+            return false;
+        if (other.getWorkspaceDirectoryDescription() != null
+                && other.getWorkspaceDirectoryDescription().equals(this.getWorkspaceDirectoryDescription()) == false)
+            return false;
+        if (other.getUserIdentityType() == null ^ this.getUserIdentityType() == null)
+            return false;
+        if (other.getUserIdentityType() != null && other.getUserIdentityType().equals(this.getUserIdentityType()) == false)
+            return false;
+        if (other.getWorkspaceType() == null ^ this.getWorkspaceType() == null)
+            return false;
+        if (other.getWorkspaceType() != null && other.getWorkspaceType().equals(this.getWorkspaceType()) == false)
+            return false;
+        if (other.getActiveDirectoryConfig() == null ^ this.getActiveDirectoryConfig() == null)
+            return false;
+        if (other.getActiveDirectoryConfig() != null && other.getActiveDirectoryConfig().equals(this.getActiveDirectoryConfig()) == false)
+            return false;
+        if (other.getStreamingProperties() == null ^ this.getStreamingProperties() == null)
+            return false;
+        if (other.getStreamingProperties() != null && other.getStreamingProperties().equals(this.getStreamingProperties()) == false)
+            return false;
+        if (other.getErrorMessage() == null ^ this.getErrorMessage() == null)
+            return false;
+        if (other.getErrorMessage() != null && other.getErrorMessage().equals(this.getErrorMessage()) == false)
+            return false;
         return true;
     }
 
@@ -931,6 +1758,18 @@ public class WorkspaceDirectory implements Serializable, Cloneable, StructuredPo
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
         hashCode = prime * hashCode + ((getWorkspaceCreationProperties() == null) ? 0 : getWorkspaceCreationProperties().hashCode());
         hashCode = prime * hashCode + ((getIpGroupIds() == null) ? 0 : getIpGroupIds().hashCode());
+        hashCode = prime * hashCode + ((getWorkspaceAccessProperties() == null) ? 0 : getWorkspaceAccessProperties().hashCode());
+        hashCode = prime * hashCode + ((getTenancy() == null) ? 0 : getTenancy().hashCode());
+        hashCode = prime * hashCode + ((getSelfservicePermissions() == null) ? 0 : getSelfservicePermissions().hashCode());
+        hashCode = prime * hashCode + ((getSamlProperties() == null) ? 0 : getSamlProperties().hashCode());
+        hashCode = prime * hashCode + ((getCertificateBasedAuthProperties() == null) ? 0 : getCertificateBasedAuthProperties().hashCode());
+        hashCode = prime * hashCode + ((getWorkspaceDirectoryName() == null) ? 0 : getWorkspaceDirectoryName().hashCode());
+        hashCode = prime * hashCode + ((getWorkspaceDirectoryDescription() == null) ? 0 : getWorkspaceDirectoryDescription().hashCode());
+        hashCode = prime * hashCode + ((getUserIdentityType() == null) ? 0 : getUserIdentityType().hashCode());
+        hashCode = prime * hashCode + ((getWorkspaceType() == null) ? 0 : getWorkspaceType().hashCode());
+        hashCode = prime * hashCode + ((getActiveDirectoryConfig() == null) ? 0 : getActiveDirectoryConfig().hashCode());
+        hashCode = prime * hashCode + ((getStreamingProperties() == null) ? 0 : getStreamingProperties().hashCode());
+        hashCode = prime * hashCode + ((getErrorMessage() == null) ? 0 : getErrorMessage().hashCode());
         return hashCode;
     }
 

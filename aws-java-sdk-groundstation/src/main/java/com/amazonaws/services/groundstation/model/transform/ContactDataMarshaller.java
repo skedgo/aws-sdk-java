@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -47,12 +47,18 @@ public class ContactDataMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("postPassEndTime").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<java.util.Date> PREPASSSTARTTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("prePassStartTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<String> REGION_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("region").build();
     private static final MarshallingInfo<String> SATELLITEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("satelliteArn").build();
     private static final MarshallingInfo<java.util.Date> STARTTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("startTime").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("tags").build();
+    private static final MarshallingInfo<java.util.Date> VISIBILITYENDTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("visibilityEndTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<java.util.Date> VISIBILITYSTARTTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("visibilityStartTime").timestampFormat("unixTimestamp").build();
 
     private static final ContactDataMarshaller instance = new ContactDataMarshaller();
 
@@ -79,9 +85,12 @@ public class ContactDataMarshaller {
             protocolMarshaller.marshall(contactData.getMissionProfileArn(), MISSIONPROFILEARN_BINDING);
             protocolMarshaller.marshall(contactData.getPostPassEndTime(), POSTPASSENDTIME_BINDING);
             protocolMarshaller.marshall(contactData.getPrePassStartTime(), PREPASSSTARTTIME_BINDING);
+            protocolMarshaller.marshall(contactData.getRegion(), REGION_BINDING);
             protocolMarshaller.marshall(contactData.getSatelliteArn(), SATELLITEARN_BINDING);
             protocolMarshaller.marshall(contactData.getStartTime(), STARTTIME_BINDING);
             protocolMarshaller.marshall(contactData.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(contactData.getVisibilityEndTime(), VISIBILITYENDTIME_BINDING);
+            protocolMarshaller.marshall(contactData.getVisibilityStartTime(), VISIBILITYSTARTTIME_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

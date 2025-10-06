@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,14 +39,14 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      * <ul>
      * <li>
      * <p>
-     * For deployments that use the EC2/On-premises compute platform, the target IDs are EC2 or on-premises instances
-     * IDs, and their target type is <code>instanceTarget</code>.
+     * For deployments that use the EC2/On-premises compute platform, the target IDs are Amazon EC2 or on-premises
+     * instances IDs, and their target type is <code>instanceTarget</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For deployments that use the AWS Lambda compute platform, the target IDs are the names of Lambda functions, and
-     * their target type is <code>instanceTarget</code>.
+     * For deployments that use the Lambda compute platform, the target IDs are the names of Lambda functions, and their
+     * target type is <code>instanceTarget</code>.
      * </p>
      * </li>
      * <li>
@@ -54,6 +54,12 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      * For deployments that use the Amazon ECS compute platform, the target IDs are pairs of Amazon ECS clusters and
      * services specified using the format <code>&lt;clustername&gt;:&lt;servicename&gt;</code>. Their target type is
      * <code>ecsTarget</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For deployments that are deployed with CloudFormation, the target IDs are CloudFormation stack IDs. Their target
+     * type is <code>cloudFormationTarget</code>.
      * </p>
      * </li>
      * </ul>
@@ -108,14 +114,14 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      * <ul>
      * <li>
      * <p>
-     * For deployments that use the EC2/On-premises compute platform, the target IDs are EC2 or on-premises instances
-     * IDs, and their target type is <code>instanceTarget</code>.
+     * For deployments that use the EC2/On-premises compute platform, the target IDs are Amazon EC2 or on-premises
+     * instances IDs, and their target type is <code>instanceTarget</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For deployments that use the AWS Lambda compute platform, the target IDs are the names of Lambda functions, and
-     * their target type is <code>instanceTarget</code>.
+     * For deployments that use the Lambda compute platform, the target IDs are the names of Lambda functions, and their
+     * target type is <code>instanceTarget</code>.
      * </p>
      * </li>
      * <li>
@@ -125,6 +131,12 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      * <code>ecsTarget</code>.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * For deployments that are deployed with CloudFormation, the target IDs are CloudFormation stack IDs. Their target
+     * type is <code>cloudFormationTarget</code>.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @return The unique IDs of the deployment targets. The compute platform of the deployment determines the type of
@@ -132,14 +144,14 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      *         <ul>
      *         <li>
      *         <p>
-     *         For deployments that use the EC2/On-premises compute platform, the target IDs are EC2 or on-premises
-     *         instances IDs, and their target type is <code>instanceTarget</code>.
+     *         For deployments that use the EC2/On-premises compute platform, the target IDs are Amazon EC2 or
+     *         on-premises instances IDs, and their target type is <code>instanceTarget</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         For deployments that use the AWS Lambda compute platform, the target IDs are the names of Lambda
-     *         functions, and their target type is <code>instanceTarget</code>.
+     *         For deployments that use the Lambda compute platform, the target IDs are the names of Lambda functions,
+     *         and their target type is <code>instanceTarget</code>.
      *         </p>
      *         </li>
      *         <li>
@@ -147,6 +159,12 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      *         For deployments that use the Amazon ECS compute platform, the target IDs are pairs of Amazon ECS clusters
      *         and services specified using the format <code>&lt;clustername&gt;:&lt;servicename&gt;</code>. Their
      *         target type is <code>ecsTarget</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For deployments that are deployed with CloudFormation, the target IDs are CloudFormation stack IDs. Their
+     *         target type is <code>cloudFormationTarget</code>.
      *         </p>
      *         </li>
      */
@@ -166,14 +184,14 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      * <ul>
      * <li>
      * <p>
-     * For deployments that use the EC2/On-premises compute platform, the target IDs are EC2 or on-premises instances
-     * IDs, and their target type is <code>instanceTarget</code>.
+     * For deployments that use the EC2/On-premises compute platform, the target IDs are Amazon EC2 or on-premises
+     * instances IDs, and their target type is <code>instanceTarget</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For deployments that use the AWS Lambda compute platform, the target IDs are the names of Lambda functions, and
-     * their target type is <code>instanceTarget</code>.
+     * For deployments that use the Lambda compute platform, the target IDs are the names of Lambda functions, and their
+     * target type is <code>instanceTarget</code>.
      * </p>
      * </li>
      * <li>
@@ -181,6 +199,12 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      * For deployments that use the Amazon ECS compute platform, the target IDs are pairs of Amazon ECS clusters and
      * services specified using the format <code>&lt;clustername&gt;:&lt;servicename&gt;</code>. Their target type is
      * <code>ecsTarget</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For deployments that are deployed with CloudFormation, the target IDs are CloudFormation stack IDs. Their target
+     * type is <code>cloudFormationTarget</code>.
      * </p>
      * </li>
      * </ul>
@@ -191,14 +215,14 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      *        <ul>
      *        <li>
      *        <p>
-     *        For deployments that use the EC2/On-premises compute platform, the target IDs are EC2 or on-premises
-     *        instances IDs, and their target type is <code>instanceTarget</code>.
+     *        For deployments that use the EC2/On-premises compute platform, the target IDs are Amazon EC2 or
+     *        on-premises instances IDs, and their target type is <code>instanceTarget</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For deployments that use the AWS Lambda compute platform, the target IDs are the names of Lambda
-     *        functions, and their target type is <code>instanceTarget</code>.
+     *        For deployments that use the Lambda compute platform, the target IDs are the names of Lambda functions,
+     *        and their target type is <code>instanceTarget</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -206,6 +230,12 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      *        For deployments that use the Amazon ECS compute platform, the target IDs are pairs of Amazon ECS clusters
      *        and services specified using the format <code>&lt;clustername&gt;:&lt;servicename&gt;</code>. Their target
      *        type is <code>ecsTarget</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For deployments that are deployed with CloudFormation, the target IDs are CloudFormation stack IDs. Their
+     *        target type is <code>cloudFormationTarget</code>.
      *        </p>
      *        </li>
      */
@@ -227,14 +257,14 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      * <ul>
      * <li>
      * <p>
-     * For deployments that use the EC2/On-premises compute platform, the target IDs are EC2 or on-premises instances
-     * IDs, and their target type is <code>instanceTarget</code>.
+     * For deployments that use the EC2/On-premises compute platform, the target IDs are Amazon EC2 or on-premises
+     * instances IDs, and their target type is <code>instanceTarget</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For deployments that use the AWS Lambda compute platform, the target IDs are the names of Lambda functions, and
-     * their target type is <code>instanceTarget</code>.
+     * For deployments that use the Lambda compute platform, the target IDs are the names of Lambda functions, and their
+     * target type is <code>instanceTarget</code>.
      * </p>
      * </li>
      * <li>
@@ -242,6 +272,12 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      * For deployments that use the Amazon ECS compute platform, the target IDs are pairs of Amazon ECS clusters and
      * services specified using the format <code>&lt;clustername&gt;:&lt;servicename&gt;</code>. Their target type is
      * <code>ecsTarget</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For deployments that are deployed with CloudFormation, the target IDs are CloudFormation stack IDs. Their target
+     * type is <code>cloudFormationTarget</code>.
      * </p>
      * </li>
      * </ul>
@@ -257,14 +293,14 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      *        <ul>
      *        <li>
      *        <p>
-     *        For deployments that use the EC2/On-premises compute platform, the target IDs are EC2 or on-premises
-     *        instances IDs, and their target type is <code>instanceTarget</code>.
+     *        For deployments that use the EC2/On-premises compute platform, the target IDs are Amazon EC2 or
+     *        on-premises instances IDs, and their target type is <code>instanceTarget</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For deployments that use the AWS Lambda compute platform, the target IDs are the names of Lambda
-     *        functions, and their target type is <code>instanceTarget</code>.
+     *        For deployments that use the Lambda compute platform, the target IDs are the names of Lambda functions,
+     *        and their target type is <code>instanceTarget</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -272,6 +308,12 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      *        For deployments that use the Amazon ECS compute platform, the target IDs are pairs of Amazon ECS clusters
      *        and services specified using the format <code>&lt;clustername&gt;:&lt;servicename&gt;</code>. Their target
      *        type is <code>ecsTarget</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For deployments that are deployed with CloudFormation, the target IDs are CloudFormation stack IDs. Their
+     *        target type is <code>cloudFormationTarget</code>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -295,14 +337,14 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      * <ul>
      * <li>
      * <p>
-     * For deployments that use the EC2/On-premises compute platform, the target IDs are EC2 or on-premises instances
-     * IDs, and their target type is <code>instanceTarget</code>.
+     * For deployments that use the EC2/On-premises compute platform, the target IDs are Amazon EC2 or on-premises
+     * instances IDs, and their target type is <code>instanceTarget</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For deployments that use the AWS Lambda compute platform, the target IDs are the names of Lambda functions, and
-     * their target type is <code>instanceTarget</code>.
+     * For deployments that use the Lambda compute platform, the target IDs are the names of Lambda functions, and their
+     * target type is <code>instanceTarget</code>.
      * </p>
      * </li>
      * <li>
@@ -310,6 +352,12 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      * For deployments that use the Amazon ECS compute platform, the target IDs are pairs of Amazon ECS clusters and
      * services specified using the format <code>&lt;clustername&gt;:&lt;servicename&gt;</code>. Their target type is
      * <code>ecsTarget</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For deployments that are deployed with CloudFormation, the target IDs are CloudFormation stack IDs. Their target
+     * type is <code>cloudFormationTarget</code>.
      * </p>
      * </li>
      * </ul>
@@ -320,14 +368,14 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      *        <ul>
      *        <li>
      *        <p>
-     *        For deployments that use the EC2/On-premises compute platform, the target IDs are EC2 or on-premises
-     *        instances IDs, and their target type is <code>instanceTarget</code>.
+     *        For deployments that use the EC2/On-premises compute platform, the target IDs are Amazon EC2 or
+     *        on-premises instances IDs, and their target type is <code>instanceTarget</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For deployments that use the AWS Lambda compute platform, the target IDs are the names of Lambda
-     *        functions, and their target type is <code>instanceTarget</code>.
+     *        For deployments that use the Lambda compute platform, the target IDs are the names of Lambda functions,
+     *        and their target type is <code>instanceTarget</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -335,6 +383,12 @@ public class BatchGetDeploymentTargetsRequest extends com.amazonaws.AmazonWebSer
      *        For deployments that use the Amazon ECS compute platform, the target IDs are pairs of Amazon ECS clusters
      *        and services specified using the format <code>&lt;clustername&gt;:&lt;servicename&gt;</code>. Their target
      *        type is <code>ecsTarget</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For deployments that are deployed with CloudFormation, the target IDs are CloudFormation stack IDs. Their
+     *        target type is <code>cloudFormationTarget</code>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

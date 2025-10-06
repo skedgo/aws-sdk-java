@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,21 +27,18 @@ public class DescribeAcceleratorAttributesRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the accelerator with the attributes that you want to describe. Value is
-     * required.
+     * The Amazon Resource Name (ARN) of the accelerator with the attributes that you want to describe.
      * </p>
      */
     private String acceleratorArn;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the accelerator with the attributes that you want to describe. Value is
-     * required.
+     * The Amazon Resource Name (ARN) of the accelerator with the attributes that you want to describe.
      * </p>
      * 
      * @param acceleratorArn
-     *        The Amazon Resource Name (ARN) of the accelerator with the attributes that you want to describe. Value is
-     *        required.
+     *        The Amazon Resource Name (ARN) of the accelerator with the attributes that you want to describe.
      */
 
     public void setAcceleratorArn(String acceleratorArn) {
@@ -50,12 +47,10 @@ public class DescribeAcceleratorAttributesRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the accelerator with the attributes that you want to describe. Value is
-     * required.
+     * The Amazon Resource Name (ARN) of the accelerator with the attributes that you want to describe.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the accelerator with the attributes that you want to describe. Value is
-     *         required.
+     * @return The Amazon Resource Name (ARN) of the accelerator with the attributes that you want to describe.
      */
 
     public String getAcceleratorArn() {
@@ -64,13 +59,11 @@ public class DescribeAcceleratorAttributesRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the accelerator with the attributes that you want to describe. Value is
-     * required.
+     * The Amazon Resource Name (ARN) of the accelerator with the attributes that you want to describe.
      * </p>
      * 
      * @param acceleratorArn
-     *        The Amazon Resource Name (ARN) of the accelerator with the attributes that you want to describe. Value is
-     *        required.
+     *        The Amazon Resource Name (ARN) of the accelerator with the attributes that you want to describe.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

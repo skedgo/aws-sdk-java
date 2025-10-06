@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,25 +27,32 @@ public class ThingConnectivity implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * True if the thing is connected to the AWS IoT service; false if it is not connected.
+     * True if the thing is connected to the Amazon Web Services IoT Core service; false if it is not connected.
      * </p>
      */
     private Boolean connected;
     /**
      * <p>
      * The epoch time (in milliseconds) when the thing last connected or disconnected. If the thing has been
-     * disconnected for more than a few weeks, the time value might be missing.
+     * disconnected for approximately an hour, the time value might be missing.
      * </p>
      */
     private Long timestamp;
+    /**
+     * <p>
+     * The reason why the client is disconnected. If the thing has been disconnected for approximately an hour, the
+     * <code>disconnectReason</code> value might be missing.
+     * </p>
+     */
+    private String disconnectReason;
 
     /**
      * <p>
-     * True if the thing is connected to the AWS IoT service; false if it is not connected.
+     * True if the thing is connected to the Amazon Web Services IoT Core service; false if it is not connected.
      * </p>
      * 
      * @param connected
-     *        True if the thing is connected to the AWS IoT service; false if it is not connected.
+     *        True if the thing is connected to the Amazon Web Services IoT Core service; false if it is not connected.
      */
 
     public void setConnected(Boolean connected) {
@@ -54,10 +61,10 @@ public class ThingConnectivity implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * True if the thing is connected to the AWS IoT service; false if it is not connected.
+     * True if the thing is connected to the Amazon Web Services IoT Core service; false if it is not connected.
      * </p>
      * 
-     * @return True if the thing is connected to the AWS IoT service; false if it is not connected.
+     * @return True if the thing is connected to the Amazon Web Services IoT Core service; false if it is not connected.
      */
 
     public Boolean getConnected() {
@@ -66,11 +73,11 @@ public class ThingConnectivity implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * True if the thing is connected to the AWS IoT service; false if it is not connected.
+     * True if the thing is connected to the Amazon Web Services IoT Core service; false if it is not connected.
      * </p>
      * 
      * @param connected
-     *        True if the thing is connected to the AWS IoT service; false if it is not connected.
+     *        True if the thing is connected to the Amazon Web Services IoT Core service; false if it is not connected.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -81,10 +88,10 @@ public class ThingConnectivity implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * True if the thing is connected to the AWS IoT service; false if it is not connected.
+     * True if the thing is connected to the Amazon Web Services IoT Core service; false if it is not connected.
      * </p>
      * 
-     * @return True if the thing is connected to the AWS IoT service; false if it is not connected.
+     * @return True if the thing is connected to the Amazon Web Services IoT Core service; false if it is not connected.
      */
 
     public Boolean isConnected() {
@@ -94,12 +101,12 @@ public class ThingConnectivity implements Serializable, Cloneable, StructuredPoj
     /**
      * <p>
      * The epoch time (in milliseconds) when the thing last connected or disconnected. If the thing has been
-     * disconnected for more than a few weeks, the time value might be missing.
+     * disconnected for approximately an hour, the time value might be missing.
      * </p>
      * 
      * @param timestamp
      *        The epoch time (in milliseconds) when the thing last connected or disconnected. If the thing has been
-     *        disconnected for more than a few weeks, the time value might be missing.
+     *        disconnected for approximately an hour, the time value might be missing.
      */
 
     public void setTimestamp(Long timestamp) {
@@ -109,11 +116,11 @@ public class ThingConnectivity implements Serializable, Cloneable, StructuredPoj
     /**
      * <p>
      * The epoch time (in milliseconds) when the thing last connected or disconnected. If the thing has been
-     * disconnected for more than a few weeks, the time value might be missing.
+     * disconnected for approximately an hour, the time value might be missing.
      * </p>
      * 
      * @return The epoch time (in milliseconds) when the thing last connected or disconnected. If the thing has been
-     *         disconnected for more than a few weeks, the time value might be missing.
+     *         disconnected for approximately an hour, the time value might be missing.
      */
 
     public Long getTimestamp() {
@@ -123,17 +130,63 @@ public class ThingConnectivity implements Serializable, Cloneable, StructuredPoj
     /**
      * <p>
      * The epoch time (in milliseconds) when the thing last connected or disconnected. If the thing has been
-     * disconnected for more than a few weeks, the time value might be missing.
+     * disconnected for approximately an hour, the time value might be missing.
      * </p>
      * 
      * @param timestamp
      *        The epoch time (in milliseconds) when the thing last connected or disconnected. If the thing has been
-     *        disconnected for more than a few weeks, the time value might be missing.
+     *        disconnected for approximately an hour, the time value might be missing.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ThingConnectivity withTimestamp(Long timestamp) {
         setTimestamp(timestamp);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The reason why the client is disconnected. If the thing has been disconnected for approximately an hour, the
+     * <code>disconnectReason</code> value might be missing.
+     * </p>
+     * 
+     * @param disconnectReason
+     *        The reason why the client is disconnected. If the thing has been disconnected for approximately an hour,
+     *        the <code>disconnectReason</code> value might be missing.
+     */
+
+    public void setDisconnectReason(String disconnectReason) {
+        this.disconnectReason = disconnectReason;
+    }
+
+    /**
+     * <p>
+     * The reason why the client is disconnected. If the thing has been disconnected for approximately an hour, the
+     * <code>disconnectReason</code> value might be missing.
+     * </p>
+     * 
+     * @return The reason why the client is disconnected. If the thing has been disconnected for approximately an hour,
+     *         the <code>disconnectReason</code> value might be missing.
+     */
+
+    public String getDisconnectReason() {
+        return this.disconnectReason;
+    }
+
+    /**
+     * <p>
+     * The reason why the client is disconnected. If the thing has been disconnected for approximately an hour, the
+     * <code>disconnectReason</code> value might be missing.
+     * </p>
+     * 
+     * @param disconnectReason
+     *        The reason why the client is disconnected. If the thing has been disconnected for approximately an hour,
+     *        the <code>disconnectReason</code> value might be missing.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ThingConnectivity withDisconnectReason(String disconnectReason) {
+        setDisconnectReason(disconnectReason);
         return this;
     }
 
@@ -152,7 +205,9 @@ public class ThingConnectivity implements Serializable, Cloneable, StructuredPoj
         if (getConnected() != null)
             sb.append("Connected: ").append(getConnected()).append(",");
         if (getTimestamp() != null)
-            sb.append("Timestamp: ").append(getTimestamp());
+            sb.append("Timestamp: ").append(getTimestamp()).append(",");
+        if (getDisconnectReason() != null)
+            sb.append("DisconnectReason: ").append(getDisconnectReason());
         sb.append("}");
         return sb.toString();
     }
@@ -175,6 +230,10 @@ public class ThingConnectivity implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getTimestamp() != null && other.getTimestamp().equals(this.getTimestamp()) == false)
             return false;
+        if (other.getDisconnectReason() == null ^ this.getDisconnectReason() == null)
+            return false;
+        if (other.getDisconnectReason() != null && other.getDisconnectReason().equals(this.getDisconnectReason()) == false)
+            return false;
         return true;
     }
 
@@ -185,6 +244,7 @@ public class ThingConnectivity implements Serializable, Cloneable, StructuredPoj
 
         hashCode = prime * hashCode + ((getConnected() == null) ? 0 : getConnected().hashCode());
         hashCode = prime * hashCode + ((getTimestamp() == null) ? 0 : getTimestamp().hashCode());
+        hashCode = prime * hashCode + ((getDisconnectReason() == null) ? 0 : getDisconnectReason().hashCode());
         return hashCode;
     }
 

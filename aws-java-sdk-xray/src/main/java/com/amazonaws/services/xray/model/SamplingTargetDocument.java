@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,8 +20,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * Temporary changes to a sampling rule configuration. To meet the global sampling target for a rule, X-Ray calculates a
- * new reservoir for each service based on the recent sampling results of all services that called
- * <a>GetSamplingTargets</a>.
+ * new reservoir for each service based on the recent sampling results of all services that called <a
+ * href="https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingTargets.html">GetSamplingTargets</a>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/SamplingTargetDocument" target="_top">AWS API
@@ -44,7 +44,7 @@ public class SamplingTargetDocument implements Serializable, Cloneable, Structur
     private Double fixedRate;
     /**
      * <p>
-     * The number of requests per second that X-Ray allocated this service.
+     * The number of requests per second that X-Ray allocated for this service.
      * </p>
      */
     private Integer reservoirQuota;
@@ -143,11 +143,11 @@ public class SamplingTargetDocument implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The number of requests per second that X-Ray allocated this service.
+     * The number of requests per second that X-Ray allocated for this service.
      * </p>
      * 
      * @param reservoirQuota
-     *        The number of requests per second that X-Ray allocated this service.
+     *        The number of requests per second that X-Ray allocated for this service.
      */
 
     public void setReservoirQuota(Integer reservoirQuota) {
@@ -156,10 +156,10 @@ public class SamplingTargetDocument implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The number of requests per second that X-Ray allocated this service.
+     * The number of requests per second that X-Ray allocated for this service.
      * </p>
      * 
-     * @return The number of requests per second that X-Ray allocated this service.
+     * @return The number of requests per second that X-Ray allocated for this service.
      */
 
     public Integer getReservoirQuota() {
@@ -168,11 +168,11 @@ public class SamplingTargetDocument implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The number of requests per second that X-Ray allocated this service.
+     * The number of requests per second that X-Ray allocated for this service.
      * </p>
      * 
      * @param reservoirQuota
-     *        The number of requests per second that X-Ray allocated this service.
+     *        The number of requests per second that X-Ray allocated for this service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

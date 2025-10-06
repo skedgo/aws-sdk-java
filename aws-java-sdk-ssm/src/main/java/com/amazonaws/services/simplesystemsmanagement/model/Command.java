@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,7 +41,7 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     private String documentName;
     /**
      * <p>
-     * The SSM document version.
+     * The Systems Manager document (SSM document) version.
      * </p>
      */
     private String documentVersion;
@@ -53,8 +53,11 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     private String comment;
     /**
      * <p>
-     * If this time is reached and the command has not already started running, it will not run. Calculated based on the
-     * ExpiresAfter user input provided as part of the SendCommand API.
+     * If a command expires, it changes status to <code>DeliveryTimedOut</code> for all invocations that have the status
+     * <code>InProgress</code>, <code>Pending</code>, or <code>Delayed</code>. <code>ExpiresAfter</code> is calculated
+     * based on the total timeout for the overall command. For more information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html?icmpid=docs_ec2_console#monitor-about-status-timeouts"
+     * >Understanding command timeout values</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      */
     private java.util.Date expiresAfter;
@@ -66,14 +69,14 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     private java.util.Map<String, java.util.List<String>> parameters;
     /**
      * <p>
-     * The instance IDs against which this command was requested.
+     * The managed node IDs against which this command was requested.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> instanceIds;
     /**
      * <p>
-     * An array of search criteria that targets instances using a Key,Value combination that you specify. Targets is
-     * required if you don't provide one or more instance IDs in the call.
+     * An array of search criteria that targets managed nodes using a Key,Value combination that you specify. Targets is
+     * required if you don't provide one or more managed node IDs in the call.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Target> targets;
@@ -91,22 +94,23 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     private String status;
     /**
      * <p>
-     * A detailed status of the command execution. StatusDetails includes more information than Status because it
-     * includes states resulting from error and concurrency control parameters. StatusDetails can show different results
-     * than Status. For more information about these statuses, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding Command
-     * Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the following values:
+     * A detailed status of the command execution. <code>StatusDetails</code> includes more information than
+     * <code>Status</code> because it includes states resulting from error and concurrency control parameters.
+     * <code>StatusDetails</code> can show different results than Status. For more information about these statuses, see
+     * <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
+     * command statuses</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. StatusDetails can be one of
+     * the following values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Pending: The command has not been sent to any instances.
+     * Pending: The command hasn't been sent to any managed nodes.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In Progress: The command has been sent to at least one instance but has not reached a final state on all
-     * instances.
+     * In Progress: The command has been sent to at least one managed node but hasn't reached a final state on all
+     * managed nodes.
      * </p>
      * </li>
      * <li>
@@ -133,19 +137,25 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * Incomplete: The command was attempted on all instances and one or more invocations does not have a value of
+     * Incomplete: The command was attempted on all managed nodes and one or more invocations doesn't have a value of
      * Success but not enough invocations failed for the status to be Failed. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Canceled: The command was terminated before it was completed. This is a terminal state.
+     * Cancelled: The command was terminated before it was completed. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Rate Exceeded: The number of instances targeted by the command exceeded the account limit for pending
-     * invocations. The system has canceled the command before running it on any instance. This is a terminal state.
+     * Rate Exceeded: The number of managed nodes targeted by the command exceeded the account limit for pending
+     * invocations. The system has canceled the command before running it on any managed node. This is a terminal state.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Delayed: The system attempted to send the command to the managed node but wasn't successful. The system retries
+     * again.
      * </p>
      * </li>
      * </ul>
@@ -154,7 +164,7 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager
-     * automatically determines the Amazon S3 bucket region.
+     * automatically determines the Amazon Web Services Region of the S3 bucket.
      * </p>
      */
     private String outputS3Region;
@@ -174,21 +184,21 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     private String outputS3KeyPrefix;
     /**
      * <p>
-     * The maximum number of instances that are allowed to run the command at the same time. You can specify a number of
-     * instances, such as 10, or a percentage of instances, such as 10%. The default value is 50. For more information
-     * about how to use MaxConcurrency, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands Using
-     * Systems Manager Run Command</a> in the <i>AWS Systems Manager User Guide</i>.
+     * The maximum number of managed nodes that are allowed to run the command at the same time. You can specify a
+     * number of managed nodes, such as 10, or a percentage of nodes, such as 10%. The default value is 50. For more
+     * information about how to use <code>MaxConcurrency</code>, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Amazon Web Services Systems
+     * Manager Run Command</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      */
     private String maxConcurrency;
     /**
      * <p>
      * The maximum number of errors allowed before the system stops sending the command to additional targets. You can
-     * specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value is 0. For more
-     * information about how to use MaxErrors, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands Using
-     * Systems Manager Run Command</a> in the <i>AWS Systems Manager User Guide</i>.
+     * specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value is
+     * <code>0</code>. For more information about how to use <code>MaxErrors</code>, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Amazon Web Services Systems
+     * Manager Run Command</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      */
     private String maxErrors;
@@ -201,7 +211,7 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The number of targets for which the command invocation reached a terminal state. Terminal states include the
-     * following: Success, Failed, Execution Timed Out, Delivery Timed Out, Canceled, Terminated, or Undeliverable.
+     * following: Success, Failed, Execution Timed Out, Delivery Timed Out, Cancelled, Terminated, or Undeliverable.
      * </p>
      */
     private Integer completedCount;
@@ -219,8 +229,8 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     private Integer deliveryTimedOutCount;
     /**
      * <p>
-     * The IAM service role that Run Command uses to act on your behalf when sending notifications about command status
-     * changes.
+     * The Identity and Access Management (IAM) service role that Run Command, a capability of Amazon Web Services
+     * Systems Manager, uses to act on your behalf when sending notifications about command status changes.
      * </p>
      */
     private String serviceRole;
@@ -232,10 +242,28 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     private NotificationConfig notificationConfig;
     /**
      * <p>
-     * CloudWatch Logs information where you want Systems Manager to send the command output.
+     * Amazon CloudWatch Logs information where you want Amazon Web Services Systems Manager to send the command output.
      * </p>
      */
     private CloudWatchOutputConfig cloudWatchOutputConfig;
+    /**
+     * <p>
+     * The <code>TimeoutSeconds</code> value specified for a command.
+     * </p>
+     */
+    private Integer timeoutSeconds;
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your command.
+     * </p>
+     */
+    private AlarmConfiguration alarmConfiguration;
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the command.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<AlarmStateInformation> triggeredAlarms;
 
     /**
      * <p>
@@ -319,11 +347,11 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The SSM document version.
+     * The Systems Manager document (SSM document) version.
      * </p>
      * 
      * @param documentVersion
-     *        The SSM document version.
+     *        The Systems Manager document (SSM document) version.
      */
 
     public void setDocumentVersion(String documentVersion) {
@@ -332,10 +360,10 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The SSM document version.
+     * The Systems Manager document (SSM document) version.
      * </p>
      * 
-     * @return The SSM document version.
+     * @return The Systems Manager document (SSM document) version.
      */
 
     public String getDocumentVersion() {
@@ -344,11 +372,11 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The SSM document version.
+     * The Systems Manager document (SSM document) version.
      * </p>
      * 
      * @param documentVersion
-     *        The SSM document version.
+     *        The Systems Manager document (SSM document) version.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -399,13 +427,19 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If this time is reached and the command has not already started running, it will not run. Calculated based on the
-     * ExpiresAfter user input provided as part of the SendCommand API.
+     * If a command expires, it changes status to <code>DeliveryTimedOut</code> for all invocations that have the status
+     * <code>InProgress</code>, <code>Pending</code>, or <code>Delayed</code>. <code>ExpiresAfter</code> is calculated
+     * based on the total timeout for the overall command. For more information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html?icmpid=docs_ec2_console#monitor-about-status-timeouts"
+     * >Understanding command timeout values</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param expiresAfter
-     *        If this time is reached and the command has not already started running, it will not run. Calculated based
-     *        on the ExpiresAfter user input provided as part of the SendCommand API.
+     *        If a command expires, it changes status to <code>DeliveryTimedOut</code> for all invocations that have the
+     *        status <code>InProgress</code>, <code>Pending</code>, or <code>Delayed</code>. <code>ExpiresAfter</code>
+     *        is calculated based on the total timeout for the overall command. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html?icmpid=docs_ec2_console#monitor-about-status-timeouts"
+     *        >Understanding command timeout values</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public void setExpiresAfter(java.util.Date expiresAfter) {
@@ -414,12 +448,19 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If this time is reached and the command has not already started running, it will not run. Calculated based on the
-     * ExpiresAfter user input provided as part of the SendCommand API.
+     * If a command expires, it changes status to <code>DeliveryTimedOut</code> for all invocations that have the status
+     * <code>InProgress</code>, <code>Pending</code>, or <code>Delayed</code>. <code>ExpiresAfter</code> is calculated
+     * based on the total timeout for the overall command. For more information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html?icmpid=docs_ec2_console#monitor-about-status-timeouts"
+     * >Understanding command timeout values</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
-     * @return If this time is reached and the command has not already started running, it will not run. Calculated
-     *         based on the ExpiresAfter user input provided as part of the SendCommand API.
+     * @return If a command expires, it changes status to <code>DeliveryTimedOut</code> for all invocations that have
+     *         the status <code>InProgress</code>, <code>Pending</code>, or <code>Delayed</code>.
+     *         <code>ExpiresAfter</code> is calculated based on the total timeout for the overall command. For more
+     *         information, see <a href=
+     *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html?icmpid=docs_ec2_console#monitor-about-status-timeouts"
+     *         >Understanding command timeout values</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public java.util.Date getExpiresAfter() {
@@ -428,13 +469,19 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If this time is reached and the command has not already started running, it will not run. Calculated based on the
-     * ExpiresAfter user input provided as part of the SendCommand API.
+     * If a command expires, it changes status to <code>DeliveryTimedOut</code> for all invocations that have the status
+     * <code>InProgress</code>, <code>Pending</code>, or <code>Delayed</code>. <code>ExpiresAfter</code> is calculated
+     * based on the total timeout for the overall command. For more information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html?icmpid=docs_ec2_console#monitor-about-status-timeouts"
+     * >Understanding command timeout values</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param expiresAfter
-     *        If this time is reached and the command has not already started running, it will not run. Calculated based
-     *        on the ExpiresAfter user input provided as part of the SendCommand API.
+     *        If a command expires, it changes status to <code>DeliveryTimedOut</code> for all invocations that have the
+     *        status <code>InProgress</code>, <code>Pending</code>, or <code>Delayed</code>. <code>ExpiresAfter</code>
+     *        is calculated based on the total timeout for the overall command. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html?icmpid=docs_ec2_console#monitor-about-status-timeouts"
+     *        >Understanding command timeout values</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -483,6 +530,13 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
         return this;
     }
 
+    /**
+     * Add a single Parameters entry
+     *
+     * @see Command#withParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public Command addParametersEntry(String key, java.util.List<String> value) {
         if (null == this.parameters) {
             this.parameters = new java.util.HashMap<String, java.util.List<String>>();
@@ -506,10 +560,10 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The instance IDs against which this command was requested.
+     * The managed node IDs against which this command was requested.
      * </p>
      * 
-     * @return The instance IDs against which this command was requested.
+     * @return The managed node IDs against which this command was requested.
      */
 
     public java.util.List<String> getInstanceIds() {
@@ -521,11 +575,11 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The instance IDs against which this command was requested.
+     * The managed node IDs against which this command was requested.
      * </p>
      * 
      * @param instanceIds
-     *        The instance IDs against which this command was requested.
+     *        The managed node IDs against which this command was requested.
      */
 
     public void setInstanceIds(java.util.Collection<String> instanceIds) {
@@ -539,7 +593,7 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The instance IDs against which this command was requested.
+     * The managed node IDs against which this command was requested.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -548,7 +602,7 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param instanceIds
-     *        The instance IDs against which this command was requested.
+     *        The managed node IDs against which this command was requested.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -564,11 +618,11 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The instance IDs against which this command was requested.
+     * The managed node IDs against which this command was requested.
      * </p>
      * 
      * @param instanceIds
-     *        The instance IDs against which this command was requested.
+     *        The managed node IDs against which this command was requested.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -579,12 +633,12 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An array of search criteria that targets instances using a Key,Value combination that you specify. Targets is
-     * required if you don't provide one or more instance IDs in the call.
+     * An array of search criteria that targets managed nodes using a Key,Value combination that you specify. Targets is
+     * required if you don't provide one or more managed node IDs in the call.
      * </p>
      * 
-     * @return An array of search criteria that targets instances using a Key,Value combination that you specify.
-     *         Targets is required if you don't provide one or more instance IDs in the call.
+     * @return An array of search criteria that targets managed nodes using a Key,Value combination that you specify.
+     *         Targets is required if you don't provide one or more managed node IDs in the call.
      */
 
     public java.util.List<Target> getTargets() {
@@ -596,13 +650,13 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An array of search criteria that targets instances using a Key,Value combination that you specify. Targets is
-     * required if you don't provide one or more instance IDs in the call.
+     * An array of search criteria that targets managed nodes using a Key,Value combination that you specify. Targets is
+     * required if you don't provide one or more managed node IDs in the call.
      * </p>
      * 
      * @param targets
-     *        An array of search criteria that targets instances using a Key,Value combination that you specify. Targets
-     *        is required if you don't provide one or more instance IDs in the call.
+     *        An array of search criteria that targets managed nodes using a Key,Value combination that you specify.
+     *        Targets is required if you don't provide one or more managed node IDs in the call.
      */
 
     public void setTargets(java.util.Collection<Target> targets) {
@@ -616,8 +670,8 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An array of search criteria that targets instances using a Key,Value combination that you specify. Targets is
-     * required if you don't provide one or more instance IDs in the call.
+     * An array of search criteria that targets managed nodes using a Key,Value combination that you specify. Targets is
+     * required if you don't provide one or more managed node IDs in the call.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -626,8 +680,8 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param targets
-     *        An array of search criteria that targets instances using a Key,Value combination that you specify. Targets
-     *        is required if you don't provide one or more instance IDs in the call.
+     *        An array of search criteria that targets managed nodes using a Key,Value combination that you specify.
+     *        Targets is required if you don't provide one or more managed node IDs in the call.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -643,13 +697,13 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An array of search criteria that targets instances using a Key,Value combination that you specify. Targets is
-     * required if you don't provide one or more instance IDs in the call.
+     * An array of search criteria that targets managed nodes using a Key,Value combination that you specify. Targets is
+     * required if you don't provide one or more managed node IDs in the call.
      * </p>
      * 
      * @param targets
-     *        An array of search criteria that targets instances using a Key,Value combination that you specify. Targets
-     *        is required if you don't provide one or more instance IDs in the call.
+     *        An array of search criteria that targets managed nodes using a Key,Value combination that you specify.
+     *        Targets is required if you don't provide one or more managed node IDs in the call.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -773,22 +827,23 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A detailed status of the command execution. StatusDetails includes more information than Status because it
-     * includes states resulting from error and concurrency control parameters. StatusDetails can show different results
-     * than Status. For more information about these statuses, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding Command
-     * Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the following values:
+     * A detailed status of the command execution. <code>StatusDetails</code> includes more information than
+     * <code>Status</code> because it includes states resulting from error and concurrency control parameters.
+     * <code>StatusDetails</code> can show different results than Status. For more information about these statuses, see
+     * <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
+     * command statuses</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. StatusDetails can be one of
+     * the following values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Pending: The command has not been sent to any instances.
+     * Pending: The command hasn't been sent to any managed nodes.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In Progress: The command has been sent to at least one instance but has not reached a final state on all
-     * instances.
+     * In Progress: The command has been sent to at least one managed node but hasn't reached a final state on all
+     * managed nodes.
      * </p>
      * </li>
      * <li>
@@ -815,40 +870,47 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * Incomplete: The command was attempted on all instances and one or more invocations does not have a value of
+     * Incomplete: The command was attempted on all managed nodes and one or more invocations doesn't have a value of
      * Success but not enough invocations failed for the status to be Failed. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Canceled: The command was terminated before it was completed. This is a terminal state.
+     * Cancelled: The command was terminated before it was completed. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Rate Exceeded: The number of instances targeted by the command exceeded the account limit for pending
-     * invocations. The system has canceled the command before running it on any instance. This is a terminal state.
+     * Rate Exceeded: The number of managed nodes targeted by the command exceeded the account limit for pending
+     * invocations. The system has canceled the command before running it on any managed node. This is a terminal state.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Delayed: The system attempted to send the command to the managed node but wasn't successful. The system retries
+     * again.
      * </p>
      * </li>
      * </ul>
      * 
      * @param statusDetails
-     *        A detailed status of the command execution. StatusDetails includes more information than Status because it
-     *        includes states resulting from error and concurrency control parameters. StatusDetails can show different
-     *        results than Status. For more information about these statuses, see <a
-     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
-     *        Command Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the
-     *        following values:</p>
+     *        A detailed status of the command execution. <code>StatusDetails</code> includes more information than
+     *        <code>Status</code> because it includes states resulting from error and concurrency control parameters.
+     *        <code>StatusDetails</code> can show different results than Status. For more information about these
+     *        statuses, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
+     *        command statuses</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. StatusDetails can be
+     *        one of the following values:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Pending: The command has not been sent to any instances.
+     *        Pending: The command hasn't been sent to any managed nodes.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In Progress: The command has been sent to at least one instance but has not reached a final state on all
-     *        instances.
+     *        In Progress: The command has been sent to at least one managed node but hasn't reached a final state on
+     *        all managed nodes.
      *        </p>
      *        </li>
      *        <li>
@@ -876,20 +938,26 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        Incomplete: The command was attempted on all instances and one or more invocations does not have a value
-     *        of Success but not enough invocations failed for the status to be Failed. This is a terminal state.
+     *        Incomplete: The command was attempted on all managed nodes and one or more invocations doesn't have a
+     *        value of Success but not enough invocations failed for the status to be Failed. This is a terminal state.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Canceled: The command was terminated before it was completed. This is a terminal state.
+     *        Cancelled: The command was terminated before it was completed. This is a terminal state.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Rate Exceeded: The number of instances targeted by the command exceeded the account limit for pending
-     *        invocations. The system has canceled the command before running it on any instance. This is a terminal
+     *        Rate Exceeded: The number of managed nodes targeted by the command exceeded the account limit for pending
+     *        invocations. The system has canceled the command before running it on any managed node. This is a terminal
      *        state.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Delayed: The system attempted to send the command to the managed node but wasn't successful. The system
+     *        retries again.
      *        </p>
      *        </li>
      */
@@ -900,22 +968,23 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A detailed status of the command execution. StatusDetails includes more information than Status because it
-     * includes states resulting from error and concurrency control parameters. StatusDetails can show different results
-     * than Status. For more information about these statuses, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding Command
-     * Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the following values:
+     * A detailed status of the command execution. <code>StatusDetails</code> includes more information than
+     * <code>Status</code> because it includes states resulting from error and concurrency control parameters.
+     * <code>StatusDetails</code> can show different results than Status. For more information about these statuses, see
+     * <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
+     * command statuses</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. StatusDetails can be one of
+     * the following values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Pending: The command has not been sent to any instances.
+     * Pending: The command hasn't been sent to any managed nodes.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In Progress: The command has been sent to at least one instance but has not reached a final state on all
-     * instances.
+     * In Progress: The command has been sent to at least one managed node but hasn't reached a final state on all
+     * managed nodes.
      * </p>
      * </li>
      * <li>
@@ -942,39 +1011,46 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * Incomplete: The command was attempted on all instances and one or more invocations does not have a value of
+     * Incomplete: The command was attempted on all managed nodes and one or more invocations doesn't have a value of
      * Success but not enough invocations failed for the status to be Failed. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Canceled: The command was terminated before it was completed. This is a terminal state.
+     * Cancelled: The command was terminated before it was completed. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Rate Exceeded: The number of instances targeted by the command exceeded the account limit for pending
-     * invocations. The system has canceled the command before running it on any instance. This is a terminal state.
+     * Rate Exceeded: The number of managed nodes targeted by the command exceeded the account limit for pending
+     * invocations. The system has canceled the command before running it on any managed node. This is a terminal state.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Delayed: The system attempted to send the command to the managed node but wasn't successful. The system retries
+     * again.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return A detailed status of the command execution. StatusDetails includes more information than Status because
-     *         it includes states resulting from error and concurrency control parameters. StatusDetails can show
-     *         different results than Status. For more information about these statuses, see <a
-     *         href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
-     *         Command Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the
-     *         following values:</p>
+     * @return A detailed status of the command execution. <code>StatusDetails</code> includes more information than
+     *         <code>Status</code> because it includes states resulting from error and concurrency control parameters.
+     *         <code>StatusDetails</code> can show different results than Status. For more information about these
+     *         statuses, see <a
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
+     *         command statuses</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. StatusDetails can be
+     *         one of the following values:</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Pending: The command has not been sent to any instances.
+     *         Pending: The command hasn't been sent to any managed nodes.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         In Progress: The command has been sent to at least one instance but has not reached a final state on all
-     *         instances.
+     *         In Progress: The command has been sent to at least one managed node but hasn't reached a final state on
+     *         all managed nodes.
      *         </p>
      *         </li>
      *         <li>
@@ -1002,20 +1078,26 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
-     *         Incomplete: The command was attempted on all instances and one or more invocations does not have a value
-     *         of Success but not enough invocations failed for the status to be Failed. This is a terminal state.
+     *         Incomplete: The command was attempted on all managed nodes and one or more invocations doesn't have a
+     *         value of Success but not enough invocations failed for the status to be Failed. This is a terminal state.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Canceled: The command was terminated before it was completed. This is a terminal state.
+     *         Cancelled: The command was terminated before it was completed. This is a terminal state.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Rate Exceeded: The number of instances targeted by the command exceeded the account limit for pending
-     *         invocations. The system has canceled the command before running it on any instance. This is a terminal
-     *         state.
+     *         Rate Exceeded: The number of managed nodes targeted by the command exceeded the account limit for pending
+     *         invocations. The system has canceled the command before running it on any managed node. This is a
+     *         terminal state.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Delayed: The system attempted to send the command to the managed node but wasn't successful. The system
+     *         retries again.
      *         </p>
      *         </li>
      */
@@ -1026,22 +1108,23 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A detailed status of the command execution. StatusDetails includes more information than Status because it
-     * includes states resulting from error and concurrency control parameters. StatusDetails can show different results
-     * than Status. For more information about these statuses, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding Command
-     * Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the following values:
+     * A detailed status of the command execution. <code>StatusDetails</code> includes more information than
+     * <code>Status</code> because it includes states resulting from error and concurrency control parameters.
+     * <code>StatusDetails</code> can show different results than Status. For more information about these statuses, see
+     * <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
+     * command statuses</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. StatusDetails can be one of
+     * the following values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Pending: The command has not been sent to any instances.
+     * Pending: The command hasn't been sent to any managed nodes.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In Progress: The command has been sent to at least one instance but has not reached a final state on all
-     * instances.
+     * In Progress: The command has been sent to at least one managed node but hasn't reached a final state on all
+     * managed nodes.
      * </p>
      * </li>
      * <li>
@@ -1068,40 +1151,47 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * Incomplete: The command was attempted on all instances and one or more invocations does not have a value of
+     * Incomplete: The command was attempted on all managed nodes and one or more invocations doesn't have a value of
      * Success but not enough invocations failed for the status to be Failed. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Canceled: The command was terminated before it was completed. This is a terminal state.
+     * Cancelled: The command was terminated before it was completed. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Rate Exceeded: The number of instances targeted by the command exceeded the account limit for pending
-     * invocations. The system has canceled the command before running it on any instance. This is a terminal state.
+     * Rate Exceeded: The number of managed nodes targeted by the command exceeded the account limit for pending
+     * invocations. The system has canceled the command before running it on any managed node. This is a terminal state.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Delayed: The system attempted to send the command to the managed node but wasn't successful. The system retries
+     * again.
      * </p>
      * </li>
      * </ul>
      * 
      * @param statusDetails
-     *        A detailed status of the command execution. StatusDetails includes more information than Status because it
-     *        includes states resulting from error and concurrency control parameters. StatusDetails can show different
-     *        results than Status. For more information about these statuses, see <a
-     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
-     *        Command Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the
-     *        following values:</p>
+     *        A detailed status of the command execution. <code>StatusDetails</code> includes more information than
+     *        <code>Status</code> because it includes states resulting from error and concurrency control parameters.
+     *        <code>StatusDetails</code> can show different results than Status. For more information about these
+     *        statuses, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
+     *        command statuses</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. StatusDetails can be
+     *        one of the following values:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Pending: The command has not been sent to any instances.
+     *        Pending: The command hasn't been sent to any managed nodes.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In Progress: The command has been sent to at least one instance but has not reached a final state on all
-     *        instances.
+     *        In Progress: The command has been sent to at least one managed node but hasn't reached a final state on
+     *        all managed nodes.
      *        </p>
      *        </li>
      *        <li>
@@ -1129,20 +1219,26 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        Incomplete: The command was attempted on all instances and one or more invocations does not have a value
-     *        of Success but not enough invocations failed for the status to be Failed. This is a terminal state.
+     *        Incomplete: The command was attempted on all managed nodes and one or more invocations doesn't have a
+     *        value of Success but not enough invocations failed for the status to be Failed. This is a terminal state.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Canceled: The command was terminated before it was completed. This is a terminal state.
+     *        Cancelled: The command was terminated before it was completed. This is a terminal state.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Rate Exceeded: The number of instances targeted by the command exceeded the account limit for pending
-     *        invocations. The system has canceled the command before running it on any instance. This is a terminal
+     *        Rate Exceeded: The number of managed nodes targeted by the command exceeded the account limit for pending
+     *        invocations. The system has canceled the command before running it on any managed node. This is a terminal
      *        state.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Delayed: The system attempted to send the command to the managed node but wasn't successful. The system
+     *        retries again.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1156,12 +1252,12 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager
-     * automatically determines the Amazon S3 bucket region.
+     * automatically determines the Amazon Web Services Region of the S3 bucket.
      * </p>
      * 
      * @param outputS3Region
      *        (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager
-     *        automatically determines the Amazon S3 bucket region.
+     *        automatically determines the Amazon Web Services Region of the S3 bucket.
      */
 
     public void setOutputS3Region(String outputS3Region) {
@@ -1171,11 +1267,11 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager
-     * automatically determines the Amazon S3 bucket region.
+     * automatically determines the Amazon Web Services Region of the S3 bucket.
      * </p>
      * 
      * @return (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager
-     *         automatically determines the Amazon S3 bucket region.
+     *         automatically determines the Amazon Web Services Region of the S3 bucket.
      */
 
     public String getOutputS3Region() {
@@ -1185,12 +1281,12 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager
-     * automatically determines the Amazon S3 bucket region.
+     * automatically determines the Amazon Web Services Region of the S3 bucket.
      * </p>
      * 
      * @param outputS3Region
      *        (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager
-     *        automatically determines the Amazon S3 bucket region.
+     *        automatically determines the Amazon Web Services Region of the S3 bucket.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1293,19 +1389,19 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of instances that are allowed to run the command at the same time. You can specify a number of
-     * instances, such as 10, or a percentage of instances, such as 10%. The default value is 50. For more information
-     * about how to use MaxConcurrency, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands Using
-     * Systems Manager Run Command</a> in the <i>AWS Systems Manager User Guide</i>.
+     * The maximum number of managed nodes that are allowed to run the command at the same time. You can specify a
+     * number of managed nodes, such as 10, or a percentage of nodes, such as 10%. The default value is 50. For more
+     * information about how to use <code>MaxConcurrency</code>, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Amazon Web Services Systems
+     * Manager Run Command</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param maxConcurrency
-     *        The maximum number of instances that are allowed to run the command at the same time. You can specify a
-     *        number of instances, such as 10, or a percentage of instances, such as 10%. The default value is 50. For
-     *        more information about how to use MaxConcurrency, see <a
-     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands Using
-     *        Systems Manager Run Command</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        The maximum number of managed nodes that are allowed to run the command at the same time. You can specify
+     *        a number of managed nodes, such as 10, or a percentage of nodes, such as 10%. The default value is 50. For
+     *        more information about how to use <code>MaxConcurrency</code>, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Amazon Web Services
+     *        Systems Manager Run Command</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public void setMaxConcurrency(String maxConcurrency) {
@@ -1314,18 +1410,18 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of instances that are allowed to run the command at the same time. You can specify a number of
-     * instances, such as 10, or a percentage of instances, such as 10%. The default value is 50. For more information
-     * about how to use MaxConcurrency, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands Using
-     * Systems Manager Run Command</a> in the <i>AWS Systems Manager User Guide</i>.
+     * The maximum number of managed nodes that are allowed to run the command at the same time. You can specify a
+     * number of managed nodes, such as 10, or a percentage of nodes, such as 10%. The default value is 50. For more
+     * information about how to use <code>MaxConcurrency</code>, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Amazon Web Services Systems
+     * Manager Run Command</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
-     * @return The maximum number of instances that are allowed to run the command at the same time. You can specify a
-     *         number of instances, such as 10, or a percentage of instances, such as 10%. The default value is 50. For
-     *         more information about how to use MaxConcurrency, see <a
-     *         href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands
-     *         Using Systems Manager Run Command</a> in the <i>AWS Systems Manager User Guide</i>.
+     * @return The maximum number of managed nodes that are allowed to run the command at the same time. You can specify
+     *         a number of managed nodes, such as 10, or a percentage of nodes, such as 10%. The default value is 50.
+     *         For more information about how to use <code>MaxConcurrency</code>, see <a
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Amazon Web Services
+     *         Systems Manager Run Command</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public String getMaxConcurrency() {
@@ -1334,19 +1430,19 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of instances that are allowed to run the command at the same time. You can specify a number of
-     * instances, such as 10, or a percentage of instances, such as 10%. The default value is 50. For more information
-     * about how to use MaxConcurrency, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands Using
-     * Systems Manager Run Command</a> in the <i>AWS Systems Manager User Guide</i>.
+     * The maximum number of managed nodes that are allowed to run the command at the same time. You can specify a
+     * number of managed nodes, such as 10, or a percentage of nodes, such as 10%. The default value is 50. For more
+     * information about how to use <code>MaxConcurrency</code>, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Amazon Web Services Systems
+     * Manager Run Command</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param maxConcurrency
-     *        The maximum number of instances that are allowed to run the command at the same time. You can specify a
-     *        number of instances, such as 10, or a percentage of instances, such as 10%. The default value is 50. For
-     *        more information about how to use MaxConcurrency, see <a
-     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands Using
-     *        Systems Manager Run Command</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        The maximum number of managed nodes that are allowed to run the command at the same time. You can specify
+     *        a number of managed nodes, such as 10, or a percentage of nodes, such as 10%. The default value is 50. For
+     *        more information about how to use <code>MaxConcurrency</code>, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Amazon Web Services
+     *        Systems Manager Run Command</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1358,18 +1454,18 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The maximum number of errors allowed before the system stops sending the command to additional targets. You can
-     * specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value is 0. For more
-     * information about how to use MaxErrors, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands Using
-     * Systems Manager Run Command</a> in the <i>AWS Systems Manager User Guide</i>.
+     * specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value is
+     * <code>0</code>. For more information about how to use <code>MaxErrors</code>, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Amazon Web Services Systems
+     * Manager Run Command</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param maxErrors
      *        The maximum number of errors allowed before the system stops sending the command to additional targets.
      *        You can specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value
-     *        is 0. For more information about how to use MaxErrors, see <a
-     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands Using
-     *        Systems Manager Run Command</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        is <code>0</code>. For more information about how to use <code>MaxErrors</code>, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Amazon Web Services
+     *        Systems Manager Run Command</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public void setMaxErrors(String maxErrors) {
@@ -1379,17 +1475,17 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The maximum number of errors allowed before the system stops sending the command to additional targets. You can
-     * specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value is 0. For more
-     * information about how to use MaxErrors, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands Using
-     * Systems Manager Run Command</a> in the <i>AWS Systems Manager User Guide</i>.
+     * specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value is
+     * <code>0</code>. For more information about how to use <code>MaxErrors</code>, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Amazon Web Services Systems
+     * Manager Run Command</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @return The maximum number of errors allowed before the system stops sending the command to additional targets.
      *         You can specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value
-     *         is 0. For more information about how to use MaxErrors, see <a
-     *         href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands
-     *         Using Systems Manager Run Command</a> in the <i>AWS Systems Manager User Guide</i>.
+     *         is <code>0</code>. For more information about how to use <code>MaxErrors</code>, see <a
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Amazon Web Services
+     *         Systems Manager Run Command</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public String getMaxErrors() {
@@ -1399,18 +1495,18 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The maximum number of errors allowed before the system stops sending the command to additional targets. You can
-     * specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value is 0. For more
-     * information about how to use MaxErrors, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands Using
-     * Systems Manager Run Command</a> in the <i>AWS Systems Manager User Guide</i>.
+     * specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value is
+     * <code>0</code>. For more information about how to use <code>MaxErrors</code>, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Amazon Web Services Systems
+     * Manager Run Command</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param maxErrors
      *        The maximum number of errors allowed before the system stops sending the command to additional targets.
      *        You can specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value
-     *        is 0. For more information about how to use MaxErrors, see <a
-     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands Using
-     *        Systems Manager Run Command</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        is <code>0</code>. For more information about how to use <code>MaxErrors</code>, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Amazon Web Services
+     *        Systems Manager Run Command</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1462,12 +1558,12 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The number of targets for which the command invocation reached a terminal state. Terminal states include the
-     * following: Success, Failed, Execution Timed Out, Delivery Timed Out, Canceled, Terminated, or Undeliverable.
+     * following: Success, Failed, Execution Timed Out, Delivery Timed Out, Cancelled, Terminated, or Undeliverable.
      * </p>
      * 
      * @param completedCount
      *        The number of targets for which the command invocation reached a terminal state. Terminal states include
-     *        the following: Success, Failed, Execution Timed Out, Delivery Timed Out, Canceled, Terminated, or
+     *        the following: Success, Failed, Execution Timed Out, Delivery Timed Out, Cancelled, Terminated, or
      *        Undeliverable.
      */
 
@@ -1478,11 +1574,11 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The number of targets for which the command invocation reached a terminal state. Terminal states include the
-     * following: Success, Failed, Execution Timed Out, Delivery Timed Out, Canceled, Terminated, or Undeliverable.
+     * following: Success, Failed, Execution Timed Out, Delivery Timed Out, Cancelled, Terminated, or Undeliverable.
      * </p>
      * 
      * @return The number of targets for which the command invocation reached a terminal state. Terminal states include
-     *         the following: Success, Failed, Execution Timed Out, Delivery Timed Out, Canceled, Terminated, or
+     *         the following: Success, Failed, Execution Timed Out, Delivery Timed Out, Cancelled, Terminated, or
      *         Undeliverable.
      */
 
@@ -1493,12 +1589,12 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The number of targets for which the command invocation reached a terminal state. Terminal states include the
-     * following: Success, Failed, Execution Timed Out, Delivery Timed Out, Canceled, Terminated, or Undeliverable.
+     * following: Success, Failed, Execution Timed Out, Delivery Timed Out, Cancelled, Terminated, or Undeliverable.
      * </p>
      * 
      * @param completedCount
      *        The number of targets for which the command invocation reached a terminal state. Terminal states include
-     *        the following: Success, Failed, Execution Timed Out, Delivery Timed Out, Canceled, Terminated, or
+     *        the following: Success, Failed, Execution Timed Out, Delivery Timed Out, Cancelled, Terminated, or
      *        Undeliverable.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1590,13 +1686,14 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The IAM service role that Run Command uses to act on your behalf when sending notifications about command status
-     * changes.
+     * The Identity and Access Management (IAM) service role that Run Command, a capability of Amazon Web Services
+     * Systems Manager, uses to act on your behalf when sending notifications about command status changes.
      * </p>
      * 
      * @param serviceRole
-     *        The IAM service role that Run Command uses to act on your behalf when sending notifications about command
-     *        status changes.
+     *        The Identity and Access Management (IAM) service role that Run Command, a capability of Amazon Web
+     *        Services Systems Manager, uses to act on your behalf when sending notifications about command status
+     *        changes.
      */
 
     public void setServiceRole(String serviceRole) {
@@ -1605,12 +1702,13 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The IAM service role that Run Command uses to act on your behalf when sending notifications about command status
-     * changes.
+     * The Identity and Access Management (IAM) service role that Run Command, a capability of Amazon Web Services
+     * Systems Manager, uses to act on your behalf when sending notifications about command status changes.
      * </p>
      * 
-     * @return The IAM service role that Run Command uses to act on your behalf when sending notifications about command
-     *         status changes.
+     * @return The Identity and Access Management (IAM) service role that Run Command, a capability of Amazon Web
+     *         Services Systems Manager, uses to act on your behalf when sending notifications about command status
+     *         changes.
      */
 
     public String getServiceRole() {
@@ -1619,13 +1717,14 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The IAM service role that Run Command uses to act on your behalf when sending notifications about command status
-     * changes.
+     * The Identity and Access Management (IAM) service role that Run Command, a capability of Amazon Web Services
+     * Systems Manager, uses to act on your behalf when sending notifications about command status changes.
      * </p>
      * 
      * @param serviceRole
-     *        The IAM service role that Run Command uses to act on your behalf when sending notifications about command
-     *        status changes.
+     *        The Identity and Access Management (IAM) service role that Run Command, a capability of Amazon Web
+     *        Services Systems Manager, uses to act on your behalf when sending notifications about command status
+     *        changes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1676,11 +1775,12 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * CloudWatch Logs information where you want Systems Manager to send the command output.
+     * Amazon CloudWatch Logs information where you want Amazon Web Services Systems Manager to send the command output.
      * </p>
      * 
      * @param cloudWatchOutputConfig
-     *        CloudWatch Logs information where you want Systems Manager to send the command output.
+     *        Amazon CloudWatch Logs information where you want Amazon Web Services Systems Manager to send the command
+     *        output.
      */
 
     public void setCloudWatchOutputConfig(CloudWatchOutputConfig cloudWatchOutputConfig) {
@@ -1689,10 +1789,11 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * CloudWatch Logs information where you want Systems Manager to send the command output.
+     * Amazon CloudWatch Logs information where you want Amazon Web Services Systems Manager to send the command output.
      * </p>
      * 
-     * @return CloudWatch Logs information where you want Systems Manager to send the command output.
+     * @return Amazon CloudWatch Logs information where you want Amazon Web Services Systems Manager to send the command
+     *         output.
      */
 
     public CloudWatchOutputConfig getCloudWatchOutputConfig() {
@@ -1701,16 +1802,170 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * CloudWatch Logs information where you want Systems Manager to send the command output.
+     * Amazon CloudWatch Logs information where you want Amazon Web Services Systems Manager to send the command output.
      * </p>
      * 
      * @param cloudWatchOutputConfig
-     *        CloudWatch Logs information where you want Systems Manager to send the command output.
+     *        Amazon CloudWatch Logs information where you want Amazon Web Services Systems Manager to send the command
+     *        output.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Command withCloudWatchOutputConfig(CloudWatchOutputConfig cloudWatchOutputConfig) {
         setCloudWatchOutputConfig(cloudWatchOutputConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The <code>TimeoutSeconds</code> value specified for a command.
+     * </p>
+     * 
+     * @param timeoutSeconds
+     *        The <code>TimeoutSeconds</code> value specified for a command.
+     */
+
+    public void setTimeoutSeconds(Integer timeoutSeconds) {
+        this.timeoutSeconds = timeoutSeconds;
+    }
+
+    /**
+     * <p>
+     * The <code>TimeoutSeconds</code> value specified for a command.
+     * </p>
+     * 
+     * @return The <code>TimeoutSeconds</code> value specified for a command.
+     */
+
+    public Integer getTimeoutSeconds() {
+        return this.timeoutSeconds;
+    }
+
+    /**
+     * <p>
+     * The <code>TimeoutSeconds</code> value specified for a command.
+     * </p>
+     * 
+     * @param timeoutSeconds
+     *        The <code>TimeoutSeconds</code> value specified for a command.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Command withTimeoutSeconds(Integer timeoutSeconds) {
+        setTimeoutSeconds(timeoutSeconds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your command.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The details for the CloudWatch alarm applied to your command.
+     */
+
+    public void setAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        this.alarmConfiguration = alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your command.
+     * </p>
+     * 
+     * @return The details for the CloudWatch alarm applied to your command.
+     */
+
+    public AlarmConfiguration getAlarmConfiguration() {
+        return this.alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your command.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The details for the CloudWatch alarm applied to your command.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Command withAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        setAlarmConfiguration(alarmConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the command.
+     * </p>
+     * 
+     * @return The CloudWatch alarm that was invoked by the command.
+     */
+
+    public java.util.List<AlarmStateInformation> getTriggeredAlarms() {
+        if (triggeredAlarms == null) {
+            triggeredAlarms = new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>();
+        }
+        return triggeredAlarms;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the command.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarm that was invoked by the command.
+     */
+
+    public void setTriggeredAlarms(java.util.Collection<AlarmStateInformation> triggeredAlarms) {
+        if (triggeredAlarms == null) {
+            this.triggeredAlarms = null;
+            return;
+        }
+
+        this.triggeredAlarms = new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>(triggeredAlarms);
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the command.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTriggeredAlarms(java.util.Collection)} or {@link #withTriggeredAlarms(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarm that was invoked by the command.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Command withTriggeredAlarms(AlarmStateInformation... triggeredAlarms) {
+        if (this.triggeredAlarms == null) {
+            setTriggeredAlarms(new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>(triggeredAlarms.length));
+        }
+        for (AlarmStateInformation ele : triggeredAlarms) {
+            this.triggeredAlarms.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the command.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarm that was invoked by the command.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Command withTriggeredAlarms(java.util.Collection<AlarmStateInformation> triggeredAlarms) {
+        setTriggeredAlarms(triggeredAlarms);
         return this;
     }
 
@@ -1737,7 +1992,7 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
         if (getExpiresAfter() != null)
             sb.append("ExpiresAfter: ").append(getExpiresAfter()).append(",");
         if (getParameters() != null)
-            sb.append("Parameters: ").append(getParameters()).append(",");
+            sb.append("Parameters: ").append("***Sensitive Data Redacted***").append(",");
         if (getInstanceIds() != null)
             sb.append("InstanceIds: ").append(getInstanceIds()).append(",");
         if (getTargets() != null)
@@ -1771,7 +2026,13 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
         if (getNotificationConfig() != null)
             sb.append("NotificationConfig: ").append(getNotificationConfig()).append(",");
         if (getCloudWatchOutputConfig() != null)
-            sb.append("CloudWatchOutputConfig: ").append(getCloudWatchOutputConfig());
+            sb.append("CloudWatchOutputConfig: ").append(getCloudWatchOutputConfig()).append(",");
+        if (getTimeoutSeconds() != null)
+            sb.append("TimeoutSeconds: ").append(getTimeoutSeconds()).append(",");
+        if (getAlarmConfiguration() != null)
+            sb.append("AlarmConfiguration: ").append(getAlarmConfiguration()).append(",");
+        if (getTriggeredAlarms() != null)
+            sb.append("TriggeredAlarms: ").append(getTriggeredAlarms());
         sb.append("}");
         return sb.toString();
     }
@@ -1878,6 +2139,18 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getCloudWatchOutputConfig() != null && other.getCloudWatchOutputConfig().equals(this.getCloudWatchOutputConfig()) == false)
             return false;
+        if (other.getTimeoutSeconds() == null ^ this.getTimeoutSeconds() == null)
+            return false;
+        if (other.getTimeoutSeconds() != null && other.getTimeoutSeconds().equals(this.getTimeoutSeconds()) == false)
+            return false;
+        if (other.getAlarmConfiguration() == null ^ this.getAlarmConfiguration() == null)
+            return false;
+        if (other.getAlarmConfiguration() != null && other.getAlarmConfiguration().equals(this.getAlarmConfiguration()) == false)
+            return false;
+        if (other.getTriggeredAlarms() == null ^ this.getTriggeredAlarms() == null)
+            return false;
+        if (other.getTriggeredAlarms() != null && other.getTriggeredAlarms().equals(this.getTriggeredAlarms()) == false)
+            return false;
         return true;
     }
 
@@ -1909,6 +2182,9 @@ public class Command implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getServiceRole() == null) ? 0 : getServiceRole().hashCode());
         hashCode = prime * hashCode + ((getNotificationConfig() == null) ? 0 : getNotificationConfig().hashCode());
         hashCode = prime * hashCode + ((getCloudWatchOutputConfig() == null) ? 0 : getCloudWatchOutputConfig().hashCode());
+        hashCode = prime * hashCode + ((getTimeoutSeconds() == null) ? 0 : getTimeoutSeconds().hashCode());
+        hashCode = prime * hashCode + ((getAlarmConfiguration() == null) ? 0 : getAlarmConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getTriggeredAlarms() == null) ? 0 : getTriggeredAlarms().hashCode());
         return hashCode;
     }
 

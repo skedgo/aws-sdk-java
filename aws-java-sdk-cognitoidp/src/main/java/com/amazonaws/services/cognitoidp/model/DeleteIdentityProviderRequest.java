@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,7 @@ public class DeleteIdentityProviderRequest extends com.amazonaws.AmazonWebServic
     private String userPoolId;
     /**
      * <p>
-     * The identity provider name.
+     * The IdP name.
      * </p>
      */
     private String providerName;
@@ -80,11 +80,11 @@ public class DeleteIdentityProviderRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The identity provider name.
+     * The IdP name.
      * </p>
      * 
      * @param providerName
-     *        The identity provider name.
+     *        The IdP name.
      */
 
     public void setProviderName(String providerName) {
@@ -93,10 +93,10 @@ public class DeleteIdentityProviderRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The identity provider name.
+     * The IdP name.
      * </p>
      * 
-     * @return The identity provider name.
+     * @return The IdP name.
      */
 
     public String getProviderName() {
@@ -105,11 +105,11 @@ public class DeleteIdentityProviderRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The identity provider name.
+     * The IdP name.
      * </p>
      * 
      * @param providerName
-     *        The identity provider name.
+     *        The IdP name.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

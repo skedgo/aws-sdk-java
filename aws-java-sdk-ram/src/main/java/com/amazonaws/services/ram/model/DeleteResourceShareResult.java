@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,24 +25,29 @@ public class DeleteResourceShareResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Indicates whether the request succeeded.
+     * A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code> indicates
+     * that the request failed.
      * </p>
      */
     private Boolean returnValue;
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * The idempotency identifier associated with this request. If you want to repeat the same operation in an
+     * idempotent manner then you must include this value in the <code>clientToken</code> request parameter of that
+     * later call. All other parameters must also have the same values that you used in the first call.
      * </p>
      */
     private String clientToken;
 
     /**
      * <p>
-     * Indicates whether the request succeeded.
+     * A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code> indicates
+     * that the request failed.
      * </p>
      * 
      * @param returnValue
-     *        Indicates whether the request succeeded.
+     *        A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code>
+     *        indicates that the request failed.
      */
 
     public void setReturnValue(Boolean returnValue) {
@@ -51,10 +56,12 @@ public class DeleteResourceShareResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Indicates whether the request succeeded.
+     * A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code> indicates
+     * that the request failed.
      * </p>
      * 
-     * @return Indicates whether the request succeeded.
+     * @return A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code>
+     *         indicates that the request failed.
      */
 
     public Boolean getReturnValue() {
@@ -63,11 +70,13 @@ public class DeleteResourceShareResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Indicates whether the request succeeded.
+     * A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code> indicates
+     * that the request failed.
      * </p>
      * 
      * @param returnValue
-     *        Indicates whether the request succeeded.
+     *        A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code>
+     *        indicates that the request failed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -78,10 +87,12 @@ public class DeleteResourceShareResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Indicates whether the request succeeded.
+     * A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code> indicates
+     * that the request failed.
      * </p>
      * 
-     * @return Indicates whether the request succeeded.
+     * @return A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code>
+     *         indicates that the request failed.
      */
 
     public Boolean isReturnValue() {
@@ -90,11 +101,15 @@ public class DeleteResourceShareResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * The idempotency identifier associated with this request. If you want to repeat the same operation in an
+     * idempotent manner then you must include this value in the <code>clientToken</code> request parameter of that
+     * later call. All other parameters must also have the same values that you used in the first call.
      * </p>
      * 
      * @param clientToken
-     *        A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        The idempotency identifier associated with this request. If you want to repeat the same operation in an
+     *        idempotent manner then you must include this value in the <code>clientToken</code> request parameter of
+     *        that later call. All other parameters must also have the same values that you used in the first call.
      */
 
     public void setClientToken(String clientToken) {
@@ -103,10 +118,14 @@ public class DeleteResourceShareResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * The idempotency identifier associated with this request. If you want to repeat the same operation in an
+     * idempotent manner then you must include this value in the <code>clientToken</code> request parameter of that
+     * later call. All other parameters must also have the same values that you used in the first call.
      * </p>
      * 
-     * @return A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * @return The idempotency identifier associated with this request. If you want to repeat the same operation in an
+     *         idempotent manner then you must include this value in the <code>clientToken</code> request parameter of
+     *         that later call. All other parameters must also have the same values that you used in the first call.
      */
 
     public String getClientToken() {
@@ -115,11 +134,15 @@ public class DeleteResourceShareResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * The idempotency identifier associated with this request. If you want to repeat the same operation in an
+     * idempotent manner then you must include this value in the <code>clientToken</code> request parameter of that
+     * later call. All other parameters must also have the same values that you used in the first call.
      * </p>
      * 
      * @param clientToken
-     *        A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        The idempotency identifier associated with this request. If you want to repeat the same operation in an
+     *        idempotent manner then you must include this value in the <code>clientToken</code> request parameter of
+     *        that later call. All other parameters must also have the same values that you used in the first call.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -26,10 +26,11 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.TextNode;
+
 import java.io.IOException;
 
 /**
- * Container for the InputPath, OutputPath, and ResultPath fields to handle serialization concerns.
+ * Container for the InputPath, OutputPath, ResultPath, and ItemsPath fields to handle serialization concerns.
  */
 @SdkInternalApi
 final class PathContainer {
@@ -46,15 +47,25 @@ final class PathContainer {
     @JsonSerialize(using = PathSerializer.class)
     private final JsonNode resultPath;
 
+    @JsonProperty(PropertyNames.ITEMS_PATH)
+    @JsonSerialize(using = PathSerializer.class)
+    private final JsonNode itemsPath;
+
     @JsonProperty(PropertyNames.PARAMETERS)
     @JsonSerialize(using = PathSerializer.class)
     private final JsonNode parameters;
+
+    @JsonProperty(PropertyNames.RESULT_SELECTOR)
+    @JsonSerialize(using = PathSerializer.class)
+    private final JsonNode resultSelector;
 
     private PathContainer(Builder builder) {
         this.inputPath = builder.inputPath;
         this.outputPath = builder.outputPath;
         this.resultPath = builder.resultPath;
+        this.itemsPath = builder.itemsPath;
         this.parameters = builder.parameters;
+        this.resultSelector = builder.resultSelector;
     }
 
     @JsonIgnore
@@ -70,6 +81,11 @@ final class PathContainer {
     @JsonIgnore
     public String getResultPath() {
         return nodeToString(resultPath);
+    }
+
+    @JsonIgnore
+    public String getItemsPath() {
+        return nodeToString(itemsPath);
     }
 
     @JsonIgnore
@@ -102,7 +118,11 @@ final class PathContainer {
 
         private JsonNode resultPath;
 
+        private JsonNode itemsPath;
+
         private JsonNode parameters;
+
+        private JsonNode resultSelector;
 
         protected Builder() {
         }
@@ -125,9 +145,21 @@ final class PathContainer {
             return this;
         }
 
+        @JsonProperty(PropertyNames.ITEMS_PATH)
+        public Builder itemsPath(String itemsPath) {
+            this.itemsPath = resolvePath(itemsPath);
+            return this;
+        }
+
         @JsonProperty(PropertyNames.PARAMETERS)
         public Builder parameters(JsonNode parameters) {
             this.parameters = parameters == null ? NullNode.getInstance() : parameters;
+            return this;
+        }
+
+        @JsonProperty(PropertyNames.RESULT_SELECTOR)
+        public Builder resultSelector(JsonNode resultSelector) {
+            this.resultSelector = resultSelector == null ? NullNode.getInstance() : resultSelector;
             return this;
         }
 

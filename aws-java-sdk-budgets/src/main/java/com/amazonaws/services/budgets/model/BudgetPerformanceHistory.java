@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,7 +44,8 @@ public class BudgetPerformanceHistory implements Serializable, Cloneable, Struct
     private String timeUnit;
     /**
      * <p>
-     * A list of amounts of cost or usage that you created budgets for, compared to your actual costs or usage.
+     * A list of amounts of cost or usage that you created budgets for, which are compared to your actual costs or
+     * usage.
      * </p>
      */
     private java.util.List<BudgetedAndActualAmounts> budgetedAndActualAmountsList;
@@ -155,6 +156,13 @@ public class BudgetPerformanceHistory implements Serializable, Cloneable, Struct
         return this;
     }
 
+    /**
+     * Add a single CostFilters entry
+     *
+     * @see BudgetPerformanceHistory#withCostFilters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public BudgetPerformanceHistory addCostFiltersEntry(String key, java.util.List<String> value) {
         if (null == this.costFilters) {
             this.costFilters = new java.util.HashMap<String, java.util.List<String>>();
@@ -258,10 +266,12 @@ public class BudgetPerformanceHistory implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * A list of amounts of cost or usage that you created budgets for, compared to your actual costs or usage.
+     * A list of amounts of cost or usage that you created budgets for, which are compared to your actual costs or
+     * usage.
      * </p>
      * 
-     * @return A list of amounts of cost or usage that you created budgets for, compared to your actual costs or usage.
+     * @return A list of amounts of cost or usage that you created budgets for, which are compared to your actual costs
+     *         or usage.
      */
 
     public java.util.List<BudgetedAndActualAmounts> getBudgetedAndActualAmountsList() {
@@ -270,11 +280,13 @@ public class BudgetPerformanceHistory implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * A list of amounts of cost or usage that you created budgets for, compared to your actual costs or usage.
+     * A list of amounts of cost or usage that you created budgets for, which are compared to your actual costs or
+     * usage.
      * </p>
      * 
      * @param budgetedAndActualAmountsList
-     *        A list of amounts of cost or usage that you created budgets for, compared to your actual costs or usage.
+     *        A list of amounts of cost or usage that you created budgets for, which are compared to your actual costs
+     *        or usage.
      */
 
     public void setBudgetedAndActualAmountsList(java.util.Collection<BudgetedAndActualAmounts> budgetedAndActualAmountsList) {
@@ -288,7 +300,8 @@ public class BudgetPerformanceHistory implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * A list of amounts of cost or usage that you created budgets for, compared to your actual costs or usage.
+     * A list of amounts of cost or usage that you created budgets for, which are compared to your actual costs or
+     * usage.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -297,7 +310,8 @@ public class BudgetPerformanceHistory implements Serializable, Cloneable, Struct
      * </p>
      * 
      * @param budgetedAndActualAmountsList
-     *        A list of amounts of cost or usage that you created budgets for, compared to your actual costs or usage.
+     *        A list of amounts of cost or usage that you created budgets for, which are compared to your actual costs
+     *        or usage.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -313,11 +327,13 @@ public class BudgetPerformanceHistory implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * A list of amounts of cost or usage that you created budgets for, compared to your actual costs or usage.
+     * A list of amounts of cost or usage that you created budgets for, which are compared to your actual costs or
+     * usage.
      * </p>
      * 
      * @param budgetedAndActualAmountsList
-     *        A list of amounts of cost or usage that you created budgets for, compared to your actual costs or usage.
+     *        A list of amounts of cost or usage that you created budgets for, which are compared to your actual costs
+     *        or usage.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

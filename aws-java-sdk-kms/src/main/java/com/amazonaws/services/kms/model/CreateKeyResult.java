@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,18 +25,18 @@ public class CreateKeyResult extends com.amazonaws.AmazonWebServiceResult<com.am
 
     /**
      * <p>
-     * Metadata associated with the CMK.
+     * Metadata associated with the KMS key.
      * </p>
      */
     private KeyMetadata keyMetadata;
 
     /**
      * <p>
-     * Metadata associated with the CMK.
+     * Metadata associated with the KMS key.
      * </p>
      * 
      * @param keyMetadata
-     *        Metadata associated with the CMK.
+     *        Metadata associated with the KMS key.
      */
 
     public void setKeyMetadata(KeyMetadata keyMetadata) {
@@ -45,10 +45,10 @@ public class CreateKeyResult extends com.amazonaws.AmazonWebServiceResult<com.am
 
     /**
      * <p>
-     * Metadata associated with the CMK.
+     * Metadata associated with the KMS key.
      * </p>
      * 
-     * @return Metadata associated with the CMK.
+     * @return Metadata associated with the KMS key.
      */
 
     public KeyMetadata getKeyMetadata() {
@@ -57,11 +57,11 @@ public class CreateKeyResult extends com.amazonaws.AmazonWebServiceResult<com.am
 
     /**
      * <p>
-     * Metadata associated with the CMK.
+     * Metadata associated with the KMS key.
      * </p>
      * 
      * @param keyMetadata
-     *        Metadata associated with the CMK.
+     *        Metadata associated with the KMS key.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

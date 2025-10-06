@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,36 +27,31 @@ public class ListRequestedServiceQuotaChangeHistoryResult extends com.amazonaws.
 
     /**
      * <p>
-     * If present in the response, this value indicates there's more output available that what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * Returns a list of service quota requests.
+     * Information about the quota increase requests.
      * </p>
      */
     private java.util.List<RequestedServiceQuotaChange> requestedQuotas;
 
     /**
      * <p>
-     * If present in the response, this value indicates there's more output available that what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      * 
      * @param nextToken
-     *        If present in the response, this value indicates there's more output available that what's included in the
-     *        current response. This can occur even when the response includes no values at all, such as when you ask
-     *        for a filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in
-     *        a subsequent call to the operation to continue processing and get the next part of the output. You should
-     *        repeat this until the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     *        If present, indicates that more output is available than is included in the current response. Use this
+     *        value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the
+     *        next part of the output. You should repeat this until the <code>NextToken</code> response element comes
+     *        back as <code>null</code>.
      */
 
     public void setNextToken(String nextToken) {
@@ -65,19 +60,15 @@ public class ListRequestedServiceQuotaChangeHistoryResult extends com.amazonaws.
 
     /**
      * <p>
-     * If present in the response, this value indicates there's more output available that what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      * 
-     * @return If present in the response, this value indicates there's more output available that what's included in
-     *         the current response. This can occur even when the response includes no values at all, such as when you
-     *         ask for a filtered view of a very long list. Use this value in the <code>NextToken</code> request
-     *         parameter in a subsequent call to the operation to continue processing and get the next part of the
-     *         output. You should repeat this until the <code>NextToken</code> response element comes back empty (as
-     *         <code>null</code>).
+     * @return If present, indicates that more output is available than is included in the current response. Use this
+     *         value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the
+     *         next part of the output. You should repeat this until the <code>NextToken</code> response element comes
+     *         back as <code>null</code>.
      */
 
     public String getNextToken() {
@@ -86,19 +77,16 @@ public class ListRequestedServiceQuotaChangeHistoryResult extends com.amazonaws.
 
     /**
      * <p>
-     * If present in the response, this value indicates there's more output available that what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      * 
      * @param nextToken
-     *        If present in the response, this value indicates there's more output available that what's included in the
-     *        current response. This can occur even when the response includes no values at all, such as when you ask
-     *        for a filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in
-     *        a subsequent call to the operation to continue processing and get the next part of the output. You should
-     *        repeat this until the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     *        If present, indicates that more output is available than is included in the current response. Use this
+     *        value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the
+     *        next part of the output. You should repeat this until the <code>NextToken</code> response element comes
+     *        back as <code>null</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -109,10 +97,10 @@ public class ListRequestedServiceQuotaChangeHistoryResult extends com.amazonaws.
 
     /**
      * <p>
-     * Returns a list of service quota requests.
+     * Information about the quota increase requests.
      * </p>
      * 
-     * @return Returns a list of service quota requests.
+     * @return Information about the quota increase requests.
      */
 
     public java.util.List<RequestedServiceQuotaChange> getRequestedQuotas() {
@@ -121,11 +109,11 @@ public class ListRequestedServiceQuotaChangeHistoryResult extends com.amazonaws.
 
     /**
      * <p>
-     * Returns a list of service quota requests.
+     * Information about the quota increase requests.
      * </p>
      * 
      * @param requestedQuotas
-     *        Returns a list of service quota requests.
+     *        Information about the quota increase requests.
      */
 
     public void setRequestedQuotas(java.util.Collection<RequestedServiceQuotaChange> requestedQuotas) {
@@ -139,7 +127,7 @@ public class ListRequestedServiceQuotaChangeHistoryResult extends com.amazonaws.
 
     /**
      * <p>
-     * Returns a list of service quota requests.
+     * Information about the quota increase requests.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -148,7 +136,7 @@ public class ListRequestedServiceQuotaChangeHistoryResult extends com.amazonaws.
      * </p>
      * 
      * @param requestedQuotas
-     *        Returns a list of service quota requests.
+     *        Information about the quota increase requests.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -164,11 +152,11 @@ public class ListRequestedServiceQuotaChangeHistoryResult extends com.amazonaws.
 
     /**
      * <p>
-     * Returns a list of service quota requests.
+     * Information about the quota increase requests.
      * </p>
      * 
      * @param requestedQuotas
-     *        Returns a list of service quota requests.
+     *        Information about the quota increase requests.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

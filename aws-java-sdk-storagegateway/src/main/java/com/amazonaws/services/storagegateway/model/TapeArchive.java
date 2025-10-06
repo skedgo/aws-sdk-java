@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -57,7 +57,7 @@ public class TapeArchive implements Serializable, Cloneable, StructuredPojo {
      * The time that the archiving of the virtual tape was completed.
      * </p>
      * <p>
-     * The default time stamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
+     * The default timestamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
      * </p>
      */
     private java.util.Date completionTime;
@@ -94,11 +94,29 @@ public class TapeArchive implements Serializable, Cloneable, StructuredPojo {
      * The ID of the pool that was used to archive the tape. The tapes in this pool are archived in the S3 storage class
      * that is associated with the pool.
      * </p>
-     * <p>
-     * Valid values: "GLACIER", "DEEP_ARCHIVE"
-     * </p>
      */
     private String poolId;
+    /**
+     * <p>
+     * Set to <code>true</code> if the archived tape is stored as write-once-read-many (WORM).
+     * </p>
+     */
+    private Boolean worm;
+    /**
+     * <p>
+     * If the archived tape is subject to tape retention lock, the date that the archived tape started being retained.
+     * </p>
+     */
+    private java.util.Date retentionStartDate;
+    /**
+     * <p>
+     * The time that the tape entered the custom tape pool.
+     * </p>
+     * <p>
+     * The default timestamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
+     * </p>
+     */
+    private java.util.Date poolEntryDate;
 
     /**
      * <p>
@@ -265,13 +283,13 @@ public class TapeArchive implements Serializable, Cloneable, StructuredPojo {
      * The time that the archiving of the virtual tape was completed.
      * </p>
      * <p>
-     * The default time stamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
+     * The default timestamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
      * </p>
      * 
      * @param completionTime
      *        The time that the archiving of the virtual tape was completed.</p>
      *        <p>
-     *        The default time stamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
+     *        The default timestamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
      */
 
     public void setCompletionTime(java.util.Date completionTime) {
@@ -283,12 +301,12 @@ public class TapeArchive implements Serializable, Cloneable, StructuredPojo {
      * The time that the archiving of the virtual tape was completed.
      * </p>
      * <p>
-     * The default time stamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
+     * The default timestamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
      * </p>
      * 
      * @return The time that the archiving of the virtual tape was completed.</p>
      *         <p>
-     *         The default time stamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
+     *         The default timestamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
      */
 
     public java.util.Date getCompletionTime() {
@@ -300,13 +318,13 @@ public class TapeArchive implements Serializable, Cloneable, StructuredPojo {
      * The time that the archiving of the virtual tape was completed.
      * </p>
      * <p>
-     * The default time stamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
+     * The default timestamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
      * </p>
      * 
      * @param completionTime
      *        The time that the archiving of the virtual tape was completed.</p>
      *        <p>
-     *        The default time stamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
+     *        The default timestamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -505,15 +523,10 @@ public class TapeArchive implements Serializable, Cloneable, StructuredPojo {
      * The ID of the pool that was used to archive the tape. The tapes in this pool are archived in the S3 storage class
      * that is associated with the pool.
      * </p>
-     * <p>
-     * Valid values: "GLACIER", "DEEP_ARCHIVE"
-     * </p>
      * 
      * @param poolId
      *        The ID of the pool that was used to archive the tape. The tapes in this pool are archived in the S3
-     *        storage class that is associated with the pool.</p>
-     *        <p>
-     *        Valid values: "GLACIER", "DEEP_ARCHIVE"
+     *        storage class that is associated with the pool.
      */
 
     public void setPoolId(String poolId) {
@@ -525,14 +538,9 @@ public class TapeArchive implements Serializable, Cloneable, StructuredPojo {
      * The ID of the pool that was used to archive the tape. The tapes in this pool are archived in the S3 storage class
      * that is associated with the pool.
      * </p>
-     * <p>
-     * Valid values: "GLACIER", "DEEP_ARCHIVE"
-     * </p>
      * 
      * @return The ID of the pool that was used to archive the tape. The tapes in this pool are archived in the S3
-     *         storage class that is associated with the pool.</p>
-     *         <p>
-     *         Valid values: "GLACIER", "DEEP_ARCHIVE"
+     *         storage class that is associated with the pool.
      */
 
     public String getPoolId() {
@@ -544,20 +552,165 @@ public class TapeArchive implements Serializable, Cloneable, StructuredPojo {
      * The ID of the pool that was used to archive the tape. The tapes in this pool are archived in the S3 storage class
      * that is associated with the pool.
      * </p>
-     * <p>
-     * Valid values: "GLACIER", "DEEP_ARCHIVE"
-     * </p>
      * 
      * @param poolId
      *        The ID of the pool that was used to archive the tape. The tapes in this pool are archived in the S3
-     *        storage class that is associated with the pool.</p>
-     *        <p>
-     *        Valid values: "GLACIER", "DEEP_ARCHIVE"
+     *        storage class that is associated with the pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public TapeArchive withPoolId(String poolId) {
         setPoolId(poolId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Set to <code>true</code> if the archived tape is stored as write-once-read-many (WORM).
+     * </p>
+     * 
+     * @param worm
+     *        Set to <code>true</code> if the archived tape is stored as write-once-read-many (WORM).
+     */
+
+    public void setWorm(Boolean worm) {
+        this.worm = worm;
+    }
+
+    /**
+     * <p>
+     * Set to <code>true</code> if the archived tape is stored as write-once-read-many (WORM).
+     * </p>
+     * 
+     * @return Set to <code>true</code> if the archived tape is stored as write-once-read-many (WORM).
+     */
+
+    public Boolean getWorm() {
+        return this.worm;
+    }
+
+    /**
+     * <p>
+     * Set to <code>true</code> if the archived tape is stored as write-once-read-many (WORM).
+     * </p>
+     * 
+     * @param worm
+     *        Set to <code>true</code> if the archived tape is stored as write-once-read-many (WORM).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TapeArchive withWorm(Boolean worm) {
+        setWorm(worm);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Set to <code>true</code> if the archived tape is stored as write-once-read-many (WORM).
+     * </p>
+     * 
+     * @return Set to <code>true</code> if the archived tape is stored as write-once-read-many (WORM).
+     */
+
+    public Boolean isWorm() {
+        return this.worm;
+    }
+
+    /**
+     * <p>
+     * If the archived tape is subject to tape retention lock, the date that the archived tape started being retained.
+     * </p>
+     * 
+     * @param retentionStartDate
+     *        If the archived tape is subject to tape retention lock, the date that the archived tape started being
+     *        retained.
+     */
+
+    public void setRetentionStartDate(java.util.Date retentionStartDate) {
+        this.retentionStartDate = retentionStartDate;
+    }
+
+    /**
+     * <p>
+     * If the archived tape is subject to tape retention lock, the date that the archived tape started being retained.
+     * </p>
+     * 
+     * @return If the archived tape is subject to tape retention lock, the date that the archived tape started being
+     *         retained.
+     */
+
+    public java.util.Date getRetentionStartDate() {
+        return this.retentionStartDate;
+    }
+
+    /**
+     * <p>
+     * If the archived tape is subject to tape retention lock, the date that the archived tape started being retained.
+     * </p>
+     * 
+     * @param retentionStartDate
+     *        If the archived tape is subject to tape retention lock, the date that the archived tape started being
+     *        retained.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TapeArchive withRetentionStartDate(java.util.Date retentionStartDate) {
+        setRetentionStartDate(retentionStartDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time that the tape entered the custom tape pool.
+     * </p>
+     * <p>
+     * The default timestamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
+     * </p>
+     * 
+     * @param poolEntryDate
+     *        The time that the tape entered the custom tape pool.</p>
+     *        <p>
+     *        The default timestamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
+     */
+
+    public void setPoolEntryDate(java.util.Date poolEntryDate) {
+        this.poolEntryDate = poolEntryDate;
+    }
+
+    /**
+     * <p>
+     * The time that the tape entered the custom tape pool.
+     * </p>
+     * <p>
+     * The default timestamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
+     * </p>
+     * 
+     * @return The time that the tape entered the custom tape pool.</p>
+     *         <p>
+     *         The default timestamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
+     */
+
+    public java.util.Date getPoolEntryDate() {
+        return this.poolEntryDate;
+    }
+
+    /**
+     * <p>
+     * The time that the tape entered the custom tape pool.
+     * </p>
+     * <p>
+     * The default timestamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
+     * </p>
+     * 
+     * @param poolEntryDate
+     *        The time that the tape entered the custom tape pool.</p>
+     *        <p>
+     *        The default timestamp format is in the ISO8601 extended YYYY-MM-DD'T'HH:MM:SS'Z' format.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TapeArchive withPoolEntryDate(java.util.Date poolEntryDate) {
+        setPoolEntryDate(poolEntryDate);
         return this;
     }
 
@@ -592,7 +745,13 @@ public class TapeArchive implements Serializable, Cloneable, StructuredPojo {
         if (getKMSKey() != null)
             sb.append("KMSKey: ").append(getKMSKey()).append(",");
         if (getPoolId() != null)
-            sb.append("PoolId: ").append(getPoolId());
+            sb.append("PoolId: ").append(getPoolId()).append(",");
+        if (getWorm() != null)
+            sb.append("Worm: ").append(getWorm()).append(",");
+        if (getRetentionStartDate() != null)
+            sb.append("RetentionStartDate: ").append(getRetentionStartDate()).append(",");
+        if (getPoolEntryDate() != null)
+            sb.append("PoolEntryDate: ").append(getPoolEntryDate());
         sb.append("}");
         return sb.toString();
     }
@@ -647,6 +806,18 @@ public class TapeArchive implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getPoolId() != null && other.getPoolId().equals(this.getPoolId()) == false)
             return false;
+        if (other.getWorm() == null ^ this.getWorm() == null)
+            return false;
+        if (other.getWorm() != null && other.getWorm().equals(this.getWorm()) == false)
+            return false;
+        if (other.getRetentionStartDate() == null ^ this.getRetentionStartDate() == null)
+            return false;
+        if (other.getRetentionStartDate() != null && other.getRetentionStartDate().equals(this.getRetentionStartDate()) == false)
+            return false;
+        if (other.getPoolEntryDate() == null ^ this.getPoolEntryDate() == null)
+            return false;
+        if (other.getPoolEntryDate() != null && other.getPoolEntryDate().equals(this.getPoolEntryDate()) == false)
+            return false;
         return true;
     }
 
@@ -665,6 +836,9 @@ public class TapeArchive implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getTapeUsedInBytes() == null) ? 0 : getTapeUsedInBytes().hashCode());
         hashCode = prime * hashCode + ((getKMSKey() == null) ? 0 : getKMSKey().hashCode());
         hashCode = prime * hashCode + ((getPoolId() == null) ? 0 : getPoolId().hashCode());
+        hashCode = prime * hashCode + ((getWorm() == null) ? 0 : getWorm().hashCode());
+        hashCode = prime * hashCode + ((getRetentionStartDate() == null) ? 0 : getRetentionStartDate().hashCode());
+        hashCode = prime * hashCode + ((getPoolEntryDate() == null) ? 0 : getPoolEntryDate().hashCode());
         return hashCode;
     }
 

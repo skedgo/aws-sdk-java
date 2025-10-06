@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,7 +51,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <li>
      * <p>
      * Have no adjacent periods, underscores or dashes. Names like <code>my-_namespace</code> and
-     * <code>my--namespace</code> are invalid.
+     * <code>my--namespace</code> are not valid.
      * </p>
      * </li>
      * <li>
@@ -64,18 +64,18 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
     private String name;
     /**
      * <p>
-     * Specifies the name of the Amazon S3 bucket designated for publishing log files. See <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon S3 Bucket
-     * Naming Requirements</a>.
+     * Specifies the name of the Amazon S3 bucket designated for publishing log files. For information about bucket
+     * naming rules, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Bucket
+     * naming rules</a> in the <i>Amazon Simple Storage Service User Guide</i>.
      * </p>
      */
     private String s3BucketName;
     /**
      * <p>
      * Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file
-     * delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding Your
-     * CloudTrail Log Files</a>. The maximum length is 200 characters.
+     * delivery. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     * >Finding Your CloudTrail Log Files</a>. The maximum length is 200 characters.
      * </p>
      */
     private String s3KeyPrefix;
@@ -94,7 +94,9 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
     private Boolean includeGlobalServiceEvents;
     /**
      * <p>
-     * Specifies whether the trail is created in the current region or in all regions. The default is false.
+     * Specifies whether the trail is created in the current Region or in all Regions. The default is false, which
+     * creates a trail only in the Region where you are signed in. As a best practice, consider creating trails that log
+     * events in all Regions.
      * </p>
      */
     private Boolean isMultiRegionTrail;
@@ -105,7 +107,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <note>
      * <p>
      * When you disable log file integrity validation, the chain of digest files is broken after one hour. CloudTrail
-     * will not create digest files for log files that were delivered during a period in which log file integrity
+     * does not create digest files for log files that were delivered during a period in which log file integrity
      * validation was disabled. For example, if you enable log file integrity validation at noon on January 1, disable
      * it at noon on January 2, and re-enable it at noon on January 10, digest files will not be created for the log
      * files delivered from noon on January 2 to noon on January 10. The same applies whenever you stop CloudTrail
@@ -117,21 +119,30 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Specifies a log group name using an Amazon Resource Name (ARN), a unique identifier that represents the log group
-     * to which CloudTrail logs will be delivered. Not required unless you specify CloudWatchLogsRoleArn.
+     * to which CloudTrail logs will be delivered. You must use a log group that exists in your account.
+     * </p>
+     * <p>
+     * Not required unless you specify <code>CloudWatchLogsRoleArn</code>.
      * </p>
      */
     private String cloudWatchLogsLogGroupArn;
     /**
      * <p>
-     * Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group.
+     * Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group. You must use a role
+     * that exists in your account.
      * </p>
      */
     private String cloudWatchLogsRoleArn;
     /**
      * <p>
      * Specifies the KMS key ID to use to encrypt the logs delivered by CloudTrail. The value can be an alias name
-     * prefixed by "alias/", a fully specified ARN to an alias, a fully specified ARN to a key, or a globally unique
-     * identifier.
+     * prefixed by <code>alias/</code>, a fully specified ARN to an alias, a fully specified ARN to a key, or a globally
+     * unique identifier.
+     * </p>
+     * <p>
+     * CloudTrail also supports KMS multi-Region keys. For more information about multi-Region keys, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html">Using multi-Region
+     * keys</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      * <p>
      * Examples:
@@ -139,22 +150,22 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * alias/MyAliasName
+     * <code>alias/MyAliasName</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * arn:aws:kms:us-east-2:123456789012:alias/MyAliasName
+     * <code>arn:aws:kms:us-east-2:123456789012:alias/MyAliasName</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012
+     * <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * 12345678-1234-1234-1234-123456789012
+     * <code>12345678-1234-1234-1234-123456789012</code>
      * </p>
      * </li>
      * </ul>
@@ -162,12 +173,15 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
     private String kmsKeyId;
     /**
      * <p>
-     * Specifies whether the trail is created for all accounts in an organization in AWS Organizations, or only for the
-     * current AWS account. The default is false, and cannot be true unless the call is made on behalf of an AWS account
-     * that is the master account for an organization in AWS Organizations.
+     * Specifies whether the trail is created for all accounts in an organization in Organizations, or only for the
+     * current Amazon Web Services account. The default is false, and cannot be true unless the call is made on behalf
+     * of an Amazon Web Services account that is the management account or delegated administrator account for an
+     * organization in Organizations.
      * </p>
      */
     private Boolean isOrganizationTrail;
+
+    private com.amazonaws.internal.SdkInternalList<Tag> tagsList;
 
     /**
      * <p>
@@ -192,7 +206,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <li>
      * <p>
      * Have no adjacent periods, underscores or dashes. Names like <code>my-_namespace</code> and
-     * <code>my--namespace</code> are invalid.
+     * <code>my--namespace</code> are not valid.
      * </p>
      * </li>
      * <li>
@@ -223,7 +237,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <li>
      *        <p>
      *        Have no adjacent periods, underscores or dashes. Names like <code>my-_namespace</code> and
-     *        <code>my--namespace</code> are invalid.
+     *        <code>my--namespace</code> are not valid.
      *        </p>
      *        </li>
      *        <li>
@@ -260,7 +274,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <li>
      * <p>
      * Have no adjacent periods, underscores or dashes. Names like <code>my-_namespace</code> and
-     * <code>my--namespace</code> are invalid.
+     * <code>my--namespace</code> are not valid.
      * </p>
      * </li>
      * <li>
@@ -290,7 +304,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         <li>
      *         <p>
      *         Have no adjacent periods, underscores or dashes. Names like <code>my-_namespace</code> and
-     *         <code>my--namespace</code> are invalid.
+     *         <code>my--namespace</code> are not valid.
      *         </p>
      *         </li>
      *         <li>
@@ -327,7 +341,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <li>
      * <p>
      * Have no adjacent periods, underscores or dashes. Names like <code>my-_namespace</code> and
-     * <code>my--namespace</code> are invalid.
+     * <code>my--namespace</code> are not valid.
      * </p>
      * </li>
      * <li>
@@ -358,7 +372,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <li>
      *        <p>
      *        Have no adjacent periods, underscores or dashes. Names like <code>my-_namespace</code> and
-     *        <code>my--namespace</code> are invalid.
+     *        <code>my--namespace</code> are not valid.
      *        </p>
      *        </li>
      *        <li>
@@ -376,15 +390,16 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies the name of the Amazon S3 bucket designated for publishing log files. See <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon S3 Bucket
-     * Naming Requirements</a>.
+     * Specifies the name of the Amazon S3 bucket designated for publishing log files. For information about bucket
+     * naming rules, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Bucket
+     * naming rules</a> in the <i>Amazon Simple Storage Service User Guide</i>.
      * </p>
      * 
      * @param s3BucketName
-     *        Specifies the name of the Amazon S3 bucket designated for publishing log files. See <a
-     *        href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon S3
-     *        Bucket Naming Requirements</a>.
+     *        Specifies the name of the Amazon S3 bucket designated for publishing log files. For information about
+     *        bucket naming rules, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Bucket naming
+     *        rules</a> in the <i>Amazon Simple Storage Service User Guide</i>.
      */
 
     public void setS3BucketName(String s3BucketName) {
@@ -393,14 +408,15 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies the name of the Amazon S3 bucket designated for publishing log files. See <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon S3 Bucket
-     * Naming Requirements</a>.
+     * Specifies the name of the Amazon S3 bucket designated for publishing log files. For information about bucket
+     * naming rules, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Bucket
+     * naming rules</a> in the <i>Amazon Simple Storage Service User Guide</i>.
      * </p>
      * 
-     * @return Specifies the name of the Amazon S3 bucket designated for publishing log files. See <a
-     *         href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
-     *         S3 Bucket Naming Requirements</a>.
+     * @return Specifies the name of the Amazon S3 bucket designated for publishing log files. For information about
+     *         bucket naming rules, see <a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Bucket naming
+     *         rules</a> in the <i>Amazon Simple Storage Service User Guide</i>.
      */
 
     public String getS3BucketName() {
@@ -409,15 +425,16 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies the name of the Amazon S3 bucket designated for publishing log files. See <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon S3 Bucket
-     * Naming Requirements</a>.
+     * Specifies the name of the Amazon S3 bucket designated for publishing log files. For information about bucket
+     * naming rules, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Bucket
+     * naming rules</a> in the <i>Amazon Simple Storage Service User Guide</i>.
      * </p>
      * 
      * @param s3BucketName
-     *        Specifies the name of the Amazon S3 bucket designated for publishing log files. See <a
-     *        href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon S3
-     *        Bucket Naming Requirements</a>.
+     *        Specifies the name of the Amazon S3 bucket designated for publishing log files. For information about
+     *        bucket naming rules, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Bucket naming
+     *        rules</a> in the <i>Amazon Simple Storage Service User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -429,16 +446,16 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file
-     * delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding Your
-     * CloudTrail Log Files</a>. The maximum length is 200 characters.
+     * delivery. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     * >Finding Your CloudTrail Log Files</a>. The maximum length is 200 characters.
      * </p>
      * 
      * @param s3KeyPrefix
      *        Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log
-     *        file delivery. For more information, see <a
-     *        href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
-     *        Your CloudTrail Log Files</a>. The maximum length is 200 characters.
+     *        file delivery. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     *        >Finding Your CloudTrail Log Files</a>. The maximum length is 200 characters.
      */
 
     public void setS3KeyPrefix(String s3KeyPrefix) {
@@ -448,15 +465,15 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file
-     * delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding Your
-     * CloudTrail Log Files</a>. The maximum length is 200 characters.
+     * delivery. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     * >Finding Your CloudTrail Log Files</a>. The maximum length is 200 characters.
      * </p>
      * 
      * @return Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log
-     *         file delivery. For more information, see <a
-     *         href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
-     *         Your CloudTrail Log Files</a>. The maximum length is 200 characters.
+     *         file delivery. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     *         >Finding Your CloudTrail Log Files</a>. The maximum length is 200 characters.
      */
 
     public String getS3KeyPrefix() {
@@ -466,16 +483,16 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file
-     * delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding Your
-     * CloudTrail Log Files</a>. The maximum length is 200 characters.
+     * delivery. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     * >Finding Your CloudTrail Log Files</a>. The maximum length is 200 characters.
      * </p>
      * 
      * @param s3KeyPrefix
      *        Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log
-     *        file delivery. For more information, see <a
-     *        href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
-     *        Your CloudTrail Log Files</a>. The maximum length is 200 characters.
+     *        file delivery. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     *        >Finding Your CloudTrail Log Files</a>. The maximum length is 200 characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -584,11 +601,15 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies whether the trail is created in the current region or in all regions. The default is false.
+     * Specifies whether the trail is created in the current Region or in all Regions. The default is false, which
+     * creates a trail only in the Region where you are signed in. As a best practice, consider creating trails that log
+     * events in all Regions.
      * </p>
      * 
      * @param isMultiRegionTrail
-     *        Specifies whether the trail is created in the current region or in all regions. The default is false.
+     *        Specifies whether the trail is created in the current Region or in all Regions. The default is false,
+     *        which creates a trail only in the Region where you are signed in. As a best practice, consider creating
+     *        trails that log events in all Regions.
      */
 
     public void setIsMultiRegionTrail(Boolean isMultiRegionTrail) {
@@ -597,10 +618,14 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies whether the trail is created in the current region or in all regions. The default is false.
+     * Specifies whether the trail is created in the current Region or in all Regions. The default is false, which
+     * creates a trail only in the Region where you are signed in. As a best practice, consider creating trails that log
+     * events in all Regions.
      * </p>
      * 
-     * @return Specifies whether the trail is created in the current region or in all regions. The default is false.
+     * @return Specifies whether the trail is created in the current Region or in all Regions. The default is false,
+     *         which creates a trail only in the Region where you are signed in. As a best practice, consider creating
+     *         trails that log events in all Regions.
      */
 
     public Boolean getIsMultiRegionTrail() {
@@ -609,11 +634,15 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies whether the trail is created in the current region or in all regions. The default is false.
+     * Specifies whether the trail is created in the current Region or in all Regions. The default is false, which
+     * creates a trail only in the Region where you are signed in. As a best practice, consider creating trails that log
+     * events in all Regions.
      * </p>
      * 
      * @param isMultiRegionTrail
-     *        Specifies whether the trail is created in the current region or in all regions. The default is false.
+     *        Specifies whether the trail is created in the current Region or in all Regions. The default is false,
+     *        which creates a trail only in the Region where you are signed in. As a best practice, consider creating
+     *        trails that log events in all Regions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -624,10 +653,14 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies whether the trail is created in the current region or in all regions. The default is false.
+     * Specifies whether the trail is created in the current Region or in all Regions. The default is false, which
+     * creates a trail only in the Region where you are signed in. As a best practice, consider creating trails that log
+     * events in all Regions.
      * </p>
      * 
-     * @return Specifies whether the trail is created in the current region or in all regions. The default is false.
+     * @return Specifies whether the trail is created in the current Region or in all Regions. The default is false,
+     *         which creates a trail only in the Region where you are signed in. As a best practice, consider creating
+     *         trails that log events in all Regions.
      */
 
     public Boolean isMultiRegionTrail() {
@@ -641,7 +674,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <note>
      * <p>
      * When you disable log file integrity validation, the chain of digest files is broken after one hour. CloudTrail
-     * will not create digest files for log files that were delivered during a period in which log file integrity
+     * does not create digest files for log files that were delivered during a period in which log file integrity
      * validation was disabled. For example, if you enable log file integrity validation at noon on January 1, disable
      * it at noon on January 2, and re-enable it at noon on January 10, digest files will not be created for the log
      * files delivered from noon on January 2 to noon on January 10. The same applies whenever you stop CloudTrail
@@ -653,7 +686,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        Specifies whether log file integrity validation is enabled. The default is false.</p> <note>
      *        <p>
      *        When you disable log file integrity validation, the chain of digest files is broken after one hour.
-     *        CloudTrail will not create digest files for log files that were delivered during a period in which log
+     *        CloudTrail does not create digest files for log files that were delivered during a period in which log
      *        file integrity validation was disabled. For example, if you enable log file integrity validation at noon
      *        on January 1, disable it at noon on January 2, and re-enable it at noon on January 10, digest files will
      *        not be created for the log files delivered from noon on January 2 to noon on January 10. The same applies
@@ -672,7 +705,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <note>
      * <p>
      * When you disable log file integrity validation, the chain of digest files is broken after one hour. CloudTrail
-     * will not create digest files for log files that were delivered during a period in which log file integrity
+     * does not create digest files for log files that were delivered during a period in which log file integrity
      * validation was disabled. For example, if you enable log file integrity validation at noon on January 1, disable
      * it at noon on January 2, and re-enable it at noon on January 10, digest files will not be created for the log
      * files delivered from noon on January 2 to noon on January 10. The same applies whenever you stop CloudTrail
@@ -683,7 +716,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      * @return Specifies whether log file integrity validation is enabled. The default is false.</p> <note>
      *         <p>
      *         When you disable log file integrity validation, the chain of digest files is broken after one hour.
-     *         CloudTrail will not create digest files for log files that were delivered during a period in which log
+     *         CloudTrail does not create digest files for log files that were delivered during a period in which log
      *         file integrity validation was disabled. For example, if you enable log file integrity validation at noon
      *         on January 1, disable it at noon on January 2, and re-enable it at noon on January 10, digest files will
      *         not be created for the log files delivered from noon on January 2 to noon on January 10. The same applies
@@ -702,7 +735,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <note>
      * <p>
      * When you disable log file integrity validation, the chain of digest files is broken after one hour. CloudTrail
-     * will not create digest files for log files that were delivered during a period in which log file integrity
+     * does not create digest files for log files that were delivered during a period in which log file integrity
      * validation was disabled. For example, if you enable log file integrity validation at noon on January 1, disable
      * it at noon on January 2, and re-enable it at noon on January 10, digest files will not be created for the log
      * files delivered from noon on January 2 to noon on January 10. The same applies whenever you stop CloudTrail
@@ -714,7 +747,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        Specifies whether log file integrity validation is enabled. The default is false.</p> <note>
      *        <p>
      *        When you disable log file integrity validation, the chain of digest files is broken after one hour.
-     *        CloudTrail will not create digest files for log files that were delivered during a period in which log
+     *        CloudTrail does not create digest files for log files that were delivered during a period in which log
      *        file integrity validation was disabled. For example, if you enable log file integrity validation at noon
      *        on January 1, disable it at noon on January 2, and re-enable it at noon on January 10, digest files will
      *        not be created for the log files delivered from noon on January 2 to noon on January 10. The same applies
@@ -735,7 +768,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <note>
      * <p>
      * When you disable log file integrity validation, the chain of digest files is broken after one hour. CloudTrail
-     * will not create digest files for log files that were delivered during a period in which log file integrity
+     * does not create digest files for log files that were delivered during a period in which log file integrity
      * validation was disabled. For example, if you enable log file integrity validation at noon on January 1, disable
      * it at noon on January 2, and re-enable it at noon on January 10, digest files will not be created for the log
      * files delivered from noon on January 2 to noon on January 10. The same applies whenever you stop CloudTrail
@@ -746,7 +779,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      * @return Specifies whether log file integrity validation is enabled. The default is false.</p> <note>
      *         <p>
      *         When you disable log file integrity validation, the chain of digest files is broken after one hour.
-     *         CloudTrail will not create digest files for log files that were delivered during a period in which log
+     *         CloudTrail does not create digest files for log files that were delivered during a period in which log
      *         file integrity validation was disabled. For example, if you enable log file integrity validation at noon
      *         on January 1, disable it at noon on January 2, and re-enable it at noon on January 10, digest files will
      *         not be created for the log files delivered from noon on January 2 to noon on January 10. The same applies
@@ -761,13 +794,18 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Specifies a log group name using an Amazon Resource Name (ARN), a unique identifier that represents the log group
-     * to which CloudTrail logs will be delivered. Not required unless you specify CloudWatchLogsRoleArn.
+     * to which CloudTrail logs will be delivered. You must use a log group that exists in your account.
+     * </p>
+     * <p>
+     * Not required unless you specify <code>CloudWatchLogsRoleArn</code>.
      * </p>
      * 
      * @param cloudWatchLogsLogGroupArn
      *        Specifies a log group name using an Amazon Resource Name (ARN), a unique identifier that represents the
-     *        log group to which CloudTrail logs will be delivered. Not required unless you specify
-     *        CloudWatchLogsRoleArn.
+     *        log group to which CloudTrail logs will be delivered. You must use a log group that exists in your
+     *        account.</p>
+     *        <p>
+     *        Not required unless you specify <code>CloudWatchLogsRoleArn</code>.
      */
 
     public void setCloudWatchLogsLogGroupArn(String cloudWatchLogsLogGroupArn) {
@@ -777,12 +815,17 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Specifies a log group name using an Amazon Resource Name (ARN), a unique identifier that represents the log group
-     * to which CloudTrail logs will be delivered. Not required unless you specify CloudWatchLogsRoleArn.
+     * to which CloudTrail logs will be delivered. You must use a log group that exists in your account.
+     * </p>
+     * <p>
+     * Not required unless you specify <code>CloudWatchLogsRoleArn</code>.
      * </p>
      * 
      * @return Specifies a log group name using an Amazon Resource Name (ARN), a unique identifier that represents the
-     *         log group to which CloudTrail logs will be delivered. Not required unless you specify
-     *         CloudWatchLogsRoleArn.
+     *         log group to which CloudTrail logs will be delivered. You must use a log group that exists in your
+     *         account.</p>
+     *         <p>
+     *         Not required unless you specify <code>CloudWatchLogsRoleArn</code>.
      */
 
     public String getCloudWatchLogsLogGroupArn() {
@@ -792,13 +835,18 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Specifies a log group name using an Amazon Resource Name (ARN), a unique identifier that represents the log group
-     * to which CloudTrail logs will be delivered. Not required unless you specify CloudWatchLogsRoleArn.
+     * to which CloudTrail logs will be delivered. You must use a log group that exists in your account.
+     * </p>
+     * <p>
+     * Not required unless you specify <code>CloudWatchLogsRoleArn</code>.
      * </p>
      * 
      * @param cloudWatchLogsLogGroupArn
      *        Specifies a log group name using an Amazon Resource Name (ARN), a unique identifier that represents the
-     *        log group to which CloudTrail logs will be delivered. Not required unless you specify
-     *        CloudWatchLogsRoleArn.
+     *        log group to which CloudTrail logs will be delivered. You must use a log group that exists in your
+     *        account.</p>
+     *        <p>
+     *        Not required unless you specify <code>CloudWatchLogsRoleArn</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -809,11 +857,13 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group.
+     * Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group. You must use a role
+     * that exists in your account.
      * </p>
      * 
      * @param cloudWatchLogsRoleArn
-     *        Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group.
+     *        Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group. You must use
+     *        a role that exists in your account.
      */
 
     public void setCloudWatchLogsRoleArn(String cloudWatchLogsRoleArn) {
@@ -822,10 +872,12 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group.
+     * Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group. You must use a role
+     * that exists in your account.
      * </p>
      * 
-     * @return Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group.
+     * @return Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group. You must
+     *         use a role that exists in your account.
      */
 
     public String getCloudWatchLogsRoleArn() {
@@ -834,11 +886,13 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group.
+     * Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group. You must use a role
+     * that exists in your account.
      * </p>
      * 
      * @param cloudWatchLogsRoleArn
-     *        Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group.
+     *        Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group. You must use
+     *        a role that exists in your account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -850,8 +904,13 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Specifies the KMS key ID to use to encrypt the logs delivered by CloudTrail. The value can be an alias name
-     * prefixed by "alias/", a fully specified ARN to an alias, a fully specified ARN to a key, or a globally unique
-     * identifier.
+     * prefixed by <code>alias/</code>, a fully specified ARN to an alias, a fully specified ARN to a key, or a globally
+     * unique identifier.
+     * </p>
+     * <p>
+     * CloudTrail also supports KMS multi-Region keys. For more information about multi-Region keys, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html">Using multi-Region
+     * keys</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      * <p>
      * Examples:
@@ -859,52 +918,57 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * alias/MyAliasName
+     * <code>alias/MyAliasName</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * arn:aws:kms:us-east-2:123456789012:alias/MyAliasName
+     * <code>arn:aws:kms:us-east-2:123456789012:alias/MyAliasName</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012
+     * <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * 12345678-1234-1234-1234-123456789012
+     * <code>12345678-1234-1234-1234-123456789012</code>
      * </p>
      * </li>
      * </ul>
      * 
      * @param kmsKeyId
      *        Specifies the KMS key ID to use to encrypt the logs delivered by CloudTrail. The value can be an alias
-     *        name prefixed by "alias/", a fully specified ARN to an alias, a fully specified ARN to a key, or a
-     *        globally unique identifier.</p>
+     *        name prefixed by <code>alias/</code>, a fully specified ARN to an alias, a fully specified ARN to a key,
+     *        or a globally unique identifier.</p>
+     *        <p>
+     *        CloudTrail also supports KMS multi-Region keys. For more information about multi-Region keys, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html">Using
+     *        multi-Region keys</a> in the <i>Key Management Service Developer Guide</i>.
+     *        </p>
      *        <p>
      *        Examples:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        alias/MyAliasName
+     *        <code>alias/MyAliasName</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        arn:aws:kms:us-east-2:123456789012:alias/MyAliasName
+     *        <code>arn:aws:kms:us-east-2:123456789012:alias/MyAliasName</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012
+     *        <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        12345678-1234-1234-1234-123456789012
+     *        <code>12345678-1234-1234-1234-123456789012</code>
      *        </p>
      *        </li>
      */
@@ -916,8 +980,13 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Specifies the KMS key ID to use to encrypt the logs delivered by CloudTrail. The value can be an alias name
-     * prefixed by "alias/", a fully specified ARN to an alias, a fully specified ARN to a key, or a globally unique
-     * identifier.
+     * prefixed by <code>alias/</code>, a fully specified ARN to an alias, a fully specified ARN to a key, or a globally
+     * unique identifier.
+     * </p>
+     * <p>
+     * CloudTrail also supports KMS multi-Region keys. For more information about multi-Region keys, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html">Using multi-Region
+     * keys</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      * <p>
      * Examples:
@@ -925,51 +994,56 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * alias/MyAliasName
+     * <code>alias/MyAliasName</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * arn:aws:kms:us-east-2:123456789012:alias/MyAliasName
+     * <code>arn:aws:kms:us-east-2:123456789012:alias/MyAliasName</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012
+     * <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * 12345678-1234-1234-1234-123456789012
+     * <code>12345678-1234-1234-1234-123456789012</code>
      * </p>
      * </li>
      * </ul>
      * 
      * @return Specifies the KMS key ID to use to encrypt the logs delivered by CloudTrail. The value can be an alias
-     *         name prefixed by "alias/", a fully specified ARN to an alias, a fully specified ARN to a key, or a
-     *         globally unique identifier.</p>
+     *         name prefixed by <code>alias/</code>, a fully specified ARN to an alias, a fully specified ARN to a key,
+     *         or a globally unique identifier.</p>
+     *         <p>
+     *         CloudTrail also supports KMS multi-Region keys. For more information about multi-Region keys, see <a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html">Using
+     *         multi-Region keys</a> in the <i>Key Management Service Developer Guide</i>.
+     *         </p>
      *         <p>
      *         Examples:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         alias/MyAliasName
+     *         <code>alias/MyAliasName</code>
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         arn:aws:kms:us-east-2:123456789012:alias/MyAliasName
+     *         <code>arn:aws:kms:us-east-2:123456789012:alias/MyAliasName</code>
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012
+     *         <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         12345678-1234-1234-1234-123456789012
+     *         <code>12345678-1234-1234-1234-123456789012</code>
      *         </p>
      *         </li>
      */
@@ -981,8 +1055,13 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Specifies the KMS key ID to use to encrypt the logs delivered by CloudTrail. The value can be an alias name
-     * prefixed by "alias/", a fully specified ARN to an alias, a fully specified ARN to a key, or a globally unique
-     * identifier.
+     * prefixed by <code>alias/</code>, a fully specified ARN to an alias, a fully specified ARN to a key, or a globally
+     * unique identifier.
+     * </p>
+     * <p>
+     * CloudTrail also supports KMS multi-Region keys. For more information about multi-Region keys, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html">Using multi-Region
+     * keys</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      * <p>
      * Examples:
@@ -990,52 +1069,57 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * alias/MyAliasName
+     * <code>alias/MyAliasName</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * arn:aws:kms:us-east-2:123456789012:alias/MyAliasName
+     * <code>arn:aws:kms:us-east-2:123456789012:alias/MyAliasName</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012
+     * <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * 12345678-1234-1234-1234-123456789012
+     * <code>12345678-1234-1234-1234-123456789012</code>
      * </p>
      * </li>
      * </ul>
      * 
      * @param kmsKeyId
      *        Specifies the KMS key ID to use to encrypt the logs delivered by CloudTrail. The value can be an alias
-     *        name prefixed by "alias/", a fully specified ARN to an alias, a fully specified ARN to a key, or a
-     *        globally unique identifier.</p>
+     *        name prefixed by <code>alias/</code>, a fully specified ARN to an alias, a fully specified ARN to a key,
+     *        or a globally unique identifier.</p>
+     *        <p>
+     *        CloudTrail also supports KMS multi-Region keys. For more information about multi-Region keys, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html">Using
+     *        multi-Region keys</a> in the <i>Key Management Service Developer Guide</i>.
+     *        </p>
      *        <p>
      *        Examples:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        alias/MyAliasName
+     *        <code>alias/MyAliasName</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        arn:aws:kms:us-east-2:123456789012:alias/MyAliasName
+     *        <code>arn:aws:kms:us-east-2:123456789012:alias/MyAliasName</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012
+     *        <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        12345678-1234-1234-1234-123456789012
+     *        <code>12345678-1234-1234-1234-123456789012</code>
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1048,15 +1132,17 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies whether the trail is created for all accounts in an organization in AWS Organizations, or only for the
-     * current AWS account. The default is false, and cannot be true unless the call is made on behalf of an AWS account
-     * that is the master account for an organization in AWS Organizations.
+     * Specifies whether the trail is created for all accounts in an organization in Organizations, or only for the
+     * current Amazon Web Services account. The default is false, and cannot be true unless the call is made on behalf
+     * of an Amazon Web Services account that is the management account or delegated administrator account for an
+     * organization in Organizations.
      * </p>
      * 
      * @param isOrganizationTrail
-     *        Specifies whether the trail is created for all accounts in an organization in AWS Organizations, or only
-     *        for the current AWS account. The default is false, and cannot be true unless the call is made on behalf of
-     *        an AWS account that is the master account for an organization in AWS Organizations.
+     *        Specifies whether the trail is created for all accounts in an organization in Organizations, or only for
+     *        the current Amazon Web Services account. The default is false, and cannot be true unless the call is made
+     *        on behalf of an Amazon Web Services account that is the management account or delegated administrator
+     *        account for an organization in Organizations.
      */
 
     public void setIsOrganizationTrail(Boolean isOrganizationTrail) {
@@ -1065,14 +1151,16 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies whether the trail is created for all accounts in an organization in AWS Organizations, or only for the
-     * current AWS account. The default is false, and cannot be true unless the call is made on behalf of an AWS account
-     * that is the master account for an organization in AWS Organizations.
+     * Specifies whether the trail is created for all accounts in an organization in Organizations, or only for the
+     * current Amazon Web Services account. The default is false, and cannot be true unless the call is made on behalf
+     * of an Amazon Web Services account that is the management account or delegated administrator account for an
+     * organization in Organizations.
      * </p>
      * 
-     * @return Specifies whether the trail is created for all accounts in an organization in AWS Organizations, or only
-     *         for the current AWS account. The default is false, and cannot be true unless the call is made on behalf
-     *         of an AWS account that is the master account for an organization in AWS Organizations.
+     * @return Specifies whether the trail is created for all accounts in an organization in Organizations, or only for
+     *         the current Amazon Web Services account. The default is false, and cannot be true unless the call is made
+     *         on behalf of an Amazon Web Services account that is the management account or delegated administrator
+     *         account for an organization in Organizations.
      */
 
     public Boolean getIsOrganizationTrail() {
@@ -1081,15 +1169,17 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies whether the trail is created for all accounts in an organization in AWS Organizations, or only for the
-     * current AWS account. The default is false, and cannot be true unless the call is made on behalf of an AWS account
-     * that is the master account for an organization in AWS Organizations.
+     * Specifies whether the trail is created for all accounts in an organization in Organizations, or only for the
+     * current Amazon Web Services account. The default is false, and cannot be true unless the call is made on behalf
+     * of an Amazon Web Services account that is the management account or delegated administrator account for an
+     * organization in Organizations.
      * </p>
      * 
      * @param isOrganizationTrail
-     *        Specifies whether the trail is created for all accounts in an organization in AWS Organizations, or only
-     *        for the current AWS account. The default is false, and cannot be true unless the call is made on behalf of
-     *        an AWS account that is the master account for an organization in AWS Organizations.
+     *        Specifies whether the trail is created for all accounts in an organization in Organizations, or only for
+     *        the current Amazon Web Services account. The default is false, and cannot be true unless the call is made
+     *        on behalf of an Amazon Web Services account that is the management account or delegated administrator
+     *        account for an organization in Organizations.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1100,18 +1190,75 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies whether the trail is created for all accounts in an organization in AWS Organizations, or only for the
-     * current AWS account. The default is false, and cannot be true unless the call is made on behalf of an AWS account
-     * that is the master account for an organization in AWS Organizations.
+     * Specifies whether the trail is created for all accounts in an organization in Organizations, or only for the
+     * current Amazon Web Services account. The default is false, and cannot be true unless the call is made on behalf
+     * of an Amazon Web Services account that is the management account or delegated administrator account for an
+     * organization in Organizations.
      * </p>
      * 
-     * @return Specifies whether the trail is created for all accounts in an organization in AWS Organizations, or only
-     *         for the current AWS account. The default is false, and cannot be true unless the call is made on behalf
-     *         of an AWS account that is the master account for an organization in AWS Organizations.
+     * @return Specifies whether the trail is created for all accounts in an organization in Organizations, or only for
+     *         the current Amazon Web Services account. The default is false, and cannot be true unless the call is made
+     *         on behalf of an Amazon Web Services account that is the management account or delegated administrator
+     *         account for an organization in Organizations.
      */
 
     public Boolean isOrganizationTrail() {
         return this.isOrganizationTrail;
+    }
+
+    /**
+     * @return
+     */
+
+    public java.util.List<Tag> getTagsList() {
+        if (tagsList == null) {
+            tagsList = new com.amazonaws.internal.SdkInternalList<Tag>();
+        }
+        return tagsList;
+    }
+
+    /**
+     * @param tagsList
+     */
+
+    public void setTagsList(java.util.Collection<Tag> tagsList) {
+        if (tagsList == null) {
+            this.tagsList = null;
+            return;
+        }
+
+        this.tagsList = new com.amazonaws.internal.SdkInternalList<Tag>(tagsList);
+    }
+
+    /**
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagsList(java.util.Collection)} or {@link #withTagsList(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param tagsList
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTrailRequest withTagsList(Tag... tagsList) {
+        if (this.tagsList == null) {
+            setTagsList(new com.amazonaws.internal.SdkInternalList<Tag>(tagsList.length));
+        }
+        for (Tag ele : tagsList) {
+            this.tagsList.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * @param tagsList
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTrailRequest withTagsList(java.util.Collection<Tag> tagsList) {
+        setTagsList(tagsList);
+        return this;
     }
 
     /**
@@ -1147,7 +1294,9 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getKmsKeyId() != null)
             sb.append("KmsKeyId: ").append(getKmsKeyId()).append(",");
         if (getIsOrganizationTrail() != null)
-            sb.append("IsOrganizationTrail: ").append(getIsOrganizationTrail());
+            sb.append("IsOrganizationTrail: ").append(getIsOrganizationTrail()).append(",");
+        if (getTagsList() != null)
+            sb.append("TagsList: ").append(getTagsList());
         sb.append("}");
         return sb.toString();
     }
@@ -1206,6 +1355,10 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getIsOrganizationTrail() != null && other.getIsOrganizationTrail().equals(this.getIsOrganizationTrail()) == false)
             return false;
+        if (other.getTagsList() == null ^ this.getTagsList() == null)
+            return false;
+        if (other.getTagsList() != null && other.getTagsList().equals(this.getTagsList()) == false)
+            return false;
         return true;
     }
 
@@ -1225,6 +1378,7 @@ public class CreateTrailRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getCloudWatchLogsRoleArn() == null) ? 0 : getCloudWatchLogsRoleArn().hashCode());
         hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
         hashCode = prime * hashCode + ((getIsOrganizationTrail() == null) ? 0 : getIsOrganizationTrail().hashCode());
+        hashCode = prime * hashCode + ((getTagsList() == null) ? 0 : getTagsList().hashCode());
         return hashCode;
     }
 

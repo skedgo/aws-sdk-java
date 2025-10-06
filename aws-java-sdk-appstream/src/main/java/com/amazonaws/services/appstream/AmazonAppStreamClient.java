@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,6 +45,7 @@ import com.amazonaws.services.appstream.waiters.AmazonAppStreamWaiters;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.appstream.model.*;
+
 import com.amazonaws.services.appstream.model.transform.*;
 
 /**
@@ -59,6 +60,15 @@ import com.amazonaws.services.appstream.model.transform.*;
  * AWS resources that are required to host and run your applications, scales automatically, and provides access to your
  * users on demand.
  * </p>
+ * <note>
+ * <p>
+ * You can call the AppStream 2.0 API operations by using an interface VPC endpoint (interface endpoint). For more
+ * information, see <a href=
+ * "https://docs.aws.amazon.com/appstream2/latest/developerguide/access-api-cli-through-interface-vpc-endpoint.html"
+ * >Access AppStream 2.0 API Operations and CLI Commands Through an Interface VPC Endpoint</a> in the <i>Amazon
+ * AppStream 2.0 Administration Guide</i>.
+ * </p>
+ * </note>
  * <p>
  * To learn more about AppStream 2.0, see the following resources:
  * </p>
@@ -100,38 +110,47 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ConcurrentModificationException").withModeledClass(
-                                    com.amazonaws.services.appstream.model.ConcurrentModificationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConcurrentModificationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.appstream.model.transform.ConcurrentModificationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withModeledClass(
-                                    com.amazonaws.services.appstream.model.ResourceInUseException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RequestLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.appstream.model.transform.RequestLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("IncompatibleImageException").withModeledClass(
-                                    com.amazonaws.services.appstream.model.IncompatibleImageException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.appstream.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotAvailableException").withModeledClass(
-                                    com.amazonaws.services.appstream.model.ResourceNotAvailableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.appstream.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidAccountStatusException").withModeledClass(
-                                    com.amazonaws.services.appstream.model.InvalidAccountStatusException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.appstream.model.transform.ResourceAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("OperationNotPermittedException").withModeledClass(
-                                    com.amazonaws.services.appstream.model.OperationNotPermittedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.appstream.model.transform.ResourceInUseExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.appstream.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("IncompatibleImageException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.appstream.model.transform.IncompatibleImageExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.appstream.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotAvailableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.appstream.model.transform.ResourceNotAvailableExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRoleException").withModeledClass(
-                                    com.amazonaws.services.appstream.model.InvalidRoleException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidAccountStatusException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.appstream.model.transform.InvalidAccountStatusExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterCombinationException").withModeledClass(
-                                    com.amazonaws.services.appstream.model.InvalidParameterCombinationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("OperationNotPermittedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.appstream.model.transform.OperationNotPermittedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.appstream.model.ResourceAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRoleException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.appstream.model.transform.InvalidRoleExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterCombinationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.appstream.model.transform.InvalidParameterCombinationExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("EntitlementAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.appstream.model.transform.EntitlementAlreadyExistsExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("EntitlementNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.appstream.model.transform.EntitlementNotFoundExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.appstream.model.AmazonAppStreamException.class));
 
     /**
@@ -336,6 +355,209 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
+     * Associates the specified app block builder with the specified app block.
+     * </p>
+     * 
+     * @param associateAppBlockBuilderAppBlockRequest
+     * @return Result of the AssociateAppBlockBuilderAppBlock operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.AssociateAppBlockBuilderAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/AssociateAppBlockBuilderAppBlock"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public AssociateAppBlockBuilderAppBlockResult associateAppBlockBuilderAppBlock(AssociateAppBlockBuilderAppBlockRequest request) {
+        request = beforeClientExecution(request);
+        return executeAssociateAppBlockBuilderAppBlock(request);
+    }
+
+    @SdkInternalApi
+    final AssociateAppBlockBuilderAppBlockResult executeAssociateAppBlockBuilderAppBlock(
+            AssociateAppBlockBuilderAppBlockRequest associateAppBlockBuilderAppBlockRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(associateAppBlockBuilderAppBlockRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AssociateAppBlockBuilderAppBlockRequest> request = null;
+        Response<AssociateAppBlockBuilderAppBlockResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AssociateAppBlockBuilderAppBlockRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(associateAppBlockBuilderAppBlockRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateAppBlockBuilderAppBlock");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AssociateAppBlockBuilderAppBlockResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new AssociateAppBlockBuilderAppBlockResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Associates the specified application with the specified fleet. This is only supported for Elastic fleets.
+     * </p>
+     * 
+     * @param associateApplicationFleetRequest
+     * @return Result of the AssociateApplicationFleet operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.AssociateApplicationFleet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/AssociateApplicationFleet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public AssociateApplicationFleetResult associateApplicationFleet(AssociateApplicationFleetRequest request) {
+        request = beforeClientExecution(request);
+        return executeAssociateApplicationFleet(request);
+    }
+
+    @SdkInternalApi
+    final AssociateApplicationFleetResult executeAssociateApplicationFleet(AssociateApplicationFleetRequest associateApplicationFleetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(associateApplicationFleetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AssociateApplicationFleetRequest> request = null;
+        Response<AssociateApplicationFleetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AssociateApplicationFleetRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(associateApplicationFleetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateApplicationFleet");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AssociateApplicationFleetResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new AssociateApplicationFleetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Associates an application to entitle.
+     * </p>
+     * 
+     * @param associateApplicationToEntitlementRequest
+     * @return Result of the AssociateApplicationToEntitlement operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws EntitlementNotFoundException
+     *         The entitlement can't be found.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.AssociateApplicationToEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/AssociateApplicationToEntitlement"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public AssociateApplicationToEntitlementResult associateApplicationToEntitlement(AssociateApplicationToEntitlementRequest request) {
+        request = beforeClientExecution(request);
+        return executeAssociateApplicationToEntitlement(request);
+    }
+
+    @SdkInternalApi
+    final AssociateApplicationToEntitlementResult executeAssociateApplicationToEntitlement(
+            AssociateApplicationToEntitlementRequest associateApplicationToEntitlementRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(associateApplicationToEntitlementRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AssociateApplicationToEntitlementRequest> request = null;
+        Response<AssociateApplicationToEntitlementResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AssociateApplicationToEntitlementRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(associateApplicationToEntitlementRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateApplicationToEntitlement");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AssociateApplicationToEntitlementResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new AssociateApplicationToEntitlementResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Associates the specified fleet with the specified stack.
      * </p>
      * 
@@ -351,7 +573,7 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      * @throws ConcurrentModificationException
      *         An API error occurred. Wait a few minutes and try again.
      * @throws IncompatibleImageException
-     *         The image does not support storage connectors.
+     *         The image can't be updated because it's not compatible for updates.
      * @throws OperationNotPermittedException
      *         The attempted operation is not permitted.
      * @sample AmazonAppStream.AssociateFleet
@@ -379,6 +601,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new AssociateFleetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(associateFleetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateFleet");
@@ -410,6 +634,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      * @return Result of the BatchAssociateUserStack operation returned by the service.
      * @throws OperationNotPermittedException
      *         The attempted operation is not permitted.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
      * @sample AmazonAppStream.BatchAssociateUserStack
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/BatchAssociateUserStack"
      *      target="_top">AWS API Documentation</a>
@@ -436,6 +662,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                         .beforeMarshalling(batchAssociateUserStackRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchAssociateUserStack");
@@ -465,6 +693,10 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      * 
      * @param batchDisassociateUserStackRequest
      * @return Result of the BatchDisassociateUserStack operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
      * @sample AmazonAppStream.BatchDisassociateUserStack
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/BatchDisassociateUserStack"
      *      target="_top">AWS API Documentation</a>
@@ -491,6 +723,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                         .beforeMarshalling(batchDisassociateUserStackRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchDisassociateUserStack");
@@ -533,7 +767,7 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
      * @throws IncompatibleImageException
-     *         The image does not support storage connectors.
+     *         The image can't be updated because it's not compatible for updates.
      * @sample AmazonAppStream.CopyImage
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CopyImage" target="_top">AWS API
      *      Documentation</a>
@@ -559,6 +793,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new CopyImageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(copyImageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CopyImage");
@@ -582,12 +818,300 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
+     * Creates an app block.
+     * </p>
+     * <p>
+     * App blocks are an Amazon AppStream 2.0 resource that stores the details about the virtual hard disk in an S3
+     * bucket. It also stores the setup script with details about how to mount the virtual hard disk. The virtual hard
+     * disk includes the application binaries and other files necessary to launch your applications. Multiple
+     * applications can be assigned to a single app block.
+     * </p>
+     * <p>
+     * This is only supported for Elastic fleets.
+     * </p>
+     * 
+     * @param createAppBlockRequest
+     * @return Result of the CreateAppBlock operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @sample AmazonAppStream.CreateAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateAppBlock" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateAppBlockResult createAppBlock(CreateAppBlockRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateAppBlock(request);
+    }
+
+    @SdkInternalApi
+    final CreateAppBlockResult executeCreateAppBlock(CreateAppBlockRequest createAppBlockRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createAppBlockRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateAppBlockRequest> request = null;
+        Response<CreateAppBlockResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateAppBlockRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createAppBlockRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateAppBlock");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateAppBlockResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateAppBlockResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates an app block builder.
+     * </p>
+     * 
+     * @param createAppBlockBuilderRequest
+     * @return Result of the CreateAppBlockBuilder operation returned by the service.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws RequestLimitExceededException
+     *         AppStream 2.0 can’t process the request right now because the Describe calls from your AWS account are
+     *         being throttled by Amazon EC2. Try again later.
+     * @throws InvalidAccountStatusException
+     *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
+     *         Support.
+     * @throws InvalidRoleException
+     *         The specified role is invalid.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceNotAvailableException
+     *         The specified resource exists and is not in use, but isn't available.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @sample AmazonAppStream.CreateAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateAppBlockBuilder"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateAppBlockBuilderResult createAppBlockBuilder(CreateAppBlockBuilderRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateAppBlockBuilder(request);
+    }
+
+    @SdkInternalApi
+    final CreateAppBlockBuilderResult executeCreateAppBlockBuilder(CreateAppBlockBuilderRequest createAppBlockBuilderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createAppBlockBuilderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateAppBlockBuilderRequest> request = null;
+        Response<CreateAppBlockBuilderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateAppBlockBuilderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createAppBlockBuilderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateAppBlockBuilder");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateAppBlockBuilderResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new CreateAppBlockBuilderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a URL to start a create app block builder streaming session.
+     * </p>
+     * 
+     * @param createAppBlockBuilderStreamingURLRequest
+     * @return Result of the CreateAppBlockBuilderStreamingURL operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.CreateAppBlockBuilderStreamingURL
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateAppBlockBuilderStreamingURL"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateAppBlockBuilderStreamingURLResult createAppBlockBuilderStreamingURL(CreateAppBlockBuilderStreamingURLRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateAppBlockBuilderStreamingURL(request);
+    }
+
+    @SdkInternalApi
+    final CreateAppBlockBuilderStreamingURLResult executeCreateAppBlockBuilderStreamingURL(
+            CreateAppBlockBuilderStreamingURLRequest createAppBlockBuilderStreamingURLRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createAppBlockBuilderStreamingURLRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateAppBlockBuilderStreamingURLRequest> request = null;
+        Response<CreateAppBlockBuilderStreamingURLResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateAppBlockBuilderStreamingURLRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createAppBlockBuilderStreamingURLRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateAppBlockBuilderStreamingURL");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateAppBlockBuilderStreamingURLResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateAppBlockBuilderStreamingURLResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates an application.
+     * </p>
+     * <p>
+     * Applications are an Amazon AppStream 2.0 resource that stores the details about how to launch applications on
+     * Elastic fleet streaming instances. An application consists of the launch details, icon, and display name.
+     * Applications are associated with an app block that contains the application binaries and other files. The
+     * applications assigned to an Elastic fleet are the applications users can launch.
+     * </p>
+     * <p>
+     * This is only supported for Elastic fleets.
+     * </p>
+     * 
+     * @param createApplicationRequest
+     * @return Result of the CreateApplication operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.CreateApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateApplication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateApplicationResult createApplication(CreateApplicationRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateApplication(request);
+    }
+
+    @SdkInternalApi
+    final CreateApplicationResult executeCreateApplication(CreateApplicationRequest createApplicationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createApplicationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateApplicationRequest> request = null;
+        Response<CreateApplicationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createApplicationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateApplication");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateApplicationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateApplicationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Creates a Directory Config object in AppStream 2.0. This object includes the configuration information required
      * to join fleets and image builders to Microsoft Active Directory domains.
      * </p>
      * 
      * @param createDirectoryConfigRequest
      * @return Result of the CreateDirectoryConfig operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
      * @throws ResourceAlreadyExistsException
      *         The specified resource already exists.
      * @throws LimitExceededException
@@ -595,6 +1119,10 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      * @throws InvalidAccountStatusException
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws InvalidRoleException
+     *         The specified role is invalid.
      * @sample AmazonAppStream.CreateDirectoryConfig
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateDirectoryConfig"
      *      target="_top">AWS API Documentation</a>
@@ -620,6 +1148,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new CreateDirectoryConfigRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDirectoryConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDirectoryConfig");
@@ -644,7 +1174,74 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Creates a fleet. A fleet consists of streaming instances that run a specified image.
+     * Creates a new entitlement. Entitlements control access to specific applications within a stack, based on user
+     * attributes. Entitlements apply to SAML 2.0 federated user identities. Amazon AppStream 2.0 user pool and
+     * streaming URL users are entitled to all applications in a stack. Entitlements don't apply to the desktop stream
+     * view application, or to applications managed by a dynamic app provider using the Dynamic Application Framework.
+     * </p>
+     * 
+     * @param createEntitlementRequest
+     * @return Result of the CreateEntitlement operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws EntitlementAlreadyExistsException
+     *         The entitlement already exists.
+     * @sample AmazonAppStream.CreateEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateEntitlement" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateEntitlementResult createEntitlement(CreateEntitlementRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateEntitlement(request);
+    }
+
+    @SdkInternalApi
+    final CreateEntitlementResult executeCreateEntitlement(CreateEntitlementRequest createEntitlementRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createEntitlementRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateEntitlementRequest> request = null;
+        Response<CreateEntitlementResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateEntitlementRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createEntitlementRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateEntitlement");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateEntitlementResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateEntitlementResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a fleet. A fleet consists of streaming instances that your users access for their applications and
+     * desktops.
      * </p>
      * 
      * @param createFleetRequest
@@ -657,6 +1254,9 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      *         The specified resource was not found.
      * @throws LimitExceededException
      *         The requested limit exceeds the permitted limit for an account.
+     * @throws RequestLimitExceededException
+     *         AppStream 2.0 can’t process the request right now because the Describe calls from your AWS account are
+     *         being throttled by Amazon EC2. Try again later.
      * @throws InvalidAccountStatusException
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
@@ -667,7 +1267,7 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      * @throws InvalidParameterCombinationException
      *         Indicates an incorrect combination of parameters, or a missing parameter.
      * @throws IncompatibleImageException
-     *         The image does not support storage connectors.
+     *         The image can't be updated because it's not compatible for updates.
      * @throws OperationNotPermittedException
      *         The attempted operation is not permitted.
      * @sample AmazonAppStream.CreateFleet
@@ -695,6 +1295,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new CreateFleetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createFleetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFleet");
@@ -728,6 +1330,9 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      * @return Result of the CreateImageBuilder operation returned by the service.
      * @throws LimitExceededException
      *         The requested limit exceeds the permitted limit for an account.
+     * @throws RequestLimitExceededException
+     *         AppStream 2.0 can’t process the request right now because the Describe calls from your AWS account are
+     *         being throttled by Amazon EC2. Try again later.
      * @throws InvalidAccountStatusException
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
@@ -744,7 +1349,7 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      * @throws InvalidParameterCombinationException
      *         Indicates an incorrect combination of parameters, or a missing parameter.
      * @throws IncompatibleImageException
-     *         The image does not support storage connectors.
+     *         The image can't be updated because it's not compatible for updates.
      * @throws OperationNotPermittedException
      *         The attempted operation is not permitted.
      * @sample AmazonAppStream.CreateImageBuilder
@@ -772,6 +1377,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new CreateImageBuilderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createImageBuilderRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateImageBuilder");
@@ -830,6 +1437,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                         .beforeMarshalling(createImageBuilderStreamingURLRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateImageBuilderStreamingURL");
@@ -875,6 +1484,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      *         The specified resource was not found.
      * @throws InvalidParameterCombinationException
      *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
      * @sample AmazonAppStream.CreateStack
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateStack" target="_top">AWS API
      *      Documentation</a>
@@ -900,6 +1511,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new CreateStackRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createStackRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateStack");
@@ -962,6 +1575,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new CreateStreamingURLRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createStreamingURLRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateStreamingURL");
@@ -985,6 +1600,82 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
+     * Creates a new image with the latest Windows operating system updates, driver updates, and AppStream 2.0 agent
+     * software.
+     * </p>
+     * <p>
+     * For more information, see the "Update an Image by Using Managed AppStream 2.0 Image Updates" section in <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/administer-images.html">Administer Your
+     * AppStream 2.0 Images</a>, in the <i>Amazon AppStream 2.0 Administration Guide</i>.
+     * </p>
+     * 
+     * @param createUpdatedImageRequest
+     * @return Result of the CreateUpdatedImage operation returned by the service.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws InvalidAccountStatusException
+     *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
+     *         Support.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws IncompatibleImageException
+     *         The image can't be updated because it's not compatible for updates.
+     * @sample AmazonAppStream.CreateUpdatedImage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateUpdatedImage" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateUpdatedImageResult createUpdatedImage(CreateUpdatedImageRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateUpdatedImage(request);
+    }
+
+    @SdkInternalApi
+    final CreateUpdatedImageResult executeCreateUpdatedImage(CreateUpdatedImageRequest createUpdatedImageRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createUpdatedImageRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateUpdatedImageRequest> request = null;
+        Response<CreateUpdatedImageResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateUpdatedImageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createUpdatedImageRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateUpdatedImage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateUpdatedImageResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateUpdatedImageResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Creates a usage report subscription. Usage reports are generated daily.
      * </p>
      * 
@@ -995,6 +1686,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      * @throws InvalidAccountStatusException
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
      * @sample AmazonAppStream.CreateUsageReportSubscription
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateUsageReportSubscription"
      *      target="_top">AWS API Documentation</a>
@@ -1021,6 +1714,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                         .beforeMarshalling(createUsageReportSubscriptionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateUsageReportSubscription");
@@ -1086,6 +1781,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new CreateUserRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createUserRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateUser");
@@ -1097,6 +1794,197 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
 
             HttpResponseHandler<AmazonWebServiceResponse<CreateUserResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
                     .withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateUserResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes an app block.
+     * </p>
+     * 
+     * @param deleteAppBlockRequest
+     * @return Result of the DeleteAppBlock operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.DeleteAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteAppBlock" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteAppBlockResult deleteAppBlock(DeleteAppBlockRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteAppBlock(request);
+    }
+
+    @SdkInternalApi
+    final DeleteAppBlockResult executeDeleteAppBlock(DeleteAppBlockRequest deleteAppBlockRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteAppBlockRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteAppBlockRequest> request = null;
+        Response<DeleteAppBlockResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteAppBlockRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteAppBlockRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAppBlock");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteAppBlockResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteAppBlockResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes an app block builder.
+     * </p>
+     * <p>
+     * An app block builder can only be deleted when it has no association with an app block.
+     * </p>
+     * 
+     * @param deleteAppBlockBuilderRequest
+     * @return Result of the DeleteAppBlockBuilder operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.DeleteAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteAppBlockBuilder"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteAppBlockBuilderResult deleteAppBlockBuilder(DeleteAppBlockBuilderRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteAppBlockBuilder(request);
+    }
+
+    @SdkInternalApi
+    final DeleteAppBlockBuilderResult executeDeleteAppBlockBuilder(DeleteAppBlockBuilderRequest deleteAppBlockBuilderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteAppBlockBuilderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteAppBlockBuilderRequest> request = null;
+        Response<DeleteAppBlockBuilderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteAppBlockBuilderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteAppBlockBuilderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAppBlockBuilder");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteAppBlockBuilderResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DeleteAppBlockBuilderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes an application.
+     * </p>
+     * 
+     * @param deleteApplicationRequest
+     * @return Result of the DeleteApplication operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @sample AmazonAppStream.DeleteApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteApplication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteApplicationResult deleteApplication(DeleteApplicationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteApplication(request);
+    }
+
+    @SdkInternalApi
+    final DeleteApplicationResult executeDeleteApplication(DeleteApplicationRequest deleteApplicationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteApplicationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteApplicationRequest> request = null;
+        Response<DeleteApplicationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteApplicationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteApplication");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteApplicationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteApplicationResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1144,6 +2032,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new DeleteDirectoryConfigRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDirectoryConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDirectoryConfig");
@@ -1156,6 +2046,71 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
             HttpResponseHandler<AmazonWebServiceResponse<DeleteDirectoryConfigResult>> responseHandler = protocolFactory
                     .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                             new DeleteDirectoryConfigResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified entitlement.
+     * </p>
+     * 
+     * @param deleteEntitlementRequest
+     * @return Result of the DeleteEntitlement operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws EntitlementNotFoundException
+     *         The entitlement can't be found.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @sample AmazonAppStream.DeleteEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteEntitlement" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteEntitlementResult deleteEntitlement(DeleteEntitlementRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteEntitlement(request);
+    }
+
+    @SdkInternalApi
+    final DeleteEntitlementResult executeDeleteEntitlement(DeleteEntitlementRequest deleteEntitlementRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteEntitlementRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteEntitlementRequest> request = null;
+        Response<DeleteEntitlementResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteEntitlementRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteEntitlementRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteEntitlement");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteEntitlementResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteEntitlementResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1204,6 +2159,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new DeleteFleetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteFleetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFleet");
@@ -1266,6 +2223,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new DeleteImageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteImageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteImage");
@@ -1325,6 +2284,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new DeleteImageBuilderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteImageBuilderRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteImageBuilder");
@@ -1383,6 +2344,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new DeleteImagePermissionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteImagePermissionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteImagePermissions");
@@ -1418,6 +2381,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      *         The specified resource is in use.
      * @throws ResourceNotFoundException
      *         The specified resource was not found.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
      * @throws ConcurrentModificationException
      *         An API error occurred. Wait a few minutes and try again.
      * @sample AmazonAppStream.DeleteStack
@@ -1445,6 +2410,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new DeleteStackRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteStackRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteStack");
@@ -1504,6 +2471,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                         .beforeMarshalling(deleteUsageReportSubscriptionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteUsageReportSubscription");
@@ -1560,6 +2529,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new DeleteUserRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteUserRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteUser");
@@ -1571,6 +2542,312 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
 
             HttpResponseHandler<AmazonWebServiceResponse<DeleteUserResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
                     .withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteUserResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more app block builder associations.
+     * </p>
+     * 
+     * @param describeAppBlockBuilderAppBlockAssociationsRequest
+     * @return Result of the DescribeAppBlockBuilderAppBlockAssociations operation returned by the service.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.DescribeAppBlockBuilderAppBlockAssociations
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeAppBlockBuilderAppBlockAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeAppBlockBuilderAppBlockAssociationsResult describeAppBlockBuilderAppBlockAssociations(
+            DescribeAppBlockBuilderAppBlockAssociationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeAppBlockBuilderAppBlockAssociations(request);
+    }
+
+    @SdkInternalApi
+    final DescribeAppBlockBuilderAppBlockAssociationsResult executeDescribeAppBlockBuilderAppBlockAssociations(
+            DescribeAppBlockBuilderAppBlockAssociationsRequest describeAppBlockBuilderAppBlockAssociationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeAppBlockBuilderAppBlockAssociationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeAppBlockBuilderAppBlockAssociationsRequest> request = null;
+        Response<DescribeAppBlockBuilderAppBlockAssociationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeAppBlockBuilderAppBlockAssociationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeAppBlockBuilderAppBlockAssociationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAppBlockBuilderAppBlockAssociations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeAppBlockBuilderAppBlockAssociationsResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DescribeAppBlockBuilderAppBlockAssociationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more app block builders.
+     * </p>
+     * 
+     * @param describeAppBlockBuildersRequest
+     * @return Result of the DescribeAppBlockBuilders operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.DescribeAppBlockBuilders
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeAppBlockBuilders"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeAppBlockBuildersResult describeAppBlockBuilders(DescribeAppBlockBuildersRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeAppBlockBuilders(request);
+    }
+
+    @SdkInternalApi
+    final DescribeAppBlockBuildersResult executeDescribeAppBlockBuilders(DescribeAppBlockBuildersRequest describeAppBlockBuildersRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeAppBlockBuildersRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeAppBlockBuildersRequest> request = null;
+        Response<DescribeAppBlockBuildersResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeAppBlockBuildersRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeAppBlockBuildersRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAppBlockBuilders");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeAppBlockBuildersResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeAppBlockBuildersResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more app blocks.
+     * </p>
+     * 
+     * @param describeAppBlocksRequest
+     * @return Result of the DescribeAppBlocks operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.DescribeAppBlocks
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeAppBlocks" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeAppBlocksResult describeAppBlocks(DescribeAppBlocksRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeAppBlocks(request);
+    }
+
+    @SdkInternalApi
+    final DescribeAppBlocksResult executeDescribeAppBlocks(DescribeAppBlocksRequest describeAppBlocksRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeAppBlocksRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeAppBlocksRequest> request = null;
+        Response<DescribeAppBlocksResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeAppBlocksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeAppBlocksRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAppBlocks");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeAppBlocksResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeAppBlocksResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more application fleet associations. Either ApplicationArn or FleetName
+     * must be specified.
+     * </p>
+     * 
+     * @param describeApplicationFleetAssociationsRequest
+     * @return Result of the DescribeApplicationFleetAssociations operation returned by the service.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.DescribeApplicationFleetAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeApplicationFleetAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeApplicationFleetAssociationsResult describeApplicationFleetAssociations(DescribeApplicationFleetAssociationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeApplicationFleetAssociations(request);
+    }
+
+    @SdkInternalApi
+    final DescribeApplicationFleetAssociationsResult executeDescribeApplicationFleetAssociations(
+            DescribeApplicationFleetAssociationsRequest describeApplicationFleetAssociationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeApplicationFleetAssociationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeApplicationFleetAssociationsRequest> request = null;
+        Response<DescribeApplicationFleetAssociationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeApplicationFleetAssociationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeApplicationFleetAssociationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeApplicationFleetAssociations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeApplicationFleetAssociationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeApplicationFleetAssociationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more applications.
+     * </p>
+     * 
+     * @param describeApplicationsRequest
+     * @return Result of the DescribeApplications operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.DescribeApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeApplications" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeApplicationsResult describeApplications(DescribeApplicationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeApplications(request);
+    }
+
+    @SdkInternalApi
+    final DescribeApplicationsResult executeDescribeApplications(DescribeApplicationsRequest describeApplicationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeApplicationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeApplicationsRequest> request = null;
+        Response<DescribeApplicationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeApplicationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeApplicationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeApplications");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeApplicationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeApplicationsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1623,6 +2900,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                         .beforeMarshalling(describeDirectoryConfigsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDirectoryConfigs");
@@ -1635,6 +2914,67 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
             HttpResponseHandler<AmazonWebServiceResponse<DescribeDirectoryConfigsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeDirectoryConfigsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list that describes one of more entitlements.
+     * </p>
+     * 
+     * @param describeEntitlementsRequest
+     * @return Result of the DescribeEntitlements operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws EntitlementNotFoundException
+     *         The entitlement can't be found.
+     * @sample AmazonAppStream.DescribeEntitlements
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeEntitlements" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeEntitlementsResult describeEntitlements(DescribeEntitlementsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeEntitlements(request);
+    }
+
+    @SdkInternalApi
+    final DescribeEntitlementsResult executeDescribeEntitlements(DescribeEntitlementsRequest describeEntitlementsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeEntitlementsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeEntitlementsRequest> request = null;
+        Response<DescribeEntitlementsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeEntitlementsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeEntitlementsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEntitlements");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeEntitlementsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeEntitlementsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1680,6 +3020,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new DescribeFleetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeFleetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeFleets");
@@ -1736,6 +3078,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new DescribeImageBuildersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeImageBuildersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeImageBuilders");
@@ -1793,6 +3137,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                         .beforeMarshalling(describeImagePermissionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeImagePermissions");
@@ -1852,6 +3198,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new DescribeImagesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeImagesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeImages");
@@ -1909,6 +3257,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new DescribeSessionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeSessionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSessions");
@@ -1965,6 +3315,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new DescribeStacksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeStacksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeStacks");
@@ -2025,6 +3377,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                         .beforeMarshalling(describeUsageReportSubscriptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeUsageReportSubscriptions");
@@ -2069,6 +3423,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      * @return Result of the DescribeUserStackAssociations operation returned by the service.
      * @throws InvalidParameterCombinationException
      *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
      * @sample AmazonAppStream.DescribeUserStackAssociations
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeUserStackAssociations"
      *      target="_top">AWS API Documentation</a>
@@ -2095,6 +3451,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                         .beforeMarshalling(describeUserStackAssociationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeUserStackAssociations");
@@ -2128,6 +3486,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      *         The specified resource was not found.
      * @throws InvalidParameterCombinationException
      *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
      * @sample AmazonAppStream.DescribeUsers
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeUsers" target="_top">AWS API
      *      Documentation</a>
@@ -2153,6 +3513,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new DescribeUsersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeUsersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeUsers");
@@ -2209,6 +3571,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new DisableUserRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(disableUserRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisableUser");
@@ -2232,6 +3596,201 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
+     * Disassociates a specified app block builder from a specified app block.
+     * </p>
+     * 
+     * @param disassociateAppBlockBuilderAppBlockRequest
+     * @return Result of the DisassociateAppBlockBuilderAppBlock operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.DisassociateAppBlockBuilderAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DisassociateAppBlockBuilderAppBlock"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DisassociateAppBlockBuilderAppBlockResult disassociateAppBlockBuilderAppBlock(DisassociateAppBlockBuilderAppBlockRequest request) {
+        request = beforeClientExecution(request);
+        return executeDisassociateAppBlockBuilderAppBlock(request);
+    }
+
+    @SdkInternalApi
+    final DisassociateAppBlockBuilderAppBlockResult executeDisassociateAppBlockBuilderAppBlock(
+            DisassociateAppBlockBuilderAppBlockRequest disassociateAppBlockBuilderAppBlockRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(disassociateAppBlockBuilderAppBlockRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DisassociateAppBlockBuilderAppBlockRequest> request = null;
+        Response<DisassociateAppBlockBuilderAppBlockResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DisassociateAppBlockBuilderAppBlockRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(disassociateAppBlockBuilderAppBlockRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateAppBlockBuilderAppBlock");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DisassociateAppBlockBuilderAppBlockResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DisassociateAppBlockBuilderAppBlockResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Disassociates the specified application from the fleet.
+     * </p>
+     * 
+     * @param disassociateApplicationFleetRequest
+     * @return Result of the DisassociateApplicationFleet operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.DisassociateApplicationFleet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DisassociateApplicationFleet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DisassociateApplicationFleetResult disassociateApplicationFleet(DisassociateApplicationFleetRequest request) {
+        request = beforeClientExecution(request);
+        return executeDisassociateApplicationFleet(request);
+    }
+
+    @SdkInternalApi
+    final DisassociateApplicationFleetResult executeDisassociateApplicationFleet(DisassociateApplicationFleetRequest disassociateApplicationFleetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(disassociateApplicationFleetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DisassociateApplicationFleetRequest> request = null;
+        Response<DisassociateApplicationFleetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DisassociateApplicationFleetRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(disassociateApplicationFleetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateApplicationFleet");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DisassociateApplicationFleetResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DisassociateApplicationFleetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified application from the specified entitlement.
+     * </p>
+     * 
+     * @param disassociateApplicationFromEntitlementRequest
+     * @return Result of the DisassociateApplicationFromEntitlement operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws EntitlementNotFoundException
+     *         The entitlement can't be found.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.DisassociateApplicationFromEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DisassociateApplicationFromEntitlement"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DisassociateApplicationFromEntitlementResult disassociateApplicationFromEntitlement(DisassociateApplicationFromEntitlementRequest request) {
+        request = beforeClientExecution(request);
+        return executeDisassociateApplicationFromEntitlement(request);
+    }
+
+    @SdkInternalApi
+    final DisassociateApplicationFromEntitlementResult executeDisassociateApplicationFromEntitlement(
+            DisassociateApplicationFromEntitlementRequest disassociateApplicationFromEntitlementRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(disassociateApplicationFromEntitlementRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DisassociateApplicationFromEntitlementRequest> request = null;
+        Response<DisassociateApplicationFromEntitlementResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DisassociateApplicationFromEntitlementRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(disassociateApplicationFromEntitlementRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateApplicationFromEntitlement");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DisassociateApplicationFromEntitlementResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DisassociateApplicationFromEntitlementResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Disassociates the specified fleet from the specified stack.
      * </p>
      * 
@@ -2243,6 +3802,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      *         The specified resource was not found.
      * @throws ConcurrentModificationException
      *         An API error occurred. Wait a few minutes and try again.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
      * @sample AmazonAppStream.DisassociateFleet
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DisassociateFleet" target="_top">AWS
      *      API Documentation</a>
@@ -2268,6 +3829,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new DisassociateFleetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(disassociateFleetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateFleet");
@@ -2327,6 +3890,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new EnableUserRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(enableUserRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "EnableUser");
@@ -2380,6 +3945,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new ExpireSessionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(expireSessionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ExpireSession");
@@ -2433,6 +4000,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new ListAssociatedFleetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listAssociatedFleetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAssociatedFleets");
@@ -2486,6 +4055,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new ListAssociatedStacksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listAssociatedStacksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAssociatedStacks");
@@ -2509,13 +4080,76 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
+     * Retrieves a list of entitled applications.
+     * </p>
+     * 
+     * @param listEntitledApplicationsRequest
+     * @return Result of the ListEntitledApplications operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws EntitlementNotFoundException
+     *         The entitlement can't be found.
+     * @sample AmazonAppStream.ListEntitledApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ListEntitledApplications"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListEntitledApplicationsResult listEntitledApplications(ListEntitledApplicationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListEntitledApplications(request);
+    }
+
+    @SdkInternalApi
+    final ListEntitledApplicationsResult executeListEntitledApplications(ListEntitledApplicationsRequest listEntitledApplicationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listEntitledApplicationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListEntitledApplicationsRequest> request = null;
+        Response<ListEntitledApplicationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListEntitledApplicationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listEntitledApplicationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListEntitledApplications");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListEntitledApplicationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListEntitledApplicationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Retrieves a list of all tags for the specified AppStream 2.0 resource. You can tag AppStream 2.0 image builders,
      * images, fleets, and stacks.
      * </p>
      * <p>
      * For more information about tags, see <a
      * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging Your Resources</a>
-     * in the <i>Amazon AppStream 2.0 Developer Guide</i>.
+     * in the <i>Amazon AppStream 2.0 Administration Guide</i>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -2547,6 +4181,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -2570,6 +4206,84 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
+     * Starts an app block builder.
+     * </p>
+     * <p>
+     * An app block builder can only be started when it's associated with an app block.
+     * </p>
+     * <p>
+     * Starting an app block builder starts a new instance, which is equivalent to an elastic fleet instance with
+     * application builder assistance functionality.
+     * </p>
+     * 
+     * @param startAppBlockBuilderRequest
+     * @return Result of the StartAppBlockBuilder operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws InvalidAccountStatusException
+     *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
+     *         Support.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws RequestLimitExceededException
+     *         AppStream 2.0 can’t process the request right now because the Describe calls from your AWS account are
+     *         being throttled by Amazon EC2. Try again later.
+     * @throws ResourceNotAvailableException
+     *         The specified resource exists and is not in use, but isn't available.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.StartAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartAppBlockBuilder" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public StartAppBlockBuilderResult startAppBlockBuilder(StartAppBlockBuilderRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartAppBlockBuilder(request);
+    }
+
+    @SdkInternalApi
+    final StartAppBlockBuilderResult executeStartAppBlockBuilder(StartAppBlockBuilderRequest startAppBlockBuilderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startAppBlockBuilderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartAppBlockBuilderRequest> request = null;
+        Response<StartAppBlockBuilderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartAppBlockBuilderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startAppBlockBuilderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartAppBlockBuilder");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartAppBlockBuilderResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StartAppBlockBuilderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Starts the specified fleet.
      * </p>
      * 
@@ -2581,11 +4295,18 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      *         The attempted operation is not permitted.
      * @throws LimitExceededException
      *         The requested limit exceeds the permitted limit for an account.
+     * @throws RequestLimitExceededException
+     *         AppStream 2.0 can’t process the request right now because the Describe calls from your AWS account are
+     *         being throttled by Amazon EC2. Try again later.
      * @throws InvalidAccountStatusException
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
      * @throws ConcurrentModificationException
      *         An API error occurred. Wait a few minutes and try again.
+     * @throws ResourceNotAvailableException
+     *         The specified resource exists and is not in use, but isn't available.
+     * @throws InvalidRoleException
+     *         The specified role is invalid.
      * @sample AmazonAppStream.StartFleet
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartFleet" target="_top">AWS API
      *      Documentation</a>
@@ -2611,6 +4332,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new StartFleetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startFleetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartFleet");
@@ -2649,7 +4372,7 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
      * @throws IncompatibleImageException
-     *         The image does not support storage connectors.
+     *         The image can't be updated because it's not compatible for updates.
      * @sample AmazonAppStream.StartImageBuilder
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartImageBuilder" target="_top">AWS
      *      API Documentation</a>
@@ -2675,6 +4398,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new StartImageBuilderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startImageBuilderRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartImageBuilder");
@@ -2686,6 +4411,70 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
 
             HttpResponseHandler<AmazonWebServiceResponse<StartImageBuilderResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StartImageBuilderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Stops an app block builder.
+     * </p>
+     * <p>
+     * Stopping an app block builder terminates the instance, and the instance state is not persisted.
+     * </p>
+     * 
+     * @param stopAppBlockBuilderRequest
+     * @return Result of the StopAppBlockBuilder operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.StopAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StopAppBlockBuilder" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public StopAppBlockBuilderResult stopAppBlockBuilder(StopAppBlockBuilderRequest request) {
+        request = beforeClientExecution(request);
+        return executeStopAppBlockBuilder(request);
+    }
+
+    @SdkInternalApi
+    final StopAppBlockBuilderResult executeStopAppBlockBuilder(StopAppBlockBuilderRequest stopAppBlockBuilderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(stopAppBlockBuilderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StopAppBlockBuilderRequest> request = null;
+        Response<StopAppBlockBuilderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StopAppBlockBuilderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopAppBlockBuilderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopAppBlockBuilder");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StopAppBlockBuilderResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StopAppBlockBuilderResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2732,6 +4521,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new StopFleetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopFleetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopFleet");
@@ -2791,6 +4582,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new StopImageBuilderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopImageBuilderRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopImageBuilder");
@@ -2828,7 +4621,7 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      * <p>
      * For more information about tags, see <a
      * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging Your Resources</a>
-     * in the <i>Amazon AppStream 2.0 Developer Guide</i>.
+     * in the <i>Amazon AppStream 2.0 Administration Guide</i>.
      * </p>
      * 
      * @param tagResourceRequest
@@ -2865,6 +4658,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -2896,7 +4691,7 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      * <p>
      * For more information about tags, see <a
      * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging Your Resources</a>
-     * in the <i>Amazon AppStream 2.0 Developer Guide</i>.
+     * in the <i>Amazon AppStream 2.0 Administration Guide</i>.
      * </p>
      * 
      * @param untagResourceRequest
@@ -2928,6 +4723,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -2939,6 +4736,150 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
 
             HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates an app block builder.
+     * </p>
+     * <p>
+     * If the app block builder is in the <code>STARTING</code> or <code>STOPPING</code> state, you can't update it. If
+     * the app block builder is in the <code>RUNNING</code> state, you can only update the DisplayName and Description.
+     * If the app block builder is in the <code>STOPPED</code> state, you can update any attribute except the Name.
+     * </p>
+     * 
+     * @param updateAppBlockBuilderRequest
+     * @return Result of the UpdateAppBlockBuilder operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws InvalidAccountStatusException
+     *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
+     *         Support.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws InvalidRoleException
+     *         The specified role is invalid.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws RequestLimitExceededException
+     *         AppStream 2.0 can’t process the request right now because the Describe calls from your AWS account are
+     *         being throttled by Amazon EC2. Try again later.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws ResourceNotAvailableException
+     *         The specified resource exists and is not in use, but isn't available.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.UpdateAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/UpdateAppBlockBuilder"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateAppBlockBuilderResult updateAppBlockBuilder(UpdateAppBlockBuilderRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateAppBlockBuilder(request);
+    }
+
+    @SdkInternalApi
+    final UpdateAppBlockBuilderResult executeUpdateAppBlockBuilder(UpdateAppBlockBuilderRequest updateAppBlockBuilderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateAppBlockBuilderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateAppBlockBuilderRequest> request = null;
+        Response<UpdateAppBlockBuilderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateAppBlockBuilderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateAppBlockBuilderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateAppBlockBuilder");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateAppBlockBuilderResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new UpdateAppBlockBuilderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the specified application.
+     * </p>
+     * 
+     * @param updateApplicationRequest
+     * @return Result of the UpdateApplication operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.UpdateApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/UpdateApplication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdateApplicationResult updateApplication(UpdateApplicationRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateApplication(request);
+    }
+
+    @SdkInternalApi
+    final UpdateApplicationResult executeUpdateApplication(UpdateApplicationRequest updateApplicationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateApplicationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateApplicationRequest> request = null;
+        Response<UpdateApplicationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateApplicationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateApplication");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateApplicationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateApplicationResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2963,6 +4904,10 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      *         The specified resource was not found.
      * @throws ConcurrentModificationException
      *         An API error occurred. Wait a few minutes and try again.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws InvalidRoleException
+     *         The specified role is invalid.
      * @sample AmazonAppStream.UpdateDirectoryConfig
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/UpdateDirectoryConfig"
      *      target="_top">AWS API Documentation</a>
@@ -2988,6 +4933,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new UpdateDirectoryConfigRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDirectoryConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDirectoryConfig");
@@ -3012,14 +4959,101 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
+     * Updates the specified entitlement.
+     * </p>
+     * 
+     * @param updateEntitlementRequest
+     * @return Result of the UpdateEntitlement operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws EntitlementNotFoundException
+     *         The entitlement can't be found.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @sample AmazonAppStream.UpdateEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/UpdateEntitlement" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdateEntitlementResult updateEntitlement(UpdateEntitlementRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateEntitlement(request);
+    }
+
+    @SdkInternalApi
+    final UpdateEntitlementResult executeUpdateEntitlement(UpdateEntitlementRequest updateEntitlementRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateEntitlementRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateEntitlementRequest> request = null;
+        Response<UpdateEntitlementResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateEntitlementRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateEntitlementRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateEntitlement");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateEntitlementResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateEntitlementResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Updates the specified fleet.
      * </p>
      * <p>
-     * If the fleet is in the <code>STOPPED</code> state, you can update any attribute except the fleet name. If the
-     * fleet is in the <code>RUNNING</code> state, you can update the <code>DisplayName</code>,
-     * <code>ComputeCapacity</code>, <code>ImageARN</code>, <code>ImageName</code>, and
-     * <code>DisconnectTimeoutInSeconds</code> attributes. If the fleet is in the <code>STARTING</code> or
-     * <code>STOPPING</code> state, you can't update it.
+     * If the fleet is in the <code>STOPPED</code> state, you can update any attribute except the fleet name.
+     * </p>
+     * <p>
+     * If the fleet is in the <code>RUNNING</code> state, you can update the following based on the fleet type:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Always-On and On-Demand fleet types
+     * </p>
+     * <p>
+     * You can update the <code>DisplayName</code>, <code>ComputeCapacity</code>, <code>ImageARN</code>,
+     * <code>ImageName</code>, <code>IdleDisconnectTimeoutInSeconds</code>, and <code>DisconnectTimeoutInSeconds</code>
+     * attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Elastic fleet type
+     * </p>
+     * <p>
+     * You can update the <code>DisplayName</code>, <code>IdleDisconnectTimeoutInSeconds</code>,
+     * <code>DisconnectTimeoutInSeconds</code>, <code>MaxConcurrentSessions</code>, <code>SessionScriptS3Location</code>
+     * and <code>UsbDeviceFilterStrings</code> attributes.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If the fleet is in the <code>STARTING</code> or <code>STOPPED</code> state, you can't update it.
      * </p>
      * 
      * @param updateFleetRequest
@@ -3028,6 +5062,9 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      *         The specified resource is in use.
      * @throws LimitExceededException
      *         The requested limit exceeds the permitted limit for an account.
+     * @throws RequestLimitExceededException
+     *         AppStream 2.0 can’t process the request right now because the Describe calls from your AWS account are
+     *         being throttled by Amazon EC2. Try again later.
      * @throws InvalidAccountStatusException
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
@@ -3042,7 +5079,7 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      * @throws ConcurrentModificationException
      *         An API error occurred. Wait a few minutes and try again.
      * @throws IncompatibleImageException
-     *         The image does not support storage connectors.
+     *         The image can't be updated because it's not compatible for updates.
      * @throws OperationNotPermittedException
      *         The attempted operation is not permitted.
      * @sample AmazonAppStream.UpdateFleet
@@ -3070,6 +5107,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new UpdateFleetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateFleetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateFleet");
@@ -3129,6 +5168,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new UpdateImagePermissionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateImagePermissionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateImagePermissions");
@@ -3172,7 +5213,7 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
      * @throws IncompatibleImageException
-     *         The image does not support storage connectors.
+     *         The image can't be updated because it's not compatible for updates.
      * @throws OperationNotPermittedException
      *         The attempted operation is not permitted.
      * @throws ConcurrentModificationException
@@ -3202,6 +5243,8 @@ public class AmazonAppStreamClient extends AmazonWebServiceClient implements Ama
                 request = new UpdateStackRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateStackRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "AppStream");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateStack");

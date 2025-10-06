@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Used to filter information based on tags.
+ * A tag key and optional list of possible values that you can use to filter results for tagged resources.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/TagFilter" target="_top">AWS API
@@ -30,24 +30,25 @@ public class TagFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tag key.
+     * The tag key. This must have a valid string value and can't be empty.
      * </p>
      */
     private String tagKey;
     /**
      * <p>
-     * The tag values.
+     * A list of zero or more tag values. If no values are provided, then the filter matches any tag with the specified
+     * key, regardless of its value.
      * </p>
      */
     private java.util.List<String> tagValues;
 
     /**
      * <p>
-     * The tag key.
+     * The tag key. This must have a valid string value and can't be empty.
      * </p>
      * 
      * @param tagKey
-     *        The tag key.
+     *        The tag key. This must have a valid string value and can't be empty.
      */
 
     public void setTagKey(String tagKey) {
@@ -56,10 +57,10 @@ public class TagFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tag key.
+     * The tag key. This must have a valid string value and can't be empty.
      * </p>
      * 
-     * @return The tag key.
+     * @return The tag key. This must have a valid string value and can't be empty.
      */
 
     public String getTagKey() {
@@ -68,11 +69,11 @@ public class TagFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tag key.
+     * The tag key. This must have a valid string value and can't be empty.
      * </p>
      * 
      * @param tagKey
-     *        The tag key.
+     *        The tag key. This must have a valid string value and can't be empty.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -83,10 +84,12 @@ public class TagFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tag values.
+     * A list of zero or more tag values. If no values are provided, then the filter matches any tag with the specified
+     * key, regardless of its value.
      * </p>
      * 
-     * @return The tag values.
+     * @return A list of zero or more tag values. If no values are provided, then the filter matches any tag with the
+     *         specified key, regardless of its value.
      */
 
     public java.util.List<String> getTagValues() {
@@ -95,11 +98,13 @@ public class TagFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tag values.
+     * A list of zero or more tag values. If no values are provided, then the filter matches any tag with the specified
+     * key, regardless of its value.
      * </p>
      * 
      * @param tagValues
-     *        The tag values.
+     *        A list of zero or more tag values. If no values are provided, then the filter matches any tag with the
+     *        specified key, regardless of its value.
      */
 
     public void setTagValues(java.util.Collection<String> tagValues) {
@@ -113,7 +118,8 @@ public class TagFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tag values.
+     * A list of zero or more tag values. If no values are provided, then the filter matches any tag with the specified
+     * key, regardless of its value.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -122,7 +128,8 @@ public class TagFilter implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param tagValues
-     *        The tag values.
+     *        A list of zero or more tag values. If no values are provided, then the filter matches any tag with the
+     *        specified key, regardless of its value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -138,11 +145,13 @@ public class TagFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tag values.
+     * A list of zero or more tag values. If no values are provided, then the filter matches any tag with the specified
+     * key, regardless of its value.
      * </p>
      * 
      * @param tagValues
-     *        The tag values.
+     *        A list of zero or more tag values. If no values are provided, then the filter matches any tag with the
+     *        specified key, regardless of its value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

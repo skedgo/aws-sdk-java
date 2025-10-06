@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,8 @@ public class GetTablesRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The ID of the Data Catalog where the tables reside. If none is supplied, the AWS account ID is used by default.
+     * The ID of the Data Catalog where the tables reside. If none is provided, the Amazon Web Services account ID is
+     * used by default.
      * </p>
      */
     private String catalogId;
@@ -55,15 +56,29 @@ public class GetTablesRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      */
     private Integer maxResults;
+    /**
+     * <p>
+     * The transaction ID at which to read the table contents.
+     * </p>
+     */
+    private String transactionId;
+    /**
+     * <p>
+     * The time as of when to read the table contents. If not set, the most recent transaction commit time will be used.
+     * Cannot be specified along with <code>TransactionId</code>.
+     * </p>
+     */
+    private java.util.Date queryAsOfTime;
 
     /**
      * <p>
-     * The ID of the Data Catalog where the tables reside. If none is supplied, the AWS account ID is used by default.
+     * The ID of the Data Catalog where the tables reside. If none is provided, the Amazon Web Services account ID is
+     * used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog where the tables reside. If none is supplied, the AWS account ID is used by
-     *        default.
+     *        The ID of the Data Catalog where the tables reside. If none is provided, the Amazon Web Services account
+     *        ID is used by default.
      */
 
     public void setCatalogId(String catalogId) {
@@ -72,11 +87,12 @@ public class GetTablesRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The ID of the Data Catalog where the tables reside. If none is supplied, the AWS account ID is used by default.
+     * The ID of the Data Catalog where the tables reside. If none is provided, the Amazon Web Services account ID is
+     * used by default.
      * </p>
      * 
-     * @return The ID of the Data Catalog where the tables reside. If none is supplied, the AWS account ID is used by
-     *         default.
+     * @return The ID of the Data Catalog where the tables reside. If none is provided, the Amazon Web Services account
+     *         ID is used by default.
      */
 
     public String getCatalogId() {
@@ -85,12 +101,13 @@ public class GetTablesRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The ID of the Data Catalog where the tables reside. If none is supplied, the AWS account ID is used by default.
+     * The ID of the Data Catalog where the tables reside. If none is provided, the Amazon Web Services account ID is
+     * used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog where the tables reside. If none is supplied, the AWS account ID is used by
-     *        default.
+     *        The ID of the Data Catalog where the tables reside. If none is provided, the Amazon Web Services account
+     *        ID is used by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -261,6 +278,92 @@ public class GetTablesRequest extends com.amazonaws.AmazonWebServiceRequest impl
     }
 
     /**
+     * <p>
+     * The transaction ID at which to read the table contents.
+     * </p>
+     * 
+     * @param transactionId
+     *        The transaction ID at which to read the table contents.
+     */
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    /**
+     * <p>
+     * The transaction ID at which to read the table contents.
+     * </p>
+     * 
+     * @return The transaction ID at which to read the table contents.
+     */
+
+    public String getTransactionId() {
+        return this.transactionId;
+    }
+
+    /**
+     * <p>
+     * The transaction ID at which to read the table contents.
+     * </p>
+     * 
+     * @param transactionId
+     *        The transaction ID at which to read the table contents.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetTablesRequest withTransactionId(String transactionId) {
+        setTransactionId(transactionId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time as of when to read the table contents. If not set, the most recent transaction commit time will be used.
+     * Cannot be specified along with <code>TransactionId</code>.
+     * </p>
+     * 
+     * @param queryAsOfTime
+     *        The time as of when to read the table contents. If not set, the most recent transaction commit time will
+     *        be used. Cannot be specified along with <code>TransactionId</code>.
+     */
+
+    public void setQueryAsOfTime(java.util.Date queryAsOfTime) {
+        this.queryAsOfTime = queryAsOfTime;
+    }
+
+    /**
+     * <p>
+     * The time as of when to read the table contents. If not set, the most recent transaction commit time will be used.
+     * Cannot be specified along with <code>TransactionId</code>.
+     * </p>
+     * 
+     * @return The time as of when to read the table contents. If not set, the most recent transaction commit time will
+     *         be used. Cannot be specified along with <code>TransactionId</code>.
+     */
+
+    public java.util.Date getQueryAsOfTime() {
+        return this.queryAsOfTime;
+    }
+
+    /**
+     * <p>
+     * The time as of when to read the table contents. If not set, the most recent transaction commit time will be used.
+     * Cannot be specified along with <code>TransactionId</code>.
+     * </p>
+     * 
+     * @param queryAsOfTime
+     *        The time as of when to read the table contents. If not set, the most recent transaction commit time will
+     *        be used. Cannot be specified along with <code>TransactionId</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetTablesRequest withQueryAsOfTime(java.util.Date queryAsOfTime) {
+        setQueryAsOfTime(queryAsOfTime);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -281,7 +384,11 @@ public class GetTablesRequest extends com.amazonaws.AmazonWebServiceRequest impl
         if (getNextToken() != null)
             sb.append("NextToken: ").append(getNextToken()).append(",");
         if (getMaxResults() != null)
-            sb.append("MaxResults: ").append(getMaxResults());
+            sb.append("MaxResults: ").append(getMaxResults()).append(",");
+        if (getTransactionId() != null)
+            sb.append("TransactionId: ").append(getTransactionId()).append(",");
+        if (getQueryAsOfTime() != null)
+            sb.append("QueryAsOfTime: ").append(getQueryAsOfTime());
         sb.append("}");
         return sb.toString();
     }
@@ -316,6 +423,14 @@ public class GetTablesRequest extends com.amazonaws.AmazonWebServiceRequest impl
             return false;
         if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
             return false;
+        if (other.getTransactionId() == null ^ this.getTransactionId() == null)
+            return false;
+        if (other.getTransactionId() != null && other.getTransactionId().equals(this.getTransactionId()) == false)
+            return false;
+        if (other.getQueryAsOfTime() == null ^ this.getQueryAsOfTime() == null)
+            return false;
+        if (other.getQueryAsOfTime() != null && other.getQueryAsOfTime().equals(this.getQueryAsOfTime()) == false)
+            return false;
         return true;
     }
 
@@ -329,6 +444,8 @@ public class GetTablesRequest extends com.amazonaws.AmazonWebServiceRequest impl
         hashCode = prime * hashCode + ((getExpression() == null) ? 0 : getExpression().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
+        hashCode = prime * hashCode + ((getTransactionId() == null) ? 0 : getTransactionId().hashCode());
+        hashCode = prime * hashCode + ((getQueryAsOfTime() == null) ? 0 : getQueryAsOfTime().hashCode());
         return hashCode;
     }
 

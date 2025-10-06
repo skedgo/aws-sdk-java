@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,10 +28,19 @@ import com.amazonaws.services.managedblockchain.model.*;
  * <p>
  * <p/>
  * <p>
- * Amazon Managed Blockchain is a fully managed service for creating and managing blockchain networks using open source
+ * Amazon Managed Blockchain is a fully managed service for creating and managing blockchain networks using open-source
  * frameworks. Blockchain allows you to build applications where multiple parties can securely and transparently run
- * transactions and share data without the need for a trusted, central authority. Currently, Managed Blockchain supports
- * the Hyperledger Fabric open source framework.
+ * transactions and share data without the need for a trusted, central authority.
+ * </p>
+ * <p>
+ * Managed Blockchain supports the Hyperledger Fabric and Ethereum open-source frameworks. Because of fundamental
+ * differences between the frameworks, some API actions or data types may only apply in the context of one framework and
+ * not the other. For example, actions related to Hyperledger Fabric network members such as <code>CreateMember</code>
+ * and <code>DeleteMember</code> don't apply to Ethereum.
+ * </p>
+ * <p>
+ * The description for each action indicates the framework or frameworks to which it applies. Data types and properties
+ * that apply only in the context of a particular framework are similarly indicated.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -47,7 +56,40 @@ public interface AmazonManagedBlockchain {
 
     /**
      * <p>
+     * Creates a new accessor for use with Amazon Managed Blockchain service that supports token based access. The
+     * accessor contains information required for token based access.
+     * </p>
+     * 
+     * @param createAccessorRequest
+     * @return Result of the CreateAccessor operation returned by the service.
+     * @throws InvalidRequestException
+     *         The action or operation requested is invalid. Verify that the action is typed correctly.
+     * @throws AccessDeniedException
+     *         You don't have sufficient access to perform this action.
+     * @throws ResourceAlreadyExistsException
+     *         A resource request is issued for a resource that already exists.
+     * @throws ThrottlingException
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
+     * @throws ResourceLimitExceededException
+     *         The maximum number of resources of that type already exist. Ensure the resources requested are within the
+     *         boundaries of the service edition and your account limits.
+     * @throws InternalServiceErrorException
+     *         The request processing has failed because of an unknown error, exception or failure.
+     * @throws TooManyTagsException
+     * @sample AmazonManagedBlockchain.CreateAccessor
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/CreateAccessor"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateAccessorResult createAccessor(CreateAccessorRequest createAccessorRequest);
+
+    /**
+     * <p>
      * Creates a member within a Managed Blockchain network.
+     * </p>
+     * <p>
+     * Applies only to Hyperledger Fabric.
      * </p>
      * 
      * @param createMemberRequest
@@ -55,22 +97,23 @@ public interface AmazonManagedBlockchain {
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ResourceNotFoundException
-     *         A requested resource does not exist on the network. It may have been deleted or referenced inaccurately.
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
      * @throws ResourceAlreadyExistsException
      *         A resource request is issued for a resource that already exists.
      * @throws ResourceNotReadyException
-     *         The requested resource exists but is not in a status that can complete the operation.
+     *         The requested resource exists but isn't in a status that can complete the operation.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws ResourceLimitExceededException
      *         The maximum number of resources of that type already exist. Ensure the resources requested are within the
      *         boundaries of the service edition and your account limits.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
+     * @throws TooManyTagsException
      * @sample AmazonManagedBlockchain.CreateMember
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/CreateMember" target="_top">AWS
      *      API Documentation</a>
@@ -81,24 +124,28 @@ public interface AmazonManagedBlockchain {
      * <p>
      * Creates a new blockchain network using Amazon Managed Blockchain.
      * </p>
+     * <p>
+     * Applies only to Hyperledger Fabric.
+     * </p>
      * 
      * @param createNetworkRequest
      * @return Result of the CreateNetwork operation returned by the service.
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ResourceAlreadyExistsException
      *         A resource request is issued for a resource that already exists.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws ResourceLimitExceededException
      *         The maximum number of resources of that type already exist. Ensure the resources requested are within the
      *         boundaries of the service edition and your account limits.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
+     * @throws TooManyTagsException
      * @sample AmazonManagedBlockchain.CreateNetwork
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/CreateNetwork"
      *      target="_top">AWS API Documentation</a>
@@ -107,7 +154,10 @@ public interface AmazonManagedBlockchain {
 
     /**
      * <p>
-     * Creates a peer node in a member.
+     * Creates a node on the specified blockchain network.
+     * </p>
+     * <p>
+     * Applies to Hyperledger Fabric and Ethereum.
      * </p>
      * 
      * @param createNodeRequest
@@ -115,22 +165,23 @@ public interface AmazonManagedBlockchain {
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ResourceNotFoundException
-     *         A requested resource does not exist on the network. It may have been deleted or referenced inaccurately.
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
      * @throws ResourceAlreadyExistsException
      *         A resource request is issued for a resource that already exists.
      * @throws ResourceNotReadyException
-     *         The requested resource exists but is not in a status that can complete the operation.
+     *         The requested resource exists but isn't in a status that can complete the operation.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws ResourceLimitExceededException
      *         The maximum number of resources of that type already exist. Ensure the resources requested are within the
      *         boundaries of the service edition and your account limits.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
+     * @throws TooManyTagsException
      * @sample AmazonManagedBlockchain.CreateNode
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/CreateNode" target="_top">AWS
      *      API Documentation</a>
@@ -142,23 +193,27 @@ public interface AmazonManagedBlockchain {
      * Creates a proposal for a change to the network that other members of the network can vote on, for example, a
      * proposal to add a new member to the network. Any member can create a proposal.
      * </p>
+     * <p>
+     * Applies only to Hyperledger Fabric.
+     * </p>
      * 
      * @param createProposalRequest
      * @return Result of the CreateProposal operation returned by the service.
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ResourceNotFoundException
-     *         A requested resource does not exist on the network. It may have been deleted or referenced inaccurately.
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
      * @throws ResourceNotReadyException
-     *         The requested resource exists but is not in a status that can complete the operation.
+     *         The requested resource exists but isn't in a status that can complete the operation.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
+     * @throws TooManyTagsException
      * @sample AmazonManagedBlockchain.CreateProposal
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/CreateProposal"
      *      target="_top">AWS API Documentation</a>
@@ -167,12 +222,45 @@ public interface AmazonManagedBlockchain {
 
     /**
      * <p>
+     * Deletes an accessor that your Amazon Web Services account owns. An accessor object is a container that has the
+     * information required for token based access to your Ethereum nodes including, the <code>BILLING_TOKEN</code>.
+     * After an accessor is deleted, the status of the accessor changes from <code>AVAILABLE</code> to
+     * <code>PENDING_DELETION</code>. An accessor in the <code>PENDING_DELETION</code> state can’t be used for new
+     * WebSocket requests or HTTP requests. However, WebSocket connections that were initiated while the accessor was in
+     * the <code>AVAILABLE</code> state remain open until they expire (up to 2 hours).
+     * </p>
+     * 
+     * @param deleteAccessorRequest
+     * @return Result of the DeleteAccessor operation returned by the service.
+     * @throws InvalidRequestException
+     *         The action or operation requested is invalid. Verify that the action is typed correctly.
+     * @throws AccessDeniedException
+     *         You don't have sufficient access to perform this action.
+     * @throws ResourceNotFoundException
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
+     * @throws ThrottlingException
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
+     * @throws InternalServiceErrorException
+     *         The request processing has failed because of an unknown error, exception or failure.
+     * @sample AmazonManagedBlockchain.DeleteAccessor
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/DeleteAccessor"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteAccessorResult deleteAccessor(DeleteAccessorRequest deleteAccessorRequest);
+
+    /**
+     * <p>
      * Deletes a member. Deleting a member removes the member and all associated resources from the network.
      * <code>DeleteMember</code> can only be called for a specified <code>MemberId</code> if the principal performing
-     * the action is associated with the AWS account that owns the member. In all other cases, the
+     * the action is associated with the Amazon Web Services account that owns the member. In all other cases, the
      * <code>DeleteMember</code> action is carried out as the result of an approved proposal to remove a member. If
-     * <code>MemberId</code> is the last member in a network specified by the last AWS account, the network is deleted
-     * also.
+     * <code>MemberId</code> is the last member in a network specified by the last Amazon Web Services account, the
+     * network is deleted also.
+     * </p>
+     * <p>
+     * Applies only to Hyperledger Fabric.
      * </p>
      * 
      * @param deleteMemberRequest
@@ -180,15 +268,15 @@ public interface AmazonManagedBlockchain {
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ResourceNotFoundException
-     *         A requested resource does not exist on the network. It may have been deleted or referenced inaccurately.
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
      * @throws ResourceNotReadyException
-     *         The requested resource exists but is not in a status that can complete the operation.
+     *         The requested resource exists but isn't in a status that can complete the operation.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
      * @sample AmazonManagedBlockchain.DeleteMember
@@ -199,8 +287,10 @@ public interface AmazonManagedBlockchain {
 
     /**
      * <p>
-     * Deletes a peer node from a member that your AWS account owns. All data on the node is lost and cannot be
-     * recovered.
+     * Deletes a node that your Amazon Web Services account owns. All data on the node is lost and cannot be recovered.
+     * </p>
+     * <p>
+     * Applies to Hyperledger Fabric and Ethereum.
      * </p>
      * 
      * @param deleteNodeRequest
@@ -208,15 +298,15 @@ public interface AmazonManagedBlockchain {
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ResourceNotFoundException
-     *         A requested resource does not exist on the network. It may have been deleted or referenced inaccurately.
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
      * @throws ResourceNotReadyException
-     *         The requested resource exists but is not in a status that can complete the operation.
+     *         The requested resource exists but isn't in a status that can complete the operation.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
      * @sample AmazonManagedBlockchain.DeleteNode
@@ -227,7 +317,36 @@ public interface AmazonManagedBlockchain {
 
     /**
      * <p>
+     * Returns detailed information about an accessor. An accessor object is a container that has the information
+     * required for token based access to your Ethereum nodes.
+     * </p>
+     * 
+     * @param getAccessorRequest
+     * @return Result of the GetAccessor operation returned by the service.
+     * @throws InvalidRequestException
+     *         The action or operation requested is invalid. Verify that the action is typed correctly.
+     * @throws AccessDeniedException
+     *         You don't have sufficient access to perform this action.
+     * @throws ResourceNotFoundException
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
+     * @throws ThrottlingException
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
+     * @throws InternalServiceErrorException
+     *         The request processing has failed because of an unknown error, exception or failure.
+     * @sample AmazonManagedBlockchain.GetAccessor
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/GetAccessor" target="_top">AWS
+     *      API Documentation</a>
+     */
+    GetAccessorResult getAccessor(GetAccessorRequest getAccessorRequest);
+
+    /**
+     * <p>
      * Returns detailed information about a member.
+     * </p>
+     * <p>
+     * Applies only to Hyperledger Fabric.
      * </p>
      * 
      * @param getMemberRequest
@@ -235,13 +354,13 @@ public interface AmazonManagedBlockchain {
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ResourceNotFoundException
-     *         A requested resource does not exist on the network. It may have been deleted or referenced inaccurately.
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
      * @sample AmazonManagedBlockchain.GetMember
@@ -254,19 +373,22 @@ public interface AmazonManagedBlockchain {
      * <p>
      * Returns detailed information about a network.
      * </p>
+     * <p>
+     * Applies to Hyperledger Fabric and Ethereum.
+     * </p>
      * 
      * @param getNetworkRequest
      * @return Result of the GetNetwork operation returned by the service.
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ResourceNotFoundException
-     *         A requested resource does not exist on the network. It may have been deleted or referenced inaccurately.
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
      * @sample AmazonManagedBlockchain.GetNetwork
@@ -277,7 +399,10 @@ public interface AmazonManagedBlockchain {
 
     /**
      * <p>
-     * Returns detailed information about a peer node.
+     * Returns detailed information about a node.
+     * </p>
+     * <p>
+     * Applies to Hyperledger Fabric and Ethereum.
      * </p>
      * 
      * @param getNodeRequest
@@ -285,13 +410,13 @@ public interface AmazonManagedBlockchain {
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ResourceNotFoundException
-     *         A requested resource does not exist on the network. It may have been deleted or referenced inaccurately.
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
      * @sample AmazonManagedBlockchain.GetNode
@@ -304,19 +429,22 @@ public interface AmazonManagedBlockchain {
      * <p>
      * Returns detailed information about a proposal.
      * </p>
+     * <p>
+     * Applies only to Hyperledger Fabric.
+     * </p>
      * 
      * @param getProposalRequest
      * @return Result of the GetProposal operation returned by the service.
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ResourceNotFoundException
-     *         A requested resource does not exist on the network. It may have been deleted or referenced inaccurately.
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
      * @sample AmazonManagedBlockchain.GetProposal
@@ -327,7 +455,34 @@ public interface AmazonManagedBlockchain {
 
     /**
      * <p>
-     * Returns a listing of all invitations made on the specified network.
+     * Returns a list of the accessors and their properties. Accessor objects are containers that have the information
+     * required for token based access to your Ethereum nodes.
+     * </p>
+     * 
+     * @param listAccessorsRequest
+     * @return Result of the ListAccessors operation returned by the service.
+     * @throws InvalidRequestException
+     *         The action or operation requested is invalid. Verify that the action is typed correctly.
+     * @throws AccessDeniedException
+     *         You don't have sufficient access to perform this action.
+     * @throws ThrottlingException
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
+     * @throws InternalServiceErrorException
+     *         The request processing has failed because of an unknown error, exception or failure.
+     * @sample AmazonManagedBlockchain.ListAccessors
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/ListAccessors"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListAccessorsResult listAccessors(ListAccessorsRequest listAccessorsRequest);
+
+    /**
+     * <p>
+     * Returns a list of all invitations for the current Amazon Web Services account.
+     * </p>
+     * <p>
+     * Applies only to Hyperledger Fabric.
      * </p>
      * 
      * @param listInvitationsRequest
@@ -335,13 +490,13 @@ public interface AmazonManagedBlockchain {
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ResourceNotFoundException
-     *         A requested resource does not exist on the network. It may have been deleted or referenced inaccurately.
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws ResourceLimitExceededException
      *         The maximum number of resources of that type already exist. Ensure the resources requested are within the
      *         boundaries of the service edition and your account limits.
@@ -355,7 +510,10 @@ public interface AmazonManagedBlockchain {
 
     /**
      * <p>
-     * Returns a listing of the members in a network and properties of their configurations.
+     * Returns a list of the members in a network and properties of their configurations.
+     * </p>
+     * <p>
+     * Applies only to Hyperledger Fabric.
      * </p>
      * 
      * @param listMembersRequest
@@ -363,11 +521,11 @@ public interface AmazonManagedBlockchain {
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
      * @sample AmazonManagedBlockchain.ListMembers
@@ -378,7 +536,10 @@ public interface AmazonManagedBlockchain {
 
     /**
      * <p>
-     * Returns information about the networks in which the current AWS account has members.
+     * Returns information about the networks in which the current Amazon Web Services account participates.
+     * </p>
+     * <p>
+     * Applies to Hyperledger Fabric and Ethereum.
      * </p>
      * 
      * @param listNetworksRequest
@@ -386,11 +547,11 @@ public interface AmazonManagedBlockchain {
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
      * @sample AmazonManagedBlockchain.ListNetworks
@@ -403,17 +564,20 @@ public interface AmazonManagedBlockchain {
      * <p>
      * Returns information about the nodes within a network.
      * </p>
+     * <p>
+     * Applies to Hyperledger Fabric and Ethereum.
+     * </p>
      * 
      * @param listNodesRequest
      * @return Result of the ListNodes operation returned by the service.
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
      * @sample AmazonManagedBlockchain.ListNodes
@@ -424,8 +588,11 @@ public interface AmazonManagedBlockchain {
 
     /**
      * <p>
-     * Returns the listing of votes for a specified proposal, including the value of each vote and the unique identifier
-     * of the member that cast the vote.
+     * Returns the list of votes for a specified proposal, including the value of each vote and the unique identifier of
+     * the member that cast the vote.
+     * </p>
+     * <p>
+     * Applies only to Hyperledger Fabric.
      * </p>
      * 
      * @param listProposalVotesRequest
@@ -433,11 +600,11 @@ public interface AmazonManagedBlockchain {
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
      * @sample AmazonManagedBlockchain.ListProposalVotes
@@ -448,7 +615,10 @@ public interface AmazonManagedBlockchain {
 
     /**
      * <p>
-     * Returns a listing of proposals for the network.
+     * Returns a list of proposals for the network.
+     * </p>
+     * <p>
+     * Applies only to Hyperledger Fabric.
      * </p>
      * 
      * @param listProposalsRequest
@@ -456,13 +626,13 @@ public interface AmazonManagedBlockchain {
      * @throws InvalidRequestException
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws ResourceNotFoundException
-     *         A requested resource does not exist on the network. It may have been deleted or referenced inaccurately.
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
      * @sample AmazonManagedBlockchain.ListProposals
@@ -473,8 +643,39 @@ public interface AmazonManagedBlockchain {
 
     /**
      * <p>
-     * Rejects an invitation to join a network. This action can be called by a principal in an AWS account that has
-     * received an invitation to create a member and join a network.
+     * Returns a list of tags for the specified resource. Each tag consists of a key and optional value.
+     * </p>
+     * <p>
+     * For more information about tags, see <a
+     * href="https://docs.aws.amazon.com/managed-blockchain/latest/ethereum-dev/tagging-resources.html">Tagging
+     * Resources</a> in the <i>Amazon Managed Blockchain Ethereum Developer Guide</i>, or <a
+     * href="https://docs.aws.amazon.com/managed-blockchain/latest/hyperledger-fabric-dev/tagging-resources.html"
+     * >Tagging Resources</a> in the <i>Amazon Managed Blockchain Hyperledger Fabric Developer Guide</i>.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws InternalServiceErrorException
+     *         The request processing has failed because of an unknown error, exception or failure.
+     * @throws InvalidRequestException
+     *         The action or operation requested is invalid. Verify that the action is typed correctly.
+     * @throws ResourceNotFoundException
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
+     * @throws ResourceNotReadyException
+     *         The requested resource exists but isn't in a status that can complete the operation.
+     * @sample AmazonManagedBlockchain.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/ListTagsForResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest);
+
+    /**
+     * <p>
+     * Rejects an invitation to join a network. This action can be called by a principal in an Amazon Web Services
+     * account that has received an invitation to create a member and join a network.
+     * </p>
+     * <p>
+     * Applies only to Hyperledger Fabric.
      * </p>
      * 
      * @param rejectInvitationRequest
@@ -483,13 +684,13 @@ public interface AmazonManagedBlockchain {
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws IllegalActionException
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ResourceNotFoundException
-     *         A requested resource does not exist on the network. It may have been deleted or referenced inaccurately.
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
      * @sample AmazonManagedBlockchain.RejectInvitation
@@ -500,8 +701,134 @@ public interface AmazonManagedBlockchain {
 
     /**
      * <p>
+     * Adds or overwrites the specified tags for the specified Amazon Managed Blockchain resource. Each tag consists of
+     * a key and optional value.
+     * </p>
+     * <p>
+     * When you specify a tag key that already exists, the tag value is overwritten with the new value. Use
+     * <code>UntagResource</code> to remove tag keys.
+     * </p>
+     * <p>
+     * A resource can have up to 50 tags. If you try to create more than 50 tags for a resource, your request fails and
+     * returns an error.
+     * </p>
+     * <p>
+     * For more information about tags, see <a
+     * href="https://docs.aws.amazon.com/managed-blockchain/latest/ethereum-dev/tagging-resources.html">Tagging
+     * Resources</a> in the <i>Amazon Managed Blockchain Ethereum Developer Guide</i>, or <a
+     * href="https://docs.aws.amazon.com/managed-blockchain/latest/hyperledger-fabric-dev/tagging-resources.html"
+     * >Tagging Resources</a> in the <i>Amazon Managed Blockchain Hyperledger Fabric Developer Guide</i>.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws InternalServiceErrorException
+     *         The request processing has failed because of an unknown error, exception or failure.
+     * @throws InvalidRequestException
+     *         The action or operation requested is invalid. Verify that the action is typed correctly.
+     * @throws ResourceNotFoundException
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
+     * @throws TooManyTagsException
+     * @throws ResourceNotReadyException
+     *         The requested resource exists but isn't in a status that can complete the operation.
+     * @sample AmazonManagedBlockchain.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/TagResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    TagResourceResult tagResource(TagResourceRequest tagResourceRequest);
+
+    /**
+     * <p>
+     * Removes the specified tags from the Amazon Managed Blockchain resource.
+     * </p>
+     * <p>
+     * For more information about tags, see <a
+     * href="https://docs.aws.amazon.com/managed-blockchain/latest/ethereum-dev/tagging-resources.html">Tagging
+     * Resources</a> in the <i>Amazon Managed Blockchain Ethereum Developer Guide</i>, or <a
+     * href="https://docs.aws.amazon.com/managed-blockchain/latest/hyperledger-fabric-dev/tagging-resources.html"
+     * >Tagging Resources</a> in the <i>Amazon Managed Blockchain Hyperledger Fabric Developer Guide</i>.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws InternalServiceErrorException
+     *         The request processing has failed because of an unknown error, exception or failure.
+     * @throws InvalidRequestException
+     *         The action or operation requested is invalid. Verify that the action is typed correctly.
+     * @throws ResourceNotFoundException
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
+     * @throws ResourceNotReadyException
+     *         The requested resource exists but isn't in a status that can complete the operation.
+     * @sample AmazonManagedBlockchain.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/UntagResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UntagResourceResult untagResource(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * <p>
+     * Updates a member configuration with new parameters.
+     * </p>
+     * <p>
+     * Applies only to Hyperledger Fabric.
+     * </p>
+     * 
+     * @param updateMemberRequest
+     * @return Result of the UpdateMember operation returned by the service.
+     * @throws InvalidRequestException
+     *         The action or operation requested is invalid. Verify that the action is typed correctly.
+     * @throws AccessDeniedException
+     *         You don't have sufficient access to perform this action.
+     * @throws ResourceNotFoundException
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
+     * @throws ThrottlingException
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
+     * @throws InternalServiceErrorException
+     *         The request processing has failed because of an unknown error, exception or failure.
+     * @sample AmazonManagedBlockchain.UpdateMember
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/UpdateMember" target="_top">AWS
+     *      API Documentation</a>
+     */
+    UpdateMemberResult updateMember(UpdateMemberRequest updateMemberRequest);
+
+    /**
+     * <p>
+     * Updates a node configuration with new parameters.
+     * </p>
+     * <p>
+     * Applies only to Hyperledger Fabric.
+     * </p>
+     * 
+     * @param updateNodeRequest
+     * @return Result of the UpdateNode operation returned by the service.
+     * @throws InvalidRequestException
+     *         The action or operation requested is invalid. Verify that the action is typed correctly.
+     * @throws AccessDeniedException
+     *         You don't have sufficient access to perform this action.
+     * @throws ResourceNotFoundException
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
+     * @throws ThrottlingException
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
+     * @throws InternalServiceErrorException
+     *         The request processing has failed because of an unknown error, exception or failure.
+     * @sample AmazonManagedBlockchain.UpdateNode
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/UpdateNode" target="_top">AWS
+     *      API Documentation</a>
+     */
+    UpdateNodeResult updateNode(UpdateNodeRequest updateNodeRequest);
+
+    /**
+     * <p>
      * Casts a vote for a specified <code>ProposalId</code> on behalf of a member. The member to vote as, specified by
-     * <code>VoterMemberId</code>, must be in the same AWS account as the principal that calls the action.
+     * <code>VoterMemberId</code>, must be in the same Amazon Web Services account as the principal that calls the
+     * action.
+     * </p>
+     * <p>
+     * Applies only to Hyperledger Fabric.
      * </p>
      * 
      * @param voteOnProposalRequest
@@ -510,13 +837,13 @@ public interface AmazonManagedBlockchain {
      *         The action or operation requested is invalid. Verify that the action is typed correctly.
      * @throws IllegalActionException
      * @throws AccessDeniedException
-     *         You do not have sufficient access to perform this action.
+     *         You don't have sufficient access to perform this action.
      * @throws ResourceNotFoundException
-     *         A requested resource does not exist on the network. It may have been deleted or referenced inaccurately.
+     *         A requested resource doesn't exist. It may have been deleted or referenced incorrectly.
      * @throws ThrottlingException
-     *         The request or operation could not be performed because a service is throttling requests. The most common
-     *         source of throttling errors is launching EC2 instances such that your service limit for EC2 instances is
-     *         exceeded. Request a limit increase or delete unused resources if possible.
+     *         The request or operation couldn't be performed because a service is throttling requests. The most common
+     *         source of throttling errors is creating resources that exceed your service limit for this resource type.
+     *         Request a limit increase or delete unused resources if possible.
      * @throws InternalServiceErrorException
      *         The request processing has failed because of an unknown error, exception or failure.
      * @sample AmazonManagedBlockchain.VoteOnProposal

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,9 +55,10 @@ public class FleetData implements Serializable, Cloneable {
     private String fleetState;
     /**
      * <p>
-     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
-     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     * Idempotency</a>.
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraints: Maximum 64 ASCII characters
@@ -68,6 +69,9 @@ public class FleetData implements Serializable, Cloneable {
      * <p>
      * Indicates whether running instances should be terminated if the target capacity of the EC2 Fleet is decreased
      * below the current size of the EC2 Fleet.
+     * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
      * </p>
      */
     private String excessCapacityTerminationPolicy;
@@ -107,7 +111,7 @@ public class FleetData implements Serializable, Cloneable {
      * <p>
      * The type of request. Indicates whether the EC2 Fleet only <code>requests</code> the target capacity, or also
      * attempts to <code>maintain</code> it. If you request a certain target capacity, EC2 Fleet only places the
-     * required requests; it does not attempt to replenish instances if capacity is diminished, and does not submit
+     * required requests; it does not attempt to replenish instances if capacity is diminished, and it does not submit
      * requests in alternative capacity pools if capacity is unavailable. To maintain a certain target capacity, EC2
      * Fleet places the required requests to meet this target capacity. It also automatically replenishes any
      * interrupted Spot Instances. Default: <code>maintain</code>.
@@ -132,7 +136,10 @@ public class FleetData implements Serializable, Cloneable {
     private java.util.Date validUntil;
     /**
      * <p>
-     * Indicates whether EC2 Fleet should replace unhealthy instances.
+     * Indicates whether EC2 Fleet should replace unhealthy Spot Instances. Supported only for fleets of type
+     * <code>maintain</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks">EC2
+     * Fleet health checks</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      */
     private Boolean replaceUnhealthyInstances;
@@ -168,6 +175,12 @@ public class FleetData implements Serializable, Cloneable {
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<DescribeFleetsInstances> instances;
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     */
+    private String context;
 
     /**
      * <p>
@@ -393,19 +406,20 @@ public class FleetData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
-     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     * Idempotency</a>.
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraints: Maximum 64 ASCII characters
      * </p>
      * 
      * @param clientToken
-     *        Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more
+     *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *        information, see <a
      *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     *        Idempotency</a>.</p>
+     *        idempotency</a>.</p>
      *        <p>
      *        Constraints: Maximum 64 ASCII characters
      */
@@ -416,18 +430,19 @@ public class FleetData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
-     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     * Idempotency</a>.
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraints: Maximum 64 ASCII characters
      * </p>
      * 
-     * @return Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more
+     * @return Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *         information, see <a
      *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     *         Idempotency</a>.</p>
+     *         idempotency</a>.</p>
      *         <p>
      *         Constraints: Maximum 64 ASCII characters
      */
@@ -438,19 +453,20 @@ public class FleetData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
-     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     * Idempotency</a>.
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraints: Maximum 64 ASCII characters
      * </p>
      * 
      * @param clientToken
-     *        Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more
+     *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *        information, see <a
      *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     *        Idempotency</a>.</p>
+     *        idempotency</a>.</p>
      *        <p>
      *        Constraints: Maximum 64 ASCII characters
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -466,10 +482,15 @@ public class FleetData implements Serializable, Cloneable {
      * Indicates whether running instances should be terminated if the target capacity of the EC2 Fleet is decreased
      * below the current size of the EC2 Fleet.
      * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
+     * </p>
      * 
      * @param excessCapacityTerminationPolicy
      *        Indicates whether running instances should be terminated if the target capacity of the EC2 Fleet is
-     *        decreased below the current size of the EC2 Fleet.
+     *        decreased below the current size of the EC2 Fleet.</p>
+     *        <p>
+     *        Supported only for fleets of type <code>maintain</code>.
      * @see FleetExcessCapacityTerminationPolicy
      */
 
@@ -482,9 +503,14 @@ public class FleetData implements Serializable, Cloneable {
      * Indicates whether running instances should be terminated if the target capacity of the EC2 Fleet is decreased
      * below the current size of the EC2 Fleet.
      * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
+     * </p>
      * 
      * @return Indicates whether running instances should be terminated if the target capacity of the EC2 Fleet is
-     *         decreased below the current size of the EC2 Fleet.
+     *         decreased below the current size of the EC2 Fleet.</p>
+     *         <p>
+     *         Supported only for fleets of type <code>maintain</code>.
      * @see FleetExcessCapacityTerminationPolicy
      */
 
@@ -497,10 +523,15 @@ public class FleetData implements Serializable, Cloneable {
      * Indicates whether running instances should be terminated if the target capacity of the EC2 Fleet is decreased
      * below the current size of the EC2 Fleet.
      * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
+     * </p>
      * 
      * @param excessCapacityTerminationPolicy
      *        Indicates whether running instances should be terminated if the target capacity of the EC2 Fleet is
-     *        decreased below the current size of the EC2 Fleet.
+     *        decreased below the current size of the EC2 Fleet.</p>
+     *        <p>
+     *        Supported only for fleets of type <code>maintain</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FleetExcessCapacityTerminationPolicy
      */
@@ -515,10 +546,15 @@ public class FleetData implements Serializable, Cloneable {
      * Indicates whether running instances should be terminated if the target capacity of the EC2 Fleet is decreased
      * below the current size of the EC2 Fleet.
      * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
+     * </p>
      * 
      * @param excessCapacityTerminationPolicy
      *        Indicates whether running instances should be terminated if the target capacity of the EC2 Fleet is
-     *        decreased below the current size of the EC2 Fleet.
+     *        decreased below the current size of the EC2 Fleet.</p>
+     *        <p>
+     *        Supported only for fleets of type <code>maintain</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FleetExcessCapacityTerminationPolicy
      */
@@ -792,7 +828,7 @@ public class FleetData implements Serializable, Cloneable {
      * <p>
      * The type of request. Indicates whether the EC2 Fleet only <code>requests</code> the target capacity, or also
      * attempts to <code>maintain</code> it. If you request a certain target capacity, EC2 Fleet only places the
-     * required requests; it does not attempt to replenish instances if capacity is diminished, and does not submit
+     * required requests; it does not attempt to replenish instances if capacity is diminished, and it does not submit
      * requests in alternative capacity pools if capacity is unavailable. To maintain a certain target capacity, EC2
      * Fleet places the required requests to meet this target capacity. It also automatically replenishes any
      * interrupted Spot Instances. Default: <code>maintain</code>.
@@ -801,8 +837,8 @@ public class FleetData implements Serializable, Cloneable {
      * @param type
      *        The type of request. Indicates whether the EC2 Fleet only <code>requests</code> the target capacity, or
      *        also attempts to <code>maintain</code> it. If you request a certain target capacity, EC2 Fleet only places
-     *        the required requests; it does not attempt to replenish instances if capacity is diminished, and does not
-     *        submit requests in alternative capacity pools if capacity is unavailable. To maintain a certain target
+     *        the required requests; it does not attempt to replenish instances if capacity is diminished, and it does
+     *        not submit requests in alternative capacity pools if capacity is unavailable. To maintain a certain target
      *        capacity, EC2 Fleet places the required requests to meet this target capacity. It also automatically
      *        replenishes any interrupted Spot Instances. Default: <code>maintain</code>.
      * @see FleetType
@@ -816,7 +852,7 @@ public class FleetData implements Serializable, Cloneable {
      * <p>
      * The type of request. Indicates whether the EC2 Fleet only <code>requests</code> the target capacity, or also
      * attempts to <code>maintain</code> it. If you request a certain target capacity, EC2 Fleet only places the
-     * required requests; it does not attempt to replenish instances if capacity is diminished, and does not submit
+     * required requests; it does not attempt to replenish instances if capacity is diminished, and it does not submit
      * requests in alternative capacity pools if capacity is unavailable. To maintain a certain target capacity, EC2
      * Fleet places the required requests to meet this target capacity. It also automatically replenishes any
      * interrupted Spot Instances. Default: <code>maintain</code>.
@@ -825,8 +861,8 @@ public class FleetData implements Serializable, Cloneable {
      * @return The type of request. Indicates whether the EC2 Fleet only <code>requests</code> the target capacity, or
      *         also attempts to <code>maintain</code> it. If you request a certain target capacity, EC2 Fleet only
      *         places the required requests; it does not attempt to replenish instances if capacity is diminished, and
-     *         does not submit requests in alternative capacity pools if capacity is unavailable. To maintain a certain
-     *         target capacity, EC2 Fleet places the required requests to meet this target capacity. It also
+     *         it does not submit requests in alternative capacity pools if capacity is unavailable. To maintain a
+     *         certain target capacity, EC2 Fleet places the required requests to meet this target capacity. It also
      *         automatically replenishes any interrupted Spot Instances. Default: <code>maintain</code>.
      * @see FleetType
      */
@@ -839,7 +875,7 @@ public class FleetData implements Serializable, Cloneable {
      * <p>
      * The type of request. Indicates whether the EC2 Fleet only <code>requests</code> the target capacity, or also
      * attempts to <code>maintain</code> it. If you request a certain target capacity, EC2 Fleet only places the
-     * required requests; it does not attempt to replenish instances if capacity is diminished, and does not submit
+     * required requests; it does not attempt to replenish instances if capacity is diminished, and it does not submit
      * requests in alternative capacity pools if capacity is unavailable. To maintain a certain target capacity, EC2
      * Fleet places the required requests to meet this target capacity. It also automatically replenishes any
      * interrupted Spot Instances. Default: <code>maintain</code>.
@@ -848,8 +884,8 @@ public class FleetData implements Serializable, Cloneable {
      * @param type
      *        The type of request. Indicates whether the EC2 Fleet only <code>requests</code> the target capacity, or
      *        also attempts to <code>maintain</code> it. If you request a certain target capacity, EC2 Fleet only places
-     *        the required requests; it does not attempt to replenish instances if capacity is diminished, and does not
-     *        submit requests in alternative capacity pools if capacity is unavailable. To maintain a certain target
+     *        the required requests; it does not attempt to replenish instances if capacity is diminished, and it does
+     *        not submit requests in alternative capacity pools if capacity is unavailable. To maintain a certain target
      *        capacity, EC2 Fleet places the required requests to meet this target capacity. It also automatically
      *        replenishes any interrupted Spot Instances. Default: <code>maintain</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -865,7 +901,7 @@ public class FleetData implements Serializable, Cloneable {
      * <p>
      * The type of request. Indicates whether the EC2 Fleet only <code>requests</code> the target capacity, or also
      * attempts to <code>maintain</code> it. If you request a certain target capacity, EC2 Fleet only places the
-     * required requests; it does not attempt to replenish instances if capacity is diminished, and does not submit
+     * required requests; it does not attempt to replenish instances if capacity is diminished, and it does not submit
      * requests in alternative capacity pools if capacity is unavailable. To maintain a certain target capacity, EC2
      * Fleet places the required requests to meet this target capacity. It also automatically replenishes any
      * interrupted Spot Instances. Default: <code>maintain</code>.
@@ -874,8 +910,8 @@ public class FleetData implements Serializable, Cloneable {
      * @param type
      *        The type of request. Indicates whether the EC2 Fleet only <code>requests</code> the target capacity, or
      *        also attempts to <code>maintain</code> it. If you request a certain target capacity, EC2 Fleet only places
-     *        the required requests; it does not attempt to replenish instances if capacity is diminished, and does not
-     *        submit requests in alternative capacity pools if capacity is unavailable. To maintain a certain target
+     *        the required requests; it does not attempt to replenish instances if capacity is diminished, and it does
+     *        not submit requests in alternative capacity pools if capacity is unavailable. To maintain a certain target
      *        capacity, EC2 Fleet places the required requests to meet this target capacity. It also automatically
      *        replenishes any interrupted Spot Instances. Default: <code>maintain</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -993,11 +1029,17 @@ public class FleetData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether EC2 Fleet should replace unhealthy instances.
+     * Indicates whether EC2 Fleet should replace unhealthy Spot Instances. Supported only for fleets of type
+     * <code>maintain</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks">EC2
+     * Fleet health checks</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param replaceUnhealthyInstances
-     *        Indicates whether EC2 Fleet should replace unhealthy instances.
+     *        Indicates whether EC2 Fleet should replace unhealthy Spot Instances. Supported only for fleets of type
+     *        <code>maintain</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks"
+     *        >EC2 Fleet health checks</a> in the <i>Amazon EC2 User Guide</i>.
      */
 
     public void setReplaceUnhealthyInstances(Boolean replaceUnhealthyInstances) {
@@ -1006,10 +1048,16 @@ public class FleetData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether EC2 Fleet should replace unhealthy instances.
+     * Indicates whether EC2 Fleet should replace unhealthy Spot Instances. Supported only for fleets of type
+     * <code>maintain</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks">EC2
+     * Fleet health checks</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
-     * @return Indicates whether EC2 Fleet should replace unhealthy instances.
+     * @return Indicates whether EC2 Fleet should replace unhealthy Spot Instances. Supported only for fleets of type
+     *         <code>maintain</code>. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks"
+     *         >EC2 Fleet health checks</a> in the <i>Amazon EC2 User Guide</i>.
      */
 
     public Boolean getReplaceUnhealthyInstances() {
@@ -1018,11 +1066,17 @@ public class FleetData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether EC2 Fleet should replace unhealthy instances.
+     * Indicates whether EC2 Fleet should replace unhealthy Spot Instances. Supported only for fleets of type
+     * <code>maintain</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks">EC2
+     * Fleet health checks</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param replaceUnhealthyInstances
-     *        Indicates whether EC2 Fleet should replace unhealthy instances.
+     *        Indicates whether EC2 Fleet should replace unhealthy Spot Instances. Supported only for fleets of type
+     *        <code>maintain</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks"
+     *        >EC2 Fleet health checks</a> in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1033,10 +1087,16 @@ public class FleetData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether EC2 Fleet should replace unhealthy instances.
+     * Indicates whether EC2 Fleet should replace unhealthy Spot Instances. Supported only for fleets of type
+     * <code>maintain</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks">EC2
+     * Fleet health checks</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
-     * @return Indicates whether EC2 Fleet should replace unhealthy instances.
+     * @return Indicates whether EC2 Fleet should replace unhealthy Spot Instances. Supported only for fleets of type
+     *         <code>maintain</code>. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks"
+     *         >EC2 Fleet health checks</a> in the <i>Amazon EC2 User Guide</i>.
      */
 
     public Boolean isReplaceUnhealthyInstances() {
@@ -1359,6 +1419,46 @@ public class FleetData implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @param context
+     *        Reserved.
+     */
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @return Reserved.
+     */
+
+    public String getContext() {
+        return this.context;
+    }
+
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @param context
+     *        Reserved.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public FleetData withContext(String context) {
+        setContext(context);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1409,7 +1509,9 @@ public class FleetData implements Serializable, Cloneable {
         if (getErrors() != null)
             sb.append("Errors: ").append(getErrors()).append(",");
         if (getInstances() != null)
-            sb.append("Instances: ").append(getInstances());
+            sb.append("Instances: ").append(getInstances()).append(",");
+        if (getContext() != null)
+            sb.append("Context: ").append(getContext());
         sb.append("}");
         return sb.toString();
     }
@@ -1506,6 +1608,10 @@ public class FleetData implements Serializable, Cloneable {
             return false;
         if (other.getInstances() != null && other.getInstances().equals(this.getInstances()) == false)
             return false;
+        if (other.getContext() == null ^ this.getContext() == null)
+            return false;
+        if (other.getContext() != null && other.getContext().equals(this.getContext()) == false)
+            return false;
         return true;
     }
 
@@ -1534,6 +1640,7 @@ public class FleetData implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getErrors() == null) ? 0 : getErrors().hashCode());
         hashCode = prime * hashCode + ((getInstances() == null) ? 0 : getInstances().hashCode());
+        hashCode = prime * hashCode + ((getContext() == null) ? 0 : getContext().hashCode());
         return hashCode;
     }
 

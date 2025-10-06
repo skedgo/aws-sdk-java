@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,15 +33,15 @@ public class StopTaskRequest extends com.amazonaws.AmazonWebServiceRequest imple
     private String cluster;
     /**
      * <p>
-     * The task ID or full Amazon Resource Name (ARN) of the task to stop.
+     * The task ID of the task to stop.
      * </p>
      */
     private String task;
     /**
      * <p>
-     * An optional message specified when a task is stopped. For example, if you are using a custom scheduler, you can
+     * An optional message specified when a task is stopped. For example, if you're using a custom scheduler, you can
      * use this parameter to specify the reason for stopping the task here, and the message appears in subsequent
-     * <a>DescribeTasks</a> API operations on this task. Up to 255 characters are allowed in this message.
+     * <a>DescribeTasks</a> API operations on this task.
      * </p>
      */
     private String reason;
@@ -94,11 +94,11 @@ public class StopTaskRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The task ID or full Amazon Resource Name (ARN) of the task to stop.
+     * The task ID of the task to stop.
      * </p>
      * 
      * @param task
-     *        The task ID or full Amazon Resource Name (ARN) of the task to stop.
+     *        The task ID of the task to stop.
      */
 
     public void setTask(String task) {
@@ -107,10 +107,10 @@ public class StopTaskRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The task ID or full Amazon Resource Name (ARN) of the task to stop.
+     * The task ID of the task to stop.
      * </p>
      * 
-     * @return The task ID or full Amazon Resource Name (ARN) of the task to stop.
+     * @return The task ID of the task to stop.
      */
 
     public String getTask() {
@@ -119,11 +119,11 @@ public class StopTaskRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The task ID or full Amazon Resource Name (ARN) of the task to stop.
+     * The task ID of the task to stop.
      * </p>
      * 
      * @param task
-     *        The task ID or full Amazon Resource Name (ARN) of the task to stop.
+     *        The task ID of the task to stop.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -134,16 +134,15 @@ public class StopTaskRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * An optional message specified when a task is stopped. For example, if you are using a custom scheduler, you can
+     * An optional message specified when a task is stopped. For example, if you're using a custom scheduler, you can
      * use this parameter to specify the reason for stopping the task here, and the message appears in subsequent
-     * <a>DescribeTasks</a> API operations on this task. Up to 255 characters are allowed in this message.
+     * <a>DescribeTasks</a> API operations on this task.
      * </p>
      * 
      * @param reason
-     *        An optional message specified when a task is stopped. For example, if you are using a custom scheduler,
-     *        you can use this parameter to specify the reason for stopping the task here, and the message appears in
-     *        subsequent <a>DescribeTasks</a> API operations on this task. Up to 255 characters are allowed in this
-     *        message.
+     *        An optional message specified when a task is stopped. For example, if you're using a custom scheduler, you
+     *        can use this parameter to specify the reason for stopping the task here, and the message appears in
+     *        subsequent <a>DescribeTasks</a> API operations on this task.
      */
 
     public void setReason(String reason) {
@@ -152,15 +151,14 @@ public class StopTaskRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * An optional message specified when a task is stopped. For example, if you are using a custom scheduler, you can
+     * An optional message specified when a task is stopped. For example, if you're using a custom scheduler, you can
      * use this parameter to specify the reason for stopping the task here, and the message appears in subsequent
-     * <a>DescribeTasks</a> API operations on this task. Up to 255 characters are allowed in this message.
+     * <a>DescribeTasks</a> API operations on this task.
      * </p>
      * 
-     * @return An optional message specified when a task is stopped. For example, if you are using a custom scheduler,
+     * @return An optional message specified when a task is stopped. For example, if you're using a custom scheduler,
      *         you can use this parameter to specify the reason for stopping the task here, and the message appears in
-     *         subsequent <a>DescribeTasks</a> API operations on this task. Up to 255 characters are allowed in this
-     *         message.
+     *         subsequent <a>DescribeTasks</a> API operations on this task.
      */
 
     public String getReason() {
@@ -169,16 +167,15 @@ public class StopTaskRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * An optional message specified when a task is stopped. For example, if you are using a custom scheduler, you can
+     * An optional message specified when a task is stopped. For example, if you're using a custom scheduler, you can
      * use this parameter to specify the reason for stopping the task here, and the message appears in subsequent
-     * <a>DescribeTasks</a> API operations on this task. Up to 255 characters are allowed in this message.
+     * <a>DescribeTasks</a> API operations on this task.
      * </p>
      * 
      * @param reason
-     *        An optional message specified when a task is stopped. For example, if you are using a custom scheduler,
-     *        you can use this parameter to specify the reason for stopping the task here, and the message appears in
-     *        subsequent <a>DescribeTasks</a> API operations on this task. Up to 255 characters are allowed in this
-     *        message.
+     *        An optional message specified when a task is stopped. For example, if you're using a custom scheduler, you
+     *        can use this parameter to specify the reason for stopping the task here, and the message appears in
+     *        subsequent <a>DescribeTasks</a> API operations on this task.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

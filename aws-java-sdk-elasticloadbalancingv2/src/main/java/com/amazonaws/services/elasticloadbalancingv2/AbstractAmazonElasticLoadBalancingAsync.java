@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,6 +49,19 @@ public class AbstractAmazonElasticLoadBalancingAsync extends AbstractAmazonElast
     @Override
     public java.util.concurrent.Future<AddTagsResult> addTagsAsync(AddTagsRequest request,
             com.amazonaws.handlers.AsyncHandler<AddTagsRequest, AddTagsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddTrustStoreRevocationsResult> addTrustStoreRevocationsAsync(AddTrustStoreRevocationsRequest request) {
+
+        return addTrustStoreRevocationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddTrustStoreRevocationsResult> addTrustStoreRevocationsAsync(AddTrustStoreRevocationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<AddTrustStoreRevocationsRequest, AddTrustStoreRevocationsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -106,6 +119,19 @@ public class AbstractAmazonElasticLoadBalancingAsync extends AbstractAmazonElast
     }
 
     @Override
+    public java.util.concurrent.Future<CreateTrustStoreResult> createTrustStoreAsync(CreateTrustStoreRequest request) {
+
+        return createTrustStoreAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateTrustStoreResult> createTrustStoreAsync(CreateTrustStoreRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateTrustStoreRequest, CreateTrustStoreResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteListenerResult> deleteListenerAsync(DeleteListenerRequest request) {
 
         return deleteListenerAsync(request, null);
@@ -145,6 +171,21 @@ public class AbstractAmazonElasticLoadBalancingAsync extends AbstractAmazonElast
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteSharedTrustStoreAssociationResult> deleteSharedTrustStoreAssociationAsync(
+            DeleteSharedTrustStoreAssociationRequest request) {
+
+        return deleteSharedTrustStoreAssociationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteSharedTrustStoreAssociationResult> deleteSharedTrustStoreAssociationAsync(
+            DeleteSharedTrustStoreAssociationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteSharedTrustStoreAssociationRequest, DeleteSharedTrustStoreAssociationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteTargetGroupResult> deleteTargetGroupAsync(DeleteTargetGroupRequest request) {
 
         return deleteTargetGroupAsync(request, null);
@@ -153,6 +194,19 @@ public class AbstractAmazonElasticLoadBalancingAsync extends AbstractAmazonElast
     @Override
     public java.util.concurrent.Future<DeleteTargetGroupResult> deleteTargetGroupAsync(DeleteTargetGroupRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteTargetGroupRequest, DeleteTargetGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteTrustStoreResult> deleteTrustStoreAsync(DeleteTrustStoreRequest request) {
+
+        return deleteTrustStoreAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteTrustStoreResult> deleteTrustStoreAsync(DeleteTrustStoreRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteTrustStoreRequest, DeleteTrustStoreResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -314,6 +368,86 @@ public class AbstractAmazonElasticLoadBalancingAsync extends AbstractAmazonElast
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeTrustStoreAssociationsResult> describeTrustStoreAssociationsAsync(DescribeTrustStoreAssociationsRequest request) {
+
+        return describeTrustStoreAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTrustStoreAssociationsResult> describeTrustStoreAssociationsAsync(DescribeTrustStoreAssociationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeTrustStoreAssociationsRequest, DescribeTrustStoreAssociationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTrustStoreRevocationsResult> describeTrustStoreRevocationsAsync(DescribeTrustStoreRevocationsRequest request) {
+
+        return describeTrustStoreRevocationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTrustStoreRevocationsResult> describeTrustStoreRevocationsAsync(DescribeTrustStoreRevocationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeTrustStoreRevocationsRequest, DescribeTrustStoreRevocationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTrustStoresResult> describeTrustStoresAsync(DescribeTrustStoresRequest request) {
+
+        return describeTrustStoresAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTrustStoresResult> describeTrustStoresAsync(DescribeTrustStoresRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeTrustStoresRequest, DescribeTrustStoresResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResourcePolicyResult> getResourcePolicyAsync(GetResourcePolicyRequest request) {
+
+        return getResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResourcePolicyResult> getResourcePolicyAsync(GetResourcePolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetResourcePolicyRequest, GetResourcePolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTrustStoreCaCertificatesBundleResult> getTrustStoreCaCertificatesBundleAsync(
+            GetTrustStoreCaCertificatesBundleRequest request) {
+
+        return getTrustStoreCaCertificatesBundleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTrustStoreCaCertificatesBundleResult> getTrustStoreCaCertificatesBundleAsync(
+            GetTrustStoreCaCertificatesBundleRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetTrustStoreCaCertificatesBundleRequest, GetTrustStoreCaCertificatesBundleResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTrustStoreRevocationContentResult> getTrustStoreRevocationContentAsync(GetTrustStoreRevocationContentRequest request) {
+
+        return getTrustStoreRevocationContentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTrustStoreRevocationContentResult> getTrustStoreRevocationContentAsync(GetTrustStoreRevocationContentRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetTrustStoreRevocationContentRequest, GetTrustStoreRevocationContentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ModifyListenerResult> modifyListenerAsync(ModifyListenerRequest request) {
 
         return modifyListenerAsync(request, null);
@@ -379,6 +513,19 @@ public class AbstractAmazonElasticLoadBalancingAsync extends AbstractAmazonElast
     }
 
     @Override
+    public java.util.concurrent.Future<ModifyTrustStoreResult> modifyTrustStoreAsync(ModifyTrustStoreRequest request) {
+
+        return modifyTrustStoreAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyTrustStoreResult> modifyTrustStoreAsync(ModifyTrustStoreRequest request,
+            com.amazonaws.handlers.AsyncHandler<ModifyTrustStoreRequest, ModifyTrustStoreResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<RegisterTargetsResult> registerTargetsAsync(RegisterTargetsRequest request) {
 
         return registerTargetsAsync(request, null);
@@ -413,6 +560,19 @@ public class AbstractAmazonElasticLoadBalancingAsync extends AbstractAmazonElast
     @Override
     public java.util.concurrent.Future<RemoveTagsResult> removeTagsAsync(RemoveTagsRequest request,
             com.amazonaws.handlers.AsyncHandler<RemoveTagsRequest, RemoveTagsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveTrustStoreRevocationsResult> removeTrustStoreRevocationsAsync(RemoveTrustStoreRevocationsRequest request) {
+
+        return removeTrustStoreRevocationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveTrustStoreRevocationsResult> removeTrustStoreRevocationsAsync(RemoveTrustStoreRevocationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<RemoveTrustStoreRevocationsRequest, RemoveTrustStoreRevocationsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

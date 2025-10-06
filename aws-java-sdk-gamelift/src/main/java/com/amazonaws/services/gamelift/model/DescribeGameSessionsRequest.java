@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Represents the input for a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeGameSessions" target="_top">AWS API
  *      Documentation</a>
@@ -30,52 +27,61 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Unique identifier for a fleet to retrieve all game sessions for.
+     * A unique identifier for the fleet to retrieve game sessions for. You can use either the fleet ID or ARN value.
      * </p>
      */
     private String fleetId;
     /**
      * <p>
-     * Unique identifier for the game session to retrieve. You can use either a <code>GameSessionId</code> or
-     * <code>GameSessionArn</code> value.
+     * A unique identifier for the game session to retrieve.
      * </p>
      */
     private String gameSessionId;
     /**
      * <p>
-     * Unique identifier for an alias associated with the fleet to retrieve all game sessions for.
+     * A unique identifier for the alias associated with the fleet to retrieve game sessions for. You can use either the
+     * alias ID or ARN value.
      * </p>
      */
     private String aliasId;
     /**
      * <p>
-     * Game session status to filter results on. Possible game session statuses include <code>ACTIVE</code>,
-     * <code>TERMINATED</code>, <code>ACTIVATING</code>, and <code>TERMINATING</code> (the last two are transitory).
+     * A fleet location to get game sessions for. You can specify a fleet's home Region or a remote location. Use the
+     * Amazon Web Services Region code format, such as <code>us-west-2</code>.
+     * </p>
+     */
+    private String location;
+    /**
+     * <p>
+     * Game session status to filter results on. You can filter on the following states: <code>ACTIVE</code>,
+     * <code>TERMINATED</code>, <code>ACTIVATING</code>, and <code>TERMINATING</code>. The last two are transitory and
+     * used for only very brief periods of time.
      * </p>
      */
     private String statusFilter;
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages.
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages.
      * </p>
      */
     private Integer limit;
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value.
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value.
      * </p>
      */
     private String nextToken;
 
     /**
      * <p>
-     * Unique identifier for a fleet to retrieve all game sessions for.
+     * A unique identifier for the fleet to retrieve game sessions for. You can use either the fleet ID or ARN value.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet to retrieve all game sessions for.
+     *        A unique identifier for the fleet to retrieve game sessions for. You can use either the fleet ID or ARN
+     *        value.
      */
 
     public void setFleetId(String fleetId) {
@@ -84,10 +90,11 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Unique identifier for a fleet to retrieve all game sessions for.
+     * A unique identifier for the fleet to retrieve game sessions for. You can use either the fleet ID or ARN value.
      * </p>
      * 
-     * @return Unique identifier for a fleet to retrieve all game sessions for.
+     * @return A unique identifier for the fleet to retrieve game sessions for. You can use either the fleet ID or ARN
+     *         value.
      */
 
     public String getFleetId() {
@@ -96,11 +103,12 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Unique identifier for a fleet to retrieve all game sessions for.
+     * A unique identifier for the fleet to retrieve game sessions for. You can use either the fleet ID or ARN value.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet to retrieve all game sessions for.
+     *        A unique identifier for the fleet to retrieve game sessions for. You can use either the fleet ID or ARN
+     *        value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -111,13 +119,11 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Unique identifier for the game session to retrieve. You can use either a <code>GameSessionId</code> or
-     * <code>GameSessionArn</code> value.
+     * A unique identifier for the game session to retrieve.
      * </p>
      * 
      * @param gameSessionId
-     *        Unique identifier for the game session to retrieve. You can use either a <code>GameSessionId</code> or
-     *        <code>GameSessionArn</code> value.
+     *        A unique identifier for the game session to retrieve.
      */
 
     public void setGameSessionId(String gameSessionId) {
@@ -126,12 +132,10 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Unique identifier for the game session to retrieve. You can use either a <code>GameSessionId</code> or
-     * <code>GameSessionArn</code> value.
+     * A unique identifier for the game session to retrieve.
      * </p>
      * 
-     * @return Unique identifier for the game session to retrieve. You can use either a <code>GameSessionId</code> or
-     *         <code>GameSessionArn</code> value.
+     * @return A unique identifier for the game session to retrieve.
      */
 
     public String getGameSessionId() {
@@ -140,13 +144,11 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Unique identifier for the game session to retrieve. You can use either a <code>GameSessionId</code> or
-     * <code>GameSessionArn</code> value.
+     * A unique identifier for the game session to retrieve.
      * </p>
      * 
      * @param gameSessionId
-     *        Unique identifier for the game session to retrieve. You can use either a <code>GameSessionId</code> or
-     *        <code>GameSessionArn</code> value.
+     *        A unique identifier for the game session to retrieve.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -157,11 +159,13 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Unique identifier for an alias associated with the fleet to retrieve all game sessions for.
+     * A unique identifier for the alias associated with the fleet to retrieve game sessions for. You can use either the
+     * alias ID or ARN value.
      * </p>
      * 
      * @param aliasId
-     *        Unique identifier for an alias associated with the fleet to retrieve all game sessions for.
+     *        A unique identifier for the alias associated with the fleet to retrieve game sessions for. You can use
+     *        either the alias ID or ARN value.
      */
 
     public void setAliasId(String aliasId) {
@@ -170,10 +174,12 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Unique identifier for an alias associated with the fleet to retrieve all game sessions for.
+     * A unique identifier for the alias associated with the fleet to retrieve game sessions for. You can use either the
+     * alias ID or ARN value.
      * </p>
      * 
-     * @return Unique identifier for an alias associated with the fleet to retrieve all game sessions for.
+     * @return A unique identifier for the alias associated with the fleet to retrieve game sessions for. You can use
+     *         either the alias ID or ARN value.
      */
 
     public String getAliasId() {
@@ -182,11 +188,13 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Unique identifier for an alias associated with the fleet to retrieve all game sessions for.
+     * A unique identifier for the alias associated with the fleet to retrieve game sessions for. You can use either the
+     * alias ID or ARN value.
      * </p>
      * 
      * @param aliasId
-     *        Unique identifier for an alias associated with the fleet to retrieve all game sessions for.
+     *        A unique identifier for the alias associated with the fleet to retrieve game sessions for. You can use
+     *        either the alias ID or ARN value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -197,14 +205,61 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Game session status to filter results on. Possible game session statuses include <code>ACTIVE</code>,
-     * <code>TERMINATED</code>, <code>ACTIVATING</code>, and <code>TERMINATING</code> (the last two are transitory).
+     * A fleet location to get game sessions for. You can specify a fleet's home Region or a remote location. Use the
+     * Amazon Web Services Region code format, such as <code>us-west-2</code>.
+     * </p>
+     * 
+     * @param location
+     *        A fleet location to get game sessions for. You can specify a fleet's home Region or a remote location. Use
+     *        the Amazon Web Services Region code format, such as <code>us-west-2</code>.
+     */
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    /**
+     * <p>
+     * A fleet location to get game sessions for. You can specify a fleet's home Region or a remote location. Use the
+     * Amazon Web Services Region code format, such as <code>us-west-2</code>.
+     * </p>
+     * 
+     * @return A fleet location to get game sessions for. You can specify a fleet's home Region or a remote location.
+     *         Use the Amazon Web Services Region code format, such as <code>us-west-2</code>.
+     */
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    /**
+     * <p>
+     * A fleet location to get game sessions for. You can specify a fleet's home Region or a remote location. Use the
+     * Amazon Web Services Region code format, such as <code>us-west-2</code>.
+     * </p>
+     * 
+     * @param location
+     *        A fleet location to get game sessions for. You can specify a fleet's home Region or a remote location. Use
+     *        the Amazon Web Services Region code format, such as <code>us-west-2</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeGameSessionsRequest withLocation(String location) {
+        setLocation(location);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Game session status to filter results on. You can filter on the following states: <code>ACTIVE</code>,
+     * <code>TERMINATED</code>, <code>ACTIVATING</code>, and <code>TERMINATING</code>. The last two are transitory and
+     * used for only very brief periods of time.
      * </p>
      * 
      * @param statusFilter
-     *        Game session status to filter results on. Possible game session statuses include <code>ACTIVE</code>,
-     *        <code>TERMINATED</code>, <code>ACTIVATING</code>, and <code>TERMINATING</code> (the last two are
-     *        transitory).
+     *        Game session status to filter results on. You can filter on the following states: <code>ACTIVE</code>,
+     *        <code>TERMINATED</code>, <code>ACTIVATING</code>, and <code>TERMINATING</code>. The last two are
+     *        transitory and used for only very brief periods of time.
      */
 
     public void setStatusFilter(String statusFilter) {
@@ -213,13 +268,14 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Game session status to filter results on. Possible game session statuses include <code>ACTIVE</code>,
-     * <code>TERMINATED</code>, <code>ACTIVATING</code>, and <code>TERMINATING</code> (the last two are transitory).
+     * Game session status to filter results on. You can filter on the following states: <code>ACTIVE</code>,
+     * <code>TERMINATED</code>, <code>ACTIVATING</code>, and <code>TERMINATING</code>. The last two are transitory and
+     * used for only very brief periods of time.
      * </p>
      * 
-     * @return Game session status to filter results on. Possible game session statuses include <code>ACTIVE</code>,
-     *         <code>TERMINATED</code>, <code>ACTIVATING</code>, and <code>TERMINATING</code> (the last two are
-     *         transitory).
+     * @return Game session status to filter results on. You can filter on the following states: <code>ACTIVE</code>,
+     *         <code>TERMINATED</code>, <code>ACTIVATING</code>, and <code>TERMINATING</code>. The last two are
+     *         transitory and used for only very brief periods of time.
      */
 
     public String getStatusFilter() {
@@ -228,14 +284,15 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Game session status to filter results on. Possible game session statuses include <code>ACTIVE</code>,
-     * <code>TERMINATED</code>, <code>ACTIVATING</code>, and <code>TERMINATING</code> (the last two are transitory).
+     * Game session status to filter results on. You can filter on the following states: <code>ACTIVE</code>,
+     * <code>TERMINATED</code>, <code>ACTIVATING</code>, and <code>TERMINATING</code>. The last two are transitory and
+     * used for only very brief periods of time.
      * </p>
      * 
      * @param statusFilter
-     *        Game session status to filter results on. Possible game session statuses include <code>ACTIVE</code>,
-     *        <code>TERMINATED</code>, <code>ACTIVATING</code>, and <code>TERMINATING</code> (the last two are
-     *        transitory).
+     *        Game session status to filter results on. You can filter on the following states: <code>ACTIVE</code>,
+     *        <code>TERMINATED</code>, <code>ACTIVATING</code>, and <code>TERMINATING</code>. The last two are
+     *        transitory and used for only very brief periods of time.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -246,13 +303,13 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages.
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages.
      * </p>
      * 
      * @param limit
-     *        Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a
-     *        set of sequential pages.
+     *        The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as
+     *        a set of sequential pages.
      */
 
     public void setLimit(Integer limit) {
@@ -261,12 +318,12 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages.
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages.
      * </p>
      * 
-     * @return Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a
-     *         set of sequential pages.
+     * @return The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as
+     *         a set of sequential pages.
      */
 
     public Integer getLimit() {
@@ -275,13 +332,13 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages.
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages.
      * </p>
      * 
      * @param limit
-     *        Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a
-     *        set of sequential pages.
+     *        The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as
+     *        a set of sequential pages.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -292,13 +349,14 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value.
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value.
      * </p>
      * 
      * @param nextToken
-     *        Token that indicates the start of the next sequential page of results. Use the token that is returned with
-     *        a previous call to this action. To start at the beginning of the result set, do not specify a value.
+     *        A token that indicates the start of the next sequential page of results. Use the token that is returned
+     *        with a previous call to this operation. To start at the beginning of the result set, do not specify a
+     *        value.
      */
 
     public void setNextToken(String nextToken) {
@@ -307,12 +365,13 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value.
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value.
      * </p>
      * 
-     * @return Token that indicates the start of the next sequential page of results. Use the token that is returned
-     *         with a previous call to this action. To start at the beginning of the result set, do not specify a value.
+     * @return A token that indicates the start of the next sequential page of results. Use the token that is returned
+     *         with a previous call to this operation. To start at the beginning of the result set, do not specify a
+     *         value.
      */
 
     public String getNextToken() {
@@ -321,13 +380,14 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value.
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value.
      * </p>
      * 
      * @param nextToken
-     *        Token that indicates the start of the next sequential page of results. Use the token that is returned with
-     *        a previous call to this action. To start at the beginning of the result set, do not specify a value.
+     *        A token that indicates the start of the next sequential page of results. Use the token that is returned
+     *        with a previous call to this operation. To start at the beginning of the result set, do not specify a
+     *        value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -354,6 +414,8 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
             sb.append("GameSessionId: ").append(getGameSessionId()).append(",");
         if (getAliasId() != null)
             sb.append("AliasId: ").append(getAliasId()).append(",");
+        if (getLocation() != null)
+            sb.append("Location: ").append(getLocation()).append(",");
         if (getStatusFilter() != null)
             sb.append("StatusFilter: ").append(getStatusFilter()).append(",");
         if (getLimit() != null)
@@ -386,6 +448,10 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getAliasId() != null && other.getAliasId().equals(this.getAliasId()) == false)
             return false;
+        if (other.getLocation() == null ^ this.getLocation() == null)
+            return false;
+        if (other.getLocation() != null && other.getLocation().equals(this.getLocation()) == false)
+            return false;
         if (other.getStatusFilter() == null ^ this.getStatusFilter() == null)
             return false;
         if (other.getStatusFilter() != null && other.getStatusFilter().equals(this.getStatusFilter()) == false)
@@ -409,6 +475,7 @@ public class DescribeGameSessionsRequest extends com.amazonaws.AmazonWebServiceR
         hashCode = prime * hashCode + ((getFleetId() == null) ? 0 : getFleetId().hashCode());
         hashCode = prime * hashCode + ((getGameSessionId() == null) ? 0 : getGameSessionId().hashCode());
         hashCode = prime * hashCode + ((getAliasId() == null) ? 0 : getAliasId().hashCode());
+        hashCode = prime * hashCode + ((getLocation() == null) ? 0 : getLocation().hashCode());
         hashCode = prime * hashCode + ((getStatusFilter() == null) ? 0 : getStatusFilter().hashCode());
         hashCode = prime * hashCode + ((getLimit() == null) ? 0 : getLimit().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());

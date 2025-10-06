@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,7 +50,9 @@ public class TransportJsonUnmarshaller implements Unmarshaller<Transport, JsonUn
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("cidrAllowList", targetDepth)) {
                     context.nextToken();
-                    transport.setCidrAllowList(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    transport.setCidrAllowList(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("maxBitrate", targetDepth)) {
                     context.nextToken();
@@ -60,6 +62,14 @@ public class TransportJsonUnmarshaller implements Unmarshaller<Transport, JsonUn
                     context.nextToken();
                     transport.setMaxLatency(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
+                if (context.testExpression("maxSyncBuffer", targetDepth)) {
+                    context.nextToken();
+                    transport.setMaxSyncBuffer(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("minLatency", targetDepth)) {
+                    context.nextToken();
+                    transport.setMinLatency(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
                 if (context.testExpression("protocol", targetDepth)) {
                     context.nextToken();
                     transport.setProtocol(context.getUnmarshaller(String.class).unmarshall(context));
@@ -68,9 +78,25 @@ public class TransportJsonUnmarshaller implements Unmarshaller<Transport, JsonUn
                     context.nextToken();
                     transport.setRemoteId(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("senderControlPort", targetDepth)) {
+                    context.nextToken();
+                    transport.setSenderControlPort(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("senderIpAddress", targetDepth)) {
+                    context.nextToken();
+                    transport.setSenderIpAddress(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("smoothingLatency", targetDepth)) {
                     context.nextToken();
                     transport.setSmoothingLatency(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("sourceListenerAddress", targetDepth)) {
+                    context.nextToken();
+                    transport.setSourceListenerAddress(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("sourceListenerPort", targetDepth)) {
+                    context.nextToken();
+                    transport.setSourceListenerPort(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
                 if (context.testExpression("streamId", targetDepth)) {
                     context.nextToken();

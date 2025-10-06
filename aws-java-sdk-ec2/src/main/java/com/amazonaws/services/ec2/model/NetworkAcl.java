@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,13 +28,13 @@ public class NetworkAcl implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any associations between the network ACL and one or more subnets
+     * Any associations between the network ACL and your subnets
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<NetworkAclAssociation> associations;
     /**
      * <p>
-     * One or more entries (rules) in the network ACL.
+     * The entries (rules) in the network ACL.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<NetworkAclEntry> entries;
@@ -64,17 +64,17 @@ public class NetworkAcl implements Serializable, Cloneable {
     private String vpcId;
     /**
      * <p>
-     * The ID of the AWS account that owns the network ACL.
+     * The ID of the Amazon Web Services account that owns the network ACL.
      * </p>
      */
     private String ownerId;
 
     /**
      * <p>
-     * Any associations between the network ACL and one or more subnets
+     * Any associations between the network ACL and your subnets
      * </p>
      * 
-     * @return Any associations between the network ACL and one or more subnets
+     * @return Any associations between the network ACL and your subnets
      */
 
     public java.util.List<NetworkAclAssociation> getAssociations() {
@@ -86,11 +86,11 @@ public class NetworkAcl implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any associations between the network ACL and one or more subnets
+     * Any associations between the network ACL and your subnets
      * </p>
      * 
      * @param associations
-     *        Any associations between the network ACL and one or more subnets
+     *        Any associations between the network ACL and your subnets
      */
 
     public void setAssociations(java.util.Collection<NetworkAclAssociation> associations) {
@@ -104,7 +104,7 @@ public class NetworkAcl implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any associations between the network ACL and one or more subnets
+     * Any associations between the network ACL and your subnets
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -113,7 +113,7 @@ public class NetworkAcl implements Serializable, Cloneable {
      * </p>
      * 
      * @param associations
-     *        Any associations between the network ACL and one or more subnets
+     *        Any associations between the network ACL and your subnets
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -129,11 +129,11 @@ public class NetworkAcl implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any associations between the network ACL and one or more subnets
+     * Any associations between the network ACL and your subnets
      * </p>
      * 
      * @param associations
-     *        Any associations between the network ACL and one or more subnets
+     *        Any associations between the network ACL and your subnets
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -144,10 +144,10 @@ public class NetworkAcl implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more entries (rules) in the network ACL.
+     * The entries (rules) in the network ACL.
      * </p>
      * 
-     * @return One or more entries (rules) in the network ACL.
+     * @return The entries (rules) in the network ACL.
      */
 
     public java.util.List<NetworkAclEntry> getEntries() {
@@ -159,11 +159,11 @@ public class NetworkAcl implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more entries (rules) in the network ACL.
+     * The entries (rules) in the network ACL.
      * </p>
      * 
      * @param entries
-     *        One or more entries (rules) in the network ACL.
+     *        The entries (rules) in the network ACL.
      */
 
     public void setEntries(java.util.Collection<NetworkAclEntry> entries) {
@@ -177,7 +177,7 @@ public class NetworkAcl implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more entries (rules) in the network ACL.
+     * The entries (rules) in the network ACL.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -186,7 +186,7 @@ public class NetworkAcl implements Serializable, Cloneable {
      * </p>
      * 
      * @param entries
-     *        One or more entries (rules) in the network ACL.
+     *        The entries (rules) in the network ACL.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -202,11 +202,11 @@ public class NetworkAcl implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more entries (rules) in the network ACL.
+     * The entries (rules) in the network ACL.
      * </p>
      * 
      * @param entries
-     *        One or more entries (rules) in the network ACL.
+     *        The entries (rules) in the network ACL.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -422,11 +422,11 @@ public class NetworkAcl implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the network ACL.
+     * The ID of the Amazon Web Services account that owns the network ACL.
      * </p>
      * 
      * @param ownerId
-     *        The ID of the AWS account that owns the network ACL.
+     *        The ID of the Amazon Web Services account that owns the network ACL.
      */
 
     public void setOwnerId(String ownerId) {
@@ -435,10 +435,10 @@ public class NetworkAcl implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the network ACL.
+     * The ID of the Amazon Web Services account that owns the network ACL.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the network ACL.
+     * @return The ID of the Amazon Web Services account that owns the network ACL.
      */
 
     public String getOwnerId() {
@@ -447,11 +447,11 @@ public class NetworkAcl implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the network ACL.
+     * The ID of the Amazon Web Services account that owns the network ACL.
      * </p>
      * 
      * @param ownerId
-     *        The ID of the AWS account that owns the network ACL.
+     *        The ID of the Amazon Web Services account that owns the network ACL.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

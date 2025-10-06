@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,15 +28,15 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
     /**
      * <p>
      * The path for the server certificate. For more information about paths, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the <i>IAM
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM
      * User Guide</i>.
      * </p>
      * <p>
      * This parameter is optional. If it is not included, it defaults to a slash (/). This parameter allows (through its
      * <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of either a
      * forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain
-     * any ASCII character from the ! (\u0021) through the DEL character (\u007F), including most punctuation
-     * characters, digits, and upper and lowercased letters.
+     * any ASCII character from the ! (<code>\u0021</code>) through the DEL character (<code>\u007F</code>), including
+     * most punctuation characters, digits, and upper and lowercased letters.
      * </p>
      * <note>
      * <p>
@@ -70,17 +70,19 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -97,17 +99,19 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -125,22 +129,39 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
      */
     private String certificateChain;
+    /**
+     * <p>
+     * A list of tags that you want to attach to the new IAM server certificate resource. Each tag consists of a key
+     * name and an associated value. For more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire request
+     * fails and the resource is not created.
+     * </p>
+     * </note>
+     */
+    private com.amazonaws.internal.SdkInternalList<Tag> tags;
 
     /**
      * Default constructor for UploadServerCertificateRequest object. Callers should use the setter or fluent setter
@@ -170,18 +191,20 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      * @param privateKey
@@ -193,18 +216,20 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      */
@@ -217,15 +242,15 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
     /**
      * <p>
      * The path for the server certificate. For more information about paths, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the <i>IAM
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM
      * User Guide</i>.
      * </p>
      * <p>
      * This parameter is optional. If it is not included, it defaults to a slash (/). This parameter allows (through its
      * <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of either a
      * forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain
-     * any ASCII character from the ! (\u0021) through the DEL character (\u007F), including most punctuation
-     * characters, digits, and upper and lowercased letters.
+     * any ASCII character from the ! (<code>\u0021</code>) through the DEL character (<code>\u007F</code>), including
+     * most punctuation characters, digits, and upper and lowercased letters.
      * </p>
      * <note>
      * <p>
@@ -237,14 +262,15 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      * 
      * @param path
      *        The path for the server certificate. For more information about paths, see <a
-     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the
      *        <i>IAM User Guide</i>.</p>
      *        <p>
      *        This parameter is optional. If it is not included, it defaults to a slash (/). This parameter allows
      *        (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters
      *        consisting of either a forward slash (/) by itself or a string that must begin and end with forward
-     *        slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL character
-     *        (\u007F), including most punctuation characters, digits, and upper and lowercased letters.
+     *        slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through the DEL
+     *        character (<code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased
+     *        letters.
      *        </p>
      *        <note>
      *        <p>
@@ -261,15 +287,15 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
     /**
      * <p>
      * The path for the server certificate. For more information about paths, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the <i>IAM
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM
      * User Guide</i>.
      * </p>
      * <p>
      * This parameter is optional. If it is not included, it defaults to a slash (/). This parameter allows (through its
      * <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of either a
      * forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain
-     * any ASCII character from the ! (\u0021) through the DEL character (\u007F), including most punctuation
-     * characters, digits, and upper and lowercased letters.
+     * any ASCII character from the ! (<code>\u0021</code>) through the DEL character (<code>\u007F</code>), including
+     * most punctuation characters, digits, and upper and lowercased letters.
      * </p>
      * <note>
      * <p>
@@ -280,14 +306,15 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      * </note>
      * 
      * @return The path for the server certificate. For more information about paths, see <a
-     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the
+     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the
      *         <i>IAM User Guide</i>.</p>
      *         <p>
      *         This parameter is optional. If it is not included, it defaults to a slash (/). This parameter allows
      *         (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters
      *         consisting of either a forward slash (/) by itself or a string that must begin and end with forward
-     *         slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL character
-     *         (\u007F), including most punctuation characters, digits, and upper and lowercased letters.
+     *         slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through the DEL
+     *         character (<code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased
+     *         letters.
      *         </p>
      *         <note>
      *         <p>
@@ -304,15 +331,15 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
     /**
      * <p>
      * The path for the server certificate. For more information about paths, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the <i>IAM
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM
      * User Guide</i>.
      * </p>
      * <p>
      * This parameter is optional. If it is not included, it defaults to a slash (/). This parameter allows (through its
      * <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of either a
      * forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain
-     * any ASCII character from the ! (\u0021) through the DEL character (\u007F), including most punctuation
-     * characters, digits, and upper and lowercased letters.
+     * any ASCII character from the ! (<code>\u0021</code>) through the DEL character (<code>\u007F</code>), including
+     * most punctuation characters, digits, and upper and lowercased letters.
      * </p>
      * <note>
      * <p>
@@ -324,14 +351,15 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      * 
      * @param path
      *        The path for the server certificate. For more information about paths, see <a
-     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the
      *        <i>IAM User Guide</i>.</p>
      *        <p>
      *        This parameter is optional. If it is not included, it defaults to a slash (/). This parameter allows
      *        (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters
      *        consisting of either a forward slash (/) by itself or a string that must begin and end with forward
-     *        slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL character
-     *        (\u007F), including most punctuation characters, digits, and upper and lowercased letters.
+     *        slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through the DEL
+     *        character (<code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased
+     *        letters.
      *        </p>
      *        <note>
      *        <p>
@@ -431,17 +459,19 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -455,18 +485,20 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      */
@@ -486,17 +518,19 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -509,18 +543,20 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      *         <ul>
      *         <li>
      *         <p>
-     *         Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *         range
+     *         Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *         the ASCII character range
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *         <code>\u00FF</code>)
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The special characters tab ( ), line feed ( ), and carriage return ( )
+     *         The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *         <code>\u000D</code>)
      *         </p>
      *         </li>
      */
@@ -540,17 +576,19 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -564,18 +602,20 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -597,17 +637,19 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -621,18 +663,20 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      */
@@ -652,17 +696,19 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -675,18 +721,20 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      *         <ul>
      *         <li>
      *         <p>
-     *         Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *         range
+     *         Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *         the ASCII character range
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *         <code>\u00FF</code>)
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The special characters tab ( ), line feed ( ), and carriage return ( )
+     *         The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *         <code>\u000D</code>)
      *         </p>
      *         </li>
      */
@@ -706,17 +754,19 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -730,18 +780,20 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -764,17 +816,19 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -789,18 +843,20 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      */
@@ -821,17 +877,19 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -845,18 +903,20 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      *         <ul>
      *         <li>
      *         <p>
-     *         Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *         range
+     *         Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *         the ASCII character range
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *         <code>\u00FF</code>)
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The special characters tab ( ), line feed ( ), and carriage return ( )
+     *         The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *         <code>\u000D</code>)
      *         </p>
      *         </li>
      */
@@ -877,17 +937,19 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -902,18 +964,20 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -921,6 +985,143 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
 
     public UploadServerCertificateRequest withCertificateChain(String certificateChain) {
         setCertificateChain(certificateChain);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of tags that you want to attach to the new IAM server certificate resource. Each tag consists of a key
+     * name and an associated value. For more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire request
+     * fails and the resource is not created.
+     * </p>
+     * </note>
+     * 
+     * @return A list of tags that you want to attach to the new IAM server certificate resource. Each tag consists of a
+     *         key name and an associated value. For more information about tagging, see <a
+     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the
+     *         <i>IAM User Guide</i>.</p> <note>
+     *         <p>
+     *         If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire
+     *         request fails and the resource is not created.
+     *         </p>
+     */
+
+    public java.util.List<Tag> getTags() {
+        if (tags == null) {
+            tags = new com.amazonaws.internal.SdkInternalList<Tag>();
+        }
+        return tags;
+    }
+
+    /**
+     * <p>
+     * A list of tags that you want to attach to the new IAM server certificate resource. Each tag consists of a key
+     * name and an associated value. For more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire request
+     * fails and the resource is not created.
+     * </p>
+     * </note>
+     * 
+     * @param tags
+     *        A list of tags that you want to attach to the new IAM server certificate resource. Each tag consists of a
+     *        key name and an associated value. For more information about tagging, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the
+     *        <i>IAM User Guide</i>.</p> <note>
+     *        <p>
+     *        If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire
+     *        request fails and the resource is not created.
+     *        </p>
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new com.amazonaws.internal.SdkInternalList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * A list of tags that you want to attach to the new IAM server certificate resource. Each tag consists of a key
+     * name and an associated value. For more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire request
+     * fails and the resource is not created.
+     * </p>
+     * </note>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        A list of tags that you want to attach to the new IAM server certificate resource. Each tag consists of a
+     *        key name and an associated value. For more information about tagging, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the
+     *        <i>IAM User Guide</i>.</p> <note>
+     *        <p>
+     *        If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire
+     *        request fails and the resource is not created.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UploadServerCertificateRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new com.amazonaws.internal.SdkInternalList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of tags that you want to attach to the new IAM server certificate resource. Each tag consists of a key
+     * name and an associated value. For more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire request
+     * fails and the resource is not created.
+     * </p>
+     * </note>
+     * 
+     * @param tags
+     *        A list of tags that you want to attach to the new IAM server certificate resource. Each tag consists of a
+     *        key name and an associated value. For more information about tagging, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the
+     *        <i>IAM User Guide</i>.</p> <note>
+     *        <p>
+     *        If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire
+     *        request fails and the resource is not created.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UploadServerCertificateRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
         return this;
     }
 
@@ -945,7 +1146,9 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
         if (getPrivateKey() != null)
             sb.append("PrivateKey: ").append("***Sensitive Data Redacted***").append(",");
         if (getCertificateChain() != null)
-            sb.append("CertificateChain: ").append(getCertificateChain());
+            sb.append("CertificateChain: ").append(getCertificateChain()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -980,6 +1183,10 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
             return false;
         if (other.getCertificateChain() != null && other.getCertificateChain().equals(this.getCertificateChain()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -993,6 +1200,7 @@ public class UploadServerCertificateRequest extends com.amazonaws.AmazonWebServi
         hashCode = prime * hashCode + ((getCertificateBody() == null) ? 0 : getCertificateBody().hashCode());
         hashCode = prime * hashCode + ((getPrivateKey() == null) ? 0 : getPrivateKey().hashCode());
         hashCode = prime * hashCode + ((getCertificateChain() == null) ? 0 : getCertificateChain().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

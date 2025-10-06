@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,6 +25,7 @@ public enum VoiceId {
     Astrid("Astrid"),
     Bianca("Bianca"),
     Brian("Brian"),
+    Camila("Camila"),
     Carla("Carla"),
     Carmen("Carmen"),
     Celine("Celine"),
@@ -36,6 +37,7 @@ public enum VoiceId {
     Enrique("Enrique"),
     Ewa("Ewa"),
     Filiz("Filiz"),
+    Gabrielle("Gabrielle"),
     Geraint("Geraint"),
     Giorgio("Giorgio"),
     Gwyneth("Gwyneth"),
@@ -49,11 +51,13 @@ public enum VoiceId {
     Justin("Justin"),
     Karl("Karl"),
     Kendra("Kendra"),
+    Kevin("Kevin"),
     Kimberly("Kimberly"),
     Lea("Lea"),
     Liv("Liv"),
     Lotte("Lotte"),
     Lucia("Lucia"),
+    Lupe("Lupe"),
     Mads("Mads"),
     Maja("Maja"),
     Marlene("Marlene"),
@@ -65,6 +69,7 @@ public enum VoiceId {
     Mizuki("Mizuki"),
     Naja("Naja"),
     Nicole("Nicole"),
+    Olivia("Olivia"),
     Penelope("Penelope"),
     Raveena("Raveena"),
     Ricardo("Ricardo"),
@@ -77,7 +82,40 @@ public enum VoiceId {
     Vicki("Vicki"),
     Vitoria("Vitoria"),
     Zeina("Zeina"),
-    Zhiyu("Zhiyu");
+    Zhiyu("Zhiyu"),
+    Aria("Aria"),
+    Ayanda("Ayanda"),
+    Arlet("Arlet"),
+    Hannah("Hannah"),
+    Arthur("Arthur"),
+    Daniel("Daniel"),
+    Liam("Liam"),
+    Pedro("Pedro"),
+    Kajal("Kajal"),
+    Hiujin("Hiujin"),
+    Laura("Laura"),
+    Elin("Elin"),
+    Ida("Ida"),
+    Suvi("Suvi"),
+    Ola("Ola"),
+    Hala("Hala"),
+    Andres("Andres"),
+    Sergio("Sergio"),
+    Remi("Remi"),
+    Adriano("Adriano"),
+    Thiago("Thiago"),
+    Ruth("Ruth"),
+    Stephen("Stephen"),
+    Kazuha("Kazuha"),
+    Tomoko("Tomoko"),
+    Niamh("Niamh"),
+    Sofie("Sofie"),
+    Lisa("Lisa"),
+    Isabelle("Isabelle"),
+    Zayd("Zayd"),
+    Danielle("Danielle"),
+    Gregory("Gregory"),
+    Burcu("Burcu");
 
     private String value;
 

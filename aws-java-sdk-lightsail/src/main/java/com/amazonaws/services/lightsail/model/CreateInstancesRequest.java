@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,11 +43,11 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
     private String availabilityZone;
     /**
      * <p>
-     * (Deprecated) The name for your custom image.
+     * (Discontinued) The name for your custom image.
      * </p>
      * <note>
      * <p>
-     * In releases prior to June 12, 2017, this parameter was ignored by the API. It is now deprecated.
+     * In releases prior to June 12, 2017, this parameter was ignored by the API. It is now discontinued.
      * </p>
      * </note>
      */
@@ -55,15 +55,22 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
     private String customImageName;
     /**
      * <p>
-     * The ID for a virtual private server image (e.g., <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>).
-     * Use the get blueprints operation to return a list of available images (or <i>blueprints</i>).
+     * The ID for a virtual private server image (<code>app_wordpress_x_x</code> or <code>app_lamp_x_x</code>). Use the
+     * <code>get blueprints</code> operation to return a list of available images (or <i>blueprints</i>).
      * </p>
+     * <note>
+     * <p>
+     * Use active blueprints when creating new instances. Inactive blueprints are listed to support customers with
+     * existing instances and are not necessarily available to create new instances. Blueprints are marked inactive when
+     * they become outdated due to operating system updates or new application releases.
+     * </p>
+     * </note>
      */
     private String blueprintId;
     /**
      * <p>
      * The bundle of specification information for your virtual private server (or <i>instance</i>), including the
-     * pricing plan (e.g., <code>micro_1_0</code>).
+     * pricing plan (<code>medium_x_x</code>).
      * </p>
      */
     private String bundleId;
@@ -76,9 +83,9 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
      * <p>
      * Depending on the machine image you choose, the command to get software on your instance varies. Amazon Linux and
      * CentOS use <code>yum</code>, Debian and Ubuntu use <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a
-     * complete list, see the <a href=
-     * "https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image"
-     * >Dev Guide</a>.
+     * complete list, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image"
+     * >Amazon Lightsail Developer Guide</a>.
      * </p>
      * </note>
      */
@@ -94,10 +101,29 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      */
     private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * An array of objects representing the add-ons to enable for the new instance.
+     * </p>
+     */
+    private java.util.List<AddOnRequest> addOns;
+    /**
+     * <p>
+     * The IP address type for the instance.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     * <p>
+     * The default value is <code>dualstack</code>.
+     * </p>
+     */
+    private String ipAddressType;
 
     /**
      * <p>
@@ -237,18 +263,18 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * (Deprecated) The name for your custom image.
+     * (Discontinued) The name for your custom image.
      * </p>
      * <note>
      * <p>
-     * In releases prior to June 12, 2017, this parameter was ignored by the API. It is now deprecated.
+     * In releases prior to June 12, 2017, this parameter was ignored by the API. It is now discontinued.
      * </p>
      * </note>
      * 
      * @param customImageName
-     *        (Deprecated) The name for your custom image.</p> <note>
+     *        (Discontinued) The name for your custom image.</p> <note>
      *        <p>
-     *        In releases prior to June 12, 2017, this parameter was ignored by the API. It is now deprecated.
+     *        In releases prior to June 12, 2017, this parameter was ignored by the API. It is now discontinued.
      *        </p>
      */
     @Deprecated
@@ -258,17 +284,17 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * (Deprecated) The name for your custom image.
+     * (Discontinued) The name for your custom image.
      * </p>
      * <note>
      * <p>
-     * In releases prior to June 12, 2017, this parameter was ignored by the API. It is now deprecated.
+     * In releases prior to June 12, 2017, this parameter was ignored by the API. It is now discontinued.
      * </p>
      * </note>
      * 
-     * @return (Deprecated) The name for your custom image.</p> <note>
+     * @return (Discontinued) The name for your custom image.</p> <note>
      *         <p>
-     *         In releases prior to June 12, 2017, this parameter was ignored by the API. It is now deprecated.
+     *         In releases prior to June 12, 2017, this parameter was ignored by the API. It is now discontinued.
      *         </p>
      */
     @Deprecated
@@ -278,18 +304,18 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * (Deprecated) The name for your custom image.
+     * (Discontinued) The name for your custom image.
      * </p>
      * <note>
      * <p>
-     * In releases prior to June 12, 2017, this parameter was ignored by the API. It is now deprecated.
+     * In releases prior to June 12, 2017, this parameter was ignored by the API. It is now discontinued.
      * </p>
      * </note>
      * 
      * @param customImageName
-     *        (Deprecated) The name for your custom image.</p> <note>
+     *        (Discontinued) The name for your custom image.</p> <note>
      *        <p>
-     *        In releases prior to June 12, 2017, this parameter was ignored by the API. It is now deprecated.
+     *        In releases prior to June 12, 2017, this parameter was ignored by the API. It is now discontinued.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -301,14 +327,26 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The ID for a virtual private server image (e.g., <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>).
-     * Use the get blueprints operation to return a list of available images (or <i>blueprints</i>).
+     * The ID for a virtual private server image (<code>app_wordpress_x_x</code> or <code>app_lamp_x_x</code>). Use the
+     * <code>get blueprints</code> operation to return a list of available images (or <i>blueprints</i>).
      * </p>
+     * <note>
+     * <p>
+     * Use active blueprints when creating new instances. Inactive blueprints are listed to support customers with
+     * existing instances and are not necessarily available to create new instances. Blueprints are marked inactive when
+     * they become outdated due to operating system updates or new application releases.
+     * </p>
+     * </note>
      * 
      * @param blueprintId
-     *        The ID for a virtual private server image (e.g., <code>app_wordpress_4_4</code> or
-     *        <code>app_lamp_7_0</code>). Use the get blueprints operation to return a list of available images (or
-     *        <i>blueprints</i>).
+     *        The ID for a virtual private server image (<code>app_wordpress_x_x</code> or <code>app_lamp_x_x</code>).
+     *        Use the <code>get blueprints</code> operation to return a list of available images (or
+     *        <i>blueprints</i>).</p> <note>
+     *        <p>
+     *        Use active blueprints when creating new instances. Inactive blueprints are listed to support customers
+     *        with existing instances and are not necessarily available to create new instances. Blueprints are marked
+     *        inactive when they become outdated due to operating system updates or new application releases.
+     *        </p>
      */
 
     public void setBlueprintId(String blueprintId) {
@@ -317,13 +355,25 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The ID for a virtual private server image (e.g., <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>).
-     * Use the get blueprints operation to return a list of available images (or <i>blueprints</i>).
+     * The ID for a virtual private server image (<code>app_wordpress_x_x</code> or <code>app_lamp_x_x</code>). Use the
+     * <code>get blueprints</code> operation to return a list of available images (or <i>blueprints</i>).
      * </p>
+     * <note>
+     * <p>
+     * Use active blueprints when creating new instances. Inactive blueprints are listed to support customers with
+     * existing instances and are not necessarily available to create new instances. Blueprints are marked inactive when
+     * they become outdated due to operating system updates or new application releases.
+     * </p>
+     * </note>
      * 
-     * @return The ID for a virtual private server image (e.g., <code>app_wordpress_4_4</code> or
-     *         <code>app_lamp_7_0</code>). Use the get blueprints operation to return a list of available images (or
-     *         <i>blueprints</i>).
+     * @return The ID for a virtual private server image (<code>app_wordpress_x_x</code> or <code>app_lamp_x_x</code>).
+     *         Use the <code>get blueprints</code> operation to return a list of available images (or
+     *         <i>blueprints</i>).</p> <note>
+     *         <p>
+     *         Use active blueprints when creating new instances. Inactive blueprints are listed to support customers
+     *         with existing instances and are not necessarily available to create new instances. Blueprints are marked
+     *         inactive when they become outdated due to operating system updates or new application releases.
+     *         </p>
      */
 
     public String getBlueprintId() {
@@ -332,14 +382,26 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The ID for a virtual private server image (e.g., <code>app_wordpress_4_4</code> or <code>app_lamp_7_0</code>).
-     * Use the get blueprints operation to return a list of available images (or <i>blueprints</i>).
+     * The ID for a virtual private server image (<code>app_wordpress_x_x</code> or <code>app_lamp_x_x</code>). Use the
+     * <code>get blueprints</code> operation to return a list of available images (or <i>blueprints</i>).
      * </p>
+     * <note>
+     * <p>
+     * Use active blueprints when creating new instances. Inactive blueprints are listed to support customers with
+     * existing instances and are not necessarily available to create new instances. Blueprints are marked inactive when
+     * they become outdated due to operating system updates or new application releases.
+     * </p>
+     * </note>
      * 
      * @param blueprintId
-     *        The ID for a virtual private server image (e.g., <code>app_wordpress_4_4</code> or
-     *        <code>app_lamp_7_0</code>). Use the get blueprints operation to return a list of available images (or
-     *        <i>blueprints</i>).
+     *        The ID for a virtual private server image (<code>app_wordpress_x_x</code> or <code>app_lamp_x_x</code>).
+     *        Use the <code>get blueprints</code> operation to return a list of available images (or
+     *        <i>blueprints</i>).</p> <note>
+     *        <p>
+     *        Use active blueprints when creating new instances. Inactive blueprints are listed to support customers
+     *        with existing instances and are not necessarily available to create new instances. Blueprints are marked
+     *        inactive when they become outdated due to operating system updates or new application releases.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -351,12 +413,12 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * The bundle of specification information for your virtual private server (or <i>instance</i>), including the
-     * pricing plan (e.g., <code>micro_1_0</code>).
+     * pricing plan (<code>medium_x_x</code>).
      * </p>
      * 
      * @param bundleId
      *        The bundle of specification information for your virtual private server (or <i>instance</i>), including
-     *        the pricing plan (e.g., <code>micro_1_0</code>).
+     *        the pricing plan (<code>medium_x_x</code>).
      */
 
     public void setBundleId(String bundleId) {
@@ -366,11 +428,11 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * The bundle of specification information for your virtual private server (or <i>instance</i>), including the
-     * pricing plan (e.g., <code>micro_1_0</code>).
+     * pricing plan (<code>medium_x_x</code>).
      * </p>
      * 
      * @return The bundle of specification information for your virtual private server (or <i>instance</i>), including
-     *         the pricing plan (e.g., <code>micro_1_0</code>).
+     *         the pricing plan (<code>medium_x_x</code>).
      */
 
     public String getBundleId() {
@@ -380,12 +442,12 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * The bundle of specification information for your virtual private server (or <i>instance</i>), including the
-     * pricing plan (e.g., <code>micro_1_0</code>).
+     * pricing plan (<code>medium_x_x</code>).
      * </p>
      * 
      * @param bundleId
      *        The bundle of specification information for your virtual private server (or <i>instance</i>), including
-     *        the pricing plan (e.g., <code>micro_1_0</code>).
+     *        the pricing plan (<code>medium_x_x</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -403,9 +465,9 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
      * <p>
      * Depending on the machine image you choose, the command to get software on your instance varies. Amazon Linux and
      * CentOS use <code>yum</code>, Debian and Ubuntu use <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a
-     * complete list, see the <a href=
-     * "https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image"
-     * >Dev Guide</a>.
+     * complete list, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image"
+     * >Amazon Lightsail Developer Guide</a>.
      * </p>
      * </note>
      * 
@@ -415,9 +477,9 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
      *        <p>
      *        Depending on the machine image you choose, the command to get software on your instance varies. Amazon
      *        Linux and CentOS use <code>yum</code>, Debian and Ubuntu use <code>apt-get</code>, and FreeBSD uses
-     *        <code>pkg</code>. For a complete list, see the <a href=
-     *        "https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image"
-     *        >Dev Guide</a>.
+     *        <code>pkg</code>. For a complete list, see the <a
+     *        href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image"
+     *        >Amazon Lightsail Developer Guide</a>.
      *        </p>
      */
 
@@ -434,9 +496,9 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
      * <p>
      * Depending on the machine image you choose, the command to get software on your instance varies. Amazon Linux and
      * CentOS use <code>yum</code>, Debian and Ubuntu use <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a
-     * complete list, see the <a href=
-     * "https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image"
-     * >Dev Guide</a>.
+     * complete list, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image"
+     * >Amazon Lightsail Developer Guide</a>.
      * </p>
      * </note>
      * 
@@ -445,9 +507,9 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
      *         <p>
      *         Depending on the machine image you choose, the command to get software on your instance varies. Amazon
      *         Linux and CentOS use <code>yum</code>, Debian and Ubuntu use <code>apt-get</code>, and FreeBSD uses
-     *         <code>pkg</code>. For a complete list, see the <a href=
-     *         "https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image"
-     *         >Dev Guide</a>.
+     *         <code>pkg</code>. For a complete list, see the <a
+     *         href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image"
+     *         >Amazon Lightsail Developer Guide</a>.
      *         </p>
      */
 
@@ -464,9 +526,9 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
      * <p>
      * Depending on the machine image you choose, the command to get software on your instance varies. Amazon Linux and
      * CentOS use <code>yum</code>, Debian and Ubuntu use <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a
-     * complete list, see the <a href=
-     * "https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image"
-     * >Dev Guide</a>.
+     * complete list, see the <a
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image"
+     * >Amazon Lightsail Developer Guide</a>.
      * </p>
      * </note>
      * 
@@ -476,9 +538,9 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
      *        <p>
      *        Depending on the machine image you choose, the command to get software on your instance varies. Amazon
      *        Linux and CentOS use <code>yum</code>, Debian and Ubuntu use <code>apt-get</code>, and FreeBSD uses
-     *        <code>pkg</code>. For a complete list, see the <a href=
-     *        "https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image"
-     *        >Dev Guide</a>.
+     *        <code>pkg</code>. For a complete list, see the <a
+     *        href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image"
+     *        >Amazon Lightsail Developer Guide</a>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -533,12 +595,12 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * 
      * @return The tag keys and optional values to add to the resource during create.</p>
      *         <p>
-     *         To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *         Use the <code>TagResource</code> action to tag a resource after it's created.
      */
 
     public java.util.List<Tag> getTags() {
@@ -550,13 +612,13 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values to add to the resource during create.</p>
      *        <p>
-     *        To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *        Use the <code>TagResource</code> action to tag a resource after it's created.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -573,7 +635,7 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -584,7 +646,7 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
      * @param tags
      *        The tag keys and optional values to add to the resource during create.</p>
      *        <p>
-     *        To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *        Use the <code>TagResource</code> action to tag a resource after it's created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -603,18 +665,199 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values to add to the resource during create.</p>
      *        <p>
-     *        To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *        Use the <code>TagResource</code> action to tag a resource after it's created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateInstancesRequest withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of objects representing the add-ons to enable for the new instance.
+     * </p>
+     * 
+     * @return An array of objects representing the add-ons to enable for the new instance.
+     */
+
+    public java.util.List<AddOnRequest> getAddOns() {
+        return addOns;
+    }
+
+    /**
+     * <p>
+     * An array of objects representing the add-ons to enable for the new instance.
+     * </p>
+     * 
+     * @param addOns
+     *        An array of objects representing the add-ons to enable for the new instance.
+     */
+
+    public void setAddOns(java.util.Collection<AddOnRequest> addOns) {
+        if (addOns == null) {
+            this.addOns = null;
+            return;
+        }
+
+        this.addOns = new java.util.ArrayList<AddOnRequest>(addOns);
+    }
+
+    /**
+     * <p>
+     * An array of objects representing the add-ons to enable for the new instance.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAddOns(java.util.Collection)} or {@link #withAddOns(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param addOns
+     *        An array of objects representing the add-ons to enable for the new instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateInstancesRequest withAddOns(AddOnRequest... addOns) {
+        if (this.addOns == null) {
+            setAddOns(new java.util.ArrayList<AddOnRequest>(addOns.length));
+        }
+        for (AddOnRequest ele : addOns) {
+            this.addOns.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of objects representing the add-ons to enable for the new instance.
+     * </p>
+     * 
+     * @param addOns
+     *        An array of objects representing the add-ons to enable for the new instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateInstancesRequest withAddOns(java.util.Collection<AddOnRequest> addOns) {
+        setAddOns(addOns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the instance.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     * <p>
+     * The default value is <code>dualstack</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type for the instance.</p>
+     *        <p>
+     *        The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     *        <code>dualstack</code> for IPv4 and IPv6.
+     *        </p>
+     *        <p>
+     *        The default value is <code>dualstack</code>.
+     * @see IpAddressType
+     */
+
+    public void setIpAddressType(String ipAddressType) {
+        this.ipAddressType = ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the instance.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     * <p>
+     * The default value is <code>dualstack</code>.
+     * </p>
+     * 
+     * @return The IP address type for the instance.</p>
+     *         <p>
+     *         The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     *         <code>dualstack</code> for IPv4 and IPv6.
+     *         </p>
+     *         <p>
+     *         The default value is <code>dualstack</code>.
+     * @see IpAddressType
+     */
+
+    public String getIpAddressType() {
+        return this.ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the instance.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     * <p>
+     * The default value is <code>dualstack</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type for the instance.</p>
+     *        <p>
+     *        The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     *        <code>dualstack</code> for IPv4 and IPv6.
+     *        </p>
+     *        <p>
+     *        The default value is <code>dualstack</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IpAddressType
+     */
+
+    public CreateInstancesRequest withIpAddressType(String ipAddressType) {
+        setIpAddressType(ipAddressType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the instance.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     * <p>
+     * The default value is <code>dualstack</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type for the instance.</p>
+     *        <p>
+     *        The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     *        <code>dualstack</code> for IPv4 and IPv6.
+     *        </p>
+     *        <p>
+     *        The default value is <code>dualstack</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IpAddressType
+     */
+
+    public CreateInstancesRequest withIpAddressType(IpAddressType ipAddressType) {
+        this.ipAddressType = ipAddressType.toString();
         return this;
     }
 
@@ -645,7 +888,11 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
         if (getKeyPairName() != null)
             sb.append("KeyPairName: ").append(getKeyPairName()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getAddOns() != null)
+            sb.append("AddOns: ").append(getAddOns()).append(",");
+        if (getIpAddressType() != null)
+            sb.append("IpAddressType: ").append(getIpAddressType());
         sb.append("}");
         return sb.toString();
     }
@@ -692,6 +939,14 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getAddOns() == null ^ this.getAddOns() == null)
+            return false;
+        if (other.getAddOns() != null && other.getAddOns().equals(this.getAddOns()) == false)
+            return false;
+        if (other.getIpAddressType() == null ^ this.getIpAddressType() == null)
+            return false;
+        if (other.getIpAddressType() != null && other.getIpAddressType().equals(this.getIpAddressType()) == false)
+            return false;
         return true;
     }
 
@@ -708,6 +963,8 @@ public class CreateInstancesRequest extends com.amazonaws.AmazonWebServiceReques
         hashCode = prime * hashCode + ((getUserData() == null) ? 0 : getUserData().hashCode());
         hashCode = prime * hashCode + ((getKeyPairName() == null) ? 0 : getKeyPairName().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getAddOns() == null) ? 0 : getAddOns().hashCode());
+        hashCode = prime * hashCode + ((getIpAddressType() == null) ? 0 : getIpAddressType().hashCode());
         return hashCode;
     }
 

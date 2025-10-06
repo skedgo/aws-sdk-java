@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -63,6 +63,14 @@ public class ConstraintDetailJsonUnmarshaller implements Unmarshaller<Constraint
                 if (context.testExpression("Owner", targetDepth)) {
                     context.nextToken();
                     constraintDetail.setOwner(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ProductId", targetDepth)) {
+                    context.nextToken();
+                    constraintDetail.setProductId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("PortfolioId", targetDepth)) {
+                    context.nextToken();
+                    constraintDetail.setPortfolioId(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

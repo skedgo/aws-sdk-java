@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,8 +17,12 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * An anomaly detection model associated with a particular CloudWatch metric athresnd statistic. You can use the model
- * to display a band of expected normal values when the metric is graphed.
+ * An anomaly detection model associated with a particular CloudWatch metric, statistic, or metric math expression. You
+ * can use the model to display a band of expected, normal values when the metric is graphed.
+ * </p>
+ * <p>
+ * If you have enabled unified cross-account observability, and this account is a monitoring account, the metric can be
+ * in the same account or a source account.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/AnomalyDetector" target="_top">AWS API
@@ -32,24 +36,28 @@ public class AnomalyDetector implements Serializable, Cloneable {
      * The namespace of the metric associated with the anomaly detection model.
      * </p>
      */
+    @Deprecated
     private String namespace;
     /**
      * <p>
      * The name of the metric associated with the anomaly detection model.
      * </p>
      */
+    @Deprecated
     private String metricName;
     /**
      * <p>
      * The metric dimensions associated with the anomaly detection model.
      * </p>
      */
+    @Deprecated
     private com.amazonaws.internal.SdkInternalList<Dimension> dimensions;
     /**
      * <p>
      * The statistic associated with the anomaly detection model.
      * </p>
      */
+    @Deprecated
     private String stat;
     /**
      * <p>
@@ -58,6 +66,32 @@ public class AnomalyDetector implements Serializable, Cloneable {
      * </p>
      */
     private AnomalyDetectorConfiguration configuration;
+    /**
+     * <p>
+     * The current status of the anomaly detector's training.
+     * </p>
+     */
+    private String stateValue;
+    /**
+     * <p>
+     * This object includes parameters that you can use to provide information about your metric to CloudWatch to help
+     * it build more accurate anomaly detection models. Currently, it includes the <code>PeriodicSpikes</code>
+     * parameter.
+     * </p>
+     */
+    private MetricCharacteristics metricCharacteristics;
+    /**
+     * <p>
+     * The CloudWatch metric and statistic for this anomaly detector.
+     * </p>
+     */
+    private SingleMetricAnomalyDetector singleMetricAnomalyDetector;
+    /**
+     * <p>
+     * The CloudWatch metric math expression for this anomaly detector.
+     * </p>
+     */
+    private MetricMathAnomalyDetector metricMathAnomalyDetector;
 
     /**
      * <p>
@@ -67,7 +101,7 @@ public class AnomalyDetector implements Serializable, Cloneable {
      * @param namespace
      *        The namespace of the metric associated with the anomaly detection model.
      */
-
+    @Deprecated
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
@@ -79,7 +113,7 @@ public class AnomalyDetector implements Serializable, Cloneable {
      * 
      * @return The namespace of the metric associated with the anomaly detection model.
      */
-
+    @Deprecated
     public String getNamespace() {
         return this.namespace;
     }
@@ -93,7 +127,7 @@ public class AnomalyDetector implements Serializable, Cloneable {
      *        The namespace of the metric associated with the anomaly detection model.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public AnomalyDetector withNamespace(String namespace) {
         setNamespace(namespace);
         return this;
@@ -107,7 +141,7 @@ public class AnomalyDetector implements Serializable, Cloneable {
      * @param metricName
      *        The name of the metric associated with the anomaly detection model.
      */
-
+    @Deprecated
     public void setMetricName(String metricName) {
         this.metricName = metricName;
     }
@@ -119,7 +153,7 @@ public class AnomalyDetector implements Serializable, Cloneable {
      * 
      * @return The name of the metric associated with the anomaly detection model.
      */
-
+    @Deprecated
     public String getMetricName() {
         return this.metricName;
     }
@@ -133,7 +167,7 @@ public class AnomalyDetector implements Serializable, Cloneable {
      *        The name of the metric associated with the anomaly detection model.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public AnomalyDetector withMetricName(String metricName) {
         setMetricName(metricName);
         return this;
@@ -146,7 +180,7 @@ public class AnomalyDetector implements Serializable, Cloneable {
      * 
      * @return The metric dimensions associated with the anomaly detection model.
      */
-
+    @Deprecated
     public java.util.List<Dimension> getDimensions() {
         if (dimensions == null) {
             dimensions = new com.amazonaws.internal.SdkInternalList<Dimension>();
@@ -162,7 +196,7 @@ public class AnomalyDetector implements Serializable, Cloneable {
      * @param dimensions
      *        The metric dimensions associated with the anomaly detection model.
      */
-
+    @Deprecated
     public void setDimensions(java.util.Collection<Dimension> dimensions) {
         if (dimensions == null) {
             this.dimensions = null;
@@ -186,7 +220,7 @@ public class AnomalyDetector implements Serializable, Cloneable {
      *        The metric dimensions associated with the anomaly detection model.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public AnomalyDetector withDimensions(Dimension... dimensions) {
         if (this.dimensions == null) {
             setDimensions(new com.amazonaws.internal.SdkInternalList<Dimension>(dimensions.length));
@@ -206,7 +240,7 @@ public class AnomalyDetector implements Serializable, Cloneable {
      *        The metric dimensions associated with the anomaly detection model.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public AnomalyDetector withDimensions(java.util.Collection<Dimension> dimensions) {
         setDimensions(dimensions);
         return this;
@@ -220,7 +254,7 @@ public class AnomalyDetector implements Serializable, Cloneable {
      * @param stat
      *        The statistic associated with the anomaly detection model.
      */
-
+    @Deprecated
     public void setStat(String stat) {
         this.stat = stat;
     }
@@ -232,7 +266,7 @@ public class AnomalyDetector implements Serializable, Cloneable {
      * 
      * @return The statistic associated with the anomaly detection model.
      */
-
+    @Deprecated
     public String getStat() {
         return this.stat;
     }
@@ -246,7 +280,7 @@ public class AnomalyDetector implements Serializable, Cloneable {
      *        The statistic associated with the anomaly detection model.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public AnomalyDetector withStat(String stat) {
         setStat(stat);
         return this;
@@ -299,6 +333,197 @@ public class AnomalyDetector implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The current status of the anomaly detector's training.
+     * </p>
+     * 
+     * @param stateValue
+     *        The current status of the anomaly detector's training.
+     * @see AnomalyDetectorStateValue
+     */
+
+    public void setStateValue(String stateValue) {
+        this.stateValue = stateValue;
+    }
+
+    /**
+     * <p>
+     * The current status of the anomaly detector's training.
+     * </p>
+     * 
+     * @return The current status of the anomaly detector's training.
+     * @see AnomalyDetectorStateValue
+     */
+
+    public String getStateValue() {
+        return this.stateValue;
+    }
+
+    /**
+     * <p>
+     * The current status of the anomaly detector's training.
+     * </p>
+     * 
+     * @param stateValue
+     *        The current status of the anomaly detector's training.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AnomalyDetectorStateValue
+     */
+
+    public AnomalyDetector withStateValue(String stateValue) {
+        setStateValue(stateValue);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current status of the anomaly detector's training.
+     * </p>
+     * 
+     * @param stateValue
+     *        The current status of the anomaly detector's training.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AnomalyDetectorStateValue
+     */
+
+    public AnomalyDetector withStateValue(AnomalyDetectorStateValue stateValue) {
+        this.stateValue = stateValue.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * This object includes parameters that you can use to provide information about your metric to CloudWatch to help
+     * it build more accurate anomaly detection models. Currently, it includes the <code>PeriodicSpikes</code>
+     * parameter.
+     * </p>
+     * 
+     * @param metricCharacteristics
+     *        This object includes parameters that you can use to provide information about your metric to CloudWatch to
+     *        help it build more accurate anomaly detection models. Currently, it includes the
+     *        <code>PeriodicSpikes</code> parameter.
+     */
+
+    public void setMetricCharacteristics(MetricCharacteristics metricCharacteristics) {
+        this.metricCharacteristics = metricCharacteristics;
+    }
+
+    /**
+     * <p>
+     * This object includes parameters that you can use to provide information about your metric to CloudWatch to help
+     * it build more accurate anomaly detection models. Currently, it includes the <code>PeriodicSpikes</code>
+     * parameter.
+     * </p>
+     * 
+     * @return This object includes parameters that you can use to provide information about your metric to CloudWatch
+     *         to help it build more accurate anomaly detection models. Currently, it includes the
+     *         <code>PeriodicSpikes</code> parameter.
+     */
+
+    public MetricCharacteristics getMetricCharacteristics() {
+        return this.metricCharacteristics;
+    }
+
+    /**
+     * <p>
+     * This object includes parameters that you can use to provide information about your metric to CloudWatch to help
+     * it build more accurate anomaly detection models. Currently, it includes the <code>PeriodicSpikes</code>
+     * parameter.
+     * </p>
+     * 
+     * @param metricCharacteristics
+     *        This object includes parameters that you can use to provide information about your metric to CloudWatch to
+     *        help it build more accurate anomaly detection models. Currently, it includes the
+     *        <code>PeriodicSpikes</code> parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AnomalyDetector withMetricCharacteristics(MetricCharacteristics metricCharacteristics) {
+        setMetricCharacteristics(metricCharacteristics);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch metric and statistic for this anomaly detector.
+     * </p>
+     * 
+     * @param singleMetricAnomalyDetector
+     *        The CloudWatch metric and statistic for this anomaly detector.
+     */
+
+    public void setSingleMetricAnomalyDetector(SingleMetricAnomalyDetector singleMetricAnomalyDetector) {
+        this.singleMetricAnomalyDetector = singleMetricAnomalyDetector;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch metric and statistic for this anomaly detector.
+     * </p>
+     * 
+     * @return The CloudWatch metric and statistic for this anomaly detector.
+     */
+
+    public SingleMetricAnomalyDetector getSingleMetricAnomalyDetector() {
+        return this.singleMetricAnomalyDetector;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch metric and statistic for this anomaly detector.
+     * </p>
+     * 
+     * @param singleMetricAnomalyDetector
+     *        The CloudWatch metric and statistic for this anomaly detector.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AnomalyDetector withSingleMetricAnomalyDetector(SingleMetricAnomalyDetector singleMetricAnomalyDetector) {
+        setSingleMetricAnomalyDetector(singleMetricAnomalyDetector);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch metric math expression for this anomaly detector.
+     * </p>
+     * 
+     * @param metricMathAnomalyDetector
+     *        The CloudWatch metric math expression for this anomaly detector.
+     */
+
+    public void setMetricMathAnomalyDetector(MetricMathAnomalyDetector metricMathAnomalyDetector) {
+        this.metricMathAnomalyDetector = metricMathAnomalyDetector;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch metric math expression for this anomaly detector.
+     * </p>
+     * 
+     * @return The CloudWatch metric math expression for this anomaly detector.
+     */
+
+    public MetricMathAnomalyDetector getMetricMathAnomalyDetector() {
+        return this.metricMathAnomalyDetector;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch metric math expression for this anomaly detector.
+     * </p>
+     * 
+     * @param metricMathAnomalyDetector
+     *        The CloudWatch metric math expression for this anomaly detector.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AnomalyDetector withMetricMathAnomalyDetector(MetricMathAnomalyDetector metricMathAnomalyDetector) {
+        setMetricMathAnomalyDetector(metricMathAnomalyDetector);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -319,7 +544,15 @@ public class AnomalyDetector implements Serializable, Cloneable {
         if (getStat() != null)
             sb.append("Stat: ").append(getStat()).append(",");
         if (getConfiguration() != null)
-            sb.append("Configuration: ").append(getConfiguration());
+            sb.append("Configuration: ").append(getConfiguration()).append(",");
+        if (getStateValue() != null)
+            sb.append("StateValue: ").append(getStateValue()).append(",");
+        if (getMetricCharacteristics() != null)
+            sb.append("MetricCharacteristics: ").append(getMetricCharacteristics()).append(",");
+        if (getSingleMetricAnomalyDetector() != null)
+            sb.append("SingleMetricAnomalyDetector: ").append(getSingleMetricAnomalyDetector()).append(",");
+        if (getMetricMathAnomalyDetector() != null)
+            sb.append("MetricMathAnomalyDetector: ").append(getMetricMathAnomalyDetector());
         sb.append("}");
         return sb.toString();
     }
@@ -354,6 +587,22 @@ public class AnomalyDetector implements Serializable, Cloneable {
             return false;
         if (other.getConfiguration() != null && other.getConfiguration().equals(this.getConfiguration()) == false)
             return false;
+        if (other.getStateValue() == null ^ this.getStateValue() == null)
+            return false;
+        if (other.getStateValue() != null && other.getStateValue().equals(this.getStateValue()) == false)
+            return false;
+        if (other.getMetricCharacteristics() == null ^ this.getMetricCharacteristics() == null)
+            return false;
+        if (other.getMetricCharacteristics() != null && other.getMetricCharacteristics().equals(this.getMetricCharacteristics()) == false)
+            return false;
+        if (other.getSingleMetricAnomalyDetector() == null ^ this.getSingleMetricAnomalyDetector() == null)
+            return false;
+        if (other.getSingleMetricAnomalyDetector() != null && other.getSingleMetricAnomalyDetector().equals(this.getSingleMetricAnomalyDetector()) == false)
+            return false;
+        if (other.getMetricMathAnomalyDetector() == null ^ this.getMetricMathAnomalyDetector() == null)
+            return false;
+        if (other.getMetricMathAnomalyDetector() != null && other.getMetricMathAnomalyDetector().equals(this.getMetricMathAnomalyDetector()) == false)
+            return false;
         return true;
     }
 
@@ -367,6 +616,10 @@ public class AnomalyDetector implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getDimensions() == null) ? 0 : getDimensions().hashCode());
         hashCode = prime * hashCode + ((getStat() == null) ? 0 : getStat().hashCode());
         hashCode = prime * hashCode + ((getConfiguration() == null) ? 0 : getConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getStateValue() == null) ? 0 : getStateValue().hashCode());
+        hashCode = prime * hashCode + ((getMetricCharacteristics() == null) ? 0 : getMetricCharacteristics().hashCode());
+        hashCode = prime * hashCode + ((getSingleMetricAnomalyDetector() == null) ? 0 : getSingleMetricAnomalyDetector().hashCode());
+        hashCode = prime * hashCode + ((getMetricMathAnomalyDetector() == null) ? 0 : getMetricMathAnomalyDetector().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,19 +28,19 @@ public class UpdateUserPoolClientResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The user pool client value from the response from the server when an update user pool client request is made.
+     * The user pool client value from the response from the server when you request to update the user pool client.
      * </p>
      */
     private UserPoolClientType userPoolClient;
 
     /**
      * <p>
-     * The user pool client value from the response from the server when an update user pool client request is made.
+     * The user pool client value from the response from the server when you request to update the user pool client.
      * </p>
      * 
      * @param userPoolClient
-     *        The user pool client value from the response from the server when an update user pool client request is
-     *        made.
+     *        The user pool client value from the response from the server when you request to update the user pool
+     *        client.
      */
 
     public void setUserPoolClient(UserPoolClientType userPoolClient) {
@@ -49,11 +49,11 @@ public class UpdateUserPoolClientResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The user pool client value from the response from the server when an update user pool client request is made.
+     * The user pool client value from the response from the server when you request to update the user pool client.
      * </p>
      * 
-     * @return The user pool client value from the response from the server when an update user pool client request is
-     *         made.
+     * @return The user pool client value from the response from the server when you request to update the user pool
+     *         client.
      */
 
     public UserPoolClientType getUserPoolClient() {
@@ -62,12 +62,12 @@ public class UpdateUserPoolClientResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The user pool client value from the response from the server when an update user pool client request is made.
+     * The user pool client value from the response from the server when you request to update the user pool client.
      * </p>
      * 
      * @param userPoolClient
-     *        The user pool client value from the response from the server when an update user pool client request is
-     *        made.
+     *        The user pool client value from the response from the server when you request to update the user pool
+     *        client.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

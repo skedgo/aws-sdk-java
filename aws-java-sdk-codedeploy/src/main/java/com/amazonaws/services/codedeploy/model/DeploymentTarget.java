@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,8 @@ public class DeploymentTarget implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The deployment type that is specific to the deployment's compute platform.
+     * The deployment type that is specific to the deployment's compute platform or deployments initiated by a
+     * CloudFormation stack update.
      * </p>
      */
     private String deploymentTargetType;
@@ -42,7 +43,7 @@ public class DeploymentTarget implements Serializable, Cloneable, StructuredPojo
     private InstanceTarget instanceTarget;
     /**
      * <p>
-     * Information about the target for a deployment that uses the AWS Lambda compute platform.
+     * Information about the target for a deployment that uses the Lambda compute platform.
      * </p>
      */
     private LambdaTarget lambdaTarget;
@@ -53,13 +54,17 @@ public class DeploymentTarget implements Serializable, Cloneable, StructuredPojo
      */
     private ECSTarget ecsTarget;
 
+    private CloudFormationTarget cloudFormationTarget;
+
     /**
      * <p>
-     * The deployment type that is specific to the deployment's compute platform.
+     * The deployment type that is specific to the deployment's compute platform or deployments initiated by a
+     * CloudFormation stack update.
      * </p>
      * 
      * @param deploymentTargetType
-     *        The deployment type that is specific to the deployment's compute platform.
+     *        The deployment type that is specific to the deployment's compute platform or deployments initiated by a
+     *        CloudFormation stack update.
      * @see DeploymentTargetType
      */
 
@@ -69,10 +74,12 @@ public class DeploymentTarget implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The deployment type that is specific to the deployment's compute platform.
+     * The deployment type that is specific to the deployment's compute platform or deployments initiated by a
+     * CloudFormation stack update.
      * </p>
      * 
-     * @return The deployment type that is specific to the deployment's compute platform.
+     * @return The deployment type that is specific to the deployment's compute platform or deployments initiated by a
+     *         CloudFormation stack update.
      * @see DeploymentTargetType
      */
 
@@ -82,11 +89,13 @@ public class DeploymentTarget implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The deployment type that is specific to the deployment's compute platform.
+     * The deployment type that is specific to the deployment's compute platform or deployments initiated by a
+     * CloudFormation stack update.
      * </p>
      * 
      * @param deploymentTargetType
-     *        The deployment type that is specific to the deployment's compute platform.
+     *        The deployment type that is specific to the deployment's compute platform or deployments initiated by a
+     *        CloudFormation stack update.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DeploymentTargetType
      */
@@ -98,11 +107,13 @@ public class DeploymentTarget implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The deployment type that is specific to the deployment's compute platform.
+     * The deployment type that is specific to the deployment's compute platform or deployments initiated by a
+     * CloudFormation stack update.
      * </p>
      * 
      * @param deploymentTargetType
-     *        The deployment type that is specific to the deployment's compute platform.
+     *        The deployment type that is specific to the deployment's compute platform or deployments initiated by a
+     *        CloudFormation stack update.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DeploymentTargetType
      */
@@ -154,11 +165,11 @@ public class DeploymentTarget implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Information about the target for a deployment that uses the AWS Lambda compute platform.
+     * Information about the target for a deployment that uses the Lambda compute platform.
      * </p>
      * 
      * @param lambdaTarget
-     *        Information about the target for a deployment that uses the AWS Lambda compute platform.
+     *        Information about the target for a deployment that uses the Lambda compute platform.
      */
 
     public void setLambdaTarget(LambdaTarget lambdaTarget) {
@@ -167,10 +178,10 @@ public class DeploymentTarget implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Information about the target for a deployment that uses the AWS Lambda compute platform.
+     * Information about the target for a deployment that uses the Lambda compute platform.
      * </p>
      * 
-     * @return Information about the target for a deployment that uses the AWS Lambda compute platform.
+     * @return Information about the target for a deployment that uses the Lambda compute platform.
      */
 
     public LambdaTarget getLambdaTarget() {
@@ -179,11 +190,11 @@ public class DeploymentTarget implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Information about the target for a deployment that uses the AWS Lambda compute platform.
+     * Information about the target for a deployment that uses the Lambda compute platform.
      * </p>
      * 
      * @param lambdaTarget
-     *        Information about the target for a deployment that uses the AWS Lambda compute platform.
+     *        Information about the target for a deployment that uses the Lambda compute platform.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -233,6 +244,32 @@ public class DeploymentTarget implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * @param cloudFormationTarget
+     */
+
+    public void setCloudFormationTarget(CloudFormationTarget cloudFormationTarget) {
+        this.cloudFormationTarget = cloudFormationTarget;
+    }
+
+    /**
+     * @return
+     */
+
+    public CloudFormationTarget getCloudFormationTarget() {
+        return this.cloudFormationTarget;
+    }
+
+    /**
+     * @param cloudFormationTarget
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DeploymentTarget withCloudFormationTarget(CloudFormationTarget cloudFormationTarget) {
+        setCloudFormationTarget(cloudFormationTarget);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -251,7 +288,9 @@ public class DeploymentTarget implements Serializable, Cloneable, StructuredPojo
         if (getLambdaTarget() != null)
             sb.append("LambdaTarget: ").append(getLambdaTarget()).append(",");
         if (getEcsTarget() != null)
-            sb.append("EcsTarget: ").append(getEcsTarget());
+            sb.append("EcsTarget: ").append(getEcsTarget()).append(",");
+        if (getCloudFormationTarget() != null)
+            sb.append("CloudFormationTarget: ").append(getCloudFormationTarget());
         sb.append("}");
         return sb.toString();
     }
@@ -282,6 +321,10 @@ public class DeploymentTarget implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getEcsTarget() != null && other.getEcsTarget().equals(this.getEcsTarget()) == false)
             return false;
+        if (other.getCloudFormationTarget() == null ^ this.getCloudFormationTarget() == null)
+            return false;
+        if (other.getCloudFormationTarget() != null && other.getCloudFormationTarget().equals(this.getCloudFormationTarget()) == false)
+            return false;
         return true;
     }
 
@@ -294,6 +337,7 @@ public class DeploymentTarget implements Serializable, Cloneable, StructuredPojo
         hashCode = prime * hashCode + ((getInstanceTarget() == null) ? 0 : getInstanceTarget().hashCode());
         hashCode = prime * hashCode + ((getLambdaTarget() == null) ? 0 : getLambdaTarget().hashCode());
         hashCode = prime * hashCode + ((getEcsTarget() == null) ? 0 : getEcsTarget().hashCode());
+        hashCode = prime * hashCode + ((getCloudFormationTarget() == null) ? 0 : getCloudFormationTarget().hashCode());
         return hashCode;
     }
 

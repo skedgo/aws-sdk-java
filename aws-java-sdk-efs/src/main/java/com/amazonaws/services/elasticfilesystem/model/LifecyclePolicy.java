@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,19 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes a policy used by EFS lifecycle management to transition files to the Infrequent Access (IA) storage class.
+ * Describes a policy used by Lifecycle management that specifies when to transition files into and out of storage
+ * classes. For more information, see <a
+ * href="https://docs.aws.amazon.com/efs/latest/ug/lifecycle-management-efs.html">Managing file system storage</a>.
  * </p>
+ * <note>
+ * <p>
+ * When using the <code>put-lifecycle-configuration</code> CLI command or the <code>PutLifecycleConfiguration</code> API
+ * action, Amazon EFS requires that each <code>LifecyclePolicy</code> object have only a single transition. This means
+ * that in a request body, <code>LifecyclePolicies</code> must be structured as an array of <code>LifecyclePolicy</code>
+ * objects, one object for each transition. For more information, see the request examples in
+ * <a>PutLifecycleConfiguration</a>.
+ * </p>
+ * </note>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/LifecyclePolicy" target="_top">AWS
  *      API Documentation</a>
@@ -30,22 +41,39 @@ public class LifecyclePolicy implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * A value that describes the period of time that a file is not accessed, after which it transitions to the IA
-     * storage class. Metadata operations such as listing the contents of a directory don't count as file access events.
+     * The number of days after files were last accessed in primary storage (the Standard storage class) at which to
+     * move them to Infrequent Access (IA) storage. Metadata operations such as listing the contents of a directory
+     * don't count as file access events.
      * </p>
      */
     private String transitionToIA;
+    /**
+     * <p>
+     * Whether to move files back to primary (Standard) storage after they are accessed in IA or Archive storage.
+     * Metadata operations such as listing the contents of a directory don't count as file access events.
+     * </p>
+     */
+    private String transitionToPrimaryStorageClass;
+    /**
+     * <p>
+     * The number of days after files were last accessed in primary storage (the Standard storage class) files at which
+     * to move them to Archive storage. Metadata operations such as listing the contents of a directory don't count as
+     * file access events.
+     * </p>
+     */
+    private String transitionToArchive;
 
     /**
      * <p>
-     * A value that describes the period of time that a file is not accessed, after which it transitions to the IA
-     * storage class. Metadata operations such as listing the contents of a directory don't count as file access events.
+     * The number of days after files were last accessed in primary storage (the Standard storage class) at which to
+     * move them to Infrequent Access (IA) storage. Metadata operations such as listing the contents of a directory
+     * don't count as file access events.
      * </p>
      * 
      * @param transitionToIA
-     *        A value that describes the period of time that a file is not accessed, after which it transitions to the
-     *        IA storage class. Metadata operations such as listing the contents of a directory don't count as file
-     *        access events.
+     *        The number of days after files were last accessed in primary storage (the Standard storage class) at which
+     *        to move them to Infrequent Access (IA) storage. Metadata operations such as listing the contents of a
+     *        directory don't count as file access events.
      * @see TransitionToIARules
      */
 
@@ -55,13 +83,14 @@ public class LifecyclePolicy implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * A value that describes the period of time that a file is not accessed, after which it transitions to the IA
-     * storage class. Metadata operations such as listing the contents of a directory don't count as file access events.
+     * The number of days after files were last accessed in primary storage (the Standard storage class) at which to
+     * move them to Infrequent Access (IA) storage. Metadata operations such as listing the contents of a directory
+     * don't count as file access events.
      * </p>
      * 
-     * @return A value that describes the period of time that a file is not accessed, after which it transitions to the
-     *         IA storage class. Metadata operations such as listing the contents of a directory don't count as file
-     *         access events.
+     * @return The number of days after files were last accessed in primary storage (the Standard storage class) at
+     *         which to move them to Infrequent Access (IA) storage. Metadata operations such as listing the contents of
+     *         a directory don't count as file access events.
      * @see TransitionToIARules
      */
 
@@ -71,14 +100,15 @@ public class LifecyclePolicy implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * A value that describes the period of time that a file is not accessed, after which it transitions to the IA
-     * storage class. Metadata operations such as listing the contents of a directory don't count as file access events.
+     * The number of days after files were last accessed in primary storage (the Standard storage class) at which to
+     * move them to Infrequent Access (IA) storage. Metadata operations such as listing the contents of a directory
+     * don't count as file access events.
      * </p>
      * 
      * @param transitionToIA
-     *        A value that describes the period of time that a file is not accessed, after which it transitions to the
-     *        IA storage class. Metadata operations such as listing the contents of a directory don't count as file
-     *        access events.
+     *        The number of days after files were last accessed in primary storage (the Standard storage class) at which
+     *        to move them to Infrequent Access (IA) storage. Metadata operations such as listing the contents of a
+     *        directory don't count as file access events.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TransitionToIARules
      */
@@ -90,20 +120,164 @@ public class LifecyclePolicy implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * A value that describes the period of time that a file is not accessed, after which it transitions to the IA
-     * storage class. Metadata operations such as listing the contents of a directory don't count as file access events.
+     * The number of days after files were last accessed in primary storage (the Standard storage class) at which to
+     * move them to Infrequent Access (IA) storage. Metadata operations such as listing the contents of a directory
+     * don't count as file access events.
      * </p>
      * 
      * @param transitionToIA
-     *        A value that describes the period of time that a file is not accessed, after which it transitions to the
-     *        IA storage class. Metadata operations such as listing the contents of a directory don't count as file
-     *        access events.
+     *        The number of days after files were last accessed in primary storage (the Standard storage class) at which
+     *        to move them to Infrequent Access (IA) storage. Metadata operations such as listing the contents of a
+     *        directory don't count as file access events.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TransitionToIARules
      */
 
     public LifecyclePolicy withTransitionToIA(TransitionToIARules transitionToIA) {
         this.transitionToIA = transitionToIA.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether to move files back to primary (Standard) storage after they are accessed in IA or Archive storage.
+     * Metadata operations such as listing the contents of a directory don't count as file access events.
+     * </p>
+     * 
+     * @param transitionToPrimaryStorageClass
+     *        Whether to move files back to primary (Standard) storage after they are accessed in IA or Archive storage.
+     *        Metadata operations such as listing the contents of a directory don't count as file access events.
+     * @see TransitionToPrimaryStorageClassRules
+     */
+
+    public void setTransitionToPrimaryStorageClass(String transitionToPrimaryStorageClass) {
+        this.transitionToPrimaryStorageClass = transitionToPrimaryStorageClass;
+    }
+
+    /**
+     * <p>
+     * Whether to move files back to primary (Standard) storage after they are accessed in IA or Archive storage.
+     * Metadata operations such as listing the contents of a directory don't count as file access events.
+     * </p>
+     * 
+     * @return Whether to move files back to primary (Standard) storage after they are accessed in IA or Archive
+     *         storage. Metadata operations such as listing the contents of a directory don't count as file access
+     *         events.
+     * @see TransitionToPrimaryStorageClassRules
+     */
+
+    public String getTransitionToPrimaryStorageClass() {
+        return this.transitionToPrimaryStorageClass;
+    }
+
+    /**
+     * <p>
+     * Whether to move files back to primary (Standard) storage after they are accessed in IA or Archive storage.
+     * Metadata operations such as listing the contents of a directory don't count as file access events.
+     * </p>
+     * 
+     * @param transitionToPrimaryStorageClass
+     *        Whether to move files back to primary (Standard) storage after they are accessed in IA or Archive storage.
+     *        Metadata operations such as listing the contents of a directory don't count as file access events.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TransitionToPrimaryStorageClassRules
+     */
+
+    public LifecyclePolicy withTransitionToPrimaryStorageClass(String transitionToPrimaryStorageClass) {
+        setTransitionToPrimaryStorageClass(transitionToPrimaryStorageClass);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether to move files back to primary (Standard) storage after they are accessed in IA or Archive storage.
+     * Metadata operations such as listing the contents of a directory don't count as file access events.
+     * </p>
+     * 
+     * @param transitionToPrimaryStorageClass
+     *        Whether to move files back to primary (Standard) storage after they are accessed in IA or Archive storage.
+     *        Metadata operations such as listing the contents of a directory don't count as file access events.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TransitionToPrimaryStorageClassRules
+     */
+
+    public LifecyclePolicy withTransitionToPrimaryStorageClass(TransitionToPrimaryStorageClassRules transitionToPrimaryStorageClass) {
+        this.transitionToPrimaryStorageClass = transitionToPrimaryStorageClass.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of days after files were last accessed in primary storage (the Standard storage class) files at which
+     * to move them to Archive storage. Metadata operations such as listing the contents of a directory don't count as
+     * file access events.
+     * </p>
+     * 
+     * @param transitionToArchive
+     *        The number of days after files were last accessed in primary storage (the Standard storage class) files at
+     *        which to move them to Archive storage. Metadata operations such as listing the contents of a directory
+     *        don't count as file access events.
+     * @see TransitionToArchiveRules
+     */
+
+    public void setTransitionToArchive(String transitionToArchive) {
+        this.transitionToArchive = transitionToArchive;
+    }
+
+    /**
+     * <p>
+     * The number of days after files were last accessed in primary storage (the Standard storage class) files at which
+     * to move them to Archive storage. Metadata operations such as listing the contents of a directory don't count as
+     * file access events.
+     * </p>
+     * 
+     * @return The number of days after files were last accessed in primary storage (the Standard storage class) files
+     *         at which to move them to Archive storage. Metadata operations such as listing the contents of a directory
+     *         don't count as file access events.
+     * @see TransitionToArchiveRules
+     */
+
+    public String getTransitionToArchive() {
+        return this.transitionToArchive;
+    }
+
+    /**
+     * <p>
+     * The number of days after files were last accessed in primary storage (the Standard storage class) files at which
+     * to move them to Archive storage. Metadata operations such as listing the contents of a directory don't count as
+     * file access events.
+     * </p>
+     * 
+     * @param transitionToArchive
+     *        The number of days after files were last accessed in primary storage (the Standard storage class) files at
+     *        which to move them to Archive storage. Metadata operations such as listing the contents of a directory
+     *        don't count as file access events.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TransitionToArchiveRules
+     */
+
+    public LifecyclePolicy withTransitionToArchive(String transitionToArchive) {
+        setTransitionToArchive(transitionToArchive);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of days after files were last accessed in primary storage (the Standard storage class) files at which
+     * to move them to Archive storage. Metadata operations such as listing the contents of a directory don't count as
+     * file access events.
+     * </p>
+     * 
+     * @param transitionToArchive
+     *        The number of days after files were last accessed in primary storage (the Standard storage class) files at
+     *        which to move them to Archive storage. Metadata operations such as listing the contents of a directory
+     *        don't count as file access events.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TransitionToArchiveRules
+     */
+
+    public LifecyclePolicy withTransitionToArchive(TransitionToArchiveRules transitionToArchive) {
+        this.transitionToArchive = transitionToArchive.toString();
         return this;
     }
 
@@ -120,7 +294,11 @@ public class LifecyclePolicy implements Serializable, Cloneable, StructuredPojo 
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getTransitionToIA() != null)
-            sb.append("TransitionToIA: ").append(getTransitionToIA());
+            sb.append("TransitionToIA: ").append(getTransitionToIA()).append(",");
+        if (getTransitionToPrimaryStorageClass() != null)
+            sb.append("TransitionToPrimaryStorageClass: ").append(getTransitionToPrimaryStorageClass()).append(",");
+        if (getTransitionToArchive() != null)
+            sb.append("TransitionToArchive: ").append(getTransitionToArchive());
         sb.append("}");
         return sb.toString();
     }
@@ -139,6 +317,15 @@ public class LifecyclePolicy implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getTransitionToIA() != null && other.getTransitionToIA().equals(this.getTransitionToIA()) == false)
             return false;
+        if (other.getTransitionToPrimaryStorageClass() == null ^ this.getTransitionToPrimaryStorageClass() == null)
+            return false;
+        if (other.getTransitionToPrimaryStorageClass() != null
+                && other.getTransitionToPrimaryStorageClass().equals(this.getTransitionToPrimaryStorageClass()) == false)
+            return false;
+        if (other.getTransitionToArchive() == null ^ this.getTransitionToArchive() == null)
+            return false;
+        if (other.getTransitionToArchive() != null && other.getTransitionToArchive().equals(this.getTransitionToArchive()) == false)
+            return false;
         return true;
     }
 
@@ -148,6 +335,8 @@ public class LifecyclePolicy implements Serializable, Cloneable, StructuredPojo 
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getTransitionToIA() == null) ? 0 : getTransitionToIA().hashCode());
+        hashCode = prime * hashCode + ((getTransitionToPrimaryStorageClass() == null) ? 0 : getTransitionToPrimaryStorageClass().hashCode());
+        hashCode = prime * hashCode + ((getTransitionToArchive() == null) ? 0 : getTransitionToArchive().hashCode());
         return hashCode;
     }
 

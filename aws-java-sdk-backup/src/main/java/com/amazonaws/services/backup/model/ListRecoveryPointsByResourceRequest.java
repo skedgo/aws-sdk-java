@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,7 +34,7 @@ public class ListRecoveryPointsByResourceRequest extends com.amazonaws.AmazonWeb
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      */
@@ -43,8 +43,30 @@ public class ListRecoveryPointsByResourceRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The maximum number of items to be returned.
      * </p>
+     * <note>
+     * <p>
+     * Amazon RDS requires a value of at least 20.
+     * </p>
+     * </note>
      */
     private Integer maxResults;
+    /**
+     * <p>
+     * This attribute filters recovery points based on ownership.
+     * </p>
+     * <p>
+     * If this is set to <code>TRUE</code>, the response will contain recovery points associated with the selected
+     * resources that are managed by Backup.
+     * </p>
+     * <p>
+     * If this is set to <code>FALSE</code>, the response will contain all recovery points associated with the selected
+     * resource.
+     * </p>
+     * <p>
+     * Type: Boolean
+     * </p>
+     */
+    private Boolean managedByAWSBackupOnly;
 
     /**
      * <p>
@@ -89,13 +111,13 @@ public class ListRecoveryPointsByResourceRequest extends com.amazonaws.AmazonWeb
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      * 
      * @param nextToken
      *        The next item following a partial list of returned items. For example, if a request is made to return
-     *        <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
+     *        <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
      *        list starting at the location pointed to by the next token.
      */
 
@@ -106,12 +128,12 @@ public class ListRecoveryPointsByResourceRequest extends com.amazonaws.AmazonWeb
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      * 
      * @return The next item following a partial list of returned items. For example, if a request is made to return
-     *         <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
+     *         <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
      *         list starting at the location pointed to by the next token.
      */
 
@@ -122,13 +144,13 @@ public class ListRecoveryPointsByResourceRequest extends com.amazonaws.AmazonWeb
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      * 
      * @param nextToken
      *        The next item following a partial list of returned items. For example, if a request is made to return
-     *        <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
+     *        <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
      *        list starting at the location pointed to by the next token.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -142,9 +164,17 @@ public class ListRecoveryPointsByResourceRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The maximum number of items to be returned.
      * </p>
+     * <note>
+     * <p>
+     * Amazon RDS requires a value of at least 20.
+     * </p>
+     * </note>
      * 
      * @param maxResults
-     *        The maximum number of items to be returned.
+     *        The maximum number of items to be returned.</p> <note>
+     *        <p>
+     *        Amazon RDS requires a value of at least 20.
+     *        </p>
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -155,8 +185,16 @@ public class ListRecoveryPointsByResourceRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The maximum number of items to be returned.
      * </p>
+     * <note>
+     * <p>
+     * Amazon RDS requires a value of at least 20.
+     * </p>
+     * </note>
      * 
-     * @return The maximum number of items to be returned.
+     * @return The maximum number of items to be returned.</p> <note>
+     *         <p>
+     *         Amazon RDS requires a value of at least 20.
+     *         </p>
      */
 
     public Integer getMaxResults() {
@@ -167,15 +205,159 @@ public class ListRecoveryPointsByResourceRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The maximum number of items to be returned.
      * </p>
+     * <note>
+     * <p>
+     * Amazon RDS requires a value of at least 20.
+     * </p>
+     * </note>
      * 
      * @param maxResults
-     *        The maximum number of items to be returned.
+     *        The maximum number of items to be returned.</p> <note>
+     *        <p>
+     *        Amazon RDS requires a value of at least 20.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ListRecoveryPointsByResourceRequest withMaxResults(Integer maxResults) {
         setMaxResults(maxResults);
         return this;
+    }
+
+    /**
+     * <p>
+     * This attribute filters recovery points based on ownership.
+     * </p>
+     * <p>
+     * If this is set to <code>TRUE</code>, the response will contain recovery points associated with the selected
+     * resources that are managed by Backup.
+     * </p>
+     * <p>
+     * If this is set to <code>FALSE</code>, the response will contain all recovery points associated with the selected
+     * resource.
+     * </p>
+     * <p>
+     * Type: Boolean
+     * </p>
+     * 
+     * @param managedByAWSBackupOnly
+     *        This attribute filters recovery points based on ownership.</p>
+     *        <p>
+     *        If this is set to <code>TRUE</code>, the response will contain recovery points associated with the
+     *        selected resources that are managed by Backup.
+     *        </p>
+     *        <p>
+     *        If this is set to <code>FALSE</code>, the response will contain all recovery points associated with the
+     *        selected resource.
+     *        </p>
+     *        <p>
+     *        Type: Boolean
+     */
+
+    public void setManagedByAWSBackupOnly(Boolean managedByAWSBackupOnly) {
+        this.managedByAWSBackupOnly = managedByAWSBackupOnly;
+    }
+
+    /**
+     * <p>
+     * This attribute filters recovery points based on ownership.
+     * </p>
+     * <p>
+     * If this is set to <code>TRUE</code>, the response will contain recovery points associated with the selected
+     * resources that are managed by Backup.
+     * </p>
+     * <p>
+     * If this is set to <code>FALSE</code>, the response will contain all recovery points associated with the selected
+     * resource.
+     * </p>
+     * <p>
+     * Type: Boolean
+     * </p>
+     * 
+     * @return This attribute filters recovery points based on ownership.</p>
+     *         <p>
+     *         If this is set to <code>TRUE</code>, the response will contain recovery points associated with the
+     *         selected resources that are managed by Backup.
+     *         </p>
+     *         <p>
+     *         If this is set to <code>FALSE</code>, the response will contain all recovery points associated with the
+     *         selected resource.
+     *         </p>
+     *         <p>
+     *         Type: Boolean
+     */
+
+    public Boolean getManagedByAWSBackupOnly() {
+        return this.managedByAWSBackupOnly;
+    }
+
+    /**
+     * <p>
+     * This attribute filters recovery points based on ownership.
+     * </p>
+     * <p>
+     * If this is set to <code>TRUE</code>, the response will contain recovery points associated with the selected
+     * resources that are managed by Backup.
+     * </p>
+     * <p>
+     * If this is set to <code>FALSE</code>, the response will contain all recovery points associated with the selected
+     * resource.
+     * </p>
+     * <p>
+     * Type: Boolean
+     * </p>
+     * 
+     * @param managedByAWSBackupOnly
+     *        This attribute filters recovery points based on ownership.</p>
+     *        <p>
+     *        If this is set to <code>TRUE</code>, the response will contain recovery points associated with the
+     *        selected resources that are managed by Backup.
+     *        </p>
+     *        <p>
+     *        If this is set to <code>FALSE</code>, the response will contain all recovery points associated with the
+     *        selected resource.
+     *        </p>
+     *        <p>
+     *        Type: Boolean
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListRecoveryPointsByResourceRequest withManagedByAWSBackupOnly(Boolean managedByAWSBackupOnly) {
+        setManagedByAWSBackupOnly(managedByAWSBackupOnly);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This attribute filters recovery points based on ownership.
+     * </p>
+     * <p>
+     * If this is set to <code>TRUE</code>, the response will contain recovery points associated with the selected
+     * resources that are managed by Backup.
+     * </p>
+     * <p>
+     * If this is set to <code>FALSE</code>, the response will contain all recovery points associated with the selected
+     * resource.
+     * </p>
+     * <p>
+     * Type: Boolean
+     * </p>
+     * 
+     * @return This attribute filters recovery points based on ownership.</p>
+     *         <p>
+     *         If this is set to <code>TRUE</code>, the response will contain recovery points associated with the
+     *         selected resources that are managed by Backup.
+     *         </p>
+     *         <p>
+     *         If this is set to <code>FALSE</code>, the response will contain all recovery points associated with the
+     *         selected resource.
+     *         </p>
+     *         <p>
+     *         Type: Boolean
+     */
+
+    public Boolean isManagedByAWSBackupOnly() {
+        return this.managedByAWSBackupOnly;
     }
 
     /**
@@ -195,7 +377,9 @@ public class ListRecoveryPointsByResourceRequest extends com.amazonaws.AmazonWeb
         if (getNextToken() != null)
             sb.append("NextToken: ").append(getNextToken()).append(",");
         if (getMaxResults() != null)
-            sb.append("MaxResults: ").append(getMaxResults());
+            sb.append("MaxResults: ").append(getMaxResults()).append(",");
+        if (getManagedByAWSBackupOnly() != null)
+            sb.append("ManagedByAWSBackupOnly: ").append(getManagedByAWSBackupOnly());
         sb.append("}");
         return sb.toString();
     }
@@ -222,6 +406,10 @@ public class ListRecoveryPointsByResourceRequest extends com.amazonaws.AmazonWeb
             return false;
         if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
             return false;
+        if (other.getManagedByAWSBackupOnly() == null ^ this.getManagedByAWSBackupOnly() == null)
+            return false;
+        if (other.getManagedByAWSBackupOnly() != null && other.getManagedByAWSBackupOnly().equals(this.getManagedByAWSBackupOnly()) == false)
+            return false;
         return true;
     }
 
@@ -233,6 +421,7 @@ public class ListRecoveryPointsByResourceRequest extends com.amazonaws.AmazonWeb
         hashCode = prime * hashCode + ((getResourceArn() == null) ? 0 : getResourceArn().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
+        hashCode = prime * hashCode + ((getManagedByAWSBackupOnly() == null) ? 0 : getManagedByAWSBackupOnly().hashCode());
         return hashCode;
     }
 

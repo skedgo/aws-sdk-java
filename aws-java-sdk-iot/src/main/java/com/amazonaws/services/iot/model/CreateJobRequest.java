@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,8 +22,8 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * A job identifier which must be unique for your AWS account. We recommend using a UUID. Alpha-numeric characters,
-     * "-" and "_" are valid for use here.
+     * A job identifier which must be unique for your Amazon Web Services account. We recommend using a UUID.
+     * Alpha-numeric characters, "-" and "_" are valid for use here.
      * </p>
      */
     private String jobId;
@@ -35,28 +35,24 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     private java.util.List<String> targets;
     /**
      * <p>
-     * An S3 link to the job document.
+     * An S3 link, or S3 object URL, to the job document. The link is an Amazon S3 object URL and is required if you
+     * don't specify a value for <code>document</code>.
+     * </p>
+     * <p>
+     * For example,
+     * <code>--document-source https://s3.<i>region-code</i>.amazonaws.com/example-firmware/device-firmware.1.0</code>
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html">Methods for accessing a
+     * bucket</a>.
      * </p>
      */
     private String documentSource;
     /**
      * <p>
-     * The job document.
+     * The job document. Required if you don't specify a value for <code>documentSource</code>.
      * </p>
-     * <note>
-     * <p>
-     * If the job document resides in an S3 bucket, you must use a placeholder link when specifying the document.
-     * </p>
-     * <p>
-     * The placeholder link is of the following form:
-     * </p>
-     * <p>
-     * <code>${aws:iot:s3-presigned-url:https://s3.amazonaws.com/<i>bucket</i>/<i>key</i>}</code>
-     * </p>
-     * <p>
-     * where <i>bucket</i> is your bucket name and <i>key</i> is the object in the bucket to which you are linking.
-     * </p>
-     * </note>
      */
     private String document;
     /**
@@ -78,6 +74,12 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * detected in a target. For example, a job will run on a thing when the thing is added to a target group, even
      * after the job was completed by all things originally in the group.
      * </p>
+     * <note>
+     * <p>
+     * We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By using
+     * continuous jobs, devices that join the group receive the job execution even after the job has been created.
+     * </p>
+     * </note>
      */
     private String targetSelection;
     /**
@@ -88,7 +90,7 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     private JobExecutionsRolloutConfig jobExecutionsRolloutConfig;
     /**
      * <p>
-     * Allows you to create criteria to abort a job.
+     * Allows you to create the criteria to abort a job.
      * </p>
      */
     private AbortConfig abortConfig;
@@ -106,16 +108,80 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      */
     private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * The namespace used to indicate that a job is a customer-managed job.
+     * </p>
+     * <p>
+     * When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics
+     * that contain the value in the following format.
+     * </p>
+     * <p>
+     * <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code>
+     * </p>
+     * <note>
+     * <p>
+     * The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see
+     * <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core
+     * devices.</a>
+     * </p>
+     * </note>
+     */
+    private String namespaceId;
+    /**
+     * <p>
+     * The ARN of the job template used to create the job.
+     * </p>
+     */
+    private String jobTemplateArn;
+    /**
+     * <p>
+     * Allows you to create the criteria to retry a job.
+     * </p>
+     */
+    private JobExecutionsRetryConfig jobExecutionsRetryConfig;
+    /**
+     * <p>
+     * Parameters of an Amazon Web Services managed template that you can specify to create the job document.
+     * </p>
+     * <note>
+     * <p>
+     * <code>documentParameters</code> can only be used when creating jobs from Amazon Web Services managed templates.
+     * This parameter can't be used with custom job templates or to create jobs from them.
+     * </p>
+     * </note>
+     */
+    private java.util.Map<String, String> documentParameters;
+    /**
+     * <p>
+     * The configuration that allows you to schedule a job for a future date and time in addition to specifying the end
+     * behavior for each job execution.
+     * </p>
+     */
+    private SchedulingConfig schedulingConfig;
+    /**
+     * <p>
+     * The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully
+     * completes. The package version must be in either the Published or Deprecated state when the job deploys. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     * >Package version lifecycle</a>.
+     * </p>
+     * <p>
+     * <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.
+     * </p>
+     */
+    private java.util.List<String> destinationPackageVersions;
 
     /**
      * <p>
-     * A job identifier which must be unique for your AWS account. We recommend using a UUID. Alpha-numeric characters,
-     * "-" and "_" are valid for use here.
+     * A job identifier which must be unique for your Amazon Web Services account. We recommend using a UUID.
+     * Alpha-numeric characters, "-" and "_" are valid for use here.
      * </p>
      * 
      * @param jobId
-     *        A job identifier which must be unique for your AWS account. We recommend using a UUID. Alpha-numeric
-     *        characters, "-" and "_" are valid for use here.
+     *        A job identifier which must be unique for your Amazon Web Services account. We recommend using a UUID.
+     *        Alpha-numeric characters, "-" and "_" are valid for use here.
      */
 
     public void setJobId(String jobId) {
@@ -124,12 +190,12 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * A job identifier which must be unique for your AWS account. We recommend using a UUID. Alpha-numeric characters,
-     * "-" and "_" are valid for use here.
+     * A job identifier which must be unique for your Amazon Web Services account. We recommend using a UUID.
+     * Alpha-numeric characters, "-" and "_" are valid for use here.
      * </p>
      * 
-     * @return A job identifier which must be unique for your AWS account. We recommend using a UUID. Alpha-numeric
-     *         characters, "-" and "_" are valid for use here.
+     * @return A job identifier which must be unique for your Amazon Web Services account. We recommend using a UUID.
+     *         Alpha-numeric characters, "-" and "_" are valid for use here.
      */
 
     public String getJobId() {
@@ -138,13 +204,13 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * A job identifier which must be unique for your AWS account. We recommend using a UUID. Alpha-numeric characters,
-     * "-" and "_" are valid for use here.
+     * A job identifier which must be unique for your Amazon Web Services account. We recommend using a UUID.
+     * Alpha-numeric characters, "-" and "_" are valid for use here.
      * </p>
      * 
      * @param jobId
-     *        A job identifier which must be unique for your AWS account. We recommend using a UUID. Alpha-numeric
-     *        characters, "-" and "_" are valid for use here.
+     *        A job identifier which must be unique for your Amazon Web Services account. We recommend using a UUID.
+     *        Alpha-numeric characters, "-" and "_" are valid for use here.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -225,11 +291,30 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * An S3 link to the job document.
+     * An S3 link, or S3 object URL, to the job document. The link is an Amazon S3 object URL and is required if you
+     * don't specify a value for <code>document</code>.
+     * </p>
+     * <p>
+     * For example,
+     * <code>--document-source https://s3.<i>region-code</i>.amazonaws.com/example-firmware/device-firmware.1.0</code>
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html">Methods for accessing a
+     * bucket</a>.
      * </p>
      * 
      * @param documentSource
-     *        An S3 link to the job document.
+     *        An S3 link, or S3 object URL, to the job document. The link is an Amazon S3 object URL and is required if
+     *        you don't specify a value for <code>document</code>.</p>
+     *        <p>
+     *        For example,
+     *        <code>--document-source https://s3.<i>region-code</i>.amazonaws.com/example-firmware/device-firmware.1.0</code>
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html">Methods for
+     *        accessing a bucket</a>.
      */
 
     public void setDocumentSource(String documentSource) {
@@ -238,10 +323,29 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * An S3 link to the job document.
+     * An S3 link, or S3 object URL, to the job document. The link is an Amazon S3 object URL and is required if you
+     * don't specify a value for <code>document</code>.
+     * </p>
+     * <p>
+     * For example,
+     * <code>--document-source https://s3.<i>region-code</i>.amazonaws.com/example-firmware/device-firmware.1.0</code>
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html">Methods for accessing a
+     * bucket</a>.
      * </p>
      * 
-     * @return An S3 link to the job document.
+     * @return An S3 link, or S3 object URL, to the job document. The link is an Amazon S3 object URL and is required if
+     *         you don't specify a value for <code>document</code>.</p>
+     *         <p>
+     *         For example,
+     *         <code>--document-source https://s3.<i>region-code</i>.amazonaws.com/example-firmware/device-firmware.1.0</code>
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html">Methods for
+     *         accessing a bucket</a>.
      */
 
     public String getDocumentSource() {
@@ -250,11 +354,30 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * An S3 link to the job document.
+     * An S3 link, or S3 object URL, to the job document. The link is an Amazon S3 object URL and is required if you
+     * don't specify a value for <code>document</code>.
+     * </p>
+     * <p>
+     * For example,
+     * <code>--document-source https://s3.<i>region-code</i>.amazonaws.com/example-firmware/device-firmware.1.0</code>
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html">Methods for accessing a
+     * bucket</a>.
      * </p>
      * 
      * @param documentSource
-     *        An S3 link to the job document.
+     *        An S3 link, or S3 object URL, to the job document. The link is an Amazon S3 object URL and is required if
+     *        you don't specify a value for <code>document</code>.</p>
+     *        <p>
+     *        For example,
+     *        <code>--document-source https://s3.<i>region-code</i>.amazonaws.com/example-firmware/device-firmware.1.0</code>
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html">Methods for
+     *        accessing a bucket</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -265,38 +388,11 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The job document.
+     * The job document. Required if you don't specify a value for <code>documentSource</code>.
      * </p>
-     * <note>
-     * <p>
-     * If the job document resides in an S3 bucket, you must use a placeholder link when specifying the document.
-     * </p>
-     * <p>
-     * The placeholder link is of the following form:
-     * </p>
-     * <p>
-     * <code>${aws:iot:s3-presigned-url:https://s3.amazonaws.com/<i>bucket</i>/<i>key</i>}</code>
-     * </p>
-     * <p>
-     * where <i>bucket</i> is your bucket name and <i>key</i> is the object in the bucket to which you are linking.
-     * </p>
-     * </note>
      * 
      * @param document
-     *        The job document.</p> <note>
-     *        <p>
-     *        If the job document resides in an S3 bucket, you must use a placeholder link when specifying the document.
-     *        </p>
-     *        <p>
-     *        The placeholder link is of the following form:
-     *        </p>
-     *        <p>
-     *        <code>${aws:iot:s3-presigned-url:https://s3.amazonaws.com/<i>bucket</i>/<i>key</i>}</code>
-     *        </p>
-     *        <p>
-     *        where <i>bucket</i> is your bucket name and <i>key</i> is the object in the bucket to which you are
-     *        linking.
-     *        </p>
+     *        The job document. Required if you don't specify a value for <code>documentSource</code>.
      */
 
     public void setDocument(String document) {
@@ -305,38 +401,10 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The job document.
+     * The job document. Required if you don't specify a value for <code>documentSource</code>.
      * </p>
-     * <note>
-     * <p>
-     * If the job document resides in an S3 bucket, you must use a placeholder link when specifying the document.
-     * </p>
-     * <p>
-     * The placeholder link is of the following form:
-     * </p>
-     * <p>
-     * <code>${aws:iot:s3-presigned-url:https://s3.amazonaws.com/<i>bucket</i>/<i>key</i>}</code>
-     * </p>
-     * <p>
-     * where <i>bucket</i> is your bucket name and <i>key</i> is the object in the bucket to which you are linking.
-     * </p>
-     * </note>
      * 
-     * @return The job document.</p> <note>
-     *         <p>
-     *         If the job document resides in an S3 bucket, you must use a placeholder link when specifying the
-     *         document.
-     *         </p>
-     *         <p>
-     *         The placeholder link is of the following form:
-     *         </p>
-     *         <p>
-     *         <code>${aws:iot:s3-presigned-url:https://s3.amazonaws.com/<i>bucket</i>/<i>key</i>}</code>
-     *         </p>
-     *         <p>
-     *         where <i>bucket</i> is your bucket name and <i>key</i> is the object in the bucket to which you are
-     *         linking.
-     *         </p>
+     * @return The job document. Required if you don't specify a value for <code>documentSource</code>.
      */
 
     public String getDocument() {
@@ -345,38 +413,11 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The job document.
+     * The job document. Required if you don't specify a value for <code>documentSource</code>.
      * </p>
-     * <note>
-     * <p>
-     * If the job document resides in an S3 bucket, you must use a placeholder link when specifying the document.
-     * </p>
-     * <p>
-     * The placeholder link is of the following form:
-     * </p>
-     * <p>
-     * <code>${aws:iot:s3-presigned-url:https://s3.amazonaws.com/<i>bucket</i>/<i>key</i>}</code>
-     * </p>
-     * <p>
-     * where <i>bucket</i> is your bucket name and <i>key</i> is the object in the bucket to which you are linking.
-     * </p>
-     * </note>
      * 
      * @param document
-     *        The job document.</p> <note>
-     *        <p>
-     *        If the job document resides in an S3 bucket, you must use a placeholder link when specifying the document.
-     *        </p>
-     *        <p>
-     *        The placeholder link is of the following form:
-     *        </p>
-     *        <p>
-     *        <code>${aws:iot:s3-presigned-url:https://s3.amazonaws.com/<i>bucket</i>/<i>key</i>}</code>
-     *        </p>
-     *        <p>
-     *        where <i>bucket</i> is your bucket name and <i>key</i> is the object in the bucket to which you are
-     *        linking.
-     *        </p>
+     *        The job document. Required if you don't specify a value for <code>documentSource</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -472,12 +513,23 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * detected in a target. For example, a job will run on a thing when the thing is added to a target group, even
      * after the job was completed by all things originally in the group.
      * </p>
+     * <note>
+     * <p>
+     * We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By using
+     * continuous jobs, devices that join the group receive the job execution even after the job has been created.
+     * </p>
+     * </note>
      * 
      * @param targetSelection
      *        Specifies whether the job will continue to run (CONTINUOUS), or will be complete after all those things
      *        specified as targets have completed the job (SNAPSHOT). If continuous, the job may also be run on a thing
      *        when a change is detected in a target. For example, a job will run on a thing when the thing is added to a
-     *        target group, even after the job was completed by all things originally in the group.
+     *        target group, even after the job was completed by all things originally in the group.</p> <note>
+     *        <p>
+     *        We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By
+     *        using continuous jobs, devices that join the group receive the job execution even after the job has been
+     *        created.
+     *        </p>
      * @see TargetSelection
      */
 
@@ -492,11 +544,22 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * detected in a target. For example, a job will run on a thing when the thing is added to a target group, even
      * after the job was completed by all things originally in the group.
      * </p>
+     * <note>
+     * <p>
+     * We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By using
+     * continuous jobs, devices that join the group receive the job execution even after the job has been created.
+     * </p>
+     * </note>
      * 
      * @return Specifies whether the job will continue to run (CONTINUOUS), or will be complete after all those things
      *         specified as targets have completed the job (SNAPSHOT). If continuous, the job may also be run on a thing
      *         when a change is detected in a target. For example, a job will run on a thing when the thing is added to
-     *         a target group, even after the job was completed by all things originally in the group.
+     *         a target group, even after the job was completed by all things originally in the group.</p> <note>
+     *         <p>
+     *         We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By
+     *         using continuous jobs, devices that join the group receive the job execution even after the job has been
+     *         created.
+     *         </p>
      * @see TargetSelection
      */
 
@@ -511,12 +574,23 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * detected in a target. For example, a job will run on a thing when the thing is added to a target group, even
      * after the job was completed by all things originally in the group.
      * </p>
+     * <note>
+     * <p>
+     * We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By using
+     * continuous jobs, devices that join the group receive the job execution even after the job has been created.
+     * </p>
+     * </note>
      * 
      * @param targetSelection
      *        Specifies whether the job will continue to run (CONTINUOUS), or will be complete after all those things
      *        specified as targets have completed the job (SNAPSHOT). If continuous, the job may also be run on a thing
      *        when a change is detected in a target. For example, a job will run on a thing when the thing is added to a
-     *        target group, even after the job was completed by all things originally in the group.
+     *        target group, even after the job was completed by all things originally in the group.</p> <note>
+     *        <p>
+     *        We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By
+     *        using continuous jobs, devices that join the group receive the job execution even after the job has been
+     *        created.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TargetSelection
      */
@@ -533,12 +607,23 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * detected in a target. For example, a job will run on a thing when the thing is added to a target group, even
      * after the job was completed by all things originally in the group.
      * </p>
+     * <note>
+     * <p>
+     * We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By using
+     * continuous jobs, devices that join the group receive the job execution even after the job has been created.
+     * </p>
+     * </note>
      * 
      * @param targetSelection
      *        Specifies whether the job will continue to run (CONTINUOUS), or will be complete after all those things
      *        specified as targets have completed the job (SNAPSHOT). If continuous, the job may also be run on a thing
      *        when a change is detected in a target. For example, a job will run on a thing when the thing is added to a
-     *        target group, even after the job was completed by all things originally in the group.
+     *        target group, even after the job was completed by all things originally in the group.</p> <note>
+     *        <p>
+     *        We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By
+     *        using continuous jobs, devices that join the group receive the job execution even after the job has been
+     *        created.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TargetSelection
      */
@@ -590,11 +675,11 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Allows you to create criteria to abort a job.
+     * Allows you to create the criteria to abort a job.
      * </p>
      * 
      * @param abortConfig
-     *        Allows you to create criteria to abort a job.
+     *        Allows you to create the criteria to abort a job.
      */
 
     public void setAbortConfig(AbortConfig abortConfig) {
@@ -603,10 +688,10 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Allows you to create criteria to abort a job.
+     * Allows you to create the criteria to abort a job.
      * </p>
      * 
-     * @return Allows you to create criteria to abort a job.
+     * @return Allows you to create the criteria to abort a job.
      */
 
     public AbortConfig getAbortConfig() {
@@ -615,11 +700,11 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Allows you to create criteria to abort a job.
+     * Allows you to create the criteria to abort a job.
      * </p>
      * 
      * @param abortConfig
-     *        Allows you to create criteria to abort a job.
+     *        Allows you to create the criteria to abort a job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -752,6 +837,483 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     }
 
     /**
+     * <p>
+     * The namespace used to indicate that a job is a customer-managed job.
+     * </p>
+     * <p>
+     * When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics
+     * that contain the value in the following format.
+     * </p>
+     * <p>
+     * <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code>
+     * </p>
+     * <note>
+     * <p>
+     * The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see
+     * <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core
+     * devices.</a>
+     * </p>
+     * </note>
+     * 
+     * @param namespaceId
+     *        The namespace used to indicate that a job is a customer-managed job.</p>
+     *        <p>
+     *        When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT
+     *        topics that contain the value in the following format.
+     *        </p>
+     *        <p>
+     *        <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass
+     *        core devices.</a>
+     *        </p>
+     */
+
+    public void setNamespaceId(String namespaceId) {
+        this.namespaceId = namespaceId;
+    }
+
+    /**
+     * <p>
+     * The namespace used to indicate that a job is a customer-managed job.
+     * </p>
+     * <p>
+     * When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics
+     * that contain the value in the following format.
+     * </p>
+     * <p>
+     * <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code>
+     * </p>
+     * <note>
+     * <p>
+     * The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see
+     * <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core
+     * devices.</a>
+     * </p>
+     * </note>
+     * 
+     * @return The namespace used to indicate that a job is a customer-managed job.</p>
+     *         <p>
+     *         When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to
+     *         MQTT topics that contain the value in the following format.
+     *         </p>
+     *         <p>
+     *         <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code>
+     *         </p>
+     *         <note>
+     *         <p>
+     *         The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass
+     *         core devices.</a>
+     *         </p>
+     */
+
+    public String getNamespaceId() {
+        return this.namespaceId;
+    }
+
+    /**
+     * <p>
+     * The namespace used to indicate that a job is a customer-managed job.
+     * </p>
+     * <p>
+     * When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics
+     * that contain the value in the following format.
+     * </p>
+     * <p>
+     * <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code>
+     * </p>
+     * <note>
+     * <p>
+     * The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see
+     * <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core
+     * devices.</a>
+     * </p>
+     * </note>
+     * 
+     * @param namespaceId
+     *        The namespace used to indicate that a job is a customer-managed job.</p>
+     *        <p>
+     *        When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT
+     *        topics that contain the value in the following format.
+     *        </p>
+     *        <p>
+     *        <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass
+     *        core devices.</a>
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest withNamespaceId(String namespaceId) {
+        setNamespaceId(namespaceId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the job template used to create the job.
+     * </p>
+     * 
+     * @param jobTemplateArn
+     *        The ARN of the job template used to create the job.
+     */
+
+    public void setJobTemplateArn(String jobTemplateArn) {
+        this.jobTemplateArn = jobTemplateArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the job template used to create the job.
+     * </p>
+     * 
+     * @return The ARN of the job template used to create the job.
+     */
+
+    public String getJobTemplateArn() {
+        return this.jobTemplateArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the job template used to create the job.
+     * </p>
+     * 
+     * @param jobTemplateArn
+     *        The ARN of the job template used to create the job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest withJobTemplateArn(String jobTemplateArn) {
+        setJobTemplateArn(jobTemplateArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Allows you to create the criteria to retry a job.
+     * </p>
+     * 
+     * @param jobExecutionsRetryConfig
+     *        Allows you to create the criteria to retry a job.
+     */
+
+    public void setJobExecutionsRetryConfig(JobExecutionsRetryConfig jobExecutionsRetryConfig) {
+        this.jobExecutionsRetryConfig = jobExecutionsRetryConfig;
+    }
+
+    /**
+     * <p>
+     * Allows you to create the criteria to retry a job.
+     * </p>
+     * 
+     * @return Allows you to create the criteria to retry a job.
+     */
+
+    public JobExecutionsRetryConfig getJobExecutionsRetryConfig() {
+        return this.jobExecutionsRetryConfig;
+    }
+
+    /**
+     * <p>
+     * Allows you to create the criteria to retry a job.
+     * </p>
+     * 
+     * @param jobExecutionsRetryConfig
+     *        Allows you to create the criteria to retry a job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest withJobExecutionsRetryConfig(JobExecutionsRetryConfig jobExecutionsRetryConfig) {
+        setJobExecutionsRetryConfig(jobExecutionsRetryConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Parameters of an Amazon Web Services managed template that you can specify to create the job document.
+     * </p>
+     * <note>
+     * <p>
+     * <code>documentParameters</code> can only be used when creating jobs from Amazon Web Services managed templates.
+     * This parameter can't be used with custom job templates or to create jobs from them.
+     * </p>
+     * </note>
+     * 
+     * @return Parameters of an Amazon Web Services managed template that you can specify to create the job
+     *         document.</p> <note>
+     *         <p>
+     *         <code>documentParameters</code> can only be used when creating jobs from Amazon Web Services managed
+     *         templates. This parameter can't be used with custom job templates or to create jobs from them.
+     *         </p>
+     */
+
+    public java.util.Map<String, String> getDocumentParameters() {
+        return documentParameters;
+    }
+
+    /**
+     * <p>
+     * Parameters of an Amazon Web Services managed template that you can specify to create the job document.
+     * </p>
+     * <note>
+     * <p>
+     * <code>documentParameters</code> can only be used when creating jobs from Amazon Web Services managed templates.
+     * This parameter can't be used with custom job templates or to create jobs from them.
+     * </p>
+     * </note>
+     * 
+     * @param documentParameters
+     *        Parameters of an Amazon Web Services managed template that you can specify to create the job document.</p>
+     *        <note>
+     *        <p>
+     *        <code>documentParameters</code> can only be used when creating jobs from Amazon Web Services managed
+     *        templates. This parameter can't be used with custom job templates or to create jobs from them.
+     *        </p>
+     */
+
+    public void setDocumentParameters(java.util.Map<String, String> documentParameters) {
+        this.documentParameters = documentParameters;
+    }
+
+    /**
+     * <p>
+     * Parameters of an Amazon Web Services managed template that you can specify to create the job document.
+     * </p>
+     * <note>
+     * <p>
+     * <code>documentParameters</code> can only be used when creating jobs from Amazon Web Services managed templates.
+     * This parameter can't be used with custom job templates or to create jobs from them.
+     * </p>
+     * </note>
+     * 
+     * @param documentParameters
+     *        Parameters of an Amazon Web Services managed template that you can specify to create the job document.</p>
+     *        <note>
+     *        <p>
+     *        <code>documentParameters</code> can only be used when creating jobs from Amazon Web Services managed
+     *        templates. This parameter can't be used with custom job templates or to create jobs from them.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest withDocumentParameters(java.util.Map<String, String> documentParameters) {
+        setDocumentParameters(documentParameters);
+        return this;
+    }
+
+    /**
+     * Add a single DocumentParameters entry
+     *
+     * @see CreateJobRequest#withDocumentParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest addDocumentParametersEntry(String key, String value) {
+        if (null == this.documentParameters) {
+            this.documentParameters = new java.util.HashMap<String, String>();
+        }
+        if (this.documentParameters.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.documentParameters.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into DocumentParameters.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest clearDocumentParametersEntries() {
+        this.documentParameters = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The configuration that allows you to schedule a job for a future date and time in addition to specifying the end
+     * behavior for each job execution.
+     * </p>
+     * 
+     * @param schedulingConfig
+     *        The configuration that allows you to schedule a job for a future date and time in addition to specifying
+     *        the end behavior for each job execution.
+     */
+
+    public void setSchedulingConfig(SchedulingConfig schedulingConfig) {
+        this.schedulingConfig = schedulingConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration that allows you to schedule a job for a future date and time in addition to specifying the end
+     * behavior for each job execution.
+     * </p>
+     * 
+     * @return The configuration that allows you to schedule a job for a future date and time in addition to specifying
+     *         the end behavior for each job execution.
+     */
+
+    public SchedulingConfig getSchedulingConfig() {
+        return this.schedulingConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration that allows you to schedule a job for a future date and time in addition to specifying the end
+     * behavior for each job execution.
+     * </p>
+     * 
+     * @param schedulingConfig
+     *        The configuration that allows you to schedule a job for a future date and time in addition to specifying
+     *        the end behavior for each job execution.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest withSchedulingConfig(SchedulingConfig schedulingConfig) {
+        setSchedulingConfig(schedulingConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully
+     * completes. The package version must be in either the Published or Deprecated state when the job deploys. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     * >Package version lifecycle</a>.
+     * </p>
+     * <p>
+     * <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.
+     * </p>
+     * 
+     * @return The package version Amazon Resource Names (ARNs) that are installed on the device when the job
+     *         successfully completes. The package version must be in either the Published or Deprecated state when the
+     *         job deploys. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     *         >Package version lifecycle</a>. </p>
+     *         <p>
+     *         <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are
+     *         allowed.
+     */
+
+    public java.util.List<String> getDestinationPackageVersions() {
+        return destinationPackageVersions;
+    }
+
+    /**
+     * <p>
+     * The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully
+     * completes. The package version must be in either the Published or Deprecated state when the job deploys. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     * >Package version lifecycle</a>.
+     * </p>
+     * <p>
+     * <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.
+     * </p>
+     * 
+     * @param destinationPackageVersions
+     *        The package version Amazon Resource Names (ARNs) that are installed on the device when the job
+     *        successfully completes. The package version must be in either the Published or Deprecated state when the
+     *        job deploys. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     *        >Package version lifecycle</a>. </p>
+     *        <p>
+     *        <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are
+     *        allowed.
+     */
+
+    public void setDestinationPackageVersions(java.util.Collection<String> destinationPackageVersions) {
+        if (destinationPackageVersions == null) {
+            this.destinationPackageVersions = null;
+            return;
+        }
+
+        this.destinationPackageVersions = new java.util.ArrayList<String>(destinationPackageVersions);
+    }
+
+    /**
+     * <p>
+     * The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully
+     * completes. The package version must be in either the Published or Deprecated state when the job deploys. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     * >Package version lifecycle</a>.
+     * </p>
+     * <p>
+     * <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setDestinationPackageVersions(java.util.Collection)} or
+     * {@link #withDestinationPackageVersions(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param destinationPackageVersions
+     *        The package version Amazon Resource Names (ARNs) that are installed on the device when the job
+     *        successfully completes. The package version must be in either the Published or Deprecated state when the
+     *        job deploys. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     *        >Package version lifecycle</a>. </p>
+     *        <p>
+     *        <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are
+     *        allowed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest withDestinationPackageVersions(String... destinationPackageVersions) {
+        if (this.destinationPackageVersions == null) {
+            setDestinationPackageVersions(new java.util.ArrayList<String>(destinationPackageVersions.length));
+        }
+        for (String ele : destinationPackageVersions) {
+            this.destinationPackageVersions.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully
+     * completes. The package version must be in either the Published or Deprecated state when the job deploys. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     * >Package version lifecycle</a>.
+     * </p>
+     * <p>
+     * <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.
+     * </p>
+     * 
+     * @param destinationPackageVersions
+     *        The package version Amazon Resource Names (ARNs) that are installed on the device when the job
+     *        successfully completes. The package version must be in either the Published or Deprecated state when the
+     *        job deploys. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     *        >Package version lifecycle</a>. </p>
+     *        <p>
+     *        <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are
+     *        allowed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest withDestinationPackageVersions(java.util.Collection<String> destinationPackageVersions) {
+        setDestinationPackageVersions(destinationPackageVersions);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -784,7 +1346,19 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
         if (getTimeoutConfig() != null)
             sb.append("TimeoutConfig: ").append(getTimeoutConfig()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getNamespaceId() != null)
+            sb.append("NamespaceId: ").append(getNamespaceId()).append(",");
+        if (getJobTemplateArn() != null)
+            sb.append("JobTemplateArn: ").append(getJobTemplateArn()).append(",");
+        if (getJobExecutionsRetryConfig() != null)
+            sb.append("JobExecutionsRetryConfig: ").append(getJobExecutionsRetryConfig()).append(",");
+        if (getDocumentParameters() != null)
+            sb.append("DocumentParameters: ").append(getDocumentParameters()).append(",");
+        if (getSchedulingConfig() != null)
+            sb.append("SchedulingConfig: ").append(getSchedulingConfig()).append(",");
+        if (getDestinationPackageVersions() != null)
+            sb.append("DestinationPackageVersions: ").append(getDestinationPackageVersions());
         sb.append("}");
         return sb.toString();
     }
@@ -843,6 +1417,30 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getNamespaceId() == null ^ this.getNamespaceId() == null)
+            return false;
+        if (other.getNamespaceId() != null && other.getNamespaceId().equals(this.getNamespaceId()) == false)
+            return false;
+        if (other.getJobTemplateArn() == null ^ this.getJobTemplateArn() == null)
+            return false;
+        if (other.getJobTemplateArn() != null && other.getJobTemplateArn().equals(this.getJobTemplateArn()) == false)
+            return false;
+        if (other.getJobExecutionsRetryConfig() == null ^ this.getJobExecutionsRetryConfig() == null)
+            return false;
+        if (other.getJobExecutionsRetryConfig() != null && other.getJobExecutionsRetryConfig().equals(this.getJobExecutionsRetryConfig()) == false)
+            return false;
+        if (other.getDocumentParameters() == null ^ this.getDocumentParameters() == null)
+            return false;
+        if (other.getDocumentParameters() != null && other.getDocumentParameters().equals(this.getDocumentParameters()) == false)
+            return false;
+        if (other.getSchedulingConfig() == null ^ this.getSchedulingConfig() == null)
+            return false;
+        if (other.getSchedulingConfig() != null && other.getSchedulingConfig().equals(this.getSchedulingConfig()) == false)
+            return false;
+        if (other.getDestinationPackageVersions() == null ^ this.getDestinationPackageVersions() == null)
+            return false;
+        if (other.getDestinationPackageVersions() != null && other.getDestinationPackageVersions().equals(this.getDestinationPackageVersions()) == false)
+            return false;
         return true;
     }
 
@@ -862,6 +1460,12 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
         hashCode = prime * hashCode + ((getAbortConfig() == null) ? 0 : getAbortConfig().hashCode());
         hashCode = prime * hashCode + ((getTimeoutConfig() == null) ? 0 : getTimeoutConfig().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getNamespaceId() == null) ? 0 : getNamespaceId().hashCode());
+        hashCode = prime * hashCode + ((getJobTemplateArn() == null) ? 0 : getJobTemplateArn().hashCode());
+        hashCode = prime * hashCode + ((getJobExecutionsRetryConfig() == null) ? 0 : getJobExecutionsRetryConfig().hashCode());
+        hashCode = prime * hashCode + ((getDocumentParameters() == null) ? 0 : getDocumentParameters().hashCode());
+        hashCode = prime * hashCode + ((getSchedulingConfig() == null) ? 0 : getSchedulingConfig().hashCode());
+        hashCode = prime * hashCode + ((getDestinationPackageVersions() == null) ? 0 : getDestinationPackageVersions().hashCode());
         return hashCode;
     }
 

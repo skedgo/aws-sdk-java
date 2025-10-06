@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,28 @@ public class LustreFileSystemConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("WeeklyMaintenanceStartTime").build();
     private static final MarshallingInfo<StructuredPojo> DATAREPOSITORYCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DataRepositoryConfiguration").build();
+    private static final MarshallingInfo<String> DEPLOYMENTTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DeploymentType").build();
+    private static final MarshallingInfo<Integer> PERUNITSTORAGETHROUGHPUT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PerUnitStorageThroughput").build();
+    private static final MarshallingInfo<String> MOUNTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("MountName").build();
+    private static final MarshallingInfo<String> DAILYAUTOMATICBACKUPSTARTTIME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DailyAutomaticBackupStartTime").build();
+    private static final MarshallingInfo<Integer> AUTOMATICBACKUPRETENTIONDAYS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AutomaticBackupRetentionDays").build();
+    private static final MarshallingInfo<Boolean> COPYTAGSTOBACKUPS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CopyTagsToBackups").build();
+    private static final MarshallingInfo<String> DRIVECACHETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DriveCacheType").build();
+    private static final MarshallingInfo<String> DATACOMPRESSIONTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DataCompressionType").build();
+    private static final MarshallingInfo<StructuredPojo> LOGCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LogConfiguration").build();
+    private static final MarshallingInfo<StructuredPojo> ROOTSQUASHCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RootSquashConfiguration").build();
+    private static final MarshallingInfo<StructuredPojo> METADATACONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MetadataConfiguration").build();
 
     private static final LustreFileSystemConfigurationMarshaller instance = new LustreFileSystemConfigurationMarshaller();
 
@@ -50,6 +72,17 @@ public class LustreFileSystemConfigurationMarshaller {
         try {
             protocolMarshaller.marshall(lustreFileSystemConfiguration.getWeeklyMaintenanceStartTime(), WEEKLYMAINTENANCESTARTTIME_BINDING);
             protocolMarshaller.marshall(lustreFileSystemConfiguration.getDataRepositoryConfiguration(), DATAREPOSITORYCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(lustreFileSystemConfiguration.getDeploymentType(), DEPLOYMENTTYPE_BINDING);
+            protocolMarshaller.marshall(lustreFileSystemConfiguration.getPerUnitStorageThroughput(), PERUNITSTORAGETHROUGHPUT_BINDING);
+            protocolMarshaller.marshall(lustreFileSystemConfiguration.getMountName(), MOUNTNAME_BINDING);
+            protocolMarshaller.marshall(lustreFileSystemConfiguration.getDailyAutomaticBackupStartTime(), DAILYAUTOMATICBACKUPSTARTTIME_BINDING);
+            protocolMarshaller.marshall(lustreFileSystemConfiguration.getAutomaticBackupRetentionDays(), AUTOMATICBACKUPRETENTIONDAYS_BINDING);
+            protocolMarshaller.marshall(lustreFileSystemConfiguration.getCopyTagsToBackups(), COPYTAGSTOBACKUPS_BINDING);
+            protocolMarshaller.marshall(lustreFileSystemConfiguration.getDriveCacheType(), DRIVECACHETYPE_BINDING);
+            protocolMarshaller.marshall(lustreFileSystemConfiguration.getDataCompressionType(), DATACOMPRESSIONTYPE_BINDING);
+            protocolMarshaller.marshall(lustreFileSystemConfiguration.getLogConfiguration(), LOGCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(lustreFileSystemConfiguration.getRootSquashConfiguration(), ROOTSQUASHCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(lustreFileSystemConfiguration.getMetadataConfiguration(), METADATACONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

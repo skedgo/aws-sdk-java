@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -76,12 +76,12 @@ public class ClientVpnEndpoint implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<String> dnsServers;
     /**
      * <p>
-     * Indicates whether split-tunnel is enabled in the AWS Client VPN endpoint endpoint.
+     * Indicates whether split-tunnel is enabled in the Client VPN endpoint.
      * </p>
      * <p>
      * For information about split-tunnel VPN endpoints, see <a
-     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS Client VPN
-     * Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel Client VPN
+     * endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      * </p>
      */
     private Boolean splitTunnel;
@@ -97,6 +97,12 @@ public class ClientVpnEndpoint implements Serializable, Cloneable {
      * </p>
      */
     private String transportProtocol;
+    /**
+     * <p>
+     * The port number for the Client VPN endpoint.
+     * </p>
+     */
+    private Integer vpnPort;
     /**
      * <p>
      * Information about the associated target networks. A target network is a subnet in a VPC.
@@ -128,6 +134,49 @@ public class ClientVpnEndpoint implements Serializable, Cloneable {
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * The IDs of the security groups for the target network.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> securityGroupIds;
+    /**
+     * <p>
+     * The ID of the VPC.
+     * </p>
+     */
+    private String vpcId;
+    /**
+     * <p>
+     * The URL of the self-service portal.
+     * </p>
+     */
+    private String selfServicePortalUrl;
+    /**
+     * <p>
+     * The options for managing connection authorization for new client connections.
+     * </p>
+     */
+    private ClientConnectResponseOptions clientConnectOptions;
+    /**
+     * <p>
+     * The maximum VPN session duration time in hours.
+     * </p>
+     * <p>
+     * Valid values: <code>8 | 10 | 12 | 24</code>
+     * </p>
+     * <p>
+     * Default value: <code>24</code>
+     * </p>
+     */
+    private Integer sessionTimeoutHours;
+    /**
+     * <p>
+     * Options for enabling a customizable text banner that will be displayed on Amazon Web Services provided clients
+     * when a VPN session is established.
+     * </p>
+     */
+    private ClientLoginBannerResponseOptions clientLoginBannerOptions;
 
     /**
      * <p>
@@ -484,20 +533,20 @@ public class ClientVpnEndpoint implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether split-tunnel is enabled in the AWS Client VPN endpoint endpoint.
+     * Indicates whether split-tunnel is enabled in the Client VPN endpoint.
      * </p>
      * <p>
      * For information about split-tunnel VPN endpoints, see <a
-     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS Client VPN
-     * Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel Client VPN
+     * endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      * </p>
      * 
      * @param splitTunnel
-     *        Indicates whether split-tunnel is enabled in the AWS Client VPN endpoint endpoint.</p>
+     *        Indicates whether split-tunnel is enabled in the Client VPN endpoint.</p>
      *        <p>
      *        For information about split-tunnel VPN endpoints, see <a
-     *        href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS
-     *        Client VPN Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     *        href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel Client
+     *        VPN endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      */
 
     public void setSplitTunnel(Boolean splitTunnel) {
@@ -506,19 +555,19 @@ public class ClientVpnEndpoint implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether split-tunnel is enabled in the AWS Client VPN endpoint endpoint.
+     * Indicates whether split-tunnel is enabled in the Client VPN endpoint.
      * </p>
      * <p>
      * For information about split-tunnel VPN endpoints, see <a
-     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS Client VPN
-     * Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel Client VPN
+     * endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      * </p>
      * 
-     * @return Indicates whether split-tunnel is enabled in the AWS Client VPN endpoint endpoint.</p>
+     * @return Indicates whether split-tunnel is enabled in the Client VPN endpoint.</p>
      *         <p>
      *         For information about split-tunnel VPN endpoints, see <a
-     *         href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS
-     *         Client VPN Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     *         href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel Client
+     *         VPN endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      */
 
     public Boolean getSplitTunnel() {
@@ -527,20 +576,20 @@ public class ClientVpnEndpoint implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether split-tunnel is enabled in the AWS Client VPN endpoint endpoint.
+     * Indicates whether split-tunnel is enabled in the Client VPN endpoint.
      * </p>
      * <p>
      * For information about split-tunnel VPN endpoints, see <a
-     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS Client VPN
-     * Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel Client VPN
+     * endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      * </p>
      * 
      * @param splitTunnel
-     *        Indicates whether split-tunnel is enabled in the AWS Client VPN endpoint endpoint.</p>
+     *        Indicates whether split-tunnel is enabled in the Client VPN endpoint.</p>
      *        <p>
      *        For information about split-tunnel VPN endpoints, see <a
-     *        href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS
-     *        Client VPN Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     *        href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel Client
+     *        VPN endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -551,19 +600,19 @@ public class ClientVpnEndpoint implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether split-tunnel is enabled in the AWS Client VPN endpoint endpoint.
+     * Indicates whether split-tunnel is enabled in the Client VPN endpoint.
      * </p>
      * <p>
      * For information about split-tunnel VPN endpoints, see <a
-     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS Client VPN
-     * Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel Client VPN
+     * endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      * </p>
      * 
-     * @return Indicates whether split-tunnel is enabled in the AWS Client VPN endpoint endpoint.</p>
+     * @return Indicates whether split-tunnel is enabled in the Client VPN endpoint.</p>
      *         <p>
      *         For information about split-tunnel VPN endpoints, see <a
-     *         href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS
-     *         Client VPN Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     *         href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel Client
+     *         VPN endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      */
 
     public Boolean isSplitTunnel() {
@@ -685,6 +734,46 @@ public class ClientVpnEndpoint implements Serializable, Cloneable {
 
     public ClientVpnEndpoint withTransportProtocol(TransportProtocol transportProtocol) {
         this.transportProtocol = transportProtocol.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The port number for the Client VPN endpoint.
+     * </p>
+     * 
+     * @param vpnPort
+     *        The port number for the Client VPN endpoint.
+     */
+
+    public void setVpnPort(Integer vpnPort) {
+        this.vpnPort = vpnPort;
+    }
+
+    /**
+     * <p>
+     * The port number for the Client VPN endpoint.
+     * </p>
+     * 
+     * @return The port number for the Client VPN endpoint.
+     */
+
+    public Integer getVpnPort() {
+        return this.vpnPort;
+    }
+
+    /**
+     * <p>
+     * The port number for the Client VPN endpoint.
+     * </p>
+     * 
+     * @param vpnPort
+     *        The port number for the Client VPN endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClientVpnEndpoint withVpnPort(Integer vpnPort) {
+        setVpnPort(vpnPort);
         return this;
     }
 
@@ -988,6 +1077,318 @@ public class ClientVpnEndpoint implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The IDs of the security groups for the target network.
+     * </p>
+     * 
+     * @return The IDs of the security groups for the target network.
+     */
+
+    public java.util.List<String> getSecurityGroupIds() {
+        if (securityGroupIds == null) {
+            securityGroupIds = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return securityGroupIds;
+    }
+
+    /**
+     * <p>
+     * The IDs of the security groups for the target network.
+     * </p>
+     * 
+     * @param securityGroupIds
+     *        The IDs of the security groups for the target network.
+     */
+
+    public void setSecurityGroupIds(java.util.Collection<String> securityGroupIds) {
+        if (securityGroupIds == null) {
+            this.securityGroupIds = null;
+            return;
+        }
+
+        this.securityGroupIds = new com.amazonaws.internal.SdkInternalList<String>(securityGroupIds);
+    }
+
+    /**
+     * <p>
+     * The IDs of the security groups for the target network.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSecurityGroupIds(java.util.Collection)} or {@link #withSecurityGroupIds(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param securityGroupIds
+     *        The IDs of the security groups for the target network.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClientVpnEndpoint withSecurityGroupIds(String... securityGroupIds) {
+        if (this.securityGroupIds == null) {
+            setSecurityGroupIds(new com.amazonaws.internal.SdkInternalList<String>(securityGroupIds.length));
+        }
+        for (String ele : securityGroupIds) {
+            this.securityGroupIds.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IDs of the security groups for the target network.
+     * </p>
+     * 
+     * @param securityGroupIds
+     *        The IDs of the security groups for the target network.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClientVpnEndpoint withSecurityGroupIds(java.util.Collection<String> securityGroupIds) {
+        setSecurityGroupIds(securityGroupIds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the VPC.
+     * </p>
+     * 
+     * @param vpcId
+     *        The ID of the VPC.
+     */
+
+    public void setVpcId(String vpcId) {
+        this.vpcId = vpcId;
+    }
+
+    /**
+     * <p>
+     * The ID of the VPC.
+     * </p>
+     * 
+     * @return The ID of the VPC.
+     */
+
+    public String getVpcId() {
+        return this.vpcId;
+    }
+
+    /**
+     * <p>
+     * The ID of the VPC.
+     * </p>
+     * 
+     * @param vpcId
+     *        The ID of the VPC.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClientVpnEndpoint withVpcId(String vpcId) {
+        setVpcId(vpcId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The URL of the self-service portal.
+     * </p>
+     * 
+     * @param selfServicePortalUrl
+     *        The URL of the self-service portal.
+     */
+
+    public void setSelfServicePortalUrl(String selfServicePortalUrl) {
+        this.selfServicePortalUrl = selfServicePortalUrl;
+    }
+
+    /**
+     * <p>
+     * The URL of the self-service portal.
+     * </p>
+     * 
+     * @return The URL of the self-service portal.
+     */
+
+    public String getSelfServicePortalUrl() {
+        return this.selfServicePortalUrl;
+    }
+
+    /**
+     * <p>
+     * The URL of the self-service portal.
+     * </p>
+     * 
+     * @param selfServicePortalUrl
+     *        The URL of the self-service portal.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClientVpnEndpoint withSelfServicePortalUrl(String selfServicePortalUrl) {
+        setSelfServicePortalUrl(selfServicePortalUrl);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The options for managing connection authorization for new client connections.
+     * </p>
+     * 
+     * @param clientConnectOptions
+     *        The options for managing connection authorization for new client connections.
+     */
+
+    public void setClientConnectOptions(ClientConnectResponseOptions clientConnectOptions) {
+        this.clientConnectOptions = clientConnectOptions;
+    }
+
+    /**
+     * <p>
+     * The options for managing connection authorization for new client connections.
+     * </p>
+     * 
+     * @return The options for managing connection authorization for new client connections.
+     */
+
+    public ClientConnectResponseOptions getClientConnectOptions() {
+        return this.clientConnectOptions;
+    }
+
+    /**
+     * <p>
+     * The options for managing connection authorization for new client connections.
+     * </p>
+     * 
+     * @param clientConnectOptions
+     *        The options for managing connection authorization for new client connections.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClientVpnEndpoint withClientConnectOptions(ClientConnectResponseOptions clientConnectOptions) {
+        setClientConnectOptions(clientConnectOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maximum VPN session duration time in hours.
+     * </p>
+     * <p>
+     * Valid values: <code>8 | 10 | 12 | 24</code>
+     * </p>
+     * <p>
+     * Default value: <code>24</code>
+     * </p>
+     * 
+     * @param sessionTimeoutHours
+     *        The maximum VPN session duration time in hours.</p>
+     *        <p>
+     *        Valid values: <code>8 | 10 | 12 | 24</code>
+     *        </p>
+     *        <p>
+     *        Default value: <code>24</code>
+     */
+
+    public void setSessionTimeoutHours(Integer sessionTimeoutHours) {
+        this.sessionTimeoutHours = sessionTimeoutHours;
+    }
+
+    /**
+     * <p>
+     * The maximum VPN session duration time in hours.
+     * </p>
+     * <p>
+     * Valid values: <code>8 | 10 | 12 | 24</code>
+     * </p>
+     * <p>
+     * Default value: <code>24</code>
+     * </p>
+     * 
+     * @return The maximum VPN session duration time in hours.</p>
+     *         <p>
+     *         Valid values: <code>8 | 10 | 12 | 24</code>
+     *         </p>
+     *         <p>
+     *         Default value: <code>24</code>
+     */
+
+    public Integer getSessionTimeoutHours() {
+        return this.sessionTimeoutHours;
+    }
+
+    /**
+     * <p>
+     * The maximum VPN session duration time in hours.
+     * </p>
+     * <p>
+     * Valid values: <code>8 | 10 | 12 | 24</code>
+     * </p>
+     * <p>
+     * Default value: <code>24</code>
+     * </p>
+     * 
+     * @param sessionTimeoutHours
+     *        The maximum VPN session duration time in hours.</p>
+     *        <p>
+     *        Valid values: <code>8 | 10 | 12 | 24</code>
+     *        </p>
+     *        <p>
+     *        Default value: <code>24</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClientVpnEndpoint withSessionTimeoutHours(Integer sessionTimeoutHours) {
+        setSessionTimeoutHours(sessionTimeoutHours);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Options for enabling a customizable text banner that will be displayed on Amazon Web Services provided clients
+     * when a VPN session is established.
+     * </p>
+     * 
+     * @param clientLoginBannerOptions
+     *        Options for enabling a customizable text banner that will be displayed on Amazon Web Services provided
+     *        clients when a VPN session is established.
+     */
+
+    public void setClientLoginBannerOptions(ClientLoginBannerResponseOptions clientLoginBannerOptions) {
+        this.clientLoginBannerOptions = clientLoginBannerOptions;
+    }
+
+    /**
+     * <p>
+     * Options for enabling a customizable text banner that will be displayed on Amazon Web Services provided clients
+     * when a VPN session is established.
+     * </p>
+     * 
+     * @return Options for enabling a customizable text banner that will be displayed on Amazon Web Services provided
+     *         clients when a VPN session is established.
+     */
+
+    public ClientLoginBannerResponseOptions getClientLoginBannerOptions() {
+        return this.clientLoginBannerOptions;
+    }
+
+    /**
+     * <p>
+     * Options for enabling a customizable text banner that will be displayed on Amazon Web Services provided clients
+     * when a VPN session is established.
+     * </p>
+     * 
+     * @param clientLoginBannerOptions
+     *        Options for enabling a customizable text banner that will be displayed on Amazon Web Services provided
+     *        clients when a VPN session is established.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClientVpnEndpoint withClientLoginBannerOptions(ClientLoginBannerResponseOptions clientLoginBannerOptions) {
+        setClientLoginBannerOptions(clientLoginBannerOptions);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1021,6 +1422,8 @@ public class ClientVpnEndpoint implements Serializable, Cloneable {
             sb.append("VpnProtocol: ").append(getVpnProtocol()).append(",");
         if (getTransportProtocol() != null)
             sb.append("TransportProtocol: ").append(getTransportProtocol()).append(",");
+        if (getVpnPort() != null)
+            sb.append("VpnPort: ").append(getVpnPort()).append(",");
         if (getAssociatedTargetNetworks() != null)
             sb.append("AssociatedTargetNetworks: ").append(getAssociatedTargetNetworks()).append(",");
         if (getServerCertificateArn() != null)
@@ -1030,7 +1433,19 @@ public class ClientVpnEndpoint implements Serializable, Cloneable {
         if (getConnectionLogOptions() != null)
             sb.append("ConnectionLogOptions: ").append(getConnectionLogOptions()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getSecurityGroupIds() != null)
+            sb.append("SecurityGroupIds: ").append(getSecurityGroupIds()).append(",");
+        if (getVpcId() != null)
+            sb.append("VpcId: ").append(getVpcId()).append(",");
+        if (getSelfServicePortalUrl() != null)
+            sb.append("SelfServicePortalUrl: ").append(getSelfServicePortalUrl()).append(",");
+        if (getClientConnectOptions() != null)
+            sb.append("ClientConnectOptions: ").append(getClientConnectOptions()).append(",");
+        if (getSessionTimeoutHours() != null)
+            sb.append("SessionTimeoutHours: ").append(getSessionTimeoutHours()).append(",");
+        if (getClientLoginBannerOptions() != null)
+            sb.append("ClientLoginBannerOptions: ").append(getClientLoginBannerOptions());
         sb.append("}");
         return sb.toString();
     }
@@ -1089,6 +1504,10 @@ public class ClientVpnEndpoint implements Serializable, Cloneable {
             return false;
         if (other.getTransportProtocol() != null && other.getTransportProtocol().equals(this.getTransportProtocol()) == false)
             return false;
+        if (other.getVpnPort() == null ^ this.getVpnPort() == null)
+            return false;
+        if (other.getVpnPort() != null && other.getVpnPort().equals(this.getVpnPort()) == false)
+            return false;
         if (other.getAssociatedTargetNetworks() == null ^ this.getAssociatedTargetNetworks() == null)
             return false;
         if (other.getAssociatedTargetNetworks() != null && other.getAssociatedTargetNetworks().equals(this.getAssociatedTargetNetworks()) == false)
@@ -1109,6 +1528,30 @@ public class ClientVpnEndpoint implements Serializable, Cloneable {
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getSecurityGroupIds() == null ^ this.getSecurityGroupIds() == null)
+            return false;
+        if (other.getSecurityGroupIds() != null && other.getSecurityGroupIds().equals(this.getSecurityGroupIds()) == false)
+            return false;
+        if (other.getVpcId() == null ^ this.getVpcId() == null)
+            return false;
+        if (other.getVpcId() != null && other.getVpcId().equals(this.getVpcId()) == false)
+            return false;
+        if (other.getSelfServicePortalUrl() == null ^ this.getSelfServicePortalUrl() == null)
+            return false;
+        if (other.getSelfServicePortalUrl() != null && other.getSelfServicePortalUrl().equals(this.getSelfServicePortalUrl()) == false)
+            return false;
+        if (other.getClientConnectOptions() == null ^ this.getClientConnectOptions() == null)
+            return false;
+        if (other.getClientConnectOptions() != null && other.getClientConnectOptions().equals(this.getClientConnectOptions()) == false)
+            return false;
+        if (other.getSessionTimeoutHours() == null ^ this.getSessionTimeoutHours() == null)
+            return false;
+        if (other.getSessionTimeoutHours() != null && other.getSessionTimeoutHours().equals(this.getSessionTimeoutHours()) == false)
+            return false;
+        if (other.getClientLoginBannerOptions() == null ^ this.getClientLoginBannerOptions() == null)
+            return false;
+        if (other.getClientLoginBannerOptions() != null && other.getClientLoginBannerOptions().equals(this.getClientLoginBannerOptions()) == false)
+            return false;
         return true;
     }
 
@@ -1128,11 +1571,18 @@ public class ClientVpnEndpoint implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getSplitTunnel() == null) ? 0 : getSplitTunnel().hashCode());
         hashCode = prime * hashCode + ((getVpnProtocol() == null) ? 0 : getVpnProtocol().hashCode());
         hashCode = prime * hashCode + ((getTransportProtocol() == null) ? 0 : getTransportProtocol().hashCode());
+        hashCode = prime * hashCode + ((getVpnPort() == null) ? 0 : getVpnPort().hashCode());
         hashCode = prime * hashCode + ((getAssociatedTargetNetworks() == null) ? 0 : getAssociatedTargetNetworks().hashCode());
         hashCode = prime * hashCode + ((getServerCertificateArn() == null) ? 0 : getServerCertificateArn().hashCode());
         hashCode = prime * hashCode + ((getAuthenticationOptions() == null) ? 0 : getAuthenticationOptions().hashCode());
         hashCode = prime * hashCode + ((getConnectionLogOptions() == null) ? 0 : getConnectionLogOptions().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getSecurityGroupIds() == null) ? 0 : getSecurityGroupIds().hashCode());
+        hashCode = prime * hashCode + ((getVpcId() == null) ? 0 : getVpcId().hashCode());
+        hashCode = prime * hashCode + ((getSelfServicePortalUrl() == null) ? 0 : getSelfServicePortalUrl().hashCode());
+        hashCode = prime * hashCode + ((getClientConnectOptions() == null) ? 0 : getClientConnectOptions().hashCode());
+        hashCode = prime * hashCode + ((getSessionTimeoutHours() == null) ? 0 : getSessionTimeoutHours().hashCode());
+        hashCode = prime * hashCode + ((getClientLoginBannerOptions() == null) ? 0 : getClientLoginBannerOptions().hashCode());
         return hashCode;
     }
 

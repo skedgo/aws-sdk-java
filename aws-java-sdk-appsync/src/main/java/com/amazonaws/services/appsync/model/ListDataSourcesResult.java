@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,7 @@ public class ListDataSourcesResult extends com.amazonaws.AmazonWebServiceResult<
     private java.util.List<DataSource> dataSources;
     /**
      * <p>
-     * An identifier to be passed in the next request to this operation to return the next set of items in the list.
+     * An identifier to pass in the next request to this operation to return the next set of items in the list.
      * </p>
      */
     private String nextToken;
@@ -108,12 +108,11 @@ public class ListDataSourcesResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * An identifier to be passed in the next request to this operation to return the next set of items in the list.
+     * An identifier to pass in the next request to this operation to return the next set of items in the list.
      * </p>
      * 
      * @param nextToken
-     *        An identifier to be passed in the next request to this operation to return the next set of items in the
-     *        list.
+     *        An identifier to pass in the next request to this operation to return the next set of items in the list.
      */
 
     public void setNextToken(String nextToken) {
@@ -122,11 +121,10 @@ public class ListDataSourcesResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * An identifier to be passed in the next request to this operation to return the next set of items in the list.
+     * An identifier to pass in the next request to this operation to return the next set of items in the list.
      * </p>
      * 
-     * @return An identifier to be passed in the next request to this operation to return the next set of items in the
-     *         list.
+     * @return An identifier to pass in the next request to this operation to return the next set of items in the list.
      */
 
     public String getNextToken() {
@@ -135,12 +133,11 @@ public class ListDataSourcesResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * An identifier to be passed in the next request to this operation to return the next set of items in the list.
+     * An identifier to pass in the next request to this operation to return the next set of items in the list.
      * </p>
      * 
      * @param nextToken
-     *        An identifier to be passed in the next request to this operation to return the next set of items in the
-     *        list.
+     *        An identifier to pass in the next request to this operation to return the next set of items in the list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
  * Id of the engine version.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/EngineVersion" target="_top">AWS API
  *      Documentation</a>
@@ -26,11 +28,17 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class EngineVersion implements Serializable, Cloneable, StructuredPojo {
 
-    /** Id for the version. */
+    /**
+     * <p>
+     * Id for the version.
+     * </p>
+     */
     private String name;
 
     /**
+     * <p>
      * Id for the version.
+     * </p>
      * 
      * @param name
      *        Id for the version.
@@ -41,7 +49,9 @@ public class EngineVersion implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
      * Id for the version.
+     * </p>
      * 
      * @return Id for the version.
      */
@@ -51,7 +61,9 @@ public class EngineVersion implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
      * Id for the version.
+     * </p>
      * 
      * @param name
      *        Id for the version.

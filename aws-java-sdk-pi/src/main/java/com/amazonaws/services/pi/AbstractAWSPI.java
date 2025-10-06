@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,12 +28,67 @@ public class AbstractAWSPI implements AWSPI {
     }
 
     @Override
+    public CreatePerformanceAnalysisReportResult createPerformanceAnalysisReport(CreatePerformanceAnalysisReportRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeletePerformanceAnalysisReportResult deletePerformanceAnalysisReport(DeletePerformanceAnalysisReportRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeDimensionKeysResult describeDimensionKeys(DescribeDimensionKeysRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public GetDimensionKeyDetailsResult getDimensionKeyDetails(GetDimensionKeyDetailsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetPerformanceAnalysisReportResult getPerformanceAnalysisReport(GetPerformanceAnalysisReportRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetResourceMetadataResult getResourceMetadata(GetResourceMetadataRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetResourceMetricsResult getResourceMetrics(GetResourceMetricsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListAvailableResourceDimensionsResult listAvailableResourceDimensions(ListAvailableResourceDimensionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListAvailableResourceMetricsResult listAvailableResourceMetrics(ListAvailableResourceMetricsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListPerformanceAnalysisReportsResult listPerformanceAnalysisReports(ListPerformanceAnalysisReportsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

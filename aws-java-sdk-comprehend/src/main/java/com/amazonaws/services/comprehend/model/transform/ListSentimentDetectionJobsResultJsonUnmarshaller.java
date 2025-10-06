@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,7 +51,9 @@ public class ListSentimentDetectionJobsResultJsonUnmarshaller implements Unmarsh
                 if (context.testExpression("SentimentDetectionJobPropertiesList", targetDepth)) {
                     context.nextToken();
                     listSentimentDetectionJobsResult.setSentimentDetectionJobPropertiesList(new ListUnmarshaller<SentimentDetectionJobProperties>(
-                            SentimentDetectionJobPropertiesJsonUnmarshaller.getInstance()).unmarshall(context));
+                            SentimentDetectionJobPropertiesJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("NextToken", targetDepth)) {
                     context.nextToken();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p/>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/support-2013-04-15/DescribeSeverityLevels" target="_top">AWS API
  *      Documentation</a>
@@ -28,21 +27,24 @@ public class DescribeSeverityLevelsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en")
-     * and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+     * The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently
+     * supports Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”). You must specify the ISO 639-1 code
+     * for the <code>language</code> parameter if you want support in that language.
      * </p>
      */
     private String language;
 
     /**
      * <p>
-     * The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en")
-     * and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+     * The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently
+     * supports Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”). You must specify the ISO 639-1 code
+     * for the <code>language</code> parameter if you want support in that language.
      * </p>
      * 
      * @param language
-     *        The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English
-     *        ("en") and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+     *        The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently
+     *        supports Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”). You must specify the ISO 639-1
+     *        code for the <code>language</code> parameter if you want support in that language.
      */
 
     public void setLanguage(String language) {
@@ -51,12 +53,14 @@ public class DescribeSeverityLevelsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en")
-     * and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+     * The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently
+     * supports Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”). You must specify the ISO 639-1 code
+     * for the <code>language</code> parameter if you want support in that language.
      * </p>
      * 
-     * @return The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English
-     *         ("en") and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+     * @return The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently
+     *         supports Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”). You must specify the ISO
+     *         639-1 code for the <code>language</code> parameter if you want support in that language.
      */
 
     public String getLanguage() {
@@ -65,13 +69,15 @@ public class DescribeSeverityLevelsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en")
-     * and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+     * The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently
+     * supports Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”). You must specify the ISO 639-1 code
+     * for the <code>language</code> parameter if you want support in that language.
      * </p>
      * 
      * @param language
-     *        The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English
-     *        ("en") and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+     *        The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently
+     *        supports Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”). You must specify the ISO 639-1
+     *        code for the <code>language</code> parameter if you want support in that language.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

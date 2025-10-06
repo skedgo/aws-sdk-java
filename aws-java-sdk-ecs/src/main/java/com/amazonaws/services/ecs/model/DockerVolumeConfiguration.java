@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * This parameter is specified when you are using Docker volumes. Docker volumes are only supported when you are using
- * the EC2 launch type. Windows containers only support the use of the <code>local</code> driver. To use bind mounts,
+ * This parameter is specified when you're using Docker volumes. Docker volumes are only supported when you're using the
+ * EC2 launch type. Windows containers only support the use of the <code>local</code> driver. To use bind mounts,
  * specify a <code>host</code> instead.
  * </p>
  * 
@@ -40,7 +40,7 @@ public class DockerVolumeConfiguration implements Serializable, Cloneable, Struc
     private String scope;
     /**
      * <p>
-     * If this value is <code>true</code>, the Docker volume is created if it does not already exist.
+     * If this value is <code>true</code>, the Docker volume is created if it doesn't already exist.
      * </p>
      * <note>
      * <p>
@@ -159,7 +159,7 @@ public class DockerVolumeConfiguration implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * If this value is <code>true</code>, the Docker volume is created if it does not already exist.
+     * If this value is <code>true</code>, the Docker volume is created if it doesn't already exist.
      * </p>
      * <note>
      * <p>
@@ -168,7 +168,7 @@ public class DockerVolumeConfiguration implements Serializable, Cloneable, Struc
      * </note>
      * 
      * @param autoprovision
-     *        If this value is <code>true</code>, the Docker volume is created if it does not already exist.</p> <note>
+     *        If this value is <code>true</code>, the Docker volume is created if it doesn't already exist.</p> <note>
      *        <p>
      *        This field is only used if the <code>scope</code> is <code>shared</code>.
      *        </p>
@@ -180,7 +180,7 @@ public class DockerVolumeConfiguration implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * If this value is <code>true</code>, the Docker volume is created if it does not already exist.
+     * If this value is <code>true</code>, the Docker volume is created if it doesn't already exist.
      * </p>
      * <note>
      * <p>
@@ -188,7 +188,7 @@ public class DockerVolumeConfiguration implements Serializable, Cloneable, Struc
      * </p>
      * </note>
      * 
-     * @return If this value is <code>true</code>, the Docker volume is created if it does not already exist.</p> <note>
+     * @return If this value is <code>true</code>, the Docker volume is created if it doesn't already exist.</p> <note>
      *         <p>
      *         This field is only used if the <code>scope</code> is <code>shared</code>.
      *         </p>
@@ -200,7 +200,7 @@ public class DockerVolumeConfiguration implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * If this value is <code>true</code>, the Docker volume is created if it does not already exist.
+     * If this value is <code>true</code>, the Docker volume is created if it doesn't already exist.
      * </p>
      * <note>
      * <p>
@@ -209,7 +209,7 @@ public class DockerVolumeConfiguration implements Serializable, Cloneable, Struc
      * </note>
      * 
      * @param autoprovision
-     *        If this value is <code>true</code>, the Docker volume is created if it does not already exist.</p> <note>
+     *        If this value is <code>true</code>, the Docker volume is created if it doesn't already exist.</p> <note>
      *        <p>
      *        This field is only used if the <code>scope</code> is <code>shared</code>.
      *        </p>
@@ -223,7 +223,7 @@ public class DockerVolumeConfiguration implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * If this value is <code>true</code>, the Docker volume is created if it does not already exist.
+     * If this value is <code>true</code>, the Docker volume is created if it doesn't already exist.
      * </p>
      * <note>
      * <p>
@@ -231,7 +231,7 @@ public class DockerVolumeConfiguration implements Serializable, Cloneable, Struc
      * </p>
      * </note>
      * 
-     * @return If this value is <code>true</code>, the Docker volume is created if it does not already exist.</p> <note>
+     * @return If this value is <code>true</code>, the Docker volume is created if it doesn't already exist.</p> <note>
      *         <p>
      *         This field is only used if the <code>scope</code> is <code>shared</code>.
      *         </p>
@@ -393,6 +393,13 @@ public class DockerVolumeConfiguration implements Serializable, Cloneable, Struc
         return this;
     }
 
+    /**
+     * Add a single DriverOpts entry
+     *
+     * @see DockerVolumeConfiguration#withDriverOpts
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public DockerVolumeConfiguration addDriverOptsEntry(String key, String value) {
         if (null == this.driverOpts) {
             this.driverOpts = new java.util.HashMap<String, String>();
@@ -474,6 +481,13 @@ public class DockerVolumeConfiguration implements Serializable, Cloneable, Struc
         setLabels(labels);
         return this;
     }
+
+    /**
+     * Add a single Labels entry
+     *
+     * @see DockerVolumeConfiguration#withLabels
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public DockerVolumeConfiguration addLabelsEntry(String key, String value) {
         if (null == this.labels) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -64,8 +64,28 @@ public class ModifyDBInstanceRequestMarshaller implements Marshaller<Request<Mod
             request.addParameter("NewDBInstanceIdentifier", StringUtils.fromString(modifyDBInstanceRequest.getNewDBInstanceIdentifier()));
         }
 
+        if (modifyDBInstanceRequest.getCACertificateIdentifier() != null) {
+            request.addParameter("CACertificateIdentifier", StringUtils.fromString(modifyDBInstanceRequest.getCACertificateIdentifier()));
+        }
+
+        if (modifyDBInstanceRequest.getCopyTagsToSnapshot() != null) {
+            request.addParameter("CopyTagsToSnapshot", StringUtils.fromBoolean(modifyDBInstanceRequest.getCopyTagsToSnapshot()));
+        }
+
         if (modifyDBInstanceRequest.getPromotionTier() != null) {
             request.addParameter("PromotionTier", StringUtils.fromInteger(modifyDBInstanceRequest.getPromotionTier()));
+        }
+
+        if (modifyDBInstanceRequest.getEnablePerformanceInsights() != null) {
+            request.addParameter("EnablePerformanceInsights", StringUtils.fromBoolean(modifyDBInstanceRequest.getEnablePerformanceInsights()));
+        }
+
+        if (modifyDBInstanceRequest.getPerformanceInsightsKMSKeyId() != null) {
+            request.addParameter("PerformanceInsightsKMSKeyId", StringUtils.fromString(modifyDBInstanceRequest.getPerformanceInsightsKMSKeyId()));
+        }
+
+        if (modifyDBInstanceRequest.getCertificateRotationRestart() != null) {
+            request.addParameter("CertificateRotationRestart", StringUtils.fromBoolean(modifyDBInstanceRequest.getCertificateRotationRestart()));
         }
 
         return request;

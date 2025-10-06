@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,18 +31,16 @@ public class GetResourcePolicyResult extends com.amazonaws.AmazonWebServiceResul
     private String aRN;
     /**
      * <p>
-     * The friendly name of the secret that the resource-based policy was retrieved for.
+     * The name of the secret that the resource-based policy was retrieved for.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * A JSON-formatted string that describes the permissions that are associated with the attached secret. These
-     * permissions are combined with any permissions that are associated with the user or role that attempts to access
-     * this secret. The combined permissions specify who can access the secret and what actions they can perform. For
-     * more information, see <a
-     * href="http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and Access
-     * Control for AWS Secrets Manager</a> in the <i>AWS Secrets Manager User Guide</i>.
+     * A JSON-formatted string that contains the permissions policy attached to the secret. For more information about
+     * permissions policies, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access
+     * control for Secrets Manager</a>.
      * </p>
      */
     private String resourcePolicy;
@@ -89,11 +87,11 @@ public class GetResourcePolicyResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The friendly name of the secret that the resource-based policy was retrieved for.
+     * The name of the secret that the resource-based policy was retrieved for.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret that the resource-based policy was retrieved for.
+     *        The name of the secret that the resource-based policy was retrieved for.
      */
 
     public void setName(String name) {
@@ -102,10 +100,10 @@ public class GetResourcePolicyResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The friendly name of the secret that the resource-based policy was retrieved for.
+     * The name of the secret that the resource-based policy was retrieved for.
      * </p>
      * 
-     * @return The friendly name of the secret that the resource-based policy was retrieved for.
+     * @return The name of the secret that the resource-based policy was retrieved for.
      */
 
     public String getName() {
@@ -114,11 +112,11 @@ public class GetResourcePolicyResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The friendly name of the secret that the resource-based policy was retrieved for.
+     * The name of the secret that the resource-based policy was retrieved for.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret that the resource-based policy was retrieved for.
+     *        The name of the secret that the resource-based policy was retrieved for.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -129,21 +127,17 @@ public class GetResourcePolicyResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A JSON-formatted string that describes the permissions that are associated with the attached secret. These
-     * permissions are combined with any permissions that are associated with the user or role that attempts to access
-     * this secret. The combined permissions specify who can access the secret and what actions they can perform. For
-     * more information, see <a
-     * href="http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and Access
-     * Control for AWS Secrets Manager</a> in the <i>AWS Secrets Manager User Guide</i>.
+     * A JSON-formatted string that contains the permissions policy attached to the secret. For more information about
+     * permissions policies, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access
+     * control for Secrets Manager</a>.
      * </p>
      * 
      * @param resourcePolicy
-     *        A JSON-formatted string that describes the permissions that are associated with the attached secret. These
-     *        permissions are combined with any permissions that are associated with the user or role that attempts to
-     *        access this secret. The combined permissions specify who can access the secret and what actions they can
-     *        perform. For more information, see <a
-     *        href="http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and
-     *        Access Control for AWS Secrets Manager</a> in the <i>AWS Secrets Manager User Guide</i>.
+     *        A JSON-formatted string that contains the permissions policy attached to the secret. For more information
+     *        about permissions policies, see <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and
+     *        access control for Secrets Manager</a>.
      */
 
     public void setResourcePolicy(String resourcePolicy) {
@@ -152,20 +146,16 @@ public class GetResourcePolicyResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A JSON-formatted string that describes the permissions that are associated with the attached secret. These
-     * permissions are combined with any permissions that are associated with the user or role that attempts to access
-     * this secret. The combined permissions specify who can access the secret and what actions they can perform. For
-     * more information, see <a
-     * href="http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and Access
-     * Control for AWS Secrets Manager</a> in the <i>AWS Secrets Manager User Guide</i>.
+     * A JSON-formatted string that contains the permissions policy attached to the secret. For more information about
+     * permissions policies, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access
+     * control for Secrets Manager</a>.
      * </p>
      * 
-     * @return A JSON-formatted string that describes the permissions that are associated with the attached secret.
-     *         These permissions are combined with any permissions that are associated with the user or role that
-     *         attempts to access this secret. The combined permissions specify who can access the secret and what
-     *         actions they can perform. For more information, see <a
-     *         href="http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and
-     *         Access Control for AWS Secrets Manager</a> in the <i>AWS Secrets Manager User Guide</i>.
+     * @return A JSON-formatted string that contains the permissions policy attached to the secret. For more information
+     *         about permissions policies, see <a
+     *         href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication
+     *         and access control for Secrets Manager</a>.
      */
 
     public String getResourcePolicy() {
@@ -174,21 +164,17 @@ public class GetResourcePolicyResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A JSON-formatted string that describes the permissions that are associated with the attached secret. These
-     * permissions are combined with any permissions that are associated with the user or role that attempts to access
-     * this secret. The combined permissions specify who can access the secret and what actions they can perform. For
-     * more information, see <a
-     * href="http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and Access
-     * Control for AWS Secrets Manager</a> in the <i>AWS Secrets Manager User Guide</i>.
+     * A JSON-formatted string that contains the permissions policy attached to the secret. For more information about
+     * permissions policies, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and access
+     * control for Secrets Manager</a>.
      * </p>
      * 
      * @param resourcePolicy
-     *        A JSON-formatted string that describes the permissions that are associated with the attached secret. These
-     *        permissions are combined with any permissions that are associated with the user or role that attempts to
-     *        access this secret. The combined permissions specify who can access the secret and what actions they can
-     *        perform. For more information, see <a
-     *        href="http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and
-     *        Access Control for AWS Secrets Manager</a> in the <i>AWS Secrets Manager User Guide</i>.
+     *        A JSON-formatted string that contains the permissions policy attached to the secret. For more information
+     *        about permissions policies, see <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html">Authentication and
+     *        access control for Secrets Manager</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

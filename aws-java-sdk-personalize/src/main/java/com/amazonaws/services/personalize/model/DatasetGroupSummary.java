@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Provides a summary of the properties of a dataset group. For a complete listing, call the <a>DescribeDatasetGroup</a>
- * API.
+ * Provides a summary of the properties of a dataset group. For a complete listing, call the <a
+ * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeDatasetGroup.html">DescribeDatasetGroup</a> API.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/DatasetGroupSummary" target="_top">AWS
@@ -80,6 +80,12 @@ public class DatasetGroupSummary implements Serializable, Cloneable, StructuredP
      * </p>
      */
     private String failureReason;
+    /**
+     * <p>
+     * The domain of a Domain dataset group.
+     * </p>
+     */
+    private String domain;
 
     /**
      * <p>
@@ -409,6 +415,65 @@ public class DatasetGroupSummary implements Serializable, Cloneable, StructuredP
     }
 
     /**
+     * <p>
+     * The domain of a Domain dataset group.
+     * </p>
+     * 
+     * @param domain
+     *        The domain of a Domain dataset group.
+     * @see Domain
+     */
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    /**
+     * <p>
+     * The domain of a Domain dataset group.
+     * </p>
+     * 
+     * @return The domain of a Domain dataset group.
+     * @see Domain
+     */
+
+    public String getDomain() {
+        return this.domain;
+    }
+
+    /**
+     * <p>
+     * The domain of a Domain dataset group.
+     * </p>
+     * 
+     * @param domain
+     *        The domain of a Domain dataset group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Domain
+     */
+
+    public DatasetGroupSummary withDomain(String domain) {
+        setDomain(domain);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The domain of a Domain dataset group.
+     * </p>
+     * 
+     * @param domain
+     *        The domain of a Domain dataset group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Domain
+     */
+
+    public DatasetGroupSummary withDomain(Domain domain) {
+        this.domain = domain.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -431,7 +496,9 @@ public class DatasetGroupSummary implements Serializable, Cloneable, StructuredP
         if (getLastUpdatedDateTime() != null)
             sb.append("LastUpdatedDateTime: ").append(getLastUpdatedDateTime()).append(",");
         if (getFailureReason() != null)
-            sb.append("FailureReason: ").append(getFailureReason());
+            sb.append("FailureReason: ").append(getFailureReason()).append(",");
+        if (getDomain() != null)
+            sb.append("Domain: ").append(getDomain());
         sb.append("}");
         return sb.toString();
     }
@@ -470,6 +537,10 @@ public class DatasetGroupSummary implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getFailureReason() != null && other.getFailureReason().equals(this.getFailureReason()) == false)
             return false;
+        if (other.getDomain() == null ^ this.getDomain() == null)
+            return false;
+        if (other.getDomain() != null && other.getDomain().equals(this.getDomain()) == false)
+            return false;
         return true;
     }
 
@@ -484,6 +555,7 @@ public class DatasetGroupSummary implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getCreationDateTime() == null) ? 0 : getCreationDateTime().hashCode());
         hashCode = prime * hashCode + ((getLastUpdatedDateTime() == null) ? 0 : getLastUpdatedDateTime().hashCode());
         hashCode = prime * hashCode + ((getFailureReason() == null) ? 0 : getFailureReason().hashCode());
+        hashCode = prime * hashCode + ((getDomain() == null) ? 0 : getDomain().hashCode());
         return hashCode;
     }
 

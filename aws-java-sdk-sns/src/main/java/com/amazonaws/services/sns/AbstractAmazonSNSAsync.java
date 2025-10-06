@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -166,6 +166,19 @@ public class AbstractAmazonSNSAsync extends AbstractAmazonSNS implements AmazonS
     }
 
     @Override
+    public java.util.concurrent.Future<CreateSMSSandboxPhoneNumberResult> createSMSSandboxPhoneNumberAsync(CreateSMSSandboxPhoneNumberRequest request) {
+
+        return createSMSSandboxPhoneNumberAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateSMSSandboxPhoneNumberResult> createSMSSandboxPhoneNumberAsync(CreateSMSSandboxPhoneNumberRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateSMSSandboxPhoneNumberRequest, CreateSMSSandboxPhoneNumberResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateTopicResult> createTopicAsync(CreateTopicRequest request) {
 
         return createTopicAsync(request, null);
@@ -228,6 +241,19 @@ public class AbstractAmazonSNSAsync extends AbstractAmazonSNS implements AmazonS
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteSMSSandboxPhoneNumberResult> deleteSMSSandboxPhoneNumberAsync(DeleteSMSSandboxPhoneNumberRequest request) {
+
+        return deleteSMSSandboxPhoneNumberAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteSMSSandboxPhoneNumberResult> deleteSMSSandboxPhoneNumberAsync(DeleteSMSSandboxPhoneNumberRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteSMSSandboxPhoneNumberRequest, DeleteSMSSandboxPhoneNumberResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteTopicResult> deleteTopicAsync(DeleteTopicRequest request) {
 
         return deleteTopicAsync(request, null);
@@ -261,6 +287,19 @@ public class AbstractAmazonSNSAsync extends AbstractAmazonSNS implements AmazonS
             com.amazonaws.handlers.AsyncHandler<DeleteTopicRequest, DeleteTopicResult> asyncHandler) {
 
         return deleteTopicAsync(new DeleteTopicRequest().withTopicArn(topicArn), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDataProtectionPolicyResult> getDataProtectionPolicyAsync(GetDataProtectionPolicyRequest request) {
+
+        return getDataProtectionPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDataProtectionPolicyResult> getDataProtectionPolicyAsync(GetDataProtectionPolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetDataProtectionPolicyRequest, GetDataProtectionPolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -300,6 +339,19 @@ public class AbstractAmazonSNSAsync extends AbstractAmazonSNS implements AmazonS
     @Override
     public java.util.concurrent.Future<GetSMSAttributesResult> getSMSAttributesAsync(GetSMSAttributesRequest request,
             com.amazonaws.handlers.AsyncHandler<GetSMSAttributesRequest, GetSMSAttributesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSMSSandboxAccountStatusResult> getSMSSandboxAccountStatusAsync(GetSMSSandboxAccountStatusRequest request) {
+
+        return getSMSSandboxAccountStatusAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSMSSandboxAccountStatusResult> getSMSSandboxAccountStatusAsync(GetSMSSandboxAccountStatusRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetSMSSandboxAccountStatusRequest, GetSMSSandboxAccountStatusResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -392,6 +444,19 @@ public class AbstractAmazonSNSAsync extends AbstractAmazonSNS implements AmazonS
     }
 
     @Override
+    public java.util.concurrent.Future<ListOriginationNumbersResult> listOriginationNumbersAsync(ListOriginationNumbersRequest request) {
+
+        return listOriginationNumbersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListOriginationNumbersResult> listOriginationNumbersAsync(ListOriginationNumbersRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListOriginationNumbersRequest, ListOriginationNumbersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListPhoneNumbersOptedOutResult> listPhoneNumbersOptedOutAsync(ListPhoneNumbersOptedOutRequest request) {
 
         return listPhoneNumbersOptedOutAsync(request, null);
@@ -438,6 +503,19 @@ public class AbstractAmazonSNSAsync extends AbstractAmazonSNS implements AmazonS
             com.amazonaws.handlers.AsyncHandler<ListPlatformApplicationsRequest, ListPlatformApplicationsResult> asyncHandler) {
 
         return listPlatformApplicationsAsync(new ListPlatformApplicationsRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSMSSandboxPhoneNumbersResult> listSMSSandboxPhoneNumbersAsync(ListSMSSandboxPhoneNumbersRequest request) {
+
+        return listSMSSandboxPhoneNumbersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSMSSandboxPhoneNumbersResult> listSMSSandboxPhoneNumbersAsync(ListSMSSandboxPhoneNumbersRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListSMSSandboxPhoneNumbersRequest, ListSMSSandboxPhoneNumbersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -702,6 +780,32 @@ public class AbstractAmazonSNSAsync extends AbstractAmazonSNS implements AmazonS
     }
 
     @Override
+    public java.util.concurrent.Future<PublishBatchResult> publishBatchAsync(PublishBatchRequest request) {
+
+        return publishBatchAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PublishBatchResult> publishBatchAsync(PublishBatchRequest request,
+            com.amazonaws.handlers.AsyncHandler<PublishBatchRequest, PublishBatchResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutDataProtectionPolicyResult> putDataProtectionPolicyAsync(PutDataProtectionPolicyRequest request) {
+
+        return putDataProtectionPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutDataProtectionPolicyResult> putDataProtectionPolicyAsync(PutDataProtectionPolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutDataProtectionPolicyRequest, PutDataProtectionPolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<RemovePermissionResult> removePermissionAsync(RemovePermissionRequest request) {
 
         return removePermissionAsync(request, null);
@@ -949,6 +1053,19 @@ public class AbstractAmazonSNSAsync extends AbstractAmazonSNS implements AmazonS
     @Override
     public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request,
             com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<VerifySMSSandboxPhoneNumberResult> verifySMSSandboxPhoneNumberAsync(VerifySMSSandboxPhoneNumberRequest request) {
+
+        return verifySMSSandboxPhoneNumberAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<VerifySMSSandboxPhoneNumberResult> verifySMSSandboxPhoneNumberAsync(VerifySMSSandboxPhoneNumberRequest request,
+            com.amazonaws.handlers.AsyncHandler<VerifySMSSandboxPhoneNumberRequest, VerifySMSSandboxPhoneNumberResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

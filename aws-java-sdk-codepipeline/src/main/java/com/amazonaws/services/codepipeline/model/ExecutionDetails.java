@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,13 +37,13 @@ public class ExecutionDetails implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * The system-generated unique ID of this action used to identify this job worker in any external systems, such as
-     * AWS CodeDeploy.
+     * CodeDeploy.
      * </p>
      */
     private String externalExecutionId;
     /**
      * <p>
-     * The percentage of work completed on the action, represented on a scale of zero to one hundred percent.
+     * The percentage of work completed on the action, represented on a scale of 0 to 100 percent.
      * </p>
      */
     private Integer percentComplete;
@@ -91,12 +91,12 @@ public class ExecutionDetails implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * The system-generated unique ID of this action used to identify this job worker in any external systems, such as
-     * AWS CodeDeploy.
+     * CodeDeploy.
      * </p>
      * 
      * @param externalExecutionId
      *        The system-generated unique ID of this action used to identify this job worker in any external systems,
-     *        such as AWS CodeDeploy.
+     *        such as CodeDeploy.
      */
 
     public void setExternalExecutionId(String externalExecutionId) {
@@ -106,11 +106,11 @@ public class ExecutionDetails implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * The system-generated unique ID of this action used to identify this job worker in any external systems, such as
-     * AWS CodeDeploy.
+     * CodeDeploy.
      * </p>
      * 
      * @return The system-generated unique ID of this action used to identify this job worker in any external systems,
-     *         such as AWS CodeDeploy.
+     *         such as CodeDeploy.
      */
 
     public String getExternalExecutionId() {
@@ -120,12 +120,12 @@ public class ExecutionDetails implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * The system-generated unique ID of this action used to identify this job worker in any external systems, such as
-     * AWS CodeDeploy.
+     * CodeDeploy.
      * </p>
      * 
      * @param externalExecutionId
      *        The system-generated unique ID of this action used to identify this job worker in any external systems,
-     *        such as AWS CodeDeploy.
+     *        such as CodeDeploy.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -136,11 +136,11 @@ public class ExecutionDetails implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The percentage of work completed on the action, represented on a scale of zero to one hundred percent.
+     * The percentage of work completed on the action, represented on a scale of 0 to 100 percent.
      * </p>
      * 
      * @param percentComplete
-     *        The percentage of work completed on the action, represented on a scale of zero to one hundred percent.
+     *        The percentage of work completed on the action, represented on a scale of 0 to 100 percent.
      */
 
     public void setPercentComplete(Integer percentComplete) {
@@ -149,10 +149,10 @@ public class ExecutionDetails implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The percentage of work completed on the action, represented on a scale of zero to one hundred percent.
+     * The percentage of work completed on the action, represented on a scale of 0 to 100 percent.
      * </p>
      * 
-     * @return The percentage of work completed on the action, represented on a scale of zero to one hundred percent.
+     * @return The percentage of work completed on the action, represented on a scale of 0 to 100 percent.
      */
 
     public Integer getPercentComplete() {
@@ -161,11 +161,11 @@ public class ExecutionDetails implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The percentage of work completed on the action, represented on a scale of zero to one hundred percent.
+     * The percentage of work completed on the action, represented on a scale of 0 to 100 percent.
      * </p>
      * 
      * @param percentComplete
-     *        The percentage of work completed on the action, represented on a scale of zero to one hundred percent.
+     *        The percentage of work completed on the action, represented on a scale of 0 to 100 percent.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -59,7 +59,7 @@ public interface AmazonNeptune {
 
     /**
      * <p>
-     * Associates an Identity and Access Management (IAM) role from an Neptune DB cluster.
+     * Associates an Identity and Access Management (IAM) role with an Neptune DB cluster.
      * </p>
      * 
      * @param addRoleToDBClusterRequest
@@ -159,9 +159,6 @@ public interface AmazonNeptune {
      * <code>SourceDBClusterSnapshotIdentifier</code> must be the Amazon Resource Name (ARN) of the shared DB cluster
      * snapshot.
      * </p>
-     * <p>
-     * You can't copy from one AWS Region to another.
-     * </p>
      * 
      * @param copyDBClusterSnapshotRequest
      * @return Result of the CopyDBClusterSnapshot operation returned by the service.
@@ -210,6 +207,12 @@ public interface AmazonNeptune {
      * You can use the <code>ReplicationSourceIdentifier</code> parameter to create the DB cluster as a Read Replica of
      * another DB cluster or Amazon Neptune DB instance.
      * </p>
+     * <p>
+     * Note that when you create a new cluster using <code>CreateDBCluster</code> directly, deletion protection is
+     * disabled by default (when you create a new production cluster in the console, deletion protection is enabled by
+     * default). You can only delete a DB cluster if its <code>DeletionProtection</code> field is set to
+     * <code>false</code>.
+     * </p>
      * 
      * @param createDBClusterRequest
      * @return Result of the CreateDBCluster operation returned by the service.
@@ -246,11 +249,40 @@ public interface AmazonNeptune {
      * @throws DBSubnetGroupDoesNotCoverEnoughAZsException
      *         Subnets in the DB subnet group should cover at least two Availability Zones unless there is only one
      *         Availability Zone.
+     * @throws GlobalClusterNotFoundException
+     *         The <code>GlobalClusterIdentifier</code> doesn't refer to an existing global database cluster.
+     * @throws InvalidGlobalClusterStateException
+     *         The global cluster is in an invalid state and can't perform the requested operation.
      * @sample AmazonNeptune.CreateDBCluster
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/CreateDBCluster" target="_top">AWS API
      *      Documentation</a>
      */
     DBCluster createDBCluster(CreateDBClusterRequest createDBClusterRequest);
+
+    /**
+     * <p>
+     * Creates a new custom endpoint and associates it with an Amazon Neptune DB cluster.
+     * </p>
+     * 
+     * @param createDBClusterEndpointRequest
+     * @return Result of the CreateDBClusterEndpoint operation returned by the service.
+     * @throws DBClusterEndpointQuotaExceededException
+     *         The cluster already has the maximum number of custom endpoints.
+     * @throws DBClusterEndpointAlreadyExistsException
+     *         The specified custom endpoint cannot be created because it already exists.
+     * @throws DBClusterNotFoundException
+     *         <i>DBClusterIdentifier</i> does not refer to an existing DB cluster.
+     * @throws InvalidDBClusterStateException
+     *         The DB cluster is not in a valid state.
+     * @throws DBInstanceNotFoundException
+     *         <i>DBInstanceIdentifier</i> does not refer to an existing DB instance.
+     * @throws InvalidDBInstanceStateException
+     *         The specified DB instance is not in the <i>available</i> state.
+     * @sample AmazonNeptune.CreateDBClusterEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/CreateDBClusterEndpoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateDBClusterEndpointResult createDBClusterEndpoint(CreateDBClusterEndpointRequest createDBClusterEndpointRequest);
 
     /**
      * <p>
@@ -405,8 +437,8 @@ public interface AmazonNeptune {
 
     /**
      * <p>
-     * Creates a new DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in the AWS
-     * Region.
+     * Creates a new DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in the
+     * Amazon Region.
      * </p>
      * 
      * @param createDBSubnetGroupRequest
@@ -472,9 +504,42 @@ public interface AmazonNeptune {
 
     /**
      * <p>
+     * Creates a Neptune global database spread across multiple Amazon Regions. The global database contains a single
+     * primary cluster with read-write capability, and read-only secondary clusters that receive data from the primary
+     * cluster through high-speed replication performed by the Neptune storage subsystem.
+     * </p>
+     * <p>
+     * You can create a global database that is initially empty, and then add a primary cluster and secondary clusters
+     * to it, or you can specify an existing Neptune cluster during the create operation to become the primary cluster
+     * of the global database.
+     * </p>
+     * 
+     * @param createGlobalClusterRequest
+     * @return Result of the CreateGlobalCluster operation returned by the service.
+     * @throws GlobalClusterAlreadyExistsException
+     *         The <code>GlobalClusterIdentifier</code> already exists. Choose a new global database identifier (unique
+     *         name) to create a new global database cluster.
+     * @throws GlobalClusterQuotaExceededException
+     *         The number of global database clusters for this account is already at the maximum allowed.
+     * @throws InvalidDBClusterStateException
+     *         The DB cluster is not in a valid state.
+     * @throws DBClusterNotFoundException
+     *         <i>DBClusterIdentifier</i> does not refer to an existing DB cluster.
+     * @sample AmazonNeptune.CreateGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/CreateGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    GlobalCluster createGlobalCluster(CreateGlobalClusterRequest createGlobalClusterRequest);
+
+    /**
+     * <p>
      * The DeleteDBCluster action deletes a previously provisioned DB cluster. When you delete a DB cluster, all
      * automated backups for that DB cluster are deleted and can't be recovered. Manual DB cluster snapshots of the
      * specified DB cluster are not deleted.
+     * </p>
+     * <p>
+     * Note that the DB Cluster cannot be deleted if deletion protection is enabled. To delete it, you must first set
+     * its <code>DeletionProtection</code> field to <code>False</code>.
      * </p>
      * 
      * @param deleteDBClusterRequest
@@ -494,6 +559,25 @@ public interface AmazonNeptune {
      *      Documentation</a>
      */
     DBCluster deleteDBCluster(DeleteDBClusterRequest deleteDBClusterRequest);
+
+    /**
+     * <p>
+     * Deletes a custom endpoint and removes it from an Amazon Neptune DB cluster.
+     * </p>
+     * 
+     * @param deleteDBClusterEndpointRequest
+     * @return Result of the DeleteDBClusterEndpoint operation returned by the service.
+     * @throws InvalidDBClusterEndpointStateException
+     *         The requested operation cannot be performed on the endpoint while the endpoint is in this state.
+     * @throws DBClusterEndpointNotFoundException
+     *         The specified custom endpoint doesn't exist.
+     * @throws InvalidDBClusterStateException
+     *         The DB cluster is not in a valid state.
+     * @sample AmazonNeptune.DeleteDBClusterEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/DeleteDBClusterEndpoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteDBClusterEndpointResult deleteDBClusterEndpoint(DeleteDBClusterEndpointRequest deleteDBClusterEndpointRequest);
 
     /**
      * <p>
@@ -553,7 +637,8 @@ public interface AmazonNeptune {
      * <code>SkipFinalSnapshot</code> parameter is set to <code>true</code>.
      * </p>
      * <p>
-     * You can't delete a DB instance if it is the only instance in the DB cluster.
+     * You can't delete a DB instance if it is the only instance in the DB cluster, or if it has deletion protection
+     * enabled.
      * </p>
      * 
      * @param deleteDBInstanceRequest
@@ -636,6 +721,43 @@ public interface AmazonNeptune {
 
     /**
      * <p>
+     * Deletes a global database. The primary and all secondary clusters must already be detached or deleted first.
+     * </p>
+     * 
+     * @param deleteGlobalClusterRequest
+     * @return Result of the DeleteGlobalCluster operation returned by the service.
+     * @throws GlobalClusterNotFoundException
+     *         The <code>GlobalClusterIdentifier</code> doesn't refer to an existing global database cluster.
+     * @throws InvalidGlobalClusterStateException
+     *         The global cluster is in an invalid state and can't perform the requested operation.
+     * @sample AmazonNeptune.DeleteGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/DeleteGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    GlobalCluster deleteGlobalCluster(DeleteGlobalClusterRequest deleteGlobalClusterRequest);
+
+    /**
+     * <p>
+     * Returns information about endpoints for an Amazon Neptune DB cluster.
+     * </p>
+     * <note>
+     * <p>
+     * This operation can also return information for Amazon RDS clusters and Amazon DocDB clusters.
+     * </p>
+     * </note>
+     * 
+     * @param describeDBClusterEndpointsRequest
+     * @return Result of the DescribeDBClusterEndpoints operation returned by the service.
+     * @throws DBClusterNotFoundException
+     *         <i>DBClusterIdentifier</i> does not refer to an existing DB cluster.
+     * @sample AmazonNeptune.DescribeDBClusterEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/DescribeDBClusterEndpoints"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeDBClusterEndpointsResult describeDBClusterEndpoints(DescribeDBClusterEndpointsRequest describeDBClusterEndpointsRequest);
+
+    /**
+     * <p>
      * Returns a list of <code>DBClusterParameterGroup</code> descriptions. If a
      * <code>DBClusterParameterGroupName</code> parameter is specified, the list will contain only the description of
      * the specified DB cluster parameter group.
@@ -671,14 +793,15 @@ public interface AmazonNeptune {
      * Returns a list of DB cluster snapshot attribute names and values for a manual DB cluster snapshot.
      * </p>
      * <p>
-     * When sharing snapshots with other AWS accounts, <code>DescribeDBClusterSnapshotAttributes</code> returns the
-     * <code>restore</code> attribute and a list of IDs for the AWS accounts that are authorized to copy or restore the
-     * manual DB cluster snapshot. If <code>all</code> is included in the list of values for the <code>restore</code>
-     * attribute, then the manual DB cluster snapshot is public and can be copied or restored by all AWS accounts.
+     * When sharing snapshots with other Amazon accounts, <code>DescribeDBClusterSnapshotAttributes</code> returns the
+     * <code>restore</code> attribute and a list of IDs for the Amazon accounts that are authorized to copy or restore
+     * the manual DB cluster snapshot. If <code>all</code> is included in the list of values for the
+     * <code>restore</code> attribute, then the manual DB cluster snapshot is public and can be copied or restored by
+     * all Amazon accounts.
      * </p>
      * <p>
-     * To add or remove access for an AWS account to copy or restore a manual DB cluster snapshot, or to make the manual
-     * DB cluster snapshot public or private, use the <a>ModifyDBClusterSnapshotAttribute</a> API action.
+     * To add or remove access for an Amazon account to copy or restore a manual DB cluster snapshot, or to make the
+     * manual DB cluster snapshot public or private, use the <a>ModifyDBClusterSnapshotAttribute</a> API action.
      * </p>
      * 
      * @param describeDBClusterSnapshotAttributesRequest
@@ -708,8 +831,13 @@ public interface AmazonNeptune {
 
     /**
      * <p>
-     * Returns information about provisioned DB clusters. This API supports pagination.
+     * Returns information about provisioned DB clusters, and supports pagination.
      * </p>
+     * <note>
+     * <p>
+     * This operation can also return information for Amazon RDS clusters and Amazon DocDB clusters.
+     * </p>
+     * </note>
      * 
      * @param describeDBClustersRequest
      * @return Result of the DescribeDBClusters operation returned by the service.
@@ -736,8 +864,13 @@ public interface AmazonNeptune {
 
     /**
      * <p>
-     * Returns information about provisioned instances. This API supports pagination.
+     * Returns information about provisioned instances, and supports pagination.
      * </p>
+     * <note>
+     * <p>
+     * This operation can also return information for Amazon RDS instances and Amazon DocDB instances.
+     * </p>
+     * </note>
      * 
      * @param describeDBInstancesRequest
      * @return Result of the DescribeDBInstances operation returned by the service.
@@ -875,6 +1008,21 @@ public interface AmazonNeptune {
 
     /**
      * <p>
+     * Returns information about Neptune global database clusters. This API supports pagination.
+     * </p>
+     * 
+     * @param describeGlobalClustersRequest
+     * @return Result of the DescribeGlobalClusters operation returned by the service.
+     * @throws GlobalClusterNotFoundException
+     *         The <code>GlobalClusterIdentifier</code> doesn't refer to an existing global database cluster.
+     * @sample AmazonNeptune.DescribeGlobalClusters
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/DescribeGlobalClusters" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DescribeGlobalClustersResult describeGlobalClusters(DescribeGlobalClustersRequest describeGlobalClustersRequest);
+
+    /**
+     * <p>
      * Returns a list of orderable DB instance options for the specified engine.
      * </p>
      * 
@@ -952,6 +1100,40 @@ public interface AmazonNeptune {
 
     /**
      * <p>
+     * Initiates the failover process for a Neptune global database.
+     * </p>
+     * <p>
+     * A failover for a Neptune global database promotes one of secondary read-only DB clusters to be the primary DB
+     * cluster and demotes the primary DB cluster to being a secondary (read-only) DB cluster. In other words, the role
+     * of the current primary DB cluster and the selected target secondary DB cluster are switched. The selected
+     * secondary DB cluster assumes full read/write capabilities for the Neptune global database.
+     * </p>
+     * <note>
+     * <p>
+     * This action applies <b>only</b> to Neptune global databases. This action is only intended for use on healthy
+     * Neptune global databases with healthy Neptune DB clusters and no region-wide outages, to test disaster recovery
+     * scenarios or to reconfigure the global database topology.
+     * </p>
+     * </note>
+     * 
+     * @param failoverGlobalClusterRequest
+     * @return Result of the FailoverGlobalCluster operation returned by the service.
+     * @throws GlobalClusterNotFoundException
+     *         The <code>GlobalClusterIdentifier</code> doesn't refer to an existing global database cluster.
+     * @throws InvalidGlobalClusterStateException
+     *         The global cluster is in an invalid state and can't perform the requested operation.
+     * @throws InvalidDBClusterStateException
+     *         The DB cluster is not in a valid state.
+     * @throws DBClusterNotFoundException
+     *         <i>DBClusterIdentifier</i> does not refer to an existing DB cluster.
+     * @sample AmazonNeptune.FailoverGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/FailoverGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    GlobalCluster failoverGlobalCluster(FailoverGlobalClusterRequest failoverGlobalClusterRequest);
+
+    /**
+     * <p>
      * Lists all tags on an Amazon Neptune resource.
      * </p>
      * 
@@ -999,11 +1181,36 @@ public interface AmazonNeptune {
      *         The specified DB instance is not in the <i>available</i> state.
      * @throws DBClusterAlreadyExistsException
      *         User already has a DB cluster with the given identifier.
+     * @throws StorageTypeNotSupportedException
+     *         <i>StorageType</i> specified cannot be associated with the DB Instance.
      * @sample AmazonNeptune.ModifyDBCluster
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/ModifyDBCluster" target="_top">AWS API
      *      Documentation</a>
      */
     DBCluster modifyDBCluster(ModifyDBClusterRequest modifyDBClusterRequest);
+
+    /**
+     * <p>
+     * Modifies the properties of an endpoint in an Amazon Neptune DB cluster.
+     * </p>
+     * 
+     * @param modifyDBClusterEndpointRequest
+     * @return Result of the ModifyDBClusterEndpoint operation returned by the service.
+     * @throws InvalidDBClusterStateException
+     *         The DB cluster is not in a valid state.
+     * @throws InvalidDBClusterEndpointStateException
+     *         The requested operation cannot be performed on the endpoint while the endpoint is in this state.
+     * @throws DBClusterEndpointNotFoundException
+     *         The specified custom endpoint doesn't exist.
+     * @throws DBInstanceNotFoundException
+     *         <i>DBInstanceIdentifier</i> does not refer to an existing DB instance.
+     * @throws InvalidDBInstanceStateException
+     *         The specified DB instance is not in the <i>available</i> state.
+     * @sample AmazonNeptune.ModifyDBClusterEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/ModifyDBClusterEndpoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ModifyDBClusterEndpointResult modifyDBClusterEndpoint(ModifyDBClusterEndpointRequest modifyDBClusterEndpointRequest);
 
     /**
      * <p>
@@ -1047,17 +1254,17 @@ public interface AmazonNeptune {
      * Adds an attribute and values to, or removes an attribute and values from, a manual DB cluster snapshot.
      * </p>
      * <p>
-     * To share a manual DB cluster snapshot with other AWS accounts, specify <code>restore</code> as the
-     * <code>AttributeName</code> and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the AWS
+     * To share a manual DB cluster snapshot with other Amazon accounts, specify <code>restore</code> as the
+     * <code>AttributeName</code> and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the Amazon
      * accounts that are authorized to restore the manual DB cluster snapshot. Use the value <code>all</code> to make
-     * the manual DB cluster snapshot public, which means that it can be copied or restored by all AWS accounts. Do not
-     * add the <code>all</code> value for any manual DB cluster snapshots that contain private information that you
-     * don't want available to all AWS accounts. If a manual DB cluster snapshot is encrypted, it can be shared, but
-     * only by specifying a list of authorized AWS account IDs for the <code>ValuesToAdd</code> parameter. You can't use
-     * <code>all</code> as a value for that parameter in this case.
+     * the manual DB cluster snapshot public, which means that it can be copied or restored by all Amazon accounts. Do
+     * not add the <code>all</code> value for any manual DB cluster snapshots that contain private information that you
+     * don't want available to all Amazon accounts. If a manual DB cluster snapshot is encrypted, it can be shared, but
+     * only by specifying a list of authorized Amazon account IDs for the <code>ValuesToAdd</code> parameter. You can't
+     * use <code>all</code> as a value for that parameter in this case.
      * </p>
      * <p>
-     * To view which AWS accounts have access to copy or restore a manual DB cluster snapshot, or whether a manual DB
+     * To view which Amazon accounts have access to copy or restore a manual DB cluster snapshot, or whether a manual DB
      * cluster snapshot public or private, use the <a>DescribeDBClusterSnapshotAttributes</a> API action.
      * </p>
      * 
@@ -1163,7 +1370,7 @@ public interface AmazonNeptune {
     /**
      * <p>
      * Modifies an existing DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in
-     * the AWS Region.
+     * the Amazon Region.
      * </p>
      * 
      * @param modifyDBSubnetGroupRequest
@@ -1218,6 +1425,24 @@ public interface AmazonNeptune {
 
     /**
      * <p>
+     * Modify a setting for an Amazon Neptune global cluster. You can change one or more database configuration
+     * parameters by specifying these parameters and their new values in the request.
+     * </p>
+     * 
+     * @param modifyGlobalClusterRequest
+     * @return Result of the ModifyGlobalCluster operation returned by the service.
+     * @throws GlobalClusterNotFoundException
+     *         The <code>GlobalClusterIdentifier</code> doesn't refer to an existing global database cluster.
+     * @throws InvalidGlobalClusterStateException
+     *         The global cluster is in an invalid state and can't perform the requested operation.
+     * @sample AmazonNeptune.ModifyGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/ModifyGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    GlobalCluster modifyGlobalCluster(ModifyGlobalClusterRequest modifyGlobalClusterRequest);
+
+    /**
+     * <p>
      * Not supported.
      * </p>
      * 
@@ -1255,6 +1480,27 @@ public interface AmazonNeptune {
      *      Documentation</a>
      */
     DBInstance rebootDBInstance(RebootDBInstanceRequest rebootDBInstanceRequest);
+
+    /**
+     * <p>
+     * Detaches a Neptune DB cluster from a Neptune global database. A secondary cluster becomes a normal standalone
+     * cluster with read-write capability instead of being read-only, and no longer receives data from a the primary
+     * cluster.
+     * </p>
+     * 
+     * @param removeFromGlobalClusterRequest
+     * @return Result of the RemoveFromGlobalCluster operation returned by the service.
+     * @throws GlobalClusterNotFoundException
+     *         The <code>GlobalClusterIdentifier</code> doesn't refer to an existing global database cluster.
+     * @throws InvalidGlobalClusterStateException
+     *         The global cluster is in an invalid state and can't perform the requested operation.
+     * @throws DBClusterNotFoundException
+     *         <i>DBClusterIdentifier</i> does not refer to an existing DB cluster.
+     * @sample AmazonNeptune.RemoveFromGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/RemoveFromGlobalCluster"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GlobalCluster removeFromGlobalCluster(RemoveFromGlobalClusterRequest removeFromGlobalClusterRequest);
 
     /**
      * <p>
@@ -1480,6 +1726,49 @@ public interface AmazonNeptune {
      *      target="_top">AWS API Documentation</a>
      */
     DBCluster restoreDBClusterToPointInTime(RestoreDBClusterToPointInTimeRequest restoreDBClusterToPointInTimeRequest);
+
+    /**
+     * <p>
+     * Starts an Amazon Neptune DB cluster that was stopped using the Amazon console, the Amazon CLI stop-db-cluster
+     * command, or the StopDBCluster API.
+     * </p>
+     * 
+     * @param startDBClusterRequest
+     * @return Result of the StartDBCluster operation returned by the service.
+     * @throws DBClusterNotFoundException
+     *         <i>DBClusterIdentifier</i> does not refer to an existing DB cluster.
+     * @throws InvalidDBClusterStateException
+     *         The DB cluster is not in a valid state.
+     * @throws InvalidDBInstanceStateException
+     *         The specified DB instance is not in the <i>available</i> state.
+     * @sample AmazonNeptune.StartDBCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/StartDBCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DBCluster startDBCluster(StartDBClusterRequest startDBClusterRequest);
+
+    /**
+     * <p>
+     * Stops an Amazon Neptune DB cluster. When you stop a DB cluster, Neptune retains the DB cluster's metadata,
+     * including its endpoints and DB parameter groups.
+     * </p>
+     * <p>
+     * Neptune also retains the transaction logs so you can do a point-in-time restore if necessary.
+     * </p>
+     * 
+     * @param stopDBClusterRequest
+     * @return Result of the StopDBCluster operation returned by the service.
+     * @throws DBClusterNotFoundException
+     *         <i>DBClusterIdentifier</i> does not refer to an existing DB cluster.
+     * @throws InvalidDBClusterStateException
+     *         The DB cluster is not in a valid state.
+     * @throws InvalidDBInstanceStateException
+     *         The specified DB instance is not in the <i>available</i> state.
+     * @sample AmazonNeptune.StopDBCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/StopDBCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DBCluster stopDBCluster(StopDBClusterRequest stopDBClusterRequest);
 
     /**
      * Shuts down this client object, releasing any resources that might be held open. This is an optional method, and

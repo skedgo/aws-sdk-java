@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,13 +52,19 @@ public class NetworkInterfaceAttachment implements Serializable, Cloneable {
     private Integer deviceIndex;
     /**
      * <p>
+     * The index of the network card.
+     * </p>
+     */
+    private Integer networkCardIndex;
+    /**
+     * <p>
      * The ID of the instance.
      * </p>
      */
     private String instanceId;
     /**
      * <p>
-     * The AWS account ID of the owner of the instance.
+     * The Amazon Web Services account ID of the owner of the instance.
      * </p>
      */
     private String instanceOwnerId;
@@ -68,6 +74,12 @@ public class NetworkInterfaceAttachment implements Serializable, Cloneable {
      * </p>
      */
     private String status;
+    /**
+     * <p>
+     * Configures ENA Express for the network interface that this action attaches to the instance.
+     * </p>
+     */
+    private AttachmentEnaSrdSpecification enaSrdSpecification;
 
     /**
      * <p>
@@ -243,6 +255,46 @@ public class NetworkInterfaceAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
+     * The index of the network card.
+     * </p>
+     * 
+     * @param networkCardIndex
+     *        The index of the network card.
+     */
+
+    public void setNetworkCardIndex(Integer networkCardIndex) {
+        this.networkCardIndex = networkCardIndex;
+    }
+
+    /**
+     * <p>
+     * The index of the network card.
+     * </p>
+     * 
+     * @return The index of the network card.
+     */
+
+    public Integer getNetworkCardIndex() {
+        return this.networkCardIndex;
+    }
+
+    /**
+     * <p>
+     * The index of the network card.
+     * </p>
+     * 
+     * @param networkCardIndex
+     *        The index of the network card.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NetworkInterfaceAttachment withNetworkCardIndex(Integer networkCardIndex) {
+        setNetworkCardIndex(networkCardIndex);
+        return this;
+    }
+
+    /**
+     * <p>
      * The ID of the instance.
      * </p>
      * 
@@ -283,11 +335,11 @@ public class NetworkInterfaceAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the owner of the instance.
+     * The Amazon Web Services account ID of the owner of the instance.
      * </p>
      * 
      * @param instanceOwnerId
-     *        The AWS account ID of the owner of the instance.
+     *        The Amazon Web Services account ID of the owner of the instance.
      */
 
     public void setInstanceOwnerId(String instanceOwnerId) {
@@ -296,10 +348,10 @@ public class NetworkInterfaceAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the owner of the instance.
+     * The Amazon Web Services account ID of the owner of the instance.
      * </p>
      * 
-     * @return The AWS account ID of the owner of the instance.
+     * @return The Amazon Web Services account ID of the owner of the instance.
      */
 
     public String getInstanceOwnerId() {
@@ -308,11 +360,11 @@ public class NetworkInterfaceAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the owner of the instance.
+     * The Amazon Web Services account ID of the owner of the instance.
      * </p>
      * 
      * @param instanceOwnerId
-     *        The AWS account ID of the owner of the instance.
+     *        The Amazon Web Services account ID of the owner of the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -395,6 +447,46 @@ public class NetworkInterfaceAttachment implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * Configures ENA Express for the network interface that this action attaches to the instance.
+     * </p>
+     * 
+     * @param enaSrdSpecification
+     *        Configures ENA Express for the network interface that this action attaches to the instance.
+     */
+
+    public void setEnaSrdSpecification(AttachmentEnaSrdSpecification enaSrdSpecification) {
+        this.enaSrdSpecification = enaSrdSpecification;
+    }
+
+    /**
+     * <p>
+     * Configures ENA Express for the network interface that this action attaches to the instance.
+     * </p>
+     * 
+     * @return Configures ENA Express for the network interface that this action attaches to the instance.
+     */
+
+    public AttachmentEnaSrdSpecification getEnaSrdSpecification() {
+        return this.enaSrdSpecification;
+    }
+
+    /**
+     * <p>
+     * Configures ENA Express for the network interface that this action attaches to the instance.
+     * </p>
+     * 
+     * @param enaSrdSpecification
+     *        Configures ENA Express for the network interface that this action attaches to the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NetworkInterfaceAttachment withEnaSrdSpecification(AttachmentEnaSrdSpecification enaSrdSpecification) {
+        setEnaSrdSpecification(enaSrdSpecification);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -414,12 +506,16 @@ public class NetworkInterfaceAttachment implements Serializable, Cloneable {
             sb.append("DeleteOnTermination: ").append(getDeleteOnTermination()).append(",");
         if (getDeviceIndex() != null)
             sb.append("DeviceIndex: ").append(getDeviceIndex()).append(",");
+        if (getNetworkCardIndex() != null)
+            sb.append("NetworkCardIndex: ").append(getNetworkCardIndex()).append(",");
         if (getInstanceId() != null)
             sb.append("InstanceId: ").append(getInstanceId()).append(",");
         if (getInstanceOwnerId() != null)
             sb.append("InstanceOwnerId: ").append(getInstanceOwnerId()).append(",");
         if (getStatus() != null)
-            sb.append("Status: ").append(getStatus());
+            sb.append("Status: ").append(getStatus()).append(",");
+        if (getEnaSrdSpecification() != null)
+            sb.append("EnaSrdSpecification: ").append(getEnaSrdSpecification());
         sb.append("}");
         return sb.toString();
     }
@@ -450,6 +546,10 @@ public class NetworkInterfaceAttachment implements Serializable, Cloneable {
             return false;
         if (other.getDeviceIndex() != null && other.getDeviceIndex().equals(this.getDeviceIndex()) == false)
             return false;
+        if (other.getNetworkCardIndex() == null ^ this.getNetworkCardIndex() == null)
+            return false;
+        if (other.getNetworkCardIndex() != null && other.getNetworkCardIndex().equals(this.getNetworkCardIndex()) == false)
+            return false;
         if (other.getInstanceId() == null ^ this.getInstanceId() == null)
             return false;
         if (other.getInstanceId() != null && other.getInstanceId().equals(this.getInstanceId()) == false)
@@ -461,6 +561,10 @@ public class NetworkInterfaceAttachment implements Serializable, Cloneable {
         if (other.getStatus() == null ^ this.getStatus() == null)
             return false;
         if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
+            return false;
+        if (other.getEnaSrdSpecification() == null ^ this.getEnaSrdSpecification() == null)
+            return false;
+        if (other.getEnaSrdSpecification() != null && other.getEnaSrdSpecification().equals(this.getEnaSrdSpecification()) == false)
             return false;
         return true;
     }
@@ -474,9 +578,11 @@ public class NetworkInterfaceAttachment implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getAttachmentId() == null) ? 0 : getAttachmentId().hashCode());
         hashCode = prime * hashCode + ((getDeleteOnTermination() == null) ? 0 : getDeleteOnTermination().hashCode());
         hashCode = prime * hashCode + ((getDeviceIndex() == null) ? 0 : getDeviceIndex().hashCode());
+        hashCode = prime * hashCode + ((getNetworkCardIndex() == null) ? 0 : getNetworkCardIndex().hashCode());
         hashCode = prime * hashCode + ((getInstanceId() == null) ? 0 : getInstanceId().hashCode());
         hashCode = prime * hashCode + ((getInstanceOwnerId() == null) ? 0 : getInstanceOwnerId().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        hashCode = prime * hashCode + ((getEnaSrdSpecification() == null) ? 0 : getEnaSrdSpecification().hashCode());
         return hashCode;
     }
 

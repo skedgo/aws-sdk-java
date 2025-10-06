@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,20 +27,56 @@ public class DescribeInstancePatchesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The ID of the instance whose patch state information should be retrieved.
+     * The ID of the managed node whose patch state information should be retrieved.
      * </p>
      */
     private String instanceId;
     /**
      * <p>
-     * Each entry in the array is a structure containing:
+     * Each element in the array is a structure containing a key-value pair.
      * </p>
      * <p>
-     * Key (string, between 1 and 128 characters)
+     * Supported keys for <code>DescribeInstancePatches</code>include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>Classification</code> </b>
      * </p>
      * <p>
-     * Values (array of strings, each string between 1 and 256 characters)
+     * Sample values: <code>Security</code> | <code>SecurityUpdates</code>
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>KBId</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>KB4480056</code> | <code>java-1.7.0-openjdk.x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>Severity</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>Important</code> | <code>Medium</code> | <code>Low</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>State</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>Installed</code> | <code>InstalledOther</code> | <code>InstalledPendingReboot</code>
+     * </p>
+     * <p>
+     * For lists of all <code>State</code> values, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-compliance-states.html"
+     * >Understanding patch compliance state values</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<PatchOrchestratorFilter> filters;
     /**
@@ -58,11 +94,11 @@ public class DescribeInstancePatchesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The ID of the instance whose patch state information should be retrieved.
+     * The ID of the managed node whose patch state information should be retrieved.
      * </p>
      * 
      * @param instanceId
-     *        The ID of the instance whose patch state information should be retrieved.
+     *        The ID of the managed node whose patch state information should be retrieved.
      */
 
     public void setInstanceId(String instanceId) {
@@ -71,10 +107,10 @@ public class DescribeInstancePatchesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The ID of the instance whose patch state information should be retrieved.
+     * The ID of the managed node whose patch state information should be retrieved.
      * </p>
      * 
-     * @return The ID of the instance whose patch state information should be retrieved.
+     * @return The ID of the managed node whose patch state information should be retrieved.
      */
 
     public String getInstanceId() {
@@ -83,11 +119,11 @@ public class DescribeInstancePatchesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The ID of the instance whose patch state information should be retrieved.
+     * The ID of the managed node whose patch state information should be retrieved.
      * </p>
      * 
      * @param instanceId
-     *        The ID of the instance whose patch state information should be retrieved.
+     *        The ID of the managed node whose patch state information should be retrieved.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -98,21 +134,94 @@ public class DescribeInstancePatchesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Each entry in the array is a structure containing:
+     * Each element in the array is a structure containing a key-value pair.
      * </p>
      * <p>
-     * Key (string, between 1 and 128 characters)
+     * Supported keys for <code>DescribeInstancePatches</code>include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>Classification</code> </b>
      * </p>
      * <p>
-     * Values (array of strings, each string between 1 and 256 characters)
+     * Sample values: <code>Security</code> | <code>SecurityUpdates</code>
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>KBId</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>KB4480056</code> | <code>java-1.7.0-openjdk.x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>Severity</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>Important</code> | <code>Medium</code> | <code>Low</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>State</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>Installed</code> | <code>InstalledOther</code> | <code>InstalledPendingReboot</code>
+     * </p>
+     * <p>
+     * For lists of all <code>State</code> values, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-compliance-states.html"
+     * >Understanding patch compliance state values</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return Each entry in the array is a structure containing:</p>
+     * @return Each element in the array is a structure containing a key-value pair.</p>
      *         <p>
-     *         Key (string, between 1 and 128 characters)
+     *         Supported keys for <code>DescribeInstancePatches</code>include the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <b> <code>Classification</code> </b>
      *         </p>
      *         <p>
-     *         Values (array of strings, each string between 1 and 256 characters)
+     *         Sample values: <code>Security</code> | <code>SecurityUpdates</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b> <code>KBId</code> </b>
+     *         </p>
+     *         <p>
+     *         Sample values: <code>KB4480056</code> | <code>java-1.7.0-openjdk.x86_64</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b> <code>Severity</code> </b>
+     *         </p>
+     *         <p>
+     *         Sample values: <code>Important</code> | <code>Medium</code> | <code>Low</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b> <code>State</code> </b>
+     *         </p>
+     *         <p>
+     *         Sample values: <code>Installed</code> | <code>InstalledOther</code> | <code>InstalledPendingReboot</code>
+     *         </p>
+     *         <p>
+     *         For lists of all <code>State</code> values, see <a
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-compliance-states.html"
+     *         >Understanding patch compliance state values</a> in the <i>Amazon Web Services Systems Manager User
+     *         Guide</i>.
+     *         </p>
+     *         </li>
      */
 
     public java.util.List<PatchOrchestratorFilter> getFilters() {
@@ -124,22 +233,95 @@ public class DescribeInstancePatchesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Each entry in the array is a structure containing:
+     * Each element in the array is a structure containing a key-value pair.
      * </p>
      * <p>
-     * Key (string, between 1 and 128 characters)
+     * Supported keys for <code>DescribeInstancePatches</code>include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>Classification</code> </b>
      * </p>
      * <p>
-     * Values (array of strings, each string between 1 and 256 characters)
+     * Sample values: <code>Security</code> | <code>SecurityUpdates</code>
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>KBId</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>KB4480056</code> | <code>java-1.7.0-openjdk.x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>Severity</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>Important</code> | <code>Medium</code> | <code>Low</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>State</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>Installed</code> | <code>InstalledOther</code> | <code>InstalledPendingReboot</code>
+     * </p>
+     * <p>
+     * For lists of all <code>State</code> values, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-compliance-states.html"
+     * >Understanding patch compliance state values</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param filters
-     *        Each entry in the array is a structure containing:</p>
+     *        Each element in the array is a structure containing a key-value pair.</p>
      *        <p>
-     *        Key (string, between 1 and 128 characters)
+     *        Supported keys for <code>DescribeInstancePatches</code>include the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b> <code>Classification</code> </b>
      *        </p>
      *        <p>
-     *        Values (array of strings, each string between 1 and 256 characters)
+     *        Sample values: <code>Security</code> | <code>SecurityUpdates</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b> <code>KBId</code> </b>
+     *        </p>
+     *        <p>
+     *        Sample values: <code>KB4480056</code> | <code>java-1.7.0-openjdk.x86_64</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b> <code>Severity</code> </b>
+     *        </p>
+     *        <p>
+     *        Sample values: <code>Important</code> | <code>Medium</code> | <code>Low</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b> <code>State</code> </b>
+     *        </p>
+     *        <p>
+     *        Sample values: <code>Installed</code> | <code>InstalledOther</code> | <code>InstalledPendingReboot</code>
+     *        </p>
+     *        <p>
+     *        For lists of all <code>State</code> values, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-compliance-states.html"
+     *        >Understanding patch compliance state values</a> in the <i>Amazon Web Services Systems Manager User
+     *        Guide</i>.
+     *        </p>
+     *        </li>
      */
 
     public void setFilters(java.util.Collection<PatchOrchestratorFilter> filters) {
@@ -153,14 +335,50 @@ public class DescribeInstancePatchesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Each entry in the array is a structure containing:
+     * Each element in the array is a structure containing a key-value pair.
      * </p>
      * <p>
-     * Key (string, between 1 and 128 characters)
+     * Supported keys for <code>DescribeInstancePatches</code>include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>Classification</code> </b>
      * </p>
      * <p>
-     * Values (array of strings, each string between 1 and 256 characters)
+     * Sample values: <code>Security</code> | <code>SecurityUpdates</code>
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>KBId</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>KB4480056</code> | <code>java-1.7.0-openjdk.x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>Severity</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>Important</code> | <code>Medium</code> | <code>Low</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>State</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>Installed</code> | <code>InstalledOther</code> | <code>InstalledPendingReboot</code>
+     * </p>
+     * <p>
+     * For lists of all <code>State</code> values, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-compliance-states.html"
+     * >Understanding patch compliance state values</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setFilters(java.util.Collection)} or {@link #withFilters(java.util.Collection)} if you want to override
@@ -168,12 +386,49 @@ public class DescribeInstancePatchesRequest extends com.amazonaws.AmazonWebServi
      * </p>
      * 
      * @param filters
-     *        Each entry in the array is a structure containing:</p>
+     *        Each element in the array is a structure containing a key-value pair.</p>
      *        <p>
-     *        Key (string, between 1 and 128 characters)
+     *        Supported keys for <code>DescribeInstancePatches</code>include the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b> <code>Classification</code> </b>
      *        </p>
      *        <p>
-     *        Values (array of strings, each string between 1 and 256 characters)
+     *        Sample values: <code>Security</code> | <code>SecurityUpdates</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b> <code>KBId</code> </b>
+     *        </p>
+     *        <p>
+     *        Sample values: <code>KB4480056</code> | <code>java-1.7.0-openjdk.x86_64</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b> <code>Severity</code> </b>
+     *        </p>
+     *        <p>
+     *        Sample values: <code>Important</code> | <code>Medium</code> | <code>Low</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b> <code>State</code> </b>
+     *        </p>
+     *        <p>
+     *        Sample values: <code>Installed</code> | <code>InstalledOther</code> | <code>InstalledPendingReboot</code>
+     *        </p>
+     *        <p>
+     *        For lists of all <code>State</code> values, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-compliance-states.html"
+     *        >Understanding patch compliance state values</a> in the <i>Amazon Web Services Systems Manager User
+     *        Guide</i>.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -189,22 +444,95 @@ public class DescribeInstancePatchesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Each entry in the array is a structure containing:
+     * Each element in the array is a structure containing a key-value pair.
      * </p>
      * <p>
-     * Key (string, between 1 and 128 characters)
+     * Supported keys for <code>DescribeInstancePatches</code>include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>Classification</code> </b>
      * </p>
      * <p>
-     * Values (array of strings, each string between 1 and 256 characters)
+     * Sample values: <code>Security</code> | <code>SecurityUpdates</code>
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>KBId</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>KB4480056</code> | <code>java-1.7.0-openjdk.x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>Severity</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>Important</code> | <code>Medium</code> | <code>Low</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>State</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>Installed</code> | <code>InstalledOther</code> | <code>InstalledPendingReboot</code>
+     * </p>
+     * <p>
+     * For lists of all <code>State</code> values, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-compliance-states.html"
+     * >Understanding patch compliance state values</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param filters
-     *        Each entry in the array is a structure containing:</p>
+     *        Each element in the array is a structure containing a key-value pair.</p>
      *        <p>
-     *        Key (string, between 1 and 128 characters)
+     *        Supported keys for <code>DescribeInstancePatches</code>include the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b> <code>Classification</code> </b>
      *        </p>
      *        <p>
-     *        Values (array of strings, each string between 1 and 256 characters)
+     *        Sample values: <code>Security</code> | <code>SecurityUpdates</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b> <code>KBId</code> </b>
+     *        </p>
+     *        <p>
+     *        Sample values: <code>KB4480056</code> | <code>java-1.7.0-openjdk.x86_64</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b> <code>Severity</code> </b>
+     *        </p>
+     *        <p>
+     *        Sample values: <code>Important</code> | <code>Medium</code> | <code>Low</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b> <code>State</code> </b>
+     *        </p>
+     *        <p>
+     *        Sample values: <code>Installed</code> | <code>InstalledOther</code> | <code>InstalledPendingReboot</code>
+     *        </p>
+     *        <p>
+     *        For lists of all <code>State</code> values, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-compliance-states.html"
+     *        >Understanding patch compliance state values</a> in the <i>Amazon Web Services Systems Manager User
+     *        Guide</i>.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

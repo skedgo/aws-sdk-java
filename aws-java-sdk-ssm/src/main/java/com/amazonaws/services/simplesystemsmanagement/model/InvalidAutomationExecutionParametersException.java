@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,7 +16,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The supplied parameters for invoking the specified Automation document are incorrect. For example, they may not match
+ * The supplied parameters for invoking the specified Automation runbook are incorrect. For example, they may not match
  * the set of parameters permitted for the specified Automation document.
  * </p>
  */

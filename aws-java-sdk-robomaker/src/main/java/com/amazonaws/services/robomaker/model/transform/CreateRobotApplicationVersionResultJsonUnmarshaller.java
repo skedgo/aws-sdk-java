@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -62,7 +62,9 @@ public class CreateRobotApplicationVersionResultJsonUnmarshaller implements Unma
                 }
                 if (context.testExpression("sources", targetDepth)) {
                     context.nextToken();
-                    createRobotApplicationVersionResult.setSources(new ListUnmarshaller<Source>(SourceJsonUnmarshaller.getInstance()).unmarshall(context));
+                    createRobotApplicationVersionResult.setSources(new ListUnmarshaller<Source>(SourceJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("robotSoftwareSuite", targetDepth)) {
                     context.nextToken();
@@ -75,6 +77,10 @@ public class CreateRobotApplicationVersionResultJsonUnmarshaller implements Unma
                 if (context.testExpression("revisionId", targetDepth)) {
                     context.nextToken();
                     createRobotApplicationVersionResult.setRevisionId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("environment", targetDepth)) {
+                    context.nextToken();
+                    createRobotApplicationVersionResult.setEnvironment(EnvironmentJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,8 +16,9 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an operation that
- * is already completed. For a domain name, it might not be a valid domain name or belong to the requester account.
+ * The requested item is not acceptable. For example, for APIs that accept a domain name, the request might specify a
+ * domain name that doesn't belong to the account that submitted the request. For
+ * <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

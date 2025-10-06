@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.lexruntime.AmazonLexRuntimeClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.lexruntime.model.*;
+
 import com.amazonaws.services.lexruntime.model.transform.*;
 
 /**
@@ -83,40 +84,40 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DependencyFailedException").withModeledClass(
-                                    com.amazonaws.services.lexruntime.model.DependencyFailedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.lexruntime.model.transform.ConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withModeledClass(
-                                    com.amazonaws.services.lexruntime.model.ConflictException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.lexruntime.model.transform.NotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withModeledClass(
-                                    com.amazonaws.services.lexruntime.model.NotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalFailureException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.lexruntime.model.transform.InternalFailureExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalFailureException").withModeledClass(
-                                    com.amazonaws.services.lexruntime.model.InternalFailureException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RequestTimeoutException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.lexruntime.model.transform.RequestTimeoutExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RequestTimeoutException").withModeledClass(
-                                    com.amazonaws.services.lexruntime.model.RequestTimeoutException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DependencyFailedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.lexruntime.model.transform.DependencyFailedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedMediaTypeException").withModeledClass(
-                                    com.amazonaws.services.lexruntime.model.UnsupportedMediaTypeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedMediaTypeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.lexruntime.model.transform.UnsupportedMediaTypeExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotAcceptableException").withModeledClass(
-                                    com.amazonaws.services.lexruntime.model.NotAcceptableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotAcceptableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.lexruntime.model.transform.NotAcceptableExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withModeledClass(
-                                    com.amazonaws.services.lexruntime.model.BadRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.lexruntime.model.transform.BadRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.lexruntime.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.lexruntime.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BadGatewayException").withModeledClass(
-                                    com.amazonaws.services.lexruntime.model.BadGatewayException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BadGatewayException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.lexruntime.model.transform.BadGatewayExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LoopDetectedException").withModeledClass(
-                                    com.amazonaws.services.lexruntime.model.LoopDetectedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LoopDetectedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.lexruntime.model.transform.LoopDetectedExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.lexruntime.model.AmazonLexRuntimeException.class));
 
     public static AmazonLexRuntimeClientBuilder builder() {
@@ -163,6 +164,136 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
         requestHandler2s.addAll(chainFactory.newRequestHandlerChain("/com/amazonaws/services/lexruntime/request.handlers"));
         requestHandler2s.addAll(chainFactory.newRequestHandler2Chain("/com/amazonaws/services/lexruntime/request.handler2s"));
         requestHandler2s.addAll(chainFactory.getGlobalHandlers());
+    }
+
+    /**
+     * <p>
+     * Removes session information for a specified bot, alias, and user ID.
+     * </p>
+     * 
+     * @param deleteSessionRequest
+     * @return Result of the DeleteSession operation returned by the service.
+     * @throws NotFoundException
+     *         The resource (such as the Amazon Lex bot or an alias) that is referred to is not found.
+     * @throws BadRequestException
+     *         Request validation failed, there is no usable message in the context, or the bot build failed, is still
+     *         in progress, or contains unbuilt changes.
+     * @throws LimitExceededException
+     *         Exceeded a limit.
+     * @throws InternalFailureException
+     *         Internal service error. Retry the call.
+     * @throws ConflictException
+     *         Two clients are using the same AWS account, Amazon Lex bot, and user ID.
+     * @sample AmazonLexRuntime.DeleteSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/runtime.lex-2016-11-28/DeleteSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteSessionResult deleteSession(DeleteSessionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteSession(request);
+    }
+
+    @SdkInternalApi
+    final DeleteSessionResult executeDeleteSession(DeleteSessionRequest deleteSessionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteSessionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteSessionRequest> request = null;
+        Response<DeleteSessionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteSessionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteSessionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Lex Runtime Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSession");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteSessionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteSessionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns session information for a specified bot, alias, and user ID.
+     * </p>
+     * 
+     * @param getSessionRequest
+     * @return Result of the GetSession operation returned by the service.
+     * @throws NotFoundException
+     *         The resource (such as the Amazon Lex bot or an alias) that is referred to is not found.
+     * @throws BadRequestException
+     *         Request validation failed, there is no usable message in the context, or the bot build failed, is still
+     *         in progress, or contains unbuilt changes.
+     * @throws LimitExceededException
+     *         Exceeded a limit.
+     * @throws InternalFailureException
+     *         Internal service error. Retry the call.
+     * @sample AmazonLexRuntime.GetSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/runtime.lex-2016-11-28/GetSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetSessionResult getSession(GetSessionRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetSession(request);
+    }
+
+    @SdkInternalApi
+    final GetSessionResult executeGetSession(GetSessionRequest getSessionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getSessionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetSessionRequest> request = null;
+        Response<GetSessionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetSessionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSessionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Lex Runtime Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSession");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetSessionResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetSessionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
     }
 
     /**
@@ -248,7 +379,7 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
      * </ul>
      * <p>
      * In addition, Amazon Lex also returns your application-specific <code>sessionAttributes</code>. For more
-     * information, see <a href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html">Managing Conversation
+     * information, see <a href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html">Managing Conversation
      * Context</a>.
      * </p>
      * 
@@ -320,10 +451,13 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
                 request = new PostContentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(postContentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Lex Runtime Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PostContent");
                 request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
                 request.addHandlerContext(HandlerContextKey.HAS_STREAMING_INPUT, Boolean.TRUE);
 
             } finally {
@@ -333,6 +467,8 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
             HttpResponseHandler<AmazonWebServiceResponse<PostContentResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(false).withHasStreamingSuccessResponse(true), new PostContentResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
+
+            request.addHandlerContext(HandlerContextKey.HAS_STREAMING_OUTPUT, Boolean.TRUE);
 
             return response.getAwsResponse();
 
@@ -344,8 +480,8 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Sends user input (text-only) to Amazon Lex. Client applications can use this API to send requests to Amazon Lex
-     * at runtime. Amazon Lex then interprets the user input using the machine learning model it built for the bot.
+     * Sends user input to Amazon Lex. Client applications can use this API to send requests to Amazon Lex at runtime.
+     * Amazon Lex then interprets the user input using the machine learning model it built for the bot.
      * </p>
      * <p>
      * In response, Amazon Lex returns the next <code>message</code> to convey to the user an optional
@@ -422,7 +558,7 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
      * </ul>
      * <p>
      * In addition, Amazon Lex also returns your application-specific <code>sessionAttributes</code>. For more
-     * information, see <a href="http://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html">Managing Conversation
+     * information, see <a href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html">Managing Conversation
      * Context</a>.
      * </p>
      * 
@@ -488,6 +624,8 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
                 request = new PostTextRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(postTextRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Lex Runtime Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PostText");
@@ -500,6 +638,103 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
             HttpResponseHandler<AmazonWebServiceResponse<PostTextResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
                     .withPayloadJson(true).withHasStreamingSuccessResponse(false), new PostTextResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a new session or modifies an existing session with an Amazon Lex bot. Use this operation to enable your
+     * application to set the state of the bot.
+     * </p>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/lex/latest/dg/how-session-api.html">Managing
+     * Sessions</a>.
+     * </p>
+     * 
+     * @param putSessionRequest
+     * @return Result of the PutSession operation returned by the service.
+     * @throws NotFoundException
+     *         The resource (such as the Amazon Lex bot or an alias) that is referred to is not found.
+     * @throws BadRequestException
+     *         Request validation failed, there is no usable message in the context, or the bot build failed, is still
+     *         in progress, or contains unbuilt changes.
+     * @throws LimitExceededException
+     *         Exceeded a limit.
+     * @throws InternalFailureException
+     *         Internal service error. Retry the call.
+     * @throws ConflictException
+     *         Two clients are using the same AWS account, Amazon Lex bot, and user ID.
+     * @throws NotAcceptableException
+     *         The accept header in the request does not have a valid value.
+     * @throws DependencyFailedException
+     *         One of the dependencies, such as AWS Lambda or Amazon Polly, threw an exception. For example, </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If Amazon Lex does not have sufficient permissions to call a Lambda function.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If a Lambda function takes longer than 30 seconds to execute.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If a fulfillment Lambda function returns a <code>Delegate</code> dialog action without removing any slot
+     *         values.
+     *         </p>
+     *         </li>
+     * @throws BadGatewayException
+     *         Either the Amazon Lex bot is still building, or one of the dependent services (Amazon Polly, AWS Lambda)
+     *         failed with an internal service error.
+     * @sample AmazonLexRuntime.PutSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/runtime.lex-2016-11-28/PutSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public PutSessionResult putSession(PutSessionRequest request) {
+        request = beforeClientExecution(request);
+        return executePutSession(request);
+    }
+
+    @SdkInternalApi
+    final PutSessionResult executePutSession(PutSessionRequest putSessionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putSessionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutSessionRequest> request = null;
+        Response<PutSessionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutSessionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putSessionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Lex Runtime Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutSession");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutSessionResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(false).withHasStreamingSuccessResponse(true), new PutSessionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            request.addHandlerContext(HandlerContextKey.HAS_STREAMING_OUTPUT, Boolean.TRUE);
 
             return response.getAwsResponse();
 
@@ -583,6 +818,11 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,6 +41,103 @@ public interface AmazonKinesisVideoArchivedMedia {
 
     /**
      * <p>
+     * Downloads an MP4 file (clip) containing the archived, on-demand media from the specified video stream over the
+     * specified time range.
+     * </p>
+     * <p>
+     * Both the StreamName and the StreamARN parameters are optional, but you must specify either the StreamName or the
+     * StreamARN when invoking this API operation.
+     * </p>
+     * <p>
+     * As a prerequisite to using GetCLip API, you must obtain an endpoint using <code>GetDataEndpoint</code>,
+     * specifying GET_CLIP for<code/> the <code>APIName</code> parameter.
+     * </p>
+     * <p>
+     * An Amazon Kinesis video stream has the following requirements for providing data through MP4:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The media must contain h.264 or h.265 encoded video and, optionally, AAC or G.711 encoded audio. Specifically,
+     * the codec ID of track 1 should be <code>V_MPEG/ISO/AVC</code> (for h.264) or V_MPEGH/ISO/HEVC (for H.265).
+     * Optionally, the codec ID of track 2 should be <code>A_AAC</code> (for AAC) or A_MS/ACM (for G.711).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Data retention must be greater than 0.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The video track of each fragment must contain codec private data in the Advanced Video Coding (AVC) for H.264
+     * format and HEVC for H.265 format. For more information, see <a
+     * href="https://www.iso.org/standard/55980.html">MPEG-4 specification ISO/IEC 14496-15</a>. For information about
+     * adapting stream data to a given format, see <a
+     * href="http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/producer-reference-nal.html">NAL Adaptation
+     * Flags</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The audio track (if present) of each fragment must contain codec private data in the AAC format (<a
+     * href="https://www.iso.org/standard/43345.html">AAC specification ISO/IEC 13818-7</a>) or the <a
+     * href="http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html">MS Wave format</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can monitor the amount of outgoing data by monitoring the <code>GetClip.OutgoingBytes</code> Amazon
+     * CloudWatch metric. For information about using CloudWatch to monitor Kinesis Video Streams, see <a
+     * href="http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/monitoring.html">Monitoring Kinesis Video
+     * Streams</a>. For pricing information, see <a href="https://aws.amazon.com/kinesis/video-streams/pricing/">Amazon
+     * Kinesis Video Streams Pricing</a> and <a href="https://aws.amazon.com/pricing/"> Amazon Web Services Pricing</a>.
+     * Charges for outgoing Amazon Web Services data apply.
+     * </p>
+     * 
+     * @param getClipRequest
+     * @return Result of the GetClip operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         <code>GetImages</code> will throw this error when Kinesis Video Streams can't find the stream that you
+     *         specified.</p>
+     *         <p>
+     *         <code>GetHLSStreamingSessionURL</code> and <code>GetDASHStreamingSessionURL</code> throw this error if a
+     *         session with a <code>PlaybackMode</code> of <code>ON_DEMAND</code> or <code>LIVE_REPLAY</code>is
+     *         requested for a stream that has no fragments within the requested time range, or if a session with a
+     *         <code>PlaybackMode</code> of <code>LIVE</code> is requested for a stream that has no fragments within the
+     *         last 30 seconds.
+     * @throws InvalidArgumentException
+     *         A specified parameter exceeds its restrictions, is not supported, or can't be used.
+     * @throws ClientLimitExceededException
+     *         Kinesis Video Streams has throttled the request because you have exceeded a limit. Try making the call
+     *         later. For information about limits, see <a
+     *         href="http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html">Kinesis Video Streams
+     *         Limits</a>.
+     * @throws NotAuthorizedException
+     *         Status Code: 403, The caller is not authorized to perform an operation on the given stream, or the token
+     *         has expired.
+     * @throws UnsupportedStreamMediaTypeException
+     *         The type of the media (for example, h.264 or h.265 video or ACC or G.711 audio) could not be determined
+     *         from the codec IDs of the tracks in the first fragment for a playback session. The codec ID for track 1
+     *         should be <code>V_MPEG/ISO/AVC</code> and, optionally, the codec ID for track 2 should be
+     *         <code>A_AAC</code>.
+     * @throws MissingCodecPrivateDataException
+     *         No codec private data was found in at least one of tracks of the video stream.
+     * @throws InvalidCodecPrivateDataException
+     *         The codec private data in at least one of the tracks of the video stream is not valid for this operation.
+     * @throws InvalidMediaFrameException
+     *         One or more frames in the requested clip could not be parsed based on the specified codec.
+     * @throws NoDataRetentionException
+     *         <code>GetImages</code> was requested for a stream that does not retain data (that is, has a
+     *         <code>DataRetentionInHours</code> of 0).
+     * @sample AmazonKinesisVideoArchivedMedia.GetClip
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/GetClip"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetClipResult getClip(GetClipRequest getClipRequest);
+
+    /**
+     * <p>
      * Retrieves an MPEG Dynamic Adaptive Streaming over HTTP (DASH) URL for the stream. You can then open the URL in a
      * media player to view the stream contents.
      * </p>
@@ -55,8 +152,8 @@ public interface AmazonKinesisVideoArchivedMedia {
      * <li>
      * <p>
      * The media must contain h.264 or h.265 encoded video and, optionally, AAC or G.711 encoded audio. Specifically,
-     * the codec id of track 1 should be <code>V_MPEG/ISO/AVC</code> (for h.264) or V_MPEGH/ISO/HEVC (for H.265).
-     * Optionally, the codec id of track 2 should be <code>A_AAC</code> (for AAC) or A_MS/ACM (for G.711).
+     * the codec ID of track 1 should be <code>V_MPEG/ISO/AVC</code> (for h.264) or V_MPEGH/ISO/HEVC (for H.265).
+     * Optionally, the codec ID of track 2 should be <code>A_AAC</code> (for AAC) or A_MS/ACM (for G.711).
      * </p>
      * </li>
      * <li>
@@ -102,8 +199,9 @@ public interface AmazonKinesisVideoArchivedMedia {
      * </p>
      * <note>
      * <p>
-     * Don't share or store this token where an unauthorized entity could access it. The token provides access to the
-     * content of the stream. Safeguard the token with the same measures that you would use with your AWS credentials.
+     * Don't share or store this token where an unauthorized entity can access it. The token provides access to the
+     * content of the stream. Safeguard the token with the same measures that you use with your Amazon Web Services
+     * credentials.
      * </p>
      * </note>
      * <p>
@@ -115,7 +213,7 @@ public interface AmazonKinesisVideoArchivedMedia {
      * <li>
      * <p>
      * Provide the URL (containing the encrypted session token) for the MPEG-DASH manifest to a media player that
-     * supports the MPEG-DASH protocol. Kinesis Video Streams makes the initialization fragment, and media fragments
+     * supports the MPEG-DASH protocol. Kinesis Video Streams makes the initialization fragment and media fragments
      * available through the manifest URL. The initialization fragment contains the codec private data for the stream,
      * and other data needed to set up the video or audio decoder and renderer. The media fragments contain encoded
      * video frames or encoded audio samples.
@@ -168,30 +266,9 @@ public interface AmazonKinesisVideoArchivedMedia {
      * </ol>
      * <note>
      * <p>
-     * The following restrictions apply to MPEG-DASH sessions:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * A streaming session URL should not be shared between players. The service might throttle a session if multiple
-     * media players are sharing it. For connection limits, see <a
+     * For restrictions that apply to MPEG-DASH sessions, see <a
      * href="http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html">Kinesis Video Streams Limits</a>.
      * </p>
-     * </li>
-     * <li>
-     * <p>
-     * A Kinesis video stream can have a maximum of ten active MPEG-DASH streaming sessions. If a new session is created
-     * when the maximum number of sessions is already active, the oldest (earliest created) session is closed. The
-     * number of active <code>GetMedia</code> connections on a Kinesis video stream does not count against this limit,
-     * and the number of active MPEG-DASH sessions does not count against the active <code>GetMedia</code> connection
-     * limit.
-     * </p>
-     * <note>
-     * <p>
-     * The maximum limits for active HLS and MPEG-DASH streaming sessions are independent of each other.
-     * </p>
-     * </note></li>
-     * </ul>
      * </note>
      * <p>
      * You can monitor the amount of data that the media player consumes by monitoring the
@@ -199,8 +276,8 @@ public interface AmazonKinesisVideoArchivedMedia {
      * to monitor Kinesis Video Streams, see <a
      * href="http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/monitoring.html">Monitoring Kinesis Video
      * Streams</a>. For pricing information, see <a href="https://aws.amazon.com/kinesis/video-streams/pricing/">Amazon
-     * Kinesis Video Streams Pricing</a> and <a href="https://aws.amazon.com/pricing/">AWS Pricing</a>. Charges for both
-     * HLS sessions and outgoing AWS data apply.
+     * Kinesis Video Streams Pricing</a> and <a href="https://aws.amazon.com/pricing/">Amazon Web Services Pricing</a>.
+     * Charges for both HLS sessions and outgoing Amazon Web Services data apply.
      * </p>
      * <p>
      * For more information about HLS, see <a href="https://developer.apple.com/streaming/">HTTP Live Streaming</a> on
@@ -220,8 +297,8 @@ public interface AmazonKinesisVideoArchivedMedia {
      * </li>
      * <li>
      * <p>
-     * <code>x-amz-RequestId</code> HTTP header – if you want to report an issue to AWS, the support team can better
-     * diagnose the problem if given the Request Id.
+     * <code>x-amz-RequestId</code> HTTP header – if you want to report an issue to Amazon Web Services the support team
+     * can better diagnose the problem if given the Request Id.
      * </p>
      * </li>
      * </ul>
@@ -239,7 +316,7 @@ public interface AmazonKinesisVideoArchivedMedia {
      * @param getDASHStreamingSessionURLRequest
      * @return Result of the GetDASHStreamingSessionURL operation returned by the service.
      * @throws ResourceNotFoundException
-     *         <code>GetMedia</code> throws this error when Kinesis Video Streams can't find the stream that you
+     *         <code>GetImages</code> will throw this error when Kinesis Video Streams can't find the stream that you
      *         specified.</p>
      *         <p>
      *         <code>GetHLSStreamingSessionURL</code> and <code>GetDASHStreamingSessionURL</code> throw this error if a
@@ -250,8 +327,10 @@ public interface AmazonKinesisVideoArchivedMedia {
      * @throws InvalidArgumentException
      *         A specified parameter exceeds its restrictions, is not supported, or can't be used.
      * @throws ClientLimitExceededException
-     *         Kinesis Video Streams has throttled the request because you have exceeded the limit of allowed client
-     *         calls. Try making the call later.
+     *         Kinesis Video Streams has throttled the request because you have exceeded a limit. Try making the call
+     *         later. For information about limits, see <a
+     *         href="http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html">Kinesis Video Streams
+     *         Limits</a>.
      * @throws NotAuthorizedException
      *         Status Code: 403, The caller is not authorized to perform an operation on the given stream, or the token
      *         has expired.
@@ -261,7 +340,7 @@ public interface AmazonKinesisVideoArchivedMedia {
      *         should be <code>V_MPEG/ISO/AVC</code> and, optionally, the codec ID for track 2 should be
      *         <code>A_AAC</code>.
      * @throws NoDataRetentionException
-     *         A streaming session was requested for a stream that does not retain data (that is, has a
+     *         <code>GetImages</code> was requested for a stream that does not retain data (that is, has a
      *         <code>DataRetentionInHours</code> of 0).
      * @throws MissingCodecPrivateDataException
      *         No codec private data was found in at least one of tracks of the video stream.
@@ -289,9 +368,10 @@ public interface AmazonKinesisVideoArchivedMedia {
      * <ul>
      * <li>
      * <p>
-     * The media must contain h.264 or h.265 encoded video and, optionally, AAC encoded audio. Specifically, the codec
-     * id of track 1 should be <code>V_MPEG/ISO/AVC</code> (for h.264) or <code>V_MPEG/ISO/HEVC</code> (for h.265).
-     * Optionally, the codec id of track 2 should be <code>A_AAC</code>.
+     * For streaming video, the media must contain H.264 or H.265 encoded video and, optionally, AAC encoded audio.
+     * Specifically, the codec ID of track 1 should be <code>V_MPEG/ISO/AVC</code> (for H.264) or
+     * <code>V_MPEG/ISO/HEVC</code> (for H.265). Optionally, the codec ID of track 2 should be <code>A_AAC</code>. For
+     * audio only streaming, the codec ID of track 1 should be <code>A_AAC</code>.
      * </p>
      * </li>
      * <li>
@@ -342,7 +422,8 @@ public interface AmazonKinesisVideoArchivedMedia {
      * <note>
      * <p>
      * Don't share or store this token where an unauthorized entity could access it. The token provides access to the
-     * content of the stream. Safeguard the token with the same measures that you would use with your AWS credentials.
+     * content of the stream. Safeguard the token with the same measures that you would use with your Amazon Web
+     * Services credentials.
      * </p>
      * </note>
      * <p>
@@ -405,15 +486,18 @@ public interface AmazonKinesisVideoArchivedMedia {
      * </p>
      * <note>
      * <p>
-     * After the first media fragment is made available in a streaming session, any fragments that don't contain the
-     * same codec private data cause an error to be returned when those different media fragments are loaded. Therefore,
-     * the codec private data should not change between fragments in a session. This also means that the session fails
-     * if the fragments in a stream change from having only video to having both audio and video.
+     * For the HLS streaming session, in-track codec private data (CPD) changes are supported. After the first media
+     * fragment is made available in a streaming session, fragments can contain CPD changes for each track. Therefore,
+     * the fragments in a session can have a different resolution, bit rate, or other information in the CPD without
+     * interrupting playback. However, any change made in the track number or track codec format can return an error
+     * when those different media fragments are loaded. For example, streaming will fail if the fragments in the stream
+     * change from having only video to having both audio and video, or if an AAC audio track is changed to an ALAW
+     * audio track. For each streaming session, only 500 CPD changes are allowed.
      * </p>
      * </note>
      * <p>
-     * Data retrieved with this action is billable. See <a
-     * href="https://aws.amazon.com/kinesis/video-streams/pricing/">Pricing</a> for details.
+     * Data retrieved with this action is billable. For information, see <a
+     * href="https://aws.amazon.com/kinesis/video-streams/pricing/">Pricing</a>.
      * </p>
      * </li>
      * <li>
@@ -435,40 +519,19 @@ public interface AmazonKinesisVideoArchivedMedia {
      * </ul>
      * </li>
      * </ol>
-     * <note>
      * <p>
-     * The following restrictions apply to HLS sessions:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * A streaming session URL should not be shared between players. The service might throttle a session if multiple
+     * A streaming session URL must not be shared between players. The service might throttle a session if multiple
      * media players are sharing it. For connection limits, see <a
      * href="http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html">Kinesis Video Streams Limits</a>.
      * </p>
-     * </li>
-     * <li>
-     * <p>
-     * A Kinesis video stream can have a maximum of ten active HLS streaming sessions. If a new session is created when
-     * the maximum number of sessions is already active, the oldest (earliest created) session is closed. The number of
-     * active <code>GetMedia</code> connections on a Kinesis video stream does not count against this limit, and the
-     * number of active HLS sessions does not count against the active <code>GetMedia</code> connection limit.
-     * </p>
-     * <note>
-     * <p>
-     * The maximum limits for active HLS and MPEG-DASH streaming sessions are independent of each other.
-     * </p>
-     * </note></li>
-     * </ul>
-     * </note>
      * <p>
      * You can monitor the amount of data that the media player consumes by monitoring the
      * <code>GetMP4MediaFragment.OutgoingBytes</code> Amazon CloudWatch metric. For information about using CloudWatch
      * to monitor Kinesis Video Streams, see <a
      * href="http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/monitoring.html">Monitoring Kinesis Video
      * Streams</a>. For pricing information, see <a href="https://aws.amazon.com/kinesis/video-streams/pricing/">Amazon
-     * Kinesis Video Streams Pricing</a> and <a href="https://aws.amazon.com/pricing/">AWS Pricing</a>. Charges for both
-     * HLS sessions and outgoing AWS data apply.
+     * Kinesis Video Streams Pricing</a> and <a href="https://aws.amazon.com/pricing/">Amazon Web Services Pricing</a>.
+     * Charges for both HLS sessions and outgoing Amazon Web Services data apply.
      * </p>
      * <p>
      * For more information about HLS, see <a href="https://developer.apple.com/streaming/">HTTP Live Streaming</a> on
@@ -488,8 +551,8 @@ public interface AmazonKinesisVideoArchivedMedia {
      * </li>
      * <li>
      * <p>
-     * <code>x-amz-RequestId</code> HTTP header – if you want to report an issue to AWS, the support team can better
-     * diagnose the problem if given the Request Id.
+     * <code>x-amz-RequestId</code> HTTP header – if you want to report an issue to Amazon Web Services, the support
+     * team can better diagnose the problem if given the Request Id.
      * </p>
      * </li>
      * </ul>
@@ -507,7 +570,7 @@ public interface AmazonKinesisVideoArchivedMedia {
      * @param getHLSStreamingSessionURLRequest
      * @return Result of the GetHLSStreamingSessionURL operation returned by the service.
      * @throws ResourceNotFoundException
-     *         <code>GetMedia</code> throws this error when Kinesis Video Streams can't find the stream that you
+     *         <code>GetImages</code> will throw this error when Kinesis Video Streams can't find the stream that you
      *         specified.</p>
      *         <p>
      *         <code>GetHLSStreamingSessionURL</code> and <code>GetDASHStreamingSessionURL</code> throw this error if a
@@ -518,8 +581,10 @@ public interface AmazonKinesisVideoArchivedMedia {
      * @throws InvalidArgumentException
      *         A specified parameter exceeds its restrictions, is not supported, or can't be used.
      * @throws ClientLimitExceededException
-     *         Kinesis Video Streams has throttled the request because you have exceeded the limit of allowed client
-     *         calls. Try making the call later.
+     *         Kinesis Video Streams has throttled the request because you have exceeded a limit. Try making the call
+     *         later. For information about limits, see <a
+     *         href="http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html">Kinesis Video Streams
+     *         Limits</a>.
      * @throws NotAuthorizedException
      *         Status Code: 403, The caller is not authorized to perform an operation on the given stream, or the token
      *         has expired.
@@ -529,7 +594,7 @@ public interface AmazonKinesisVideoArchivedMedia {
      *         should be <code>V_MPEG/ISO/AVC</code> and, optionally, the codec ID for track 2 should be
      *         <code>A_AAC</code>.
      * @throws NoDataRetentionException
-     *         A streaming session was requested for a stream that does not retain data (that is, has a
+     *         <code>GetImages</code> was requested for a stream that does not retain data (that is, has a
      *         <code>DataRetentionInHours</code> of 0).
      * @throws MissingCodecPrivateDataException
      *         No codec private data was found in at least one of tracks of the video stream.
@@ -544,6 +609,42 @@ public interface AmazonKinesisVideoArchivedMedia {
 
     /**
      * <p>
+     * Retrieves a list of images corresponding to each timestamp for a given time range, sampling interval, and image
+     * format configuration.
+     * </p>
+     * 
+     * @param getImagesRequest
+     * @return Result of the GetImages operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         <code>GetImages</code> will throw this error when Kinesis Video Streams can't find the stream that you
+     *         specified.</p>
+     *         <p>
+     *         <code>GetHLSStreamingSessionURL</code> and <code>GetDASHStreamingSessionURL</code> throw this error if a
+     *         session with a <code>PlaybackMode</code> of <code>ON_DEMAND</code> or <code>LIVE_REPLAY</code>is
+     *         requested for a stream that has no fragments within the requested time range, or if a session with a
+     *         <code>PlaybackMode</code> of <code>LIVE</code> is requested for a stream that has no fragments within the
+     *         last 30 seconds.
+     * @throws InvalidArgumentException
+     *         A specified parameter exceeds its restrictions, is not supported, or can't be used.
+     * @throws ClientLimitExceededException
+     *         Kinesis Video Streams has throttled the request because you have exceeded a limit. Try making the call
+     *         later. For information about limits, see <a
+     *         href="http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html">Kinesis Video Streams
+     *         Limits</a>.
+     * @throws NotAuthorizedException
+     *         Status Code: 403, The caller is not authorized to perform an operation on the given stream, or the token
+     *         has expired.
+     * @throws NoDataRetentionException
+     *         <code>GetImages</code> was requested for a stream that does not retain data (that is, has a
+     *         <code>DataRetentionInHours</code> of 0).
+     * @sample AmazonKinesisVideoArchivedMedia.GetImages
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/GetImages"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetImagesResult getImages(GetImagesRequest getImagesRequest);
+
+    /**
+     * <p>
      * Gets media for a list of fragments (specified by fragment number) from the archived data in an Amazon Kinesis
      * video stream.
      * </p>
@@ -555,21 +656,9 @@ public interface AmazonKinesisVideoArchivedMedia {
      * </p>
      * </note>
      * <p>
-     * The following limits apply when using the <code>GetMediaForFragmentList</code> API:
+     * For limits, see <a href="http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html">Kinesis Video
+     * Streams Limits</a>.
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * A client can call <code>GetMediaForFragmentList</code> up to five times per second per stream.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Kinesis Video Streams sends media data at a rate of up to 25 megabytes per second (or 200 megabits per second)
-     * during a <code>GetMediaForFragmentList</code> session.
-     * </p>
-     * </li>
-     * </ul>
      * <important>
      * <p>
      * If an error is thrown after invoking a Kinesis Video Streams archived media API, in addition to the HTTP status
@@ -584,8 +673,8 @@ public interface AmazonKinesisVideoArchivedMedia {
      * </li>
      * <li>
      * <p>
-     * <code>x-amz-RequestId</code> HTTP header – if you want to report an issue to AWS, the support team can better
-     * diagnose the problem if given the Request Id.
+     * <code>x-amz-RequestId</code> HTTP header – if you want to report an issue to Amazon Web Services, the support
+     * team can better diagnose the problem if given the Request Id.
      * </p>
      * </li>
      * </ul>
@@ -603,7 +692,7 @@ public interface AmazonKinesisVideoArchivedMedia {
      * @param getMediaForFragmentListRequest
      * @return Result of the GetMediaForFragmentList operation returned by the service.
      * @throws ResourceNotFoundException
-     *         <code>GetMedia</code> throws this error when Kinesis Video Streams can't find the stream that you
+     *         <code>GetImages</code> will throw this error when Kinesis Video Streams can't find the stream that you
      *         specified.</p>
      *         <p>
      *         <code>GetHLSStreamingSessionURL</code> and <code>GetDASHStreamingSessionURL</code> throw this error if a
@@ -614,8 +703,10 @@ public interface AmazonKinesisVideoArchivedMedia {
      * @throws InvalidArgumentException
      *         A specified parameter exceeds its restrictions, is not supported, or can't be used.
      * @throws ClientLimitExceededException
-     *         Kinesis Video Streams has throttled the request because you have exceeded the limit of allowed client
-     *         calls. Try making the call later.
+     *         Kinesis Video Streams has throttled the request because you have exceeded a limit. Try making the call
+     *         later. For information about limits, see <a
+     *         href="http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html">Kinesis Video Streams
+     *         Limits</a>.
      * @throws NotAuthorizedException
      *         Status Code: 403, The caller is not authorized to perform an operation on the given stream, or the token
      *         has expired.
@@ -655,8 +746,8 @@ public interface AmazonKinesisVideoArchivedMedia {
      * </li>
      * <li>
      * <p>
-     * <code>x-amz-RequestId</code> HTTP header – if you want to report an issue to AWS, the support team can better
-     * diagnose the problem if given the Request Id.
+     * <code>x-amz-RequestId</code> HTTP header – if you want to report an issue to Amazon Web Services, the support
+     * team can better diagnose the problem if given the Request Id.
      * </p>
      * </li>
      * </ul>
@@ -674,7 +765,7 @@ public interface AmazonKinesisVideoArchivedMedia {
      * @param listFragmentsRequest
      * @return Result of the ListFragments operation returned by the service.
      * @throws ResourceNotFoundException
-     *         <code>GetMedia</code> throws this error when Kinesis Video Streams can't find the stream that you
+     *         <code>GetImages</code> will throw this error when Kinesis Video Streams can't find the stream that you
      *         specified.</p>
      *         <p>
      *         <code>GetHLSStreamingSessionURL</code> and <code>GetDASHStreamingSessionURL</code> throw this error if a
@@ -685,8 +776,10 @@ public interface AmazonKinesisVideoArchivedMedia {
      * @throws InvalidArgumentException
      *         A specified parameter exceeds its restrictions, is not supported, or can't be used.
      * @throws ClientLimitExceededException
-     *         Kinesis Video Streams has throttled the request because you have exceeded the limit of allowed client
-     *         calls. Try making the call later.
+     *         Kinesis Video Streams has throttled the request because you have exceeded a limit. Try making the call
+     *         later. For information about limits, see <a
+     *         href="http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html">Kinesis Video Streams
+     *         Limits</a>.
      * @throws NotAuthorizedException
      *         Status Code: 403, The caller is not authorized to perform an operation on the given stream, or the token
      *         has expired.

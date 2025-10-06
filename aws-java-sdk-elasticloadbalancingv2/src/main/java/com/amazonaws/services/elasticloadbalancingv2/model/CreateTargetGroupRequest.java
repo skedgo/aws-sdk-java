@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,94 +38,113 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The protocol to use for routing traffic to the targets. For Application Load Balancers, the supported protocols
-     * are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or TCP_UDP. A TCP_UDP
-     * listener must be associated with a TCP_UDP target group. If the target is a Lambda function, this parameter does
-     * not apply.
+     * are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or TCP_UDP. For
+     * Gateway Load Balancers, the supported protocol is GENEVE. A TCP_UDP listener must be associated with a TCP_UDP
+     * target group. If the target is a Lambda function, this parameter does not apply.
      * </p>
      */
     private String protocol;
     /**
      * <p>
+     * [HTTP/HTTPS protocol] The protocol version. Specify <code>GRPC</code> to send requests to targets using gRPC.
+     * Specify <code>HTTP2</code> to send requests to targets using HTTP/2. The default is <code>HTTP1</code>, which
+     * sends requests to targets using HTTP/1.1.
+     * </p>
+     */
+    private String protocolVersion;
+    /**
+     * <p>
      * The port on which the targets receive traffic. This port is used unless you specify a port override when
-     * registering the target. If the target is a Lambda function, this parameter does not apply.
+     * registering the target. If the target is a Lambda function, this parameter does not apply. If the protocol is
+     * GENEVE, the supported port is 6081.
      * </p>
      */
     private Integer port;
     /**
      * <p>
      * The identifier of the virtual private cloud (VPC). If the target is a Lambda function, this parameter does not
-     * apply.
+     * apply. Otherwise, this parameter is required.
      * </p>
      */
     private String vpcId;
     /**
      * <p>
      * The protocol the load balancer uses when performing health checks on targets. For Application Load Balancers, the
-     * default is HTTP. For Network Load Balancers, the default is TCP. The TCP protocol is supported for health checks
-     * only if the protocol of the target group is TCP, TLS, UDP, or TCP_UDP. The TLS, UDP, and TCP_UDP protocols are
-     * not supported for health checks.
+     * default is HTTP. For Network Load Balancers and Gateway Load Balancers, the default is TCP. The TCP protocol is
+     * not supported for health checks if the protocol of the target group is HTTP or HTTPS. The GENEVE, TLS, UDP, and
+     * TCP_UDP protocols are not supported for health checks.
      * </p>
      */
     private String healthCheckProtocol;
     /**
      * <p>
-     * The port the load balancer uses when performing health checks on targets. The default is
-     * <code>traffic-port</code>, which is the port on which each target receives traffic from the load balancer.
+     * The port the load balancer uses when performing health checks on targets. If the protocol is HTTP, HTTPS, TCP,
+     * TLS, UDP, or TCP_UDP, the default is <code>traffic-port</code>, which is the port on which each target receives
+     * traffic from the load balancer. If the protocol is GENEVE, the default is port 80.
      * </p>
      */
     private String healthCheckPort;
     /**
      * <p>
      * Indicates whether health checks are enabled. If the target type is <code>lambda</code>, health checks are
-     * disabled by default but can be enabled. If the target type is <code>instance</code> or <code>ip</code>, health
-     * checks are always enabled and cannot be disabled.
+     * disabled by default but can be enabled. If the target type is <code>instance</code>, <code>ip</code>, or
+     * <code>alb</code>, health checks are always enabled and cannot be disabled.
      * </p>
      */
     private Boolean healthCheckEnabled;
     /**
      * <p>
-     * [HTTP/HTTPS health checks] The ping path that is the destination on the targets for health checks. The default is
-     * /.
+     * [HTTP/HTTPS health checks] The destination for health checks on the targets.
+     * </p>
+     * <p>
+     * [HTTP1 or HTTP2 protocol version] The ping path. The default is /.
+     * </p>
+     * <p>
+     * [GRPC protocol version] The path of a custom health check method with the format /package.service/method. The
+     * default is /Amazon Web Services.ALB/healthcheck.
      * </p>
      */
     private String healthCheckPath;
     /**
      * <p>
-     * The approximate amount of time, in seconds, between health checks of an individual target. For HTTP and HTTPS
-     * health checks, the range is 5–300 seconds. For TCP health checks, the supported values are 10 and 30 seconds. If
-     * the target type is <code>instance</code> or <code>ip</code>, the default is 30 seconds. If the target type is
-     * <code>lambda</code>, the default is 35 seconds.
+     * The approximate amount of time, in seconds, between health checks of an individual target. The range is 5-300. If
+     * the target group protocol is TCP, TLS, UDP, TCP_UDP, HTTP or HTTPS, the default is 30 seconds. If the target
+     * group protocol is GENEVE, the default is 10 seconds. If the target type is <code>lambda</code>, the default is 35
+     * seconds.
      * </p>
      */
     private Integer healthCheckIntervalSeconds;
     /**
      * <p>
-     * The amount of time, in seconds, during which no response from a target means a failed health check. For target
-     * groups with a protocol of HTTP or HTTPS, the default is 5 seconds. For target groups with a protocol of TCP or
-     * TLS, this value must be 6 seconds for HTTP health checks and 10 seconds for TCP and HTTPS health checks. If the
-     * target type is <code>lambda</code>, the default is 30 seconds.
+     * The amount of time, in seconds, during which no response from a target means a failed health check. The range is
+     * 2–120 seconds. For target groups with a protocol of HTTP, the default is 6 seconds. For target groups with a
+     * protocol of TCP, TLS or HTTPS, the default is 10 seconds. For target groups with a protocol of GENEVE, the
+     * default is 5 seconds. If the target type is <code>lambda</code>, the default is 30 seconds.
      * </p>
      */
     private Integer healthCheckTimeoutSeconds;
     /**
      * <p>
-     * The number of consecutive health checks successes required before considering an unhealthy target healthy. For
-     * target groups with a protocol of HTTP or HTTPS, the default is 5. For target groups with a protocol of TCP or
-     * TLS, the default is 3. If the target type is <code>lambda</code>, the default is 5.
+     * The number of consecutive health check successes required before considering a target healthy. The range is 2-10.
+     * If the target group protocol is TCP, TCP_UDP, UDP, TLS, HTTP or HTTPS, the default is 5. For target groups with a
+     * protocol of GENEVE, the default is 5. If the target type is <code>lambda</code>, the default is 5.
      * </p>
      */
     private Integer healthyThresholdCount;
     /**
      * <p>
-     * The number of consecutive health check failures required before considering a target unhealthy. For target groups
-     * with a protocol of HTTP or HTTPS, the default is 2. For target groups with a protocol of TCP or TLS, this value
-     * must be the same as the healthy threshold count. If the target type is <code>lambda</code>, the default is 2.
+     * The number of consecutive health check failures required before considering a target unhealthy. The range is
+     * 2-10. If the target group protocol is TCP, TCP_UDP, UDP, TLS, HTTP or HTTPS, the default is 2. For target groups
+     * with a protocol of GENEVE, the default is 2. If the target type is <code>lambda</code>, the default is 5.
      * </p>
      */
     private Integer unhealthyThresholdCount;
     /**
      * <p>
-     * [HTTP/HTTPS health checks] The HTTP codes to use when checking for a successful response from a target.
+     * [HTTP/HTTPS health checks] The HTTP or gRPC codes to use when checking for a successful response from a target.
+     * For target groups with a protocol of TCP, TCP_UDP, UDP or TLS the range is 200-599. For target groups with a
+     * protocol of HTTP or HTTPS, the range is 200-499. For target groups with a protocol of GENEVE, the range is
+     * 200-399.
      * </p>
      */
     private Matcher matcher;
@@ -137,25 +156,43 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
      * <ul>
      * <li>
      * <p>
-     * <code>instance</code> - Targets are specified by instance ID. This is the default value. If the target group
-     * protocol is UDP or TCP_UDP, the target type must be <code>instance</code>.
+     * <code>instance</code> - Register targets by instance ID. This is the default value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ip</code> - Targets are specified by IP address. You can specify IP addresses from the subnets of the
-     * virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
-     * 192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
+     * <code>ip</code> - Register targets by IP address. You can specify IP addresses from the subnets of the virtual
+     * private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16), and
+     * the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>lambda</code> - The target groups contains a single Lambda function.
+     * <code>lambda</code> - Register a single Lambda function as a target.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>alb</code> - Register a single Application Load Balancer as a target.
      * </p>
      * </li>
      * </ul>
      */
     private String targetType;
+    /**
+     * <p>
+     * The tags to assign to the target group.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     * <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     * <code>ipv4</code>.
+     * </p>
+     */
+    private String ipAddressType;
 
     /**
      * <p>
@@ -221,16 +258,16 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The protocol to use for routing traffic to the targets. For Application Load Balancers, the supported protocols
-     * are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or TCP_UDP. A TCP_UDP
-     * listener must be associated with a TCP_UDP target group. If the target is a Lambda function, this parameter does
-     * not apply.
+     * are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or TCP_UDP. For
+     * Gateway Load Balancers, the supported protocol is GENEVE. A TCP_UDP listener must be associated with a TCP_UDP
+     * target group. If the target is a Lambda function, this parameter does not apply.
      * </p>
      * 
      * @param protocol
      *        The protocol to use for routing traffic to the targets. For Application Load Balancers, the supported
      *        protocols are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or
-     *        TCP_UDP. A TCP_UDP listener must be associated with a TCP_UDP target group. If the target is a Lambda
-     *        function, this parameter does not apply.
+     *        TCP_UDP. For Gateway Load Balancers, the supported protocol is GENEVE. A TCP_UDP listener must be
+     *        associated with a TCP_UDP target group. If the target is a Lambda function, this parameter does not apply.
      * @see ProtocolEnum
      */
 
@@ -241,15 +278,16 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The protocol to use for routing traffic to the targets. For Application Load Balancers, the supported protocols
-     * are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or TCP_UDP. A TCP_UDP
-     * listener must be associated with a TCP_UDP target group. If the target is a Lambda function, this parameter does
-     * not apply.
+     * are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or TCP_UDP. For
+     * Gateway Load Balancers, the supported protocol is GENEVE. A TCP_UDP listener must be associated with a TCP_UDP
+     * target group. If the target is a Lambda function, this parameter does not apply.
      * </p>
      * 
      * @return The protocol to use for routing traffic to the targets. For Application Load Balancers, the supported
      *         protocols are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or
-     *         TCP_UDP. A TCP_UDP listener must be associated with a TCP_UDP target group. If the target is a Lambda
-     *         function, this parameter does not apply.
+     *         TCP_UDP. For Gateway Load Balancers, the supported protocol is GENEVE. A TCP_UDP listener must be
+     *         associated with a TCP_UDP target group. If the target is a Lambda function, this parameter does not
+     *         apply.
      * @see ProtocolEnum
      */
 
@@ -260,16 +298,16 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The protocol to use for routing traffic to the targets. For Application Load Balancers, the supported protocols
-     * are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or TCP_UDP. A TCP_UDP
-     * listener must be associated with a TCP_UDP target group. If the target is a Lambda function, this parameter does
-     * not apply.
+     * are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or TCP_UDP. For
+     * Gateway Load Balancers, the supported protocol is GENEVE. A TCP_UDP listener must be associated with a TCP_UDP
+     * target group. If the target is a Lambda function, this parameter does not apply.
      * </p>
      * 
      * @param protocol
      *        The protocol to use for routing traffic to the targets. For Application Load Balancers, the supported
      *        protocols are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or
-     *        TCP_UDP. A TCP_UDP listener must be associated with a TCP_UDP target group. If the target is a Lambda
-     *        function, this parameter does not apply.
+     *        TCP_UDP. For Gateway Load Balancers, the supported protocol is GENEVE. A TCP_UDP listener must be
+     *        associated with a TCP_UDP target group. If the target is a Lambda function, this parameter does not apply.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ProtocolEnum
      */
@@ -282,16 +320,16 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The protocol to use for routing traffic to the targets. For Application Load Balancers, the supported protocols
-     * are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or TCP_UDP. A TCP_UDP
-     * listener must be associated with a TCP_UDP target group. If the target is a Lambda function, this parameter does
-     * not apply.
+     * are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or TCP_UDP. For
+     * Gateway Load Balancers, the supported protocol is GENEVE. A TCP_UDP listener must be associated with a TCP_UDP
+     * target group. If the target is a Lambda function, this parameter does not apply.
      * </p>
      * 
      * @param protocol
      *        The protocol to use for routing traffic to the targets. For Application Load Balancers, the supported
      *        protocols are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or
-     *        TCP_UDP. A TCP_UDP listener must be associated with a TCP_UDP target group. If the target is a Lambda
-     *        function, this parameter does not apply.
+     *        TCP_UDP. For Gateway Load Balancers, the supported protocol is GENEVE. A TCP_UDP listener must be
+     *        associated with a TCP_UDP target group. If the target is a Lambda function, this parameter does not apply.
      * @see ProtocolEnum
      */
 
@@ -302,16 +340,16 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The protocol to use for routing traffic to the targets. For Application Load Balancers, the supported protocols
-     * are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or TCP_UDP. A TCP_UDP
-     * listener must be associated with a TCP_UDP target group. If the target is a Lambda function, this parameter does
-     * not apply.
+     * are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or TCP_UDP. For
+     * Gateway Load Balancers, the supported protocol is GENEVE. A TCP_UDP listener must be associated with a TCP_UDP
+     * target group. If the target is a Lambda function, this parameter does not apply.
      * </p>
      * 
      * @param protocol
      *        The protocol to use for routing traffic to the targets. For Application Load Balancers, the supported
      *        protocols are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or
-     *        TCP_UDP. A TCP_UDP listener must be associated with a TCP_UDP target group. If the target is a Lambda
-     *        function, this parameter does not apply.
+     *        TCP_UDP. For Gateway Load Balancers, the supported protocol is GENEVE. A TCP_UDP listener must be
+     *        associated with a TCP_UDP target group. If the target is a Lambda function, this parameter does not apply.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ProtocolEnum
      */
@@ -323,13 +361,67 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
+     * [HTTP/HTTPS protocol] The protocol version. Specify <code>GRPC</code> to send requests to targets using gRPC.
+     * Specify <code>HTTP2</code> to send requests to targets using HTTP/2. The default is <code>HTTP1</code>, which
+     * sends requests to targets using HTTP/1.1.
+     * </p>
+     * 
+     * @param protocolVersion
+     *        [HTTP/HTTPS protocol] The protocol version. Specify <code>GRPC</code> to send requests to targets using
+     *        gRPC. Specify <code>HTTP2</code> to send requests to targets using HTTP/2. The default is
+     *        <code>HTTP1</code>, which sends requests to targets using HTTP/1.1.
+     */
+
+    public void setProtocolVersion(String protocolVersion) {
+        this.protocolVersion = protocolVersion;
+    }
+
+    /**
+     * <p>
+     * [HTTP/HTTPS protocol] The protocol version. Specify <code>GRPC</code> to send requests to targets using gRPC.
+     * Specify <code>HTTP2</code> to send requests to targets using HTTP/2. The default is <code>HTTP1</code>, which
+     * sends requests to targets using HTTP/1.1.
+     * </p>
+     * 
+     * @return [HTTP/HTTPS protocol] The protocol version. Specify <code>GRPC</code> to send requests to targets using
+     *         gRPC. Specify <code>HTTP2</code> to send requests to targets using HTTP/2. The default is
+     *         <code>HTTP1</code>, which sends requests to targets using HTTP/1.1.
+     */
+
+    public String getProtocolVersion() {
+        return this.protocolVersion;
+    }
+
+    /**
+     * <p>
+     * [HTTP/HTTPS protocol] The protocol version. Specify <code>GRPC</code> to send requests to targets using gRPC.
+     * Specify <code>HTTP2</code> to send requests to targets using HTTP/2. The default is <code>HTTP1</code>, which
+     * sends requests to targets using HTTP/1.1.
+     * </p>
+     * 
+     * @param protocolVersion
+     *        [HTTP/HTTPS protocol] The protocol version. Specify <code>GRPC</code> to send requests to targets using
+     *        gRPC. Specify <code>HTTP2</code> to send requests to targets using HTTP/2. The default is
+     *        <code>HTTP1</code>, which sends requests to targets using HTTP/1.1.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTargetGroupRequest withProtocolVersion(String protocolVersion) {
+        setProtocolVersion(protocolVersion);
+        return this;
+    }
+
+    /**
+     * <p>
      * The port on which the targets receive traffic. This port is used unless you specify a port override when
-     * registering the target. If the target is a Lambda function, this parameter does not apply.
+     * registering the target. If the target is a Lambda function, this parameter does not apply. If the protocol is
+     * GENEVE, the supported port is 6081.
      * </p>
      * 
      * @param port
      *        The port on which the targets receive traffic. This port is used unless you specify a port override when
-     *        registering the target. If the target is a Lambda function, this parameter does not apply.
+     *        registering the target. If the target is a Lambda function, this parameter does not apply. If the protocol
+     *        is GENEVE, the supported port is 6081.
      */
 
     public void setPort(Integer port) {
@@ -339,11 +431,13 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The port on which the targets receive traffic. This port is used unless you specify a port override when
-     * registering the target. If the target is a Lambda function, this parameter does not apply.
+     * registering the target. If the target is a Lambda function, this parameter does not apply. If the protocol is
+     * GENEVE, the supported port is 6081.
      * </p>
      * 
      * @return The port on which the targets receive traffic. This port is used unless you specify a port override when
-     *         registering the target. If the target is a Lambda function, this parameter does not apply.
+     *         registering the target. If the target is a Lambda function, this parameter does not apply. If the
+     *         protocol is GENEVE, the supported port is 6081.
      */
 
     public Integer getPort() {
@@ -353,12 +447,14 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The port on which the targets receive traffic. This port is used unless you specify a port override when
-     * registering the target. If the target is a Lambda function, this parameter does not apply.
+     * registering the target. If the target is a Lambda function, this parameter does not apply. If the protocol is
+     * GENEVE, the supported port is 6081.
      * </p>
      * 
      * @param port
      *        The port on which the targets receive traffic. This port is used unless you specify a port override when
-     *        registering the target. If the target is a Lambda function, this parameter does not apply.
+     *        registering the target. If the target is a Lambda function, this parameter does not apply. If the protocol
+     *        is GENEVE, the supported port is 6081.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -370,12 +466,12 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The identifier of the virtual private cloud (VPC). If the target is a Lambda function, this parameter does not
-     * apply.
+     * apply. Otherwise, this parameter is required.
      * </p>
      * 
      * @param vpcId
      *        The identifier of the virtual private cloud (VPC). If the target is a Lambda function, this parameter does
-     *        not apply.
+     *        not apply. Otherwise, this parameter is required.
      */
 
     public void setVpcId(String vpcId) {
@@ -385,11 +481,11 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The identifier of the virtual private cloud (VPC). If the target is a Lambda function, this parameter does not
-     * apply.
+     * apply. Otherwise, this parameter is required.
      * </p>
      * 
      * @return The identifier of the virtual private cloud (VPC). If the target is a Lambda function, this parameter
-     *         does not apply.
+     *         does not apply. Otherwise, this parameter is required.
      */
 
     public String getVpcId() {
@@ -399,12 +495,12 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The identifier of the virtual private cloud (VPC). If the target is a Lambda function, this parameter does not
-     * apply.
+     * apply. Otherwise, this parameter is required.
      * </p>
      * 
      * @param vpcId
      *        The identifier of the virtual private cloud (VPC). If the target is a Lambda function, this parameter does
-     *        not apply.
+     *        not apply. Otherwise, this parameter is required.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -416,16 +512,16 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The protocol the load balancer uses when performing health checks on targets. For Application Load Balancers, the
-     * default is HTTP. For Network Load Balancers, the default is TCP. The TCP protocol is supported for health checks
-     * only if the protocol of the target group is TCP, TLS, UDP, or TCP_UDP. The TLS, UDP, and TCP_UDP protocols are
-     * not supported for health checks.
+     * default is HTTP. For Network Load Balancers and Gateway Load Balancers, the default is TCP. The TCP protocol is
+     * not supported for health checks if the protocol of the target group is HTTP or HTTPS. The GENEVE, TLS, UDP, and
+     * TCP_UDP protocols are not supported for health checks.
      * </p>
      * 
      * @param healthCheckProtocol
      *        The protocol the load balancer uses when performing health checks on targets. For Application Load
-     *        Balancers, the default is HTTP. For Network Load Balancers, the default is TCP. The TCP protocol is
-     *        supported for health checks only if the protocol of the target group is TCP, TLS, UDP, or TCP_UDP. The
-     *        TLS, UDP, and TCP_UDP protocols are not supported for health checks.
+     *        Balancers, the default is HTTP. For Network Load Balancers and Gateway Load Balancers, the default is TCP.
+     *        The TCP protocol is not supported for health checks if the protocol of the target group is HTTP or HTTPS.
+     *        The GENEVE, TLS, UDP, and TCP_UDP protocols are not supported for health checks.
      * @see ProtocolEnum
      */
 
@@ -436,15 +532,15 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The protocol the load balancer uses when performing health checks on targets. For Application Load Balancers, the
-     * default is HTTP. For Network Load Balancers, the default is TCP. The TCP protocol is supported for health checks
-     * only if the protocol of the target group is TCP, TLS, UDP, or TCP_UDP. The TLS, UDP, and TCP_UDP protocols are
-     * not supported for health checks.
+     * default is HTTP. For Network Load Balancers and Gateway Load Balancers, the default is TCP. The TCP protocol is
+     * not supported for health checks if the protocol of the target group is HTTP or HTTPS. The GENEVE, TLS, UDP, and
+     * TCP_UDP protocols are not supported for health checks.
      * </p>
      * 
      * @return The protocol the load balancer uses when performing health checks on targets. For Application Load
-     *         Balancers, the default is HTTP. For Network Load Balancers, the default is TCP. The TCP protocol is
-     *         supported for health checks only if the protocol of the target group is TCP, TLS, UDP, or TCP_UDP. The
-     *         TLS, UDP, and TCP_UDP protocols are not supported for health checks.
+     *         Balancers, the default is HTTP. For Network Load Balancers and Gateway Load Balancers, the default is
+     *         TCP. The TCP protocol is not supported for health checks if the protocol of the target group is HTTP or
+     *         HTTPS. The GENEVE, TLS, UDP, and TCP_UDP protocols are not supported for health checks.
      * @see ProtocolEnum
      */
 
@@ -455,16 +551,16 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The protocol the load balancer uses when performing health checks on targets. For Application Load Balancers, the
-     * default is HTTP. For Network Load Balancers, the default is TCP. The TCP protocol is supported for health checks
-     * only if the protocol of the target group is TCP, TLS, UDP, or TCP_UDP. The TLS, UDP, and TCP_UDP protocols are
-     * not supported for health checks.
+     * default is HTTP. For Network Load Balancers and Gateway Load Balancers, the default is TCP. The TCP protocol is
+     * not supported for health checks if the protocol of the target group is HTTP or HTTPS. The GENEVE, TLS, UDP, and
+     * TCP_UDP protocols are not supported for health checks.
      * </p>
      * 
      * @param healthCheckProtocol
      *        The protocol the load balancer uses when performing health checks on targets. For Application Load
-     *        Balancers, the default is HTTP. For Network Load Balancers, the default is TCP. The TCP protocol is
-     *        supported for health checks only if the protocol of the target group is TCP, TLS, UDP, or TCP_UDP. The
-     *        TLS, UDP, and TCP_UDP protocols are not supported for health checks.
+     *        Balancers, the default is HTTP. For Network Load Balancers and Gateway Load Balancers, the default is TCP.
+     *        The TCP protocol is not supported for health checks if the protocol of the target group is HTTP or HTTPS.
+     *        The GENEVE, TLS, UDP, and TCP_UDP protocols are not supported for health checks.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ProtocolEnum
      */
@@ -477,16 +573,16 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The protocol the load balancer uses when performing health checks on targets. For Application Load Balancers, the
-     * default is HTTP. For Network Load Balancers, the default is TCP. The TCP protocol is supported for health checks
-     * only if the protocol of the target group is TCP, TLS, UDP, or TCP_UDP. The TLS, UDP, and TCP_UDP protocols are
-     * not supported for health checks.
+     * default is HTTP. For Network Load Balancers and Gateway Load Balancers, the default is TCP. The TCP protocol is
+     * not supported for health checks if the protocol of the target group is HTTP or HTTPS. The GENEVE, TLS, UDP, and
+     * TCP_UDP protocols are not supported for health checks.
      * </p>
      * 
      * @param healthCheckProtocol
      *        The protocol the load balancer uses when performing health checks on targets. For Application Load
-     *        Balancers, the default is HTTP. For Network Load Balancers, the default is TCP. The TCP protocol is
-     *        supported for health checks only if the protocol of the target group is TCP, TLS, UDP, or TCP_UDP. The
-     *        TLS, UDP, and TCP_UDP protocols are not supported for health checks.
+     *        Balancers, the default is HTTP. For Network Load Balancers and Gateway Load Balancers, the default is TCP.
+     *        The TCP protocol is not supported for health checks if the protocol of the target group is HTTP or HTTPS.
+     *        The GENEVE, TLS, UDP, and TCP_UDP protocols are not supported for health checks.
      * @see ProtocolEnum
      */
 
@@ -497,16 +593,16 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The protocol the load balancer uses when performing health checks on targets. For Application Load Balancers, the
-     * default is HTTP. For Network Load Balancers, the default is TCP. The TCP protocol is supported for health checks
-     * only if the protocol of the target group is TCP, TLS, UDP, or TCP_UDP. The TLS, UDP, and TCP_UDP protocols are
-     * not supported for health checks.
+     * default is HTTP. For Network Load Balancers and Gateway Load Balancers, the default is TCP. The TCP protocol is
+     * not supported for health checks if the protocol of the target group is HTTP or HTTPS. The GENEVE, TLS, UDP, and
+     * TCP_UDP protocols are not supported for health checks.
      * </p>
      * 
      * @param healthCheckProtocol
      *        The protocol the load balancer uses when performing health checks on targets. For Application Load
-     *        Balancers, the default is HTTP. For Network Load Balancers, the default is TCP. The TCP protocol is
-     *        supported for health checks only if the protocol of the target group is TCP, TLS, UDP, or TCP_UDP. The
-     *        TLS, UDP, and TCP_UDP protocols are not supported for health checks.
+     *        Balancers, the default is HTTP. For Network Load Balancers and Gateway Load Balancers, the default is TCP.
+     *        The TCP protocol is not supported for health checks if the protocol of the target group is HTTP or HTTPS.
+     *        The GENEVE, TLS, UDP, and TCP_UDP protocols are not supported for health checks.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ProtocolEnum
      */
@@ -518,13 +614,15 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The port the load balancer uses when performing health checks on targets. The default is
-     * <code>traffic-port</code>, which is the port on which each target receives traffic from the load balancer.
+     * The port the load balancer uses when performing health checks on targets. If the protocol is HTTP, HTTPS, TCP,
+     * TLS, UDP, or TCP_UDP, the default is <code>traffic-port</code>, which is the port on which each target receives
+     * traffic from the load balancer. If the protocol is GENEVE, the default is port 80.
      * </p>
      * 
      * @param healthCheckPort
-     *        The port the load balancer uses when performing health checks on targets. The default is
-     *        <code>traffic-port</code>, which is the port on which each target receives traffic from the load balancer.
+     *        The port the load balancer uses when performing health checks on targets. If the protocol is HTTP, HTTPS,
+     *        TCP, TLS, UDP, or TCP_UDP, the default is <code>traffic-port</code>, which is the port on which each
+     *        target receives traffic from the load balancer. If the protocol is GENEVE, the default is port 80.
      */
 
     public void setHealthCheckPort(String healthCheckPort) {
@@ -533,13 +631,14 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The port the load balancer uses when performing health checks on targets. The default is
-     * <code>traffic-port</code>, which is the port on which each target receives traffic from the load balancer.
+     * The port the load balancer uses when performing health checks on targets. If the protocol is HTTP, HTTPS, TCP,
+     * TLS, UDP, or TCP_UDP, the default is <code>traffic-port</code>, which is the port on which each target receives
+     * traffic from the load balancer. If the protocol is GENEVE, the default is port 80.
      * </p>
      * 
-     * @return The port the load balancer uses when performing health checks on targets. The default is
-     *         <code>traffic-port</code>, which is the port on which each target receives traffic from the load
-     *         balancer.
+     * @return The port the load balancer uses when performing health checks on targets. If the protocol is HTTP, HTTPS,
+     *         TCP, TLS, UDP, or TCP_UDP, the default is <code>traffic-port</code>, which is the port on which each
+     *         target receives traffic from the load balancer. If the protocol is GENEVE, the default is port 80.
      */
 
     public String getHealthCheckPort() {
@@ -548,13 +647,15 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The port the load balancer uses when performing health checks on targets. The default is
-     * <code>traffic-port</code>, which is the port on which each target receives traffic from the load balancer.
+     * The port the load balancer uses when performing health checks on targets. If the protocol is HTTP, HTTPS, TCP,
+     * TLS, UDP, or TCP_UDP, the default is <code>traffic-port</code>, which is the port on which each target receives
+     * traffic from the load balancer. If the protocol is GENEVE, the default is port 80.
      * </p>
      * 
      * @param healthCheckPort
-     *        The port the load balancer uses when performing health checks on targets. The default is
-     *        <code>traffic-port</code>, which is the port on which each target receives traffic from the load balancer.
+     *        The port the load balancer uses when performing health checks on targets. If the protocol is HTTP, HTTPS,
+     *        TCP, TLS, UDP, or TCP_UDP, the default is <code>traffic-port</code>, which is the port on which each
+     *        target receives traffic from the load balancer. If the protocol is GENEVE, the default is port 80.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -566,14 +667,14 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * Indicates whether health checks are enabled. If the target type is <code>lambda</code>, health checks are
-     * disabled by default but can be enabled. If the target type is <code>instance</code> or <code>ip</code>, health
-     * checks are always enabled and cannot be disabled.
+     * disabled by default but can be enabled. If the target type is <code>instance</code>, <code>ip</code>, or
+     * <code>alb</code>, health checks are always enabled and cannot be disabled.
      * </p>
      * 
      * @param healthCheckEnabled
      *        Indicates whether health checks are enabled. If the target type is <code>lambda</code>, health checks are
-     *        disabled by default but can be enabled. If the target type is <code>instance</code> or <code>ip</code>,
-     *        health checks are always enabled and cannot be disabled.
+     *        disabled by default but can be enabled. If the target type is <code>instance</code>, <code>ip</code>, or
+     *        <code>alb</code>, health checks are always enabled and cannot be disabled.
      */
 
     public void setHealthCheckEnabled(Boolean healthCheckEnabled) {
@@ -583,13 +684,13 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * Indicates whether health checks are enabled. If the target type is <code>lambda</code>, health checks are
-     * disabled by default but can be enabled. If the target type is <code>instance</code> or <code>ip</code>, health
-     * checks are always enabled and cannot be disabled.
+     * disabled by default but can be enabled. If the target type is <code>instance</code>, <code>ip</code>, or
+     * <code>alb</code>, health checks are always enabled and cannot be disabled.
      * </p>
      * 
      * @return Indicates whether health checks are enabled. If the target type is <code>lambda</code>, health checks are
-     *         disabled by default but can be enabled. If the target type is <code>instance</code> or <code>ip</code>,
-     *         health checks are always enabled and cannot be disabled.
+     *         disabled by default but can be enabled. If the target type is <code>instance</code>, <code>ip</code>, or
+     *         <code>alb</code>, health checks are always enabled and cannot be disabled.
      */
 
     public Boolean getHealthCheckEnabled() {
@@ -599,14 +700,14 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * Indicates whether health checks are enabled. If the target type is <code>lambda</code>, health checks are
-     * disabled by default but can be enabled. If the target type is <code>instance</code> or <code>ip</code>, health
-     * checks are always enabled and cannot be disabled.
+     * disabled by default but can be enabled. If the target type is <code>instance</code>, <code>ip</code>, or
+     * <code>alb</code>, health checks are always enabled and cannot be disabled.
      * </p>
      * 
      * @param healthCheckEnabled
      *        Indicates whether health checks are enabled. If the target type is <code>lambda</code>, health checks are
-     *        disabled by default but can be enabled. If the target type is <code>instance</code> or <code>ip</code>,
-     *        health checks are always enabled and cannot be disabled.
+     *        disabled by default but can be enabled. If the target type is <code>instance</code>, <code>ip</code>, or
+     *        <code>alb</code>, health checks are always enabled and cannot be disabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -618,13 +719,13 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * Indicates whether health checks are enabled. If the target type is <code>lambda</code>, health checks are
-     * disabled by default but can be enabled. If the target type is <code>instance</code> or <code>ip</code>, health
-     * checks are always enabled and cannot be disabled.
+     * disabled by default but can be enabled. If the target type is <code>instance</code>, <code>ip</code>, or
+     * <code>alb</code>, health checks are always enabled and cannot be disabled.
      * </p>
      * 
      * @return Indicates whether health checks are enabled. If the target type is <code>lambda</code>, health checks are
-     *         disabled by default but can be enabled. If the target type is <code>instance</code> or <code>ip</code>,
-     *         health checks are always enabled and cannot be disabled.
+     *         disabled by default but can be enabled. If the target type is <code>instance</code>, <code>ip</code>, or
+     *         <code>alb</code>, health checks are always enabled and cannot be disabled.
      */
 
     public Boolean isHealthCheckEnabled() {
@@ -633,13 +734,24 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [HTTP/HTTPS health checks] The ping path that is the destination on the targets for health checks. The default is
-     * /.
+     * [HTTP/HTTPS health checks] The destination for health checks on the targets.
+     * </p>
+     * <p>
+     * [HTTP1 or HTTP2 protocol version] The ping path. The default is /.
+     * </p>
+     * <p>
+     * [GRPC protocol version] The path of a custom health check method with the format /package.service/method. The
+     * default is /Amazon Web Services.ALB/healthcheck.
      * </p>
      * 
      * @param healthCheckPath
-     *        [HTTP/HTTPS health checks] The ping path that is the destination on the targets for health checks. The
-     *        default is /.
+     *        [HTTP/HTTPS health checks] The destination for health checks on the targets.</p>
+     *        <p>
+     *        [HTTP1 or HTTP2 protocol version] The ping path. The default is /.
+     *        </p>
+     *        <p>
+     *        [GRPC protocol version] The path of a custom health check method with the format /package.service/method.
+     *        The default is /Amazon Web Services.ALB/healthcheck.
      */
 
     public void setHealthCheckPath(String healthCheckPath) {
@@ -648,12 +760,23 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [HTTP/HTTPS health checks] The ping path that is the destination on the targets for health checks. The default is
-     * /.
+     * [HTTP/HTTPS health checks] The destination for health checks on the targets.
+     * </p>
+     * <p>
+     * [HTTP1 or HTTP2 protocol version] The ping path. The default is /.
+     * </p>
+     * <p>
+     * [GRPC protocol version] The path of a custom health check method with the format /package.service/method. The
+     * default is /Amazon Web Services.ALB/healthcheck.
      * </p>
      * 
-     * @return [HTTP/HTTPS health checks] The ping path that is the destination on the targets for health checks. The
-     *         default is /.
+     * @return [HTTP/HTTPS health checks] The destination for health checks on the targets.</p>
+     *         <p>
+     *         [HTTP1 or HTTP2 protocol version] The ping path. The default is /.
+     *         </p>
+     *         <p>
+     *         [GRPC protocol version] The path of a custom health check method with the format /package.service/method.
+     *         The default is /Amazon Web Services.ALB/healthcheck.
      */
 
     public String getHealthCheckPath() {
@@ -662,13 +785,24 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [HTTP/HTTPS health checks] The ping path that is the destination on the targets for health checks. The default is
-     * /.
+     * [HTTP/HTTPS health checks] The destination for health checks on the targets.
+     * </p>
+     * <p>
+     * [HTTP1 or HTTP2 protocol version] The ping path. The default is /.
+     * </p>
+     * <p>
+     * [GRPC protocol version] The path of a custom health check method with the format /package.service/method. The
+     * default is /Amazon Web Services.ALB/healthcheck.
      * </p>
      * 
      * @param healthCheckPath
-     *        [HTTP/HTTPS health checks] The ping path that is the destination on the targets for health checks. The
-     *        default is /.
+     *        [HTTP/HTTPS health checks] The destination for health checks on the targets.</p>
+     *        <p>
+     *        [HTTP1 or HTTP2 protocol version] The ping path. The default is /.
+     *        </p>
+     *        <p>
+     *        [GRPC protocol version] The path of a custom health check method with the format /package.service/method.
+     *        The default is /Amazon Web Services.ALB/healthcheck.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -679,17 +813,17 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The approximate amount of time, in seconds, between health checks of an individual target. For HTTP and HTTPS
-     * health checks, the range is 5–300 seconds. For TCP health checks, the supported values are 10 and 30 seconds. If
-     * the target type is <code>instance</code> or <code>ip</code>, the default is 30 seconds. If the target type is
-     * <code>lambda</code>, the default is 35 seconds.
+     * The approximate amount of time, in seconds, between health checks of an individual target. The range is 5-300. If
+     * the target group protocol is TCP, TLS, UDP, TCP_UDP, HTTP or HTTPS, the default is 30 seconds. If the target
+     * group protocol is GENEVE, the default is 10 seconds. If the target type is <code>lambda</code>, the default is 35
+     * seconds.
      * </p>
      * 
      * @param healthCheckIntervalSeconds
-     *        The approximate amount of time, in seconds, between health checks of an individual target. For HTTP and
-     *        HTTPS health checks, the range is 5–300 seconds. For TCP health checks, the supported values are 10 and 30
-     *        seconds. If the target type is <code>instance</code> or <code>ip</code>, the default is 30 seconds. If the
-     *        target type is <code>lambda</code>, the default is 35 seconds.
+     *        The approximate amount of time, in seconds, between health checks of an individual target. The range is
+     *        5-300. If the target group protocol is TCP, TLS, UDP, TCP_UDP, HTTP or HTTPS, the default is 30 seconds.
+     *        If the target group protocol is GENEVE, the default is 10 seconds. If the target type is
+     *        <code>lambda</code>, the default is 35 seconds.
      */
 
     public void setHealthCheckIntervalSeconds(Integer healthCheckIntervalSeconds) {
@@ -698,16 +832,16 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The approximate amount of time, in seconds, between health checks of an individual target. For HTTP and HTTPS
-     * health checks, the range is 5–300 seconds. For TCP health checks, the supported values are 10 and 30 seconds. If
-     * the target type is <code>instance</code> or <code>ip</code>, the default is 30 seconds. If the target type is
-     * <code>lambda</code>, the default is 35 seconds.
+     * The approximate amount of time, in seconds, between health checks of an individual target. The range is 5-300. If
+     * the target group protocol is TCP, TLS, UDP, TCP_UDP, HTTP or HTTPS, the default is 30 seconds. If the target
+     * group protocol is GENEVE, the default is 10 seconds. If the target type is <code>lambda</code>, the default is 35
+     * seconds.
      * </p>
      * 
-     * @return The approximate amount of time, in seconds, between health checks of an individual target. For HTTP and
-     *         HTTPS health checks, the range is 5–300 seconds. For TCP health checks, the supported values are 10 and
-     *         30 seconds. If the target type is <code>instance</code> or <code>ip</code>, the default is 30 seconds. If
-     *         the target type is <code>lambda</code>, the default is 35 seconds.
+     * @return The approximate amount of time, in seconds, between health checks of an individual target. The range is
+     *         5-300. If the target group protocol is TCP, TLS, UDP, TCP_UDP, HTTP or HTTPS, the default is 30 seconds.
+     *         If the target group protocol is GENEVE, the default is 10 seconds. If the target type is
+     *         <code>lambda</code>, the default is 35 seconds.
      */
 
     public Integer getHealthCheckIntervalSeconds() {
@@ -716,17 +850,17 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The approximate amount of time, in seconds, between health checks of an individual target. For HTTP and HTTPS
-     * health checks, the range is 5–300 seconds. For TCP health checks, the supported values are 10 and 30 seconds. If
-     * the target type is <code>instance</code> or <code>ip</code>, the default is 30 seconds. If the target type is
-     * <code>lambda</code>, the default is 35 seconds.
+     * The approximate amount of time, in seconds, between health checks of an individual target. The range is 5-300. If
+     * the target group protocol is TCP, TLS, UDP, TCP_UDP, HTTP or HTTPS, the default is 30 seconds. If the target
+     * group protocol is GENEVE, the default is 10 seconds. If the target type is <code>lambda</code>, the default is 35
+     * seconds.
      * </p>
      * 
      * @param healthCheckIntervalSeconds
-     *        The approximate amount of time, in seconds, between health checks of an individual target. For HTTP and
-     *        HTTPS health checks, the range is 5–300 seconds. For TCP health checks, the supported values are 10 and 30
-     *        seconds. If the target type is <code>instance</code> or <code>ip</code>, the default is 30 seconds. If the
-     *        target type is <code>lambda</code>, the default is 35 seconds.
+     *        The approximate amount of time, in seconds, between health checks of an individual target. The range is
+     *        5-300. If the target group protocol is TCP, TLS, UDP, TCP_UDP, HTTP or HTTPS, the default is 30 seconds.
+     *        If the target group protocol is GENEVE, the default is 10 seconds. If the target type is
+     *        <code>lambda</code>, the default is 35 seconds.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -737,17 +871,17 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The amount of time, in seconds, during which no response from a target means a failed health check. For target
-     * groups with a protocol of HTTP or HTTPS, the default is 5 seconds. For target groups with a protocol of TCP or
-     * TLS, this value must be 6 seconds for HTTP health checks and 10 seconds for TCP and HTTPS health checks. If the
-     * target type is <code>lambda</code>, the default is 30 seconds.
+     * The amount of time, in seconds, during which no response from a target means a failed health check. The range is
+     * 2–120 seconds. For target groups with a protocol of HTTP, the default is 6 seconds. For target groups with a
+     * protocol of TCP, TLS or HTTPS, the default is 10 seconds. For target groups with a protocol of GENEVE, the
+     * default is 5 seconds. If the target type is <code>lambda</code>, the default is 30 seconds.
      * </p>
      * 
      * @param healthCheckTimeoutSeconds
-     *        The amount of time, in seconds, during which no response from a target means a failed health check. For
-     *        target groups with a protocol of HTTP or HTTPS, the default is 5 seconds. For target groups with a
-     *        protocol of TCP or TLS, this value must be 6 seconds for HTTP health checks and 10 seconds for TCP and
-     *        HTTPS health checks. If the target type is <code>lambda</code>, the default is 30 seconds.
+     *        The amount of time, in seconds, during which no response from a target means a failed health check. The
+     *        range is 2–120 seconds. For target groups with a protocol of HTTP, the default is 6 seconds. For target
+     *        groups with a protocol of TCP, TLS or HTTPS, the default is 10 seconds. For target groups with a protocol
+     *        of GENEVE, the default is 5 seconds. If the target type is <code>lambda</code>, the default is 30 seconds.
      */
 
     public void setHealthCheckTimeoutSeconds(Integer healthCheckTimeoutSeconds) {
@@ -756,16 +890,17 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The amount of time, in seconds, during which no response from a target means a failed health check. For target
-     * groups with a protocol of HTTP or HTTPS, the default is 5 seconds. For target groups with a protocol of TCP or
-     * TLS, this value must be 6 seconds for HTTP health checks and 10 seconds for TCP and HTTPS health checks. If the
-     * target type is <code>lambda</code>, the default is 30 seconds.
+     * The amount of time, in seconds, during which no response from a target means a failed health check. The range is
+     * 2–120 seconds. For target groups with a protocol of HTTP, the default is 6 seconds. For target groups with a
+     * protocol of TCP, TLS or HTTPS, the default is 10 seconds. For target groups with a protocol of GENEVE, the
+     * default is 5 seconds. If the target type is <code>lambda</code>, the default is 30 seconds.
      * </p>
      * 
-     * @return The amount of time, in seconds, during which no response from a target means a failed health check. For
-     *         target groups with a protocol of HTTP or HTTPS, the default is 5 seconds. For target groups with a
-     *         protocol of TCP or TLS, this value must be 6 seconds for HTTP health checks and 10 seconds for TCP and
-     *         HTTPS health checks. If the target type is <code>lambda</code>, the default is 30 seconds.
+     * @return The amount of time, in seconds, during which no response from a target means a failed health check. The
+     *         range is 2–120 seconds. For target groups with a protocol of HTTP, the default is 6 seconds. For target
+     *         groups with a protocol of TCP, TLS or HTTPS, the default is 10 seconds. For target groups with a protocol
+     *         of GENEVE, the default is 5 seconds. If the target type is <code>lambda</code>, the default is 30
+     *         seconds.
      */
 
     public Integer getHealthCheckTimeoutSeconds() {
@@ -774,17 +909,17 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The amount of time, in seconds, during which no response from a target means a failed health check. For target
-     * groups with a protocol of HTTP or HTTPS, the default is 5 seconds. For target groups with a protocol of TCP or
-     * TLS, this value must be 6 seconds for HTTP health checks and 10 seconds for TCP and HTTPS health checks. If the
-     * target type is <code>lambda</code>, the default is 30 seconds.
+     * The amount of time, in seconds, during which no response from a target means a failed health check. The range is
+     * 2–120 seconds. For target groups with a protocol of HTTP, the default is 6 seconds. For target groups with a
+     * protocol of TCP, TLS or HTTPS, the default is 10 seconds. For target groups with a protocol of GENEVE, the
+     * default is 5 seconds. If the target type is <code>lambda</code>, the default is 30 seconds.
      * </p>
      * 
      * @param healthCheckTimeoutSeconds
-     *        The amount of time, in seconds, during which no response from a target means a failed health check. For
-     *        target groups with a protocol of HTTP or HTTPS, the default is 5 seconds. For target groups with a
-     *        protocol of TCP or TLS, this value must be 6 seconds for HTTP health checks and 10 seconds for TCP and
-     *        HTTPS health checks. If the target type is <code>lambda</code>, the default is 30 seconds.
+     *        The amount of time, in seconds, during which no response from a target means a failed health check. The
+     *        range is 2–120 seconds. For target groups with a protocol of HTTP, the default is 6 seconds. For target
+     *        groups with a protocol of TCP, TLS or HTTPS, the default is 10 seconds. For target groups with a protocol
+     *        of GENEVE, the default is 5 seconds. If the target type is <code>lambda</code>, the default is 30 seconds.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -795,15 +930,16 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The number of consecutive health checks successes required before considering an unhealthy target healthy. For
-     * target groups with a protocol of HTTP or HTTPS, the default is 5. For target groups with a protocol of TCP or
-     * TLS, the default is 3. If the target type is <code>lambda</code>, the default is 5.
+     * The number of consecutive health check successes required before considering a target healthy. The range is 2-10.
+     * If the target group protocol is TCP, TCP_UDP, UDP, TLS, HTTP or HTTPS, the default is 5. For target groups with a
+     * protocol of GENEVE, the default is 5. If the target type is <code>lambda</code>, the default is 5.
      * </p>
      * 
      * @param healthyThresholdCount
-     *        The number of consecutive health checks successes required before considering an unhealthy target healthy.
-     *        For target groups with a protocol of HTTP or HTTPS, the default is 5. For target groups with a protocol of
-     *        TCP or TLS, the default is 3. If the target type is <code>lambda</code>, the default is 5.
+     *        The number of consecutive health check successes required before considering a target healthy. The range
+     *        is 2-10. If the target group protocol is TCP, TCP_UDP, UDP, TLS, HTTP or HTTPS, the default is 5. For
+     *        target groups with a protocol of GENEVE, the default is 5. If the target type is <code>lambda</code>, the
+     *        default is 5.
      */
 
     public void setHealthyThresholdCount(Integer healthyThresholdCount) {
@@ -812,14 +948,15 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The number of consecutive health checks successes required before considering an unhealthy target healthy. For
-     * target groups with a protocol of HTTP or HTTPS, the default is 5. For target groups with a protocol of TCP or
-     * TLS, the default is 3. If the target type is <code>lambda</code>, the default is 5.
+     * The number of consecutive health check successes required before considering a target healthy. The range is 2-10.
+     * If the target group protocol is TCP, TCP_UDP, UDP, TLS, HTTP or HTTPS, the default is 5. For target groups with a
+     * protocol of GENEVE, the default is 5. If the target type is <code>lambda</code>, the default is 5.
      * </p>
      * 
-     * @return The number of consecutive health checks successes required before considering an unhealthy target
-     *         healthy. For target groups with a protocol of HTTP or HTTPS, the default is 5. For target groups with a
-     *         protocol of TCP or TLS, the default is 3. If the target type is <code>lambda</code>, the default is 5.
+     * @return The number of consecutive health check successes required before considering a target healthy. The range
+     *         is 2-10. If the target group protocol is TCP, TCP_UDP, UDP, TLS, HTTP or HTTPS, the default is 5. For
+     *         target groups with a protocol of GENEVE, the default is 5. If the target type is <code>lambda</code>, the
+     *         default is 5.
      */
 
     public Integer getHealthyThresholdCount() {
@@ -828,15 +965,16 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The number of consecutive health checks successes required before considering an unhealthy target healthy. For
-     * target groups with a protocol of HTTP or HTTPS, the default is 5. For target groups with a protocol of TCP or
-     * TLS, the default is 3. If the target type is <code>lambda</code>, the default is 5.
+     * The number of consecutive health check successes required before considering a target healthy. The range is 2-10.
+     * If the target group protocol is TCP, TCP_UDP, UDP, TLS, HTTP or HTTPS, the default is 5. For target groups with a
+     * protocol of GENEVE, the default is 5. If the target type is <code>lambda</code>, the default is 5.
      * </p>
      * 
      * @param healthyThresholdCount
-     *        The number of consecutive health checks successes required before considering an unhealthy target healthy.
-     *        For target groups with a protocol of HTTP or HTTPS, the default is 5. For target groups with a protocol of
-     *        TCP or TLS, the default is 3. If the target type is <code>lambda</code>, the default is 5.
+     *        The number of consecutive health check successes required before considering a target healthy. The range
+     *        is 2-10. If the target group protocol is TCP, TCP_UDP, UDP, TLS, HTTP or HTTPS, the default is 5. For
+     *        target groups with a protocol of GENEVE, the default is 5. If the target type is <code>lambda</code>, the
+     *        default is 5.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -847,16 +985,16 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The number of consecutive health check failures required before considering a target unhealthy. For target groups
-     * with a protocol of HTTP or HTTPS, the default is 2. For target groups with a protocol of TCP or TLS, this value
-     * must be the same as the healthy threshold count. If the target type is <code>lambda</code>, the default is 2.
+     * The number of consecutive health check failures required before considering a target unhealthy. The range is
+     * 2-10. If the target group protocol is TCP, TCP_UDP, UDP, TLS, HTTP or HTTPS, the default is 2. For target groups
+     * with a protocol of GENEVE, the default is 2. If the target type is <code>lambda</code>, the default is 5.
      * </p>
      * 
      * @param unhealthyThresholdCount
-     *        The number of consecutive health check failures required before considering a target unhealthy. For target
-     *        groups with a protocol of HTTP or HTTPS, the default is 2. For target groups with a protocol of TCP or
-     *        TLS, this value must be the same as the healthy threshold count. If the target type is <code>lambda</code>
-     *        , the default is 2.
+     *        The number of consecutive health check failures required before considering a target unhealthy. The range
+     *        is 2-10. If the target group protocol is TCP, TCP_UDP, UDP, TLS, HTTP or HTTPS, the default is 2. For
+     *        target groups with a protocol of GENEVE, the default is 2. If the target type is <code>lambda</code>, the
+     *        default is 5.
      */
 
     public void setUnhealthyThresholdCount(Integer unhealthyThresholdCount) {
@@ -865,15 +1003,15 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The number of consecutive health check failures required before considering a target unhealthy. For target groups
-     * with a protocol of HTTP or HTTPS, the default is 2. For target groups with a protocol of TCP or TLS, this value
-     * must be the same as the healthy threshold count. If the target type is <code>lambda</code>, the default is 2.
+     * The number of consecutive health check failures required before considering a target unhealthy. The range is
+     * 2-10. If the target group protocol is TCP, TCP_UDP, UDP, TLS, HTTP or HTTPS, the default is 2. For target groups
+     * with a protocol of GENEVE, the default is 2. If the target type is <code>lambda</code>, the default is 5.
      * </p>
      * 
-     * @return The number of consecutive health check failures required before considering a target unhealthy. For
-     *         target groups with a protocol of HTTP or HTTPS, the default is 2. For target groups with a protocol of
-     *         TCP or TLS, this value must be the same as the healthy threshold count. If the target type is
-     *         <code>lambda</code>, the default is 2.
+     * @return The number of consecutive health check failures required before considering a target unhealthy. The range
+     *         is 2-10. If the target group protocol is TCP, TCP_UDP, UDP, TLS, HTTP or HTTPS, the default is 2. For
+     *         target groups with a protocol of GENEVE, the default is 2. If the target type is <code>lambda</code>, the
+     *         default is 5.
      */
 
     public Integer getUnhealthyThresholdCount() {
@@ -882,16 +1020,16 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The number of consecutive health check failures required before considering a target unhealthy. For target groups
-     * with a protocol of HTTP or HTTPS, the default is 2. For target groups with a protocol of TCP or TLS, this value
-     * must be the same as the healthy threshold count. If the target type is <code>lambda</code>, the default is 2.
+     * The number of consecutive health check failures required before considering a target unhealthy. The range is
+     * 2-10. If the target group protocol is TCP, TCP_UDP, UDP, TLS, HTTP or HTTPS, the default is 2. For target groups
+     * with a protocol of GENEVE, the default is 2. If the target type is <code>lambda</code>, the default is 5.
      * </p>
      * 
      * @param unhealthyThresholdCount
-     *        The number of consecutive health check failures required before considering a target unhealthy. For target
-     *        groups with a protocol of HTTP or HTTPS, the default is 2. For target groups with a protocol of TCP or
-     *        TLS, this value must be the same as the healthy threshold count. If the target type is <code>lambda</code>
-     *        , the default is 2.
+     *        The number of consecutive health check failures required before considering a target unhealthy. The range
+     *        is 2-10. If the target group protocol is TCP, TCP_UDP, UDP, TLS, HTTP or HTTPS, the default is 2. For
+     *        target groups with a protocol of GENEVE, the default is 2. If the target type is <code>lambda</code>, the
+     *        default is 5.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -902,11 +1040,17 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [HTTP/HTTPS health checks] The HTTP codes to use when checking for a successful response from a target.
+     * [HTTP/HTTPS health checks] The HTTP or gRPC codes to use when checking for a successful response from a target.
+     * For target groups with a protocol of TCP, TCP_UDP, UDP or TLS the range is 200-599. For target groups with a
+     * protocol of HTTP or HTTPS, the range is 200-499. For target groups with a protocol of GENEVE, the range is
+     * 200-399.
      * </p>
      * 
      * @param matcher
-     *        [HTTP/HTTPS health checks] The HTTP codes to use when checking for a successful response from a target.
+     *        [HTTP/HTTPS health checks] The HTTP or gRPC codes to use when checking for a successful response from a
+     *        target. For target groups with a protocol of TCP, TCP_UDP, UDP or TLS the range is 200-599. For target
+     *        groups with a protocol of HTTP or HTTPS, the range is 200-499. For target groups with a protocol of
+     *        GENEVE, the range is 200-399.
      */
 
     public void setMatcher(Matcher matcher) {
@@ -915,10 +1059,16 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [HTTP/HTTPS health checks] The HTTP codes to use when checking for a successful response from a target.
+     * [HTTP/HTTPS health checks] The HTTP or gRPC codes to use when checking for a successful response from a target.
+     * For target groups with a protocol of TCP, TCP_UDP, UDP or TLS the range is 200-599. For target groups with a
+     * protocol of HTTP or HTTPS, the range is 200-499. For target groups with a protocol of GENEVE, the range is
+     * 200-399.
      * </p>
      * 
-     * @return [HTTP/HTTPS health checks] The HTTP codes to use when checking for a successful response from a target.
+     * @return [HTTP/HTTPS health checks] The HTTP or gRPC codes to use when checking for a successful response from a
+     *         target. For target groups with a protocol of TCP, TCP_UDP, UDP or TLS the range is 200-599. For target
+     *         groups with a protocol of HTTP or HTTPS, the range is 200-499. For target groups with a protocol of
+     *         GENEVE, the range is 200-399.
      */
 
     public Matcher getMatcher() {
@@ -927,11 +1077,17 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [HTTP/HTTPS health checks] The HTTP codes to use when checking for a successful response from a target.
+     * [HTTP/HTTPS health checks] The HTTP or gRPC codes to use when checking for a successful response from a target.
+     * For target groups with a protocol of TCP, TCP_UDP, UDP or TLS the range is 200-599. For target groups with a
+     * protocol of HTTP or HTTPS, the range is 200-499. For target groups with a protocol of GENEVE, the range is
+     * 200-399.
      * </p>
      * 
      * @param matcher
-     *        [HTTP/HTTPS health checks] The HTTP codes to use when checking for a successful response from a target.
+     *        [HTTP/HTTPS health checks] The HTTP or gRPC codes to use when checking for a successful response from a
+     *        target. For target groups with a protocol of TCP, TCP_UDP, UDP or TLS the range is 200-599. For target
+     *        groups with a protocol of HTTP or HTTPS, the range is 200-499. For target groups with a protocol of
+     *        GENEVE, the range is 200-399.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -948,20 +1104,24 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
      * <ul>
      * <li>
      * <p>
-     * <code>instance</code> - Targets are specified by instance ID. This is the default value. If the target group
-     * protocol is UDP or TCP_UDP, the target type must be <code>instance</code>.
+     * <code>instance</code> - Register targets by instance ID. This is the default value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ip</code> - Targets are specified by IP address. You can specify IP addresses from the subnets of the
-     * virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
-     * 192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
+     * <code>ip</code> - Register targets by IP address. You can specify IP addresses from the subnets of the virtual
+     * private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16), and
+     * the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>lambda</code> - The target groups contains a single Lambda function.
+     * <code>lambda</code> - Register a single Lambda function as a target.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>alb</code> - Register a single Application Load Balancer as a target.
      * </p>
      * </li>
      * </ul>
@@ -972,20 +1132,24 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>instance</code> - Targets are specified by instance ID. This is the default value. If the target
-     *        group protocol is UDP or TCP_UDP, the target type must be <code>instance</code>.
+     *        <code>instance</code> - Register targets by instance ID. This is the default value.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ip</code> - Targets are specified by IP address. You can specify IP addresses from the subnets of
-     *        the virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
+     *        <code>ip</code> - Register targets by IP address. You can specify IP addresses from the subnets of the
+     *        virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
      *        192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>lambda</code> - The target groups contains a single Lambda function.
+     *        <code>lambda</code> - Register a single Lambda function as a target.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>alb</code> - Register a single Application Load Balancer as a target.
      *        </p>
      *        </li>
      * @see TargetTypeEnum
@@ -1003,20 +1167,24 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
      * <ul>
      * <li>
      * <p>
-     * <code>instance</code> - Targets are specified by instance ID. This is the default value. If the target group
-     * protocol is UDP or TCP_UDP, the target type must be <code>instance</code>.
+     * <code>instance</code> - Register targets by instance ID. This is the default value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ip</code> - Targets are specified by IP address. You can specify IP addresses from the subnets of the
-     * virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
-     * 192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
+     * <code>ip</code> - Register targets by IP address. You can specify IP addresses from the subnets of the virtual
+     * private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16), and
+     * the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>lambda</code> - The target groups contains a single Lambda function.
+     * <code>lambda</code> - Register a single Lambda function as a target.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>alb</code> - Register a single Application Load Balancer as a target.
      * </p>
      * </li>
      * </ul>
@@ -1026,21 +1194,25 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>instance</code> - Targets are specified by instance ID. This is the default value. If the target
-     *         group protocol is UDP or TCP_UDP, the target type must be <code>instance</code>.
+     *         <code>instance</code> - Register targets by instance ID. This is the default value.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>ip</code> - Targets are specified by IP address. You can specify IP addresses from the subnets of
-     *         the virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
+     *         <code>ip</code> - Register targets by IP address. You can specify IP addresses from the subnets of the
+     *         virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
      *         192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP
      *         addresses.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>lambda</code> - The target groups contains a single Lambda function.
+     *         <code>lambda</code> - Register a single Lambda function as a target.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>alb</code> - Register a single Application Load Balancer as a target.
      *         </p>
      *         </li>
      * @see TargetTypeEnum
@@ -1058,20 +1230,24 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
      * <ul>
      * <li>
      * <p>
-     * <code>instance</code> - Targets are specified by instance ID. This is the default value. If the target group
-     * protocol is UDP or TCP_UDP, the target type must be <code>instance</code>.
+     * <code>instance</code> - Register targets by instance ID. This is the default value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ip</code> - Targets are specified by IP address. You can specify IP addresses from the subnets of the
-     * virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
-     * 192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
+     * <code>ip</code> - Register targets by IP address. You can specify IP addresses from the subnets of the virtual
+     * private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16), and
+     * the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>lambda</code> - The target groups contains a single Lambda function.
+     * <code>lambda</code> - Register a single Lambda function as a target.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>alb</code> - Register a single Application Load Balancer as a target.
      * </p>
      * </li>
      * </ul>
@@ -1082,20 +1258,24 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>instance</code> - Targets are specified by instance ID. This is the default value. If the target
-     *        group protocol is UDP or TCP_UDP, the target type must be <code>instance</code>.
+     *        <code>instance</code> - Register targets by instance ID. This is the default value.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ip</code> - Targets are specified by IP address. You can specify IP addresses from the subnets of
-     *        the virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
+     *        <code>ip</code> - Register targets by IP address. You can specify IP addresses from the subnets of the
+     *        virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
      *        192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>lambda</code> - The target groups contains a single Lambda function.
+     *        <code>lambda</code> - Register a single Lambda function as a target.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>alb</code> - Register a single Application Load Balancer as a target.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1115,20 +1295,24 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
      * <ul>
      * <li>
      * <p>
-     * <code>instance</code> - Targets are specified by instance ID. This is the default value. If the target group
-     * protocol is UDP or TCP_UDP, the target type must be <code>instance</code>.
+     * <code>instance</code> - Register targets by instance ID. This is the default value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ip</code> - Targets are specified by IP address. You can specify IP addresses from the subnets of the
-     * virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
-     * 192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
+     * <code>ip</code> - Register targets by IP address. You can specify IP addresses from the subnets of the virtual
+     * private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16), and
+     * the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>lambda</code> - The target groups contains a single Lambda function.
+     * <code>lambda</code> - Register a single Lambda function as a target.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>alb</code> - Register a single Application Load Balancer as a target.
      * </p>
      * </li>
      * </ul>
@@ -1139,20 +1323,24 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>instance</code> - Targets are specified by instance ID. This is the default value. If the target
-     *        group protocol is UDP or TCP_UDP, the target type must be <code>instance</code>.
+     *        <code>instance</code> - Register targets by instance ID. This is the default value.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ip</code> - Targets are specified by IP address. You can specify IP addresses from the subnets of
-     *        the virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
+     *        <code>ip</code> - Register targets by IP address. You can specify IP addresses from the subnets of the
+     *        virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
      *        192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>lambda</code> - The target groups contains a single Lambda function.
+     *        <code>lambda</code> - Register a single Lambda function as a target.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>alb</code> - Register a single Application Load Balancer as a target.
      *        </p>
      *        </li>
      * @see TargetTypeEnum
@@ -1170,20 +1358,24 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
      * <ul>
      * <li>
      * <p>
-     * <code>instance</code> - Targets are specified by instance ID. This is the default value. If the target group
-     * protocol is UDP or TCP_UDP, the target type must be <code>instance</code>.
+     * <code>instance</code> - Register targets by instance ID. This is the default value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ip</code> - Targets are specified by IP address. You can specify IP addresses from the subnets of the
-     * virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
-     * 192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
+     * <code>ip</code> - Register targets by IP address. You can specify IP addresses from the subnets of the virtual
+     * private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16), and
+     * the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>lambda</code> - The target groups contains a single Lambda function.
+     * <code>lambda</code> - Register a single Lambda function as a target.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>alb</code> - Register a single Application Load Balancer as a target.
      * </p>
      * </li>
      * </ul>
@@ -1194,20 +1386,24 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>instance</code> - Targets are specified by instance ID. This is the default value. If the target
-     *        group protocol is UDP or TCP_UDP, the target type must be <code>instance</code>.
+     *        <code>instance</code> - Register targets by instance ID. This is the default value.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ip</code> - Targets are specified by IP address. You can specify IP addresses from the subnets of
-     *        the virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
+     *        <code>ip</code> - Register targets by IP address. You can specify IP addresses from the subnets of the
+     *        virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and
      *        192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>lambda</code> - The target groups contains a single Lambda function.
+     *        <code>lambda</code> - Register a single Lambda function as a target.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>alb</code> - Register a single Application Load Balancer as a target.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1216,6 +1412,169 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     public CreateTargetGroupRequest withTargetType(TargetTypeEnum targetType) {
         this.targetType = targetType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the target group.
+     * </p>
+     * 
+     * @return The tags to assign to the target group.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the target group.
+     * </p>
+     * 
+     * @param tags
+     *        The tags to assign to the target group.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the target group.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        The tags to assign to the target group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTargetGroupRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the target group.
+     * </p>
+     * 
+     * @param tags
+     *        The tags to assign to the target group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTargetGroupRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     * <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     * <code>ipv4</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     *        <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     *        <code>ipv4</code>.
+     * @see TargetGroupIpAddressTypeEnum
+     */
+
+    public void setIpAddressType(String ipAddressType) {
+        this.ipAddressType = ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     * <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     * <code>ipv4</code>.
+     * </p>
+     * 
+     * @return The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     *         <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     *         <code>ipv4</code>.
+     * @see TargetGroupIpAddressTypeEnum
+     */
+
+    public String getIpAddressType() {
+        return this.ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     * <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     * <code>ipv4</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     *        <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     *        <code>ipv4</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TargetGroupIpAddressTypeEnum
+     */
+
+    public CreateTargetGroupRequest withIpAddressType(String ipAddressType) {
+        setIpAddressType(ipAddressType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     * <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     * <code>ipv4</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     *        <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     *        <code>ipv4</code>.
+     * @see TargetGroupIpAddressTypeEnum
+     */
+
+    public void setIpAddressType(TargetGroupIpAddressTypeEnum ipAddressType) {
+        withIpAddressType(ipAddressType);
+    }
+
+    /**
+     * <p>
+     * The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     * <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     * <code>ipv4</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     *        <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     *        <code>ipv4</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TargetGroupIpAddressTypeEnum
+     */
+
+    public CreateTargetGroupRequest withIpAddressType(TargetGroupIpAddressTypeEnum ipAddressType) {
+        this.ipAddressType = ipAddressType.toString();
         return this;
     }
 
@@ -1235,6 +1594,8 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
             sb.append("Name: ").append(getName()).append(",");
         if (getProtocol() != null)
             sb.append("Protocol: ").append(getProtocol()).append(",");
+        if (getProtocolVersion() != null)
+            sb.append("ProtocolVersion: ").append(getProtocolVersion()).append(",");
         if (getPort() != null)
             sb.append("Port: ").append(getPort()).append(",");
         if (getVpcId() != null)
@@ -1258,7 +1619,11 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
         if (getMatcher() != null)
             sb.append("Matcher: ").append(getMatcher()).append(",");
         if (getTargetType() != null)
-            sb.append("TargetType: ").append(getTargetType());
+            sb.append("TargetType: ").append(getTargetType()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getIpAddressType() != null)
+            sb.append("IpAddressType: ").append(getIpAddressType());
         sb.append("}");
         return sb.toString();
     }
@@ -1280,6 +1645,10 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
         if (other.getProtocol() == null ^ this.getProtocol() == null)
             return false;
         if (other.getProtocol() != null && other.getProtocol().equals(this.getProtocol()) == false)
+            return false;
+        if (other.getProtocolVersion() == null ^ this.getProtocolVersion() == null)
+            return false;
+        if (other.getProtocolVersion() != null && other.getProtocolVersion().equals(this.getProtocolVersion()) == false)
             return false;
         if (other.getPort() == null ^ this.getPort() == null)
             return false;
@@ -1329,6 +1698,14 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
             return false;
         if (other.getTargetType() != null && other.getTargetType().equals(this.getTargetType()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getIpAddressType() == null ^ this.getIpAddressType() == null)
+            return false;
+        if (other.getIpAddressType() != null && other.getIpAddressType().equals(this.getIpAddressType()) == false)
+            return false;
         return true;
     }
 
@@ -1339,6 +1716,7 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getProtocol() == null) ? 0 : getProtocol().hashCode());
+        hashCode = prime * hashCode + ((getProtocolVersion() == null) ? 0 : getProtocolVersion().hashCode());
         hashCode = prime * hashCode + ((getPort() == null) ? 0 : getPort().hashCode());
         hashCode = prime * hashCode + ((getVpcId() == null) ? 0 : getVpcId().hashCode());
         hashCode = prime * hashCode + ((getHealthCheckProtocol() == null) ? 0 : getHealthCheckProtocol().hashCode());
@@ -1351,6 +1729,8 @@ public class CreateTargetGroupRequest extends com.amazonaws.AmazonWebServiceRequ
         hashCode = prime * hashCode + ((getUnhealthyThresholdCount() == null) ? 0 : getUnhealthyThresholdCount().hashCode());
         hashCode = prime * hashCode + ((getMatcher() == null) ? 0 : getMatcher().hashCode());
         hashCode = prime * hashCode + ((getTargetType() == null) ? 0 : getTargetType().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getIpAddressType() == null) ? 0 : getIpAddressType().hashCode());
         return hashCode;
     }
 

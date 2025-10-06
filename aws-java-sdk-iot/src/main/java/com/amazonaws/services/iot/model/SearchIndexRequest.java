@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,19 +28,24 @@ public class SearchIndexRequest extends com.amazonaws.AmazonWebServiceRequest im
     private String indexName;
     /**
      * <p>
-     * The search query string.
+     * The search query string. For more information about the search query syntax, see <a
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html">Query syntax</a>.
      * </p>
      */
     private String queryString;
     /**
      * <p>
-     * The token used to get the next set of results, or null if there are no additional results.
+     * The token used to get the next set of results, or <code>null</code> if there are no additional results.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * The maximum number of results to return at one time.
+     * The maximum number of results to return per page at one time. This maximum number cannot exceed 100. The response
+     * might contain fewer results but will never contain more. You can use <a href=
+     * "https://docs.aws.amazon.com/iot/latest/apireference/API_SearchIndex.html#iot-SearchIndex-request-nextToken">
+     * <code>nextToken</code> </a> to retrieve the next set of results until <code>nextToken</code> returns
+     * <code>NULL</code>.
      * </p>
      */
     private Integer maxResults;
@@ -93,11 +98,13 @@ public class SearchIndexRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The search query string.
+     * The search query string. For more information about the search query syntax, see <a
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html">Query syntax</a>.
      * </p>
      * 
      * @param queryString
-     *        The search query string.
+     *        The search query string. For more information about the search query syntax, see <a
+     *        href="https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html">Query syntax</a>.
      */
 
     public void setQueryString(String queryString) {
@@ -106,10 +113,12 @@ public class SearchIndexRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The search query string.
+     * The search query string. For more information about the search query syntax, see <a
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html">Query syntax</a>.
      * </p>
      * 
-     * @return The search query string.
+     * @return The search query string. For more information about the search query syntax, see <a
+     *         href="https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html">Query syntax</a>.
      */
 
     public String getQueryString() {
@@ -118,11 +127,13 @@ public class SearchIndexRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The search query string.
+     * The search query string. For more information about the search query syntax, see <a
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html">Query syntax</a>.
      * </p>
      * 
      * @param queryString
-     *        The search query string.
+     *        The search query string. For more information about the search query syntax, see <a
+     *        href="https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html">Query syntax</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -133,11 +144,11 @@ public class SearchIndexRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The token used to get the next set of results, or null if there are no additional results.
+     * The token used to get the next set of results, or <code>null</code> if there are no additional results.
      * </p>
      * 
      * @param nextToken
-     *        The token used to get the next set of results, or null if there are no additional results.
+     *        The token used to get the next set of results, or <code>null</code> if there are no additional results.
      */
 
     public void setNextToken(String nextToken) {
@@ -146,10 +157,10 @@ public class SearchIndexRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The token used to get the next set of results, or null if there are no additional results.
+     * The token used to get the next set of results, or <code>null</code> if there are no additional results.
      * </p>
      * 
-     * @return The token used to get the next set of results, or null if there are no additional results.
+     * @return The token used to get the next set of results, or <code>null</code> if there are no additional results.
      */
 
     public String getNextToken() {
@@ -158,11 +169,11 @@ public class SearchIndexRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The token used to get the next set of results, or null if there are no additional results.
+     * The token used to get the next set of results, or <code>null</code> if there are no additional results.
      * </p>
      * 
      * @param nextToken
-     *        The token used to get the next set of results, or null if there are no additional results.
+     *        The token used to get the next set of results, or <code>null</code> if there are no additional results.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -173,11 +184,19 @@ public class SearchIndexRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The maximum number of results to return at one time.
+     * The maximum number of results to return per page at one time. This maximum number cannot exceed 100. The response
+     * might contain fewer results but will never contain more. You can use <a href=
+     * "https://docs.aws.amazon.com/iot/latest/apireference/API_SearchIndex.html#iot-SearchIndex-request-nextToken">
+     * <code>nextToken</code> </a> to retrieve the next set of results until <code>nextToken</code> returns
+     * <code>NULL</code>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return at one time.
+     *        The maximum number of results to return per page at one time. This maximum number cannot exceed 100. The
+     *        response might contain fewer results but will never contain more. You can use <a href=
+     *        "https://docs.aws.amazon.com/iot/latest/apireference/API_SearchIndex.html#iot-SearchIndex-request-nextToken"
+     *        > <code>nextToken</code> </a> to retrieve the next set of results until <code>nextToken</code> returns
+     *        <code>NULL</code>.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -186,10 +205,18 @@ public class SearchIndexRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The maximum number of results to return at one time.
+     * The maximum number of results to return per page at one time. This maximum number cannot exceed 100. The response
+     * might contain fewer results but will never contain more. You can use <a href=
+     * "https://docs.aws.amazon.com/iot/latest/apireference/API_SearchIndex.html#iot-SearchIndex-request-nextToken">
+     * <code>nextToken</code> </a> to retrieve the next set of results until <code>nextToken</code> returns
+     * <code>NULL</code>.
      * </p>
      * 
-     * @return The maximum number of results to return at one time.
+     * @return The maximum number of results to return per page at one time. This maximum number cannot exceed 100. The
+     *         response might contain fewer results but will never contain more. You can use <a href=
+     *         "https://docs.aws.amazon.com/iot/latest/apireference/API_SearchIndex.html#iot-SearchIndex-request-nextToken"
+     *         > <code>nextToken</code> </a> to retrieve the next set of results until <code>nextToken</code> returns
+     *         <code>NULL</code>.
      */
 
     public Integer getMaxResults() {
@@ -198,11 +225,19 @@ public class SearchIndexRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The maximum number of results to return at one time.
+     * The maximum number of results to return per page at one time. This maximum number cannot exceed 100. The response
+     * might contain fewer results but will never contain more. You can use <a href=
+     * "https://docs.aws.amazon.com/iot/latest/apireference/API_SearchIndex.html#iot-SearchIndex-request-nextToken">
+     * <code>nextToken</code> </a> to retrieve the next set of results until <code>nextToken</code> returns
+     * <code>NULL</code>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return at one time.
+     *        The maximum number of results to return per page at one time. This maximum number cannot exceed 100. The
+     *        response might contain fewer results but will never contain more. You can use <a href=
+     *        "https://docs.aws.amazon.com/iot/latest/apireference/API_SearchIndex.html#iot-SearchIndex-request-nextToken"
+     *        > <code>nextToken</code> </a> to retrieve the next set of results until <code>nextToken</code> returns
+     *        <code>NULL</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

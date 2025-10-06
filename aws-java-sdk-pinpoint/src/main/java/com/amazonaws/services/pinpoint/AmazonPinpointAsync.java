@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -96,7 +96,38 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Creates a new export job for an application.
+     * Creates a message template for messages that are sent through the email channel.
+     * </p>
+     * 
+     * @param createEmailTemplateRequest
+     * @return A Java Future containing the result of the CreateEmailTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.CreateEmailTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreateEmailTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateEmailTemplateResult> createEmailTemplateAsync(CreateEmailTemplateRequest createEmailTemplateRequest);
+
+    /**
+     * <p>
+     * Creates a message template for messages that are sent through the email channel.
+     * </p>
+     * 
+     * @param createEmailTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateEmailTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.CreateEmailTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreateEmailTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateEmailTemplateResult> createEmailTemplateAsync(CreateEmailTemplateRequest createEmailTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateEmailTemplateRequest, CreateEmailTemplateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates an export job for an application.
      * </p>
      * 
      * @param createExportJobRequest
@@ -109,7 +140,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Creates a new export job for an application.
+     * Creates an export job for an application.
      * </p>
      * 
      * @param createExportJobRequest
@@ -127,7 +158,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Creates a new import job for an application.
+     * Creates an import job for an application.
      * </p>
      * 
      * @param createImportJobRequest
@@ -140,7 +171,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Creates a new import job for an application.
+     * Creates an import job for an application.
      * </p>
      * 
      * @param createImportJobRequest
@@ -155,6 +186,134 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
      */
     java.util.concurrent.Future<CreateImportJobResult> createImportJobAsync(CreateImportJobRequest createImportJobRequest,
             com.amazonaws.handlers.AsyncHandler<CreateImportJobRequest, CreateImportJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new message template for messages using the in-app message channel.
+     * </p>
+     * 
+     * @param createInAppTemplateRequest
+     * @return A Java Future containing the result of the CreateInAppTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.CreateInAppTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreateInAppTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateInAppTemplateResult> createInAppTemplateAsync(CreateInAppTemplateRequest createInAppTemplateRequest);
+
+    /**
+     * <p>
+     * Creates a new message template for messages using the in-app message channel.
+     * </p>
+     * 
+     * @param createInAppTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateInAppTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.CreateInAppTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreateInAppTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateInAppTemplateResult> createInAppTemplateAsync(CreateInAppTemplateRequest createInAppTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateInAppTemplateRequest, CreateInAppTemplateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a journey for an application.
+     * </p>
+     * 
+     * @param createJourneyRequest
+     * @return A Java Future containing the result of the CreateJourney operation returned by the service.
+     * @sample AmazonPinpointAsync.CreateJourney
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreateJourney" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateJourneyResult> createJourneyAsync(CreateJourneyRequest createJourneyRequest);
+
+    /**
+     * <p>
+     * Creates a journey for an application.
+     * </p>
+     * 
+     * @param createJourneyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateJourney operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.CreateJourney
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreateJourney" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateJourneyResult> createJourneyAsync(CreateJourneyRequest createJourneyRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateJourneyRequest, CreateJourneyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a message template for messages that are sent through a push notification channel.
+     * </p>
+     * 
+     * @param createPushTemplateRequest
+     * @return A Java Future containing the result of the CreatePushTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.CreatePushTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreatePushTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreatePushTemplateResult> createPushTemplateAsync(CreatePushTemplateRequest createPushTemplateRequest);
+
+    /**
+     * <p>
+     * Creates a message template for messages that are sent through a push notification channel.
+     * </p>
+     * 
+     * @param createPushTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreatePushTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.CreatePushTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreatePushTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreatePushTemplateResult> createPushTemplateAsync(CreatePushTemplateRequest createPushTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<CreatePushTemplateRequest, CreatePushTemplateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates an Amazon Pinpoint configuration for a recommender model.
+     * </p>
+     * 
+     * @param createRecommenderConfigurationRequest
+     * @return A Java Future containing the result of the CreateRecommenderConfiguration operation returned by the
+     *         service.
+     * @sample AmazonPinpointAsync.CreateRecommenderConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreateRecommenderConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateRecommenderConfigurationResult> createRecommenderConfigurationAsync(
+            CreateRecommenderConfigurationRequest createRecommenderConfigurationRequest);
+
+    /**
+     * <p>
+     * Creates an Amazon Pinpoint configuration for a recommender model.
+     * </p>
+     * 
+     * @param createRecommenderConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateRecommenderConfiguration operation returned by the
+     *         service.
+     * @sample AmazonPinpointAsyncHandler.CreateRecommenderConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreateRecommenderConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateRecommenderConfigurationResult> createRecommenderConfigurationAsync(
+            CreateRecommenderConfigurationRequest createRecommenderConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateRecommenderConfigurationRequest, CreateRecommenderConfigurationResult> asyncHandler);
 
     /**
      * <p>
@@ -188,6 +347,68 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
      */
     java.util.concurrent.Future<CreateSegmentResult> createSegmentAsync(CreateSegmentRequest createSegmentRequest,
             com.amazonaws.handlers.AsyncHandler<CreateSegmentRequest, CreateSegmentResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a message template for messages that are sent through the SMS channel.
+     * </p>
+     * 
+     * @param createSmsTemplateRequest
+     * @return A Java Future containing the result of the CreateSmsTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.CreateSmsTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreateSmsTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateSmsTemplateResult> createSmsTemplateAsync(CreateSmsTemplateRequest createSmsTemplateRequest);
+
+    /**
+     * <p>
+     * Creates a message template for messages that are sent through the SMS channel.
+     * </p>
+     * 
+     * @param createSmsTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateSmsTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.CreateSmsTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreateSmsTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateSmsTemplateResult> createSmsTemplateAsync(CreateSmsTemplateRequest createSmsTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateSmsTemplateRequest, CreateSmsTemplateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a message template for messages that are sent through the voice channel.
+     * </p>
+     * 
+     * @param createVoiceTemplateRequest
+     * @return A Java Future containing the result of the CreateVoiceTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.CreateVoiceTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreateVoiceTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateVoiceTemplateResult> createVoiceTemplateAsync(CreateVoiceTemplateRequest createVoiceTemplateRequest);
+
+    /**
+     * <p>
+     * Creates a message template for messages that are sent through the voice channel.
+     * </p>
+     * 
+     * @param createVoiceTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateVoiceTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.CreateVoiceTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreateVoiceTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateVoiceTemplateResult> createVoiceTemplateAsync(CreateVoiceTemplateRequest createVoiceTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateVoiceTemplateRequest, CreateVoiceTemplateResult> asyncHandler);
 
     /**
      * <p>
@@ -474,6 +695,37 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
+     * Deletes a message template for messages that were sent through the email channel.
+     * </p>
+     * 
+     * @param deleteEmailTemplateRequest
+     * @return A Java Future containing the result of the DeleteEmailTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.DeleteEmailTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteEmailTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteEmailTemplateResult> deleteEmailTemplateAsync(DeleteEmailTemplateRequest deleteEmailTemplateRequest);
+
+    /**
+     * <p>
+     * Deletes a message template for messages that were sent through the email channel.
+     * </p>
+     * 
+     * @param deleteEmailTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteEmailTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.DeleteEmailTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteEmailTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteEmailTemplateResult> deleteEmailTemplateAsync(DeleteEmailTemplateRequest deleteEmailTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteEmailTemplateRequest, DeleteEmailTemplateResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes an endpoint from an application.
      * </p>
      * 
@@ -567,6 +819,134 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
+     * Deletes a message template for messages sent using the in-app message channel.
+     * </p>
+     * 
+     * @param deleteInAppTemplateRequest
+     * @return A Java Future containing the result of the DeleteInAppTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.DeleteInAppTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteInAppTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteInAppTemplateResult> deleteInAppTemplateAsync(DeleteInAppTemplateRequest deleteInAppTemplateRequest);
+
+    /**
+     * <p>
+     * Deletes a message template for messages sent using the in-app message channel.
+     * </p>
+     * 
+     * @param deleteInAppTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteInAppTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.DeleteInAppTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteInAppTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteInAppTemplateResult> deleteInAppTemplateAsync(DeleteInAppTemplateRequest deleteInAppTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteInAppTemplateRequest, DeleteInAppTemplateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a journey from an application.
+     * </p>
+     * 
+     * @param deleteJourneyRequest
+     * @return A Java Future containing the result of the DeleteJourney operation returned by the service.
+     * @sample AmazonPinpointAsync.DeleteJourney
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteJourney" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteJourneyResult> deleteJourneyAsync(DeleteJourneyRequest deleteJourneyRequest);
+
+    /**
+     * <p>
+     * Deletes a journey from an application.
+     * </p>
+     * 
+     * @param deleteJourneyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteJourney operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.DeleteJourney
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteJourney" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteJourneyResult> deleteJourneyAsync(DeleteJourneyRequest deleteJourneyRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteJourneyRequest, DeleteJourneyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a message template for messages that were sent through a push notification channel.
+     * </p>
+     * 
+     * @param deletePushTemplateRequest
+     * @return A Java Future containing the result of the DeletePushTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.DeletePushTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeletePushTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeletePushTemplateResult> deletePushTemplateAsync(DeletePushTemplateRequest deletePushTemplateRequest);
+
+    /**
+     * <p>
+     * Deletes a message template for messages that were sent through a push notification channel.
+     * </p>
+     * 
+     * @param deletePushTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeletePushTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.DeletePushTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeletePushTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeletePushTemplateResult> deletePushTemplateAsync(DeletePushTemplateRequest deletePushTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<DeletePushTemplateRequest, DeletePushTemplateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an Amazon Pinpoint configuration for a recommender model.
+     * </p>
+     * 
+     * @param deleteRecommenderConfigurationRequest
+     * @return A Java Future containing the result of the DeleteRecommenderConfiguration operation returned by the
+     *         service.
+     * @sample AmazonPinpointAsync.DeleteRecommenderConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteRecommenderConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteRecommenderConfigurationResult> deleteRecommenderConfigurationAsync(
+            DeleteRecommenderConfigurationRequest deleteRecommenderConfigurationRequest);
+
+    /**
+     * <p>
+     * Deletes an Amazon Pinpoint configuration for a recommender model.
+     * </p>
+     * 
+     * @param deleteRecommenderConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteRecommenderConfiguration operation returned by the
+     *         service.
+     * @sample AmazonPinpointAsyncHandler.DeleteRecommenderConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteRecommenderConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteRecommenderConfigurationResult> deleteRecommenderConfigurationAsync(
+            DeleteRecommenderConfigurationRequest deleteRecommenderConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteRecommenderConfigurationRequest, DeleteRecommenderConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes a segment from an application.
      * </p>
      * 
@@ -629,6 +1009,37 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
+     * Deletes a message template for messages that were sent through the SMS channel.
+     * </p>
+     * 
+     * @param deleteSmsTemplateRequest
+     * @return A Java Future containing the result of the DeleteSmsTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.DeleteSmsTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteSmsTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteSmsTemplateResult> deleteSmsTemplateAsync(DeleteSmsTemplateRequest deleteSmsTemplateRequest);
+
+    /**
+     * <p>
+     * Deletes a message template for messages that were sent through the SMS channel.
+     * </p>
+     * 
+     * @param deleteSmsTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteSmsTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.DeleteSmsTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteSmsTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteSmsTemplateResult> deleteSmsTemplateAsync(DeleteSmsTemplateRequest deleteSmsTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteSmsTemplateRequest, DeleteSmsTemplateResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes all the endpoints that are associated with a specific user ID.
      * </p>
      * 
@@ -688,6 +1099,37 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
      */
     java.util.concurrent.Future<DeleteVoiceChannelResult> deleteVoiceChannelAsync(DeleteVoiceChannelRequest deleteVoiceChannelRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteVoiceChannelRequest, DeleteVoiceChannelResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a message template for messages that were sent through the voice channel.
+     * </p>
+     * 
+     * @param deleteVoiceTemplateRequest
+     * @return A Java Future containing the result of the DeleteVoiceTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.DeleteVoiceTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteVoiceTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteVoiceTemplateResult> deleteVoiceTemplateAsync(DeleteVoiceTemplateRequest deleteVoiceTemplateRequest);
+
+    /**
+     * <p>
+     * Deletes a message template for messages that were sent through the voice channel.
+     * </p>
+     * 
+     * @param deleteVoiceTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteVoiceTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.DeleteVoiceTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteVoiceTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteVoiceTemplateResult> deleteVoiceTemplateAsync(DeleteVoiceTemplateRequest deleteVoiceTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteVoiceTemplateRequest, DeleteVoiceTemplateResult> asyncHandler);
 
     /**
      * <p>
@@ -943,7 +1385,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Retrieves information about all of your applications.
+     * Retrieves information about all the applications that are associated with your Amazon Pinpoint account.
      * </p>
      * 
      * @param getAppsRequest
@@ -956,7 +1398,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Retrieves information about all of your applications.
+     * Retrieves information about all the applications that are associated with your Amazon Pinpoint account.
      * </p>
      * 
      * @param getAppsRequest
@@ -974,7 +1416,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Retrieves information about the status and settings of the Baidu Cloud Push channel for an application.
+     * Retrieves information about the status and settings of the Baidu channel for an application.
      * </p>
      * 
      * @param getBaiduChannelRequest
@@ -987,7 +1429,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Retrieves information about the status and settings of the Baidu Cloud Push channel for an application.
+     * Retrieves information about the status and settings of the Baidu channel for an application.
      * </p>
      * 
      * @param getBaiduChannelRequest
@@ -1036,7 +1478,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Retrieves information about the activity performed by a campaign.
+     * Retrieves information about all the activities for a campaign.
      * </p>
      * 
      * @param getCampaignActivitiesRequest
@@ -1049,7 +1491,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Retrieves information about the activity performed by a campaign.
+     * Retrieves information about all the activities for a campaign.
      * </p>
      * 
      * @param getCampaignActivitiesRequest
@@ -1129,8 +1571,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Retrieves information about the status, configuration, and other settings for all versions of a specific
-     * campaign.
+     * Retrieves information about the status, configuration, and other settings for all versions of a campaign.
      * </p>
      * 
      * @param getCampaignVersionsRequest
@@ -1143,8 +1584,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Retrieves information about the status, configuration, and other settings for all versions of a specific
-     * campaign.
+     * Retrieves information about the status, configuration, and other settings for all versions of a campaign.
      * </p>
      * 
      * @param getCampaignVersionsRequest
@@ -1254,6 +1694,37 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
      */
     java.util.concurrent.Future<GetEmailChannelResult> getEmailChannelAsync(GetEmailChannelRequest getEmailChannelRequest,
             com.amazonaws.handlers.AsyncHandler<GetEmailChannelRequest, GetEmailChannelResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the content and settings of a message template for messages that are sent through the email channel.
+     * </p>
+     * 
+     * @param getEmailTemplateRequest
+     * @return A Java Future containing the result of the GetEmailTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.GetEmailTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetEmailTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetEmailTemplateResult> getEmailTemplateAsync(GetEmailTemplateRequest getEmailTemplateRequest);
+
+    /**
+     * <p>
+     * Retrieves the content and settings of a message template for messages that are sent through the email channel.
+     * </p>
+     * 
+     * @param getEmailTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetEmailTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.GetEmailTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetEmailTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetEmailTemplateResult> getEmailTemplateAsync(GetEmailTemplateRequest getEmailTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<GetEmailTemplateRequest, GetEmailTemplateResult> asyncHandler);
 
     /**
      * <p>
@@ -1474,6 +1945,402 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
+     * Retrieves the in-app messages targeted for the provided endpoint ID.
+     * </p>
+     * 
+     * @param getInAppMessagesRequest
+     * @return A Java Future containing the result of the GetInAppMessages operation returned by the service.
+     * @sample AmazonPinpointAsync.GetInAppMessages
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetInAppMessages" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetInAppMessagesResult> getInAppMessagesAsync(GetInAppMessagesRequest getInAppMessagesRequest);
+
+    /**
+     * <p>
+     * Retrieves the in-app messages targeted for the provided endpoint ID.
+     * </p>
+     * 
+     * @param getInAppMessagesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetInAppMessages operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.GetInAppMessages
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetInAppMessages" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetInAppMessagesResult> getInAppMessagesAsync(GetInAppMessagesRequest getInAppMessagesRequest,
+            com.amazonaws.handlers.AsyncHandler<GetInAppMessagesRequest, GetInAppMessagesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the content and settings of a message template for messages sent through the in-app channel.
+     * </p>
+     * 
+     * @param getInAppTemplateRequest
+     * @return A Java Future containing the result of the GetInAppTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.GetInAppTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetInAppTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetInAppTemplateResult> getInAppTemplateAsync(GetInAppTemplateRequest getInAppTemplateRequest);
+
+    /**
+     * <p>
+     * Retrieves the content and settings of a message template for messages sent through the in-app channel.
+     * </p>
+     * 
+     * @param getInAppTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetInAppTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.GetInAppTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetInAppTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetInAppTemplateResult> getInAppTemplateAsync(GetInAppTemplateRequest getInAppTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<GetInAppTemplateRequest, GetInAppTemplateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves information about the status, configuration, and other settings for a journey.
+     * </p>
+     * 
+     * @param getJourneyRequest
+     * @return A Java Future containing the result of the GetJourney operation returned by the service.
+     * @sample AmazonPinpointAsync.GetJourney
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetJourney" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetJourneyResult> getJourneyAsync(GetJourneyRequest getJourneyRequest);
+
+    /**
+     * <p>
+     * Retrieves information about the status, configuration, and other settings for a journey.
+     * </p>
+     * 
+     * @param getJourneyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetJourney operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.GetJourney
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetJourney" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetJourneyResult> getJourneyAsync(GetJourneyRequest getJourneyRequest,
+            com.amazonaws.handlers.AsyncHandler<GetJourneyRequest, GetJourneyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves (queries) pre-aggregated data for a standard engagement metric that applies to a journey.
+     * </p>
+     * 
+     * @param getJourneyDateRangeKpiRequest
+     * @return A Java Future containing the result of the GetJourneyDateRangeKpi operation returned by the service.
+     * @sample AmazonPinpointAsync.GetJourneyDateRangeKpi
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetJourneyDateRangeKpi"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetJourneyDateRangeKpiResult> getJourneyDateRangeKpiAsync(GetJourneyDateRangeKpiRequest getJourneyDateRangeKpiRequest);
+
+    /**
+     * <p>
+     * Retrieves (queries) pre-aggregated data for a standard engagement metric that applies to a journey.
+     * </p>
+     * 
+     * @param getJourneyDateRangeKpiRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetJourneyDateRangeKpi operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.GetJourneyDateRangeKpi
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetJourneyDateRangeKpi"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetJourneyDateRangeKpiResult> getJourneyDateRangeKpiAsync(GetJourneyDateRangeKpiRequest getJourneyDateRangeKpiRequest,
+            com.amazonaws.handlers.AsyncHandler<GetJourneyDateRangeKpiRequest, GetJourneyDateRangeKpiResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves (queries) pre-aggregated data for a standard execution metric that applies to a journey activity.
+     * </p>
+     * 
+     * @param getJourneyExecutionActivityMetricsRequest
+     * @return A Java Future containing the result of the GetJourneyExecutionActivityMetrics operation returned by the
+     *         service.
+     * @sample AmazonPinpointAsync.GetJourneyExecutionActivityMetrics
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetJourneyExecutionActivityMetrics"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetJourneyExecutionActivityMetricsResult> getJourneyExecutionActivityMetricsAsync(
+            GetJourneyExecutionActivityMetricsRequest getJourneyExecutionActivityMetricsRequest);
+
+    /**
+     * <p>
+     * Retrieves (queries) pre-aggregated data for a standard execution metric that applies to a journey activity.
+     * </p>
+     * 
+     * @param getJourneyExecutionActivityMetricsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetJourneyExecutionActivityMetrics operation returned by the
+     *         service.
+     * @sample AmazonPinpointAsyncHandler.GetJourneyExecutionActivityMetrics
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetJourneyExecutionActivityMetrics"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetJourneyExecutionActivityMetricsResult> getJourneyExecutionActivityMetricsAsync(
+            GetJourneyExecutionActivityMetricsRequest getJourneyExecutionActivityMetricsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetJourneyExecutionActivityMetricsRequest, GetJourneyExecutionActivityMetricsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves (queries) pre-aggregated data for a standard execution metric that applies to a journey.
+     * </p>
+     * 
+     * @param getJourneyExecutionMetricsRequest
+     * @return A Java Future containing the result of the GetJourneyExecutionMetrics operation returned by the service.
+     * @sample AmazonPinpointAsync.GetJourneyExecutionMetrics
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetJourneyExecutionMetrics"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetJourneyExecutionMetricsResult> getJourneyExecutionMetricsAsync(
+            GetJourneyExecutionMetricsRequest getJourneyExecutionMetricsRequest);
+
+    /**
+     * <p>
+     * Retrieves (queries) pre-aggregated data for a standard execution metric that applies to a journey.
+     * </p>
+     * 
+     * @param getJourneyExecutionMetricsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetJourneyExecutionMetrics operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.GetJourneyExecutionMetrics
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetJourneyExecutionMetrics"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetJourneyExecutionMetricsResult> getJourneyExecutionMetricsAsync(
+            GetJourneyExecutionMetricsRequest getJourneyExecutionMetricsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetJourneyExecutionMetricsRequest, GetJourneyExecutionMetricsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves (queries) pre-aggregated data for a standard run execution metric that applies to a journey activity.
+     * </p>
+     * 
+     * @param getJourneyRunExecutionActivityMetricsRequest
+     * @return A Java Future containing the result of the GetJourneyRunExecutionActivityMetrics operation returned by
+     *         the service.
+     * @sample AmazonPinpointAsync.GetJourneyRunExecutionActivityMetrics
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetJourneyRunExecutionActivityMetrics"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetJourneyRunExecutionActivityMetricsResult> getJourneyRunExecutionActivityMetricsAsync(
+            GetJourneyRunExecutionActivityMetricsRequest getJourneyRunExecutionActivityMetricsRequest);
+
+    /**
+     * <p>
+     * Retrieves (queries) pre-aggregated data for a standard run execution metric that applies to a journey activity.
+     * </p>
+     * 
+     * @param getJourneyRunExecutionActivityMetricsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetJourneyRunExecutionActivityMetrics operation returned by
+     *         the service.
+     * @sample AmazonPinpointAsyncHandler.GetJourneyRunExecutionActivityMetrics
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetJourneyRunExecutionActivityMetrics"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetJourneyRunExecutionActivityMetricsResult> getJourneyRunExecutionActivityMetricsAsync(
+            GetJourneyRunExecutionActivityMetricsRequest getJourneyRunExecutionActivityMetricsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetJourneyRunExecutionActivityMetricsRequest, GetJourneyRunExecutionActivityMetricsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves (queries) pre-aggregated data for a standard run execution metric that applies to a journey.
+     * </p>
+     * 
+     * @param getJourneyRunExecutionMetricsRequest
+     * @return A Java Future containing the result of the GetJourneyRunExecutionMetrics operation returned by the
+     *         service.
+     * @sample AmazonPinpointAsync.GetJourneyRunExecutionMetrics
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetJourneyRunExecutionMetrics"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetJourneyRunExecutionMetricsResult> getJourneyRunExecutionMetricsAsync(
+            GetJourneyRunExecutionMetricsRequest getJourneyRunExecutionMetricsRequest);
+
+    /**
+     * <p>
+     * Retrieves (queries) pre-aggregated data for a standard run execution metric that applies to a journey.
+     * </p>
+     * 
+     * @param getJourneyRunExecutionMetricsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetJourneyRunExecutionMetrics operation returned by the
+     *         service.
+     * @sample AmazonPinpointAsyncHandler.GetJourneyRunExecutionMetrics
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetJourneyRunExecutionMetrics"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetJourneyRunExecutionMetricsResult> getJourneyRunExecutionMetricsAsync(
+            GetJourneyRunExecutionMetricsRequest getJourneyRunExecutionMetricsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetJourneyRunExecutionMetricsRequest, GetJourneyRunExecutionMetricsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Provides information about the runs of a journey.
+     * </p>
+     * 
+     * @param getJourneyRunsRequest
+     * @return A Java Future containing the result of the GetJourneyRuns operation returned by the service.
+     * @sample AmazonPinpointAsync.GetJourneyRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetJourneyRuns" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetJourneyRunsResult> getJourneyRunsAsync(GetJourneyRunsRequest getJourneyRunsRequest);
+
+    /**
+     * <p>
+     * Provides information about the runs of a journey.
+     * </p>
+     * 
+     * @param getJourneyRunsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetJourneyRuns operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.GetJourneyRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetJourneyRuns" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetJourneyRunsResult> getJourneyRunsAsync(GetJourneyRunsRequest getJourneyRunsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetJourneyRunsRequest, GetJourneyRunsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the content and settings of a message template for messages that are sent through a push notification
+     * channel.
+     * </p>
+     * 
+     * @param getPushTemplateRequest
+     * @return A Java Future containing the result of the GetPushTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.GetPushTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetPushTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetPushTemplateResult> getPushTemplateAsync(GetPushTemplateRequest getPushTemplateRequest);
+
+    /**
+     * <p>
+     * Retrieves the content and settings of a message template for messages that are sent through a push notification
+     * channel.
+     * </p>
+     * 
+     * @param getPushTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetPushTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.GetPushTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetPushTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetPushTemplateResult> getPushTemplateAsync(GetPushTemplateRequest getPushTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<GetPushTemplateRequest, GetPushTemplateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves information about an Amazon Pinpoint configuration for a recommender model.
+     * </p>
+     * 
+     * @param getRecommenderConfigurationRequest
+     * @return A Java Future containing the result of the GetRecommenderConfiguration operation returned by the service.
+     * @sample AmazonPinpointAsync.GetRecommenderConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetRecommenderConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetRecommenderConfigurationResult> getRecommenderConfigurationAsync(
+            GetRecommenderConfigurationRequest getRecommenderConfigurationRequest);
+
+    /**
+     * <p>
+     * Retrieves information about an Amazon Pinpoint configuration for a recommender model.
+     * </p>
+     * 
+     * @param getRecommenderConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetRecommenderConfiguration operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.GetRecommenderConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetRecommenderConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetRecommenderConfigurationResult> getRecommenderConfigurationAsync(
+            GetRecommenderConfigurationRequest getRecommenderConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<GetRecommenderConfigurationRequest, GetRecommenderConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves information about all the recommender model configurations that are associated with your Amazon
+     * Pinpoint account.
+     * </p>
+     * 
+     * @param getRecommenderConfigurationsRequest
+     * @return A Java Future containing the result of the GetRecommenderConfigurations operation returned by the
+     *         service.
+     * @sample AmazonPinpointAsync.GetRecommenderConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetRecommenderConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetRecommenderConfigurationsResult> getRecommenderConfigurationsAsync(
+            GetRecommenderConfigurationsRequest getRecommenderConfigurationsRequest);
+
+    /**
+     * <p>
+     * Retrieves information about all the recommender model configurations that are associated with your Amazon
+     * Pinpoint account.
+     * </p>
+     * 
+     * @param getRecommenderConfigurationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetRecommenderConfigurations operation returned by the
+     *         service.
+     * @sample AmazonPinpointAsyncHandler.GetRecommenderConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetRecommenderConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetRecommenderConfigurationsResult> getRecommenderConfigurationsAsync(
+            GetRecommenderConfigurationsRequest getRecommenderConfigurationsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetRecommenderConfigurationsRequest, GetRecommenderConfigurationsResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves information about the configuration, dimension, and other settings for a specific segment that's
      * associated with an application.
      * </p>
@@ -1602,7 +2469,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Retrieves information about the configuration, dimension, and other settings for all versions of a specific
+     * Retrieves information about the configuration, dimension, and other settings for all the versions of a specific
      * segment that's associated with an application.
      * </p>
      * 
@@ -1616,7 +2483,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Retrieves information about the configuration, dimension, and other settings for all versions of a specific
+     * Retrieves information about the configuration, dimension, and other settings for all the versions of a specific
      * segment that's associated with an application.
      * </p>
      * 
@@ -1699,6 +2566,37 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
+     * Retrieves the content and settings of a message template for messages that are sent through the SMS channel.
+     * </p>
+     * 
+     * @param getSmsTemplateRequest
+     * @return A Java Future containing the result of the GetSmsTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.GetSmsTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetSmsTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetSmsTemplateResult> getSmsTemplateAsync(GetSmsTemplateRequest getSmsTemplateRequest);
+
+    /**
+     * <p>
+     * Retrieves the content and settings of a message template for messages that are sent through the SMS channel.
+     * </p>
+     * 
+     * @param getSmsTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetSmsTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.GetSmsTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetSmsTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetSmsTemplateResult> getSmsTemplateAsync(GetSmsTemplateRequest getSmsTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<GetSmsTemplateRequest, GetSmsTemplateResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves information about all the endpoints that are associated with a specific user ID.
      * </p>
      * 
@@ -1761,7 +2659,72 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Retrieves all the tags (keys and values) that are associated with an application, campaign, or segment.
+     * Retrieves the content and settings of a message template for messages that are sent through the voice channel.
+     * </p>
+     * 
+     * @param getVoiceTemplateRequest
+     * @return A Java Future containing the result of the GetVoiceTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.GetVoiceTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetVoiceTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetVoiceTemplateResult> getVoiceTemplateAsync(GetVoiceTemplateRequest getVoiceTemplateRequest);
+
+    /**
+     * <p>
+     * Retrieves the content and settings of a message template for messages that are sent through the voice channel.
+     * </p>
+     * 
+     * @param getVoiceTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetVoiceTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.GetVoiceTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetVoiceTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetVoiceTemplateResult> getVoiceTemplateAsync(GetVoiceTemplateRequest getVoiceTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<GetVoiceTemplateRequest, GetVoiceTemplateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves information about the status, configuration, and other settings for all the journeys that are
+     * associated with an application.
+     * </p>
+     * 
+     * @param listJourneysRequest
+     * @return A Java Future containing the result of the ListJourneys operation returned by the service.
+     * @sample AmazonPinpointAsync.ListJourneys
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/ListJourneys" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListJourneysResult> listJourneysAsync(ListJourneysRequest listJourneysRequest);
+
+    /**
+     * <p>
+     * Retrieves information about the status, configuration, and other settings for all the journeys that are
+     * associated with an application.
+     * </p>
+     * 
+     * @param listJourneysRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListJourneys operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.ListJourneys
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/ListJourneys" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListJourneysResult> listJourneysAsync(ListJourneysRequest listJourneysRequest,
+            com.amazonaws.handlers.AsyncHandler<ListJourneysRequest, ListJourneysResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves all the tags (keys and values) that are associated with an application, campaign, message template, or
+     * segment.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -1774,7 +2737,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Retrieves all the tags (keys and values) that are associated with an application, campaign, or segment.
+     * Retrieves all the tags (keys and values) that are associated with an application, campaign, message template, or
+     * segment.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -1789,6 +2753,68 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
      */
     java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest listTagsForResourceRequest,
             com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves information about all the versions of a specific message template.
+     * </p>
+     * 
+     * @param listTemplateVersionsRequest
+     * @return A Java Future containing the result of the ListTemplateVersions operation returned by the service.
+     * @sample AmazonPinpointAsync.ListTemplateVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/ListTemplateVersions" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListTemplateVersionsResult> listTemplateVersionsAsync(ListTemplateVersionsRequest listTemplateVersionsRequest);
+
+    /**
+     * <p>
+     * Retrieves information about all the versions of a specific message template.
+     * </p>
+     * 
+     * @param listTemplateVersionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListTemplateVersions operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.ListTemplateVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/ListTemplateVersions" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListTemplateVersionsResult> listTemplateVersionsAsync(ListTemplateVersionsRequest listTemplateVersionsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListTemplateVersionsRequest, ListTemplateVersionsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves information about all the message templates that are associated with your Amazon Pinpoint account.
+     * </p>
+     * 
+     * @param listTemplatesRequest
+     * @return A Java Future containing the result of the ListTemplates operation returned by the service.
+     * @sample AmazonPinpointAsync.ListTemplates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/ListTemplates" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListTemplatesResult> listTemplatesAsync(ListTemplatesRequest listTemplatesRequest);
+
+    /**
+     * <p>
+     * Retrieves information about all the message templates that are associated with your Amazon Pinpoint account.
+     * </p>
+     * 
+     * @param listTemplatesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListTemplates operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.ListTemplates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/ListTemplates" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListTemplatesResult> listTemplatesAsync(ListTemplatesRequest listTemplatesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListTemplatesRequest, ListTemplatesResult> asyncHandler);
 
     /**
      * <p>
@@ -1889,8 +2915,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Removes one or more attributes, of the same attribute type, from all the endpoints that are associated with an
-     * application.
+     * Removes one or more custom attributes, of the same attribute type, from the application. Existing endpoints still
+     * have the attributes but Amazon Pinpoint will stop capturing new or changed values for these attributes.
      * </p>
      * 
      * @param removeAttributesRequest
@@ -1903,8 +2929,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Removes one or more attributes, of the same attribute type, from all the endpoints that are associated with an
-     * application.
+     * Removes one or more custom attributes, of the same attribute type, from the application. Existing endpoints still
+     * have the attributes but Amazon Pinpoint will stop capturing new or changed values for these attributes.
      * </p>
      * 
      * @param removeAttributesRequest
@@ -1953,6 +2979,37 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
+     * Send an OTP message
+     * </p>
+     * 
+     * @param sendOTPMessageRequest
+     * @return A Java Future containing the result of the SendOTPMessage operation returned by the service.
+     * @sample AmazonPinpointAsync.SendOTPMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/SendOTPMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<SendOTPMessageResult> sendOTPMessageAsync(SendOTPMessageRequest sendOTPMessageRequest);
+
+    /**
+     * <p>
+     * Send an OTP message
+     * </p>
+     * 
+     * @param sendOTPMessageRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the SendOTPMessage operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.SendOTPMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/SendOTPMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<SendOTPMessageResult> sendOTPMessageAsync(SendOTPMessageRequest sendOTPMessageRequest,
+            com.amazonaws.handlers.AsyncHandler<SendOTPMessageRequest, SendOTPMessageResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates and sends a message to a list of users.
      * </p>
      * 
@@ -1984,7 +3041,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Adds one or more tags (keys and values) to an application, campaign, or segment.
+     * Adds one or more tags (keys and values) to an application, campaign, message template, or segment.
      * </p>
      * 
      * @param tagResourceRequest
@@ -1997,7 +3054,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Adds one or more tags (keys and values) to an application, campaign, or segment.
+     * Adds one or more tags (keys and values) to an application, campaign, message template, or segment.
      * </p>
      * 
      * @param tagResourceRequest
@@ -2015,7 +3072,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Removes one or more tags (keys and values) from an application, campaign, or segment.
+     * Removes one or more tags (keys and values) from an application, campaign, message template, or segment.
      * </p>
      * 
      * @param untagResourceRequest
@@ -2028,7 +3085,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Removes one or more tags (keys and values) from an application, campaign, or segment.
+     * Removes one or more tags (keys and values) from an application, campaign, message template, or segment.
      * </p>
      * 
      * @param untagResourceRequest
@@ -2046,7 +3103,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the ADM channel settings for an application.
+     * Enables the ADM channel for an application or updates the status and settings of the ADM channel for an
+     * application.
      * </p>
      * 
      * @param updateAdmChannelRequest
@@ -2059,7 +3117,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the ADM channel settings for an application.
+     * Enables the ADM channel for an application or updates the status and settings of the ADM channel for an
+     * application.
      * </p>
      * 
      * @param updateAdmChannelRequest
@@ -2077,7 +3136,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the APNs channel settings for an application.
+     * Enables the APNs channel for an application or updates the status and settings of the APNs channel for an
+     * application.
      * </p>
      * 
      * @param updateApnsChannelRequest
@@ -2090,7 +3150,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the APNs channel settings for an application.
+     * Enables the APNs channel for an application or updates the status and settings of the APNs channel for an
+     * application.
      * </p>
      * 
      * @param updateApnsChannelRequest
@@ -2108,7 +3169,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the APNs sandbox channel settings for an application.
+     * Enables the APNs sandbox channel for an application or updates the status and settings of the APNs sandbox
+     * channel for an application.
      * </p>
      * 
      * @param updateApnsSandboxChannelRequest
@@ -2121,7 +3183,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the APNs sandbox channel settings for an application.
+     * Enables the APNs sandbox channel for an application or updates the status and settings of the APNs sandbox
+     * channel for an application.
      * </p>
      * 
      * @param updateApnsSandboxChannelRequest
@@ -2139,7 +3202,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the APNs VoIP channel settings for an application.
+     * Enables the APNs VoIP channel for an application or updates the status and settings of the APNs VoIP channel for
+     * an application.
      * </p>
      * 
      * @param updateApnsVoipChannelRequest
@@ -2152,7 +3216,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the APNs VoIP channel settings for an application.
+     * Enables the APNs VoIP channel for an application or updates the status and settings of the APNs VoIP channel for
+     * an application.
      * </p>
      * 
      * @param updateApnsVoipChannelRequest
@@ -2170,7 +3235,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the settings for the APNs VoIP sandbox channel for an application.
+     * Enables the APNs VoIP sandbox channel for an application or updates the status and settings of the APNs VoIP
+     * sandbox channel for an application.
      * </p>
      * 
      * @param updateApnsVoipSandboxChannelRequest
@@ -2185,7 +3251,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the settings for the APNs VoIP sandbox channel for an application.
+     * Enables the APNs VoIP sandbox channel for an application or updates the status and settings of the APNs VoIP
+     * sandbox channel for an application.
      * </p>
      * 
      * @param updateApnsVoipSandboxChannelRequest
@@ -2238,7 +3305,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the settings of the Baidu channel for an application.
+     * Enables the Baidu channel for an application or updates the status and settings of the Baidu channel for an
+     * application.
      * </p>
      * 
      * @param updateBaiduChannelRequest
@@ -2251,7 +3319,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the settings of the Baidu channel for an application.
+     * Enables the Baidu channel for an application or updates the status and settings of the Baidu channel for an
+     * application.
      * </p>
      * 
      * @param updateBaiduChannelRequest
@@ -2269,7 +3338,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the settings for a campaign.
+     * Updates the configuration and other settings for a campaign.
      * </p>
      * 
      * @param updateCampaignRequest
@@ -2282,7 +3351,7 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the settings for a campaign.
+     * Updates the configuration and other settings for a campaign.
      * </p>
      * 
      * @param updateCampaignRequest
@@ -2300,7 +3369,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the status and settings of the email channel for an application.
+     * Enables the email channel for an application or updates the status and settings of the email channel for an
+     * application.
      * </p>
      * 
      * @param updateEmailChannelRequest
@@ -2313,7 +3383,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the status and settings of the email channel for an application.
+     * Enables the email channel for an application or updates the status and settings of the email channel for an
+     * application.
      * </p>
      * 
      * @param updateEmailChannelRequest
@@ -2331,9 +3402,41 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
+     * Updates an existing message template for messages that are sent through the email channel.
+     * </p>
+     * 
+     * @param updateEmailTemplateRequest
+     * @return A Java Future containing the result of the UpdateEmailTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.UpdateEmailTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateEmailTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateEmailTemplateResult> updateEmailTemplateAsync(UpdateEmailTemplateRequest updateEmailTemplateRequest);
+
+    /**
+     * <p>
+     * Updates an existing message template for messages that are sent through the email channel.
+     * </p>
+     * 
+     * @param updateEmailTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateEmailTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.UpdateEmailTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateEmailTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateEmailTemplateResult> updateEmailTemplateAsync(UpdateEmailTemplateRequest updateEmailTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateEmailTemplateRequest, UpdateEmailTemplateResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates a new endpoint for an application or updates the settings and attributes of an existing endpoint for an
-     * application. You can also use this operation to define custom attributes (Attributes, Metrics, and UserAttributes
-     * properties) for an endpoint.
+     * application. You can also use this operation to define custom attributes for an endpoint. If an update includes
+     * one or more values for a custom attribute, Amazon Pinpoint replaces (overwrites) any existing values with the new
+     * values.
      * </p>
      * 
      * @param updateEndpointRequest
@@ -2347,8 +3450,9 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
     /**
      * <p>
      * Creates a new endpoint for an application or updates the settings and attributes of an existing endpoint for an
-     * application. You can also use this operation to define custom attributes (Attributes, Metrics, and UserAttributes
-     * properties) for an endpoint.
+     * application. You can also use this operation to define custom attributes for an endpoint. If an update includes
+     * one or more values for a custom attribute, Amazon Pinpoint replaces (overwrites) any existing values with the new
+     * values.
      * </p>
      * 
      * @param updateEndpointRequest
@@ -2367,8 +3471,9 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
     /**
      * <p>
      * Creates a new batch of endpoints for an application or updates the settings and attributes of a batch of existing
-     * endpoints for an application. You can also use this operation to define custom attributes (Attributes, Metrics,
-     * and UserAttributes properties) for a batch of endpoints.
+     * endpoints for an application. You can also use this operation to define custom attributes for a batch of
+     * endpoints. If an update includes one or more values for a custom attribute, Amazon Pinpoint replaces (overwrites)
+     * any existing values with the new values.
      * </p>
      * 
      * @param updateEndpointsBatchRequest
@@ -2382,8 +3487,9 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
     /**
      * <p>
      * Creates a new batch of endpoints for an application or updates the settings and attributes of a batch of existing
-     * endpoints for an application. You can also use this operation to define custom attributes (Attributes, Metrics,
-     * and UserAttributes properties) for a batch of endpoints.
+     * endpoints for an application. You can also use this operation to define custom attributes for a batch of
+     * endpoints. If an update includes one or more values for a custom attribute, Amazon Pinpoint replaces (overwrites)
+     * any existing values with the new values.
      * </p>
      * 
      * @param updateEndpointsBatchRequest
@@ -2401,7 +3507,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the status and settings of the GCM channel for an application.
+     * Enables the GCM channel for an application or updates the status and settings of the GCM channel for an
+     * application.
      * </p>
      * 
      * @param updateGcmChannelRequest
@@ -2414,7 +3521,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the status and settings of the GCM channel for an application.
+     * Enables the GCM channel for an application or updates the status and settings of the GCM channel for an
+     * application.
      * </p>
      * 
      * @param updateGcmChannelRequest
@@ -2429,6 +3537,165 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
      */
     java.util.concurrent.Future<UpdateGcmChannelResult> updateGcmChannelAsync(UpdateGcmChannelRequest updateGcmChannelRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateGcmChannelRequest, UpdateGcmChannelResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates an existing message template for messages sent through the in-app message channel.
+     * </p>
+     * 
+     * @param updateInAppTemplateRequest
+     * @return A Java Future containing the result of the UpdateInAppTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.UpdateInAppTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateInAppTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateInAppTemplateResult> updateInAppTemplateAsync(UpdateInAppTemplateRequest updateInAppTemplateRequest);
+
+    /**
+     * <p>
+     * Updates an existing message template for messages sent through the in-app message channel.
+     * </p>
+     * 
+     * @param updateInAppTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateInAppTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.UpdateInAppTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateInAppTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateInAppTemplateResult> updateInAppTemplateAsync(UpdateInAppTemplateRequest updateInAppTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateInAppTemplateRequest, UpdateInAppTemplateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the configuration and other settings for a journey.
+     * </p>
+     * 
+     * @param updateJourneyRequest
+     * @return A Java Future containing the result of the UpdateJourney operation returned by the service.
+     * @sample AmazonPinpointAsync.UpdateJourney
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateJourney" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateJourneyResult> updateJourneyAsync(UpdateJourneyRequest updateJourneyRequest);
+
+    /**
+     * <p>
+     * Updates the configuration and other settings for a journey.
+     * </p>
+     * 
+     * @param updateJourneyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateJourney operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.UpdateJourney
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateJourney" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateJourneyResult> updateJourneyAsync(UpdateJourneyRequest updateJourneyRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateJourneyRequest, UpdateJourneyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Cancels (stops) an active journey.
+     * </p>
+     * 
+     * @param updateJourneyStateRequest
+     * @return A Java Future containing the result of the UpdateJourneyState operation returned by the service.
+     * @sample AmazonPinpointAsync.UpdateJourneyState
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateJourneyState" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateJourneyStateResult> updateJourneyStateAsync(UpdateJourneyStateRequest updateJourneyStateRequest);
+
+    /**
+     * <p>
+     * Cancels (stops) an active journey.
+     * </p>
+     * 
+     * @param updateJourneyStateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateJourneyState operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.UpdateJourneyState
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateJourneyState" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateJourneyStateResult> updateJourneyStateAsync(UpdateJourneyStateRequest updateJourneyStateRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateJourneyStateRequest, UpdateJourneyStateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates an existing message template for messages that are sent through a push notification channel.
+     * </p>
+     * 
+     * @param updatePushTemplateRequest
+     * @return A Java Future containing the result of the UpdatePushTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.UpdatePushTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdatePushTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdatePushTemplateResult> updatePushTemplateAsync(UpdatePushTemplateRequest updatePushTemplateRequest);
+
+    /**
+     * <p>
+     * Updates an existing message template for messages that are sent through a push notification channel.
+     * </p>
+     * 
+     * @param updatePushTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdatePushTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.UpdatePushTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdatePushTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdatePushTemplateResult> updatePushTemplateAsync(UpdatePushTemplateRequest updatePushTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdatePushTemplateRequest, UpdatePushTemplateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates an Amazon Pinpoint configuration for a recommender model.
+     * </p>
+     * 
+     * @param updateRecommenderConfigurationRequest
+     * @return A Java Future containing the result of the UpdateRecommenderConfiguration operation returned by the
+     *         service.
+     * @sample AmazonPinpointAsync.UpdateRecommenderConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateRecommenderConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateRecommenderConfigurationResult> updateRecommenderConfigurationAsync(
+            UpdateRecommenderConfigurationRequest updateRecommenderConfigurationRequest);
+
+    /**
+     * <p>
+     * Updates an Amazon Pinpoint configuration for a recommender model.
+     * </p>
+     * 
+     * @param updateRecommenderConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateRecommenderConfiguration operation returned by the
+     *         service.
+     * @sample AmazonPinpointAsyncHandler.UpdateRecommenderConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateRecommenderConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateRecommenderConfigurationResult> updateRecommenderConfigurationAsync(
+            UpdateRecommenderConfigurationRequest updateRecommenderConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateRecommenderConfigurationRequest, UpdateRecommenderConfigurationResult> asyncHandler);
 
     /**
      * <p>
@@ -2465,7 +3732,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the status and settings of the SMS channel for an application.
+     * Enables the SMS channel for an application or updates the status and settings of the SMS channel for an
+     * application.
      * </p>
      * 
      * @param updateSmsChannelRequest
@@ -2478,7 +3746,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the status and settings of the SMS channel for an application.
+     * Enables the SMS channel for an application or updates the status and settings of the SMS channel for an
+     * application.
      * </p>
      * 
      * @param updateSmsChannelRequest
@@ -2496,7 +3765,72 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the status and settings of the voice channel for an application.
+     * Updates an existing message template for messages that are sent through the SMS channel.
+     * </p>
+     * 
+     * @param updateSmsTemplateRequest
+     * @return A Java Future containing the result of the UpdateSmsTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.UpdateSmsTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateSmsTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateSmsTemplateResult> updateSmsTemplateAsync(UpdateSmsTemplateRequest updateSmsTemplateRequest);
+
+    /**
+     * <p>
+     * Updates an existing message template for messages that are sent through the SMS channel.
+     * </p>
+     * 
+     * @param updateSmsTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateSmsTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.UpdateSmsTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateSmsTemplate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateSmsTemplateResult> updateSmsTemplateAsync(UpdateSmsTemplateRequest updateSmsTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateSmsTemplateRequest, UpdateSmsTemplateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Changes the status of a specific version of a message template to <i>active</i>.
+     * </p>
+     * 
+     * @param updateTemplateActiveVersionRequest
+     * @return A Java Future containing the result of the UpdateTemplateActiveVersion operation returned by the service.
+     * @sample AmazonPinpointAsync.UpdateTemplateActiveVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateTemplateActiveVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateTemplateActiveVersionResult> updateTemplateActiveVersionAsync(
+            UpdateTemplateActiveVersionRequest updateTemplateActiveVersionRequest);
+
+    /**
+     * <p>
+     * Changes the status of a specific version of a message template to <i>active</i>.
+     * </p>
+     * 
+     * @param updateTemplateActiveVersionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateTemplateActiveVersion operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.UpdateTemplateActiveVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateTemplateActiveVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateTemplateActiveVersionResult> updateTemplateActiveVersionAsync(
+            UpdateTemplateActiveVersionRequest updateTemplateActiveVersionRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateTemplateActiveVersionRequest, UpdateTemplateActiveVersionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Enables the voice channel for an application or updates the status and settings of the voice channel for an
+     * application.
      * </p>
      * 
      * @param updateVoiceChannelRequest
@@ -2509,7 +3843,8 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
 
     /**
      * <p>
-     * Updates the status and settings of the voice channel for an application.
+     * Enables the voice channel for an application or updates the status and settings of the voice channel for an
+     * application.
      * </p>
      * 
      * @param updateVoiceChannelRequest
@@ -2524,5 +3859,67 @@ public interface AmazonPinpointAsync extends AmazonPinpoint {
      */
     java.util.concurrent.Future<UpdateVoiceChannelResult> updateVoiceChannelAsync(UpdateVoiceChannelRequest updateVoiceChannelRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateVoiceChannelRequest, UpdateVoiceChannelResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates an existing message template for messages that are sent through the voice channel.
+     * </p>
+     * 
+     * @param updateVoiceTemplateRequest
+     * @return A Java Future containing the result of the UpdateVoiceTemplate operation returned by the service.
+     * @sample AmazonPinpointAsync.UpdateVoiceTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateVoiceTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateVoiceTemplateResult> updateVoiceTemplateAsync(UpdateVoiceTemplateRequest updateVoiceTemplateRequest);
+
+    /**
+     * <p>
+     * Updates an existing message template for messages that are sent through the voice channel.
+     * </p>
+     * 
+     * @param updateVoiceTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateVoiceTemplate operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.UpdateVoiceTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateVoiceTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateVoiceTemplateResult> updateVoiceTemplateAsync(UpdateVoiceTemplateRequest updateVoiceTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateVoiceTemplateRequest, UpdateVoiceTemplateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Verify an OTP
+     * </p>
+     * 
+     * @param verifyOTPMessageRequest
+     * @return A Java Future containing the result of the VerifyOTPMessage operation returned by the service.
+     * @sample AmazonPinpointAsync.VerifyOTPMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/VerifyOTPMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<VerifyOTPMessageResult> verifyOTPMessageAsync(VerifyOTPMessageRequest verifyOTPMessageRequest);
+
+    /**
+     * <p>
+     * Verify an OTP
+     * </p>
+     * 
+     * @param verifyOTPMessageRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the VerifyOTPMessage operation returned by the service.
+     * @sample AmazonPinpointAsyncHandler.VerifyOTPMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/VerifyOTPMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<VerifyOTPMessageResult> verifyOTPMessageAsync(VerifyOTPMessageRequest verifyOTPMessageRequest,
+            com.amazonaws.handlers.AsyncHandler<VerifyOTPMessageRequest, VerifyOTPMessageResult> asyncHandler);
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,12 +50,27 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
+     * stream.standard.small
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * stream.standard.medium
      * </p>
      * </li>
      * <li>
      * <p>
      * stream.standard.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.2xlarge
      * </p>
      * </li>
      * <li>
@@ -110,6 +125,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * <li>
      * <p>
+     * stream.memory.z1d.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.3xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.6xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.12xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * stream.graphics-design.large
      * </p>
      * </li>
@@ -135,6 +180,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * <li>
      * <p>
+     * stream.graphics.g4dn.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.4xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.8xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.12xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.16xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * stream.graphics-pro.4xlarge
      * </p>
      * </li>
@@ -149,17 +224,48 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The following instance types are available for Elastic fleets:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * stream.standard.small
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.medium
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.2xlarge
+     * </p>
+     * </li>
+     * </ul>
      */
     private String instanceType;
     /**
      * <p>
-     * The desired capacity for the fleet.
+     * The desired capacity for the fleet. This is not allowed for Elastic fleets.
      * </p>
      */
     private ComputeCapacity computeCapacity;
     /**
      * <p>
-     * The VPC configuration for the fleet.
+     * The VPC configuration for the fleet. This is required for Elastic fleets, but not required for other fleet types.
+     * Elastic fleets require that you specify at least two subnets in different availability zones.
      * </p>
      */
     private VpcConfig vpcConfig;
@@ -170,7 +276,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * before being disconnected. After this time elapses, the instance is terminated and replaced by a new instance.
      * </p>
      * <p>
-     * Specify a value between 600 and 360000.
+     * Specify a value between 600 and 432000.
      * </p>
      */
     private Integer maxUserDurationInSeconds;
@@ -181,7 +287,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * to their previous session. Otherwise, they are connected to a new session with a new streaming instance.
      * </p>
      * <p>
-     * Specify a value between 60 and 360000.
+     * Specify a value between 60 and 36000.
      * </p>
      */
     private Integer disconnectTimeoutInSeconds;
@@ -229,7 +335,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * <p>
      * To prevent users from being disconnected due to inactivity, specify a value of 0. Otherwise, specify a value
-     * between 60 and 3600. The default value is 0.
+     * between 60 and 36000. The default value is 0.
      * </p>
      * <note>
      * <p>
@@ -248,6 +354,63 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      */
     private java.util.List<String> attributesToDelete;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To assume a role, a fleet instance calls
+     * the AWS Security Token Service (STS) <code>AssumeRole</code> API operation and passes the ARN of the role to use.
+     * The operation creates a new session with temporary credentials. AppStream 2.0 retrieves the temporary credentials
+     * and creates the <b>appstream_machine_role</b> credential profile on the instance.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html"
+     * >Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming
+     * Instances</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.
+     * </p>
+     */
+    private String iamRoleArn;
+    /**
+     * <p>
+     * The AppStream 2.0 view that is displayed to your users when they stream from the fleet. When <code>APP</code> is
+     * specified, only the windows of applications opened by users display. When <code>DESKTOP</code> is specified, the
+     * standard desktop that is provided by the operating system displays.
+     * </p>
+     * <p>
+     * The default value is <code>APP</code>.
+     * </p>
+     */
+    private String streamView;
+    /**
+     * <p>
+     * The platform of the fleet. WINDOWS_SERVER_2019 and AMAZON_LINUX2 are supported for Elastic fleets.
+     * </p>
+     */
+    private String platform;
+    /**
+     * <p>
+     * The maximum number of concurrent sessions for a fleet.
+     * </p>
+     */
+    private Integer maxConcurrentSessions;
+    /**
+     * <p>
+     * The USB device filter strings that specify which USB devices a user can redirect to the fleet streaming session,
+     * when using the Windows native client. This is allowed but not required for Elastic fleets.
+     * </p>
+     */
+    private java.util.List<String> usbDeviceFilterStrings;
+    /**
+     * <p>
+     * The S3 location of the session scripts configuration zip file. This only applies to Elastic fleets.
+     * </p>
+     */
+    private S3Location sessionScriptS3Location;
+    /**
+     * <p>
+     * The maximum number of user sessions on an instance. This only applies to multi-session fleets.
+     * </p>
+     */
+    private Integer maxSessionsPerInstance;
 
     /**
      * <p>
@@ -376,12 +539,27 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
+     * stream.standard.small
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * stream.standard.medium
      * </p>
      * </li>
      * <li>
      * <p>
      * stream.standard.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.2xlarge
      * </p>
      * </li>
      * <li>
@@ -436,6 +614,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * <li>
      * <p>
+     * stream.memory.z1d.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.3xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.6xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.12xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * stream.graphics-design.large
      * </p>
      * </li>
@@ -461,6 +669,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * <li>
      * <p>
+     * stream.graphics.g4dn.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.4xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.8xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.12xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.16xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * stream.graphics-pro.4xlarge
      * </p>
      * </li>
@@ -475,10 +713,45 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The following instance types are available for Elastic fleets:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * stream.standard.small
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.medium
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.2xlarge
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param instanceType
      *        The instance type to use when launching fleet instances. The following instance types are available:</p>
      *        <ul>
+     *        <li>
+     *        <p>
+     *        stream.standard.small
+     *        </p>
+     *        </li>
      *        <li>
      *        <p>
      *        stream.standard.medium
@@ -487,6 +760,16 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <li>
      *        <p>
      *        stream.standard.large
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.standard.xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.standard.2xlarge
      *        </p>
      *        </li>
      *        <li>
@@ -541,6 +824,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        </li>
      *        <li>
      *        <p>
+     *        stream.memory.z1d.large
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.memory.z1d.xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.memory.z1d.2xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.memory.z1d.3xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.memory.z1d.6xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.memory.z1d.12xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        stream.graphics-design.large
      *        </p>
      *        </li>
@@ -566,6 +879,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        </li>
      *        <li>
      *        <p>
+     *        stream.graphics.g4dn.xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics.g4dn.2xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics.g4dn.4xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics.g4dn.8xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics.g4dn.12xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics.g4dn.16xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        stream.graphics-pro.4xlarge
      *        </p>
      *        </li>
@@ -577,6 +920,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <li>
      *        <p>
      *        stream.graphics-pro.16xlarge
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following instance types are available for Elastic fleets:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        stream.standard.small
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.standard.medium
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.standard.large
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.standard.xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.standard.2xlarge
      *        </p>
      *        </li>
      */
@@ -592,12 +965,27 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
+     * stream.standard.small
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * stream.standard.medium
      * </p>
      * </li>
      * <li>
      * <p>
      * stream.standard.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.2xlarge
      * </p>
      * </li>
      * <li>
@@ -652,6 +1040,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * <li>
      * <p>
+     * stream.memory.z1d.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.3xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.6xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.12xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * stream.graphics-design.large
      * </p>
      * </li>
@@ -677,6 +1095,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * <li>
      * <p>
+     * stream.graphics.g4dn.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.4xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.8xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.12xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.16xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * stream.graphics-pro.4xlarge
      * </p>
      * </li>
@@ -691,9 +1139,44 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The following instance types are available for Elastic fleets:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * stream.standard.small
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.medium
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.2xlarge
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return The instance type to use when launching fleet instances. The following instance types are available:</p>
      *         <ul>
+     *         <li>
+     *         <p>
+     *         stream.standard.small
+     *         </p>
+     *         </li>
      *         <li>
      *         <p>
      *         stream.standard.medium
@@ -702,6 +1185,16 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         <li>
      *         <p>
      *         stream.standard.large
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.standard.xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.standard.2xlarge
      *         </p>
      *         </li>
      *         <li>
@@ -756,6 +1249,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         </li>
      *         <li>
      *         <p>
+     *         stream.memory.z1d.large
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.memory.z1d.xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.memory.z1d.2xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.memory.z1d.3xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.memory.z1d.6xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.memory.z1d.12xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         stream.graphics-design.large
      *         </p>
      *         </li>
@@ -781,6 +1304,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         </li>
      *         <li>
      *         <p>
+     *         stream.graphics.g4dn.xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.graphics.g4dn.2xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.graphics.g4dn.4xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.graphics.g4dn.8xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.graphics.g4dn.12xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.graphics.g4dn.16xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         stream.graphics-pro.4xlarge
      *         </p>
      *         </li>
@@ -792,6 +1345,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         <li>
      *         <p>
      *         stream.graphics-pro.16xlarge
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The following instance types are available for Elastic fleets:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         stream.standard.small
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.standard.medium
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.standard.large
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.standard.xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.standard.2xlarge
      *         </p>
      *         </li>
      */
@@ -807,12 +1390,27 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
+     * stream.standard.small
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * stream.standard.medium
      * </p>
      * </li>
      * <li>
      * <p>
      * stream.standard.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.2xlarge
      * </p>
      * </li>
      * <li>
@@ -867,6 +1465,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * <li>
      * <p>
+     * stream.memory.z1d.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.3xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.6xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.memory.z1d.12xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * stream.graphics-design.large
      * </p>
      * </li>
@@ -892,6 +1520,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * <li>
      * <p>
+     * stream.graphics.g4dn.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.4xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.8xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.12xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics.g4dn.16xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * stream.graphics-pro.4xlarge
      * </p>
      * </li>
@@ -906,10 +1564,45 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The following instance types are available for Elastic fleets:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * stream.standard.small
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.medium
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.standard.2xlarge
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param instanceType
      *        The instance type to use when launching fleet instances. The following instance types are available:</p>
      *        <ul>
+     *        <li>
+     *        <p>
+     *        stream.standard.small
+     *        </p>
+     *        </li>
      *        <li>
      *        <p>
      *        stream.standard.medium
@@ -918,6 +1611,16 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <li>
      *        <p>
      *        stream.standard.large
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.standard.xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.standard.2xlarge
      *        </p>
      *        </li>
      *        <li>
@@ -972,6 +1675,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        </li>
      *        <li>
      *        <p>
+     *        stream.memory.z1d.large
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.memory.z1d.xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.memory.z1d.2xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.memory.z1d.3xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.memory.z1d.6xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.memory.z1d.12xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        stream.graphics-design.large
      *        </p>
      *        </li>
@@ -997,6 +1730,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        </li>
      *        <li>
      *        <p>
+     *        stream.graphics.g4dn.xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics.g4dn.2xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics.g4dn.4xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics.g4dn.8xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics.g4dn.12xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics.g4dn.16xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        stream.graphics-pro.4xlarge
      *        </p>
      *        </li>
@@ -1010,6 +1773,36 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        stream.graphics-pro.16xlarge
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        The following instance types are available for Elastic fleets:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        stream.standard.small
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.standard.medium
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.standard.large
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.standard.xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.standard.2xlarge
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1020,11 +1813,11 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The desired capacity for the fleet.
+     * The desired capacity for the fleet. This is not allowed for Elastic fleets.
      * </p>
      * 
      * @param computeCapacity
-     *        The desired capacity for the fleet.
+     *        The desired capacity for the fleet. This is not allowed for Elastic fleets.
      */
 
     public void setComputeCapacity(ComputeCapacity computeCapacity) {
@@ -1033,10 +1826,10 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The desired capacity for the fleet.
+     * The desired capacity for the fleet. This is not allowed for Elastic fleets.
      * </p>
      * 
-     * @return The desired capacity for the fleet.
+     * @return The desired capacity for the fleet. This is not allowed for Elastic fleets.
      */
 
     public ComputeCapacity getComputeCapacity() {
@@ -1045,11 +1838,11 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The desired capacity for the fleet.
+     * The desired capacity for the fleet. This is not allowed for Elastic fleets.
      * </p>
      * 
      * @param computeCapacity
-     *        The desired capacity for the fleet.
+     *        The desired capacity for the fleet. This is not allowed for Elastic fleets.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1060,11 +1853,13 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The VPC configuration for the fleet.
+     * The VPC configuration for the fleet. This is required for Elastic fleets, but not required for other fleet types.
+     * Elastic fleets require that you specify at least two subnets in different availability zones.
      * </p>
      * 
      * @param vpcConfig
-     *        The VPC configuration for the fleet.
+     *        The VPC configuration for the fleet. This is required for Elastic fleets, but not required for other fleet
+     *        types. Elastic fleets require that you specify at least two subnets in different availability zones.
      */
 
     public void setVpcConfig(VpcConfig vpcConfig) {
@@ -1073,10 +1868,13 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The VPC configuration for the fleet.
+     * The VPC configuration for the fleet. This is required for Elastic fleets, but not required for other fleet types.
+     * Elastic fleets require that you specify at least two subnets in different availability zones.
      * </p>
      * 
-     * @return The VPC configuration for the fleet.
+     * @return The VPC configuration for the fleet. This is required for Elastic fleets, but not required for other
+     *         fleet types. Elastic fleets require that you specify at least two subnets in different availability
+     *         zones.
      */
 
     public VpcConfig getVpcConfig() {
@@ -1085,11 +1883,13 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The VPC configuration for the fleet.
+     * The VPC configuration for the fleet. This is required for Elastic fleets, but not required for other fleet types.
+     * Elastic fleets require that you specify at least two subnets in different availability zones.
      * </p>
      * 
      * @param vpcConfig
-     *        The VPC configuration for the fleet.
+     *        The VPC configuration for the fleet. This is required for Elastic fleets, but not required for other fleet
+     *        types. Elastic fleets require that you specify at least two subnets in different availability zones.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1105,7 +1905,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * before being disconnected. After this time elapses, the instance is terminated and replaced by a new instance.
      * </p>
      * <p>
-     * Specify a value between 600 and 360000.
+     * Specify a value between 600 and 432000.
      * </p>
      * 
      * @param maxUserDurationInSeconds
@@ -1114,7 +1914,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        open documents before being disconnected. After this time elapses, the instance is terminated and replaced
      *        by a new instance.</p>
      *        <p>
-     *        Specify a value between 600 and 360000.
+     *        Specify a value between 600 and 432000.
      */
 
     public void setMaxUserDurationInSeconds(Integer maxUserDurationInSeconds) {
@@ -1128,7 +1928,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * before being disconnected. After this time elapses, the instance is terminated and replaced by a new instance.
      * </p>
      * <p>
-     * Specify a value between 600 and 360000.
+     * Specify a value between 600 and 432000.
      * </p>
      * 
      * @return The maximum amount of time that a streaming session can remain active, in seconds. If users are still
@@ -1136,7 +1936,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         any open documents before being disconnected. After this time elapses, the instance is terminated and
      *         replaced by a new instance.</p>
      *         <p>
-     *         Specify a value between 600 and 360000.
+     *         Specify a value between 600 and 432000.
      */
 
     public Integer getMaxUserDurationInSeconds() {
@@ -1150,7 +1950,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * before being disconnected. After this time elapses, the instance is terminated and replaced by a new instance.
      * </p>
      * <p>
-     * Specify a value between 600 and 360000.
+     * Specify a value between 600 and 432000.
      * </p>
      * 
      * @param maxUserDurationInSeconds
@@ -1159,7 +1959,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        open documents before being disconnected. After this time elapses, the instance is terminated and replaced
      *        by a new instance.</p>
      *        <p>
-     *        Specify a value between 600 and 360000.
+     *        Specify a value between 600 and 432000.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1175,7 +1975,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * to their previous session. Otherwise, they are connected to a new session with a new streaming instance.
      * </p>
      * <p>
-     * Specify a value between 60 and 360000.
+     * Specify a value between 60 and 36000.
      * </p>
      * 
      * @param disconnectTimeoutInSeconds
@@ -1184,7 +1984,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        interval, they are connected to their previous session. Otherwise, they are connected to a new session
      *        with a new streaming instance. </p>
      *        <p>
-     *        Specify a value between 60 and 360000.
+     *        Specify a value between 60 and 36000.
      */
 
     public void setDisconnectTimeoutInSeconds(Integer disconnectTimeoutInSeconds) {
@@ -1198,7 +1998,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * to their previous session. Otherwise, they are connected to a new session with a new streaming instance.
      * </p>
      * <p>
-     * Specify a value between 60 and 360000.
+     * Specify a value between 60 and 36000.
      * </p>
      * 
      * @return The amount of time that a streaming session remains active after users disconnect. If users try to
@@ -1206,7 +2006,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         interval, they are connected to their previous session. Otherwise, they are connected to a new session
      *         with a new streaming instance. </p>
      *         <p>
-     *         Specify a value between 60 and 360000.
+     *         Specify a value between 60 and 36000.
      */
 
     public Integer getDisconnectTimeoutInSeconds() {
@@ -1220,7 +2020,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * to their previous session. Otherwise, they are connected to a new session with a new streaming instance.
      * </p>
      * <p>
-     * Specify a value between 60 and 360000.
+     * Specify a value between 60 and 36000.
      * </p>
      * 
      * @param disconnectTimeoutInSeconds
@@ -1229,7 +2029,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        interval, they are connected to their previous session. Otherwise, they are connected to a new session
      *        with a new streaming instance. </p>
      *        <p>
-     *        Specify a value between 60 and 360000.
+     *        Specify a value between 60 and 36000.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1480,7 +2280,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * <p>
      * To prevent users from being disconnected due to inactivity, specify a value of 0. Otherwise, specify a value
-     * between 60 and 3600. The default value is 0.
+     * between 60 and 36000. The default value is 0.
      * </p>
      * <note>
      * <p>
@@ -1503,7 +2303,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <code>IdleDisconnectTimeoutInSeconds</code> elapses, they are disconnected. </p>
      *        <p>
      *        To prevent users from being disconnected due to inactivity, specify a value of 0. Otherwise, specify a
-     *        value between 60 and 3600. The default value is 0.
+     *        value between 60 and 36000. The default value is 0.
      *        </p>
      *        <note>
      *        <p>
@@ -1532,7 +2332,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * <p>
      * To prevent users from being disconnected due to inactivity, specify a value of 0. Otherwise, specify a value
-     * between 60 and 3600. The default value is 0.
+     * between 60 and 36000. The default value is 0.
      * </p>
      * <note>
      * <p>
@@ -1554,7 +2354,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         <code>IdleDisconnectTimeoutInSeconds</code> elapses, they are disconnected. </p>
      *         <p>
      *         To prevent users from being disconnected due to inactivity, specify a value of 0. Otherwise, specify a
-     *         value between 60 and 3600. The default value is 0.
+     *         value between 60 and 36000. The default value is 0.
      *         </p>
      *         <note>
      *         <p>
@@ -1583,7 +2383,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * <p>
      * To prevent users from being disconnected due to inactivity, specify a value of 0. Otherwise, specify a value
-     * between 60 and 3600. The default value is 0.
+     * between 60 and 36000. The default value is 0.
      * </p>
      * <note>
      * <p>
@@ -1606,7 +2406,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <code>IdleDisconnectTimeoutInSeconds</code> elapses, they are disconnected. </p>
      *        <p>
      *        To prevent users from being disconnected due to inactivity, specify a value of 0. Otherwise, specify a
-     *        value between 60 and 3600. The default value is 0.
+     *        value between 60 and 36000. The default value is 0.
      *        </p>
      *        <note>
      *        <p>
@@ -1724,6 +2524,456 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To assume a role, a fleet instance calls
+     * the AWS Security Token Service (STS) <code>AssumeRole</code> API operation and passes the ARN of the role to use.
+     * The operation creates a new session with temporary credentials. AppStream 2.0 retrieves the temporary credentials
+     * and creates the <b>appstream_machine_role</b> credential profile on the instance.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html"
+     * >Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming
+     * Instances</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.
+     * </p>
+     * 
+     * @param iamRoleArn
+     *        The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To assume a role, a fleet instance
+     *        calls the AWS Security Token Service (STS) <code>AssumeRole</code> API operation and passes the ARN of the
+     *        role to use. The operation creates a new session with temporary credentials. AppStream 2.0 retrieves the
+     *        temporary credentials and creates the <b>appstream_machine_role</b> credential profile on the
+     *        instance.</p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html"
+     *        >Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming
+     *        Instances</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.
+     */
+
+    public void setIamRoleArn(String iamRoleArn) {
+        this.iamRoleArn = iamRoleArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To assume a role, a fleet instance calls
+     * the AWS Security Token Service (STS) <code>AssumeRole</code> API operation and passes the ARN of the role to use.
+     * The operation creates a new session with temporary credentials. AppStream 2.0 retrieves the temporary credentials
+     * and creates the <b>appstream_machine_role</b> credential profile on the instance.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html"
+     * >Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming
+     * Instances</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To assume a role, a fleet instance
+     *         calls the AWS Security Token Service (STS) <code>AssumeRole</code> API operation and passes the ARN of
+     *         the role to use. The operation creates a new session with temporary credentials. AppStream 2.0 retrieves
+     *         the temporary credentials and creates the <b>appstream_machine_role</b> credential profile on the
+     *         instance.</p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html"
+     *         >Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming
+     *         Instances</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.
+     */
+
+    public String getIamRoleArn() {
+        return this.iamRoleArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To assume a role, a fleet instance calls
+     * the AWS Security Token Service (STS) <code>AssumeRole</code> API operation and passes the ARN of the role to use.
+     * The operation creates a new session with temporary credentials. AppStream 2.0 retrieves the temporary credentials
+     * and creates the <b>appstream_machine_role</b> credential profile on the instance.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html"
+     * >Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming
+     * Instances</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.
+     * </p>
+     * 
+     * @param iamRoleArn
+     *        The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To assume a role, a fleet instance
+     *        calls the AWS Security Token Service (STS) <code>AssumeRole</code> API operation and passes the ARN of the
+     *        role to use. The operation creates a new session with temporary credentials. AppStream 2.0 retrieves the
+     *        temporary credentials and creates the <b>appstream_machine_role</b> credential profile on the
+     *        instance.</p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html"
+     *        >Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming
+     *        Instances</a> in the <i>Amazon AppStream 2.0 Administration Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFleetRequest withIamRoleArn(String iamRoleArn) {
+        setIamRoleArn(iamRoleArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The AppStream 2.0 view that is displayed to your users when they stream from the fleet. When <code>APP</code> is
+     * specified, only the windows of applications opened by users display. When <code>DESKTOP</code> is specified, the
+     * standard desktop that is provided by the operating system displays.
+     * </p>
+     * <p>
+     * The default value is <code>APP</code>.
+     * </p>
+     * 
+     * @param streamView
+     *        The AppStream 2.0 view that is displayed to your users when they stream from the fleet. When
+     *        <code>APP</code> is specified, only the windows of applications opened by users display. When
+     *        <code>DESKTOP</code> is specified, the standard desktop that is provided by the operating system
+     *        displays.</p>
+     *        <p>
+     *        The default value is <code>APP</code>.
+     * @see StreamView
+     */
+
+    public void setStreamView(String streamView) {
+        this.streamView = streamView;
+    }
+
+    /**
+     * <p>
+     * The AppStream 2.0 view that is displayed to your users when they stream from the fleet. When <code>APP</code> is
+     * specified, only the windows of applications opened by users display. When <code>DESKTOP</code> is specified, the
+     * standard desktop that is provided by the operating system displays.
+     * </p>
+     * <p>
+     * The default value is <code>APP</code>.
+     * </p>
+     * 
+     * @return The AppStream 2.0 view that is displayed to your users when they stream from the fleet. When
+     *         <code>APP</code> is specified, only the windows of applications opened by users display. When
+     *         <code>DESKTOP</code> is specified, the standard desktop that is provided by the operating system
+     *         displays.</p>
+     *         <p>
+     *         The default value is <code>APP</code>.
+     * @see StreamView
+     */
+
+    public String getStreamView() {
+        return this.streamView;
+    }
+
+    /**
+     * <p>
+     * The AppStream 2.0 view that is displayed to your users when they stream from the fleet. When <code>APP</code> is
+     * specified, only the windows of applications opened by users display. When <code>DESKTOP</code> is specified, the
+     * standard desktop that is provided by the operating system displays.
+     * </p>
+     * <p>
+     * The default value is <code>APP</code>.
+     * </p>
+     * 
+     * @param streamView
+     *        The AppStream 2.0 view that is displayed to your users when they stream from the fleet. When
+     *        <code>APP</code> is specified, only the windows of applications opened by users display. When
+     *        <code>DESKTOP</code> is specified, the standard desktop that is provided by the operating system
+     *        displays.</p>
+     *        <p>
+     *        The default value is <code>APP</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StreamView
+     */
+
+    public UpdateFleetRequest withStreamView(String streamView) {
+        setStreamView(streamView);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The AppStream 2.0 view that is displayed to your users when they stream from the fleet. When <code>APP</code> is
+     * specified, only the windows of applications opened by users display. When <code>DESKTOP</code> is specified, the
+     * standard desktop that is provided by the operating system displays.
+     * </p>
+     * <p>
+     * The default value is <code>APP</code>.
+     * </p>
+     * 
+     * @param streamView
+     *        The AppStream 2.0 view that is displayed to your users when they stream from the fleet. When
+     *        <code>APP</code> is specified, only the windows of applications opened by users display. When
+     *        <code>DESKTOP</code> is specified, the standard desktop that is provided by the operating system
+     *        displays.</p>
+     *        <p>
+     *        The default value is <code>APP</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StreamView
+     */
+
+    public UpdateFleetRequest withStreamView(StreamView streamView) {
+        this.streamView = streamView.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The platform of the fleet. WINDOWS_SERVER_2019 and AMAZON_LINUX2 are supported for Elastic fleets.
+     * </p>
+     * 
+     * @param platform
+     *        The platform of the fleet. WINDOWS_SERVER_2019 and AMAZON_LINUX2 are supported for Elastic fleets.
+     * @see PlatformType
+     */
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    /**
+     * <p>
+     * The platform of the fleet. WINDOWS_SERVER_2019 and AMAZON_LINUX2 are supported for Elastic fleets.
+     * </p>
+     * 
+     * @return The platform of the fleet. WINDOWS_SERVER_2019 and AMAZON_LINUX2 are supported for Elastic fleets.
+     * @see PlatformType
+     */
+
+    public String getPlatform() {
+        return this.platform;
+    }
+
+    /**
+     * <p>
+     * The platform of the fleet. WINDOWS_SERVER_2019 and AMAZON_LINUX2 are supported for Elastic fleets.
+     * </p>
+     * 
+     * @param platform
+     *        The platform of the fleet. WINDOWS_SERVER_2019 and AMAZON_LINUX2 are supported for Elastic fleets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PlatformType
+     */
+
+    public UpdateFleetRequest withPlatform(String platform) {
+        setPlatform(platform);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The platform of the fleet. WINDOWS_SERVER_2019 and AMAZON_LINUX2 are supported for Elastic fleets.
+     * </p>
+     * 
+     * @param platform
+     *        The platform of the fleet. WINDOWS_SERVER_2019 and AMAZON_LINUX2 are supported for Elastic fleets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PlatformType
+     */
+
+    public UpdateFleetRequest withPlatform(PlatformType platform) {
+        this.platform = platform.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maximum number of concurrent sessions for a fleet.
+     * </p>
+     * 
+     * @param maxConcurrentSessions
+     *        The maximum number of concurrent sessions for a fleet.
+     */
+
+    public void setMaxConcurrentSessions(Integer maxConcurrentSessions) {
+        this.maxConcurrentSessions = maxConcurrentSessions;
+    }
+
+    /**
+     * <p>
+     * The maximum number of concurrent sessions for a fleet.
+     * </p>
+     * 
+     * @return The maximum number of concurrent sessions for a fleet.
+     */
+
+    public Integer getMaxConcurrentSessions() {
+        return this.maxConcurrentSessions;
+    }
+
+    /**
+     * <p>
+     * The maximum number of concurrent sessions for a fleet.
+     * </p>
+     * 
+     * @param maxConcurrentSessions
+     *        The maximum number of concurrent sessions for a fleet.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFleetRequest withMaxConcurrentSessions(Integer maxConcurrentSessions) {
+        setMaxConcurrentSessions(maxConcurrentSessions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The USB device filter strings that specify which USB devices a user can redirect to the fleet streaming session,
+     * when using the Windows native client. This is allowed but not required for Elastic fleets.
+     * </p>
+     * 
+     * @return The USB device filter strings that specify which USB devices a user can redirect to the fleet streaming
+     *         session, when using the Windows native client. This is allowed but not required for Elastic fleets.
+     */
+
+    public java.util.List<String> getUsbDeviceFilterStrings() {
+        return usbDeviceFilterStrings;
+    }
+
+    /**
+     * <p>
+     * The USB device filter strings that specify which USB devices a user can redirect to the fleet streaming session,
+     * when using the Windows native client. This is allowed but not required for Elastic fleets.
+     * </p>
+     * 
+     * @param usbDeviceFilterStrings
+     *        The USB device filter strings that specify which USB devices a user can redirect to the fleet streaming
+     *        session, when using the Windows native client. This is allowed but not required for Elastic fleets.
+     */
+
+    public void setUsbDeviceFilterStrings(java.util.Collection<String> usbDeviceFilterStrings) {
+        if (usbDeviceFilterStrings == null) {
+            this.usbDeviceFilterStrings = null;
+            return;
+        }
+
+        this.usbDeviceFilterStrings = new java.util.ArrayList<String>(usbDeviceFilterStrings);
+    }
+
+    /**
+     * <p>
+     * The USB device filter strings that specify which USB devices a user can redirect to the fleet streaming session,
+     * when using the Windows native client. This is allowed but not required for Elastic fleets.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setUsbDeviceFilterStrings(java.util.Collection)} or
+     * {@link #withUsbDeviceFilterStrings(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param usbDeviceFilterStrings
+     *        The USB device filter strings that specify which USB devices a user can redirect to the fleet streaming
+     *        session, when using the Windows native client. This is allowed but not required for Elastic fleets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFleetRequest withUsbDeviceFilterStrings(String... usbDeviceFilterStrings) {
+        if (this.usbDeviceFilterStrings == null) {
+            setUsbDeviceFilterStrings(new java.util.ArrayList<String>(usbDeviceFilterStrings.length));
+        }
+        for (String ele : usbDeviceFilterStrings) {
+            this.usbDeviceFilterStrings.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The USB device filter strings that specify which USB devices a user can redirect to the fleet streaming session,
+     * when using the Windows native client. This is allowed but not required for Elastic fleets.
+     * </p>
+     * 
+     * @param usbDeviceFilterStrings
+     *        The USB device filter strings that specify which USB devices a user can redirect to the fleet streaming
+     *        session, when using the Windows native client. This is allowed but not required for Elastic fleets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFleetRequest withUsbDeviceFilterStrings(java.util.Collection<String> usbDeviceFilterStrings) {
+        setUsbDeviceFilterStrings(usbDeviceFilterStrings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The S3 location of the session scripts configuration zip file. This only applies to Elastic fleets.
+     * </p>
+     * 
+     * @param sessionScriptS3Location
+     *        The S3 location of the session scripts configuration zip file. This only applies to Elastic fleets.
+     */
+
+    public void setSessionScriptS3Location(S3Location sessionScriptS3Location) {
+        this.sessionScriptS3Location = sessionScriptS3Location;
+    }
+
+    /**
+     * <p>
+     * The S3 location of the session scripts configuration zip file. This only applies to Elastic fleets.
+     * </p>
+     * 
+     * @return The S3 location of the session scripts configuration zip file. This only applies to Elastic fleets.
+     */
+
+    public S3Location getSessionScriptS3Location() {
+        return this.sessionScriptS3Location;
+    }
+
+    /**
+     * <p>
+     * The S3 location of the session scripts configuration zip file. This only applies to Elastic fleets.
+     * </p>
+     * 
+     * @param sessionScriptS3Location
+     *        The S3 location of the session scripts configuration zip file. This only applies to Elastic fleets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFleetRequest withSessionScriptS3Location(S3Location sessionScriptS3Location) {
+        setSessionScriptS3Location(sessionScriptS3Location);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maximum number of user sessions on an instance. This only applies to multi-session fleets.
+     * </p>
+     * 
+     * @param maxSessionsPerInstance
+     *        The maximum number of user sessions on an instance. This only applies to multi-session fleets.
+     */
+
+    public void setMaxSessionsPerInstance(Integer maxSessionsPerInstance) {
+        this.maxSessionsPerInstance = maxSessionsPerInstance;
+    }
+
+    /**
+     * <p>
+     * The maximum number of user sessions on an instance. This only applies to multi-session fleets.
+     * </p>
+     * 
+     * @return The maximum number of user sessions on an instance. This only applies to multi-session fleets.
+     */
+
+    public Integer getMaxSessionsPerInstance() {
+        return this.maxSessionsPerInstance;
+    }
+
+    /**
+     * <p>
+     * The maximum number of user sessions on an instance. This only applies to multi-session fleets.
+     * </p>
+     * 
+     * @param maxSessionsPerInstance
+     *        The maximum number of user sessions on an instance. This only applies to multi-session fleets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFleetRequest withMaxSessionsPerInstance(Integer maxSessionsPerInstance) {
+        setMaxSessionsPerInstance(maxSessionsPerInstance);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1764,7 +3014,21 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getIdleDisconnectTimeoutInSeconds() != null)
             sb.append("IdleDisconnectTimeoutInSeconds: ").append(getIdleDisconnectTimeoutInSeconds()).append(",");
         if (getAttributesToDelete() != null)
-            sb.append("AttributesToDelete: ").append(getAttributesToDelete());
+            sb.append("AttributesToDelete: ").append(getAttributesToDelete()).append(",");
+        if (getIamRoleArn() != null)
+            sb.append("IamRoleArn: ").append(getIamRoleArn()).append(",");
+        if (getStreamView() != null)
+            sb.append("StreamView: ").append(getStreamView()).append(",");
+        if (getPlatform() != null)
+            sb.append("Platform: ").append(getPlatform()).append(",");
+        if (getMaxConcurrentSessions() != null)
+            sb.append("MaxConcurrentSessions: ").append(getMaxConcurrentSessions()).append(",");
+        if (getUsbDeviceFilterStrings() != null)
+            sb.append("UsbDeviceFilterStrings: ").append(getUsbDeviceFilterStrings()).append(",");
+        if (getSessionScriptS3Location() != null)
+            sb.append("SessionScriptS3Location: ").append(getSessionScriptS3Location()).append(",");
+        if (getMaxSessionsPerInstance() != null)
+            sb.append("MaxSessionsPerInstance: ").append(getMaxSessionsPerInstance());
         sb.append("}");
         return sb.toString();
     }
@@ -1840,6 +3104,34 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getAttributesToDelete() != null && other.getAttributesToDelete().equals(this.getAttributesToDelete()) == false)
             return false;
+        if (other.getIamRoleArn() == null ^ this.getIamRoleArn() == null)
+            return false;
+        if (other.getIamRoleArn() != null && other.getIamRoleArn().equals(this.getIamRoleArn()) == false)
+            return false;
+        if (other.getStreamView() == null ^ this.getStreamView() == null)
+            return false;
+        if (other.getStreamView() != null && other.getStreamView().equals(this.getStreamView()) == false)
+            return false;
+        if (other.getPlatform() == null ^ this.getPlatform() == null)
+            return false;
+        if (other.getPlatform() != null && other.getPlatform().equals(this.getPlatform()) == false)
+            return false;
+        if (other.getMaxConcurrentSessions() == null ^ this.getMaxConcurrentSessions() == null)
+            return false;
+        if (other.getMaxConcurrentSessions() != null && other.getMaxConcurrentSessions().equals(this.getMaxConcurrentSessions()) == false)
+            return false;
+        if (other.getUsbDeviceFilterStrings() == null ^ this.getUsbDeviceFilterStrings() == null)
+            return false;
+        if (other.getUsbDeviceFilterStrings() != null && other.getUsbDeviceFilterStrings().equals(this.getUsbDeviceFilterStrings()) == false)
+            return false;
+        if (other.getSessionScriptS3Location() == null ^ this.getSessionScriptS3Location() == null)
+            return false;
+        if (other.getSessionScriptS3Location() != null && other.getSessionScriptS3Location().equals(this.getSessionScriptS3Location()) == false)
+            return false;
+        if (other.getMaxSessionsPerInstance() == null ^ this.getMaxSessionsPerInstance() == null)
+            return false;
+        if (other.getMaxSessionsPerInstance() != null && other.getMaxSessionsPerInstance().equals(this.getMaxSessionsPerInstance()) == false)
+            return false;
         return true;
     }
 
@@ -1863,6 +3155,13 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getDomainJoinInfo() == null) ? 0 : getDomainJoinInfo().hashCode());
         hashCode = prime * hashCode + ((getIdleDisconnectTimeoutInSeconds() == null) ? 0 : getIdleDisconnectTimeoutInSeconds().hashCode());
         hashCode = prime * hashCode + ((getAttributesToDelete() == null) ? 0 : getAttributesToDelete().hashCode());
+        hashCode = prime * hashCode + ((getIamRoleArn() == null) ? 0 : getIamRoleArn().hashCode());
+        hashCode = prime * hashCode + ((getStreamView() == null) ? 0 : getStreamView().hashCode());
+        hashCode = prime * hashCode + ((getPlatform() == null) ? 0 : getPlatform().hashCode());
+        hashCode = prime * hashCode + ((getMaxConcurrentSessions() == null) ? 0 : getMaxConcurrentSessions().hashCode());
+        hashCode = prime * hashCode + ((getUsbDeviceFilterStrings() == null) ? 0 : getUsbDeviceFilterStrings().hashCode());
+        hashCode = prime * hashCode + ((getSessionScriptS3Location() == null) ? 0 : getSessionScriptS3Location().hashCode());
+        hashCode = prime * hashCode + ((getMaxSessionsPerInstance() == null) ? 0 : getMaxSessionsPerInstance().hashCode());
         return hashCode;
     }
 

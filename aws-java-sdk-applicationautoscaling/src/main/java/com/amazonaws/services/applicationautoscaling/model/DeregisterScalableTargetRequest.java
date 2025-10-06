@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,10 +27,8 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     * provided by your own application or service. For more information, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * The namespace of the Amazon Web Services service that provides the resource. For a resource provided by your own
+     * application or service, use <code>custom-resource</code> instead.
      * </p>
      */
     private String serviceNamespace;
@@ -43,13 +41,13 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * <li>
      * <p>
      * ECS service - The resource type is <code>service</code> and the unique identifier is the cluster name and service
-     * name. Example: <code>service/default/sample-webapp</code>.
+     * name. Example: <code>service/my-cluster/my-service</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Spot fleet request - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot
-     * fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
+     * Spot Fleet - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot Fleet
+     * request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
      * </p>
      * </li>
      * <li>
@@ -66,14 +64,14 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the resource ID. Example:
+     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the table name. Example:
      * <code>table/my-table</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
-     * resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the index
+     * name. Example: <code>table/my-table/index/my-table-index</code>.
      * </p>
      * </li>
      * <li>
@@ -84,8 +82,8 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier is the
-     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * SageMaker endpoint variant - The resource type is <code>variant</code> and the unique identifier is the resource
+     * ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
      * </p>
      * </li>
      * <li>
@@ -94,6 +92,68 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * from the CloudFormation template stack used to access the resources. The unique identifier is defined by the
      * service provider. More information is available in our <a
      * href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified using
+     * the endpoint ARN. Example:
+     * <code>arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified using the
+     * endpoint ARN. Example: <code>arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Lambda provisioned concurrency - The resource type is <code>function</code> and the unique identifier is the
+     * function name with a function version or alias name suffix that is not <code>$LATEST</code>. Example:
+     * <code>function:my-function:prod</code> or <code>function:my-function:1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Keyspaces table - The resource type is <code>table</code> and the unique identifier is the table name.
+     * Example: <code>keyspace/mykeyspace/table/mytable</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN. Example:
+     * <code>arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon ElastiCache replication group - The resource type is <code>replication-group</code> and the unique
+     * identifier is the replication group name. Example: <code>replication-group/mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Neptune cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     * Example: <code>cluster:mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker serverless endpoint - The resource type is <code>variant</code> and the unique identifier is the
+     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker inference component - The resource type is <code>inference-component</code> and the unique identifier
+     * is the resource ID. Example: <code>inference-component/my-inference-component</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pool of WorkSpaces - The resource type is <code>workspacespool</code> and the unique identifier is the pool ID.
+     * Example: <code>workspacespool/wspool-123456</code>.
      * </p>
      * </li>
      * </ul>
@@ -107,12 +167,7 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     * <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      * </p>
      * </li>
      * <li>
@@ -122,7 +177,12 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      * </p>
      * </li>
      * <li>
@@ -155,8 +215,8 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
-     * endpoint variant.
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model endpoint
+     * variant.
      * </p>
      * </li>
      * <li>
@@ -165,23 +225,87 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * your own application or service.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend document classification endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend entity recognizer endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an Amazon MSK
+     * cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon ElastiCache
+     * replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     * ElastiCache replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     * serverless endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for a
+     * SageMaker inference component.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the WorkSpaces in
+     * the pool.
+     * </p>
+     * </li>
      * </ul>
      */
     private String scalableDimension;
 
     /**
      * <p>
-     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     * provided by your own application or service. For more information, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * The namespace of the Amazon Web Services service that provides the resource. For a resource provided by your own
+     * application or service, use <code>custom-resource</code> instead.
      * </p>
      * 
      * @param serviceNamespace
-     *        The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     *        provided by your own application or service. For more information, see <a href=
-     *        "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *        >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     *        The namespace of the Amazon Web Services service that provides the resource. For a resource provided by
+     *        your own application or service, use <code>custom-resource</code> instead.
      * @see ServiceNamespace
      */
 
@@ -191,16 +315,12 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     * provided by your own application or service. For more information, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * The namespace of the Amazon Web Services service that provides the resource. For a resource provided by your own
+     * application or service, use <code>custom-resource</code> instead.
      * </p>
      * 
-     * @return The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a
-     *         resource provided by your own application or service. For more information, see <a href=
-     *         "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *         >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * @return The namespace of the Amazon Web Services service that provides the resource. For a resource provided by
+     *         your own application or service, use <code>custom-resource</code> instead.
      * @see ServiceNamespace
      */
 
@@ -210,17 +330,13 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     * provided by your own application or service. For more information, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * The namespace of the Amazon Web Services service that provides the resource. For a resource provided by your own
+     * application or service, use <code>custom-resource</code> instead.
      * </p>
      * 
      * @param serviceNamespace
-     *        The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     *        provided by your own application or service. For more information, see <a href=
-     *        "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *        >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     *        The namespace of the Amazon Web Services service that provides the resource. For a resource provided by
+     *        your own application or service, use <code>custom-resource</code> instead.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ServiceNamespace
      */
@@ -232,17 +348,13 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     * provided by your own application or service. For more information, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * The namespace of the Amazon Web Services service that provides the resource. For a resource provided by your own
+     * application or service, use <code>custom-resource</code> instead.
      * </p>
      * 
      * @param serviceNamespace
-     *        The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     *        provided by your own application or service. For more information, see <a href=
-     *        "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *        >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     *        The namespace of the Amazon Web Services service that provides the resource. For a resource provided by
+     *        your own application or service, use <code>custom-resource</code> instead.
      * @see ServiceNamespace
      */
 
@@ -252,17 +364,13 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     * provided by your own application or service. For more information, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * The namespace of the Amazon Web Services service that provides the resource. For a resource provided by your own
+     * application or service, use <code>custom-resource</code> instead.
      * </p>
      * 
      * @param serviceNamespace
-     *        The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     *        provided by your own application or service. For more information, see <a href=
-     *        "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *        >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     *        The namespace of the Amazon Web Services service that provides the resource. For a resource provided by
+     *        your own application or service, use <code>custom-resource</code> instead.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ServiceNamespace
      */
@@ -281,13 +389,13 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * <li>
      * <p>
      * ECS service - The resource type is <code>service</code> and the unique identifier is the cluster name and service
-     * name. Example: <code>service/default/sample-webapp</code>.
+     * name. Example: <code>service/my-cluster/my-service</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Spot fleet request - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot
-     * fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
+     * Spot Fleet - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot Fleet
+     * request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
      * </p>
      * </li>
      * <li>
@@ -304,14 +412,14 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the resource ID. Example:
+     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the table name. Example:
      * <code>table/my-table</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
-     * resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the index
+     * name. Example: <code>table/my-table/index/my-table-index</code>.
      * </p>
      * </li>
      * <li>
@@ -322,8 +430,8 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier is the
-     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * SageMaker endpoint variant - The resource type is <code>variant</code> and the unique identifier is the resource
+     * ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
      * </p>
      * </li>
      * <li>
@@ -332,6 +440,68 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * from the CloudFormation template stack used to access the resources. The unique identifier is defined by the
      * service provider. More information is available in our <a
      * href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified using
+     * the endpoint ARN. Example:
+     * <code>arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified using the
+     * endpoint ARN. Example: <code>arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Lambda provisioned concurrency - The resource type is <code>function</code> and the unique identifier is the
+     * function name with a function version or alias name suffix that is not <code>$LATEST</code>. Example:
+     * <code>function:my-function:prod</code> or <code>function:my-function:1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Keyspaces table - The resource type is <code>table</code> and the unique identifier is the table name.
+     * Example: <code>keyspace/mykeyspace/table/mytable</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN. Example:
+     * <code>arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon ElastiCache replication group - The resource type is <code>replication-group</code> and the unique
+     * identifier is the replication group name. Example: <code>replication-group/mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Neptune cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     * Example: <code>cluster:mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker serverless endpoint - The resource type is <code>variant</code> and the unique identifier is the
+     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker inference component - The resource type is <code>inference-component</code> and the unique identifier
+     * is the resource ID. Example: <code>inference-component/my-inference-component</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pool of WorkSpaces - The resource type is <code>workspacespool</code> and the unique identifier is the pool ID.
+     * Example: <code>workspacespool/wspool-123456</code>.
      * </p>
      * </li>
      * </ul>
@@ -343,13 +513,13 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        <li>
      *        <p>
      *        ECS service - The resource type is <code>service</code> and the unique identifier is the cluster name and
-     *        service name. Example: <code>service/default/sample-webapp</code>.
+     *        service name. Example: <code>service/my-cluster/my-service</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Spot fleet request - The resource type is <code>spot-fleet-request</code> and the unique identifier is the
-     *        Spot fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
+     *        Spot Fleet - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot
+     *        Fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -366,14 +536,14 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        DynamoDB table - The resource type is <code>table</code> and the unique identifier is the resource ID.
+     *        DynamoDB table - The resource type is <code>table</code> and the unique identifier is the table name.
      *        Example: <code>table/my-table</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
-     *        resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     *        index name. Example: <code>table/my-table/index/my-table-index</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -384,8 +554,8 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier
-     *        is the resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *        SageMaker endpoint variant - The resource type is <code>variant</code> and the unique identifier is the
+     *        resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -394,6 +564,70 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        <code>OutputValue</code> from the CloudFormation template stack used to access the resources. The unique
      *        identifier is defined by the service provider. More information is available in our <a
      *        href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified
+     *        using the endpoint ARN. Example:
+     *        <code>arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified using
+     *        the endpoint ARN. Example:
+     *        <code>arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Lambda provisioned concurrency - The resource type is <code>function</code> and the unique identifier is
+     *        the function name with a function version or alias name suffix that is not <code>$LATEST</code>. Example:
+     *        <code>function:my-function:prod</code> or <code>function:my-function:1</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Keyspaces table - The resource type is <code>table</code> and the unique identifier is the table
+     *        name. Example: <code>keyspace/mykeyspace/table/mytable</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN. Example:
+     *        <code>arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5</code>
+     *        .
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon ElastiCache replication group - The resource type is <code>replication-group</code> and the unique
+     *        identifier is the replication group name. Example: <code>replication-group/mycluster</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Neptune cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     *        Example: <code>cluster:mycluster</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SageMaker serverless endpoint - The resource type is <code>variant</code> and the unique identifier is the
+     *        resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SageMaker inference component - The resource type is <code>inference-component</code> and the unique
+     *        identifier is the resource ID. Example: <code>inference-component/my-inference-component</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Pool of WorkSpaces - The resource type is <code>workspacespool</code> and the unique identifier is the
+     *        pool ID. Example: <code>workspacespool/wspool-123456</code>.
      *        </p>
      *        </li>
      */
@@ -411,13 +645,13 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * <li>
      * <p>
      * ECS service - The resource type is <code>service</code> and the unique identifier is the cluster name and service
-     * name. Example: <code>service/default/sample-webapp</code>.
+     * name. Example: <code>service/my-cluster/my-service</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Spot fleet request - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot
-     * fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
+     * Spot Fleet - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot Fleet
+     * request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
      * </p>
      * </li>
      * <li>
@@ -434,14 +668,14 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the resource ID. Example:
+     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the table name. Example:
      * <code>table/my-table</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
-     * resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the index
+     * name. Example: <code>table/my-table/index/my-table-index</code>.
      * </p>
      * </li>
      * <li>
@@ -452,8 +686,8 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier is the
-     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * SageMaker endpoint variant - The resource type is <code>variant</code> and the unique identifier is the resource
+     * ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
      * </p>
      * </li>
      * <li>
@@ -464,6 +698,68 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified using
+     * the endpoint ARN. Example:
+     * <code>arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified using the
+     * endpoint ARN. Example: <code>arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Lambda provisioned concurrency - The resource type is <code>function</code> and the unique identifier is the
+     * function name with a function version or alias name suffix that is not <code>$LATEST</code>. Example:
+     * <code>function:my-function:prod</code> or <code>function:my-function:1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Keyspaces table - The resource type is <code>table</code> and the unique identifier is the table name.
+     * Example: <code>keyspace/mykeyspace/table/mytable</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN. Example:
+     * <code>arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon ElastiCache replication group - The resource type is <code>replication-group</code> and the unique
+     * identifier is the replication group name. Example: <code>replication-group/mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Neptune cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     * Example: <code>cluster:mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker serverless endpoint - The resource type is <code>variant</code> and the unique identifier is the
+     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker inference component - The resource type is <code>inference-component</code> and the unique identifier
+     * is the resource ID. Example: <code>inference-component/my-inference-component</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pool of WorkSpaces - The resource type is <code>workspacespool</code> and the unique identifier is the pool ID.
+     * Example: <code>workspacespool/wspool-123456</code>.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @return The identifier of the resource associated with the scalable target. This string consists of the resource
@@ -472,14 +768,13 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *         <li>
      *         <p>
      *         ECS service - The resource type is <code>service</code> and the unique identifier is the cluster name and
-     *         service name. Example: <code>service/default/sample-webapp</code>.
+     *         service name. Example: <code>service/my-cluster/my-service</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Spot fleet request - The resource type is <code>spot-fleet-request</code> and the unique identifier is
-     *         the Spot fleet request ID. Example:
-     *         <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
+     *         Spot Fleet - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot
+     *         Fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
      *         </p>
      *         </li>
      *         <li>
@@ -496,14 +791,14 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *         </li>
      *         <li>
      *         <p>
-     *         DynamoDB table - The resource type is <code>table</code> and the unique identifier is the resource ID.
+     *         DynamoDB table - The resource type is <code>table</code> and the unique identifier is the table name.
      *         Example: <code>table/my-table</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is
-     *         the resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     *         the index name. Example: <code>table/my-table/index/my-table-index</code>.
      *         </p>
      *         </li>
      *         <li>
@@ -514,8 +809,8 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *         </li>
      *         <li>
      *         <p>
-     *         Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier
-     *         is the resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *         SageMaker endpoint variant - The resource type is <code>variant</code> and the unique identifier is the
+     *         resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
      *         </p>
      *         </li>
      *         <li>
@@ -524,6 +819,71 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *         <code>OutputValue</code> from the CloudFormation template stack used to access the resources. The unique
      *         identifier is defined by the service provider. More information is available in our <a
      *         href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon Comprehend document classification endpoint - The resource type and unique identifier are
+     *         specified using the endpoint ARN. Example:
+     *         <code>arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified
+     *         using the endpoint ARN. Example:
+     *         <code>arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Lambda provisioned concurrency - The resource type is <code>function</code> and the unique identifier is
+     *         the function name with a function version or alias name suffix that is not <code>$LATEST</code>. Example:
+     *         <code>function:my-function:prod</code> or <code>function:my-function:1</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon Keyspaces table - The resource type is <code>table</code> and the unique identifier is the table
+     *         name. Example: <code>keyspace/mykeyspace/table/mytable</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN.
+     *         Example:
+     *         <code>arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5</code>
+     *         .
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon ElastiCache replication group - The resource type is <code>replication-group</code> and the unique
+     *         identifier is the replication group name. Example: <code>replication-group/mycluster</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Neptune cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster
+     *         name. Example: <code>cluster:mycluster</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         SageMaker serverless endpoint - The resource type is <code>variant</code> and the unique identifier is
+     *         the resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         SageMaker inference component - The resource type is <code>inference-component</code> and the unique
+     *         identifier is the resource ID. Example: <code>inference-component/my-inference-component</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Pool of WorkSpaces - The resource type is <code>workspacespool</code> and the unique identifier is the
+     *         pool ID. Example: <code>workspacespool/wspool-123456</code>.
      *         </p>
      *         </li>
      */
@@ -541,13 +901,13 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * <li>
      * <p>
      * ECS service - The resource type is <code>service</code> and the unique identifier is the cluster name and service
-     * name. Example: <code>service/default/sample-webapp</code>.
+     * name. Example: <code>service/my-cluster/my-service</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Spot fleet request - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot
-     * fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
+     * Spot Fleet - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot Fleet
+     * request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
      * </p>
      * </li>
      * <li>
@@ -564,14 +924,14 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the resource ID. Example:
+     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the table name. Example:
      * <code>table/my-table</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
-     * resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the index
+     * name. Example: <code>table/my-table/index/my-table-index</code>.
      * </p>
      * </li>
      * <li>
@@ -582,8 +942,8 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier is the
-     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * SageMaker endpoint variant - The resource type is <code>variant</code> and the unique identifier is the resource
+     * ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
      * </p>
      * </li>
      * <li>
@@ -592,6 +952,68 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * from the CloudFormation template stack used to access the resources. The unique identifier is defined by the
      * service provider. More information is available in our <a
      * href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified using
+     * the endpoint ARN. Example:
+     * <code>arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified using the
+     * endpoint ARN. Example: <code>arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Lambda provisioned concurrency - The resource type is <code>function</code> and the unique identifier is the
+     * function name with a function version or alias name suffix that is not <code>$LATEST</code>. Example:
+     * <code>function:my-function:prod</code> or <code>function:my-function:1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Keyspaces table - The resource type is <code>table</code> and the unique identifier is the table name.
+     * Example: <code>keyspace/mykeyspace/table/mytable</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN. Example:
+     * <code>arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon ElastiCache replication group - The resource type is <code>replication-group</code> and the unique
+     * identifier is the replication group name. Example: <code>replication-group/mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Neptune cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     * Example: <code>cluster:mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker serverless endpoint - The resource type is <code>variant</code> and the unique identifier is the
+     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker inference component - The resource type is <code>inference-component</code> and the unique identifier
+     * is the resource ID. Example: <code>inference-component/my-inference-component</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pool of WorkSpaces - The resource type is <code>workspacespool</code> and the unique identifier is the pool ID.
+     * Example: <code>workspacespool/wspool-123456</code>.
      * </p>
      * </li>
      * </ul>
@@ -603,13 +1025,13 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        <li>
      *        <p>
      *        ECS service - The resource type is <code>service</code> and the unique identifier is the cluster name and
-     *        service name. Example: <code>service/default/sample-webapp</code>.
+     *        service name. Example: <code>service/my-cluster/my-service</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Spot fleet request - The resource type is <code>spot-fleet-request</code> and the unique identifier is the
-     *        Spot fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
+     *        Spot Fleet - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot
+     *        Fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -626,14 +1048,14 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        DynamoDB table - The resource type is <code>table</code> and the unique identifier is the resource ID.
+     *        DynamoDB table - The resource type is <code>table</code> and the unique identifier is the table name.
      *        Example: <code>table/my-table</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
-     *        resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     *        index name. Example: <code>table/my-table/index/my-table-index</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -644,8 +1066,8 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier
-     *        is the resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *        SageMaker endpoint variant - The resource type is <code>variant</code> and the unique identifier is the
+     *        resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -654,6 +1076,70 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        <code>OutputValue</code> from the CloudFormation template stack used to access the resources. The unique
      *        identifier is defined by the service provider. More information is available in our <a
      *        href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified
+     *        using the endpoint ARN. Example:
+     *        <code>arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified using
+     *        the endpoint ARN. Example:
+     *        <code>arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Lambda provisioned concurrency - The resource type is <code>function</code> and the unique identifier is
+     *        the function name with a function version or alias name suffix that is not <code>$LATEST</code>. Example:
+     *        <code>function:my-function:prod</code> or <code>function:my-function:1</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Keyspaces table - The resource type is <code>table</code> and the unique identifier is the table
+     *        name. Example: <code>keyspace/mykeyspace/table/mytable</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN. Example:
+     *        <code>arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5</code>
+     *        .
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon ElastiCache replication group - The resource type is <code>replication-group</code> and the unique
+     *        identifier is the replication group name. Example: <code>replication-group/mycluster</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Neptune cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     *        Example: <code>cluster:mycluster</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SageMaker serverless endpoint - The resource type is <code>variant</code> and the unique identifier is the
+     *        resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SageMaker inference component - The resource type is <code>inference-component</code> and the unique
+     *        identifier is the resource ID. Example: <code>inference-component/my-inference-component</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Pool of WorkSpaces - The resource type is <code>workspacespool</code> and the unique identifier is the
+     *        pool ID. Example: <code>workspacespool/wspool-123456</code>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -672,12 +1158,7 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     * <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      * </p>
      * </li>
      * <li>
@@ -687,7 +1168,12 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      * </p>
      * </li>
      * <li>
@@ -720,14 +1206,82 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
-     * endpoint variant.
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model endpoint
+     * variant.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided by
      * your own application or service.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend document classification endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend entity recognizer endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an Amazon MSK
+     * cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon ElastiCache
+     * replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     * ElastiCache replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     * serverless endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for a
+     * SageMaker inference component.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the WorkSpaces in
+     * the pool.
      * </p>
      * </li>
      * </ul>
@@ -738,12 +1292,7 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     *        <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      *        </p>
      *        </li>
      *        <li>
@@ -753,7 +1302,12 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     *        <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      *        </p>
      *        </li>
      *        <li>
@@ -786,14 +1340,85 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker
-     *        model endpoint variant.
+     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model
+     *        endpoint variant.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided
      *        by your own application or service.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *        for an Amazon Comprehend document classification endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *        for an Amazon Comprehend entity recognizer endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces
+     *        table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces
+     *        table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an
+     *        Amazon MSK cluster.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon
+     *        ElastiCache replication group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     *        ElastiCache replication group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB
+     *        cluster.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     *        serverless endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for
+     *        a SageMaker inference component.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the
+     *        WorkSpaces in the pool.
      *        </p>
      *        </li>
      * @see ScalableDimension
@@ -811,12 +1436,7 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     * <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      * </p>
      * </li>
      * <li>
@@ -826,7 +1446,12 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      * </p>
      * </li>
      * <li>
@@ -859,14 +1484,82 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
-     * endpoint variant.
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model endpoint
+     * variant.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided by
      * your own application or service.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend document classification endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend entity recognizer endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an Amazon MSK
+     * cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon ElastiCache
+     * replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     * ElastiCache replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     * serverless endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for a
+     * SageMaker inference component.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the WorkSpaces in
+     * the pool.
      * </p>
      * </li>
      * </ul>
@@ -876,12 +1569,7 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     *         <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      *         </p>
      *         </li>
      *         <li>
@@ -891,7 +1579,12 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *         </li>
      *         <li>
      *         <p>
-     *         <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     *         <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      *         </p>
      *         </li>
      *         <li>
@@ -924,14 +1617,85 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *         </li>
      *         <li>
      *         <p>
-     *         <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker
-     *         model endpoint variant.
+     *         <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model
+     *         endpoint variant.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource
      *         provided by your own application or service.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference
+     *         units for an Amazon Comprehend document classification endpoint.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *         for an Amazon Comprehend entity recognizer endpoint.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces
+     *         table.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces
+     *         table.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an
+     *         Amazon MSK cluster.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon
+     *         ElastiCache replication group.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     *         ElastiCache replication group.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB
+     *         cluster.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a
+     *         SageMaker serverless endpoint.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for
+     *         a SageMaker inference component.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the
+     *         WorkSpaces in the pool.
      *         </p>
      *         </li>
      * @see ScalableDimension
@@ -949,12 +1713,7 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     * <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      * </p>
      * </li>
      * <li>
@@ -964,7 +1723,12 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      * </p>
      * </li>
      * <li>
@@ -997,14 +1761,82 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
-     * endpoint variant.
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model endpoint
+     * variant.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided by
      * your own application or service.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend document classification endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend entity recognizer endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an Amazon MSK
+     * cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon ElastiCache
+     * replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     * ElastiCache replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     * serverless endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for a
+     * SageMaker inference component.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the WorkSpaces in
+     * the pool.
      * </p>
      * </li>
      * </ul>
@@ -1015,12 +1847,7 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     *        <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      *        </p>
      *        </li>
      *        <li>
@@ -1030,7 +1857,12 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     *        <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      *        </p>
      *        </li>
      *        <li>
@@ -1063,14 +1895,85 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker
-     *        model endpoint variant.
+     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model
+     *        endpoint variant.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided
      *        by your own application or service.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *        for an Amazon Comprehend document classification endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *        for an Amazon Comprehend entity recognizer endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces
+     *        table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces
+     *        table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an
+     *        Amazon MSK cluster.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon
+     *        ElastiCache replication group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     *        ElastiCache replication group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB
+     *        cluster.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     *        serverless endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for
+     *        a SageMaker inference component.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the
+     *        WorkSpaces in the pool.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1090,12 +1993,7 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     * <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      * </p>
      * </li>
      * <li>
@@ -1105,7 +2003,12 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      * </p>
      * </li>
      * <li>
@@ -1138,14 +2041,82 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
-     * endpoint variant.
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model endpoint
+     * variant.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided by
      * your own application or service.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend document classification endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend entity recognizer endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an Amazon MSK
+     * cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon ElastiCache
+     * replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     * ElastiCache replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     * serverless endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for a
+     * SageMaker inference component.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the WorkSpaces in
+     * the pool.
      * </p>
      * </li>
      * </ul>
@@ -1156,12 +2127,7 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     *        <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      *        </p>
      *        </li>
      *        <li>
@@ -1171,7 +2137,12 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     *        <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      *        </p>
      *        </li>
      *        <li>
@@ -1204,14 +2175,85 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker
-     *        model endpoint variant.
+     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model
+     *        endpoint variant.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided
      *        by your own application or service.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *        for an Amazon Comprehend document classification endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *        for an Amazon Comprehend entity recognizer endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces
+     *        table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces
+     *        table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an
+     *        Amazon MSK cluster.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon
+     *        ElastiCache replication group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     *        ElastiCache replication group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB
+     *        cluster.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     *        serverless endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for
+     *        a SageMaker inference component.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the
+     *        WorkSpaces in the pool.
      *        </p>
      *        </li>
      * @see ScalableDimension
@@ -1229,12 +2271,7 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     * <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      * </p>
      * </li>
      * <li>
@@ -1244,7 +2281,12 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      * </p>
      * </li>
      * <li>
@@ -1277,14 +2319,82 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
-     * endpoint variant.
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model endpoint
+     * variant.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided by
      * your own application or service.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend document classification endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend entity recognizer endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an Amazon MSK
+     * cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon ElastiCache
+     * replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     * ElastiCache replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     * serverless endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for a
+     * SageMaker inference component.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the WorkSpaces in
+     * the pool.
      * </p>
      * </li>
      * </ul>
@@ -1295,12 +2405,7 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     *        <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      *        </p>
      *        </li>
      *        <li>
@@ -1310,7 +2415,12 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     *        <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      *        </p>
      *        </li>
      *        <li>
@@ -1343,14 +2453,85 @@ public class DeregisterScalableTargetRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker
-     *        model endpoint variant.
+     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model
+     *        endpoint variant.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided
      *        by your own application or service.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *        for an Amazon Comprehend document classification endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *        for an Amazon Comprehend entity recognizer endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces
+     *        table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces
+     *        table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an
+     *        Amazon MSK cluster.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon
+     *        ElastiCache replication group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     *        ElastiCache replication group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB
+     *        cluster.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     *        serverless endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for
+     *        a SageMaker inference component.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the
+     *        WorkSpaces in the pool.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

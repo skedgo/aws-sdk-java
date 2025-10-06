@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,8 +20,10 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 15 celebrities in an
-     * image.
+     * Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 64 celebrities in an
+     * image. Each celebrity object includes the following attributes: <code>Face</code>, <code>Confidence</code>,
+     * <code>Emotions</code>, <code>Landmarks</code>, <code>Pose</code>, <code>Quality</code>, <code>Smile</code>,
+     * <code>Id</code>, <code>KnownGender</code>, <code>MatchConfidence</code>, <code>Name</code>, <code>Urls</code>.
      * </p>
      */
     private java.util.List<Celebrity> celebrityFaces;
@@ -32,6 +34,12 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
      */
     private java.util.List<ComparedFace> unrecognizedFaces;
     /**
+     * <note>
+     * <p>
+     * Support for estimating image orientation using the the OrientationCorrection field has ceased as of August 2021.
+     * Any returned values for this field included in an API response will always be NULL.
+     * </p>
+     * </note>
      * <p>
      * The orientation of the input image (counterclockwise direction). If your application displays the image, you can
      * use this value to correct the orientation. The bounding box coordinates returned in <code>CelebrityFaces</code>
@@ -51,12 +59,17 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 15 celebrities in an
-     * image.
+     * Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 64 celebrities in an
+     * image. Each celebrity object includes the following attributes: <code>Face</code>, <code>Confidence</code>,
+     * <code>Emotions</code>, <code>Landmarks</code>, <code>Pose</code>, <code>Quality</code>, <code>Smile</code>,
+     * <code>Id</code>, <code>KnownGender</code>, <code>MatchConfidence</code>, <code>Name</code>, <code>Urls</code>.
      * </p>
      * 
-     * @return Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 15
-     *         celebrities in an image.
+     * @return Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 64
+     *         celebrities in an image. Each celebrity object includes the following attributes: <code>Face</code>,
+     *         <code>Confidence</code>, <code>Emotions</code>, <code>Landmarks</code>, <code>Pose</code>,
+     *         <code>Quality</code>, <code>Smile</code>, <code>Id</code>, <code>KnownGender</code>,
+     *         <code>MatchConfidence</code>, <code>Name</code>, <code>Urls</code>.
      */
 
     public java.util.List<Celebrity> getCelebrityFaces() {
@@ -65,13 +78,18 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 15 celebrities in an
-     * image.
+     * Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 64 celebrities in an
+     * image. Each celebrity object includes the following attributes: <code>Face</code>, <code>Confidence</code>,
+     * <code>Emotions</code>, <code>Landmarks</code>, <code>Pose</code>, <code>Quality</code>, <code>Smile</code>,
+     * <code>Id</code>, <code>KnownGender</code>, <code>MatchConfidence</code>, <code>Name</code>, <code>Urls</code>.
      * </p>
      * 
      * @param celebrityFaces
-     *        Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 15 celebrities
-     *        in an image.
+     *        Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 64 celebrities
+     *        in an image. Each celebrity object includes the following attributes: <code>Face</code>,
+     *        <code>Confidence</code>, <code>Emotions</code>, <code>Landmarks</code>, <code>Pose</code>,
+     *        <code>Quality</code>, <code>Smile</code>, <code>Id</code>, <code>KnownGender</code>,
+     *        <code>MatchConfidence</code>, <code>Name</code>, <code>Urls</code>.
      */
 
     public void setCelebrityFaces(java.util.Collection<Celebrity> celebrityFaces) {
@@ -85,8 +103,10 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 15 celebrities in an
-     * image.
+     * Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 64 celebrities in an
+     * image. Each celebrity object includes the following attributes: <code>Face</code>, <code>Confidence</code>,
+     * <code>Emotions</code>, <code>Landmarks</code>, <code>Pose</code>, <code>Quality</code>, <code>Smile</code>,
+     * <code>Id</code>, <code>KnownGender</code>, <code>MatchConfidence</code>, <code>Name</code>, <code>Urls</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -95,8 +115,11 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param celebrityFaces
-     *        Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 15 celebrities
-     *        in an image.
+     *        Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 64 celebrities
+     *        in an image. Each celebrity object includes the following attributes: <code>Face</code>,
+     *        <code>Confidence</code>, <code>Emotions</code>, <code>Landmarks</code>, <code>Pose</code>,
+     *        <code>Quality</code>, <code>Smile</code>, <code>Id</code>, <code>KnownGender</code>,
+     *        <code>MatchConfidence</code>, <code>Name</code>, <code>Urls</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -112,13 +135,18 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 15 celebrities in an
-     * image.
+     * Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 64 celebrities in an
+     * image. Each celebrity object includes the following attributes: <code>Face</code>, <code>Confidence</code>,
+     * <code>Emotions</code>, <code>Landmarks</code>, <code>Pose</code>, <code>Quality</code>, <code>Smile</code>,
+     * <code>Id</code>, <code>KnownGender</code>, <code>MatchConfidence</code>, <code>Name</code>, <code>Urls</code>.
      * </p>
      * 
      * @param celebrityFaces
-     *        Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 15 celebrities
-     *        in an image.
+     *        Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 64 celebrities
+     *        in an image. Each celebrity object includes the following attributes: <code>Face</code>,
+     *        <code>Confidence</code>, <code>Emotions</code>, <code>Landmarks</code>, <code>Pose</code>,
+     *        <code>Quality</code>, <code>Smile</code>, <code>Id</code>, <code>KnownGender</code>,
+     *        <code>MatchConfidence</code>, <code>Name</code>, <code>Urls</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -198,6 +226,12 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <note>
+     * <p>
+     * Support for estimating image orientation using the the OrientationCorrection field has ceased as of August 2021.
+     * Any returned values for this field included in an API response will always be NULL.
+     * </p>
+     * </note>
      * <p>
      * The orientation of the input image (counterclockwise direction). If your application displays the image, you can
      * use this value to correct the orientation. The bounding box coordinates returned in <code>CelebrityFaces</code>
@@ -214,10 +248,18 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
      * </note>
      * 
      * @param orientationCorrection
+     *        <p>
+     *        Support for estimating image orientation using the the OrientationCorrection field has ceased as of August
+     *        2021. Any returned values for this field included in an API response will always be NULL.
+     *        </p>
+     *        </note>
+     *        <p>
      *        The orientation of the input image (counterclockwise direction). If your application displays the image,
      *        you can use this value to correct the orientation. The bounding box coordinates returned in
      *        <code>CelebrityFaces</code> and <code>UnrecognizedFaces</code> represent face locations before the image
-     *        orientation is corrected. </p> <note>
+     *        orientation is corrected.
+     *        </p>
+     *        <note>
      *        <p>
      *        If the input image is in .jpeg format, it might contain exchangeable image (Exif) metadata that includes
      *        the image's orientation. If so, and the Exif metadata for the input image populates the orientation field,
@@ -233,6 +275,12 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <note>
+     * <p>
+     * Support for estimating image orientation using the the OrientationCorrection field has ceased as of August 2021.
+     * Any returned values for this field included in an API response will always be NULL.
+     * </p>
+     * </note>
      * <p>
      * The orientation of the input image (counterclockwise direction). If your application displays the image, you can
      * use this value to correct the orientation. The bounding box coordinates returned in <code>CelebrityFaces</code>
@@ -248,10 +296,18 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * </note>
      * 
-     * @return The orientation of the input image (counterclockwise direction). If your application displays the image,
+     * @return <p>
+     *         Support for estimating image orientation using the the OrientationCorrection field has ceased as of
+     *         August 2021. Any returned values for this field included in an API response will always be NULL.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         The orientation of the input image (counterclockwise direction). If your application displays the image,
      *         you can use this value to correct the orientation. The bounding box coordinates returned in
      *         <code>CelebrityFaces</code> and <code>UnrecognizedFaces</code> represent face locations before the image
-     *         orientation is corrected. </p> <note>
+     *         orientation is corrected.
+     *         </p>
+     *         <note>
      *         <p>
      *         If the input image is in .jpeg format, it might contain exchangeable image (Exif) metadata that includes
      *         the image's orientation. If so, and the Exif metadata for the input image populates the orientation
@@ -267,6 +323,12 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <note>
+     * <p>
+     * Support for estimating image orientation using the the OrientationCorrection field has ceased as of August 2021.
+     * Any returned values for this field included in an API response will always be NULL.
+     * </p>
+     * </note>
      * <p>
      * The orientation of the input image (counterclockwise direction). If your application displays the image, you can
      * use this value to correct the orientation. The bounding box coordinates returned in <code>CelebrityFaces</code>
@@ -283,10 +345,18 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
      * </note>
      * 
      * @param orientationCorrection
+     *        <p>
+     *        Support for estimating image orientation using the the OrientationCorrection field has ceased as of August
+     *        2021. Any returned values for this field included in an API response will always be NULL.
+     *        </p>
+     *        </note>
+     *        <p>
      *        The orientation of the input image (counterclockwise direction). If your application displays the image,
      *        you can use this value to correct the orientation. The bounding box coordinates returned in
      *        <code>CelebrityFaces</code> and <code>UnrecognizedFaces</code> represent face locations before the image
-     *        orientation is corrected. </p> <note>
+     *        orientation is corrected.
+     *        </p>
+     *        <note>
      *        <p>
      *        If the input image is in .jpeg format, it might contain exchangeable image (Exif) metadata that includes
      *        the image's orientation. If so, and the Exif metadata for the input image populates the orientation field,
@@ -304,6 +374,12 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <note>
+     * <p>
+     * Support for estimating image orientation using the the OrientationCorrection field has ceased as of August 2021.
+     * Any returned values for this field included in an API response will always be NULL.
+     * </p>
+     * </note>
      * <p>
      * The orientation of the input image (counterclockwise direction). If your application displays the image, you can
      * use this value to correct the orientation. The bounding box coordinates returned in <code>CelebrityFaces</code>
@@ -320,10 +396,18 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
      * </note>
      * 
      * @param orientationCorrection
+     *        <p>
+     *        Support for estimating image orientation using the the OrientationCorrection field has ceased as of August
+     *        2021. Any returned values for this field included in an API response will always be NULL.
+     *        </p>
+     *        </note>
+     *        <p>
      *        The orientation of the input image (counterclockwise direction). If your application displays the image,
      *        you can use this value to correct the orientation. The bounding box coordinates returned in
      *        <code>CelebrityFaces</code> and <code>UnrecognizedFaces</code> represent face locations before the image
-     *        orientation is corrected. </p> <note>
+     *        orientation is corrected.
+     *        </p>
+     *        <note>
      *        <p>
      *        If the input image is in .jpeg format, it might contain exchangeable image (Exif) metadata that includes
      *        the image's orientation. If so, and the Exif metadata for the input image populates the orientation field,
@@ -339,6 +423,12 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <note>
+     * <p>
+     * Support for estimating image orientation using the the OrientationCorrection field has ceased as of August 2021.
+     * Any returned values for this field included in an API response will always be NULL.
+     * </p>
+     * </note>
      * <p>
      * The orientation of the input image (counterclockwise direction). If your application displays the image, you can
      * use this value to correct the orientation. The bounding box coordinates returned in <code>CelebrityFaces</code>
@@ -355,10 +445,18 @@ public class RecognizeCelebritiesResult extends com.amazonaws.AmazonWebServiceRe
      * </note>
      * 
      * @param orientationCorrection
+     *        <p>
+     *        Support for estimating image orientation using the the OrientationCorrection field has ceased as of August
+     *        2021. Any returned values for this field included in an API response will always be NULL.
+     *        </p>
+     *        </note>
+     *        <p>
      *        The orientation of the input image (counterclockwise direction). If your application displays the image,
      *        you can use this value to correct the orientation. The bounding box coordinates returned in
      *        <code>CelebrityFaces</code> and <code>UnrecognizedFaces</code> represent face locations before the image
-     *        orientation is corrected. </p> <note>
+     *        orientation is corrected.
+     *        </p>
+     *        <note>
      *        <p>
      *        If the input image is in .jpeg format, it might contain exchangeable image (Exif) metadata that includes
      *        the image's orientation. If so, and the Exif metadata for the input image populates the orientation field,

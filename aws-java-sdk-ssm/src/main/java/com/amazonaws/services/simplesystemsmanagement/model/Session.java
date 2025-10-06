@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about a Session Manager connection to an instance.
+ * Information about a Session Manager connection to a managed node.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/Session" target="_top">AWS API Documentation</a>
@@ -35,7 +35,7 @@ public class Session implements Serializable, Cloneable, StructuredPojo {
     private String sessionId;
     /**
      * <p>
-     * The instance that the Session Manager session connected to.
+     * The managed node that the Session Manager session connected to.
      * </p>
      */
     private String target;
@@ -66,10 +66,16 @@ public class Session implements Serializable, Cloneable, StructuredPojo {
     private String documentName;
     /**
      * <p>
-     * The ID of the AWS user account that started the session.
+     * The ID of the Amazon Web Services user that started the session.
      * </p>
      */
     private String owner;
+    /**
+     * <p>
+     * The reason for connecting to the instance.
+     * </p>
+     */
+    private String reason;
     /**
      * <p>
      * Reserved for future use.
@@ -82,6 +88,12 @@ public class Session implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private SessionManagerOutputUrl outputUrl;
+    /**
+     * <p>
+     * The maximum duration of a session before it terminates.
+     * </p>
+     */
+    private String maxSessionDuration;
 
     /**
      * <p>
@@ -125,11 +137,11 @@ public class Session implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The instance that the Session Manager session connected to.
+     * The managed node that the Session Manager session connected to.
      * </p>
      * 
      * @param target
-     *        The instance that the Session Manager session connected to.
+     *        The managed node that the Session Manager session connected to.
      */
 
     public void setTarget(String target) {
@@ -138,10 +150,10 @@ public class Session implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The instance that the Session Manager session connected to.
+     * The managed node that the Session Manager session connected to.
      * </p>
      * 
-     * @return The instance that the Session Manager session connected to.
+     * @return The managed node that the Session Manager session connected to.
      */
 
     public String getTarget() {
@@ -150,11 +162,11 @@ public class Session implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The instance that the Session Manager session connected to.
+     * The managed node that the Session Manager session connected to.
      * </p>
      * 
      * @param target
-     *        The instance that the Session Manager session connected to.
+     *        The managed node that the Session Manager session connected to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -350,11 +362,11 @@ public class Session implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the AWS user account that started the session.
+     * The ID of the Amazon Web Services user that started the session.
      * </p>
      * 
      * @param owner
-     *        The ID of the AWS user account that started the session.
+     *        The ID of the Amazon Web Services user that started the session.
      */
 
     public void setOwner(String owner) {
@@ -363,10 +375,10 @@ public class Session implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the AWS user account that started the session.
+     * The ID of the Amazon Web Services user that started the session.
      * </p>
      * 
-     * @return The ID of the AWS user account that started the session.
+     * @return The ID of the Amazon Web Services user that started the session.
      */
 
     public String getOwner() {
@@ -375,16 +387,56 @@ public class Session implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the AWS user account that started the session.
+     * The ID of the Amazon Web Services user that started the session.
      * </p>
      * 
      * @param owner
-     *        The ID of the AWS user account that started the session.
+     *        The ID of the Amazon Web Services user that started the session.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Session withOwner(String owner) {
         setOwner(owner);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The reason for connecting to the instance.
+     * </p>
+     * 
+     * @param reason
+     *        The reason for connecting to the instance.
+     */
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    /**
+     * <p>
+     * The reason for connecting to the instance.
+     * </p>
+     * 
+     * @return The reason for connecting to the instance.
+     */
+
+    public String getReason() {
+        return this.reason;
+    }
+
+    /**
+     * <p>
+     * The reason for connecting to the instance.
+     * </p>
+     * 
+     * @param reason
+     *        The reason for connecting to the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Session withReason(String reason) {
+        setReason(reason);
         return this;
     }
 
@@ -469,6 +521,46 @@ public class Session implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The maximum duration of a session before it terminates.
+     * </p>
+     * 
+     * @param maxSessionDuration
+     *        The maximum duration of a session before it terminates.
+     */
+
+    public void setMaxSessionDuration(String maxSessionDuration) {
+        this.maxSessionDuration = maxSessionDuration;
+    }
+
+    /**
+     * <p>
+     * The maximum duration of a session before it terminates.
+     * </p>
+     * 
+     * @return The maximum duration of a session before it terminates.
+     */
+
+    public String getMaxSessionDuration() {
+        return this.maxSessionDuration;
+    }
+
+    /**
+     * <p>
+     * The maximum duration of a session before it terminates.
+     * </p>
+     * 
+     * @param maxSessionDuration
+     *        The maximum duration of a session before it terminates.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Session withMaxSessionDuration(String maxSessionDuration) {
+        setMaxSessionDuration(maxSessionDuration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -494,10 +586,14 @@ public class Session implements Serializable, Cloneable, StructuredPojo {
             sb.append("DocumentName: ").append(getDocumentName()).append(",");
         if (getOwner() != null)
             sb.append("Owner: ").append(getOwner()).append(",");
+        if (getReason() != null)
+            sb.append("Reason: ").append(getReason()).append(",");
         if (getDetails() != null)
             sb.append("Details: ").append(getDetails()).append(",");
         if (getOutputUrl() != null)
-            sb.append("OutputUrl: ").append(getOutputUrl());
+            sb.append("OutputUrl: ").append(getOutputUrl()).append(",");
+        if (getMaxSessionDuration() != null)
+            sb.append("MaxSessionDuration: ").append(getMaxSessionDuration());
         sb.append("}");
         return sb.toString();
     }
@@ -540,6 +636,10 @@ public class Session implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getOwner() != null && other.getOwner().equals(this.getOwner()) == false)
             return false;
+        if (other.getReason() == null ^ this.getReason() == null)
+            return false;
+        if (other.getReason() != null && other.getReason().equals(this.getReason()) == false)
+            return false;
         if (other.getDetails() == null ^ this.getDetails() == null)
             return false;
         if (other.getDetails() != null && other.getDetails().equals(this.getDetails()) == false)
@@ -547,6 +647,10 @@ public class Session implements Serializable, Cloneable, StructuredPojo {
         if (other.getOutputUrl() == null ^ this.getOutputUrl() == null)
             return false;
         if (other.getOutputUrl() != null && other.getOutputUrl().equals(this.getOutputUrl()) == false)
+            return false;
+        if (other.getMaxSessionDuration() == null ^ this.getMaxSessionDuration() == null)
+            return false;
+        if (other.getMaxSessionDuration() != null && other.getMaxSessionDuration().equals(this.getMaxSessionDuration()) == false)
             return false;
         return true;
     }
@@ -563,8 +667,10 @@ public class Session implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getEndDate() == null) ? 0 : getEndDate().hashCode());
         hashCode = prime * hashCode + ((getDocumentName() == null) ? 0 : getDocumentName().hashCode());
         hashCode = prime * hashCode + ((getOwner() == null) ? 0 : getOwner().hashCode());
+        hashCode = prime * hashCode + ((getReason() == null) ? 0 : getReason().hashCode());
         hashCode = prime * hashCode + ((getDetails() == null) ? 0 : getDetails().hashCode());
         hashCode = prime * hashCode + ((getOutputUrl() == null) ? 0 : getOutputUrl().hashCode());
+        hashCode = prime * hashCode + ((getMaxSessionDuration() == null) ? 0 : getMaxSessionDuration().hashCode());
         return hashCode;
     }
 

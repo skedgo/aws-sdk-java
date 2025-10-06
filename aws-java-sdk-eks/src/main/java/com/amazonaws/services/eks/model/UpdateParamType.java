@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -24,7 +24,31 @@ public enum UpdateParamType {
     PlatformVersion("PlatformVersion"),
     EndpointPrivateAccess("EndpointPrivateAccess"),
     EndpointPublicAccess("EndpointPublicAccess"),
-    ClusterLogging("ClusterLogging");
+    ClusterLogging("ClusterLogging"),
+    DesiredSize("DesiredSize"),
+    LabelsToAdd("LabelsToAdd"),
+    LabelsToRemove("LabelsToRemove"),
+    TaintsToAdd("TaintsToAdd"),
+    TaintsToRemove("TaintsToRemove"),
+    MaxSize("MaxSize"),
+    MinSize("MinSize"),
+    ReleaseVersion("ReleaseVersion"),
+    PublicAccessCidrs("PublicAccessCidrs"),
+    LaunchTemplateName("LaunchTemplateName"),
+    LaunchTemplateVersion("LaunchTemplateVersion"),
+    IdentityProviderConfig("IdentityProviderConfig"),
+    EncryptionConfig("EncryptionConfig"),
+    AddonVersion("AddonVersion"),
+    ServiceAccountRoleArn("ServiceAccountRoleArn"),
+    ResolveConflicts("ResolveConflicts"),
+    MaxUnavailable("MaxUnavailable"),
+    MaxUnavailablePercentage("MaxUnavailablePercentage"),
+    ConfigurationValues("ConfigurationValues"),
+    SecurityGroups("SecurityGroups"),
+    Subnets("Subnets"),
+    AuthenticationMode("AuthenticationMode"),
+    PodIdentityAssociations("PodIdentityAssociations"),
+    UpgradePolicy("UpgradePolicy");
 
     private String value;
 

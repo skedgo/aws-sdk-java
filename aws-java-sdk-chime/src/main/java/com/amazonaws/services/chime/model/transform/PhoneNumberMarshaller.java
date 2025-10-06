@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,6 +32,8 @@ public class PhoneNumberMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PhoneNumberId").build();
     private static final MarshallingInfo<String> E164PHONENUMBER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("E164PhoneNumber").build();
+    private static final MarshallingInfo<String> COUNTRY_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Country").build();
     private static final MarshallingInfo<String> TYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Type").build();
     private static final MarshallingInfo<String> PRODUCTTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -42,6 +44,10 @@ public class PhoneNumberMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Capabilities").build();
     private static final MarshallingInfo<List> ASSOCIATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Associations").build();
+    private static final MarshallingInfo<String> CALLINGNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CallingName").build();
+    private static final MarshallingInfo<String> CALLINGNAMESTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CallingNameStatus").build();
     private static final MarshallingInfo<java.util.Date> CREATEDTIMESTAMP_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreatedTimestamp").timestampFormat("iso8601").build();
     private static final MarshallingInfo<java.util.Date> UPDATEDTIMESTAMP_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
@@ -67,11 +73,14 @@ public class PhoneNumberMarshaller {
         try {
             protocolMarshaller.marshall(phoneNumber.getPhoneNumberId(), PHONENUMBERID_BINDING);
             protocolMarshaller.marshall(phoneNumber.getE164PhoneNumber(), E164PHONENUMBER_BINDING);
+            protocolMarshaller.marshall(phoneNumber.getCountry(), COUNTRY_BINDING);
             protocolMarshaller.marshall(phoneNumber.getType(), TYPE_BINDING);
             protocolMarshaller.marshall(phoneNumber.getProductType(), PRODUCTTYPE_BINDING);
             protocolMarshaller.marshall(phoneNumber.getStatus(), STATUS_BINDING);
             protocolMarshaller.marshall(phoneNumber.getCapabilities(), CAPABILITIES_BINDING);
             protocolMarshaller.marshall(phoneNumber.getAssociations(), ASSOCIATIONS_BINDING);
+            protocolMarshaller.marshall(phoneNumber.getCallingName(), CALLINGNAME_BINDING);
+            protocolMarshaller.marshall(phoneNumber.getCallingNameStatus(), CALLINGNAMESTATUS_BINDING);
             protocolMarshaller.marshall(phoneNumber.getCreatedTimestamp(), CREATEDTIMESTAMP_BINDING);
             protocolMarshaller.marshall(phoneNumber.getUpdatedTimestamp(), UPDATEDTIMESTAMP_BINDING);
             protocolMarshaller.marshall(phoneNumber.getDeletionTimestamp(), DELETIONTIMESTAMP_BINDING);

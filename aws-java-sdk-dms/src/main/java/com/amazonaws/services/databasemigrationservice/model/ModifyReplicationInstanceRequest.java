@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,11 +46,13 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
     private Boolean applyImmediately;
     /**
      * <p>
-     * The compute and memory capacity of the replication instance.
+     * The compute and memory capacity of the replication instance as defined for the specified replication instance
+     * class. For example to specify the instance class dms.c4.large, set this parameter to <code>"dms.c4.large"</code>.
      * </p>
      * <p>
-     * Valid Values:
-     * <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     * For more information on the settings and capacities for the available replication instance classes, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     * > Selecting the right DMS replication instance for your migration</a>.
      * </p>
      */
     private String replicationInstanceClass;
@@ -84,7 +86,7 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
     private String preferredMaintenanceWindow;
     /**
      * <p>
-     * Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      * <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * </p>
      */
@@ -92,6 +94,10 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
     /**
      * <p>
      * The engine version number of the replication instance.
+     * </p>
+     * <p>
+     * When modifying a major engine version of an instance, also set <code>AllowMajorVersionUpgrade</code> to
+     * <code>true</code>.
      * </p>
      */
     private String engineVersion;
@@ -108,12 +114,30 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
     private Boolean allowMajorVersionUpgrade;
     /**
      * <p>
-     * Indicates that minor version upgrades will be applied automatically to the replication instance during the
-     * maintenance window. Changing this parameter does not result in an outage except in the following case and the
-     * change is asynchronously applied as soon as possible. An outage will result if this parameter is set to
-     * <code>true</code> during the maintenance window, and a newer minor version is available, and AWS DMS has enabled
-     * auto patching for that engine version.
+     * A value that indicates that minor version upgrades are applied automatically to the replication instance during
+     * the maintenance window. Changing this parameter doesn't result in an outage, except in the case described
+     * following. The change is asynchronously applied as soon as possible.
      * </p>
+     * <p>
+     * An outage does result if these factors apply:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * This parameter is set to <code>true</code> during the maintenance window.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A newer minor version is available.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DMS has enabled automatic patching for the given engine version.
+     * </p>
+     * </li>
+     * </ul>
      */
     private Boolean autoMinorVersionUpgrade;
     /**
@@ -122,6 +146,13 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
      * </p>
      */
     private String replicationInstanceIdentifier;
+    /**
+     * <p>
+     * The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that supports
+     * both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     * </p>
+     */
+    private String networkType;
 
     /**
      * <p>
@@ -257,18 +288,24 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The compute and memory capacity of the replication instance.
+     * The compute and memory capacity of the replication instance as defined for the specified replication instance
+     * class. For example to specify the instance class dms.c4.large, set this parameter to <code>"dms.c4.large"</code>.
      * </p>
      * <p>
-     * Valid Values:
-     * <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     * For more information on the settings and capacities for the available replication instance classes, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     * > Selecting the right DMS replication instance for your migration</a>.
      * </p>
      * 
      * @param replicationInstanceClass
-     *        The compute and memory capacity of the replication instance.</p>
+     *        The compute and memory capacity of the replication instance as defined for the specified replication
+     *        instance class. For example to specify the instance class dms.c4.large, set this parameter to
+     *        <code>"dms.c4.large"</code>.</p>
      *        <p>
-     *        Valid Values:
-     *        <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     *        For more information on the settings and capacities for the available replication instance classes, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     *        > Selecting the right DMS replication instance for your migration</a>.
      */
 
     public void setReplicationInstanceClass(String replicationInstanceClass) {
@@ -277,17 +314,23 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The compute and memory capacity of the replication instance.
+     * The compute and memory capacity of the replication instance as defined for the specified replication instance
+     * class. For example to specify the instance class dms.c4.large, set this parameter to <code>"dms.c4.large"</code>.
      * </p>
      * <p>
-     * Valid Values:
-     * <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     * For more information on the settings and capacities for the available replication instance classes, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     * > Selecting the right DMS replication instance for your migration</a>.
      * </p>
      * 
-     * @return The compute and memory capacity of the replication instance.</p>
+     * @return The compute and memory capacity of the replication instance as defined for the specified replication
+     *         instance class. For example to specify the instance class dms.c4.large, set this parameter to
+     *         <code>"dms.c4.large"</code>.</p>
      *         <p>
-     *         Valid Values:
-     *         <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     *         For more information on the settings and capacities for the available replication instance classes, see
+     *         <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     *         > Selecting the right DMS replication instance for your migration</a>.
      */
 
     public String getReplicationInstanceClass() {
@@ -296,18 +339,24 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The compute and memory capacity of the replication instance.
+     * The compute and memory capacity of the replication instance as defined for the specified replication instance
+     * class. For example to specify the instance class dms.c4.large, set this parameter to <code>"dms.c4.large"</code>.
      * </p>
      * <p>
-     * Valid Values:
-     * <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     * For more information on the settings and capacities for the available replication instance classes, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     * > Selecting the right DMS replication instance for your migration</a>.
      * </p>
      * 
      * @param replicationInstanceClass
-     *        The compute and memory capacity of the replication instance.</p>
+     *        The compute and memory capacity of the replication instance as defined for the specified replication
+     *        instance class. For example to specify the instance class dms.c4.large, set this parameter to
+     *        <code>"dms.c4.large"</code>.</p>
      *        <p>
-     *        Valid Values:
-     *        <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     *        For more information on the settings and capacities for the available replication instance classes, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     *        > Selecting the right DMS replication instance for your migration</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -524,12 +573,12 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      * <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * </p>
      * 
      * @param multiAZ
-     *        Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     *        Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      *        <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      */
 
@@ -539,11 +588,11 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      * <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * </p>
      * 
-     * @return Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * @return Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      *         <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      */
 
@@ -553,12 +602,12 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      * <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * </p>
      * 
      * @param multiAZ
-     *        Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     *        Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      *        <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -570,11 +619,11 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      * <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * </p>
      * 
-     * @return Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * @return Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      *         <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      */
 
@@ -586,9 +635,16 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
      * <p>
      * The engine version number of the replication instance.
      * </p>
+     * <p>
+     * When modifying a major engine version of an instance, also set <code>AllowMajorVersionUpgrade</code> to
+     * <code>true</code>.
+     * </p>
      * 
      * @param engineVersion
-     *        The engine version number of the replication instance.
+     *        The engine version number of the replication instance.</p>
+     *        <p>
+     *        When modifying a major engine version of an instance, also set <code>AllowMajorVersionUpgrade</code> to
+     *        <code>true</code>.
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -599,8 +655,15 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
      * <p>
      * The engine version number of the replication instance.
      * </p>
+     * <p>
+     * When modifying a major engine version of an instance, also set <code>AllowMajorVersionUpgrade</code> to
+     * <code>true</code>.
+     * </p>
      * 
-     * @return The engine version number of the replication instance.
+     * @return The engine version number of the replication instance.</p>
+     *         <p>
+     *         When modifying a major engine version of an instance, also set <code>AllowMajorVersionUpgrade</code> to
+     *         <code>true</code>.
      */
 
     public String getEngineVersion() {
@@ -611,9 +674,16 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
      * <p>
      * The engine version number of the replication instance.
      * </p>
+     * <p>
+     * When modifying a major engine version of an instance, also set <code>AllowMajorVersionUpgrade</code> to
+     * <code>true</code>.
+     * </p>
      * 
      * @param engineVersion
-     *        The engine version number of the replication instance.
+     *        The engine version number of the replication instance.</p>
+     *        <p>
+     *        When modifying a major engine version of an instance, also set <code>AllowMajorVersionUpgrade</code> to
+     *        <code>true</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -714,19 +784,54 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Indicates that minor version upgrades will be applied automatically to the replication instance during the
-     * maintenance window. Changing this parameter does not result in an outage except in the following case and the
-     * change is asynchronously applied as soon as possible. An outage will result if this parameter is set to
-     * <code>true</code> during the maintenance window, and a newer minor version is available, and AWS DMS has enabled
-     * auto patching for that engine version.
+     * A value that indicates that minor version upgrades are applied automatically to the replication instance during
+     * the maintenance window. Changing this parameter doesn't result in an outage, except in the case described
+     * following. The change is asynchronously applied as soon as possible.
      * </p>
+     * <p>
+     * An outage does result if these factors apply:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * This parameter is set to <code>true</code> during the maintenance window.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A newer minor version is available.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DMS has enabled automatic patching for the given engine version.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param autoMinorVersionUpgrade
-     *        Indicates that minor version upgrades will be applied automatically to the replication instance during the
-     *        maintenance window. Changing this parameter does not result in an outage except in the following case and
-     *        the change is asynchronously applied as soon as possible. An outage will result if this parameter is set
-     *        to <code>true</code> during the maintenance window, and a newer minor version is available, and AWS DMS
-     *        has enabled auto patching for that engine version.
+     *        A value that indicates that minor version upgrades are applied automatically to the replication instance
+     *        during the maintenance window. Changing this parameter doesn't result in an outage, except in the case
+     *        described following. The change is asynchronously applied as soon as possible. </p>
+     *        <p>
+     *        An outage does result if these factors apply:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        This parameter is set to <code>true</code> during the maintenance window.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        A newer minor version is available.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DMS has enabled automatic patching for the given engine version.
+     *        </p>
+     *        </li>
      */
 
     public void setAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
@@ -735,18 +840,53 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Indicates that minor version upgrades will be applied automatically to the replication instance during the
-     * maintenance window. Changing this parameter does not result in an outage except in the following case and the
-     * change is asynchronously applied as soon as possible. An outage will result if this parameter is set to
-     * <code>true</code> during the maintenance window, and a newer minor version is available, and AWS DMS has enabled
-     * auto patching for that engine version.
+     * A value that indicates that minor version upgrades are applied automatically to the replication instance during
+     * the maintenance window. Changing this parameter doesn't result in an outage, except in the case described
+     * following. The change is asynchronously applied as soon as possible.
      * </p>
+     * <p>
+     * An outage does result if these factors apply:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * This parameter is set to <code>true</code> during the maintenance window.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A newer minor version is available.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DMS has enabled automatic patching for the given engine version.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return Indicates that minor version upgrades will be applied automatically to the replication instance during
-     *         the maintenance window. Changing this parameter does not result in an outage except in the following case
-     *         and the change is asynchronously applied as soon as possible. An outage will result if this parameter is
-     *         set to <code>true</code> during the maintenance window, and a newer minor version is available, and AWS
-     *         DMS has enabled auto patching for that engine version.
+     * @return A value that indicates that minor version upgrades are applied automatically to the replication instance
+     *         during the maintenance window. Changing this parameter doesn't result in an outage, except in the case
+     *         described following. The change is asynchronously applied as soon as possible. </p>
+     *         <p>
+     *         An outage does result if these factors apply:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         This parameter is set to <code>true</code> during the maintenance window.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         A newer minor version is available.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         DMS has enabled automatic patching for the given engine version.
+     *         </p>
+     *         </li>
      */
 
     public Boolean getAutoMinorVersionUpgrade() {
@@ -755,19 +895,54 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Indicates that minor version upgrades will be applied automatically to the replication instance during the
-     * maintenance window. Changing this parameter does not result in an outage except in the following case and the
-     * change is asynchronously applied as soon as possible. An outage will result if this parameter is set to
-     * <code>true</code> during the maintenance window, and a newer minor version is available, and AWS DMS has enabled
-     * auto patching for that engine version.
+     * A value that indicates that minor version upgrades are applied automatically to the replication instance during
+     * the maintenance window. Changing this parameter doesn't result in an outage, except in the case described
+     * following. The change is asynchronously applied as soon as possible.
      * </p>
+     * <p>
+     * An outage does result if these factors apply:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * This parameter is set to <code>true</code> during the maintenance window.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A newer minor version is available.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DMS has enabled automatic patching for the given engine version.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param autoMinorVersionUpgrade
-     *        Indicates that minor version upgrades will be applied automatically to the replication instance during the
-     *        maintenance window. Changing this parameter does not result in an outage except in the following case and
-     *        the change is asynchronously applied as soon as possible. An outage will result if this parameter is set
-     *        to <code>true</code> during the maintenance window, and a newer minor version is available, and AWS DMS
-     *        has enabled auto patching for that engine version.
+     *        A value that indicates that minor version upgrades are applied automatically to the replication instance
+     *        during the maintenance window. Changing this parameter doesn't result in an outage, except in the case
+     *        described following. The change is asynchronously applied as soon as possible. </p>
+     *        <p>
+     *        An outage does result if these factors apply:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        This parameter is set to <code>true</code> during the maintenance window.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        A newer minor version is available.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DMS has enabled automatic patching for the given engine version.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -778,18 +953,53 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Indicates that minor version upgrades will be applied automatically to the replication instance during the
-     * maintenance window. Changing this parameter does not result in an outage except in the following case and the
-     * change is asynchronously applied as soon as possible. An outage will result if this parameter is set to
-     * <code>true</code> during the maintenance window, and a newer minor version is available, and AWS DMS has enabled
-     * auto patching for that engine version.
+     * A value that indicates that minor version upgrades are applied automatically to the replication instance during
+     * the maintenance window. Changing this parameter doesn't result in an outage, except in the case described
+     * following. The change is asynchronously applied as soon as possible.
      * </p>
+     * <p>
+     * An outage does result if these factors apply:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * This parameter is set to <code>true</code> during the maintenance window.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A newer minor version is available.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DMS has enabled automatic patching for the given engine version.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return Indicates that minor version upgrades will be applied automatically to the replication instance during
-     *         the maintenance window. Changing this parameter does not result in an outage except in the following case
-     *         and the change is asynchronously applied as soon as possible. An outage will result if this parameter is
-     *         set to <code>true</code> during the maintenance window, and a newer minor version is available, and AWS
-     *         DMS has enabled auto patching for that engine version.
+     * @return A value that indicates that minor version upgrades are applied automatically to the replication instance
+     *         during the maintenance window. Changing this parameter doesn't result in an outage, except in the case
+     *         described following. The change is asynchronously applied as soon as possible. </p>
+     *         <p>
+     *         An outage does result if these factors apply:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         This parameter is set to <code>true</code> during the maintenance window.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         A newer minor version is available.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         DMS has enabled automatic patching for the given engine version.
+     *         </p>
+     *         </li>
      */
 
     public Boolean isAutoMinorVersionUpgrade() {
@@ -837,6 +1047,52 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
     }
 
     /**
+     * <p>
+     * The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that supports
+     * both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     * </p>
+     * 
+     * @param networkType
+     *        The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that
+     *        supports both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     */
+
+    public void setNetworkType(String networkType) {
+        this.networkType = networkType;
+    }
+
+    /**
+     * <p>
+     * The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that supports
+     * both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     * </p>
+     * 
+     * @return The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that
+     *         supports both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     */
+
+    public String getNetworkType() {
+        return this.networkType;
+    }
+
+    /**
+     * <p>
+     * The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that supports
+     * both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     * </p>
+     * 
+     * @param networkType
+     *        The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that
+     *        supports both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyReplicationInstanceRequest withNetworkType(String networkType) {
+        setNetworkType(networkType);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -869,7 +1125,9 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
         if (getAutoMinorVersionUpgrade() != null)
             sb.append("AutoMinorVersionUpgrade: ").append(getAutoMinorVersionUpgrade()).append(",");
         if (getReplicationInstanceIdentifier() != null)
-            sb.append("ReplicationInstanceIdentifier: ").append(getReplicationInstanceIdentifier());
+            sb.append("ReplicationInstanceIdentifier: ").append(getReplicationInstanceIdentifier()).append(",");
+        if (getNetworkType() != null)
+            sb.append("NetworkType: ").append(getNetworkType());
         sb.append("}");
         return sb.toString();
     }
@@ -929,6 +1187,10 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
         if (other.getReplicationInstanceIdentifier() != null
                 && other.getReplicationInstanceIdentifier().equals(this.getReplicationInstanceIdentifier()) == false)
             return false;
+        if (other.getNetworkType() == null ^ this.getNetworkType() == null)
+            return false;
+        if (other.getNetworkType() != null && other.getNetworkType().equals(this.getNetworkType()) == false)
+            return false;
         return true;
     }
 
@@ -948,6 +1210,7 @@ public class ModifyReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
         hashCode = prime * hashCode + ((getAllowMajorVersionUpgrade() == null) ? 0 : getAllowMajorVersionUpgrade().hashCode());
         hashCode = prime * hashCode + ((getAutoMinorVersionUpgrade() == null) ? 0 : getAutoMinorVersionUpgrade().hashCode());
         hashCode = prime * hashCode + ((getReplicationInstanceIdentifier() == null) ? 0 : getReplicationInstanceIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getNetworkType() == null) ? 0 : getNetworkType().hashCode());
         return hashCode;
     }
 

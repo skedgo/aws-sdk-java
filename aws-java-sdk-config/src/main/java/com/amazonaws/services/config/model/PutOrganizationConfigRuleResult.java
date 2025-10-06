@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,10 +23,20 @@ import javax.annotation.Generated;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class PutOrganizationConfigRuleResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
 
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organization Config rule.
+     * </p>
+     */
     private String organizationConfigRuleArn;
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organization Config rule.
+     * </p>
+     * 
      * @param organizationConfigRuleArn
+     *        The Amazon Resource Name (ARN) of an organization Config rule.
      */
 
     public void setOrganizationConfigRuleArn(String organizationConfigRuleArn) {
@@ -34,7 +44,11 @@ public class PutOrganizationConfigRuleResult extends com.amazonaws.AmazonWebServ
     }
 
     /**
-     * @return
+     * <p>
+     * The Amazon Resource Name (ARN) of an organization Config rule.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of an organization Config rule.
      */
 
     public String getOrganizationConfigRuleArn() {
@@ -42,7 +56,12 @@ public class PutOrganizationConfigRuleResult extends com.amazonaws.AmazonWebServ
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organization Config rule.
+     * </p>
+     * 
      * @param organizationConfigRuleArn
+     *        The Amazon Resource Name (ARN) of an organization Config rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

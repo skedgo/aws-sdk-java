@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,12 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class Mp4SettingsMarshaller {
 
+    private static final MarshallingInfo<String> AUDIODURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("audioDuration").build();
     private static final MarshallingInfo<String> CSLGATOM_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("cslgAtom").build();
+    private static final MarshallingInfo<Integer> CTTSVERSION_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("cttsVersion").build();
     private static final MarshallingInfo<String> FREESPACEBOX_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("freeSpaceBox").build();
     private static final MarshallingInfo<String> MOOVPLACEMENT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -52,7 +56,9 @@ public class Mp4SettingsMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(mp4Settings.getAudioDuration(), AUDIODURATION_BINDING);
             protocolMarshaller.marshall(mp4Settings.getCslgAtom(), CSLGATOM_BINDING);
+            protocolMarshaller.marshall(mp4Settings.getCttsVersion(), CTTSVERSION_BINDING);
             protocolMarshaller.marshall(mp4Settings.getFreeSpaceBox(), FREESPACEBOX_BINDING);
             protocolMarshaller.marshall(mp4Settings.getMoovPlacement(), MOOVPLACEMENT_BINDING);
             protocolMarshaller.marshall(mp4Settings.getMp4MajorBrand(), MP4MAJORBRAND_BINDING);

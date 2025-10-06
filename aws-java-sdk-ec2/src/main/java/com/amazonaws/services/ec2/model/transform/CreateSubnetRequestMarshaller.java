@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,6 +40,41 @@ public class CreateSubnetRequestMarshaller implements Marshaller<Request<CreateS
         request.addParameter("Version", "2016-11-15");
         request.setHttpMethod(HttpMethodName.POST);
 
+        com.amazonaws.internal.SdkInternalList<TagSpecification> createSubnetRequestTagSpecificationsList = (com.amazonaws.internal.SdkInternalList<TagSpecification>) createSubnetRequest
+                .getTagSpecifications();
+        if (!createSubnetRequestTagSpecificationsList.isEmpty() || !createSubnetRequestTagSpecificationsList.isAutoConstruct()) {
+            int tagSpecificationsListIndex = 1;
+
+            for (TagSpecification createSubnetRequestTagSpecificationsListValue : createSubnetRequestTagSpecificationsList) {
+
+                if (createSubnetRequestTagSpecificationsListValue.getResourceType() != null) {
+                    request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".ResourceType",
+                            StringUtils.fromString(createSubnetRequestTagSpecificationsListValue.getResourceType()));
+                }
+
+                com.amazonaws.internal.SdkInternalList<Tag> tagSpecificationTagsList = (com.amazonaws.internal.SdkInternalList<Tag>) createSubnetRequestTagSpecificationsListValue
+                        .getTags();
+                if (!tagSpecificationTagsList.isEmpty() || !tagSpecificationTagsList.isAutoConstruct()) {
+                    int tagsListIndex = 1;
+
+                    for (Tag tagSpecificationTagsListValue : tagSpecificationTagsList) {
+
+                        if (tagSpecificationTagsListValue.getKey() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Key",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getKey()));
+                        }
+
+                        if (tagSpecificationTagsListValue.getValue() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Value",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getValue()));
+                        }
+                        tagsListIndex++;
+                    }
+                }
+                tagSpecificationsListIndex++;
+            }
+        }
+
         if (createSubnetRequest.getAvailabilityZone() != null) {
             request.addParameter("AvailabilityZone", StringUtils.fromString(createSubnetRequest.getAvailabilityZone()));
         }
@@ -56,8 +91,32 @@ public class CreateSubnetRequestMarshaller implements Marshaller<Request<CreateS
             request.addParameter("Ipv6CidrBlock", StringUtils.fromString(createSubnetRequest.getIpv6CidrBlock()));
         }
 
+        if (createSubnetRequest.getOutpostArn() != null) {
+            request.addParameter("OutpostArn", StringUtils.fromString(createSubnetRequest.getOutpostArn()));
+        }
+
         if (createSubnetRequest.getVpcId() != null) {
             request.addParameter("VpcId", StringUtils.fromString(createSubnetRequest.getVpcId()));
+        }
+
+        if (createSubnetRequest.getIpv6Native() != null) {
+            request.addParameter("Ipv6Native", StringUtils.fromBoolean(createSubnetRequest.getIpv6Native()));
+        }
+
+        if (createSubnetRequest.getIpv4IpamPoolId() != null) {
+            request.addParameter("Ipv4IpamPoolId", StringUtils.fromString(createSubnetRequest.getIpv4IpamPoolId()));
+        }
+
+        if (createSubnetRequest.getIpv4NetmaskLength() != null) {
+            request.addParameter("Ipv4NetmaskLength", StringUtils.fromInteger(createSubnetRequest.getIpv4NetmaskLength()));
+        }
+
+        if (createSubnetRequest.getIpv6IpamPoolId() != null) {
+            request.addParameter("Ipv6IpamPoolId", StringUtils.fromString(createSubnetRequest.getIpv6IpamPoolId()));
+        }
+
+        if (createSubnetRequest.getIpv6NetmaskLength() != null) {
+            request.addParameter("Ipv6NetmaskLength", StringUtils.fromInteger(createSubnetRequest.getIpv6NetmaskLength()));
         }
 
         return request;

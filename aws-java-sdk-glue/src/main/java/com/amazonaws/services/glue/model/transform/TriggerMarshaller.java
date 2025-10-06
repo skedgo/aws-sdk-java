@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,6 +46,8 @@ public class TriggerMarshaller {
             .marshallLocationName("Actions").build();
     private static final MarshallingInfo<StructuredPojo> PREDICATE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Predicate").build();
+    private static final MarshallingInfo<StructuredPojo> EVENTBATCHINGCONDITION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EventBatchingCondition").build();
 
     private static final TriggerMarshaller instance = new TriggerMarshaller();
 
@@ -72,6 +74,7 @@ public class TriggerMarshaller {
             protocolMarshaller.marshall(trigger.getSchedule(), SCHEDULE_BINDING);
             protocolMarshaller.marshall(trigger.getActions(), ACTIONS_BINDING);
             protocolMarshaller.marshall(trigger.getPredicate(), PREDICATE_BINDING);
+            protocolMarshaller.marshall(trigger.getEventBatchingCondition(), EVENTBATCHINGCONDITION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

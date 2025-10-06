@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,17 +25,17 @@ public class AddTagsResult extends com.amazonaws.AmazonWebServiceResult<com.amaz
 
     /**
      * <p>
-     * A list of tags associated with the Amazon SageMaker resource.
+     * A list of tags associated with the SageMaker resource.
      * </p>
      */
     private java.util.List<Tag> tags;
 
     /**
      * <p>
-     * A list of tags associated with the Amazon SageMaker resource.
+     * A list of tags associated with the SageMaker resource.
      * </p>
      * 
-     * @return A list of tags associated with the Amazon SageMaker resource.
+     * @return A list of tags associated with the SageMaker resource.
      */
 
     public java.util.List<Tag> getTags() {
@@ -44,11 +44,11 @@ public class AddTagsResult extends com.amazonaws.AmazonWebServiceResult<com.amaz
 
     /**
      * <p>
-     * A list of tags associated with the Amazon SageMaker resource.
+     * A list of tags associated with the SageMaker resource.
      * </p>
      * 
      * @param tags
-     *        A list of tags associated with the Amazon SageMaker resource.
+     *        A list of tags associated with the SageMaker resource.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -62,7 +62,7 @@ public class AddTagsResult extends com.amazonaws.AmazonWebServiceResult<com.amaz
 
     /**
      * <p>
-     * A list of tags associated with the Amazon SageMaker resource.
+     * A list of tags associated with the SageMaker resource.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -71,7 +71,7 @@ public class AddTagsResult extends com.amazonaws.AmazonWebServiceResult<com.amaz
      * </p>
      * 
      * @param tags
-     *        A list of tags associated with the Amazon SageMaker resource.
+     *        A list of tags associated with the SageMaker resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -87,11 +87,11 @@ public class AddTagsResult extends com.amazonaws.AmazonWebServiceResult<com.amaz
 
     /**
      * <p>
-     * A list of tags associated with the Amazon SageMaker resource.
+     * A list of tags associated with the SageMaker resource.
      * </p>
      * 
      * @param tags
-     *        A list of tags associated with the Amazon SageMaker resource.
+     *        A list of tags associated with the SageMaker resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

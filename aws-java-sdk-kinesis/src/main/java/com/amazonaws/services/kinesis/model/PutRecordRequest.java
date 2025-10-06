@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,7 +38,7 @@ public class PutRecordRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * <p>
      * The data blob to put into the record, which is base64-encoded when the blob is serialized. When the data blob
      * (the payload before base64-encoding) is added to the partition key size, the total size must not exceed the
-     * maximum record size (1 MB).
+     * maximum record size (1 MiB).
      * </p>
      */
     private java.nio.ByteBuffer data;
@@ -69,6 +69,12 @@ public class PutRecordRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      */
     private String sequenceNumberForOrdering;
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     */
+    private String streamARN;
 
     /**
      * <p>
@@ -114,7 +120,7 @@ public class PutRecordRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * <p>
      * The data blob to put into the record, which is base64-encoded when the blob is serialized. When the data blob
      * (the payload before base64-encoding) is added to the partition key size, the total size must not exceed the
-     * maximum record size (1 MB).
+     * maximum record size (1 MiB).
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -130,7 +136,7 @@ public class PutRecordRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * @param data
      *        The data blob to put into the record, which is base64-encoded when the blob is serialized. When the data
      *        blob (the payload before base64-encoding) is added to the partition key size, the total size must not
-     *        exceed the maximum record size (1 MB).
+     *        exceed the maximum record size (1 MiB).
      */
 
     public void setData(java.nio.ByteBuffer data) {
@@ -141,7 +147,7 @@ public class PutRecordRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * <p>
      * The data blob to put into the record, which is base64-encoded when the blob is serialized. When the data blob
      * (the payload before base64-encoding) is added to the partition key size, the total size must not exceed the
-     * maximum record size (1 MB).
+     * maximum record size (1 MiB).
      * </p>
      * <p>
      * {@code ByteBuffer}s are stateful. Calling their {@code get} methods changes their {@code position}. We recommend
@@ -153,7 +159,7 @@ public class PutRecordRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * 
      * @return The data blob to put into the record, which is base64-encoded when the blob is serialized. When the data
      *         blob (the payload before base64-encoding) is added to the partition key size, the total size must not
-     *         exceed the maximum record size (1 MB).
+     *         exceed the maximum record size (1 MiB).
      */
 
     public java.nio.ByteBuffer getData() {
@@ -164,7 +170,7 @@ public class PutRecordRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * <p>
      * The data blob to put into the record, which is base64-encoded when the blob is serialized. When the data blob
      * (the payload before base64-encoding) is added to the partition key size, the total size must not exceed the
-     * maximum record size (1 MB).
+     * maximum record size (1 MiB).
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -180,7 +186,7 @@ public class PutRecordRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * @param data
      *        The data blob to put into the record, which is base64-encoded when the blob is serialized. When the data
      *        blob (the payload before base64-encoding) is added to the partition key size, the total size must not
-     *        exceed the maximum record size (1 MB).
+     *        exceed the maximum record size (1 MiB).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -364,6 +370,46 @@ public class PutRecordRequest extends com.amazonaws.AmazonWebServiceRequest impl
     }
 
     /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     * 
+     * @param streamARN
+     *        The ARN of the stream.
+     */
+
+    public void setStreamARN(String streamARN) {
+        this.streamARN = streamARN;
+    }
+
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     * 
+     * @return The ARN of the stream.
+     */
+
+    public String getStreamARN() {
+        return this.streamARN;
+    }
+
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     * 
+     * @param streamARN
+     *        The ARN of the stream.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutRecordRequest withStreamARN(String streamARN) {
+        setStreamARN(streamARN);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -384,7 +430,9 @@ public class PutRecordRequest extends com.amazonaws.AmazonWebServiceRequest impl
         if (getExplicitHashKey() != null)
             sb.append("ExplicitHashKey: ").append(getExplicitHashKey()).append(",");
         if (getSequenceNumberForOrdering() != null)
-            sb.append("SequenceNumberForOrdering: ").append(getSequenceNumberForOrdering());
+            sb.append("SequenceNumberForOrdering: ").append(getSequenceNumberForOrdering()).append(",");
+        if (getStreamARN() != null)
+            sb.append("StreamARN: ").append(getStreamARN());
         sb.append("}");
         return sb.toString();
     }
@@ -419,6 +467,10 @@ public class PutRecordRequest extends com.amazonaws.AmazonWebServiceRequest impl
             return false;
         if (other.getSequenceNumberForOrdering() != null && other.getSequenceNumberForOrdering().equals(this.getSequenceNumberForOrdering()) == false)
             return false;
+        if (other.getStreamARN() == null ^ this.getStreamARN() == null)
+            return false;
+        if (other.getStreamARN() != null && other.getStreamARN().equals(this.getStreamARN()) == false)
+            return false;
         return true;
     }
 
@@ -432,6 +484,7 @@ public class PutRecordRequest extends com.amazonaws.AmazonWebServiceRequest impl
         hashCode = prime * hashCode + ((getPartitionKey() == null) ? 0 : getPartitionKey().hashCode());
         hashCode = prime * hashCode + ((getExplicitHashKey() == null) ? 0 : getExplicitHashKey().hashCode());
         hashCode = prime * hashCode + ((getSequenceNumberForOrdering() == null) ? 0 : getSequenceNumberForOrdering().hashCode());
+        hashCode = prime * hashCode + ((getStreamARN() == null) ? 0 : getStreamARN().hashCode());
         return hashCode;
     }
 

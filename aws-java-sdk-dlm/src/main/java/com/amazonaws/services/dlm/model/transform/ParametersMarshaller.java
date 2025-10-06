@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.dlm.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -29,6 +30,10 @@ public class ParametersMarshaller {
 
     private static final MarshallingInfo<Boolean> EXCLUDEBOOTVOLUME_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExcludeBootVolume").build();
+    private static final MarshallingInfo<Boolean> NOREBOOT_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("NoReboot").build();
+    private static final MarshallingInfo<List> EXCLUDEDATAVOLUMETAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExcludeDataVolumeTags").build();
 
     private static final ParametersMarshaller instance = new ParametersMarshaller();
 
@@ -47,6 +52,8 @@ public class ParametersMarshaller {
 
         try {
             protocolMarshaller.marshall(parameters.getExcludeBootVolume(), EXCLUDEBOOTVOLUME_BINDING);
+            protocolMarshaller.marshall(parameters.getNoReboot(), NOREBOOT_BINDING);
+            protocolMarshaller.marshall(parameters.getExcludeDataVolumeTags(), EXCLUDEDATAVOLUMETAGS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

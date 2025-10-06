@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,7 +22,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * A tag, consisting of a key and a value.
  * </p>
  * <p>
- * This tag is available for use by AWS services that support tags in AWS CodeBuild.
+ * This tag is available for use by Amazon Web Services services that support tags in CodeBuild.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/Tag" target="_top">AWS API

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A container for identity provider details.
+ * A container for IdP details.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ProviderDescription" target="_top">AWS
@@ -30,13 +30,13 @@ public class ProviderDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The identity provider name.
+     * The IdP name.
      * </p>
      */
     private String providerName;
     /**
      * <p>
-     * The identity provider type.
+     * The IdP type.
      * </p>
      */
     private String providerType;
@@ -48,18 +48,19 @@ public class ProviderDescription implements Serializable, Cloneable, StructuredP
     private java.util.Date lastModifiedDate;
     /**
      * <p>
-     * The date the provider was added to the user pool.
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      */
     private java.util.Date creationDate;
 
     /**
      * <p>
-     * The identity provider name.
+     * The IdP name.
      * </p>
      * 
      * @param providerName
-     *        The identity provider name.
+     *        The IdP name.
      */
 
     public void setProviderName(String providerName) {
@@ -68,10 +69,10 @@ public class ProviderDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The identity provider name.
+     * The IdP name.
      * </p>
      * 
-     * @return The identity provider name.
+     * @return The IdP name.
      */
 
     public String getProviderName() {
@@ -80,11 +81,11 @@ public class ProviderDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The identity provider name.
+     * The IdP name.
      * </p>
      * 
      * @param providerName
-     *        The identity provider name.
+     *        The IdP name.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -95,11 +96,11 @@ public class ProviderDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The identity provider type.
+     * The IdP type.
      * </p>
      * 
      * @param providerType
-     *        The identity provider type.
+     *        The IdP type.
      * @see IdentityProviderTypeType
      */
 
@@ -109,10 +110,10 @@ public class ProviderDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The identity provider type.
+     * The IdP type.
      * </p>
      * 
-     * @return The identity provider type.
+     * @return The IdP type.
      * @see IdentityProviderTypeType
      */
 
@@ -122,11 +123,11 @@ public class ProviderDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The identity provider type.
+     * The IdP type.
      * </p>
      * 
      * @param providerType
-     *        The identity provider type.
+     *        The IdP type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see IdentityProviderTypeType
      */
@@ -138,11 +139,11 @@ public class ProviderDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The identity provider type.
+     * The IdP type.
      * </p>
      * 
      * @param providerType
-     *        The identity provider type.
+     *        The IdP type.
      * @see IdentityProviderTypeType
      */
 
@@ -152,11 +153,11 @@ public class ProviderDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The identity provider type.
+     * The IdP type.
      * </p>
      * 
      * @param providerType
-     *        The identity provider type.
+     *        The IdP type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see IdentityProviderTypeType
      */
@@ -208,11 +209,14 @@ public class ProviderDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The date the provider was added to the user pool.
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
      * @param creationDate
-     *        The date the provider was added to the user pool.
+     *        The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time
+     *        format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *        <code>Date</code> object.
      */
 
     public void setCreationDate(java.util.Date creationDate) {
@@ -221,10 +225,13 @@ public class ProviderDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The date the provider was added to the user pool.
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
-     * @return The date the provider was added to the user pool.
+     * @return The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time
+     *         format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *         <code>Date</code> object.
      */
 
     public java.util.Date getCreationDate() {
@@ -233,11 +240,14 @@ public class ProviderDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The date the provider was added to the user pool.
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
      * @param creationDate
-     *        The date the provider was added to the user pool.
+     *        The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time
+     *        format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *        <code>Date</code> object.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The settings to be applied to the Redis replication group, either immediately or during the next maintenance window.
+ * The settings to be applied to the Redis OSS replication group, either immediately or during the next maintenance
+ * window.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ReplicationGroupPendingModifiedValues"
@@ -35,28 +36,8 @@ public class ReplicationGroupPendingModifiedValues implements Serializable, Clon
     private String primaryClusterId;
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
+     * Indicates the status of automatic failover for this Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      */
     private String automaticFailoverStatus;
     /**
@@ -65,6 +46,45 @@ public class ReplicationGroupPendingModifiedValues implements Serializable, Clon
      * </p>
      */
     private ReshardingStatus resharding;
+    /**
+     * <p>
+     * The auth token status
+     * </p>
+     */
+    private String authTokenStatus;
+    /**
+     * <p>
+     * The user group being modified.
+     * </p>
+     */
+    private UserGroupsUpdateStatus userGroups;
+    /**
+     * <p>
+     * The log delivery configurations being modified
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<PendingLogDeliveryConfiguration> logDeliveryConfigurations;
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to true.
+     * </p>
+     */
+    private Boolean transitEncryptionEnabled;
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     */
+    private String transitEncryptionMode;
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     */
+    private String clusterMode;
 
     /**
      * <p>
@@ -114,50 +134,11 @@ public class ReplicationGroupPendingModifiedValues implements Serializable, Clon
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
+     * Indicates the status of automatic failover for this Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param automaticFailoverStatus
-     *        Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
-     *        <p>
-     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        Redis versions earlier than 2.8.6.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode disabled): T1 node types.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode enabled): T1 node types.
-     *        </p>
-     *        </li>
+     *        Indicates the status of automatic failover for this Redis OSS replication group.
      * @see PendingAutomaticFailoverStatus
      */
 
@@ -167,49 +148,10 @@ public class ReplicationGroupPendingModifiedValues implements Serializable, Clon
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
+     * Indicates the status of automatic failover for this Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
-     * @return Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
-     *         <p>
-     *         Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *         </p>
-     *         <ul>
-     *         <li>
-     *         <p>
-     *         Redis versions earlier than 2.8.6.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Redis (cluster mode disabled): T1 node types.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Redis (cluster mode enabled): T1 node types.
-     *         </p>
-     *         </li>
+     * @return Indicates the status of automatic failover for this Redis OSS replication group.
      * @see PendingAutomaticFailoverStatus
      */
 
@@ -219,50 +161,11 @@ public class ReplicationGroupPendingModifiedValues implements Serializable, Clon
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
+     * Indicates the status of automatic failover for this Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param automaticFailoverStatus
-     *        Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
-     *        <p>
-     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        Redis versions earlier than 2.8.6.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode disabled): T1 node types.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode enabled): T1 node types.
-     *        </p>
-     *        </li>
+     *        Indicates the status of automatic failover for this Redis OSS replication group.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PendingAutomaticFailoverStatus
      */
@@ -274,50 +177,11 @@ public class ReplicationGroupPendingModifiedValues implements Serializable, Clon
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
+     * Indicates the status of automatic failover for this Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param automaticFailoverStatus
-     *        Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
-     *        <p>
-     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        Redis versions earlier than 2.8.6.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode disabled): T1 node types.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode enabled): T1 node types.
-     *        </p>
-     *        </li>
+     *        Indicates the status of automatic failover for this Redis OSS replication group.
      * @see PendingAutomaticFailoverStatus
      */
 
@@ -327,50 +191,11 @@ public class ReplicationGroupPendingModifiedValues implements Serializable, Clon
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
+     * Indicates the status of automatic failover for this Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param automaticFailoverStatus
-     *        Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
-     *        <p>
-     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        Redis versions earlier than 2.8.6.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode disabled): T1 node types.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode enabled): T1 node types.
-     *        </p>
-     *        </li>
+     *        Indicates the status of automatic failover for this Redis OSS replication group.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PendingAutomaticFailoverStatus
      */
@@ -421,6 +246,420 @@ public class ReplicationGroupPendingModifiedValues implements Serializable, Clon
     }
 
     /**
+     * <p>
+     * The auth token status
+     * </p>
+     * 
+     * @param authTokenStatus
+     *        The auth token status
+     * @see AuthTokenUpdateStatus
+     */
+
+    public void setAuthTokenStatus(String authTokenStatus) {
+        this.authTokenStatus = authTokenStatus;
+    }
+
+    /**
+     * <p>
+     * The auth token status
+     * </p>
+     * 
+     * @return The auth token status
+     * @see AuthTokenUpdateStatus
+     */
+
+    public String getAuthTokenStatus() {
+        return this.authTokenStatus;
+    }
+
+    /**
+     * <p>
+     * The auth token status
+     * </p>
+     * 
+     * @param authTokenStatus
+     *        The auth token status
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthTokenUpdateStatus
+     */
+
+    public ReplicationGroupPendingModifiedValues withAuthTokenStatus(String authTokenStatus) {
+        setAuthTokenStatus(authTokenStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The auth token status
+     * </p>
+     * 
+     * @param authTokenStatus
+     *        The auth token status
+     * @see AuthTokenUpdateStatus
+     */
+
+    public void setAuthTokenStatus(AuthTokenUpdateStatus authTokenStatus) {
+        withAuthTokenStatus(authTokenStatus);
+    }
+
+    /**
+     * <p>
+     * The auth token status
+     * </p>
+     * 
+     * @param authTokenStatus
+     *        The auth token status
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthTokenUpdateStatus
+     */
+
+    public ReplicationGroupPendingModifiedValues withAuthTokenStatus(AuthTokenUpdateStatus authTokenStatus) {
+        this.authTokenStatus = authTokenStatus.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The user group being modified.
+     * </p>
+     * 
+     * @param userGroups
+     *        The user group being modified.
+     */
+
+    public void setUserGroups(UserGroupsUpdateStatus userGroups) {
+        this.userGroups = userGroups;
+    }
+
+    /**
+     * <p>
+     * The user group being modified.
+     * </p>
+     * 
+     * @return The user group being modified.
+     */
+
+    public UserGroupsUpdateStatus getUserGroups() {
+        return this.userGroups;
+    }
+
+    /**
+     * <p>
+     * The user group being modified.
+     * </p>
+     * 
+     * @param userGroups
+     *        The user group being modified.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroupPendingModifiedValues withUserGroups(UserGroupsUpdateStatus userGroups) {
+        setUserGroups(userGroups);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The log delivery configurations being modified
+     * </p>
+     * 
+     * @return The log delivery configurations being modified
+     */
+
+    public java.util.List<PendingLogDeliveryConfiguration> getLogDeliveryConfigurations() {
+        if (logDeliveryConfigurations == null) {
+            logDeliveryConfigurations = new com.amazonaws.internal.SdkInternalList<PendingLogDeliveryConfiguration>();
+        }
+        return logDeliveryConfigurations;
+    }
+
+    /**
+     * <p>
+     * The log delivery configurations being modified
+     * </p>
+     * 
+     * @param logDeliveryConfigurations
+     *        The log delivery configurations being modified
+     */
+
+    public void setLogDeliveryConfigurations(java.util.Collection<PendingLogDeliveryConfiguration> logDeliveryConfigurations) {
+        if (logDeliveryConfigurations == null) {
+            this.logDeliveryConfigurations = null;
+            return;
+        }
+
+        this.logDeliveryConfigurations = new com.amazonaws.internal.SdkInternalList<PendingLogDeliveryConfiguration>(logDeliveryConfigurations);
+    }
+
+    /**
+     * <p>
+     * The log delivery configurations being modified
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setLogDeliveryConfigurations(java.util.Collection)} or
+     * {@link #withLogDeliveryConfigurations(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param logDeliveryConfigurations
+     *        The log delivery configurations being modified
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroupPendingModifiedValues withLogDeliveryConfigurations(PendingLogDeliveryConfiguration... logDeliveryConfigurations) {
+        if (this.logDeliveryConfigurations == null) {
+            setLogDeliveryConfigurations(new com.amazonaws.internal.SdkInternalList<PendingLogDeliveryConfiguration>(logDeliveryConfigurations.length));
+        }
+        for (PendingLogDeliveryConfiguration ele : logDeliveryConfigurations) {
+            this.logDeliveryConfigurations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The log delivery configurations being modified
+     * </p>
+     * 
+     * @param logDeliveryConfigurations
+     *        The log delivery configurations being modified
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroupPendingModifiedValues withLogDeliveryConfigurations(java.util.Collection<PendingLogDeliveryConfiguration> logDeliveryConfigurations) {
+        setLogDeliveryConfigurations(logDeliveryConfigurations);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to true.
+     * </p>
+     * 
+     * @param transitEncryptionEnabled
+     *        A flag that enables in-transit encryption when set to true.
+     */
+
+    public void setTransitEncryptionEnabled(Boolean transitEncryptionEnabled) {
+        this.transitEncryptionEnabled = transitEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to true.
+     * </p>
+     * 
+     * @return A flag that enables in-transit encryption when set to true.
+     */
+
+    public Boolean getTransitEncryptionEnabled() {
+        return this.transitEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to true.
+     * </p>
+     * 
+     * @param transitEncryptionEnabled
+     *        A flag that enables in-transit encryption when set to true.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroupPendingModifiedValues withTransitEncryptionEnabled(Boolean transitEncryptionEnabled) {
+        setTransitEncryptionEnabled(transitEncryptionEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to true.
+     * </p>
+     * 
+     * @return A flag that enables in-transit encryption when set to true.
+     */
+
+    public Boolean isTransitEncryptionEnabled() {
+        return this.transitEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * 
+     * @param transitEncryptionMode
+     *        A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * @see TransitEncryptionMode
+     */
+
+    public void setTransitEncryptionMode(String transitEncryptionMode) {
+        this.transitEncryptionMode = transitEncryptionMode;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * 
+     * @return A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * @see TransitEncryptionMode
+     */
+
+    public String getTransitEncryptionMode() {
+        return this.transitEncryptionMode;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * 
+     * @param transitEncryptionMode
+     *        A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TransitEncryptionMode
+     */
+
+    public ReplicationGroupPendingModifiedValues withTransitEncryptionMode(String transitEncryptionMode) {
+        setTransitEncryptionMode(transitEncryptionMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * 
+     * @param transitEncryptionMode
+     *        A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * @see TransitEncryptionMode
+     */
+
+    public void setTransitEncryptionMode(TransitEncryptionMode transitEncryptionMode) {
+        withTransitEncryptionMode(transitEncryptionMode);
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * 
+     * @param transitEncryptionMode
+     *        A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TransitEncryptionMode
+     */
+
+    public ReplicationGroupPendingModifiedValues withTransitEncryptionMode(TransitEncryptionMode transitEncryptionMode) {
+        this.transitEncryptionMode = transitEncryptionMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     * 
+     * @param clusterMode
+     *        Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode
+     *        to Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled
+     *        and cluster mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can
+     *        then complete cluster mode configuration and set the cluster mode to Enabled.
+     * @see ClusterMode
+     */
+
+    public void setClusterMode(String clusterMode) {
+        this.clusterMode = clusterMode;
+    }
+
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     * 
+     * @return Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode
+     *         to Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled
+     *         and cluster mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can
+     *         then complete cluster mode configuration and set the cluster mode to Enabled.
+     * @see ClusterMode
+     */
+
+    public String getClusterMode() {
+        return this.clusterMode;
+    }
+
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     * 
+     * @param clusterMode
+     *        Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode
+     *        to Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled
+     *        and cluster mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can
+     *        then complete cluster mode configuration and set the cluster mode to Enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ClusterMode
+     */
+
+    public ReplicationGroupPendingModifiedValues withClusterMode(String clusterMode) {
+        setClusterMode(clusterMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     * 
+     * @param clusterMode
+     *        Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode
+     *        to Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled
+     *        and cluster mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can
+     *        then complete cluster mode configuration and set the cluster mode to Enabled.
+     * @see ClusterMode
+     */
+
+    public void setClusterMode(ClusterMode clusterMode) {
+        withClusterMode(clusterMode);
+    }
+
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     * 
+     * @param clusterMode
+     *        Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode
+     *        to Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled
+     *        and cluster mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can
+     *        then complete cluster mode configuration and set the cluster mode to Enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ClusterMode
+     */
+
+    public ReplicationGroupPendingModifiedValues withClusterMode(ClusterMode clusterMode) {
+        this.clusterMode = clusterMode.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -437,7 +676,19 @@ public class ReplicationGroupPendingModifiedValues implements Serializable, Clon
         if (getAutomaticFailoverStatus() != null)
             sb.append("AutomaticFailoverStatus: ").append(getAutomaticFailoverStatus()).append(",");
         if (getResharding() != null)
-            sb.append("Resharding: ").append(getResharding());
+            sb.append("Resharding: ").append(getResharding()).append(",");
+        if (getAuthTokenStatus() != null)
+            sb.append("AuthTokenStatus: ").append(getAuthTokenStatus()).append(",");
+        if (getUserGroups() != null)
+            sb.append("UserGroups: ").append(getUserGroups()).append(",");
+        if (getLogDeliveryConfigurations() != null)
+            sb.append("LogDeliveryConfigurations: ").append(getLogDeliveryConfigurations()).append(",");
+        if (getTransitEncryptionEnabled() != null)
+            sb.append("TransitEncryptionEnabled: ").append(getTransitEncryptionEnabled()).append(",");
+        if (getTransitEncryptionMode() != null)
+            sb.append("TransitEncryptionMode: ").append(getTransitEncryptionMode()).append(",");
+        if (getClusterMode() != null)
+            sb.append("ClusterMode: ").append(getClusterMode());
         sb.append("}");
         return sb.toString();
     }
@@ -464,6 +715,30 @@ public class ReplicationGroupPendingModifiedValues implements Serializable, Clon
             return false;
         if (other.getResharding() != null && other.getResharding().equals(this.getResharding()) == false)
             return false;
+        if (other.getAuthTokenStatus() == null ^ this.getAuthTokenStatus() == null)
+            return false;
+        if (other.getAuthTokenStatus() != null && other.getAuthTokenStatus().equals(this.getAuthTokenStatus()) == false)
+            return false;
+        if (other.getUserGroups() == null ^ this.getUserGroups() == null)
+            return false;
+        if (other.getUserGroups() != null && other.getUserGroups().equals(this.getUserGroups()) == false)
+            return false;
+        if (other.getLogDeliveryConfigurations() == null ^ this.getLogDeliveryConfigurations() == null)
+            return false;
+        if (other.getLogDeliveryConfigurations() != null && other.getLogDeliveryConfigurations().equals(this.getLogDeliveryConfigurations()) == false)
+            return false;
+        if (other.getTransitEncryptionEnabled() == null ^ this.getTransitEncryptionEnabled() == null)
+            return false;
+        if (other.getTransitEncryptionEnabled() != null && other.getTransitEncryptionEnabled().equals(this.getTransitEncryptionEnabled()) == false)
+            return false;
+        if (other.getTransitEncryptionMode() == null ^ this.getTransitEncryptionMode() == null)
+            return false;
+        if (other.getTransitEncryptionMode() != null && other.getTransitEncryptionMode().equals(this.getTransitEncryptionMode()) == false)
+            return false;
+        if (other.getClusterMode() == null ^ this.getClusterMode() == null)
+            return false;
+        if (other.getClusterMode() != null && other.getClusterMode().equals(this.getClusterMode()) == false)
+            return false;
         return true;
     }
 
@@ -475,6 +750,12 @@ public class ReplicationGroupPendingModifiedValues implements Serializable, Clon
         hashCode = prime * hashCode + ((getPrimaryClusterId() == null) ? 0 : getPrimaryClusterId().hashCode());
         hashCode = prime * hashCode + ((getAutomaticFailoverStatus() == null) ? 0 : getAutomaticFailoverStatus().hashCode());
         hashCode = prime * hashCode + ((getResharding() == null) ? 0 : getResharding().hashCode());
+        hashCode = prime * hashCode + ((getAuthTokenStatus() == null) ? 0 : getAuthTokenStatus().hashCode());
+        hashCode = prime * hashCode + ((getUserGroups() == null) ? 0 : getUserGroups().hashCode());
+        hashCode = prime * hashCode + ((getLogDeliveryConfigurations() == null) ? 0 : getLogDeliveryConfigurations().hashCode());
+        hashCode = prime * hashCode + ((getTransitEncryptionEnabled() == null) ? 0 : getTransitEncryptionEnabled().hashCode());
+        hashCode = prime * hashCode + ((getTransitEncryptionMode() == null) ? 0 : getTransitEncryptionMode().hashCode());
+        hashCode = prime * hashCode + ((getClusterMode() == null) ? 0 : getClusterMode().hashCode());
         return hashCode;
     }
 

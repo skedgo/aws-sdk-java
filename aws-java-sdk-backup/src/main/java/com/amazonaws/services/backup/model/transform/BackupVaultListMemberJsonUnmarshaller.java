@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -71,6 +71,22 @@ public class BackupVaultListMemberJsonUnmarshaller implements Unmarshaller<Backu
                 if (context.testExpression("NumberOfRecoveryPoints", targetDepth)) {
                     context.nextToken();
                     backupVaultListMember.setNumberOfRecoveryPoints(context.getUnmarshaller(Long.class).unmarshall(context));
+                }
+                if (context.testExpression("Locked", targetDepth)) {
+                    context.nextToken();
+                    backupVaultListMember.setLocked(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("MinRetentionDays", targetDepth)) {
+                    context.nextToken();
+                    backupVaultListMember.setMinRetentionDays(context.getUnmarshaller(Long.class).unmarshall(context));
+                }
+                if (context.testExpression("MaxRetentionDays", targetDepth)) {
+                    context.nextToken();
+                    backupVaultListMember.setMaxRetentionDays(context.getUnmarshaller(Long.class).unmarshall(context));
+                }
+                if (context.testExpression("LockDate", targetDepth)) {
+                    context.nextToken();
+                    backupVaultListMember.setLockDate(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

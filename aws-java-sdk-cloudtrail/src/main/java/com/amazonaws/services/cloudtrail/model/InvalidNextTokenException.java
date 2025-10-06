@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,8 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Invalid token or token that was previously used in a request with different parameters. This exception is thrown if
- * the token is invalid.
+ * A token that is not valid, or a token that was previously used in a request with different parameters. This exception
+ * is thrown if the token is not valid.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

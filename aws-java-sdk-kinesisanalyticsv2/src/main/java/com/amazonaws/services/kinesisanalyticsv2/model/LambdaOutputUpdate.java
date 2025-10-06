@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * When you update an SQL-based Amazon Kinesis Data Analytics application's output configuration using the
- * <a>UpdateApplication</a> operation, provides information about an AWS Lambda function that is configured as the
+ * When you update an SQL-based Kinesis Data Analytics application's output configuration using the
+ * <a>UpdateApplication</a> operation, provides information about an Amazon Lambda function that is configured as the
  * destination.
  * </p>
  * 
@@ -32,13 +32,14 @@ public class LambdaOutputUpdate implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the destination AWS Lambda function.
+     * The Amazon Resource Name (ARN) of the destination Amazon Lambda function.
      * </p>
      * <note>
      * <p>
      * To specify an earlier version of the Lambda function than the latest, include the Lambda function version in the
      * Lambda function ARN. For more information about Lambda ARNs, see <a
-     * href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a>
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs:
+     * Amazon Lambda</a>
      * </p>
      * </note>
      */
@@ -46,22 +47,24 @@ public class LambdaOutputUpdate implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the destination AWS Lambda function.
+     * The Amazon Resource Name (ARN) of the destination Amazon Lambda function.
      * </p>
      * <note>
      * <p>
      * To specify an earlier version of the Lambda function than the latest, include the Lambda function version in the
      * Lambda function ARN. For more information about Lambda ARNs, see <a
-     * href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a>
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs:
+     * Amazon Lambda</a>
      * </p>
      * </note>
      * 
      * @param resourceARNUpdate
-     *        The Amazon Resource Name (ARN) of the destination AWS Lambda function.</p> <note>
+     *        The Amazon Resource Name (ARN) of the destination Amazon Lambda function.</p> <note>
      *        <p>
      *        To specify an earlier version of the Lambda function than the latest, include the Lambda function version
      *        in the Lambda function ARN. For more information about Lambda ARNs, see <a
-     *        href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a>
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda"
+     *        >Example ARNs: Amazon Lambda</a>
      *        </p>
      */
 
@@ -71,21 +74,23 @@ public class LambdaOutputUpdate implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the destination AWS Lambda function.
+     * The Amazon Resource Name (ARN) of the destination Amazon Lambda function.
      * </p>
      * <note>
      * <p>
      * To specify an earlier version of the Lambda function than the latest, include the Lambda function version in the
      * Lambda function ARN. For more information about Lambda ARNs, see <a
-     * href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a>
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs:
+     * Amazon Lambda</a>
      * </p>
      * </note>
      * 
-     * @return The Amazon Resource Name (ARN) of the destination AWS Lambda function.</p> <note>
+     * @return The Amazon Resource Name (ARN) of the destination Amazon Lambda function.</p> <note>
      *         <p>
      *         To specify an earlier version of the Lambda function than the latest, include the Lambda function version
      *         in the Lambda function ARN. For more information about Lambda ARNs, see <a
-     *         href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a>
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda"
+     *         >Example ARNs: Amazon Lambda</a>
      *         </p>
      */
 
@@ -95,22 +100,24 @@ public class LambdaOutputUpdate implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the destination AWS Lambda function.
+     * The Amazon Resource Name (ARN) of the destination Amazon Lambda function.
      * </p>
      * <note>
      * <p>
      * To specify an earlier version of the Lambda function than the latest, include the Lambda function version in the
      * Lambda function ARN. For more information about Lambda ARNs, see <a
-     * href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a>
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs:
+     * Amazon Lambda</a>
      * </p>
      * </note>
      * 
      * @param resourceARNUpdate
-     *        The Amazon Resource Name (ARN) of the destination AWS Lambda function.</p> <note>
+     *        The Amazon Resource Name (ARN) of the destination Amazon Lambda function.</p> <note>
      *        <p>
      *        To specify an earlier version of the Lambda function than the latest, include the Lambda function version
      *        in the Lambda function ARN. For more information about Lambda ARNs, see <a
-     *        href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a>
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda"
+     *        >Example ARNs: Amazon Lambda</a>
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */

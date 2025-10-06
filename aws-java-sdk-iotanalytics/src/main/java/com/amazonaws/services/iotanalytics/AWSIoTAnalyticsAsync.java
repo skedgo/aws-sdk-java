@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,8 +26,8 @@ import com.amazonaws.services.iotanalytics.model.*;
  * </p>
  * <p>
  * <p>
- * AWS IoT Analytics allows you to collect large amounts of device data, process messages, and store them. You can then
- * query the data and run sophisticated analytics on it. AWS IoT Analytics enables advanced data exploration through
+ * IoT Analytics allows you to collect large amounts of device data, process messages, and store them. You can then
+ * query the data and run sophisticated analytics on it. IoT Analytics enables advanced data exploration through
  * integration with Jupyter Notebooks and data visualization through integration with Amazon QuickSight.
  * </p>
  * <p>
@@ -37,13 +37,13 @@ import com.amazonaws.services.iotanalytics.model.*;
  * occur. Also, IoT data is often only meaningful in the context of other data from external sources.
  * </p>
  * <p>
- * AWS IoT Analytics automates the steps required to analyze data from IoT devices. AWS IoT Analytics filters,
- * transforms, and enriches IoT data before storing it in a time-series data store for analysis. You can set up the
- * service to collect only the data you need from your devices, apply mathematical transforms to process the data, and
- * enrich the data with device-specific metadata such as device type and location before storing it. Then, you can
- * analyze your data by running queries using the built-in SQL query engine, or perform more complex analytics and
- * machine learning inference. AWS IoT Analytics includes pre-built models for common IoT use cases so you can answer
- * questions like which devices are about to fail or which customers are at risk of abandoning their wearable devices.
+ * IoT Analytics automates the steps required to analyze data from IoT devices. IoT Analytics filters, transforms, and
+ * enriches IoT data before storing it in a time-series data store for analysis. You can set up the service to collect
+ * only the data you need from your devices, apply mathematical transforms to process the data, and enrich the data with
+ * device-specific metadata such as device type and location before storing it. Then, you can analyze your data by
+ * running queries using the built-in SQL query engine, or perform more complex analytics and machine learning
+ * inference. IoT Analytics includes pre-built models for common IoT use cases so you can answer questions like which
+ * devices are about to fail or which customers are at risk of abandoning their wearable devices.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -115,8 +115,8 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Creates a channel. A channel collects data from an MQTT topic and archives the raw, unprocessed messages before
-     * publishing the data to a pipeline.
+     * Used to create a channel. A channel collects data from an MQTT topic and archives the raw, unprocessed messages
+     * before publishing the data to a pipeline.
      * </p>
      * 
      * @param createChannelRequest
@@ -129,8 +129,8 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Creates a channel. A channel collects data from an MQTT topic and archives the raw, unprocessed messages before
-     * publishing the data to a pipeline.
+     * Used to create a channel. A channel collects data from an MQTT topic and archives the raw, unprocessed messages
+     * before publishing the data to a pipeline.
      * </p>
      * 
      * @param createChannelRequest
@@ -148,10 +148,10 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Creates a data set. A data set stores data retrieved from a data store by applying a "queryAction" (a SQL query)
-     * or a "containerAction" (executing a containerized application). This operation creates the skeleton of a data
-     * set. The data set can be populated manually by calling "CreateDatasetContent" or automatically according to a
-     * "trigger" you specify.
+     * Used to create a dataset. A dataset stores data retrieved from a data store by applying a
+     * <code>queryAction</code> (a SQL query) or a <code>containerAction</code> (executing a containerized application).
+     * This operation creates the skeleton of a dataset. The dataset can be populated manually by calling
+     * <code>CreateDatasetContent</code> or automatically according to a trigger you specify.
      * </p>
      * 
      * @param createDatasetRequest
@@ -164,10 +164,10 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Creates a data set. A data set stores data retrieved from a data store by applying a "queryAction" (a SQL query)
-     * or a "containerAction" (executing a containerized application). This operation creates the skeleton of a data
-     * set. The data set can be populated manually by calling "CreateDatasetContent" or automatically according to a
-     * "trigger" you specify.
+     * Used to create a dataset. A dataset stores data retrieved from a data store by applying a
+     * <code>queryAction</code> (a SQL query) or a <code>containerAction</code> (executing a containerized application).
+     * This operation creates the skeleton of a dataset. The dataset can be populated manually by calling
+     * <code>CreateDatasetContent</code> or automatically according to a trigger you specify.
      * </p>
      * 
      * @param createDatasetRequest
@@ -185,8 +185,8 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Creates the content of a data set by applying a "queryAction" (a SQL query) or a "containerAction" (executing a
-     * containerized application).
+     * Creates the content of a dataset by applying a <code>queryAction</code> (a SQL query) or a
+     * <code>containerAction</code> (executing a containerized application).
      * </p>
      * 
      * @param createDatasetContentRequest
@@ -199,8 +199,8 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Creates the content of a data set by applying a "queryAction" (a SQL query) or a "containerAction" (executing a
-     * containerized application).
+     * Creates the content of a dataset by applying a <code>queryAction</code> (a SQL query) or a
+     * <code>containerAction</code> (executing a containerized application).
      * </p>
      * 
      * @param createDatasetContentRequest
@@ -249,9 +249,9 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Creates a pipeline. A pipeline consumes messages from one or more channels and allows you to process the messages
-     * before storing them in a data store. You must specify both a <code>channel</code> and a <code>datastore</code>
-     * activity and, optionally, as many as 23 additional activities in the <code>pipelineActivities</code> array.
+     * Creates a pipeline. A pipeline consumes messages from a channel and allows you to process the messages before
+     * storing them in a data store. You must specify both a <code>channel</code> and a <code>datastore</code> activity
+     * and, optionally, as many as 23 additional activities in the <code>pipelineActivities</code> array.
      * </p>
      * 
      * @param createPipelineRequest
@@ -264,9 +264,9 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Creates a pipeline. A pipeline consumes messages from one or more channels and allows you to process the messages
-     * before storing them in a data store. You must specify both a <code>channel</code> and a <code>datastore</code>
-     * activity and, optionally, as many as 23 additional activities in the <code>pipelineActivities</code> array.
+     * Creates a pipeline. A pipeline consumes messages from a channel and allows you to process the messages before
+     * storing them in a data store. You must specify both a <code>channel</code> and a <code>datastore</code> activity
+     * and, optionally, as many as 23 additional activities in the <code>pipelineActivities</code> array.
      * </p>
      * 
      * @param createPipelineRequest
@@ -315,10 +315,10 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Deletes the specified data set.
+     * Deletes the specified dataset.
      * </p>
      * <p>
-     * You do not have to delete the content of the data set before you perform this operation.
+     * You do not have to delete the content of the dataset before you perform this operation.
      * </p>
      * 
      * @param deleteDatasetRequest
@@ -331,10 +331,10 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Deletes the specified data set.
+     * Deletes the specified dataset.
      * </p>
      * <p>
-     * You do not have to delete the content of the data set before you perform this operation.
+     * You do not have to delete the content of the dataset before you perform this operation.
      * </p>
      * 
      * @param deleteDatasetRequest
@@ -352,7 +352,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Deletes the content of the specified data set.
+     * Deletes the content of the specified dataset.
      * </p>
      * 
      * @param deleteDatasetContentRequest
@@ -365,7 +365,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Deletes the content of the specified data set.
+     * Deletes the content of the specified dataset.
      * </p>
      * 
      * @param deleteDatasetContentRequest
@@ -476,7 +476,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Retrieves information about a data set.
+     * Retrieves information about a dataset.
      * </p>
      * 
      * @param describeDatasetRequest
@@ -489,7 +489,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Retrieves information about a data set.
+     * Retrieves information about a dataset.
      * </p>
      * 
      * @param describeDatasetRequest
@@ -538,7 +538,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Retrieves the current settings of the AWS IoT Analytics logging options.
+     * Retrieves the current settings of the IoT Analytics logging options.
      * </p>
      * 
      * @param describeLoggingOptionsRequest
@@ -551,7 +551,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Retrieves the current settings of the AWS IoT Analytics logging options.
+     * Retrieves the current settings of the IoT Analytics logging options.
      * </p>
      * 
      * @param describeLoggingOptionsRequest
@@ -600,7 +600,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Retrieves the contents of a data set as pre-signed URIs.
+     * Retrieves the contents of a dataset as presigned URIs.
      * </p>
      * 
      * @param getDatasetContentRequest
@@ -613,7 +613,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Retrieves the contents of a data set as pre-signed URIs.
+     * Retrieves the contents of a dataset as presigned URIs.
      * </p>
      * 
      * @param getDatasetContentRequest
@@ -662,7 +662,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Lists information about data set contents that have been created.
+     * Lists information about dataset contents that have been created.
      * </p>
      * 
      * @param listDatasetContentsRequest
@@ -675,7 +675,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Lists information about data set contents that have been created.
+     * Lists information about dataset contents that have been created.
      * </p>
      * 
      * @param listDatasetContentsRequest
@@ -693,7 +693,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Retrieves information about data sets.
+     * Retrieves information about datasets.
      * </p>
      * 
      * @param listDatasetsRequest
@@ -706,7 +706,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Retrieves information about data sets.
+     * Retrieves information about datasets.
      * </p>
      * 
      * @param listDatasetsRequest
@@ -786,7 +786,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Lists the tags (metadata) which you have assigned to the resource.
+     * Lists the tags (metadata) that you have assigned to the resource.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -799,7 +799,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Lists the tags (metadata) which you have assigned to the resource.
+     * Lists the tags (metadata) that you have assigned to the resource.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -817,12 +817,12 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Sets or updates the AWS IoT Analytics logging options.
+     * Sets or updates the IoT Analytics logging options.
      * </p>
      * <p>
-     * Note that if you update the value of any <code>loggingOptions</code> field, it takes up to one minute for the
-     * change to take effect. Also, if you change the policy attached to the role you specified in the roleArn field
-     * (for example, to correct an invalid policy) it takes up to 5 minutes for that change to take effect.
+     * If you update the value of any <code>loggingOptions</code> field, it takes up to one minute for the change to
+     * take effect. Also, if you change the policy attached to the role you specified in the <code>roleArn</code> field
+     * (for example, to correct an invalid policy), it takes up to five minutes for that change to take effect.
      * </p>
      * 
      * @param putLoggingOptionsRequest
@@ -835,12 +835,12 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Sets or updates the AWS IoT Analytics logging options.
+     * Sets or updates the IoT Analytics logging options.
      * </p>
      * <p>
-     * Note that if you update the value of any <code>loggingOptions</code> field, it takes up to one minute for the
-     * change to take effect. Also, if you change the policy attached to the role you specified in the roleArn field
-     * (for example, to correct an invalid policy) it takes up to 5 minutes for that change to take effect.
+     * If you update the value of any <code>loggingOptions</code> field, it takes up to one minute for the change to
+     * take effect. Also, if you change the policy attached to the role you specified in the <code>roleArn</code> field
+     * (for example, to correct an invalid policy), it takes up to five minutes for that change to take effect.
      * </p>
      * 
      * @param putLoggingOptionsRequest
@@ -955,7 +955,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Adds to or modifies the tags of the given resource. Tags are metadata which can be used to manage a resource.
+     * Adds to or modifies the tags of the given resource. Tags are metadata that can be used to manage a resource.
      * </p>
      * 
      * @param tagResourceRequest
@@ -968,7 +968,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Adds to or modifies the tags of the given resource. Tags are metadata which can be used to manage a resource.
+     * Adds to or modifies the tags of the given resource. Tags are metadata that can be used to manage a resource.
      * </p>
      * 
      * @param tagResourceRequest
@@ -1017,7 +1017,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Updates the settings of a channel.
+     * Used to update the settings of a channel.
      * </p>
      * 
      * @param updateChannelRequest
@@ -1030,7 +1030,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Updates the settings of a channel.
+     * Used to update the settings of a channel.
      * </p>
      * 
      * @param updateChannelRequest
@@ -1048,7 +1048,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Updates the settings of a data set.
+     * Updates the settings of a dataset.
      * </p>
      * 
      * @param updateDatasetRequest
@@ -1061,7 +1061,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Updates the settings of a data set.
+     * Updates the settings of a dataset.
      * </p>
      * 
      * @param updateDatasetRequest
@@ -1079,7 +1079,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Updates the settings of a data store.
+     * Used to update the settings of a data store.
      * </p>
      * 
      * @param updateDatastoreRequest
@@ -1092,7 +1092,7 @@ public interface AWSIoTAnalyticsAsync extends AWSIoTAnalytics {
 
     /**
      * <p>
-     * Updates the settings of a data store.
+     * Used to update the settings of a data store.
      * </p>
      * 
      * @param updateDatastoreRequest

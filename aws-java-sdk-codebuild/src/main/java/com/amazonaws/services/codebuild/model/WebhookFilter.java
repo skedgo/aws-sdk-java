@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,44 +30,71 @@ public class WebhookFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of webhook filter. There are five webhook filter types: <code>EVENT</code>,
-     * <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, and <code>FILE_PATH</code>.
+     * The type of webhook filter. There are nine webhook filter types: <code>EVENT</code>,
+     * <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, <code>FILE_PATH</code>,
+     * <code>COMMIT_MESSAGE</code>, <code>TAG_NAME</code>, <code>RELEASE_NAME</code>, and <code>WORKFLOW_NAME</code>.
      * </p>
-     * <dl>
-     * <dt>EVENT</dt>
-     * <dd>
+     * <ul>
+     * <li>
      * <p>
-     * A webhook event triggers a build when the provided <code>pattern</code> matches one of four event types:
-     * <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>, and
-     * <code>PULL_REQUEST_REOPENED</code>. The <code>EVENT</code> patterns are specified as a comma-separated string.
-     * For example, <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull request
-     * created, and pull request updated events.
+     * EVENT
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook event triggers a build when the provided <code>pattern</code> matches one of nine event types:
+     * <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>,
+     * <code>PULL_REQUEST_CLOSED</code>, <code>PULL_REQUEST_REOPENED</code>, <code>PULL_REQUEST_MERGED</code>,
+     * <code>RELEASED</code>, <code>PRERELEASED</code>, and <code>WORKFLOW_JOB_QUEUED</code>. The <code>EVENT</code>
+     * patterns are specified as a comma-separated string. For example,
+     * <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull request created, and pull
+     * request updated events.
      * </p>
      * <note>
      * <p>
-     * The <code>PULL_REQUEST_REOPENED</code> works with GitHub and GitHub Enterprise only.
+     * Types <code>PULL_REQUEST_REOPENED</code> and <code>WORKFLOW_JOB_QUEUED</code> work with GitHub and GitHub
+     * Enterprise only. Types <code>RELEASED</code> and <code>PRERELEASED</code> work with GitHub only.
      * </p>
-     * </note></dd>
-     * <dt>ACTOR_ACCOUNT_ID</dt>
-     * <dd>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * ACTOR_ACCOUNT_ID
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook event triggers a build when a GitHub, GitHub Enterprise, or Bitbucket account ID matches the regular
      * expression <code>pattern</code>.
      * </p>
-     * </dd>
-     * <dt>HEAD_REF</dt>
-     * <dd>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * HEAD_REF
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook event triggers a build when the head reference matches the regular expression <code>pattern</code>. For
      * example, <code>refs/heads/branch-name</code> and <code>refs/tags/tag-name</code>.
      * </p>
+     * <note>
      * <p>
      * Works with GitHub and GitHub Enterprise push, GitHub and GitHub Enterprise pull request, Bitbucket push, and
      * Bitbucket pull request events.
      * </p>
-     * </dd>
-     * <dt>BASE_REF</dt>
-     * <dd>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * BASE_REF
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook event triggers a build when the base reference matches the regular expression <code>pattern</code>. For
      * example, <code>refs/heads/branch-name</code>.
@@ -76,18 +103,108 @@ public class WebhookFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * Works with pull request events only.
      * </p>
-     * </note></dd>
-     * <dt>FILE_PATH</dt>
-     * <dd>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * FILE_PATH
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook triggers a build when the path of a changed file matches the regular expression <code>pattern</code>.
      * </p>
      * <note>
      * <p>
-     * Works with GitHub and GitHub Enterprise push events only.
+     * Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise push
+     * events, but does not work with GitHub Enterprise pull request events.
      * </p>
-     * </note></dd>
-     * </dl>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * COMMIT_MESSAGE
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the head commit message matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise push
+     * events, but does not work with GitHub Enterprise pull request events.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * TAG_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the tag name of the release matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * RELEASE_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the release name matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * REPOSITORY_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the repository name matches the regular expression pattern.
+     * </p>
+     * <note>
+     * <p>
+     * Works with GitHub global or organization webhooks only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * WORKFLOW_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the workflow name matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with <code>WORKFLOW_JOB_QUEUED</code> events only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * </ul>
      */
     private String type;
     /**
@@ -115,44 +232,71 @@ public class WebhookFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of webhook filter. There are five webhook filter types: <code>EVENT</code>,
-     * <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, and <code>FILE_PATH</code>.
+     * The type of webhook filter. There are nine webhook filter types: <code>EVENT</code>,
+     * <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, <code>FILE_PATH</code>,
+     * <code>COMMIT_MESSAGE</code>, <code>TAG_NAME</code>, <code>RELEASE_NAME</code>, and <code>WORKFLOW_NAME</code>.
      * </p>
-     * <dl>
-     * <dt>EVENT</dt>
-     * <dd>
+     * <ul>
+     * <li>
      * <p>
-     * A webhook event triggers a build when the provided <code>pattern</code> matches one of four event types:
-     * <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>, and
-     * <code>PULL_REQUEST_REOPENED</code>. The <code>EVENT</code> patterns are specified as a comma-separated string.
-     * For example, <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull request
-     * created, and pull request updated events.
+     * EVENT
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook event triggers a build when the provided <code>pattern</code> matches one of nine event types:
+     * <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>,
+     * <code>PULL_REQUEST_CLOSED</code>, <code>PULL_REQUEST_REOPENED</code>, <code>PULL_REQUEST_MERGED</code>,
+     * <code>RELEASED</code>, <code>PRERELEASED</code>, and <code>WORKFLOW_JOB_QUEUED</code>. The <code>EVENT</code>
+     * patterns are specified as a comma-separated string. For example,
+     * <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull request created, and pull
+     * request updated events.
      * </p>
      * <note>
      * <p>
-     * The <code>PULL_REQUEST_REOPENED</code> works with GitHub and GitHub Enterprise only.
+     * Types <code>PULL_REQUEST_REOPENED</code> and <code>WORKFLOW_JOB_QUEUED</code> work with GitHub and GitHub
+     * Enterprise only. Types <code>RELEASED</code> and <code>PRERELEASED</code> work with GitHub only.
      * </p>
-     * </note></dd>
-     * <dt>ACTOR_ACCOUNT_ID</dt>
-     * <dd>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * ACTOR_ACCOUNT_ID
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook event triggers a build when a GitHub, GitHub Enterprise, or Bitbucket account ID matches the regular
      * expression <code>pattern</code>.
      * </p>
-     * </dd>
-     * <dt>HEAD_REF</dt>
-     * <dd>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * HEAD_REF
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook event triggers a build when the head reference matches the regular expression <code>pattern</code>. For
      * example, <code>refs/heads/branch-name</code> and <code>refs/tags/tag-name</code>.
      * </p>
+     * <note>
      * <p>
      * Works with GitHub and GitHub Enterprise push, GitHub and GitHub Enterprise pull request, Bitbucket push, and
      * Bitbucket pull request events.
      * </p>
-     * </dd>
-     * <dt>BASE_REF</dt>
-     * <dd>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * BASE_REF
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook event triggers a build when the base reference matches the regular expression <code>pattern</code>. For
      * example, <code>refs/heads/branch-name</code>.
@@ -161,59 +305,176 @@ public class WebhookFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * Works with pull request events only.
      * </p>
-     * </note></dd>
-     * <dt>FILE_PATH</dt>
-     * <dd>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * FILE_PATH
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook triggers a build when the path of a changed file matches the regular expression <code>pattern</code>.
      * </p>
      * <note>
      * <p>
-     * Works with GitHub and GitHub Enterprise push events only.
+     * Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise push
+     * events, but does not work with GitHub Enterprise pull request events.
      * </p>
-     * </note></dd>
-     * </dl>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * COMMIT_MESSAGE
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the head commit message matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise push
+     * events, but does not work with GitHub Enterprise pull request events.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * TAG_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the tag name of the release matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * RELEASE_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the release name matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * REPOSITORY_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the repository name matches the regular expression pattern.
+     * </p>
+     * <note>
+     * <p>
+     * Works with GitHub global or organization webhooks only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * WORKFLOW_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the workflow name matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with <code>WORKFLOW_JOB_QUEUED</code> events only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * </ul>
      * 
      * @param type
-     *        The type of webhook filter. There are five webhook filter types: <code>EVENT</code>,
-     *        <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, and <code>FILE_PATH</code>.
-     *        </p>
-     *        <dl>
-     *        <dt>EVENT</dt>
-     *        <dd>
+     *        The type of webhook filter. There are nine webhook filter types: <code>EVENT</code>,
+     *        <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, <code>FILE_PATH</code>,
+     *        <code>COMMIT_MESSAGE</code>, <code>TAG_NAME</code>, <code>RELEASE_NAME</code>, and
+     *        <code>WORKFLOW_NAME</code>. </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        A webhook event triggers a build when the provided <code>pattern</code> matches one of four event types:
-     *        <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>, and
-     *        <code>PULL_REQUEST_REOPENED</code>. The <code>EVENT</code> patterns are specified as a comma-separated
-     *        string. For example, <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull
-     *        request created, and pull request updated events.
+     *        EVENT
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook event triggers a build when the provided <code>pattern</code> matches one of nine event types:
+     *        <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>,
+     *        <code>PULL_REQUEST_CLOSED</code>, <code>PULL_REQUEST_REOPENED</code>, <code>PULL_REQUEST_MERGED</code>,
+     *        <code>RELEASED</code>, <code>PRERELEASED</code>, and <code>WORKFLOW_JOB_QUEUED</code>. The
+     *        <code>EVENT</code> patterns are specified as a comma-separated string. For example,
+     *        <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull request created, and
+     *        pull request updated events.
      *        </p>
      *        <note>
      *        <p>
-     *        The <code>PULL_REQUEST_REOPENED</code> works with GitHub and GitHub Enterprise only.
+     *        Types <code>PULL_REQUEST_REOPENED</code> and <code>WORKFLOW_JOB_QUEUED</code> work with GitHub and GitHub
+     *        Enterprise only. Types <code>RELEASED</code> and <code>PRERELEASED</code> work with GitHub only.
      *        </p>
-     *        </note></dd>
-     *        <dt>ACTOR_ACCOUNT_ID</dt>
-     *        <dd>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        ACTOR_ACCOUNT_ID
+     *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
      *        A webhook event triggers a build when a GitHub, GitHub Enterprise, or Bitbucket account ID matches the
      *        regular expression <code>pattern</code>.
      *        </p>
-     *        </dd>
-     *        <dt>HEAD_REF</dt>
-     *        <dd>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        HEAD_REF
+     *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
      *        A webhook event triggers a build when the head reference matches the regular expression
      *        <code>pattern</code>. For example, <code>refs/heads/branch-name</code> and <code>refs/tags/tag-name</code>
      *        .
      *        </p>
+     *        <note>
      *        <p>
      *        Works with GitHub and GitHub Enterprise push, GitHub and GitHub Enterprise pull request, Bitbucket push,
      *        and Bitbucket pull request events.
      *        </p>
-     *        </dd>
-     *        <dt>BASE_REF</dt>
-     *        <dd>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        BASE_REF
+     *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
      *        A webhook event triggers a build when the base reference matches the regular expression
      *        <code>pattern</code>. For example, <code>refs/heads/branch-name</code>.
@@ -222,18 +483,110 @@ public class WebhookFilter implements Serializable, Cloneable, StructuredPojo {
      *        <p>
      *        Works with pull request events only.
      *        </p>
-     *        </note></dd>
-     *        <dt>FILE_PATH</dt>
-     *        <dd>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FILE_PATH
+     *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
      *        A webhook triggers a build when the path of a changed file matches the regular expression
      *        <code>pattern</code>.
      *        </p>
      *        <note>
      *        <p>
-     *        Works with GitHub and GitHub Enterprise push events only.
+     *        Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise
+     *        push events, but does not work with GitHub Enterprise pull request events.
      *        </p>
-     *        </note></dd>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        COMMIT_MESSAGE
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook triggers a build when the head commit message matches the regular expression
+     *        <code>pattern</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise
+     *        push events, but does not work with GitHub Enterprise pull request events.
+     *        </p>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        TAG_NAME
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook triggers a build when the tag name of the release matches the regular expression
+     *        <code>pattern</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     *        </p>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RELEASE_NAME
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook triggers a build when the release name matches the regular expression <code>pattern</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     *        </p>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        REPOSITORY_NAME
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook triggers a build when the repository name matches the regular expression pattern.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Works with GitHub global or organization webhooks only.
+     *        </p>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        WORKFLOW_NAME
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook triggers a build when the workflow name matches the regular expression <code>pattern</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Works with <code>WORKFLOW_JOB_QUEUED</code> events only.
+     *        </p>
+     *        </note></li>
+     *        </ul>
+     *        </li>
      * @see WebhookFilterType
      */
 
@@ -243,44 +596,71 @@ public class WebhookFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of webhook filter. There are five webhook filter types: <code>EVENT</code>,
-     * <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, and <code>FILE_PATH</code>.
+     * The type of webhook filter. There are nine webhook filter types: <code>EVENT</code>,
+     * <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, <code>FILE_PATH</code>,
+     * <code>COMMIT_MESSAGE</code>, <code>TAG_NAME</code>, <code>RELEASE_NAME</code>, and <code>WORKFLOW_NAME</code>.
      * </p>
-     * <dl>
-     * <dt>EVENT</dt>
-     * <dd>
+     * <ul>
+     * <li>
      * <p>
-     * A webhook event triggers a build when the provided <code>pattern</code> matches one of four event types:
-     * <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>, and
-     * <code>PULL_REQUEST_REOPENED</code>. The <code>EVENT</code> patterns are specified as a comma-separated string.
-     * For example, <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull request
-     * created, and pull request updated events.
+     * EVENT
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook event triggers a build when the provided <code>pattern</code> matches one of nine event types:
+     * <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>,
+     * <code>PULL_REQUEST_CLOSED</code>, <code>PULL_REQUEST_REOPENED</code>, <code>PULL_REQUEST_MERGED</code>,
+     * <code>RELEASED</code>, <code>PRERELEASED</code>, and <code>WORKFLOW_JOB_QUEUED</code>. The <code>EVENT</code>
+     * patterns are specified as a comma-separated string. For example,
+     * <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull request created, and pull
+     * request updated events.
      * </p>
      * <note>
      * <p>
-     * The <code>PULL_REQUEST_REOPENED</code> works with GitHub and GitHub Enterprise only.
+     * Types <code>PULL_REQUEST_REOPENED</code> and <code>WORKFLOW_JOB_QUEUED</code> work with GitHub and GitHub
+     * Enterprise only. Types <code>RELEASED</code> and <code>PRERELEASED</code> work with GitHub only.
      * </p>
-     * </note></dd>
-     * <dt>ACTOR_ACCOUNT_ID</dt>
-     * <dd>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * ACTOR_ACCOUNT_ID
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook event triggers a build when a GitHub, GitHub Enterprise, or Bitbucket account ID matches the regular
      * expression <code>pattern</code>.
      * </p>
-     * </dd>
-     * <dt>HEAD_REF</dt>
-     * <dd>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * HEAD_REF
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook event triggers a build when the head reference matches the regular expression <code>pattern</code>. For
      * example, <code>refs/heads/branch-name</code> and <code>refs/tags/tag-name</code>.
      * </p>
+     * <note>
      * <p>
      * Works with GitHub and GitHub Enterprise push, GitHub and GitHub Enterprise pull request, Bitbucket push, and
      * Bitbucket pull request events.
      * </p>
-     * </dd>
-     * <dt>BASE_REF</dt>
-     * <dd>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * BASE_REF
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook event triggers a build when the base reference matches the regular expression <code>pattern</code>. For
      * example, <code>refs/heads/branch-name</code>.
@@ -289,58 +669,175 @@ public class WebhookFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * Works with pull request events only.
      * </p>
-     * </note></dd>
-     * <dt>FILE_PATH</dt>
-     * <dd>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * FILE_PATH
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook triggers a build when the path of a changed file matches the regular expression <code>pattern</code>.
      * </p>
      * <note>
      * <p>
-     * Works with GitHub and GitHub Enterprise push events only.
+     * Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise push
+     * events, but does not work with GitHub Enterprise pull request events.
      * </p>
-     * </note></dd>
-     * </dl>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * COMMIT_MESSAGE
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the head commit message matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise push
+     * events, but does not work with GitHub Enterprise pull request events.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * TAG_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the tag name of the release matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * RELEASE_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the release name matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * REPOSITORY_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the repository name matches the regular expression pattern.
+     * </p>
+     * <note>
+     * <p>
+     * Works with GitHub global or organization webhooks only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * WORKFLOW_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the workflow name matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with <code>WORKFLOW_JOB_QUEUED</code> events only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * </ul>
      * 
-     * @return The type of webhook filter. There are five webhook filter types: <code>EVENT</code>,
-     *         <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, and <code>FILE_PATH</code>.
-     *         </p>
-     *         <dl>
-     *         <dt>EVENT</dt>
-     *         <dd>
+     * @return The type of webhook filter. There are nine webhook filter types: <code>EVENT</code>,
+     *         <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, <code>FILE_PATH</code>,
+     *         <code>COMMIT_MESSAGE</code>, <code>TAG_NAME</code>, <code>RELEASE_NAME</code>, and
+     *         <code>WORKFLOW_NAME</code>. </p>
+     *         <ul>
+     *         <li>
      *         <p>
-     *         A webhook event triggers a build when the provided <code>pattern</code> matches one of four event types:
-     *         <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>, and
-     *         <code>PULL_REQUEST_REOPENED</code>. The <code>EVENT</code> patterns are specified as a comma-separated
-     *         string. For example, <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull
-     *         request created, and pull request updated events.
+     *         EVENT
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         A webhook event triggers a build when the provided <code>pattern</code> matches one of nine event types:
+     *         <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>,
+     *         <code>PULL_REQUEST_CLOSED</code>, <code>PULL_REQUEST_REOPENED</code>, <code>PULL_REQUEST_MERGED</code>,
+     *         <code>RELEASED</code>, <code>PRERELEASED</code>, and <code>WORKFLOW_JOB_QUEUED</code>. The
+     *         <code>EVENT</code> patterns are specified as a comma-separated string. For example,
+     *         <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull request created, and
+     *         pull request updated events.
      *         </p>
      *         <note>
      *         <p>
-     *         The <code>PULL_REQUEST_REOPENED</code> works with GitHub and GitHub Enterprise only.
+     *         Types <code>PULL_REQUEST_REOPENED</code> and <code>WORKFLOW_JOB_QUEUED</code> work with GitHub and GitHub
+     *         Enterprise only. Types <code>RELEASED</code> and <code>PRERELEASED</code> work with GitHub only.
      *         </p>
-     *         </note></dd>
-     *         <dt>ACTOR_ACCOUNT_ID</dt>
-     *         <dd>
+     *         </note></li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         ACTOR_ACCOUNT_ID
+     *         </p>
+     *         <ul>
+     *         <li>
      *         <p>
      *         A webhook event triggers a build when a GitHub, GitHub Enterprise, or Bitbucket account ID matches the
      *         regular expression <code>pattern</code>.
      *         </p>
-     *         </dd>
-     *         <dt>HEAD_REF</dt>
-     *         <dd>
+     *         </li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         HEAD_REF
+     *         </p>
+     *         <ul>
+     *         <li>
      *         <p>
      *         A webhook event triggers a build when the head reference matches the regular expression
      *         <code>pattern</code>. For example, <code>refs/heads/branch-name</code> and
      *         <code>refs/tags/tag-name</code>.
      *         </p>
+     *         <note>
      *         <p>
      *         Works with GitHub and GitHub Enterprise push, GitHub and GitHub Enterprise pull request, Bitbucket push,
      *         and Bitbucket pull request events.
      *         </p>
-     *         </dd>
-     *         <dt>BASE_REF</dt>
-     *         <dd>
+     *         </note></li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         BASE_REF
+     *         </p>
+     *         <ul>
+     *         <li>
      *         <p>
      *         A webhook event triggers a build when the base reference matches the regular expression
      *         <code>pattern</code>. For example, <code>refs/heads/branch-name</code>.
@@ -349,18 +846,110 @@ public class WebhookFilter implements Serializable, Cloneable, StructuredPojo {
      *         <p>
      *         Works with pull request events only.
      *         </p>
-     *         </note></dd>
-     *         <dt>FILE_PATH</dt>
-     *         <dd>
+     *         </note></li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         FILE_PATH
+     *         </p>
+     *         <ul>
+     *         <li>
      *         <p>
      *         A webhook triggers a build when the path of a changed file matches the regular expression
      *         <code>pattern</code>.
      *         </p>
      *         <note>
      *         <p>
-     *         Works with GitHub and GitHub Enterprise push events only.
+     *         Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise
+     *         push events, but does not work with GitHub Enterprise pull request events.
      *         </p>
-     *         </note></dd>
+     *         </note></li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         COMMIT_MESSAGE
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         A webhook triggers a build when the head commit message matches the regular expression
+     *         <code>pattern</code>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise
+     *         push events, but does not work with GitHub Enterprise pull request events.
+     *         </p>
+     *         </note></li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         TAG_NAME
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         A webhook triggers a build when the tag name of the release matches the regular expression
+     *         <code>pattern</code>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     *         </p>
+     *         </note></li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RELEASE_NAME
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         A webhook triggers a build when the release name matches the regular expression <code>pattern</code>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     *         </p>
+     *         </note></li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         REPOSITORY_NAME
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         A webhook triggers a build when the repository name matches the regular expression pattern.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Works with GitHub global or organization webhooks only.
+     *         </p>
+     *         </note></li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         WORKFLOW_NAME
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         A webhook triggers a build when the workflow name matches the regular expression <code>pattern</code>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Works with <code>WORKFLOW_JOB_QUEUED</code> events only.
+     *         </p>
+     *         </note></li>
+     *         </ul>
+     *         </li>
      * @see WebhookFilterType
      */
 
@@ -370,44 +959,71 @@ public class WebhookFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of webhook filter. There are five webhook filter types: <code>EVENT</code>,
-     * <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, and <code>FILE_PATH</code>.
+     * The type of webhook filter. There are nine webhook filter types: <code>EVENT</code>,
+     * <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, <code>FILE_PATH</code>,
+     * <code>COMMIT_MESSAGE</code>, <code>TAG_NAME</code>, <code>RELEASE_NAME</code>, and <code>WORKFLOW_NAME</code>.
      * </p>
-     * <dl>
-     * <dt>EVENT</dt>
-     * <dd>
+     * <ul>
+     * <li>
      * <p>
-     * A webhook event triggers a build when the provided <code>pattern</code> matches one of four event types:
-     * <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>, and
-     * <code>PULL_REQUEST_REOPENED</code>. The <code>EVENT</code> patterns are specified as a comma-separated string.
-     * For example, <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull request
-     * created, and pull request updated events.
+     * EVENT
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook event triggers a build when the provided <code>pattern</code> matches one of nine event types:
+     * <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>,
+     * <code>PULL_REQUEST_CLOSED</code>, <code>PULL_REQUEST_REOPENED</code>, <code>PULL_REQUEST_MERGED</code>,
+     * <code>RELEASED</code>, <code>PRERELEASED</code>, and <code>WORKFLOW_JOB_QUEUED</code>. The <code>EVENT</code>
+     * patterns are specified as a comma-separated string. For example,
+     * <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull request created, and pull
+     * request updated events.
      * </p>
      * <note>
      * <p>
-     * The <code>PULL_REQUEST_REOPENED</code> works with GitHub and GitHub Enterprise only.
+     * Types <code>PULL_REQUEST_REOPENED</code> and <code>WORKFLOW_JOB_QUEUED</code> work with GitHub and GitHub
+     * Enterprise only. Types <code>RELEASED</code> and <code>PRERELEASED</code> work with GitHub only.
      * </p>
-     * </note></dd>
-     * <dt>ACTOR_ACCOUNT_ID</dt>
-     * <dd>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * ACTOR_ACCOUNT_ID
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook event triggers a build when a GitHub, GitHub Enterprise, or Bitbucket account ID matches the regular
      * expression <code>pattern</code>.
      * </p>
-     * </dd>
-     * <dt>HEAD_REF</dt>
-     * <dd>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * HEAD_REF
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook event triggers a build when the head reference matches the regular expression <code>pattern</code>. For
      * example, <code>refs/heads/branch-name</code> and <code>refs/tags/tag-name</code>.
      * </p>
+     * <note>
      * <p>
      * Works with GitHub and GitHub Enterprise push, GitHub and GitHub Enterprise pull request, Bitbucket push, and
      * Bitbucket pull request events.
      * </p>
-     * </dd>
-     * <dt>BASE_REF</dt>
-     * <dd>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * BASE_REF
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook event triggers a build when the base reference matches the regular expression <code>pattern</code>. For
      * example, <code>refs/heads/branch-name</code>.
@@ -416,59 +1032,176 @@ public class WebhookFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * Works with pull request events only.
      * </p>
-     * </note></dd>
-     * <dt>FILE_PATH</dt>
-     * <dd>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * FILE_PATH
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook triggers a build when the path of a changed file matches the regular expression <code>pattern</code>.
      * </p>
      * <note>
      * <p>
-     * Works with GitHub and GitHub Enterprise push events only.
+     * Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise push
+     * events, but does not work with GitHub Enterprise pull request events.
      * </p>
-     * </note></dd>
-     * </dl>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * COMMIT_MESSAGE
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the head commit message matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise push
+     * events, but does not work with GitHub Enterprise pull request events.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * TAG_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the tag name of the release matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * RELEASE_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the release name matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * REPOSITORY_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the repository name matches the regular expression pattern.
+     * </p>
+     * <note>
+     * <p>
+     * Works with GitHub global or organization webhooks only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * WORKFLOW_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the workflow name matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with <code>WORKFLOW_JOB_QUEUED</code> events only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * </ul>
      * 
      * @param type
-     *        The type of webhook filter. There are five webhook filter types: <code>EVENT</code>,
-     *        <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, and <code>FILE_PATH</code>.
-     *        </p>
-     *        <dl>
-     *        <dt>EVENT</dt>
-     *        <dd>
+     *        The type of webhook filter. There are nine webhook filter types: <code>EVENT</code>,
+     *        <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, <code>FILE_PATH</code>,
+     *        <code>COMMIT_MESSAGE</code>, <code>TAG_NAME</code>, <code>RELEASE_NAME</code>, and
+     *        <code>WORKFLOW_NAME</code>. </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        A webhook event triggers a build when the provided <code>pattern</code> matches one of four event types:
-     *        <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>, and
-     *        <code>PULL_REQUEST_REOPENED</code>. The <code>EVENT</code> patterns are specified as a comma-separated
-     *        string. For example, <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull
-     *        request created, and pull request updated events.
+     *        EVENT
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook event triggers a build when the provided <code>pattern</code> matches one of nine event types:
+     *        <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>,
+     *        <code>PULL_REQUEST_CLOSED</code>, <code>PULL_REQUEST_REOPENED</code>, <code>PULL_REQUEST_MERGED</code>,
+     *        <code>RELEASED</code>, <code>PRERELEASED</code>, and <code>WORKFLOW_JOB_QUEUED</code>. The
+     *        <code>EVENT</code> patterns are specified as a comma-separated string. For example,
+     *        <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull request created, and
+     *        pull request updated events.
      *        </p>
      *        <note>
      *        <p>
-     *        The <code>PULL_REQUEST_REOPENED</code> works with GitHub and GitHub Enterprise only.
+     *        Types <code>PULL_REQUEST_REOPENED</code> and <code>WORKFLOW_JOB_QUEUED</code> work with GitHub and GitHub
+     *        Enterprise only. Types <code>RELEASED</code> and <code>PRERELEASED</code> work with GitHub only.
      *        </p>
-     *        </note></dd>
-     *        <dt>ACTOR_ACCOUNT_ID</dt>
-     *        <dd>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        ACTOR_ACCOUNT_ID
+     *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
      *        A webhook event triggers a build when a GitHub, GitHub Enterprise, or Bitbucket account ID matches the
      *        regular expression <code>pattern</code>.
      *        </p>
-     *        </dd>
-     *        <dt>HEAD_REF</dt>
-     *        <dd>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        HEAD_REF
+     *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
      *        A webhook event triggers a build when the head reference matches the regular expression
      *        <code>pattern</code>. For example, <code>refs/heads/branch-name</code> and <code>refs/tags/tag-name</code>
      *        .
      *        </p>
+     *        <note>
      *        <p>
      *        Works with GitHub and GitHub Enterprise push, GitHub and GitHub Enterprise pull request, Bitbucket push,
      *        and Bitbucket pull request events.
      *        </p>
-     *        </dd>
-     *        <dt>BASE_REF</dt>
-     *        <dd>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        BASE_REF
+     *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
      *        A webhook event triggers a build when the base reference matches the regular expression
      *        <code>pattern</code>. For example, <code>refs/heads/branch-name</code>.
@@ -477,18 +1210,110 @@ public class WebhookFilter implements Serializable, Cloneable, StructuredPojo {
      *        <p>
      *        Works with pull request events only.
      *        </p>
-     *        </note></dd>
-     *        <dt>FILE_PATH</dt>
-     *        <dd>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FILE_PATH
+     *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
      *        A webhook triggers a build when the path of a changed file matches the regular expression
      *        <code>pattern</code>.
      *        </p>
      *        <note>
      *        <p>
-     *        Works with GitHub and GitHub Enterprise push events only.
+     *        Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise
+     *        push events, but does not work with GitHub Enterprise pull request events.
      *        </p>
-     *        </note></dd>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        COMMIT_MESSAGE
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook triggers a build when the head commit message matches the regular expression
+     *        <code>pattern</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise
+     *        push events, but does not work with GitHub Enterprise pull request events.
+     *        </p>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        TAG_NAME
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook triggers a build when the tag name of the release matches the regular expression
+     *        <code>pattern</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     *        </p>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RELEASE_NAME
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook triggers a build when the release name matches the regular expression <code>pattern</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     *        </p>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        REPOSITORY_NAME
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook triggers a build when the repository name matches the regular expression pattern.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Works with GitHub global or organization webhooks only.
+     *        </p>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        WORKFLOW_NAME
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook triggers a build when the workflow name matches the regular expression <code>pattern</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Works with <code>WORKFLOW_JOB_QUEUED</code> events only.
+     *        </p>
+     *        </note></li>
+     *        </ul>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see WebhookFilterType
      */
@@ -500,44 +1325,71 @@ public class WebhookFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of webhook filter. There are five webhook filter types: <code>EVENT</code>,
-     * <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, and <code>FILE_PATH</code>.
+     * The type of webhook filter. There are nine webhook filter types: <code>EVENT</code>,
+     * <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, <code>FILE_PATH</code>,
+     * <code>COMMIT_MESSAGE</code>, <code>TAG_NAME</code>, <code>RELEASE_NAME</code>, and <code>WORKFLOW_NAME</code>.
      * </p>
-     * <dl>
-     * <dt>EVENT</dt>
-     * <dd>
+     * <ul>
+     * <li>
      * <p>
-     * A webhook event triggers a build when the provided <code>pattern</code> matches one of four event types:
-     * <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>, and
-     * <code>PULL_REQUEST_REOPENED</code>. The <code>EVENT</code> patterns are specified as a comma-separated string.
-     * For example, <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull request
-     * created, and pull request updated events.
+     * EVENT
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook event triggers a build when the provided <code>pattern</code> matches one of nine event types:
+     * <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>,
+     * <code>PULL_REQUEST_CLOSED</code>, <code>PULL_REQUEST_REOPENED</code>, <code>PULL_REQUEST_MERGED</code>,
+     * <code>RELEASED</code>, <code>PRERELEASED</code>, and <code>WORKFLOW_JOB_QUEUED</code>. The <code>EVENT</code>
+     * patterns are specified as a comma-separated string. For example,
+     * <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull request created, and pull
+     * request updated events.
      * </p>
      * <note>
      * <p>
-     * The <code>PULL_REQUEST_REOPENED</code> works with GitHub and GitHub Enterprise only.
+     * Types <code>PULL_REQUEST_REOPENED</code> and <code>WORKFLOW_JOB_QUEUED</code> work with GitHub and GitHub
+     * Enterprise only. Types <code>RELEASED</code> and <code>PRERELEASED</code> work with GitHub only.
      * </p>
-     * </note></dd>
-     * <dt>ACTOR_ACCOUNT_ID</dt>
-     * <dd>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * ACTOR_ACCOUNT_ID
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook event triggers a build when a GitHub, GitHub Enterprise, or Bitbucket account ID matches the regular
      * expression <code>pattern</code>.
      * </p>
-     * </dd>
-     * <dt>HEAD_REF</dt>
-     * <dd>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * HEAD_REF
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook event triggers a build when the head reference matches the regular expression <code>pattern</code>. For
      * example, <code>refs/heads/branch-name</code> and <code>refs/tags/tag-name</code>.
      * </p>
+     * <note>
      * <p>
      * Works with GitHub and GitHub Enterprise push, GitHub and GitHub Enterprise pull request, Bitbucket push, and
      * Bitbucket pull request events.
      * </p>
-     * </dd>
-     * <dt>BASE_REF</dt>
-     * <dd>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * BASE_REF
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook event triggers a build when the base reference matches the regular expression <code>pattern</code>. For
      * example, <code>refs/heads/branch-name</code>.
@@ -546,59 +1398,176 @@ public class WebhookFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * Works with pull request events only.
      * </p>
-     * </note></dd>
-     * <dt>FILE_PATH</dt>
-     * <dd>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * FILE_PATH
+     * </p>
+     * <ul>
+     * <li>
      * <p>
      * A webhook triggers a build when the path of a changed file matches the regular expression <code>pattern</code>.
      * </p>
      * <note>
      * <p>
-     * Works with GitHub and GitHub Enterprise push events only.
+     * Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise push
+     * events, but does not work with GitHub Enterprise pull request events.
      * </p>
-     * </note></dd>
-     * </dl>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * COMMIT_MESSAGE
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the head commit message matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise push
+     * events, but does not work with GitHub Enterprise pull request events.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * TAG_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the tag name of the release matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * RELEASE_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the release name matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * REPOSITORY_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the repository name matches the regular expression pattern.
+     * </p>
+     * <note>
+     * <p>
+     * Works with GitHub global or organization webhooks only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * WORKFLOW_NAME
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A webhook triggers a build when the workflow name matches the regular expression <code>pattern</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Works with <code>WORKFLOW_JOB_QUEUED</code> events only.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * </ul>
      * 
      * @param type
-     *        The type of webhook filter. There are five webhook filter types: <code>EVENT</code>,
-     *        <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, and <code>FILE_PATH</code>.
-     *        </p>
-     *        <dl>
-     *        <dt>EVENT</dt>
-     *        <dd>
+     *        The type of webhook filter. There are nine webhook filter types: <code>EVENT</code>,
+     *        <code>ACTOR_ACCOUNT_ID</code>, <code>HEAD_REF</code>, <code>BASE_REF</code>, <code>FILE_PATH</code>,
+     *        <code>COMMIT_MESSAGE</code>, <code>TAG_NAME</code>, <code>RELEASE_NAME</code>, and
+     *        <code>WORKFLOW_NAME</code>. </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        A webhook event triggers a build when the provided <code>pattern</code> matches one of four event types:
-     *        <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>, and
-     *        <code>PULL_REQUEST_REOPENED</code>. The <code>EVENT</code> patterns are specified as a comma-separated
-     *        string. For example, <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull
-     *        request created, and pull request updated events.
+     *        EVENT
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook event triggers a build when the provided <code>pattern</code> matches one of nine event types:
+     *        <code>PUSH</code>, <code>PULL_REQUEST_CREATED</code>, <code>PULL_REQUEST_UPDATED</code>,
+     *        <code>PULL_REQUEST_CLOSED</code>, <code>PULL_REQUEST_REOPENED</code>, <code>PULL_REQUEST_MERGED</code>,
+     *        <code>RELEASED</code>, <code>PRERELEASED</code>, and <code>WORKFLOW_JOB_QUEUED</code>. The
+     *        <code>EVENT</code> patterns are specified as a comma-separated string. For example,
+     *        <code>PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED</code> filters all push, pull request created, and
+     *        pull request updated events.
      *        </p>
      *        <note>
      *        <p>
-     *        The <code>PULL_REQUEST_REOPENED</code> works with GitHub and GitHub Enterprise only.
+     *        Types <code>PULL_REQUEST_REOPENED</code> and <code>WORKFLOW_JOB_QUEUED</code> work with GitHub and GitHub
+     *        Enterprise only. Types <code>RELEASED</code> and <code>PRERELEASED</code> work with GitHub only.
      *        </p>
-     *        </note></dd>
-     *        <dt>ACTOR_ACCOUNT_ID</dt>
-     *        <dd>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        ACTOR_ACCOUNT_ID
+     *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
      *        A webhook event triggers a build when a GitHub, GitHub Enterprise, or Bitbucket account ID matches the
      *        regular expression <code>pattern</code>.
      *        </p>
-     *        </dd>
-     *        <dt>HEAD_REF</dt>
-     *        <dd>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        HEAD_REF
+     *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
      *        A webhook event triggers a build when the head reference matches the regular expression
      *        <code>pattern</code>. For example, <code>refs/heads/branch-name</code> and <code>refs/tags/tag-name</code>
      *        .
      *        </p>
+     *        <note>
      *        <p>
      *        Works with GitHub and GitHub Enterprise push, GitHub and GitHub Enterprise pull request, Bitbucket push,
      *        and Bitbucket pull request events.
      *        </p>
-     *        </dd>
-     *        <dt>BASE_REF</dt>
-     *        <dd>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        BASE_REF
+     *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
      *        A webhook event triggers a build when the base reference matches the regular expression
      *        <code>pattern</code>. For example, <code>refs/heads/branch-name</code>.
@@ -607,18 +1576,110 @@ public class WebhookFilter implements Serializable, Cloneable, StructuredPojo {
      *        <p>
      *        Works with pull request events only.
      *        </p>
-     *        </note></dd>
-     *        <dt>FILE_PATH</dt>
-     *        <dd>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FILE_PATH
+     *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
      *        A webhook triggers a build when the path of a changed file matches the regular expression
      *        <code>pattern</code>.
      *        </p>
      *        <note>
      *        <p>
-     *        Works with GitHub and GitHub Enterprise push events only.
+     *        Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise
+     *        push events, but does not work with GitHub Enterprise pull request events.
      *        </p>
-     *        </note></dd>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        COMMIT_MESSAGE
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook triggers a build when the head commit message matches the regular expression
+     *        <code>pattern</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Works with GitHub and Bitbucket events push and pull requests events. Also works with GitHub Enterprise
+     *        push events, but does not work with GitHub Enterprise pull request events.
+     *        </p>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        TAG_NAME
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook triggers a build when the tag name of the release matches the regular expression
+     *        <code>pattern</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     *        </p>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RELEASE_NAME
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook triggers a build when the release name matches the regular expression <code>pattern</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Works with <code>RELEASED</code> and <code>PRERELEASED</code> events only.
+     *        </p>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        REPOSITORY_NAME
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook triggers a build when the repository name matches the regular expression pattern.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Works with GitHub global or organization webhooks only.
+     *        </p>
+     *        </note></li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        WORKFLOW_NAME
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A webhook triggers a build when the workflow name matches the regular expression <code>pattern</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Works with <code>WORKFLOW_JOB_QUEUED</code> events only.
+     *        </p>
+     *        </note></li>
+     *        </ul>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see WebhookFilterType
      */

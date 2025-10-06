@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,14 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * A CA certificate for an AWS account.
+ * A CA certificate for an Amazon Web Services account.
+ * </p>
+ * <p>
+ * For more information, see <a
+ * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+ * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+ * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to encrypt a
+ * connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/Certificate" target="_top">AWS API
@@ -62,6 +69,18 @@ public class Certificate implements Serializable, Cloneable {
      * </p>
      */
     private String certificateArn;
+    /**
+     * <p>
+     * Indicates whether there is an override for the default certificate identifier.
+     * </p>
+     */
+    private Boolean customerOverride;
+    /**
+     * <p>
+     * If there is an override for the default certificate identifier, when the override expires.
+     * </p>
+     */
+    private java.util.Date customerOverrideValidTill;
 
     /**
      * <p>
@@ -304,6 +323,98 @@ public class Certificate implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * Indicates whether there is an override for the default certificate identifier.
+     * </p>
+     * 
+     * @param customerOverride
+     *        Indicates whether there is an override for the default certificate identifier.
+     */
+
+    public void setCustomerOverride(Boolean customerOverride) {
+        this.customerOverride = customerOverride;
+    }
+
+    /**
+     * <p>
+     * Indicates whether there is an override for the default certificate identifier.
+     * </p>
+     * 
+     * @return Indicates whether there is an override for the default certificate identifier.
+     */
+
+    public Boolean getCustomerOverride() {
+        return this.customerOverride;
+    }
+
+    /**
+     * <p>
+     * Indicates whether there is an override for the default certificate identifier.
+     * </p>
+     * 
+     * @param customerOverride
+     *        Indicates whether there is an override for the default certificate identifier.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Certificate withCustomerOverride(Boolean customerOverride) {
+        setCustomerOverride(customerOverride);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether there is an override for the default certificate identifier.
+     * </p>
+     * 
+     * @return Indicates whether there is an override for the default certificate identifier.
+     */
+
+    public Boolean isCustomerOverride() {
+        return this.customerOverride;
+    }
+
+    /**
+     * <p>
+     * If there is an override for the default certificate identifier, when the override expires.
+     * </p>
+     * 
+     * @param customerOverrideValidTill
+     *        If there is an override for the default certificate identifier, when the override expires.
+     */
+
+    public void setCustomerOverrideValidTill(java.util.Date customerOverrideValidTill) {
+        this.customerOverrideValidTill = customerOverrideValidTill;
+    }
+
+    /**
+     * <p>
+     * If there is an override for the default certificate identifier, when the override expires.
+     * </p>
+     * 
+     * @return If there is an override for the default certificate identifier, when the override expires.
+     */
+
+    public java.util.Date getCustomerOverrideValidTill() {
+        return this.customerOverrideValidTill;
+    }
+
+    /**
+     * <p>
+     * If there is an override for the default certificate identifier, when the override expires.
+     * </p>
+     * 
+     * @param customerOverrideValidTill
+     *        If there is an override for the default certificate identifier, when the override expires.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Certificate withCustomerOverrideValidTill(java.util.Date customerOverrideValidTill) {
+        setCustomerOverrideValidTill(customerOverrideValidTill);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -326,7 +437,11 @@ public class Certificate implements Serializable, Cloneable {
         if (getValidTill() != null)
             sb.append("ValidTill: ").append(getValidTill()).append(",");
         if (getCertificateArn() != null)
-            sb.append("CertificateArn: ").append(getCertificateArn());
+            sb.append("CertificateArn: ").append(getCertificateArn()).append(",");
+        if (getCustomerOverride() != null)
+            sb.append("CustomerOverride: ").append(getCustomerOverride()).append(",");
+        if (getCustomerOverrideValidTill() != null)
+            sb.append("CustomerOverrideValidTill: ").append(getCustomerOverrideValidTill());
         sb.append("}");
         return sb.toString();
     }
@@ -365,6 +480,14 @@ public class Certificate implements Serializable, Cloneable {
             return false;
         if (other.getCertificateArn() != null && other.getCertificateArn().equals(this.getCertificateArn()) == false)
             return false;
+        if (other.getCustomerOverride() == null ^ this.getCustomerOverride() == null)
+            return false;
+        if (other.getCustomerOverride() != null && other.getCustomerOverride().equals(this.getCustomerOverride()) == false)
+            return false;
+        if (other.getCustomerOverrideValidTill() == null ^ this.getCustomerOverrideValidTill() == null)
+            return false;
+        if (other.getCustomerOverrideValidTill() != null && other.getCustomerOverrideValidTill().equals(this.getCustomerOverrideValidTill()) == false)
+            return false;
         return true;
     }
 
@@ -379,6 +502,8 @@ public class Certificate implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getValidFrom() == null) ? 0 : getValidFrom().hashCode());
         hashCode = prime * hashCode + ((getValidTill() == null) ? 0 : getValidTill().hashCode());
         hashCode = prime * hashCode + ((getCertificateArn() == null) ? 0 : getCertificateArn().hashCode());
+        hashCode = prime * hashCode + ((getCustomerOverride() == null) ? 0 : getCustomerOverride().hashCode());
+        hashCode = prime * hashCode + ((getCustomerOverrideValidTill() == null) ? 0 : getCustomerOverrideValidTill().hashCode());
         return hashCode;
     }
 

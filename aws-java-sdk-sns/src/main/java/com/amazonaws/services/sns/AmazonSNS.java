@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,10 +30,15 @@ import com.amazonaws.services.sns.model.*;
  * <p>
  * Amazon Simple Notification Service (Amazon SNS) is a web service that enables you to build distributed web-enabled
  * applications. Applications can use Amazon SNS to easily push real-time notification messages to interested
- * subscribers over multiple delivery protocols. For more information about this product see <a
- * href="http://aws.amazon.com/sns/">https://aws.amazon.com/sns</a>. For detailed information about Amazon SNS features
- * and their associated API calls, see the <a href="https://docs.aws.amazon.com/sns/latest/dg/">Amazon SNS Developer
+ * subscribers over multiple delivery protocols. For more information about this product see the <a
+ * href="http://aws.amazon.com/sns/">Amazon SNS product page</a>. For detailed information about Amazon SNS features and
+ * their associated API calls, see the <a href="https://docs.aws.amazon.com/sns/latest/dg/">Amazon SNS Developer
  * Guide</a>.
+ * </p>
+ * <p>
+ * For information on the permissions you need to use this API, see <a
+ * href="https://docs.aws.amazon.com/sns/latest/dg/sns-authentication-and-access-control.html">Identity and access
+ * management in Amazon SNS</a> in the <i>Amazon SNS Developer Guide.</i>
  * </p>
  * <p>
  * We also provide SDKs that enable you to access Amazon SNS from your preferred programming language. The SDKs contain
@@ -107,9 +112,15 @@ public interface AmazonSNS {
 
     /**
      * <p>
-     * Adds a statement to a topic's access control policy, granting access for the specified AWS accounts to the
-     * specified actions.
+     * Adds a statement to a topic's access control policy, granting access for the specified Amazon Web Services
+     * accounts to the specified actions.
      * </p>
+     * <note>
+     * <p>
+     * To remove the ability to change topic permissions, you must deny permissions to the <code>AddPermission</code>,
+     * <code>RemovePermission</code>, and <code>SetTopicAttributes</code> actions in your IAM policy.
+     * </p>
+     * </note>
      * 
      * @param addPermissionRequest
      * @return Result of the AddPermission operation returned by the service.
@@ -137,7 +148,7 @@ public interface AmazonSNS {
     /**
      * <p>
      * Accepts a phone number and indicates whether the phone holder has opted out of receiving SMS messages from your
-     * account. You cannot send SMS messages to a number that is opted out.
+     * Amazon Web Services account. You cannot send SMS messages to a number that is opted out.
      * </p>
      * <p>
      * To resume sending messages, you can opt in the number by using the <code>OptInPhoneNumber</code> action.
@@ -148,7 +159,7 @@ public interface AmazonSNS {
      * @return Result of the CheckIfPhoneNumberIsOptedOut operation returned by the service.
      * @throws ThrottledException
      *         Indicates that the rate at which requests have been submitted for this action exceeds the limit for your
-     *         account.
+     *         Amazon Web Services account.
      * @throws InternalErrorException
      *         Indicates an internal service error.
      * @throws AuthorizationErrorException
@@ -183,8 +194,10 @@ public interface AmazonSNS {
      * @throws AuthorizationErrorException
      *         Indicates that the user has been denied access to the requested resource.
      * @throws FilterPolicyLimitExceededException
-     *         Indicates that the number of filter polices in your AWS account exceeds the limit. To add more filter
-     *         polices, submit an SNS Limit Increase case in the AWS Support Center.
+     *         Indicates that the number of filter polices in your Amazon Web Services account exceeds the limit. To add
+     *         more filter polices, submit an Amazon SNS Limit Increase case in the Amazon Web Services Support Center.
+     * @throws ReplayLimitExceededException
+     *         Indicates that the request parameter has exceeded the maximum number of concurrent message replays.
      * @sample AmazonSNS.ConfirmSubscription
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ConfirmSubscription" target="_top">AWS API
      *      Documentation</a>
@@ -207,31 +220,69 @@ public interface AmazonSNS {
 
     /**
      * <p>
-     * Creates a platform application object for one of the supported push notification services, such as APNS and FCM,
-     * to which devices and mobile apps may register. You must specify PlatformPrincipal and PlatformCredential
-     * attributes when using the <code>CreatePlatformApplication</code> action. The PlatformPrincipal is received from
-     * the notification service. For APNS/APNS_SANDBOX, PlatformPrincipal is "SSL certificate". For GCM,
-     * PlatformPrincipal is not applicable. For ADM, PlatformPrincipal is "client id". The PlatformCredential is also
-     * received from the notification service. For WNS, PlatformPrincipal is "Package Security Identifier". For MPNS,
-     * PlatformPrincipal is "TLS certificate". For Baidu, PlatformPrincipal is "API key".
+     * Creates a platform application object for one of the supported push notification services, such as APNS and GCM
+     * (Firebase Cloud Messaging), to which devices and mobile apps may register. You must specify
+     * <code>PlatformPrincipal</code> and <code>PlatformCredential</code> attributes when using the
+     * <code>CreatePlatformApplication</code> action.
      * </p>
      * <p>
-     * For APNS/APNS_SANDBOX, PlatformCredential is "private key". For GCM, PlatformCredential is "API key". For ADM,
-     * PlatformCredential is "client secret". For WNS, PlatformCredential is "secret key". For MPNS, PlatformCredential
-     * is "private key". For Baidu, PlatformCredential is "secret key". The PlatformApplicationArn that is returned when
-     * using <code>CreatePlatformApplication</code> is then used as an attribute for the
-     * <code>CreatePlatformEndpoint</code> action. For more information, see <a
-     * href="https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">Using Amazon SNS Mobile Push
-     * Notifications</a>. For more information about obtaining the PlatformPrincipal and PlatformCredential for each of
-     * the supported push notification services, see <a
-     * href="https://docs.aws.amazon.com/sns/latest/dg/mobile-push-apns.html">Getting Started with Apple Push
-     * Notification Service</a>, <a href="https://docs.aws.amazon.com/sns/latest/dg/mobile-push-adm.html">Getting
-     * Started with Amazon Device Messaging</a>, <a
-     * href="https://docs.aws.amazon.com/sns/latest/dg/mobile-push-baidu.html">Getting Started with Baidu Cloud
-     * Push</a>, <a href="https://docs.aws.amazon.com/sns/latest/dg/mobile-push-gcm.html">Getting Started with Google
-     * Cloud Messaging for Android</a>, <a
-     * href="https://docs.aws.amazon.com/sns/latest/dg/mobile-push-mpns.html">Getting Started with MPNS</a>, or <a
-     * href="https://docs.aws.amazon.com/sns/latest/dg/mobile-push-wns.html">Getting Started with WNS</a>.
+     * <code>PlatformPrincipal</code> and <code>PlatformCredential</code> are received from the notification service.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For ADM, <code>PlatformPrincipal</code> is <code>client id</code> and <code>PlatformCredential</code> is
+     * <code>client secret</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For APNS and <code>APNS_SANDBOX</code> using certificate credentials, <code>PlatformPrincipal</code> is
+     * <code>SSL certificate</code> and <code>PlatformCredential</code> is <code>private key</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For APNS and <code>APNS_SANDBOX</code> using token credentials, <code>PlatformPrincipal</code> is
+     * <code>signing key ID</code> and <code>PlatformCredential</code> is <code>signing key</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Baidu, <code>PlatformPrincipal</code> is <code>API key</code> and <code>PlatformCredential</code> is
+     * <code>secret key</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For GCM (Firebase Cloud Messaging) using key credentials, there is no <code>PlatformPrincipal</code>. The
+     * <code>PlatformCredential</code> is <code>API key</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For GCM (Firebase Cloud Messaging) using token credentials, there is no <code>PlatformPrincipal</code>. The
+     * <code>PlatformCredential</code> is a JSON formatted private key file. When using the Amazon Web Services CLI, the
+     * file must be in string format and special characters must be ignored. To format the file correctly, Amazon SNS
+     * recommends using the following command: <code>SERVICE_JSON=`jq @json &lt;&lt;&lt; cat service.json`</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For MPNS, <code>PlatformPrincipal</code> is <code>TLS certificate</code> and <code>PlatformCredential</code> is
+     * <code>private key</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For WNS, <code>PlatformPrincipal</code> is <code>Package Security Identifier</code> and
+     * <code>PlatformCredential</code> is <code>secret key</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can use the returned <code>PlatformApplicationArn</code> as an attribute for the
+     * <code>CreatePlatformEndpoint</code> action.
      * </p>
      * 
      * @param createPlatformApplicationRequest
@@ -252,14 +303,14 @@ public interface AmazonSNS {
     /**
      * <p>
      * Creates an endpoint for a device and mobile app on one of the supported push notification services, such as GCM
-     * and APNS. <code>CreatePlatformEndpoint</code> requires the PlatformApplicationArn that is returned from
-     * <code>CreatePlatformApplication</code>. The EndpointArn that is returned when using
-     * <code>CreatePlatformEndpoint</code> can then be used by the <code>Publish</code> action to send a message to a
-     * mobile app or by the <code>Subscribe</code> action for subscription to a topic. The
-     * <code>CreatePlatformEndpoint</code> action is idempotent, so if the requester already owns an endpoint with the
-     * same device token and attributes, that endpoint's ARN is returned without creating a new endpoint. For more
-     * information, see <a href="https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">Using Amazon SNS Mobile
-     * Push Notifications</a>.
+     * (Firebase Cloud Messaging) and APNS. <code>CreatePlatformEndpoint</code> requires the
+     * <code>PlatformApplicationArn</code> that is returned from <code>CreatePlatformApplication</code>. You can use the
+     * returned <code>EndpointArn</code> to send a message to a mobile app or by the <code>Subscribe</code> action for
+     * subscription to a topic. The <code>CreatePlatformEndpoint</code> action is idempotent, so if the requester
+     * already owns an endpoint with the same device token and attributes, that endpoint's ARN is returned without
+     * creating a new endpoint. For more information, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">Using Amazon SNS Mobile Push
+     * Notifications</a>.
      * </p>
      * <p>
      * When using <code>CreatePlatformEndpoint</code> with Baidu, two attributes must be provided: ChannelId and UserId.
@@ -287,10 +338,48 @@ public interface AmazonSNS {
 
     /**
      * <p>
-     * Creates a topic to which notifications can be published. Users can create at most 100,000 topics. For more
-     * information, see <a href="http://aws.amazon.com/sns/">https://aws.amazon.com/sns</a>. This action is idempotent,
-     * so if the requester already owns a topic with the specified name, that topic's ARN is returned without creating a
-     * new topic.
+     * Adds a destination phone number to an Amazon Web Services account in the SMS sandbox and sends a one-time
+     * password (OTP) to that phone number.
+     * </p>
+     * <p>
+     * When you start using Amazon SNS to send SMS messages, your Amazon Web Services account is in the <i>SMS
+     * sandbox</i>. The SMS sandbox provides a safe environment for you to try Amazon SNS features without risking your
+     * reputation as an SMS sender. While your Amazon Web Services account is in the SMS sandbox, you can use all of the
+     * features of Amazon SNS. However, you can send SMS messages only to verified destination phone numbers. For more
+     * information, including how to move out of the sandbox to send messages without restrictions, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html">SMS sandbox</a> in the <i>Amazon SNS
+     * Developer Guide</i>.
+     * </p>
+     * 
+     * @param createSMSSandboxPhoneNumberRequest
+     * @return Result of the CreateSMSSandboxPhoneNumber operation returned by the service.
+     * @throws AuthorizationErrorException
+     *         Indicates that the user has been denied access to the requested resource.
+     * @throws InternalErrorException
+     *         Indicates an internal service error.
+     * @throws InvalidParameterException
+     *         Indicates that a request parameter does not comply with the associated constraints.
+     * @throws OptedOutException
+     *         Indicates that the specified phone number opted out of receiving SMS messages from your Amazon Web
+     *         Services account. You can't send SMS messages to phone numbers that opt out.
+     * @throws UserErrorException
+     *         Indicates that a request parameter does not comply with the associated constraints.
+     * @throws ThrottledException
+     *         Indicates that the rate at which requests have been submitted for this action exceeds the limit for your
+     *         Amazon Web Services account.
+     * @sample AmazonSNS.CreateSMSSandboxPhoneNumber
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/CreateSMSSandboxPhoneNumber"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateSMSSandboxPhoneNumberResult createSMSSandboxPhoneNumber(CreateSMSSandboxPhoneNumberRequest createSMSSandboxPhoneNumberRequest);
+
+    /**
+     * <p>
+     * Creates a topic to which notifications can be published. Users can create at most 100,000 standard topics (at
+     * most 1,000 FIFO topics). For more information, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html">Creating an Amazon SNS topic</a> in the
+     * <i>Amazon SNS Developer Guide</i>. This action is idempotent, so if the requester already owns a topic with the
+     * specified name, that topic's ARN is returned without creating a new topic.
      * </p>
      * 
      * @param createTopicRequest
@@ -341,7 +430,7 @@ public interface AmazonSNS {
      * </p>
      * 
      * @param deleteEndpointRequest
-     *        Input for DeleteEndpoint action.
+     *        Input for <code>DeleteEndpoint</code> action.
      * @return Result of the DeleteEndpoint operation returned by the service.
      * @throws InvalidParameterException
      *         Indicates that a request parameter does not comply with the associated constraints.
@@ -357,13 +446,14 @@ public interface AmazonSNS {
 
     /**
      * <p>
-     * Deletes a platform application object for one of the supported push notification services, such as APNS and GCM.
-     * For more information, see <a href="https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">Using Amazon SNS
-     * Mobile Push Notifications</a>.
+     * Deletes a platform application object for one of the supported push notification services, such as APNS and GCM
+     * (Firebase Cloud Messaging). For more information, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">Using Amazon SNS Mobile Push
+     * Notifications</a>.
      * </p>
      * 
      * @param deletePlatformApplicationRequest
-     *        Input for DeletePlatformApplication action.
+     *        Input for <code>DeletePlatformApplication</code> action.
      * @return Result of the DeletePlatformApplication operation returned by the service.
      * @throws InvalidParameterException
      *         Indicates that a request parameter does not comply with the associated constraints.
@@ -379,6 +469,41 @@ public interface AmazonSNS {
 
     /**
      * <p>
+     * Deletes an Amazon Web Services account's verified or pending phone number from the SMS sandbox.
+     * </p>
+     * <p>
+     * When you start using Amazon SNS to send SMS messages, your Amazon Web Services account is in the <i>SMS
+     * sandbox</i>. The SMS sandbox provides a safe environment for you to try Amazon SNS features without risking your
+     * reputation as an SMS sender. While your Amazon Web Services account is in the SMS sandbox, you can use all of the
+     * features of Amazon SNS. However, you can send SMS messages only to verified destination phone numbers. For more
+     * information, including how to move out of the sandbox to send messages without restrictions, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html">SMS sandbox</a> in the <i>Amazon SNS
+     * Developer Guide</i>.
+     * </p>
+     * 
+     * @param deleteSMSSandboxPhoneNumberRequest
+     * @return Result of the DeleteSMSSandboxPhoneNumber operation returned by the service.
+     * @throws AuthorizationErrorException
+     *         Indicates that the user has been denied access to the requested resource.
+     * @throws InternalErrorException
+     *         Indicates an internal service error.
+     * @throws InvalidParameterException
+     *         Indicates that a request parameter does not comply with the associated constraints.
+     * @throws ResourceNotFoundException
+     *         Can’t perform the action on the specified resource. Make sure that the resource exists.
+     * @throws UserErrorException
+     *         Indicates that a request parameter does not comply with the associated constraints.
+     * @throws ThrottledException
+     *         Indicates that the rate at which requests have been submitted for this action exceeds the limit for your
+     *         Amazon Web Services account.
+     * @sample AmazonSNS.DeleteSMSSandboxPhoneNumber
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/DeleteSMSSandboxPhoneNumber"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteSMSSandboxPhoneNumberResult deleteSMSSandboxPhoneNumber(DeleteSMSSandboxPhoneNumberRequest deleteSMSSandboxPhoneNumberRequest);
+
+    /**
+     * <p>
      * Deletes a topic and all its subscriptions. Deleting a topic might prevent some messages previously sent to the
      * topic from being delivered to subscribers. This action is idempotent, so deleting a topic that does not exist
      * does not result in an error.
@@ -388,6 +513,8 @@ public interface AmazonSNS {
      * @return Result of the DeleteTopic operation returned by the service.
      * @throws InvalidParameterException
      *         Indicates that a request parameter does not comply with the associated constraints.
+     * @throws InvalidStateException
+     *         Indicates that the specified state is not a valid state for an event source.
      * @throws InternalErrorException
      *         Indicates an internal service error.
      * @throws AuthorizationErrorException
@@ -416,13 +543,39 @@ public interface AmazonSNS {
 
     /**
      * <p>
+     * Retrieves the specified inline <code>DataProtectionPolicy</code> document that is stored in the specified Amazon
+     * SNS topic.
+     * </p>
+     * 
+     * @param getDataProtectionPolicyRequest
+     * @return Result of the GetDataProtectionPolicy operation returned by the service.
+     * @throws InvalidParameterException
+     *         Indicates that a request parameter does not comply with the associated constraints.
+     * @throws InternalErrorException
+     *         Indicates an internal service error.
+     * @throws NotFoundException
+     *         Indicates that the requested resource does not exist.
+     * @throws AuthorizationErrorException
+     *         Indicates that the user has been denied access to the requested resource.
+     * @throws InvalidSecurityException
+     *         The credential signature isn't valid. You must use an HTTPS endpoint and sign your request using
+     *         Signature Version 4.
+     * @sample AmazonSNS.GetDataProtectionPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/GetDataProtectionPolicy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    GetDataProtectionPolicyResult getDataProtectionPolicy(GetDataProtectionPolicyRequest getDataProtectionPolicyRequest);
+
+    /**
+     * <p>
      * Retrieves the endpoint attributes for a device on one of the supported push notification services, such as GCM
-     * and APNS. For more information, see <a href="https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">Using
-     * Amazon SNS Mobile Push Notifications</a>.
+     * (Firebase Cloud Messaging) and APNS. For more information, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">Using Amazon SNS Mobile Push
+     * Notifications</a>.
      * </p>
      * 
      * @param getEndpointAttributesRequest
-     *        Input for GetEndpointAttributes action.
+     *        Input for <code>GetEndpointAttributes</code> action.
      * @return Result of the GetEndpointAttributes operation returned by the service.
      * @throws InvalidParameterException
      *         Indicates that a request parameter does not comply with the associated constraints.
@@ -441,13 +594,13 @@ public interface AmazonSNS {
     /**
      * <p>
      * Retrieves the attributes of the platform application object for the supported push notification services, such as
-     * APNS and GCM. For more information, see <a
+     * APNS and GCM (Firebase Cloud Messaging). For more information, see <a
      * href="https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">Using Amazon SNS Mobile Push
      * Notifications</a>.
      * </p>
      * 
      * @param getPlatformApplicationAttributesRequest
-     *        Input for GetPlatformApplicationAttributes action.
+     *        Input for <code>GetPlatformApplicationAttributes</code> action.
      * @return Result of the GetPlatformApplicationAttributes operation returned by the service.
      * @throws InvalidParameterException
      *         Indicates that a request parameter does not comply with the associated constraints.
@@ -465,7 +618,7 @@ public interface AmazonSNS {
 
     /**
      * <p>
-     * Returns the settings for sending SMS messages from your account.
+     * Returns the settings for sending SMS messages from your Amazon Web Services account.
      * </p>
      * <p>
      * These settings are set with the <code>SetSMSAttributes</code> action.
@@ -476,7 +629,7 @@ public interface AmazonSNS {
      * @return Result of the GetSMSAttributes operation returned by the service.
      * @throws ThrottledException
      *         Indicates that the rate at which requests have been submitted for this action exceeds the limit for your
-     *         account.
+     *         Amazon Web Services account.
      * @throws InternalErrorException
      *         Indicates an internal service error.
      * @throws AuthorizationErrorException
@@ -488,6 +641,36 @@ public interface AmazonSNS {
      *      Documentation</a>
      */
     GetSMSAttributesResult getSMSAttributes(GetSMSAttributesRequest getSMSAttributesRequest);
+
+    /**
+     * <p>
+     * Retrieves the SMS sandbox status for the calling Amazon Web Services account in the target Amazon Web Services
+     * Region.
+     * </p>
+     * <p>
+     * When you start using Amazon SNS to send SMS messages, your Amazon Web Services account is in the <i>SMS
+     * sandbox</i>. The SMS sandbox provides a safe environment for you to try Amazon SNS features without risking your
+     * reputation as an SMS sender. While your Amazon Web Services account is in the SMS sandbox, you can use all of the
+     * features of Amazon SNS. However, you can send SMS messages only to verified destination phone numbers. For more
+     * information, including how to move out of the sandbox to send messages without restrictions, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html">SMS sandbox</a> in the <i>Amazon SNS
+     * Developer Guide</i>.
+     * </p>
+     * 
+     * @param getSMSSandboxAccountStatusRequest
+     * @return Result of the GetSMSSandboxAccountStatus operation returned by the service.
+     * @throws AuthorizationErrorException
+     *         Indicates that the user has been denied access to the requested resource.
+     * @throws InternalErrorException
+     *         Indicates an internal service error.
+     * @throws ThrottledException
+     *         Indicates that the rate at which requests have been submitted for this action exceeds the limit for your
+     *         Amazon Web Services account.
+     * @sample AmazonSNS.GetSMSSandboxAccountStatus
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/GetSMSSandboxAccountStatus" target="_top">AWS
+     *      API Documentation</a>
+     */
+    GetSMSSandboxAccountStatusResult getSMSSandboxAccountStatus(GetSMSSandboxAccountStatusRequest getSMSSandboxAccountStatusRequest);
 
     /**
      * <p>
@@ -553,20 +736,21 @@ public interface AmazonSNS {
 
     /**
      * <p>
-     * Lists the endpoints and endpoint attributes for devices in a supported push notification service, such as GCM and
-     * APNS. The results for <code>ListEndpointsByPlatformApplication</code> are paginated and return a limited list of
-     * endpoints, up to 100. If additional records are available after the first page results, then a NextToken string
-     * will be returned. To receive the next page, you call <code>ListEndpointsByPlatformApplication</code> again using
-     * the NextToken string received from the previous call. When there are no more records to return, NextToken will be
-     * null. For more information, see <a href="https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">Using
-     * Amazon SNS Mobile Push Notifications</a>.
+     * Lists the endpoints and endpoint attributes for devices in a supported push notification service, such as GCM
+     * (Firebase Cloud Messaging) and APNS. The results for <code>ListEndpointsByPlatformApplication</code> are
+     * paginated and return a limited list of endpoints, up to 100. If additional records are available after the first
+     * page results, then a NextToken string will be returned. To receive the next page, you call
+     * <code>ListEndpointsByPlatformApplication</code> again using the NextToken string received from the previous call.
+     * When there are no more records to return, NextToken will be null. For more information, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">Using Amazon SNS Mobile Push
+     * Notifications</a>.
      * </p>
      * <p>
      * This action is throttled at 30 transactions per second (TPS).
      * </p>
      * 
      * @param listEndpointsByPlatformApplicationRequest
-     *        Input for ListEndpointsByPlatformApplication action.
+     *        Input for <code>ListEndpointsByPlatformApplication</code> action.
      * @return Result of the ListEndpointsByPlatformApplication operation returned by the service.
      * @throws InvalidParameterException
      *         Indicates that a request parameter does not comply with the associated constraints.
@@ -585,6 +769,33 @@ public interface AmazonSNS {
 
     /**
      * <p>
+     * Lists the calling Amazon Web Services account's dedicated origination numbers and their metadata. For more
+     * information about origination numbers, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/channels-sms-originating-identities-origination-numbers.html"
+     * >Origination numbers</a> in the <i>Amazon SNS Developer Guide</i>.
+     * </p>
+     * 
+     * @param listOriginationNumbersRequest
+     * @return Result of the ListOriginationNumbers operation returned by the service.
+     * @throws InternalErrorException
+     *         Indicates an internal service error.
+     * @throws AuthorizationErrorException
+     *         Indicates that the user has been denied access to the requested resource.
+     * @throws ThrottledException
+     *         Indicates that the rate at which requests have been submitted for this action exceeds the limit for your
+     *         Amazon Web Services account.
+     * @throws InvalidParameterException
+     *         Indicates that a request parameter does not comply with the associated constraints.
+     * @throws ValidationException
+     *         Indicates that a parameter in the request is invalid.
+     * @sample AmazonSNS.ListOriginationNumbers
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ListOriginationNumbers" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListOriginationNumbersResult listOriginationNumbers(ListOriginationNumbersRequest listOriginationNumbersRequest);
+
+    /**
+     * <p>
      * Returns a list of phone numbers that are opted out, meaning you cannot send SMS messages to them.
      * </p>
      * <p>
@@ -600,7 +811,7 @@ public interface AmazonSNS {
      * @return Result of the ListPhoneNumbersOptedOut operation returned by the service.
      * @throws ThrottledException
      *         Indicates that the rate at which requests have been submitted for this action exceeds the limit for your
-     *         account.
+     *         Amazon Web Services account.
      * @throws InternalErrorException
      *         Indicates an internal service error.
      * @throws AuthorizationErrorException
@@ -615,11 +826,12 @@ public interface AmazonSNS {
 
     /**
      * <p>
-     * Lists the platform application objects for the supported push notification services, such as APNS and GCM. The
-     * results for <code>ListPlatformApplications</code> are paginated and return a limited list of applications, up to
-     * 100. If additional records are available after the first page results, then a NextToken string will be returned.
-     * To receive the next page, you call <code>ListPlatformApplications</code> using the NextToken string received from
-     * the previous call. When there are no more records to return, NextToken will be null. For more information, see <a
+     * Lists the platform application objects for the supported push notification services, such as APNS and GCM
+     * (Firebase Cloud Messaging). The results for <code>ListPlatformApplications</code> are paginated and return a
+     * limited list of applications, up to 100. If additional records are available after the first page results, then a
+     * NextToken string will be returned. To receive the next page, you call <code>ListPlatformApplications</code> using
+     * the NextToken string received from the previous call. When there are no more records to return,
+     * <code>NextToken</code> will be null. For more information, see <a
      * href="https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">Using Amazon SNS Mobile Push
      * Notifications</a>.
      * </p>
@@ -628,7 +840,7 @@ public interface AmazonSNS {
      * </p>
      * 
      * @param listPlatformApplicationsRequest
-     *        Input for ListPlatformApplications action.
+     *        Input for <code>ListPlatformApplications</code> action.
      * @return Result of the ListPlatformApplications operation returned by the service.
      * @throws InvalidParameterException
      *         Indicates that a request parameter does not comply with the associated constraints.
@@ -648,6 +860,40 @@ public interface AmazonSNS {
      * @see #listPlatformApplications(ListPlatformApplicationsRequest)
      */
     ListPlatformApplicationsResult listPlatformApplications();
+
+    /**
+     * <p>
+     * Lists the calling Amazon Web Services account's current verified and pending destination phone numbers in the SMS
+     * sandbox.
+     * </p>
+     * <p>
+     * When you start using Amazon SNS to send SMS messages, your Amazon Web Services account is in the <i>SMS
+     * sandbox</i>. The SMS sandbox provides a safe environment for you to try Amazon SNS features without risking your
+     * reputation as an SMS sender. While your Amazon Web Services account is in the SMS sandbox, you can use all of the
+     * features of Amazon SNS. However, you can send SMS messages only to verified destination phone numbers. For more
+     * information, including how to move out of the sandbox to send messages without restrictions, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html">SMS sandbox</a> in the <i>Amazon SNS
+     * Developer Guide</i>.
+     * </p>
+     * 
+     * @param listSMSSandboxPhoneNumbersRequest
+     * @return Result of the ListSMSSandboxPhoneNumbers operation returned by the service.
+     * @throws AuthorizationErrorException
+     *         Indicates that the user has been denied access to the requested resource.
+     * @throws InternalErrorException
+     *         Indicates an internal service error.
+     * @throws InvalidParameterException
+     *         Indicates that a request parameter does not comply with the associated constraints.
+     * @throws ResourceNotFoundException
+     *         Can’t perform the action on the specified resource. Make sure that the resource exists.
+     * @throws ThrottledException
+     *         Indicates that the rate at which requests have been submitted for this action exceeds the limit for your
+     *         Amazon Web Services account.
+     * @sample AmazonSNS.ListSMSSandboxPhoneNumbers
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ListSMSSandboxPhoneNumbers" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListSMSSandboxPhoneNumbersResult listSMSSandboxPhoneNumbers(ListSMSSandboxPhoneNumbersRequest listSMSSandboxPhoneNumbersRequest);
 
     /**
      * <p>
@@ -739,7 +985,7 @@ public interface AmazonSNS {
      * @param listTagsForResourceRequest
      * @return Result of the ListTagsForResource operation returned by the service.
      * @throws ResourceNotFoundException
-     *         Can't tag resource. Verify that the topic exists.
+     *         Can’t perform the action on the specified resource. Make sure that the resource exists.
      * @throws TagPolicyException
      *         The request doesn't comply with the IAM tag policy. Correct your request and then retry it.
      * @throws InvalidParameterException
@@ -806,7 +1052,7 @@ public interface AmazonSNS {
      * @return Result of the OptInPhoneNumber operation returned by the service.
      * @throws ThrottledException
      *         Indicates that the rate at which requests have been submitted for this action exceeds the limit for your
-     *         account.
+     *         Amazon Web Services account.
      * @throws InternalErrorException
      *         Indicates an internal service error.
      * @throws AuthorizationErrorException
@@ -821,18 +1067,19 @@ public interface AmazonSNS {
 
     /**
      * <p>
-     * Sends a message to an Amazon SNS topic or sends a text message (SMS message) directly to a phone number.
+     * Sends a message to an Amazon SNS topic, a text message (SMS message) directly to a phone number, or a message to
+     * a mobile platform endpoint (when you specify the <code>TargetArn</code>).
      * </p>
      * <p>
      * If you send a message to a topic, Amazon SNS delivers the message to each endpoint that is subscribed to the
      * topic. The format of the message depends on the notification protocol for each subscribed endpoint.
      * </p>
      * <p>
-     * When a <code>messageId</code> is returned, the message has been saved and Amazon SNS will attempt to deliver it
-     * shortly.
+     * When a <code>messageId</code> is returned, the message is saved and Amazon SNS immediately delivers it to
+     * subscribers.
      * </p>
      * <p>
-     * To use the <code>Publish</code> action for sending a message to a mobile endpoint, such as an app on a Kindle
+     * To use the <code>Publish</code> action for publishing a message to a mobile endpoint, such as an app on a Kindle
      * device or mobile phone, you must specify the EndpointArn for the TargetArn parameter. The EndpointArn is returned
      * when making a call with the <code>CreatePlatformEndpoint</code> action.
      * </p>
@@ -841,6 +1088,11 @@ public interface AmazonSNS {
      * href="https://docs.aws.amazon.com/sns/latest/dg/mobile-push-send-custommessage.html">Send Custom
      * Platform-Specific Payloads in Messages to Mobile Devices</a>.
      * </p>
+     * <important>
+     * <p>
+     * You can publish messages only to topics and endpoints in the same Amazon Web Services Region.
+     * </p>
+     * </important>
      * 
      * @param publishRequest
      *        Input for Publish action.
@@ -860,25 +1112,26 @@ public interface AmazonSNS {
      * @throws AuthorizationErrorException
      *         Indicates that the user has been denied access to the requested resource.
      * @throws KMSDisabledException
-     *         The request was rejected because the specified customer master key (CMK) isn't enabled.
+     *         The request was rejected because the specified Amazon Web Services KMS key isn't enabled.
      * @throws KMSInvalidStateException
      *         The request was rejected because the state of the specified resource isn't valid for this request. For
-     *         more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How
-     *         Key State Affects Use of a Customer Master Key</a> in the <i>AWS Key Management Service Developer
-     *         Guide</i>.
+     *         more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">Key
+     *         states of Amazon Web Services KMS keys</a> in the <i>Key Management Service Developer Guide</i>.
      * @throws KMSNotFoundException
      *         The request was rejected because the specified entity or resource can't be found.
      * @throws KMSOptInRequiredException
-     *         The AWS access key ID needs a subscription for the service.
+     *         The Amazon Web Services access key ID needs a subscription for the service.
      * @throws KMSThrottlingException
      *         The request was denied due to request throttling. For more information about throttling, see <a
      *         href="https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#requests-per-second">Limits</a>
-     *         in the <i>AWS Key Management Service Developer Guide.</i>
+     *         in the <i>Key Management Service Developer Guide.</i>
      * @throws KMSAccessDeniedException
      *         The ciphertext references a key that doesn't exist or that you don't have access to.
      * @throws InvalidSecurityException
      *         The credential signature isn't valid. You must use an HTTPS endpoint and sign your request using
      *         Signature Version 4.
+     * @throws ValidationException
+     *         Indicates that a parameter in the request is invalid.
      * @sample AmazonSNS.Publish
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/Publish" target="_top">AWS API
      *      Documentation</a>
@@ -901,8 +1154,126 @@ public interface AmazonSNS {
 
     /**
      * <p>
+     * Publishes up to ten messages to the specified topic. This is a batch version of <code>Publish</code>. For FIFO
+     * topics, multiple messages within a single batch are published in the order they are sent, and messages are
+     * deduplicated within the batch and across batches for 5 minutes.
+     * </p>
+     * <p>
+     * The result of publishing each message is reported individually in the response. Because the batch request can
+     * result in a combination of successful and unsuccessful actions, you should check for batch errors even when the
+     * call returns an HTTP status code of <code>200</code>.
+     * </p>
+     * <p>
+     * The maximum allowed individual message size and the maximum total payload size (the sum of the individual lengths
+     * of all of the batched messages) are both 256 KB (262,144 bytes).
+     * </p>
+     * <p>
+     * Some actions take lists of parameters. These lists are specified using the <code>param.n</code> notation. Values
+     * of <code>n</code> are integers starting from 1. For example, a parameter list with two elements looks like this:
+     * </p>
+     * <p>
+     * &amp;AttributeName.1=first
+     * </p>
+     * <p>
+     * &amp;AttributeName.2=second
+     * </p>
+     * <p>
+     * If you send a batch message to a topic, Amazon SNS publishes the batch message to each endpoint that is
+     * subscribed to the topic. The format of the batch message depends on the notification protocol for each subscribed
+     * endpoint.
+     * </p>
+     * <p>
+     * When a <code>messageId</code> is returned, the batch message is saved and Amazon SNS immediately delivers the
+     * message to subscribers.
+     * </p>
+     * 
+     * @param publishBatchRequest
+     * @return Result of the PublishBatch operation returned by the service.
+     * @throws InvalidParameterException
+     *         Indicates that a request parameter does not comply with the associated constraints.
+     * @throws InvalidParameterValueException
+     *         Indicates that a request parameter does not comply with the associated constraints.
+     * @throws InternalErrorException
+     *         Indicates an internal service error.
+     * @throws NotFoundException
+     *         Indicates that the requested resource does not exist.
+     * @throws EndpointDisabledException
+     *         Exception error indicating endpoint disabled.
+     * @throws PlatformApplicationDisabledException
+     *         Exception error indicating platform application disabled.
+     * @throws AuthorizationErrorException
+     *         Indicates that the user has been denied access to the requested resource.
+     * @throws BatchEntryIdsNotDistinctException
+     *         Two or more batch entries in the request have the same <code>Id</code>.
+     * @throws BatchRequestTooLongException
+     *         The length of all the batch messages put together is more than the limit.
+     * @throws EmptyBatchRequestException
+     *         The batch request doesn't contain any entries.
+     * @throws InvalidBatchEntryIdException
+     *         The <code>Id</code> of a batch entry in a batch request doesn't abide by the specification.
+     * @throws TooManyEntriesInBatchRequestException
+     *         The batch request contains more entries than permissible.
+     * @throws KMSDisabledException
+     *         The request was rejected because the specified Amazon Web Services KMS key isn't enabled.
+     * @throws KMSInvalidStateException
+     *         The request was rejected because the state of the specified resource isn't valid for this request. For
+     *         more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">Key
+     *         states of Amazon Web Services KMS keys</a> in the <i>Key Management Service Developer Guide</i>.
+     * @throws KMSNotFoundException
+     *         The request was rejected because the specified entity or resource can't be found.
+     * @throws KMSOptInRequiredException
+     *         The Amazon Web Services access key ID needs a subscription for the service.
+     * @throws KMSThrottlingException
+     *         The request was denied due to request throttling. For more information about throttling, see <a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#requests-per-second">Limits</a>
+     *         in the <i>Key Management Service Developer Guide.</i>
+     * @throws KMSAccessDeniedException
+     *         The ciphertext references a key that doesn't exist or that you don't have access to.
+     * @throws InvalidSecurityException
+     *         The credential signature isn't valid. You must use an HTTPS endpoint and sign your request using
+     *         Signature Version 4.
+     * @throws ValidationException
+     *         Indicates that a parameter in the request is invalid.
+     * @sample AmazonSNS.PublishBatch
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/PublishBatch" target="_top">AWS API
+     *      Documentation</a>
+     */
+    PublishBatchResult publishBatch(PublishBatchRequest publishBatchRequest);
+
+    /**
+     * <p>
+     * Adds or updates an inline policy document that is stored in the specified Amazon SNS topic.
+     * </p>
+     * 
+     * @param putDataProtectionPolicyRequest
+     * @return Result of the PutDataProtectionPolicy operation returned by the service.
+     * @throws InvalidParameterException
+     *         Indicates that a request parameter does not comply with the associated constraints.
+     * @throws InternalErrorException
+     *         Indicates an internal service error.
+     * @throws NotFoundException
+     *         Indicates that the requested resource does not exist.
+     * @throws AuthorizationErrorException
+     *         Indicates that the user has been denied access to the requested resource.
+     * @throws InvalidSecurityException
+     *         The credential signature isn't valid. You must use an HTTPS endpoint and sign your request using
+     *         Signature Version 4.
+     * @sample AmazonSNS.PutDataProtectionPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/PutDataProtectionPolicy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    PutDataProtectionPolicyResult putDataProtectionPolicy(PutDataProtectionPolicyRequest putDataProtectionPolicyRequest);
+
+    /**
+     * <p>
      * Removes a statement from a topic's access control policy.
      * </p>
+     * <note>
+     * <p>
+     * To remove the ability to change topic permissions, you must deny permissions to the <code>AddPermission</code>,
+     * <code>RemovePermission</code>, and <code>SetTopicAttributes</code> actions in your IAM policy.
+     * </p>
+     * </note>
      * 
      * @param removePermissionRequest
      *        Input for RemovePermission action.
@@ -931,12 +1302,13 @@ public interface AmazonSNS {
     /**
      * <p>
      * Sets the attributes for an endpoint for a device on one of the supported push notification services, such as GCM
-     * and APNS. For more information, see <a href="https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">Using
-     * Amazon SNS Mobile Push Notifications</a>.
+     * (Firebase Cloud Messaging) and APNS. For more information, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">Using Amazon SNS Mobile Push
+     * Notifications</a>.
      * </p>
      * 
      * @param setEndpointAttributesRequest
-     *        Input for SetEndpointAttributes action.
+     *        Input for <code>SetEndpointAttributes</code> action.
      * @return Result of the SetEndpointAttributes operation returned by the service.
      * @throws InvalidParameterException
      *         Indicates that a request parameter does not comply with the associated constraints.
@@ -955,14 +1327,15 @@ public interface AmazonSNS {
     /**
      * <p>
      * Sets the attributes of the platform application object for the supported push notification services, such as APNS
-     * and GCM. For more information, see <a href="https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">Using
-     * Amazon SNS Mobile Push Notifications</a>. For information on configuring attributes for message delivery status,
-     * see <a href="https://docs.aws.amazon.com/sns/latest/dg/sns-msg-status.html">Using Amazon SNS Application
-     * Attributes for Message Delivery Status</a>.
+     * and GCM (Firebase Cloud Messaging). For more information, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html">Using Amazon SNS Mobile Push
+     * Notifications</a>. For information on configuring attributes for message delivery status, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-msg-status.html">Using Amazon SNS Application Attributes for
+     * Message Delivery Status</a>.
      * </p>
      * 
      * @param setPlatformApplicationAttributesRequest
-     *        Input for SetPlatformApplicationAttributes action.
+     *        Input for <code>SetPlatformApplicationAttributes</code> action.
      * @return Result of the SetPlatformApplicationAttributes operation returned by the service.
      * @throws InvalidParameterException
      *         Indicates that a request parameter does not comply with the associated constraints.
@@ -985,9 +1358,15 @@ public interface AmazonSNS {
      * <p>
      * You can override some of these settings for a single message when you use the <code>Publish</code> action with
      * the <code>MessageAttributes.entry.N</code> parameter. For more information, see <a
-     * href="https://docs.aws.amazon.com/sns/latest/dg/sms_publish-to-phone.html">Sending an SMS Message</a> in the
-     * <i>Amazon SNS Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sms_publish-to-phone.html">Publishing to a mobile phone</a> in
+     * the <i>Amazon SNS Developer Guide</i>.
      * </p>
+     * <note>
+     * <p>
+     * To use this operation, you must grant the Amazon SNS service principal (<code>sns.amazonaws.com</code>)
+     * permission to perform the <code>s3:ListBucket</code> action.
+     * </p>
+     * </note>
      * 
      * @param setSMSAttributesRequest
      *        The input for the SetSMSAttributes action.
@@ -996,7 +1375,7 @@ public interface AmazonSNS {
      *         Indicates that a request parameter does not comply with the associated constraints.
      * @throws ThrottledException
      *         Indicates that the rate at which requests have been submitted for this action exceeds the limit for your
-     *         account.
+     *         Amazon Web Services account.
      * @throws InternalErrorException
      *         Indicates an internal service error.
      * @throws AuthorizationErrorException
@@ -1018,8 +1397,10 @@ public interface AmazonSNS {
      * @throws InvalidParameterException
      *         Indicates that a request parameter does not comply with the associated constraints.
      * @throws FilterPolicyLimitExceededException
-     *         Indicates that the number of filter polices in your AWS account exceeds the limit. To add more filter
-     *         polices, submit an SNS Limit Increase case in the AWS Support Center.
+     *         Indicates that the number of filter polices in your Amazon Web Services account exceeds the limit. To add
+     *         more filter polices, submit an Amazon SNS Limit Increase case in the Amazon Web Services Support Center.
+     * @throws ReplayLimitExceededException
+     *         Indicates that the request parameter has exceeded the maximum number of concurrent message replays.
      * @throws InternalErrorException
      *         Indicates an internal service error.
      * @throws NotFoundException
@@ -1043,6 +1424,12 @@ public interface AmazonSNS {
      * <p>
      * Allows a topic owner to set an attribute of the topic to a new value.
      * </p>
+     * <note>
+     * <p>
+     * To remove the ability to change topic permissions, you must deny permissions to the <code>AddPermission</code>,
+     * <code>RemovePermission</code>, and <code>SetTopicAttributes</code> actions in your IAM policy.
+     * </p>
+     * </note>
      * 
      * @param setTopicAttributesRequest
      *        Input for SetTopicAttributes action.
@@ -1073,9 +1460,13 @@ public interface AmazonSNS {
 
     /**
      * <p>
-     * Prepares to subscribe an endpoint by sending the endpoint a confirmation message. To actually create a
-     * subscription, the endpoint owner must call the <code>ConfirmSubscription</code> action with the token from the
-     * confirmation message. Confirmation tokens are valid for three days.
+     * Subscribes an endpoint to an Amazon SNS topic. If the endpoint type is HTTP/S or email, or if the endpoint and
+     * the topic are not in the same Amazon Web Services account, the endpoint owner must run the
+     * <code>ConfirmSubscription</code> action to confirm the subscription.
+     * </p>
+     * <p>
+     * You call the <code>ConfirmSubscription</code> action with the token from the subscription response. Confirmation
+     * tokens are valid for two days.
      * </p>
      * <p>
      * This action is throttled at 100 transactions per second (TPS).
@@ -1087,8 +1478,10 @@ public interface AmazonSNS {
      * @throws SubscriptionLimitExceededException
      *         Indicates that the customer already owns the maximum allowed number of subscriptions.
      * @throws FilterPolicyLimitExceededException
-     *         Indicates that the number of filter polices in your AWS account exceeds the limit. To add more filter
-     *         polices, submit an SNS Limit Increase case in the AWS Support Center.
+     *         Indicates that the number of filter polices in your Amazon Web Services account exceeds the limit. To add
+     *         more filter polices, submit an Amazon SNS Limit Increase case in the Amazon Web Services Support Center.
+     * @throws ReplayLimitExceededException
+     *         Indicates that the request parameter has exceeded the maximum number of concurrent message replays.
      * @throws InvalidParameterException
      *         Indicates that a request parameter does not comply with the associated constraints.
      * @throws InternalErrorException
@@ -1145,22 +1538,18 @@ public interface AmazonSNS {
      * </li>
      * <li>
      * <p>
-     * Tagging actions are limited to 10 TPS per AWS account. If your application requires a higher throughput, file a
-     * <a href="https://console.aws.amazon.com/support/home#/case/create?issueType=technical">technical support
+     * Tagging actions are limited to 10 TPS per Amazon Web Services account, per Amazon Web Services Region. If your
+     * application requires a higher throughput, file a <a
+     * href="https://console.aws.amazon.com/support/home#/case/create?issueType=technical">technical support
      * request</a>.
      * </p>
      * </li>
      * </ul>
-     * <p>
-     * For a full list of tag restrictions, see <a
-     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-limits.html#limits-topics">Limits Related to Topics</a> in
-     * the <i>Amazon SNS Developer Guide</i>.
-     * </p>
      * 
      * @param tagResourceRequest
      * @return Result of the TagResource operation returned by the service.
      * @throws ResourceNotFoundException
-     *         Can't tag resource. Verify that the topic exists.
+     *         Can’t perform the action on the specified resource. Make sure that the resource exists.
      * @throws TagLimitExceededException
      *         Can't add more than 50 tags to a topic.
      * @throws StaleTagException
@@ -1183,11 +1572,17 @@ public interface AmazonSNS {
     /**
      * <p>
      * Deletes a subscription. If the subscription requires authentication for deletion, only the owner of the
-     * subscription or the topic's owner can unsubscribe, and an AWS signature is required. If the
+     * subscription or the topic's owner can unsubscribe, and an Amazon Web Services signature is required. If the
      * <code>Unsubscribe</code> call does not require authentication and the requester is not the subscription owner, a
      * final cancellation message is delivered to the endpoint, so that the endpoint owner can easily resubscribe to the
      * topic if the <code>Unsubscribe</code> request was unintended.
      * </p>
+     * <note>
+     * <p>
+     * Amazon SQS queue subscriptions require authentication for deletion. Only the owner of the subscription, or the
+     * owner of the topic can unsubscribe using the required Amazon Web Services signature.
+     * </p>
+     * </note>
      * <p>
      * This action is throttled at 100 transactions per second (TPS).
      * </p>
@@ -1229,7 +1624,7 @@ public interface AmazonSNS {
      * @param untagResourceRequest
      * @return Result of the UntagResource operation returned by the service.
      * @throws ResourceNotFoundException
-     *         Can't tag resource. Verify that the topic exists.
+     *         Can’t perform the action on the specified resource. Make sure that the resource exists.
      * @throws TagLimitExceededException
      *         Can't add more than 50 tags to a topic.
      * @throws StaleTagException
@@ -1248,6 +1643,41 @@ public interface AmazonSNS {
      *      Documentation</a>
      */
     UntagResourceResult untagResource(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * <p>
+     * Verifies a destination phone number with a one-time password (OTP) for the calling Amazon Web Services account.
+     * </p>
+     * <p>
+     * When you start using Amazon SNS to send SMS messages, your Amazon Web Services account is in the <i>SMS
+     * sandbox</i>. The SMS sandbox provides a safe environment for you to try Amazon SNS features without risking your
+     * reputation as an SMS sender. While your Amazon Web Services account is in the SMS sandbox, you can use all of the
+     * features of Amazon SNS. However, you can send SMS messages only to verified destination phone numbers. For more
+     * information, including how to move out of the sandbox to send messages without restrictions, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html">SMS sandbox</a> in the <i>Amazon SNS
+     * Developer Guide</i>.
+     * </p>
+     * 
+     * @param verifySMSSandboxPhoneNumberRequest
+     * @return Result of the VerifySMSSandboxPhoneNumber operation returned by the service.
+     * @throws AuthorizationErrorException
+     *         Indicates that the user has been denied access to the requested resource.
+     * @throws InternalErrorException
+     *         Indicates an internal service error.
+     * @throws InvalidParameterException
+     *         Indicates that a request parameter does not comply with the associated constraints.
+     * @throws ResourceNotFoundException
+     *         Can’t perform the action on the specified resource. Make sure that the resource exists.
+     * @throws VerificationException
+     *         Indicates that the one-time password (OTP) used for verification is invalid.
+     * @throws ThrottledException
+     *         Indicates that the rate at which requests have been submitted for this action exceeds the limit for your
+     *         Amazon Web Services account.
+     * @sample AmazonSNS.VerifySMSSandboxPhoneNumber
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/VerifySMSSandboxPhoneNumber"
+     *      target="_top">AWS API Documentation</a>
+     */
+    VerifySMSSandboxPhoneNumberResult verifySMSSandboxPhoneNumber(VerifySMSSandboxPhoneNumberRequest verifySMSSandboxPhoneNumberRequest);
 
     /**
      * Shuts down this client object, releasing any resources that might be held open. This is an optional method, and

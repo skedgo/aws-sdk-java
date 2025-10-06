@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -57,6 +57,22 @@ public class WindowsFileSystemConfigurationJsonUnmarshaller implements Unmarshal
                     windowsFileSystemConfiguration.setSelfManagedActiveDirectoryConfiguration(SelfManagedActiveDirectoryAttributesJsonUnmarshaller
                             .getInstance().unmarshall(context));
                 }
+                if (context.testExpression("DeploymentType", targetDepth)) {
+                    context.nextToken();
+                    windowsFileSystemConfiguration.setDeploymentType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("RemoteAdministrationEndpoint", targetDepth)) {
+                    context.nextToken();
+                    windowsFileSystemConfiguration.setRemoteAdministrationEndpoint(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("PreferredSubnetId", targetDepth)) {
+                    context.nextToken();
+                    windowsFileSystemConfiguration.setPreferredSubnetId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("PreferredFileServerIp", targetDepth)) {
+                    context.nextToken();
+                    windowsFileSystemConfiguration.setPreferredFileServerIp(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("ThroughputCapacity", targetDepth)) {
                     context.nextToken();
                     windowsFileSystemConfiguration.setThroughputCapacity(context.getUnmarshaller(Integer.class).unmarshall(context));
@@ -64,7 +80,8 @@ public class WindowsFileSystemConfigurationJsonUnmarshaller implements Unmarshal
                 if (context.testExpression("MaintenanceOperationsInProgress", targetDepth)) {
                     context.nextToken();
                     windowsFileSystemConfiguration.setMaintenanceOperationsInProgress(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("WeeklyMaintenanceStartTime", targetDepth)) {
                     context.nextToken();
@@ -81,6 +98,20 @@ public class WindowsFileSystemConfigurationJsonUnmarshaller implements Unmarshal
                 if (context.testExpression("CopyTagsToBackups", targetDepth)) {
                     context.nextToken();
                     windowsFileSystemConfiguration.setCopyTagsToBackups(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("Aliases", targetDepth)) {
+                    context.nextToken();
+                    windowsFileSystemConfiguration.setAliases(new ListUnmarshaller<Alias>(AliasJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("AuditLogConfiguration", targetDepth)) {
+                    context.nextToken();
+                    windowsFileSystemConfiguration.setAuditLogConfiguration(WindowsAuditLogConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DiskIopsConfiguration", targetDepth)) {
+                    context.nextToken();
+                    windowsFileSystemConfiguration.setDiskIopsConfiguration(DiskIopsConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,9 @@ public class CreateVpcRequest extends AmazonWebServiceRequest implements Seriali
 
     /**
      * <p>
-     * The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>.
+     * The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>. We modify the
+     * specified CIDR block to its canonical form; for example, if you specify <code>100.68.0.18/18</code>, we modify it
+     * to <code>100.68.0.0/18</code>.
      * </p>
      */
     private String cidrBlock;
@@ -38,6 +40,58 @@ public class CreateVpcRequest extends AmazonWebServiceRequest implements Seriali
      * </p>
      */
     private Boolean amazonProvidedIpv6CidrBlock;
+    /**
+     * <p>
+     * The ID of an IPv6 address pool from which to allocate the IPv6 CIDR block.
+     * </p>
+     */
+    private String ipv6Pool;
+    /**
+     * <p>
+     * The IPv6 CIDR block from the IPv6 address pool. You must also specify <code>Ipv6Pool</code> in the request.
+     * </p>
+     * <p>
+     * To let Amazon choose the IPv6 CIDR block for you, omit this parameter.
+     * </p>
+     */
+    private String ipv6CidrBlock;
+    /**
+     * <p>
+     * The ID of an IPv4 IPAM pool you want to use for allocating this VPC's CIDR. For more information, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     */
+    private String ipv4IpamPoolId;
+    /**
+     * <p>
+     * The netmask length of the IPv4 CIDR you want to allocate to this VPC from an Amazon VPC IP Address Manager (IPAM)
+     * pool. For more information about IPAM, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     */
+    private Integer ipv4NetmaskLength;
+    /**
+     * <p>
+     * The ID of an IPv6 IPAM pool which will be used to allocate this VPC an IPv6 CIDR. IPAM is a VPC feature that you
+     * can use to automate your IP address management workflows including assigning, tracking, troubleshooting, and
+     * auditing IP addresses across Amazon Web Services Regions and accounts throughout your Amazon Web Services
+     * Organization. For more information, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     */
+    private String ipv6IpamPoolId;
+    /**
+     * <p>
+     * The netmask length of the IPv6 CIDR you want to allocate to this VPC from an Amazon VPC IP Address Manager (IPAM)
+     * pool. For more information about IPAM, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     */
+    private Integer ipv6NetmaskLength;
     /**
      * <p>
      * The tenancy options for instances launched into the VPC. For <code>default</code>, instances are launched with
@@ -54,6 +108,22 @@ public class CreateVpcRequest extends AmazonWebServiceRequest implements Seriali
      * </p>
      */
     private String instanceTenancy;
+    /**
+     * <p>
+     * The name of the location from which we advertise the IPV6 CIDR block. Use this parameter to limit the address to
+     * this location.
+     * </p>
+     * <p>
+     * You must set <code>AmazonProvidedIpv6CidrBlock</code> to <code>true</code> to use this parameter.
+     * </p>
+     */
+    private String ipv6CidrBlockNetworkBorderGroup;
+    /**
+     * <p>
+     * The tags to assign to the VPC.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<TagSpecification> tagSpecifications;
 
     /**
      * Default constructor for CreateVpcRequest object. Callers should use the setter or fluent setter (with...) methods
@@ -67,7 +137,9 @@ public class CreateVpcRequest extends AmazonWebServiceRequest implements Seriali
      * initialize any additional object members.
      * 
      * @param cidrBlock
-     *        The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>.
+     *        The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>. We modify the
+     *        specified CIDR block to its canonical form; for example, if you specify <code>100.68.0.18/18</code>, we
+     *        modify it to <code>100.68.0.0/18</code>.
      */
     public CreateVpcRequest(String cidrBlock) {
         setCidrBlock(cidrBlock);
@@ -75,11 +147,15 @@ public class CreateVpcRequest extends AmazonWebServiceRequest implements Seriali
 
     /**
      * <p>
-     * The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>.
+     * The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>. We modify the
+     * specified CIDR block to its canonical form; for example, if you specify <code>100.68.0.18/18</code>, we modify it
+     * to <code>100.68.0.0/18</code>.
      * </p>
      * 
      * @param cidrBlock
-     *        The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>.
+     *        The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>. We modify the
+     *        specified CIDR block to its canonical form; for example, if you specify <code>100.68.0.18/18</code>, we
+     *        modify it to <code>100.68.0.0/18</code>.
      */
 
     public void setCidrBlock(String cidrBlock) {
@@ -88,10 +164,14 @@ public class CreateVpcRequest extends AmazonWebServiceRequest implements Seriali
 
     /**
      * <p>
-     * The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>.
+     * The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>. We modify the
+     * specified CIDR block to its canonical form; for example, if you specify <code>100.68.0.18/18</code>, we modify it
+     * to <code>100.68.0.0/18</code>.
      * </p>
      * 
-     * @return The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>.
+     * @return The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>. We modify
+     *         the specified CIDR block to its canonical form; for example, if you specify <code>100.68.0.18/18</code>,
+     *         we modify it to <code>100.68.0.0/18</code>.
      */
 
     public String getCidrBlock() {
@@ -100,11 +180,15 @@ public class CreateVpcRequest extends AmazonWebServiceRequest implements Seriali
 
     /**
      * <p>
-     * The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>.
+     * The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>. We modify the
+     * specified CIDR block to its canonical form; for example, if you specify <code>100.68.0.18/18</code>, we modify it
+     * to <code>100.68.0.0/18</code>.
      * </p>
      * 
      * @param cidrBlock
-     *        The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>.
+     *        The IPv4 network range for the VPC, in CIDR notation. For example, <code>10.0.0.0/16</code>. We modify the
+     *        specified CIDR block to its canonical form; for example, if you specify <code>100.68.0.18/18</code>, we
+     *        modify it to <code>100.68.0.0/18</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -171,6 +255,342 @@ public class CreateVpcRequest extends AmazonWebServiceRequest implements Seriali
 
     public Boolean isAmazonProvidedIpv6CidrBlock() {
         return this.amazonProvidedIpv6CidrBlock;
+    }
+
+    /**
+     * <p>
+     * The ID of an IPv6 address pool from which to allocate the IPv6 CIDR block.
+     * </p>
+     * 
+     * @param ipv6Pool
+     *        The ID of an IPv6 address pool from which to allocate the IPv6 CIDR block.
+     */
+
+    public void setIpv6Pool(String ipv6Pool) {
+        this.ipv6Pool = ipv6Pool;
+    }
+
+    /**
+     * <p>
+     * The ID of an IPv6 address pool from which to allocate the IPv6 CIDR block.
+     * </p>
+     * 
+     * @return The ID of an IPv6 address pool from which to allocate the IPv6 CIDR block.
+     */
+
+    public String getIpv6Pool() {
+        return this.ipv6Pool;
+    }
+
+    /**
+     * <p>
+     * The ID of an IPv6 address pool from which to allocate the IPv6 CIDR block.
+     * </p>
+     * 
+     * @param ipv6Pool
+     *        The ID of an IPv6 address pool from which to allocate the IPv6 CIDR block.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateVpcRequest withIpv6Pool(String ipv6Pool) {
+        setIpv6Pool(ipv6Pool);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv6 CIDR block from the IPv6 address pool. You must also specify <code>Ipv6Pool</code> in the request.
+     * </p>
+     * <p>
+     * To let Amazon choose the IPv6 CIDR block for you, omit this parameter.
+     * </p>
+     * 
+     * @param ipv6CidrBlock
+     *        The IPv6 CIDR block from the IPv6 address pool. You must also specify <code>Ipv6Pool</code> in the
+     *        request.</p>
+     *        <p>
+     *        To let Amazon choose the IPv6 CIDR block for you, omit this parameter.
+     */
+
+    public void setIpv6CidrBlock(String ipv6CidrBlock) {
+        this.ipv6CidrBlock = ipv6CidrBlock;
+    }
+
+    /**
+     * <p>
+     * The IPv6 CIDR block from the IPv6 address pool. You must also specify <code>Ipv6Pool</code> in the request.
+     * </p>
+     * <p>
+     * To let Amazon choose the IPv6 CIDR block for you, omit this parameter.
+     * </p>
+     * 
+     * @return The IPv6 CIDR block from the IPv6 address pool. You must also specify <code>Ipv6Pool</code> in the
+     *         request.</p>
+     *         <p>
+     *         To let Amazon choose the IPv6 CIDR block for you, omit this parameter.
+     */
+
+    public String getIpv6CidrBlock() {
+        return this.ipv6CidrBlock;
+    }
+
+    /**
+     * <p>
+     * The IPv6 CIDR block from the IPv6 address pool. You must also specify <code>Ipv6Pool</code> in the request.
+     * </p>
+     * <p>
+     * To let Amazon choose the IPv6 CIDR block for you, omit this parameter.
+     * </p>
+     * 
+     * @param ipv6CidrBlock
+     *        The IPv6 CIDR block from the IPv6 address pool. You must also specify <code>Ipv6Pool</code> in the
+     *        request.</p>
+     *        <p>
+     *        To let Amazon choose the IPv6 CIDR block for you, omit this parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateVpcRequest withIpv6CidrBlock(String ipv6CidrBlock) {
+        setIpv6CidrBlock(ipv6CidrBlock);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of an IPv4 IPAM pool you want to use for allocating this VPC's CIDR. For more information, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     * 
+     * @param ipv4IpamPoolId
+     *        The ID of an IPv4 IPAM pool you want to use for allocating this VPC's CIDR. For more information, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon
+     *        VPC IPAM User Guide</i>.
+     */
+
+    public void setIpv4IpamPoolId(String ipv4IpamPoolId) {
+        this.ipv4IpamPoolId = ipv4IpamPoolId;
+    }
+
+    /**
+     * <p>
+     * The ID of an IPv4 IPAM pool you want to use for allocating this VPC's CIDR. For more information, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     * 
+     * @return The ID of an IPv4 IPAM pool you want to use for allocating this VPC's CIDR. For more information, see <a
+     *         href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the
+     *         <i>Amazon VPC IPAM User Guide</i>.
+     */
+
+    public String getIpv4IpamPoolId() {
+        return this.ipv4IpamPoolId;
+    }
+
+    /**
+     * <p>
+     * The ID of an IPv4 IPAM pool you want to use for allocating this VPC's CIDR. For more information, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     * 
+     * @param ipv4IpamPoolId
+     *        The ID of an IPv4 IPAM pool you want to use for allocating this VPC's CIDR. For more information, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon
+     *        VPC IPAM User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateVpcRequest withIpv4IpamPoolId(String ipv4IpamPoolId) {
+        setIpv4IpamPoolId(ipv4IpamPoolId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The netmask length of the IPv4 CIDR you want to allocate to this VPC from an Amazon VPC IP Address Manager (IPAM)
+     * pool. For more information about IPAM, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     * 
+     * @param ipv4NetmaskLength
+     *        The netmask length of the IPv4 CIDR you want to allocate to this VPC from an Amazon VPC IP Address Manager
+     *        (IPAM) pool. For more information about IPAM, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon
+     *        VPC IPAM User Guide</i>.
+     */
+
+    public void setIpv4NetmaskLength(Integer ipv4NetmaskLength) {
+        this.ipv4NetmaskLength = ipv4NetmaskLength;
+    }
+
+    /**
+     * <p>
+     * The netmask length of the IPv4 CIDR you want to allocate to this VPC from an Amazon VPC IP Address Manager (IPAM)
+     * pool. For more information about IPAM, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     * 
+     * @return The netmask length of the IPv4 CIDR you want to allocate to this VPC from an Amazon VPC IP Address
+     *         Manager (IPAM) pool. For more information about IPAM, see <a
+     *         href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the
+     *         <i>Amazon VPC IPAM User Guide</i>.
+     */
+
+    public Integer getIpv4NetmaskLength() {
+        return this.ipv4NetmaskLength;
+    }
+
+    /**
+     * <p>
+     * The netmask length of the IPv4 CIDR you want to allocate to this VPC from an Amazon VPC IP Address Manager (IPAM)
+     * pool. For more information about IPAM, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     * 
+     * @param ipv4NetmaskLength
+     *        The netmask length of the IPv4 CIDR you want to allocate to this VPC from an Amazon VPC IP Address Manager
+     *        (IPAM) pool. For more information about IPAM, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon
+     *        VPC IPAM User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateVpcRequest withIpv4NetmaskLength(Integer ipv4NetmaskLength) {
+        setIpv4NetmaskLength(ipv4NetmaskLength);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of an IPv6 IPAM pool which will be used to allocate this VPC an IPv6 CIDR. IPAM is a VPC feature that you
+     * can use to automate your IP address management workflows including assigning, tracking, troubleshooting, and
+     * auditing IP addresses across Amazon Web Services Regions and accounts throughout your Amazon Web Services
+     * Organization. For more information, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     * 
+     * @param ipv6IpamPoolId
+     *        The ID of an IPv6 IPAM pool which will be used to allocate this VPC an IPv6 CIDR. IPAM is a VPC feature
+     *        that you can use to automate your IP address management workflows including assigning, tracking,
+     *        troubleshooting, and auditing IP addresses across Amazon Web Services Regions and accounts throughout your
+     *        Amazon Web Services Organization. For more information, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon
+     *        VPC IPAM User Guide</i>.
+     */
+
+    public void setIpv6IpamPoolId(String ipv6IpamPoolId) {
+        this.ipv6IpamPoolId = ipv6IpamPoolId;
+    }
+
+    /**
+     * <p>
+     * The ID of an IPv6 IPAM pool which will be used to allocate this VPC an IPv6 CIDR. IPAM is a VPC feature that you
+     * can use to automate your IP address management workflows including assigning, tracking, troubleshooting, and
+     * auditing IP addresses across Amazon Web Services Regions and accounts throughout your Amazon Web Services
+     * Organization. For more information, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     * 
+     * @return The ID of an IPv6 IPAM pool which will be used to allocate this VPC an IPv6 CIDR. IPAM is a VPC feature
+     *         that you can use to automate your IP address management workflows including assigning, tracking,
+     *         troubleshooting, and auditing IP addresses across Amazon Web Services Regions and accounts throughout
+     *         your Amazon Web Services Organization. For more information, see <a
+     *         href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the
+     *         <i>Amazon VPC IPAM User Guide</i>.
+     */
+
+    public String getIpv6IpamPoolId() {
+        return this.ipv6IpamPoolId;
+    }
+
+    /**
+     * <p>
+     * The ID of an IPv6 IPAM pool which will be used to allocate this VPC an IPv6 CIDR. IPAM is a VPC feature that you
+     * can use to automate your IP address management workflows including assigning, tracking, troubleshooting, and
+     * auditing IP addresses across Amazon Web Services Regions and accounts throughout your Amazon Web Services
+     * Organization. For more information, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     * 
+     * @param ipv6IpamPoolId
+     *        The ID of an IPv6 IPAM pool which will be used to allocate this VPC an IPv6 CIDR. IPAM is a VPC feature
+     *        that you can use to automate your IP address management workflows including assigning, tracking,
+     *        troubleshooting, and auditing IP addresses across Amazon Web Services Regions and accounts throughout your
+     *        Amazon Web Services Organization. For more information, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon
+     *        VPC IPAM User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateVpcRequest withIpv6IpamPoolId(String ipv6IpamPoolId) {
+        setIpv6IpamPoolId(ipv6IpamPoolId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The netmask length of the IPv6 CIDR you want to allocate to this VPC from an Amazon VPC IP Address Manager (IPAM)
+     * pool. For more information about IPAM, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     * 
+     * @param ipv6NetmaskLength
+     *        The netmask length of the IPv6 CIDR you want to allocate to this VPC from an Amazon VPC IP Address Manager
+     *        (IPAM) pool. For more information about IPAM, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon
+     *        VPC IPAM User Guide</i>.
+     */
+
+    public void setIpv6NetmaskLength(Integer ipv6NetmaskLength) {
+        this.ipv6NetmaskLength = ipv6NetmaskLength;
+    }
+
+    /**
+     * <p>
+     * The netmask length of the IPv6 CIDR you want to allocate to this VPC from an Amazon VPC IP Address Manager (IPAM)
+     * pool. For more information about IPAM, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     * 
+     * @return The netmask length of the IPv6 CIDR you want to allocate to this VPC from an Amazon VPC IP Address
+     *         Manager (IPAM) pool. For more information about IPAM, see <a
+     *         href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the
+     *         <i>Amazon VPC IPAM User Guide</i>.
+     */
+
+    public Integer getIpv6NetmaskLength() {
+        return this.ipv6NetmaskLength;
+    }
+
+    /**
+     * <p>
+     * The netmask length of the IPv6 CIDR you want to allocate to this VPC from an Amazon VPC IP Address Manager (IPAM)
+     * pool. For more information about IPAM, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon VPC
+     * IPAM User Guide</i>.
+     * </p>
+     * 
+     * @param ipv6NetmaskLength
+     *        The netmask length of the IPv6 CIDR you want to allocate to this VPC from an Amazon VPC IP Address Manager
+     *        (IPAM) pool. For more information about IPAM, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/ipam/what-is-it-ipam.html">What is IPAM?</a> in the <i>Amazon
+     *        VPC IPAM User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateVpcRequest withIpv6NetmaskLength(Integer ipv6NetmaskLength) {
+        setIpv6NetmaskLength(ipv6NetmaskLength);
+        return this;
     }
 
     /**
@@ -347,6 +767,140 @@ public class CreateVpcRequest extends AmazonWebServiceRequest implements Seriali
     }
 
     /**
+     * <p>
+     * The name of the location from which we advertise the IPV6 CIDR block. Use this parameter to limit the address to
+     * this location.
+     * </p>
+     * <p>
+     * You must set <code>AmazonProvidedIpv6CidrBlock</code> to <code>true</code> to use this parameter.
+     * </p>
+     * 
+     * @param ipv6CidrBlockNetworkBorderGroup
+     *        The name of the location from which we advertise the IPV6 CIDR block. Use this parameter to limit the
+     *        address to this location.</p>
+     *        <p>
+     *        You must set <code>AmazonProvidedIpv6CidrBlock</code> to <code>true</code> to use this parameter.
+     */
+
+    public void setIpv6CidrBlockNetworkBorderGroup(String ipv6CidrBlockNetworkBorderGroup) {
+        this.ipv6CidrBlockNetworkBorderGroup = ipv6CidrBlockNetworkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * The name of the location from which we advertise the IPV6 CIDR block. Use this parameter to limit the address to
+     * this location.
+     * </p>
+     * <p>
+     * You must set <code>AmazonProvidedIpv6CidrBlock</code> to <code>true</code> to use this parameter.
+     * </p>
+     * 
+     * @return The name of the location from which we advertise the IPV6 CIDR block. Use this parameter to limit the
+     *         address to this location.</p>
+     *         <p>
+     *         You must set <code>AmazonProvidedIpv6CidrBlock</code> to <code>true</code> to use this parameter.
+     */
+
+    public String getIpv6CidrBlockNetworkBorderGroup() {
+        return this.ipv6CidrBlockNetworkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * The name of the location from which we advertise the IPV6 CIDR block. Use this parameter to limit the address to
+     * this location.
+     * </p>
+     * <p>
+     * You must set <code>AmazonProvidedIpv6CidrBlock</code> to <code>true</code> to use this parameter.
+     * </p>
+     * 
+     * @param ipv6CidrBlockNetworkBorderGroup
+     *        The name of the location from which we advertise the IPV6 CIDR block. Use this parameter to limit the
+     *        address to this location.</p>
+     *        <p>
+     *        You must set <code>AmazonProvidedIpv6CidrBlock</code> to <code>true</code> to use this parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateVpcRequest withIpv6CidrBlockNetworkBorderGroup(String ipv6CidrBlockNetworkBorderGroup) {
+        setIpv6CidrBlockNetworkBorderGroup(ipv6CidrBlockNetworkBorderGroup);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the VPC.
+     * </p>
+     * 
+     * @return The tags to assign to the VPC.
+     */
+
+    public java.util.List<TagSpecification> getTagSpecifications() {
+        if (tagSpecifications == null) {
+            tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>();
+        }
+        return tagSpecifications;
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the VPC.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to assign to the VPC.
+     */
+
+    public void setTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        if (tagSpecifications == null) {
+            this.tagSpecifications = null;
+            return;
+        }
+
+        this.tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications);
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the VPC.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagSpecifications(java.util.Collection)} or {@link #withTagSpecifications(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to assign to the VPC.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateVpcRequest withTagSpecifications(TagSpecification... tagSpecifications) {
+        if (this.tagSpecifications == null) {
+            setTagSpecifications(new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications.length));
+        }
+        for (TagSpecification ele : tagSpecifications) {
+            this.tagSpecifications.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the VPC.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to assign to the VPC.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateVpcRequest withTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        setTagSpecifications(tagSpecifications);
+        return this;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -373,8 +927,24 @@ public class CreateVpcRequest extends AmazonWebServiceRequest implements Seriali
             sb.append("CidrBlock: ").append(getCidrBlock()).append(",");
         if (getAmazonProvidedIpv6CidrBlock() != null)
             sb.append("AmazonProvidedIpv6CidrBlock: ").append(getAmazonProvidedIpv6CidrBlock()).append(",");
+        if (getIpv6Pool() != null)
+            sb.append("Ipv6Pool: ").append(getIpv6Pool()).append(",");
+        if (getIpv6CidrBlock() != null)
+            sb.append("Ipv6CidrBlock: ").append(getIpv6CidrBlock()).append(",");
+        if (getIpv4IpamPoolId() != null)
+            sb.append("Ipv4IpamPoolId: ").append(getIpv4IpamPoolId()).append(",");
+        if (getIpv4NetmaskLength() != null)
+            sb.append("Ipv4NetmaskLength: ").append(getIpv4NetmaskLength()).append(",");
+        if (getIpv6IpamPoolId() != null)
+            sb.append("Ipv6IpamPoolId: ").append(getIpv6IpamPoolId()).append(",");
+        if (getIpv6NetmaskLength() != null)
+            sb.append("Ipv6NetmaskLength: ").append(getIpv6NetmaskLength()).append(",");
         if (getInstanceTenancy() != null)
-            sb.append("InstanceTenancy: ").append(getInstanceTenancy());
+            sb.append("InstanceTenancy: ").append(getInstanceTenancy()).append(",");
+        if (getIpv6CidrBlockNetworkBorderGroup() != null)
+            sb.append("Ipv6CidrBlockNetworkBorderGroup: ").append(getIpv6CidrBlockNetworkBorderGroup()).append(",");
+        if (getTagSpecifications() != null)
+            sb.append("TagSpecifications: ").append(getTagSpecifications());
         sb.append("}");
         return sb.toString();
     }
@@ -397,9 +967,42 @@ public class CreateVpcRequest extends AmazonWebServiceRequest implements Seriali
             return false;
         if (other.getAmazonProvidedIpv6CidrBlock() != null && other.getAmazonProvidedIpv6CidrBlock().equals(this.getAmazonProvidedIpv6CidrBlock()) == false)
             return false;
+        if (other.getIpv6Pool() == null ^ this.getIpv6Pool() == null)
+            return false;
+        if (other.getIpv6Pool() != null && other.getIpv6Pool().equals(this.getIpv6Pool()) == false)
+            return false;
+        if (other.getIpv6CidrBlock() == null ^ this.getIpv6CidrBlock() == null)
+            return false;
+        if (other.getIpv6CidrBlock() != null && other.getIpv6CidrBlock().equals(this.getIpv6CidrBlock()) == false)
+            return false;
+        if (other.getIpv4IpamPoolId() == null ^ this.getIpv4IpamPoolId() == null)
+            return false;
+        if (other.getIpv4IpamPoolId() != null && other.getIpv4IpamPoolId().equals(this.getIpv4IpamPoolId()) == false)
+            return false;
+        if (other.getIpv4NetmaskLength() == null ^ this.getIpv4NetmaskLength() == null)
+            return false;
+        if (other.getIpv4NetmaskLength() != null && other.getIpv4NetmaskLength().equals(this.getIpv4NetmaskLength()) == false)
+            return false;
+        if (other.getIpv6IpamPoolId() == null ^ this.getIpv6IpamPoolId() == null)
+            return false;
+        if (other.getIpv6IpamPoolId() != null && other.getIpv6IpamPoolId().equals(this.getIpv6IpamPoolId()) == false)
+            return false;
+        if (other.getIpv6NetmaskLength() == null ^ this.getIpv6NetmaskLength() == null)
+            return false;
+        if (other.getIpv6NetmaskLength() != null && other.getIpv6NetmaskLength().equals(this.getIpv6NetmaskLength()) == false)
+            return false;
         if (other.getInstanceTenancy() == null ^ this.getInstanceTenancy() == null)
             return false;
         if (other.getInstanceTenancy() != null && other.getInstanceTenancy().equals(this.getInstanceTenancy()) == false)
+            return false;
+        if (other.getIpv6CidrBlockNetworkBorderGroup() == null ^ this.getIpv6CidrBlockNetworkBorderGroup() == null)
+            return false;
+        if (other.getIpv6CidrBlockNetworkBorderGroup() != null
+                && other.getIpv6CidrBlockNetworkBorderGroup().equals(this.getIpv6CidrBlockNetworkBorderGroup()) == false)
+            return false;
+        if (other.getTagSpecifications() == null ^ this.getTagSpecifications() == null)
+            return false;
+        if (other.getTagSpecifications() != null && other.getTagSpecifications().equals(this.getTagSpecifications()) == false)
             return false;
         return true;
     }
@@ -411,7 +1014,15 @@ public class CreateVpcRequest extends AmazonWebServiceRequest implements Seriali
 
         hashCode = prime * hashCode + ((getCidrBlock() == null) ? 0 : getCidrBlock().hashCode());
         hashCode = prime * hashCode + ((getAmazonProvidedIpv6CidrBlock() == null) ? 0 : getAmazonProvidedIpv6CidrBlock().hashCode());
+        hashCode = prime * hashCode + ((getIpv6Pool() == null) ? 0 : getIpv6Pool().hashCode());
+        hashCode = prime * hashCode + ((getIpv6CidrBlock() == null) ? 0 : getIpv6CidrBlock().hashCode());
+        hashCode = prime * hashCode + ((getIpv4IpamPoolId() == null) ? 0 : getIpv4IpamPoolId().hashCode());
+        hashCode = prime * hashCode + ((getIpv4NetmaskLength() == null) ? 0 : getIpv4NetmaskLength().hashCode());
+        hashCode = prime * hashCode + ((getIpv6IpamPoolId() == null) ? 0 : getIpv6IpamPoolId().hashCode());
+        hashCode = prime * hashCode + ((getIpv6NetmaskLength() == null) ? 0 : getIpv6NetmaskLength().hashCode());
         hashCode = prime * hashCode + ((getInstanceTenancy() == null) ? 0 : getInstanceTenancy().hashCode());
+        hashCode = prime * hashCode + ((getIpv6CidrBlockNetworkBorderGroup() == null) ? 0 : getIpv6CidrBlockNetworkBorderGroup().hashCode());
+        hashCode = prime * hashCode + ((getTagSpecifications() == null) ? 0 : getTagSpecifications().hashCode());
         return hashCode;
     }
 

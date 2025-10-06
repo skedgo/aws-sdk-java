@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Details of the AWS Firewall Manager policy.
+ * Details of the Firewall Manager policy.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/PolicySummary" target="_top">AWS API
@@ -42,23 +42,22 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
     private String policyId;
     /**
      * <p>
-     * The friendly name of the specified policy.
+     * The name of the specified policy.
      * </p>
      */
     private String policyName;
     /**
      * <p>
-     * The type of resource to protect with the policy. This is in the format shown in <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
-     * <code>AWS::CloudFront::Distribution</code>.
+     * The type of resource protected by or in scope of the policy. This is in the format shown in the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a>.
      * </p>
      */
     private String resourceType;
     /**
      * <p>
      * The service that the policy is using to protect the resources. This specifies the type of policy that is created,
-     * either a WAF policy or Shield Advanced policy.
+     * either an WAF policy, a Shield Advanced policy, or a security group policy.
      * </p>
      */
     private String securityServiceType;
@@ -68,6 +67,41 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private Boolean remediationEnabled;
+    /**
+     * <p>
+     * Indicates whether Firewall Manager should automatically remove protections from resources that leave the policy
+     * scope and clean up resources that Firewall Manager is managing for accounts when those accounts leave policy
+     * scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL from a protected
+     * customer resource when the customer resource leaves policy scope.
+     * </p>
+     * <p>
+     * By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     * </p>
+     * <p>
+     * This option is not available for Shield Advanced or WAF Classic policies.
+     * </p>
+     */
+    private Boolean deleteUnusedFMManagedResources;
+    /**
+     * <p>
+     * Indicates whether the policy is in or out of an admin's policy or Region scope.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     * policy. Existing policy protections stay in place. Any new resources that come into scope of the policy won't be
+     * protected.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String policyStatus;
 
     /**
      * <p>
@@ -151,11 +185,11 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The friendly name of the specified policy.
+     * The name of the specified policy.
      * </p>
      * 
      * @param policyName
-     *        The friendly name of the specified policy.
+     *        The name of the specified policy.
      */
 
     public void setPolicyName(String policyName) {
@@ -164,10 +198,10 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The friendly name of the specified policy.
+     * The name of the specified policy.
      * </p>
      * 
-     * @return The friendly name of the specified policy.
+     * @return The name of the specified policy.
      */
 
     public String getPolicyName() {
@@ -176,11 +210,11 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The friendly name of the specified policy.
+     * The name of the specified policy.
      * </p>
      * 
      * @param policyName
-     *        The friendly name of the specified policy.
+     *        The name of the specified policy.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -191,17 +225,15 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of resource to protect with the policy. This is in the format shown in <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
-     * <code>AWS::CloudFront::Distribution</code>.
+     * The type of resource protected by or in scope of the policy. This is in the format shown in the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a>.
      * </p>
      * 
      * @param resourceType
-     *        The type of resource to protect with the policy. This is in the format shown in <a href=
-     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     *        Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
-     *        <code>AWS::CloudFront::Distribution</code>.
+     *        The type of resource protected by or in scope of the policy. This is in the format shown in the <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services Resource Types Reference</a>.
      */
 
     public void setResourceType(String resourceType) {
@@ -210,16 +242,14 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of resource to protect with the policy. This is in the format shown in <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
-     * <code>AWS::CloudFront::Distribution</code>.
+     * The type of resource protected by or in scope of the policy. This is in the format shown in the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a>.
      * </p>
      * 
-     * @return The type of resource to protect with the policy. This is in the format shown in <a
+     * @return The type of resource protected by or in scope of the policy. This is in the format shown in the <a
      *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
-     *         >AWS Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
-     *         <code>AWS::CloudFront::Distribution</code>.
+     *         >Amazon Web Services Resource Types Reference</a>.
      */
 
     public String getResourceType() {
@@ -228,17 +258,15 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of resource to protect with the policy. This is in the format shown in <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
-     * <code>AWS::CloudFront::Distribution</code>.
+     * The type of resource protected by or in scope of the policy. This is in the format shown in the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a>.
      * </p>
      * 
      * @param resourceType
-     *        The type of resource to protect with the policy. This is in the format shown in <a href=
-     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     *        Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
-     *        <code>AWS::CloudFront::Distribution</code>.
+     *        The type of resource protected by or in scope of the policy. This is in the format shown in the <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services Resource Types Reference</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -250,12 +278,12 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The service that the policy is using to protect the resources. This specifies the type of policy that is created,
-     * either a WAF policy or Shield Advanced policy.
+     * either an WAF policy, a Shield Advanced policy, or a security group policy.
      * </p>
      * 
      * @param securityServiceType
      *        The service that the policy is using to protect the resources. This specifies the type of policy that is
-     *        created, either a WAF policy or Shield Advanced policy.
+     *        created, either an WAF policy, a Shield Advanced policy, or a security group policy.
      * @see SecurityServiceType
      */
 
@@ -266,11 +294,11 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The service that the policy is using to protect the resources. This specifies the type of policy that is created,
-     * either a WAF policy or Shield Advanced policy.
+     * either an WAF policy, a Shield Advanced policy, or a security group policy.
      * </p>
      * 
      * @return The service that the policy is using to protect the resources. This specifies the type of policy that is
-     *         created, either a WAF policy or Shield Advanced policy.
+     *         created, either an WAF policy, a Shield Advanced policy, or a security group policy.
      * @see SecurityServiceType
      */
 
@@ -281,12 +309,12 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The service that the policy is using to protect the resources. This specifies the type of policy that is created,
-     * either a WAF policy or Shield Advanced policy.
+     * either an WAF policy, a Shield Advanced policy, or a security group policy.
      * </p>
      * 
      * @param securityServiceType
      *        The service that the policy is using to protect the resources. This specifies the type of policy that is
-     *        created, either a WAF policy or Shield Advanced policy.
+     *        created, either an WAF policy, a Shield Advanced policy, or a security group policy.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SecurityServiceType
      */
@@ -299,12 +327,12 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The service that the policy is using to protect the resources. This specifies the type of policy that is created,
-     * either a WAF policy or Shield Advanced policy.
+     * either an WAF policy, a Shield Advanced policy, or a security group policy.
      * </p>
      * 
      * @param securityServiceType
      *        The service that the policy is using to protect the resources. This specifies the type of policy that is
-     *        created, either a WAF policy or Shield Advanced policy.
+     *        created, either an WAF policy, a Shield Advanced policy, or a security group policy.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SecurityServiceType
      */
@@ -367,6 +395,293 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * Indicates whether Firewall Manager should automatically remove protections from resources that leave the policy
+     * scope and clean up resources that Firewall Manager is managing for accounts when those accounts leave policy
+     * scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL from a protected
+     * customer resource when the customer resource leaves policy scope.
+     * </p>
+     * <p>
+     * By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     * </p>
+     * <p>
+     * This option is not available for Shield Advanced or WAF Classic policies.
+     * </p>
+     * 
+     * @param deleteUnusedFMManagedResources
+     *        Indicates whether Firewall Manager should automatically remove protections from resources that leave the
+     *        policy scope and clean up resources that Firewall Manager is managing for accounts when those accounts
+     *        leave policy scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL
+     *        from a protected customer resource when the customer resource leaves policy scope. </p>
+     *        <p>
+     *        By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     *        </p>
+     *        <p>
+     *        This option is not available for Shield Advanced or WAF Classic policies.
+     */
+
+    public void setDeleteUnusedFMManagedResources(Boolean deleteUnusedFMManagedResources) {
+        this.deleteUnusedFMManagedResources = deleteUnusedFMManagedResources;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Firewall Manager should automatically remove protections from resources that leave the policy
+     * scope and clean up resources that Firewall Manager is managing for accounts when those accounts leave policy
+     * scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL from a protected
+     * customer resource when the customer resource leaves policy scope.
+     * </p>
+     * <p>
+     * By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     * </p>
+     * <p>
+     * This option is not available for Shield Advanced or WAF Classic policies.
+     * </p>
+     * 
+     * @return Indicates whether Firewall Manager should automatically remove protections from resources that leave the
+     *         policy scope and clean up resources that Firewall Manager is managing for accounts when those accounts
+     *         leave policy scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL
+     *         from a protected customer resource when the customer resource leaves policy scope. </p>
+     *         <p>
+     *         By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     *         </p>
+     *         <p>
+     *         This option is not available for Shield Advanced or WAF Classic policies.
+     */
+
+    public Boolean getDeleteUnusedFMManagedResources() {
+        return this.deleteUnusedFMManagedResources;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Firewall Manager should automatically remove protections from resources that leave the policy
+     * scope and clean up resources that Firewall Manager is managing for accounts when those accounts leave policy
+     * scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL from a protected
+     * customer resource when the customer resource leaves policy scope.
+     * </p>
+     * <p>
+     * By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     * </p>
+     * <p>
+     * This option is not available for Shield Advanced or WAF Classic policies.
+     * </p>
+     * 
+     * @param deleteUnusedFMManagedResources
+     *        Indicates whether Firewall Manager should automatically remove protections from resources that leave the
+     *        policy scope and clean up resources that Firewall Manager is managing for accounts when those accounts
+     *        leave policy scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL
+     *        from a protected customer resource when the customer resource leaves policy scope. </p>
+     *        <p>
+     *        By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     *        </p>
+     *        <p>
+     *        This option is not available for Shield Advanced or WAF Classic policies.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PolicySummary withDeleteUnusedFMManagedResources(Boolean deleteUnusedFMManagedResources) {
+        setDeleteUnusedFMManagedResources(deleteUnusedFMManagedResources);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Firewall Manager should automatically remove protections from resources that leave the policy
+     * scope and clean up resources that Firewall Manager is managing for accounts when those accounts leave policy
+     * scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL from a protected
+     * customer resource when the customer resource leaves policy scope.
+     * </p>
+     * <p>
+     * By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     * </p>
+     * <p>
+     * This option is not available for Shield Advanced or WAF Classic policies.
+     * </p>
+     * 
+     * @return Indicates whether Firewall Manager should automatically remove protections from resources that leave the
+     *         policy scope and clean up resources that Firewall Manager is managing for accounts when those accounts
+     *         leave policy scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL
+     *         from a protected customer resource when the customer resource leaves policy scope. </p>
+     *         <p>
+     *         By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     *         </p>
+     *         <p>
+     *         This option is not available for Shield Advanced or WAF Classic policies.
+     */
+
+    public Boolean isDeleteUnusedFMManagedResources() {
+        return this.deleteUnusedFMManagedResources;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the policy is in or out of an admin's policy or Region scope.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     * policy. Existing policy protections stay in place. Any new resources that come into scope of the policy won't be
+     * protected.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param policyStatus
+     *        Indicates whether the policy is in or out of an admin's policy or Region scope.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     *        policy. Existing policy protections stay in place. Any new resources that come into scope of the policy
+     *        won't be protected.
+     *        </p>
+     *        </li>
+     * @see CustomerPolicyStatus
+     */
+
+    public void setPolicyStatus(String policyStatus) {
+        this.policyStatus = policyStatus;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the policy is in or out of an admin's policy or Region scope.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     * policy. Existing policy protections stay in place. Any new resources that come into scope of the policy won't be
+     * protected.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Indicates whether the policy is in or out of an admin's policy or Region scope.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete
+     *         the policy. Existing policy protections stay in place. Any new resources that come into scope of the
+     *         policy won't be protected.
+     *         </p>
+     *         </li>
+     * @see CustomerPolicyStatus
+     */
+
+    public String getPolicyStatus() {
+        return this.policyStatus;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the policy is in or out of an admin's policy or Region scope.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     * policy. Existing policy protections stay in place. Any new resources that come into scope of the policy won't be
+     * protected.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param policyStatus
+     *        Indicates whether the policy is in or out of an admin's policy or Region scope.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     *        policy. Existing policy protections stay in place. Any new resources that come into scope of the policy
+     *        won't be protected.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CustomerPolicyStatus
+     */
+
+    public PolicySummary withPolicyStatus(String policyStatus) {
+        setPolicyStatus(policyStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the policy is in or out of an admin's policy or Region scope.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     * policy. Existing policy protections stay in place. Any new resources that come into scope of the policy won't be
+     * protected.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param policyStatus
+     *        Indicates whether the policy is in or out of an admin's policy or Region scope.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     *        policy. Existing policy protections stay in place. Any new resources that come into scope of the policy
+     *        won't be protected.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CustomerPolicyStatus
+     */
+
+    public PolicySummary withPolicyStatus(CustomerPolicyStatus policyStatus) {
+        this.policyStatus = policyStatus.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -389,7 +704,11 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
         if (getSecurityServiceType() != null)
             sb.append("SecurityServiceType: ").append(getSecurityServiceType()).append(",");
         if (getRemediationEnabled() != null)
-            sb.append("RemediationEnabled: ").append(getRemediationEnabled());
+            sb.append("RemediationEnabled: ").append(getRemediationEnabled()).append(",");
+        if (getDeleteUnusedFMManagedResources() != null)
+            sb.append("DeleteUnusedFMManagedResources: ").append(getDeleteUnusedFMManagedResources()).append(",");
+        if (getPolicyStatus() != null)
+            sb.append("PolicyStatus: ").append(getPolicyStatus());
         sb.append("}");
         return sb.toString();
     }
@@ -428,6 +747,15 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getRemediationEnabled() != null && other.getRemediationEnabled().equals(this.getRemediationEnabled()) == false)
             return false;
+        if (other.getDeleteUnusedFMManagedResources() == null ^ this.getDeleteUnusedFMManagedResources() == null)
+            return false;
+        if (other.getDeleteUnusedFMManagedResources() != null
+                && other.getDeleteUnusedFMManagedResources().equals(this.getDeleteUnusedFMManagedResources()) == false)
+            return false;
+        if (other.getPolicyStatus() == null ^ this.getPolicyStatus() == null)
+            return false;
+        if (other.getPolicyStatus() != null && other.getPolicyStatus().equals(this.getPolicyStatus()) == false)
+            return false;
         return true;
     }
 
@@ -442,6 +770,8 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getResourceType() == null) ? 0 : getResourceType().hashCode());
         hashCode = prime * hashCode + ((getSecurityServiceType() == null) ? 0 : getSecurityServiceType().hashCode());
         hashCode = prime * hashCode + ((getRemediationEnabled() == null) ? 0 : getRemediationEnabled().hashCode());
+        hashCode = prime * hashCode + ((getDeleteUnusedFMManagedResources() == null) ? 0 : getDeleteUnusedFMManagedResources().hashCode());
+        hashCode = prime * hashCode + ((getPolicyStatus() == null) ? 0 : getPolicyStatus().hashCode());
         return hashCode;
     }
 

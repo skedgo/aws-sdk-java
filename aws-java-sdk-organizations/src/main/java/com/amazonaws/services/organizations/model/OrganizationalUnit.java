@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Contains details about an organizational unit (OU). An OU is a container of AWS accounts within a root of an
- * organization. Policies that are attached to an OU apply to all accounts contained in that OU and in any child OUs.
+ * Contains details about an organizational unit (OU). An OU is a container of Amazon Web Services accounts within a
+ * root of an organization. Policies that are attached to an OU apply to all accounts contained in that OU and in any
+ * child OUs.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/organizations-2016-11-28/OrganizationalUnit" target="_top">AWS
@@ -31,12 +32,12 @@ public class OrganizationalUnit implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The unique identifier (ID) associated with this OU.
+     * The unique identifier (ID) associated with this OU. The ID is unique to the organization only.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an organizational unit ID string requires
-     * "ou-" followed by from 4 to 32 lower-case letters or digits (the ID of the root that contains the OU) followed by
-     * a second "-" dash and from 8 to 32 additional lower-case letters or digits.
+     * "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the OU). This string
+     * is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
      * </p>
      */
     private String id;
@@ -45,9 +46,9 @@ public class OrganizationalUnit implements Serializable, Cloneable, StructuredPo
      * The Amazon Resource Name (ARN) of this OU.
      * </p>
      * <p>
-     * For more information about ARNs in Organizations, see <a
-     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
-     * Formats Supported by Organizations</a> in the <i>AWS Organizations User Guide</i>.
+     * For more information about ARNs in Organizations, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies"
+     * >ARN Formats Supported by Organizations</a> in the <i>Amazon Web Services Service Authorization Reference</i>.
      * </p>
      */
     private String arn;
@@ -64,20 +65,20 @@ public class OrganizationalUnit implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The unique identifier (ID) associated with this OU.
+     * The unique identifier (ID) associated with this OU. The ID is unique to the organization only.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an organizational unit ID string requires
-     * "ou-" followed by from 4 to 32 lower-case letters or digits (the ID of the root that contains the OU) followed by
-     * a second "-" dash and from 8 to 32 additional lower-case letters or digits.
+     * "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the OU). This string
+     * is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
      * </p>
      * 
      * @param id
-     *        The unique identifier (ID) associated with this OU.</p>
+     *        The unique identifier (ID) associated with this OU. The ID is unique to the organization only.</p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an organizational unit ID string
-     *        requires "ou-" followed by from 4 to 32 lower-case letters or digits (the ID of the root that contains the
-     *        OU) followed by a second "-" dash and from 8 to 32 additional lower-case letters or digits.
+     *        requires "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the
+     *        OU). This string is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
      */
 
     public void setId(String id) {
@@ -86,19 +87,20 @@ public class OrganizationalUnit implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The unique identifier (ID) associated with this OU.
+     * The unique identifier (ID) associated with this OU. The ID is unique to the organization only.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an organizational unit ID string requires
-     * "ou-" followed by from 4 to 32 lower-case letters or digits (the ID of the root that contains the OU) followed by
-     * a second "-" dash and from 8 to 32 additional lower-case letters or digits.
+     * "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the OU). This string
+     * is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
      * </p>
      * 
-     * @return The unique identifier (ID) associated with this OU.</p>
+     * @return The unique identifier (ID) associated with this OU. The ID is unique to the organization only.</p>
      *         <p>
      *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an organizational unit ID string
-     *         requires "ou-" followed by from 4 to 32 lower-case letters or digits (the ID of the root that contains
-     *         the OU) followed by a second "-" dash and from 8 to 32 additional lower-case letters or digits.
+     *         requires "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the
+     *         OU). This string is followed by a second "-" dash and from 8 to 32 additional lowercase letters or
+     *         digits.
      */
 
     public String getId() {
@@ -107,20 +109,20 @@ public class OrganizationalUnit implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The unique identifier (ID) associated with this OU.
+     * The unique identifier (ID) associated with this OU. The ID is unique to the organization only.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an organizational unit ID string requires
-     * "ou-" followed by from 4 to 32 lower-case letters or digits (the ID of the root that contains the OU) followed by
-     * a second "-" dash and from 8 to 32 additional lower-case letters or digits.
+     * "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the OU). This string
+     * is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
      * </p>
      * 
      * @param id
-     *        The unique identifier (ID) associated with this OU.</p>
+     *        The unique identifier (ID) associated with this OU. The ID is unique to the organization only.</p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an organizational unit ID string
-     *        requires "ou-" followed by from 4 to 32 lower-case letters or digits (the ID of the root that contains the
-     *        OU) followed by a second "-" dash and from 8 to 32 additional lower-case letters or digits.
+     *        requires "ou-" followed by from 4 to 32 lowercase letters or digits (the ID of the root that contains the
+     *        OU). This string is followed by a second "-" dash and from 8 to 32 additional lowercase letters or digits.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -134,17 +136,18 @@ public class OrganizationalUnit implements Serializable, Cloneable, StructuredPo
      * The Amazon Resource Name (ARN) of this OU.
      * </p>
      * <p>
-     * For more information about ARNs in Organizations, see <a
-     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
-     * Formats Supported by Organizations</a> in the <i>AWS Organizations User Guide</i>.
+     * For more information about ARNs in Organizations, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies"
+     * >ARN Formats Supported by Organizations</a> in the <i>Amazon Web Services Service Authorization Reference</i>.
      * </p>
      * 
      * @param arn
      *        The Amazon Resource Name (ARN) of this OU.</p>
      *        <p>
      *        For more information about ARNs in Organizations, see <a href=
-     *        "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns"
-     *        >ARN Formats Supported by Organizations</a> in the <i>AWS Organizations User Guide</i>.
+     *        "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies"
+     *        >ARN Formats Supported by Organizations</a> in the <i>Amazon Web Services Service Authorization
+     *        Reference</i>.
      */
 
     public void setArn(String arn) {
@@ -156,16 +159,17 @@ public class OrganizationalUnit implements Serializable, Cloneable, StructuredPo
      * The Amazon Resource Name (ARN) of this OU.
      * </p>
      * <p>
-     * For more information about ARNs in Organizations, see <a
-     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
-     * Formats Supported by Organizations</a> in the <i>AWS Organizations User Guide</i>.
+     * For more information about ARNs in Organizations, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies"
+     * >ARN Formats Supported by Organizations</a> in the <i>Amazon Web Services Service Authorization Reference</i>.
      * </p>
      * 
      * @return The Amazon Resource Name (ARN) of this OU.</p>
      *         <p>
      *         For more information about ARNs in Organizations, see <a href=
-     *         "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns"
-     *         >ARN Formats Supported by Organizations</a> in the <i>AWS Organizations User Guide</i>.
+     *         "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies"
+     *         >ARN Formats Supported by Organizations</a> in the <i>Amazon Web Services Service Authorization
+     *         Reference</i>.
      */
 
     public String getArn() {
@@ -177,17 +181,18 @@ public class OrganizationalUnit implements Serializable, Cloneable, StructuredPo
      * The Amazon Resource Name (ARN) of this OU.
      * </p>
      * <p>
-     * For more information about ARNs in Organizations, see <a
-     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
-     * Formats Supported by Organizations</a> in the <i>AWS Organizations User Guide</i>.
+     * For more information about ARNs in Organizations, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies"
+     * >ARN Formats Supported by Organizations</a> in the <i>Amazon Web Services Service Authorization Reference</i>.
      * </p>
      * 
      * @param arn
      *        The Amazon Resource Name (ARN) of this OU.</p>
      *        <p>
      *        For more information about ARNs in Organizations, see <a href=
-     *        "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns"
-     *        >ARN Formats Supported by Organizations</a> in the <i>AWS Organizations User Guide</i>.
+     *        "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies"
+     *        >ARN Formats Supported by Organizations</a> in the <i>Amazon Web Services Service Authorization
+     *        Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

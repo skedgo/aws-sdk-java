@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,19 +30,21 @@ public class ResultAttribute implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Name of the inventory item type. Valid value: AWS:InstanceInformation. Default Value: AWS:InstanceInformation.
+     * Name of the inventory item type. Valid value: <code>AWS:InstanceInformation</code>. Default Value:
+     * <code>AWS:InstanceInformation</code>.
      * </p>
      */
     private String typeName;
 
     /**
      * <p>
-     * Name of the inventory item type. Valid value: AWS:InstanceInformation. Default Value: AWS:InstanceInformation.
+     * Name of the inventory item type. Valid value: <code>AWS:InstanceInformation</code>. Default Value:
+     * <code>AWS:InstanceInformation</code>.
      * </p>
      * 
      * @param typeName
-     *        Name of the inventory item type. Valid value: AWS:InstanceInformation. Default Value:
-     *        AWS:InstanceInformation.
+     *        Name of the inventory item type. Valid value: <code>AWS:InstanceInformation</code>. Default Value:
+     *        <code>AWS:InstanceInformation</code>.
      */
 
     public void setTypeName(String typeName) {
@@ -51,11 +53,12 @@ public class ResultAttribute implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Name of the inventory item type. Valid value: AWS:InstanceInformation. Default Value: AWS:InstanceInformation.
+     * Name of the inventory item type. Valid value: <code>AWS:InstanceInformation</code>. Default Value:
+     * <code>AWS:InstanceInformation</code>.
      * </p>
      * 
-     * @return Name of the inventory item type. Valid value: AWS:InstanceInformation. Default Value:
-     *         AWS:InstanceInformation.
+     * @return Name of the inventory item type. Valid value: <code>AWS:InstanceInformation</code>. Default Value:
+     *         <code>AWS:InstanceInformation</code>.
      */
 
     public String getTypeName() {
@@ -64,12 +67,13 @@ public class ResultAttribute implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Name of the inventory item type. Valid value: AWS:InstanceInformation. Default Value: AWS:InstanceInformation.
+     * Name of the inventory item type. Valid value: <code>AWS:InstanceInformation</code>. Default Value:
+     * <code>AWS:InstanceInformation</code>.
      * </p>
      * 
      * @param typeName
-     *        Name of the inventory item type. Valid value: AWS:InstanceInformation. Default Value:
-     *        AWS:InstanceInformation.
+     *        Name of the inventory item type. Valid value: <code>AWS:InstanceInformation</code>. Default Value:
+     *        <code>AWS:InstanceInformation</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

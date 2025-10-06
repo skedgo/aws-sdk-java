@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,10 +38,16 @@ public class GetRecordsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * The maximum number of records to return. Specify a value of up to 10,000. If you specify a value that is greater
-     * than 10,000, <a>GetRecords</a> throws <code>InvalidArgumentException</code>.
+     * than 10,000, <a>GetRecords</a> throws <code>InvalidArgumentException</code>. The default value is 10,000.
      * </p>
      */
     private Integer limit;
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     */
+    private String streamARN;
 
     /**
      * <p>
@@ -92,12 +98,13 @@ public class GetRecordsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * The maximum number of records to return. Specify a value of up to 10,000. If you specify a value that is greater
-     * than 10,000, <a>GetRecords</a> throws <code>InvalidArgumentException</code>.
+     * than 10,000, <a>GetRecords</a> throws <code>InvalidArgumentException</code>. The default value is 10,000.
      * </p>
      * 
      * @param limit
      *        The maximum number of records to return. Specify a value of up to 10,000. If you specify a value that is
-     *        greater than 10,000, <a>GetRecords</a> throws <code>InvalidArgumentException</code>.
+     *        greater than 10,000, <a>GetRecords</a> throws <code>InvalidArgumentException</code>. The default value is
+     *        10,000.
      */
 
     public void setLimit(Integer limit) {
@@ -107,11 +114,12 @@ public class GetRecordsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * The maximum number of records to return. Specify a value of up to 10,000. If you specify a value that is greater
-     * than 10,000, <a>GetRecords</a> throws <code>InvalidArgumentException</code>.
+     * than 10,000, <a>GetRecords</a> throws <code>InvalidArgumentException</code>. The default value is 10,000.
      * </p>
      * 
      * @return The maximum number of records to return. Specify a value of up to 10,000. If you specify a value that is
-     *         greater than 10,000, <a>GetRecords</a> throws <code>InvalidArgumentException</code>.
+     *         greater than 10,000, <a>GetRecords</a> throws <code>InvalidArgumentException</code>. The default value is
+     *         10,000.
      */
 
     public Integer getLimit() {
@@ -121,17 +129,58 @@ public class GetRecordsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * The maximum number of records to return. Specify a value of up to 10,000. If you specify a value that is greater
-     * than 10,000, <a>GetRecords</a> throws <code>InvalidArgumentException</code>.
+     * than 10,000, <a>GetRecords</a> throws <code>InvalidArgumentException</code>. The default value is 10,000.
      * </p>
      * 
      * @param limit
      *        The maximum number of records to return. Specify a value of up to 10,000. If you specify a value that is
-     *        greater than 10,000, <a>GetRecords</a> throws <code>InvalidArgumentException</code>.
+     *        greater than 10,000, <a>GetRecords</a> throws <code>InvalidArgumentException</code>. The default value is
+     *        10,000.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GetRecordsRequest withLimit(Integer limit) {
         setLimit(limit);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     * 
+     * @param streamARN
+     *        The ARN of the stream.
+     */
+
+    public void setStreamARN(String streamARN) {
+        this.streamARN = streamARN;
+    }
+
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     * 
+     * @return The ARN of the stream.
+     */
+
+    public String getStreamARN() {
+        return this.streamARN;
+    }
+
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     * 
+     * @param streamARN
+     *        The ARN of the stream.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetRecordsRequest withStreamARN(String streamARN) {
+        setStreamARN(streamARN);
         return this;
     }
 
@@ -150,7 +199,9 @@ public class GetRecordsRequest extends com.amazonaws.AmazonWebServiceRequest imp
         if (getShardIterator() != null)
             sb.append("ShardIterator: ").append(getShardIterator()).append(",");
         if (getLimit() != null)
-            sb.append("Limit: ").append(getLimit());
+            sb.append("Limit: ").append(getLimit()).append(",");
+        if (getStreamARN() != null)
+            sb.append("StreamARN: ").append(getStreamARN());
         sb.append("}");
         return sb.toString();
     }
@@ -173,6 +224,10 @@ public class GetRecordsRequest extends com.amazonaws.AmazonWebServiceRequest imp
             return false;
         if (other.getLimit() != null && other.getLimit().equals(this.getLimit()) == false)
             return false;
+        if (other.getStreamARN() == null ^ this.getStreamARN() == null)
+            return false;
+        if (other.getStreamARN() != null && other.getStreamARN().equals(this.getStreamARN()) == false)
+            return false;
         return true;
     }
 
@@ -183,6 +238,7 @@ public class GetRecordsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
         hashCode = prime * hashCode + ((getShardIterator() == null) ? 0 : getShardIterator().hashCode());
         hashCode = prime * hashCode + ((getLimit() == null) ? 0 : getLimit().hashCode());
+        hashCode = prime * hashCode + ((getStreamARN() == null) ? 0 : getStreamARN().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,14 +27,14 @@ public class GetDatasetContentRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the data set whose contents are retrieved.
+     * The name of the dataset whose contents are retrieved.
      * </p>
      */
     private String datasetName;
     /**
      * <p>
-     * The version of the data set whose contents are retrieved. You can also use the strings "$LATEST" or
-     * "$LATEST_SUCCEEDED" to retrieve the contents of the latest or latest successfully completed data set. If not
+     * The version of the dataset whose contents are retrieved. You can also use the strings "$LATEST" or
+     * "$LATEST_SUCCEEDED" to retrieve the contents of the latest or latest successfully completed dataset. If not
      * specified, "$LATEST_SUCCEEDED" is the default.
      * </p>
      */
@@ -42,11 +42,11 @@ public class GetDatasetContentRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the data set whose contents are retrieved.
+     * The name of the dataset whose contents are retrieved.
      * </p>
      * 
      * @param datasetName
-     *        The name of the data set whose contents are retrieved.
+     *        The name of the dataset whose contents are retrieved.
      */
 
     public void setDatasetName(String datasetName) {
@@ -55,10 +55,10 @@ public class GetDatasetContentRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the data set whose contents are retrieved.
+     * The name of the dataset whose contents are retrieved.
      * </p>
      * 
-     * @return The name of the data set whose contents are retrieved.
+     * @return The name of the dataset whose contents are retrieved.
      */
 
     public String getDatasetName() {
@@ -67,11 +67,11 @@ public class GetDatasetContentRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the data set whose contents are retrieved.
+     * The name of the dataset whose contents are retrieved.
      * </p>
      * 
      * @param datasetName
-     *        The name of the data set whose contents are retrieved.
+     *        The name of the dataset whose contents are retrieved.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -82,14 +82,14 @@ public class GetDatasetContentRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The version of the data set whose contents are retrieved. You can also use the strings "$LATEST" or
-     * "$LATEST_SUCCEEDED" to retrieve the contents of the latest or latest successfully completed data set. If not
+     * The version of the dataset whose contents are retrieved. You can also use the strings "$LATEST" or
+     * "$LATEST_SUCCEEDED" to retrieve the contents of the latest or latest successfully completed dataset. If not
      * specified, "$LATEST_SUCCEEDED" is the default.
      * </p>
      * 
      * @param versionId
-     *        The version of the data set whose contents are retrieved. You can also use the strings "$LATEST" or
-     *        "$LATEST_SUCCEEDED" to retrieve the contents of the latest or latest successfully completed data set. If
+     *        The version of the dataset whose contents are retrieved. You can also use the strings "$LATEST" or
+     *        "$LATEST_SUCCEEDED" to retrieve the contents of the latest or latest successfully completed dataset. If
      *        not specified, "$LATEST_SUCCEEDED" is the default.
      */
 
@@ -99,13 +99,13 @@ public class GetDatasetContentRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The version of the data set whose contents are retrieved. You can also use the strings "$LATEST" or
-     * "$LATEST_SUCCEEDED" to retrieve the contents of the latest or latest successfully completed data set. If not
+     * The version of the dataset whose contents are retrieved. You can also use the strings "$LATEST" or
+     * "$LATEST_SUCCEEDED" to retrieve the contents of the latest or latest successfully completed dataset. If not
      * specified, "$LATEST_SUCCEEDED" is the default.
      * </p>
      * 
-     * @return The version of the data set whose contents are retrieved. You can also use the strings "$LATEST" or
-     *         "$LATEST_SUCCEEDED" to retrieve the contents of the latest or latest successfully completed data set. If
+     * @return The version of the dataset whose contents are retrieved. You can also use the strings "$LATEST" or
+     *         "$LATEST_SUCCEEDED" to retrieve the contents of the latest or latest successfully completed dataset. If
      *         not specified, "$LATEST_SUCCEEDED" is the default.
      */
 
@@ -115,14 +115,14 @@ public class GetDatasetContentRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The version of the data set whose contents are retrieved. You can also use the strings "$LATEST" or
-     * "$LATEST_SUCCEEDED" to retrieve the contents of the latest or latest successfully completed data set. If not
+     * The version of the dataset whose contents are retrieved. You can also use the strings "$LATEST" or
+     * "$LATEST_SUCCEEDED" to retrieve the contents of the latest or latest successfully completed dataset. If not
      * specified, "$LATEST_SUCCEEDED" is the default.
      * </p>
      * 
      * @param versionId
-     *        The version of the data set whose contents are retrieved. You can also use the strings "$LATEST" or
-     *        "$LATEST_SUCCEEDED" to retrieve the contents of the latest or latest successfully completed data set. If
+     *        The version of the dataset whose contents are retrieved. You can also use the strings "$LATEST" or
+     *        "$LATEST_SUCCEEDED" to retrieve the contents of the latest or latest successfully completed dataset. If
      *        not specified, "$LATEST_SUCCEEDED" is the default.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -74,10 +74,43 @@ public class UpdateDestinationRequest extends com.amazonaws.AmazonWebServiceRequ
     private ElasticsearchDestinationUpdate elasticsearchDestinationUpdate;
     /**
      * <p>
+     * Describes an update for a destination in Amazon OpenSearch Service.
+     * </p>
+     */
+    private AmazonopensearchserviceDestinationUpdate amazonopensearchserviceDestinationUpdate;
+    /**
+     * <p>
      * Describes an update for a destination in Splunk.
      * </p>
      */
     private SplunkDestinationUpdate splunkDestinationUpdate;
+    /**
+     * <p>
+     * Describes an update to the specified HTTP endpoint destination.
+     * </p>
+     */
+    private HttpEndpointDestinationUpdate httpEndpointDestinationUpdate;
+    /**
+     * <p>
+     * Describes an update for a destination in the Serverless offering for Amazon OpenSearch Service.
+     * </p>
+     */
+    private AmazonOpenSearchServerlessDestinationUpdate amazonOpenSearchServerlessDestinationUpdate;
+    /**
+     * <p>
+     * Update to the Snowflake destination configuration settings.
+     * </p>
+     */
+    private SnowflakeDestinationUpdate snowflakeDestinationUpdate;
+    /**
+     * <p>
+     * Describes an update for a destination in Apache Iceberg Tables.
+     * </p>
+     * <p>
+     * Amazon Data Firehose is in preview release and is subject to change.
+     * </p>
+     */
+    private IcebergDestinationUpdate icebergDestinationUpdate;
 
     /**
      * <p>
@@ -385,6 +418,47 @@ public class UpdateDestinationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
+     * Describes an update for a destination in Amazon OpenSearch Service.
+     * </p>
+     * 
+     * @param amazonopensearchserviceDestinationUpdate
+     *        Describes an update for a destination in Amazon OpenSearch Service.
+     */
+
+    public void setAmazonopensearchserviceDestinationUpdate(AmazonopensearchserviceDestinationUpdate amazonopensearchserviceDestinationUpdate) {
+        this.amazonopensearchserviceDestinationUpdate = amazonopensearchserviceDestinationUpdate;
+    }
+
+    /**
+     * <p>
+     * Describes an update for a destination in Amazon OpenSearch Service.
+     * </p>
+     * 
+     * @return Describes an update for a destination in Amazon OpenSearch Service.
+     */
+
+    public AmazonopensearchserviceDestinationUpdate getAmazonopensearchserviceDestinationUpdate() {
+        return this.amazonopensearchserviceDestinationUpdate;
+    }
+
+    /**
+     * <p>
+     * Describes an update for a destination in Amazon OpenSearch Service.
+     * </p>
+     * 
+     * @param amazonopensearchserviceDestinationUpdate
+     *        Describes an update for a destination in Amazon OpenSearch Service.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateDestinationRequest withAmazonopensearchserviceDestinationUpdate(
+            AmazonopensearchserviceDestinationUpdate amazonopensearchserviceDestinationUpdate) {
+        setAmazonopensearchserviceDestinationUpdate(amazonopensearchserviceDestinationUpdate);
+        return this;
+    }
+
+    /**
+     * <p>
      * Describes an update for a destination in Splunk.
      * </p>
      * 
@@ -424,6 +498,182 @@ public class UpdateDestinationRequest extends com.amazonaws.AmazonWebServiceRequ
     }
 
     /**
+     * <p>
+     * Describes an update to the specified HTTP endpoint destination.
+     * </p>
+     * 
+     * @param httpEndpointDestinationUpdate
+     *        Describes an update to the specified HTTP endpoint destination.
+     */
+
+    public void setHttpEndpointDestinationUpdate(HttpEndpointDestinationUpdate httpEndpointDestinationUpdate) {
+        this.httpEndpointDestinationUpdate = httpEndpointDestinationUpdate;
+    }
+
+    /**
+     * <p>
+     * Describes an update to the specified HTTP endpoint destination.
+     * </p>
+     * 
+     * @return Describes an update to the specified HTTP endpoint destination.
+     */
+
+    public HttpEndpointDestinationUpdate getHttpEndpointDestinationUpdate() {
+        return this.httpEndpointDestinationUpdate;
+    }
+
+    /**
+     * <p>
+     * Describes an update to the specified HTTP endpoint destination.
+     * </p>
+     * 
+     * @param httpEndpointDestinationUpdate
+     *        Describes an update to the specified HTTP endpoint destination.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateDestinationRequest withHttpEndpointDestinationUpdate(HttpEndpointDestinationUpdate httpEndpointDestinationUpdate) {
+        setHttpEndpointDestinationUpdate(httpEndpointDestinationUpdate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes an update for a destination in the Serverless offering for Amazon OpenSearch Service.
+     * </p>
+     * 
+     * @param amazonOpenSearchServerlessDestinationUpdate
+     *        Describes an update for a destination in the Serverless offering for Amazon OpenSearch Service.
+     */
+
+    public void setAmazonOpenSearchServerlessDestinationUpdate(AmazonOpenSearchServerlessDestinationUpdate amazonOpenSearchServerlessDestinationUpdate) {
+        this.amazonOpenSearchServerlessDestinationUpdate = amazonOpenSearchServerlessDestinationUpdate;
+    }
+
+    /**
+     * <p>
+     * Describes an update for a destination in the Serverless offering for Amazon OpenSearch Service.
+     * </p>
+     * 
+     * @return Describes an update for a destination in the Serverless offering for Amazon OpenSearch Service.
+     */
+
+    public AmazonOpenSearchServerlessDestinationUpdate getAmazonOpenSearchServerlessDestinationUpdate() {
+        return this.amazonOpenSearchServerlessDestinationUpdate;
+    }
+
+    /**
+     * <p>
+     * Describes an update for a destination in the Serverless offering for Amazon OpenSearch Service.
+     * </p>
+     * 
+     * @param amazonOpenSearchServerlessDestinationUpdate
+     *        Describes an update for a destination in the Serverless offering for Amazon OpenSearch Service.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateDestinationRequest withAmazonOpenSearchServerlessDestinationUpdate(
+            AmazonOpenSearchServerlessDestinationUpdate amazonOpenSearchServerlessDestinationUpdate) {
+        setAmazonOpenSearchServerlessDestinationUpdate(amazonOpenSearchServerlessDestinationUpdate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Update to the Snowflake destination configuration settings.
+     * </p>
+     * 
+     * @param snowflakeDestinationUpdate
+     *        Update to the Snowflake destination configuration settings.
+     */
+
+    public void setSnowflakeDestinationUpdate(SnowflakeDestinationUpdate snowflakeDestinationUpdate) {
+        this.snowflakeDestinationUpdate = snowflakeDestinationUpdate;
+    }
+
+    /**
+     * <p>
+     * Update to the Snowflake destination configuration settings.
+     * </p>
+     * 
+     * @return Update to the Snowflake destination configuration settings.
+     */
+
+    public SnowflakeDestinationUpdate getSnowflakeDestinationUpdate() {
+        return this.snowflakeDestinationUpdate;
+    }
+
+    /**
+     * <p>
+     * Update to the Snowflake destination configuration settings.
+     * </p>
+     * 
+     * @param snowflakeDestinationUpdate
+     *        Update to the Snowflake destination configuration settings.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateDestinationRequest withSnowflakeDestinationUpdate(SnowflakeDestinationUpdate snowflakeDestinationUpdate) {
+        setSnowflakeDestinationUpdate(snowflakeDestinationUpdate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes an update for a destination in Apache Iceberg Tables.
+     * </p>
+     * <p>
+     * Amazon Data Firehose is in preview release and is subject to change.
+     * </p>
+     * 
+     * @param icebergDestinationUpdate
+     *        Describes an update for a destination in Apache Iceberg Tables. </p>
+     *        <p>
+     *        Amazon Data Firehose is in preview release and is subject to change.
+     */
+
+    public void setIcebergDestinationUpdate(IcebergDestinationUpdate icebergDestinationUpdate) {
+        this.icebergDestinationUpdate = icebergDestinationUpdate;
+    }
+
+    /**
+     * <p>
+     * Describes an update for a destination in Apache Iceberg Tables.
+     * </p>
+     * <p>
+     * Amazon Data Firehose is in preview release and is subject to change.
+     * </p>
+     * 
+     * @return Describes an update for a destination in Apache Iceberg Tables. </p>
+     *         <p>
+     *         Amazon Data Firehose is in preview release and is subject to change.
+     */
+
+    public IcebergDestinationUpdate getIcebergDestinationUpdate() {
+        return this.icebergDestinationUpdate;
+    }
+
+    /**
+     * <p>
+     * Describes an update for a destination in Apache Iceberg Tables.
+     * </p>
+     * <p>
+     * Amazon Data Firehose is in preview release and is subject to change.
+     * </p>
+     * 
+     * @param icebergDestinationUpdate
+     *        Describes an update for a destination in Apache Iceberg Tables. </p>
+     *        <p>
+     *        Amazon Data Firehose is in preview release and is subject to change.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateDestinationRequest withIcebergDestinationUpdate(IcebergDestinationUpdate icebergDestinationUpdate) {
+        setIcebergDestinationUpdate(icebergDestinationUpdate);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -449,8 +699,18 @@ public class UpdateDestinationRequest extends com.amazonaws.AmazonWebServiceRequ
             sb.append("RedshiftDestinationUpdate: ").append(getRedshiftDestinationUpdate()).append(",");
         if (getElasticsearchDestinationUpdate() != null)
             sb.append("ElasticsearchDestinationUpdate: ").append(getElasticsearchDestinationUpdate()).append(",");
+        if (getAmazonopensearchserviceDestinationUpdate() != null)
+            sb.append("AmazonopensearchserviceDestinationUpdate: ").append(getAmazonopensearchserviceDestinationUpdate()).append(",");
         if (getSplunkDestinationUpdate() != null)
-            sb.append("SplunkDestinationUpdate: ").append(getSplunkDestinationUpdate());
+            sb.append("SplunkDestinationUpdate: ").append(getSplunkDestinationUpdate()).append(",");
+        if (getHttpEndpointDestinationUpdate() != null)
+            sb.append("HttpEndpointDestinationUpdate: ").append(getHttpEndpointDestinationUpdate()).append(",");
+        if (getAmazonOpenSearchServerlessDestinationUpdate() != null)
+            sb.append("AmazonOpenSearchServerlessDestinationUpdate: ").append(getAmazonOpenSearchServerlessDestinationUpdate()).append(",");
+        if (getSnowflakeDestinationUpdate() != null)
+            sb.append("SnowflakeDestinationUpdate: ").append(getSnowflakeDestinationUpdate()).append(",");
+        if (getIcebergDestinationUpdate() != null)
+            sb.append("IcebergDestinationUpdate: ").append(getIcebergDestinationUpdate());
         sb.append("}");
         return sb.toString();
     }
@@ -495,9 +755,32 @@ public class UpdateDestinationRequest extends com.amazonaws.AmazonWebServiceRequ
         if (other.getElasticsearchDestinationUpdate() != null
                 && other.getElasticsearchDestinationUpdate().equals(this.getElasticsearchDestinationUpdate()) == false)
             return false;
+        if (other.getAmazonopensearchserviceDestinationUpdate() == null ^ this.getAmazonopensearchserviceDestinationUpdate() == null)
+            return false;
+        if (other.getAmazonopensearchserviceDestinationUpdate() != null
+                && other.getAmazonopensearchserviceDestinationUpdate().equals(this.getAmazonopensearchserviceDestinationUpdate()) == false)
+            return false;
         if (other.getSplunkDestinationUpdate() == null ^ this.getSplunkDestinationUpdate() == null)
             return false;
         if (other.getSplunkDestinationUpdate() != null && other.getSplunkDestinationUpdate().equals(this.getSplunkDestinationUpdate()) == false)
+            return false;
+        if (other.getHttpEndpointDestinationUpdate() == null ^ this.getHttpEndpointDestinationUpdate() == null)
+            return false;
+        if (other.getHttpEndpointDestinationUpdate() != null
+                && other.getHttpEndpointDestinationUpdate().equals(this.getHttpEndpointDestinationUpdate()) == false)
+            return false;
+        if (other.getAmazonOpenSearchServerlessDestinationUpdate() == null ^ this.getAmazonOpenSearchServerlessDestinationUpdate() == null)
+            return false;
+        if (other.getAmazonOpenSearchServerlessDestinationUpdate() != null
+                && other.getAmazonOpenSearchServerlessDestinationUpdate().equals(this.getAmazonOpenSearchServerlessDestinationUpdate()) == false)
+            return false;
+        if (other.getSnowflakeDestinationUpdate() == null ^ this.getSnowflakeDestinationUpdate() == null)
+            return false;
+        if (other.getSnowflakeDestinationUpdate() != null && other.getSnowflakeDestinationUpdate().equals(this.getSnowflakeDestinationUpdate()) == false)
+            return false;
+        if (other.getIcebergDestinationUpdate() == null ^ this.getIcebergDestinationUpdate() == null)
+            return false;
+        if (other.getIcebergDestinationUpdate() != null && other.getIcebergDestinationUpdate().equals(this.getIcebergDestinationUpdate()) == false)
             return false;
         return true;
     }
@@ -514,7 +797,13 @@ public class UpdateDestinationRequest extends com.amazonaws.AmazonWebServiceRequ
         hashCode = prime * hashCode + ((getExtendedS3DestinationUpdate() == null) ? 0 : getExtendedS3DestinationUpdate().hashCode());
         hashCode = prime * hashCode + ((getRedshiftDestinationUpdate() == null) ? 0 : getRedshiftDestinationUpdate().hashCode());
         hashCode = prime * hashCode + ((getElasticsearchDestinationUpdate() == null) ? 0 : getElasticsearchDestinationUpdate().hashCode());
+        hashCode = prime * hashCode + ((getAmazonopensearchserviceDestinationUpdate() == null) ? 0 : getAmazonopensearchserviceDestinationUpdate().hashCode());
         hashCode = prime * hashCode + ((getSplunkDestinationUpdate() == null) ? 0 : getSplunkDestinationUpdate().hashCode());
+        hashCode = prime * hashCode + ((getHttpEndpointDestinationUpdate() == null) ? 0 : getHttpEndpointDestinationUpdate().hashCode());
+        hashCode = prime * hashCode
+                + ((getAmazonOpenSearchServerlessDestinationUpdate() == null) ? 0 : getAmazonOpenSearchServerlessDestinationUpdate().hashCode());
+        hashCode = prime * hashCode + ((getSnowflakeDestinationUpdate() == null) ? 0 : getSnowflakeDestinationUpdate().hashCode());
+        hashCode = prime * hashCode + ((getIcebergDestinationUpdate() == null) ? 0 : getIcebergDestinationUpdate().hashCode());
         return hashCode;
     }
 

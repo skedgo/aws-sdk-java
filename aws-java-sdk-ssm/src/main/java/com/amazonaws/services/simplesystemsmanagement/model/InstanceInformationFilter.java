@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,12 +19,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes a filter for a specific list of instances. You can filter instances information by using tags. You specify
+ * Describes a filter for a specific list of managed nodes. You can filter node information by using tags. You specify
  * tags by using a key-value mapping.
  * </p>
  * <p>
- * Use this action instead of the <a>DescribeInstanceInformationRequest$InstanceInformationFilterList</a> method. The
- * <code>InstanceInformationFilterList</code> method is a legacy method and does not support tags.
+ * Use this operation instead of the <a>DescribeInstanceInformationRequest$InstanceInformationFilterList</a> method. The
+ * <code>InstanceInformationFilterList</code> method is a legacy method and doesn't support tags.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/InstanceInformationFilter" target="_top">AWS API

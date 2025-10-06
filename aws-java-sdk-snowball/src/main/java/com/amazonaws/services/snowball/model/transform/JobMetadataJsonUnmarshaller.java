@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -115,6 +115,38 @@ public class JobMetadataJsonUnmarshaller implements Unmarshaller<JobMetadata, Js
                 if (context.testExpression("ForwardingAddressId", targetDepth)) {
                     context.nextToken();
                     jobMetadata.setForwardingAddressId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("TaxDocuments", targetDepth)) {
+                    context.nextToken();
+                    jobMetadata.setTaxDocuments(TaxDocumentsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DeviceConfiguration", targetDepth)) {
+                    context.nextToken();
+                    jobMetadata.setDeviceConfiguration(DeviceConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("RemoteManagement", targetDepth)) {
+                    context.nextToken();
+                    jobMetadata.setRemoteManagement(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("LongTermPricingId", targetDepth)) {
+                    context.nextToken();
+                    jobMetadata.setLongTermPricingId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("OnDeviceServiceConfiguration", targetDepth)) {
+                    context.nextToken();
+                    jobMetadata.setOnDeviceServiceConfiguration(OnDeviceServiceConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ImpactLevel", targetDepth)) {
+                    context.nextToken();
+                    jobMetadata.setImpactLevel(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("PickupDetails", targetDepth)) {
+                    context.nextToken();
+                    jobMetadata.setPickupDetails(PickupDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("SnowballId", targetDepth)) {
+                    context.nextToken();
+                    jobMetadata.setSnowballId(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

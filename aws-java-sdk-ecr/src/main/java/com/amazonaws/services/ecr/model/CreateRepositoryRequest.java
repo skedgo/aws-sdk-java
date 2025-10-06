@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,9 +27,20 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
+     * The Amazon Web Services account ID associated with the registry to create the repository. If you do not specify a
+     * registry, the default registry is assumed.
+     * </p>
+     */
+    private String registryId;
+    /**
+     * <p>
      * The name to use for the repository. The repository name may be specified on its own (such as
      * <code>nginx-web-app</code>) or it can be prepended with a namespace to group the repository into a category (such
      * as <code>project-a/nginx-web-app</code>).
+     * </p>
+     * <p>
+     * The repository name must start with a letter and can only contain lowercase letters, numbers, hyphens,
+     * underscores, and forward slashes.
      * </p>
      */
     private String repositoryName;
@@ -49,6 +60,66 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      */
     private String imageTagMutability;
+    /**
+     * <p>
+     * The image scanning configuration for the repository. This determines whether images are scanned for known
+     * vulnerabilities after being pushed to the repository.
+     * </p>
+     */
+    private ImageScanningConfiguration imageScanningConfiguration;
+    /**
+     * <p>
+     * The encryption configuration for the repository. This determines how the contents of your repository are
+     * encrypted at rest.
+     * </p>
+     */
+    private EncryptionConfiguration encryptionConfiguration;
+
+    /**
+     * <p>
+     * The Amazon Web Services account ID associated with the registry to create the repository. If you do not specify a
+     * registry, the default registry is assumed.
+     * </p>
+     * 
+     * @param registryId
+     *        The Amazon Web Services account ID associated with the registry to create the repository. If you do not
+     *        specify a registry, the default registry is assumed.
+     */
+
+    public void setRegistryId(String registryId) {
+        this.registryId = registryId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services account ID associated with the registry to create the repository. If you do not specify a
+     * registry, the default registry is assumed.
+     * </p>
+     * 
+     * @return The Amazon Web Services account ID associated with the registry to create the repository. If you do not
+     *         specify a registry, the default registry is assumed.
+     */
+
+    public String getRegistryId() {
+        return this.registryId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services account ID associated with the registry to create the repository. If you do not specify a
+     * registry, the default registry is assumed.
+     * </p>
+     * 
+     * @param registryId
+     *        The Amazon Web Services account ID associated with the registry to create the repository. If you do not
+     *        specify a registry, the default registry is assumed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateRepositoryRequest withRegistryId(String registryId) {
+        setRegistryId(registryId);
+        return this;
+    }
 
     /**
      * <p>
@@ -56,11 +127,18 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
      * <code>nginx-web-app</code>) or it can be prepended with a namespace to group the repository into a category (such
      * as <code>project-a/nginx-web-app</code>).
      * </p>
+     * <p>
+     * The repository name must start with a letter and can only contain lowercase letters, numbers, hyphens,
+     * underscores, and forward slashes.
+     * </p>
      * 
      * @param repositoryName
      *        The name to use for the repository. The repository name may be specified on its own (such as
      *        <code>nginx-web-app</code>) or it can be prepended with a namespace to group the repository into a
-     *        category (such as <code>project-a/nginx-web-app</code>).
+     *        category (such as <code>project-a/nginx-web-app</code>).</p>
+     *        <p>
+     *        The repository name must start with a letter and can only contain lowercase letters, numbers, hyphens,
+     *        underscores, and forward slashes.
      */
 
     public void setRepositoryName(String repositoryName) {
@@ -73,10 +151,17 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
      * <code>nginx-web-app</code>) or it can be prepended with a namespace to group the repository into a category (such
      * as <code>project-a/nginx-web-app</code>).
      * </p>
+     * <p>
+     * The repository name must start with a letter and can only contain lowercase letters, numbers, hyphens,
+     * underscores, and forward slashes.
+     * </p>
      * 
      * @return The name to use for the repository. The repository name may be specified on its own (such as
      *         <code>nginx-web-app</code>) or it can be prepended with a namespace to group the repository into a
-     *         category (such as <code>project-a/nginx-web-app</code>).
+     *         category (such as <code>project-a/nginx-web-app</code>).</p>
+     *         <p>
+     *         The repository name must start with a letter and can only contain lowercase letters, numbers, hyphens,
+     *         underscores, and forward slashes.
      */
 
     public String getRepositoryName() {
@@ -89,11 +174,18 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
      * <code>nginx-web-app</code>) or it can be prepended with a namespace to group the repository into a category (such
      * as <code>project-a/nginx-web-app</code>).
      * </p>
+     * <p>
+     * The repository name must start with a letter and can only contain lowercase letters, numbers, hyphens,
+     * underscores, and forward slashes.
+     * </p>
      * 
      * @param repositoryName
      *        The name to use for the repository. The repository name may be specified on its own (such as
      *        <code>nginx-web-app</code>) or it can be prepended with a namespace to group the repository into a
-     *        category (such as <code>project-a/nginx-web-app</code>).
+     *        category (such as <code>project-a/nginx-web-app</code>).</p>
+     *        <p>
+     *        The repository name must start with a letter and can only contain lowercase letters, numbers, hyphens,
+     *        underscores, and forward slashes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -268,6 +360,98 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
+     * <p>
+     * The image scanning configuration for the repository. This determines whether images are scanned for known
+     * vulnerabilities after being pushed to the repository.
+     * </p>
+     * 
+     * @param imageScanningConfiguration
+     *        The image scanning configuration for the repository. This determines whether images are scanned for known
+     *        vulnerabilities after being pushed to the repository.
+     */
+
+    public void setImageScanningConfiguration(ImageScanningConfiguration imageScanningConfiguration) {
+        this.imageScanningConfiguration = imageScanningConfiguration;
+    }
+
+    /**
+     * <p>
+     * The image scanning configuration for the repository. This determines whether images are scanned for known
+     * vulnerabilities after being pushed to the repository.
+     * </p>
+     * 
+     * @return The image scanning configuration for the repository. This determines whether images are scanned for known
+     *         vulnerabilities after being pushed to the repository.
+     */
+
+    public ImageScanningConfiguration getImageScanningConfiguration() {
+        return this.imageScanningConfiguration;
+    }
+
+    /**
+     * <p>
+     * The image scanning configuration for the repository. This determines whether images are scanned for known
+     * vulnerabilities after being pushed to the repository.
+     * </p>
+     * 
+     * @param imageScanningConfiguration
+     *        The image scanning configuration for the repository. This determines whether images are scanned for known
+     *        vulnerabilities after being pushed to the repository.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateRepositoryRequest withImageScanningConfiguration(ImageScanningConfiguration imageScanningConfiguration) {
+        setImageScanningConfiguration(imageScanningConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The encryption configuration for the repository. This determines how the contents of your repository are
+     * encrypted at rest.
+     * </p>
+     * 
+     * @param encryptionConfiguration
+     *        The encryption configuration for the repository. This determines how the contents of your repository are
+     *        encrypted at rest.
+     */
+
+    public void setEncryptionConfiguration(EncryptionConfiguration encryptionConfiguration) {
+        this.encryptionConfiguration = encryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * The encryption configuration for the repository. This determines how the contents of your repository are
+     * encrypted at rest.
+     * </p>
+     * 
+     * @return The encryption configuration for the repository. This determines how the contents of your repository are
+     *         encrypted at rest.
+     */
+
+    public EncryptionConfiguration getEncryptionConfiguration() {
+        return this.encryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * The encryption configuration for the repository. This determines how the contents of your repository are
+     * encrypted at rest.
+     * </p>
+     * 
+     * @param encryptionConfiguration
+     *        The encryption configuration for the repository. This determines how the contents of your repository are
+     *        encrypted at rest.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateRepositoryRequest withEncryptionConfiguration(EncryptionConfiguration encryptionConfiguration) {
+        setEncryptionConfiguration(encryptionConfiguration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -279,12 +463,18 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getRegistryId() != null)
+            sb.append("RegistryId: ").append(getRegistryId()).append(",");
         if (getRepositoryName() != null)
             sb.append("RepositoryName: ").append(getRepositoryName()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getImageTagMutability() != null)
-            sb.append("ImageTagMutability: ").append(getImageTagMutability());
+            sb.append("ImageTagMutability: ").append(getImageTagMutability()).append(",");
+        if (getImageScanningConfiguration() != null)
+            sb.append("ImageScanningConfiguration: ").append(getImageScanningConfiguration()).append(",");
+        if (getEncryptionConfiguration() != null)
+            sb.append("EncryptionConfiguration: ").append(getEncryptionConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -299,6 +489,10 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
         if (obj instanceof CreateRepositoryRequest == false)
             return false;
         CreateRepositoryRequest other = (CreateRepositoryRequest) obj;
+        if (other.getRegistryId() == null ^ this.getRegistryId() == null)
+            return false;
+        if (other.getRegistryId() != null && other.getRegistryId().equals(this.getRegistryId()) == false)
+            return false;
         if (other.getRepositoryName() == null ^ this.getRepositoryName() == null)
             return false;
         if (other.getRepositoryName() != null && other.getRepositoryName().equals(this.getRepositoryName()) == false)
@@ -311,6 +505,14 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
             return false;
         if (other.getImageTagMutability() != null && other.getImageTagMutability().equals(this.getImageTagMutability()) == false)
             return false;
+        if (other.getImageScanningConfiguration() == null ^ this.getImageScanningConfiguration() == null)
+            return false;
+        if (other.getImageScanningConfiguration() != null && other.getImageScanningConfiguration().equals(this.getImageScanningConfiguration()) == false)
+            return false;
+        if (other.getEncryptionConfiguration() == null ^ this.getEncryptionConfiguration() == null)
+            return false;
+        if (other.getEncryptionConfiguration() != null && other.getEncryptionConfiguration().equals(this.getEncryptionConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -319,9 +521,12 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getRegistryId() == null) ? 0 : getRegistryId().hashCode());
         hashCode = prime * hashCode + ((getRepositoryName() == null) ? 0 : getRepositoryName().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getImageTagMutability() == null) ? 0 : getImageTagMutability().hashCode());
+        hashCode = prime * hashCode + ((getImageScanningConfiguration() == null) ? 0 : getImageScanningConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getEncryptionConfiguration() == null) ? 0 : getEncryptionConfiguration().hashCode());
         return hashCode;
     }
 

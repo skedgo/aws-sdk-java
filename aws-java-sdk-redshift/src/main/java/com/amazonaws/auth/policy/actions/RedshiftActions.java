@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,16 @@ public enum RedshiftActions implements Action {
 
     /** Action for the AcceptReservedNodeExchange operation. */
     AcceptReservedNodeExchange("redshift:AcceptReservedNodeExchange"),
+    /** Action for the AddPartner operation. */
+    AddPartner("redshift:AddPartner"),
+    /** Action for the AssociateDataShareConsumer operation. */
+    AssociateDataShareConsumer("redshift:AssociateDataShareConsumer"),
     /** Action for the AuthorizeClusterSecurityGroupIngress operation. */
     AuthorizeClusterSecurityGroupIngress("redshift:AuthorizeClusterSecurityGroupIngress"),
+    /** Action for the AuthorizeDataShare operation. */
+    AuthorizeDataShare("redshift:AuthorizeDataShare"),
+    /** Action for the AuthorizeEndpointAccess operation. */
+    AuthorizeEndpointAccess("redshift:AuthorizeEndpointAccess"),
     /** Action for the AuthorizeSnapshotAccess operation. */
     AuthorizeSnapshotAccess("redshift:AuthorizeSnapshotAccess"),
     /** Action for the BatchDeleteClusterSnapshots operation. */
@@ -39,6 +47,8 @@ public enum RedshiftActions implements Action {
     CancelResize("redshift:CancelResize"),
     /** Action for the CopyClusterSnapshot operation. */
     CopyClusterSnapshot("redshift:CopyClusterSnapshot"),
+    /** Action for the CreateAuthenticationProfile operation. */
+    CreateAuthenticationProfile("redshift:CreateAuthenticationProfile"),
     /** Action for the CreateCluster operation. */
     CreateCluster("redshift:CreateCluster"),
     /** Action for the CreateClusterParameterGroup operation. */
@@ -49,18 +59,32 @@ public enum RedshiftActions implements Action {
     CreateClusterSnapshot("redshift:CreateClusterSnapshot"),
     /** Action for the CreateClusterSubnetGroup operation. */
     CreateClusterSubnetGroup("redshift:CreateClusterSubnetGroup"),
+    /** Action for the CreateCustomDomainAssociation operation. */
+    CreateCustomDomainAssociation("redshift:CreateCustomDomainAssociation"),
+    /** Action for the CreateEndpointAccess operation. */
+    CreateEndpointAccess("redshift:CreateEndpointAccess"),
     /** Action for the CreateEventSubscription operation. */
     CreateEventSubscription("redshift:CreateEventSubscription"),
     /** Action for the CreateHsmClientCertificate operation. */
     CreateHsmClientCertificate("redshift:CreateHsmClientCertificate"),
     /** Action for the CreateHsmConfiguration operation. */
     CreateHsmConfiguration("redshift:CreateHsmConfiguration"),
+    /** Action for the CreateRedshiftIdcApplication operation. */
+    CreateRedshiftIdcApplication("redshift:CreateRedshiftIdcApplication"),
+    /** Action for the CreateScheduledAction operation. */
+    CreateScheduledAction("redshift:CreateScheduledAction"),
     /** Action for the CreateSnapshotCopyGrant operation. */
     CreateSnapshotCopyGrant("redshift:CreateSnapshotCopyGrant"),
     /** Action for the CreateSnapshotSchedule operation. */
     CreateSnapshotSchedule("redshift:CreateSnapshotSchedule"),
     /** Action for the CreateTags operation. */
     CreateTags("redshift:CreateTags"),
+    /** Action for the CreateUsageLimit operation. */
+    CreateUsageLimit("redshift:CreateUsageLimit"),
+    /** Action for the DeauthorizeDataShare operation. */
+    DeauthorizeDataShare("redshift:DeauthorizeDataShare"),
+    /** Action for the DeleteAuthenticationProfile operation. */
+    DeleteAuthenticationProfile("redshift:DeleteAuthenticationProfile"),
     /** Action for the DeleteCluster operation. */
     DeleteCluster("redshift:DeleteCluster"),
     /** Action for the DeleteClusterParameterGroup operation. */
@@ -71,20 +95,36 @@ public enum RedshiftActions implements Action {
     DeleteClusterSnapshot("redshift:DeleteClusterSnapshot"),
     /** Action for the DeleteClusterSubnetGroup operation. */
     DeleteClusterSubnetGroup("redshift:DeleteClusterSubnetGroup"),
+    /** Action for the DeleteCustomDomainAssociation operation. */
+    DeleteCustomDomainAssociation("redshift:DeleteCustomDomainAssociation"),
+    /** Action for the DeleteEndpointAccess operation. */
+    DeleteEndpointAccess("redshift:DeleteEndpointAccess"),
     /** Action for the DeleteEventSubscription operation. */
     DeleteEventSubscription("redshift:DeleteEventSubscription"),
     /** Action for the DeleteHsmClientCertificate operation. */
     DeleteHsmClientCertificate("redshift:DeleteHsmClientCertificate"),
     /** Action for the DeleteHsmConfiguration operation. */
     DeleteHsmConfiguration("redshift:DeleteHsmConfiguration"),
+    /** Action for the DeletePartner operation. */
+    DeletePartner("redshift:DeletePartner"),
+    /** Action for the DeleteRedshiftIdcApplication operation. */
+    DeleteRedshiftIdcApplication("redshift:DeleteRedshiftIdcApplication"),
+    /** Action for the DeleteResourcePolicy operation. */
+    DeleteResourcePolicy("redshift:DeleteResourcePolicy"),
+    /** Action for the DeleteScheduledAction operation. */
+    DeleteScheduledAction("redshift:DeleteScheduledAction"),
     /** Action for the DeleteSnapshotCopyGrant operation. */
     DeleteSnapshotCopyGrant("redshift:DeleteSnapshotCopyGrant"),
     /** Action for the DeleteSnapshotSchedule operation. */
     DeleteSnapshotSchedule("redshift:DeleteSnapshotSchedule"),
     /** Action for the DeleteTags operation. */
     DeleteTags("redshift:DeleteTags"),
+    /** Action for the DeleteUsageLimit operation. */
+    DeleteUsageLimit("redshift:DeleteUsageLimit"),
     /** Action for the DescribeAccountAttributes operation. */
     DescribeAccountAttributes("redshift:DescribeAccountAttributes"),
+    /** Action for the DescribeAuthenticationProfiles operation. */
+    DescribeAuthenticationProfiles("redshift:DescribeAuthenticationProfiles"),
     /** Action for the DescribeClusterDbRevisions operation. */
     DescribeClusterDbRevisions("redshift:DescribeClusterDbRevisions"),
     /** Action for the DescribeClusterParameterGroups operation. */
@@ -103,8 +143,20 @@ public enum RedshiftActions implements Action {
     DescribeClusterVersions("redshift:DescribeClusterVersions"),
     /** Action for the DescribeClusters operation. */
     DescribeClusters("redshift:DescribeClusters"),
+    /** Action for the DescribeCustomDomainAssociations operation. */
+    DescribeCustomDomainAssociations("redshift:DescribeCustomDomainAssociations"),
+    /** Action for the DescribeDataShares operation. */
+    DescribeDataShares("redshift:DescribeDataShares"),
+    /** Action for the DescribeDataSharesForConsumer operation. */
+    DescribeDataSharesForConsumer("redshift:DescribeDataSharesForConsumer"),
+    /** Action for the DescribeDataSharesForProducer operation. */
+    DescribeDataSharesForProducer("redshift:DescribeDataSharesForProducer"),
     /** Action for the DescribeDefaultClusterParameters operation. */
     DescribeDefaultClusterParameters("redshift:DescribeDefaultClusterParameters"),
+    /** Action for the DescribeEndpointAccess operation. */
+    DescribeEndpointAccess("redshift:DescribeEndpointAccess"),
+    /** Action for the DescribeEndpointAuthorization operation. */
+    DescribeEndpointAuthorization("redshift:DescribeEndpointAuthorization"),
     /** Action for the DescribeEventCategories operation. */
     DescribeEventCategories("redshift:DescribeEventCategories"),
     /** Action for the DescribeEventSubscriptions operation. */
@@ -115,16 +167,28 @@ public enum RedshiftActions implements Action {
     DescribeHsmClientCertificates("redshift:DescribeHsmClientCertificates"),
     /** Action for the DescribeHsmConfigurations operation. */
     DescribeHsmConfigurations("redshift:DescribeHsmConfigurations"),
+    /** Action for the DescribeInboundIntegrations operation. */
+    DescribeInboundIntegrations("redshift:DescribeInboundIntegrations"),
     /** Action for the DescribeLoggingStatus operation. */
     DescribeLoggingStatus("redshift:DescribeLoggingStatus"),
+    /** Action for the DescribeNodeConfigurationOptions operation. */
+    DescribeNodeConfigurationOptions("redshift:DescribeNodeConfigurationOptions"),
     /** Action for the DescribeOrderableClusterOptions operation. */
     DescribeOrderableClusterOptions("redshift:DescribeOrderableClusterOptions"),
+    /** Action for the DescribePartners operation. */
+    DescribePartners("redshift:DescribePartners"),
+    /** Action for the DescribeRedshiftIdcApplications operation. */
+    DescribeRedshiftIdcApplications("redshift:DescribeRedshiftIdcApplications"),
+    /** Action for the DescribeReservedNodeExchangeStatus operation. */
+    DescribeReservedNodeExchangeStatus("redshift:DescribeReservedNodeExchangeStatus"),
     /** Action for the DescribeReservedNodeOfferings operation. */
     DescribeReservedNodeOfferings("redshift:DescribeReservedNodeOfferings"),
     /** Action for the DescribeReservedNodes operation. */
     DescribeReservedNodes("redshift:DescribeReservedNodes"),
     /** Action for the DescribeResize operation. */
     DescribeResize("redshift:DescribeResize"),
+    /** Action for the DescribeScheduledActions operation. */
+    DescribeScheduledActions("redshift:DescribeScheduledActions"),
     /** Action for the DescribeSnapshotCopyGrants operation. */
     DescribeSnapshotCopyGrants("redshift:DescribeSnapshotCopyGrants"),
     /** Action for the DescribeSnapshotSchedules operation. */
@@ -135,18 +199,36 @@ public enum RedshiftActions implements Action {
     DescribeTableRestoreStatus("redshift:DescribeTableRestoreStatus"),
     /** Action for the DescribeTags operation. */
     DescribeTags("redshift:DescribeTags"),
+    /** Action for the DescribeUsageLimits operation. */
+    DescribeUsageLimits("redshift:DescribeUsageLimits"),
     /** Action for the DisableLogging operation. */
     DisableLogging("redshift:DisableLogging"),
     /** Action for the DisableSnapshotCopy operation. */
     DisableSnapshotCopy("redshift:DisableSnapshotCopy"),
+    /** Action for the DisassociateDataShareConsumer operation. */
+    DisassociateDataShareConsumer("redshift:DisassociateDataShareConsumer"),
     /** Action for the EnableLogging operation. */
     EnableLogging("redshift:EnableLogging"),
     /** Action for the EnableSnapshotCopy operation. */
     EnableSnapshotCopy("redshift:EnableSnapshotCopy"),
+    /** Action for the FailoverPrimaryCompute operation. */
+    FailoverPrimaryCompute("redshift:FailoverPrimaryCompute"),
     /** Action for the GetClusterCredentials operation. */
     GetClusterCredentials("redshift:GetClusterCredentials"),
+    /** Action for the GetClusterCredentialsWithIAM operation. */
+    GetClusterCredentialsWithIAM("redshift:GetClusterCredentialsWithIAM"),
+    /** Action for the GetReservedNodeExchangeConfigurationOptions operation. */
+    GetReservedNodeExchangeConfigurationOptions("redshift:GetReservedNodeExchangeConfigurationOptions"),
     /** Action for the GetReservedNodeExchangeOfferings operation. */
     GetReservedNodeExchangeOfferings("redshift:GetReservedNodeExchangeOfferings"),
+    /** Action for the GetResourcePolicy operation. */
+    GetResourcePolicy("redshift:GetResourcePolicy"),
+    /** Action for the ListRecommendations operation. */
+    ListRecommendations("redshift:ListRecommendations"),
+    /** Action for the ModifyAquaConfiguration operation. */
+    ModifyAquaConfiguration("redshift:ModifyAquaConfiguration"),
+    /** Action for the ModifyAuthenticationProfile operation. */
+    ModifyAuthenticationProfile("redshift:ModifyAuthenticationProfile"),
     /** Action for the ModifyCluster operation. */
     ModifyCluster("redshift:ModifyCluster"),
     /** Action for the ModifyClusterDbRevision operation. */
@@ -163,16 +245,32 @@ public enum RedshiftActions implements Action {
     ModifyClusterSnapshotSchedule("redshift:ModifyClusterSnapshotSchedule"),
     /** Action for the ModifyClusterSubnetGroup operation. */
     ModifyClusterSubnetGroup("redshift:ModifyClusterSubnetGroup"),
+    /** Action for the ModifyCustomDomainAssociation operation. */
+    ModifyCustomDomainAssociation("redshift:ModifyCustomDomainAssociation"),
+    /** Action for the ModifyEndpointAccess operation. */
+    ModifyEndpointAccess("redshift:ModifyEndpointAccess"),
     /** Action for the ModifyEventSubscription operation. */
     ModifyEventSubscription("redshift:ModifyEventSubscription"),
+    /** Action for the ModifyRedshiftIdcApplication operation. */
+    ModifyRedshiftIdcApplication("redshift:ModifyRedshiftIdcApplication"),
+    /** Action for the ModifyScheduledAction operation. */
+    ModifyScheduledAction("redshift:ModifyScheduledAction"),
     /** Action for the ModifySnapshotCopyRetentionPeriod operation. */
     ModifySnapshotCopyRetentionPeriod("redshift:ModifySnapshotCopyRetentionPeriod"),
     /** Action for the ModifySnapshotSchedule operation. */
     ModifySnapshotSchedule("redshift:ModifySnapshotSchedule"),
+    /** Action for the ModifyUsageLimit operation. */
+    ModifyUsageLimit("redshift:ModifyUsageLimit"),
+    /** Action for the PauseCluster operation. */
+    PauseCluster("redshift:PauseCluster"),
     /** Action for the PurchaseReservedNodeOffering operation. */
     PurchaseReservedNodeOffering("redshift:PurchaseReservedNodeOffering"),
+    /** Action for the PutResourcePolicy operation. */
+    PutResourcePolicy("redshift:PutResourcePolicy"),
     /** Action for the RebootCluster operation. */
     RebootCluster("redshift:RebootCluster"),
+    /** Action for the RejectDataShare operation. */
+    RejectDataShare("redshift:RejectDataShare"),
     /** Action for the ResetClusterParameterGroup operation. */
     ResetClusterParameterGroup("redshift:ResetClusterParameterGroup"),
     /** Action for the ResizeCluster operation. */
@@ -181,12 +279,18 @@ public enum RedshiftActions implements Action {
     RestoreFromClusterSnapshot("redshift:RestoreFromClusterSnapshot"),
     /** Action for the RestoreTableFromClusterSnapshot operation. */
     RestoreTableFromClusterSnapshot("redshift:RestoreTableFromClusterSnapshot"),
+    /** Action for the ResumeCluster operation. */
+    ResumeCluster("redshift:ResumeCluster"),
     /** Action for the RevokeClusterSecurityGroupIngress operation. */
     RevokeClusterSecurityGroupIngress("redshift:RevokeClusterSecurityGroupIngress"),
+    /** Action for the RevokeEndpointAccess operation. */
+    RevokeEndpointAccess("redshift:RevokeEndpointAccess"),
     /** Action for the RevokeSnapshotAccess operation. */
     RevokeSnapshotAccess("redshift:RevokeSnapshotAccess"),
     /** Action for the RotateEncryptionKey operation. */
     RotateEncryptionKey("redshift:RotateEncryptionKey"),
+    /** Action for the UpdatePartnerStatus operation. */
+    UpdatePartnerStatus("redshift:UpdatePartnerStatus"),
 
     ;
 
@@ -198,5 +302,9 @@ public enum RedshiftActions implements Action {
 
     public String getActionName() {
         return this.action;
+    }
+
+    public boolean isNotType() {
+        return false;
     }
 }

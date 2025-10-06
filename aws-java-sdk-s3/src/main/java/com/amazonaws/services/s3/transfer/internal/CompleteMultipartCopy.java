@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -77,9 +77,11 @@ public class CompleteMultipartCopy implements Callable<CopyResult> {
             CompleteMultipartUploadRequest req = new CompleteMultipartUploadRequest(
                     origReq.getDestinationBucketName(), origReq.getDestinationKey(), uploadId,
                     collectPartETags())
+                    .withSSECustomerKey(origReq.getDestinationSSECustomerKey())
                     .withRequesterPays(origReq.isRequesterPays())
                     .withGeneralProgressListener(origReq.getGeneralProgressListener())
                     .withRequestMetricCollector(origReq.getRequestMetricCollector())
+                    .withRequestCredentialsProvider(origReq.getRequestCredentialsProvider())
                     ;
             res = s3.completeMultipartUpload(req);
         } catch (Exception e) {

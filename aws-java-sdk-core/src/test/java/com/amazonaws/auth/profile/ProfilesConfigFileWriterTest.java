@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -37,10 +37,17 @@ import com.amazonaws.util.ImmutableMapParameter;
 
 public class ProfilesConfigFileWriterTest {
 
+    private static final AWSCredentials defaultCred   = new BasicAWSCredentials("defaultAccessKey", "defaultSecretAccessKey", "defaultAccountId");
+
     private static final AWSCredentials basicCredA   = new BasicAWSCredentials("a", "a");
     private static final AWSCredentials basicCredB   = new BasicAWSCredentials("b", "b");
     private static final AWSCredentials sessionCredC = new BasicSessionCredentials("c", "c", "c");
     private static final AWSCredentials sessionCredD = new BasicSessionCredentials("d", "d", "d");
+
+    private static final AWSCredentials basicCredAWithAccountId   = new BasicAWSCredentials("a", "a", "a");
+    private static final AWSCredentials basicCredBWithAccountId   = new BasicAWSCredentials("b", "b", "b");
+    private static final AWSCredentials sessionCredCWithAccountId = new BasicSessionCredentials("c", "c", "c", "c");
+    private static final AWSCredentials sessionCredDWithAccountId = new BasicSessionCredentials("d", "d", "d", "c");
 
     @Test
     public void testDumpToFile() throws IOException {
@@ -177,6 +184,57 @@ public class ProfilesConfigFileWriterTest {
                     "B", expected[1],
                     "C", expected[2],
                     "D", expected[3]));
+        checkCredentialsFile(tmpFile, expected);
+
+        // Check that the content is now the same as the original
+        String restoredContent = FileUtils.readFileToString(tmpFile);
+        assertEquals(originalContent, restoredContent);
+    }
+
+    /**
+     * Tests that properties, including account ID, are preserved after profile modification.
+     * @throws URISyntaxException
+     */
+    @Test
+    public void testModifyAndInsertProfile_WithAccountId() throws IOException, URISyntaxException {
+        File credWithAccountId = ProfileResourceLoader.profilesWithAccountId().asFile();
+        File tmpFile = copyToTempFile(credWithAccountId);
+
+        String originalContent = FileUtils.readFileToString(tmpFile);
+
+        Profile[] expected = {
+                new Profile("default", defaultCred),
+                new Profile("a", basicCredAWithAccountId),
+                new Profile("b", basicCredBWithAccountId),
+                new Profile("c", sessionCredCWithAccountId),
+                new Profile("d", sessionCredDWithAccountId)
+        };
+
+        // a <==> b, c <==> d, also renaming them to uppercase letters
+        Profile[] modified = {
+                new Profile("default", defaultCred),
+                new Profile("A", basicCredBWithAccountId),
+                new Profile("B", basicCredAWithAccountId),
+                new Profile("C", sessionCredDWithAccountId),
+                new Profile("D", sessionCredCWithAccountId)
+        };
+        ProfilesConfigFileWriter.modifyProfiles(tmpFile, ImmutableMapParameter
+                .of("a", modified[1],
+                        "b", modified[2],
+                        "c", modified[3],
+                        "d", modified[4]));
+        checkCredentialsFile(tmpFile, modified);
+
+        // Sanity check that the content is altered
+        String modifiedContent = FileUtils.readFileToString(tmpFile);
+        assertFalse(originalContent.equals(modifiedContent));
+
+        // Restore the properties
+        ProfilesConfigFileWriter.modifyProfiles(tmpFile, ImmutableMapParameter
+                .of("A", expected[1],
+                        "B", expected[2],
+                        "C", expected[3],
+                        "D", expected[4]));
         checkCredentialsFile(tmpFile, expected);
 
         // Check that the content is now the same as the original

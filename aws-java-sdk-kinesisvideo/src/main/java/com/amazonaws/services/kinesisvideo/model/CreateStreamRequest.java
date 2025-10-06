@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,17 +54,20 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
      * for guidelines.
      * </p>
      * <p>
+     * Example valid values include "video/h264" and "video/h264,audio/aac".
+     * </p>
+     * <p>
      * This parameter is optional; the default value is <code>null</code> (or empty in JSON).
      * </p>
      */
     private String mediaType;
     /**
      * <p>
-     * The ID of the AWS Key Management Service (AWS KMS) key that you want Kinesis Video Streams to use to encrypt
-     * stream data.
+     * The ID of the Key Management Service (KMS) key that you want Kinesis Video Streams to use to encrypt stream data.
      * </p>
      * <p>
-     * If no key ID is specified, the default, Kinesis Video-managed key (<code>aws/kinesisvideo</code>) is used.
+     * If no key ID is specified, the default, Kinesis Video-managed key (<code>Amazon Web Services/kinesisvideo</code>)
+     * is used.
      * </p>
      * <p>
      * For more information, see <a href=
@@ -223,6 +226,9 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
      * for guidelines.
      * </p>
      * <p>
+     * Example valid values include "video/h264" and "video/h264,audio/aac".
+     * </p>
+     * <p>
      * This parameter is optional; the default value is <code>null</code> (or empty in JSON).
      * </p>
      * 
@@ -232,6 +238,9 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        href="http://www.iana.org/assignments/media-types/media-types.xhtml">Media Types</a>. If you choose to
      *        specify the <code>MediaType</code>, see <a href="https://tools.ietf.org/html/rfc6838#section-4.2">Naming
      *        Requirements</a> for guidelines.</p>
+     *        <p>
+     *        Example valid values include "video/h264" and "video/h264,audio/aac".
+     *        </p>
      *        <p>
      *        This parameter is optional; the default value is <code>null</code> (or empty in JSON).
      */
@@ -249,6 +258,9 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
      * for guidelines.
      * </p>
      * <p>
+     * Example valid values include "video/h264" and "video/h264,audio/aac".
+     * </p>
+     * <p>
      * This parameter is optional; the default value is <code>null</code> (or empty in JSON).
      * </p>
      * 
@@ -257,6 +269,9 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
      *         href="http://www.iana.org/assignments/media-types/media-types.xhtml">Media Types</a>. If you choose to
      *         specify the <code>MediaType</code>, see <a href="https://tools.ietf.org/html/rfc6838#section-4.2">Naming
      *         Requirements</a> for guidelines.</p>
+     *         <p>
+     *         Example valid values include "video/h264" and "video/h264,audio/aac".
+     *         </p>
      *         <p>
      *         This parameter is optional; the default value is <code>null</code> (or empty in JSON).
      */
@@ -274,6 +289,9 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
      * for guidelines.
      * </p>
      * <p>
+     * Example valid values include "video/h264" and "video/h264,audio/aac".
+     * </p>
+     * <p>
      * This parameter is optional; the default value is <code>null</code> (or empty in JSON).
      * </p>
      * 
@@ -283,6 +301,9 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        href="http://www.iana.org/assignments/media-types/media-types.xhtml">Media Types</a>. If you choose to
      *        specify the <code>MediaType</code>, see <a href="https://tools.ietf.org/html/rfc6838#section-4.2">Naming
      *        Requirements</a> for guidelines.</p>
+     *        <p>
+     *        Example valid values include "video/h264" and "video/h264,audio/aac".
+     *        </p>
      *        <p>
      *        This parameter is optional; the default value is <code>null</code> (or empty in JSON).
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -295,11 +316,11 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The ID of the AWS Key Management Service (AWS KMS) key that you want Kinesis Video Streams to use to encrypt
-     * stream data.
+     * The ID of the Key Management Service (KMS) key that you want Kinesis Video Streams to use to encrypt stream data.
      * </p>
      * <p>
-     * If no key ID is specified, the default, Kinesis Video-managed key (<code>aws/kinesisvideo</code>) is used.
+     * If no key ID is specified, the default, Kinesis Video-managed key (<code>Amazon Web Services/kinesisvideo</code>)
+     * is used.
      * </p>
      * <p>
      * For more information, see <a href=
@@ -308,10 +329,11 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * 
      * @param kmsKeyId
-     *        The ID of the AWS Key Management Service (AWS KMS) key that you want Kinesis Video Streams to use to
-     *        encrypt stream data.</p>
+     *        The ID of the Key Management Service (KMS) key that you want Kinesis Video Streams to use to encrypt
+     *        stream data.</p>
      *        <p>
-     *        If no key ID is specified, the default, Kinesis Video-managed key (<code>aws/kinesisvideo</code>) is used.
+     *        If no key ID is specified, the default, Kinesis Video-managed key (
+     *        <code>Amazon Web Services/kinesisvideo</code>) is used.
      *        </p>
      *        <p>
      *        For more information, see <a href=
@@ -325,11 +347,11 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The ID of the AWS Key Management Service (AWS KMS) key that you want Kinesis Video Streams to use to encrypt
-     * stream data.
+     * The ID of the Key Management Service (KMS) key that you want Kinesis Video Streams to use to encrypt stream data.
      * </p>
      * <p>
-     * If no key ID is specified, the default, Kinesis Video-managed key (<code>aws/kinesisvideo</code>) is used.
+     * If no key ID is specified, the default, Kinesis Video-managed key (<code>Amazon Web Services/kinesisvideo</code>)
+     * is used.
      * </p>
      * <p>
      * For more information, see <a href=
@@ -337,11 +359,11 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
      * >DescribeKey</a>.
      * </p>
      * 
-     * @return The ID of the AWS Key Management Service (AWS KMS) key that you want Kinesis Video Streams to use to
-     *         encrypt stream data.</p>
+     * @return The ID of the Key Management Service (KMS) key that you want Kinesis Video Streams to use to encrypt
+     *         stream data.</p>
      *         <p>
-     *         If no key ID is specified, the default, Kinesis Video-managed key (<code>aws/kinesisvideo</code>) is
-     *         used.
+     *         If no key ID is specified, the default, Kinesis Video-managed key (
+     *         <code>Amazon Web Services/kinesisvideo</code>) is used.
      *         </p>
      *         <p>
      *         For more information, see <a href=
@@ -355,11 +377,11 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The ID of the AWS Key Management Service (AWS KMS) key that you want Kinesis Video Streams to use to encrypt
-     * stream data.
+     * The ID of the Key Management Service (KMS) key that you want Kinesis Video Streams to use to encrypt stream data.
      * </p>
      * <p>
-     * If no key ID is specified, the default, Kinesis Video-managed key (<code>aws/kinesisvideo</code>) is used.
+     * If no key ID is specified, the default, Kinesis Video-managed key (<code>Amazon Web Services/kinesisvideo</code>)
+     * is used.
      * </p>
      * <p>
      * For more information, see <a href=
@@ -368,10 +390,11 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * 
      * @param kmsKeyId
-     *        The ID of the AWS Key Management Service (AWS KMS) key that you want Kinesis Video Streams to use to
-     *        encrypt stream data.</p>
+     *        The ID of the Key Management Service (KMS) key that you want Kinesis Video Streams to use to encrypt
+     *        stream data.</p>
      *        <p>
-     *        If no key ID is specified, the default, Kinesis Video-managed key (<code>aws/kinesisvideo</code>) is used.
+     *        If no key ID is specified, the default, Kinesis Video-managed key (
+     *        <code>Amazon Web Services/kinesisvideo</code>) is used.
      *        </p>
      *        <p>
      *        For more information, see <a href=
@@ -518,6 +541,13 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateStreamRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateStreamRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {

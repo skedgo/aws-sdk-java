@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Container properties are used in job definitions to describe the container that is launched as part of a job.
+ * Container properties are used for Amazon ECS based job definitions. These properties to describe the container that's
+ * launched as part of a job.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/ContainerProperties" target="_top">AWS API
@@ -30,19 +31,33 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The image used to start a container. This string is passed directly to the Docker daemon. Images in the Docker
-     * Hub registry are available by default. Other repositories are specified with
-     * <code> <i>repository-url</i>/<i>image</i>:<i>tag</i> </code>. Up to 255 letters (uppercase and lowercase),
-     * numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed. This parameter
-     * maps to <code>Image</code> in the <a href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a
-     * container</a> section of the <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
-     * <code>IMAGE</code> parameter of <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * Required. The image used to start a container. This string is passed directly to the Docker daemon. Images in the
+     * Docker Hub registry are available by default. Other repositories are specified with
+     * <code> <i>repository-url</i>/<i>image</i>:<i>tag</i> </code>. It can be 255 characters long. It can contain
+     * uppercase and lowercase letters, numbers, hyphens (-), underscores (_), colons (:), periods (.), forward slashes
+     * (/), and number signs (#). This parameter maps to <code>Image</code> in the <a
+     * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
+     * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>IMAGE</code> parameter of <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a>.
      * </p>
+     * <note>
+     * <p>
+     * Docker image architecture must match the processor architecture of the compute resources that they're scheduled
+     * on. For example, ARM-based Docker images can only run on ARM-based compute resources.
+     * </p>
+     * </note>
      * <ul>
      * <li>
      * <p>
+     * Images in Amazon ECR Public repositories use the full <code>registry/repository[:tag]</code> or
+     * <code>registry/repository[@digest]</code> naming conventions. For example,
+     * <code>public.ecr.aws/<i>registry_alias</i>/<i>my-web-app</i>:<i>latest</i> </code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Images in Amazon ECR repositories use the full registry and repository URI (for example,
-     * <code>012345678910.dkr.ecr.&lt;region-name&gt;.amazonaws.com/&lt;repository-name&gt;</code>).
+     * <code>123456789012.dkr.ecr.&lt;region-name&gt;.amazonaws.com/&lt;repository-name&gt;</code>).
      * </p>
      * </li>
      * <li>
@@ -68,36 +83,34 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
     private String image;
     /**
      * <p>
-     * The number of vCPUs reserved for the container. This parameter maps to <code>CpuShares</code> in the <a
+     * This parameter is deprecated, use <code>resourceRequirements</code> to specify the vCPU requirements for the job
+     * definition. It's not supported for jobs running on Fargate resources. For jobs running on Amazon EC2 resources,
+     * it specifies the number of vCPUs reserved for the job.
+     * </p>
+     * <p>
+     * Each vCPU is equivalent to 1,024 CPU shares. This parameter maps to <code>CpuShares</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--cpu-shares</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. Each vCPU is equivalent to 1,024 CPU
-     * shares. You must specify at least one vCPU.
+     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. The number of vCPUs must be specified
+     * but can be specified in several places. You must specify it at least once for each node.
      * </p>
      */
+    @Deprecated
     private Integer vcpus;
     /**
      * <p>
-     * The hard limit (in MiB) of memory to present to the container. If your container attempts to exceed the memory
-     * specified here, the container is killed. This parameter maps to <code>Memory</code> in the <a
-     * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
-     * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--memory</code> option to <a
-     * href="https://docs.docker.com/engine/reference/run/">docker run</a>. You must specify at least 4 MiB of memory
-     * for a job.
+     * This parameter is deprecated, use <code>resourceRequirements</code> to specify the memory requirements for the
+     * job definition. It's not supported for jobs running on Fargate resources. For jobs that run on Amazon EC2
+     * resources, it specifies the memory hard limit (in MiB) for a container. If your container attempts to exceed the
+     * specified number, it's terminated. You must specify at least 4 MiB of memory for a job using this parameter. The
+     * memory hard limit can be specified in several places. It must be specified for each node at least once.
      * </p>
-     * <note>
-     * <p>
-     * If you are trying to maximize your resource utilization by providing your jobs as much memory as possible for a
-     * particular instance type, see <a
-     * href="https://docs.aws.amazon.com/batch/latest/userguide/memory-management.html">Memory Management</a> in the
-     * <i>AWS Batch User Guide</i>.
-     * </p>
-     * </note>
      */
+    @Deprecated
     private Integer memory;
     /**
      * <p>
-     * The command that is passed to the container. This parameter maps to <code>Cmd</code> in the <a
+     * The command that's passed to the container. This parameter maps to <code>Cmd</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>COMMAND</code> parameter to
      * <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. For more information, see <a
@@ -108,10 +121,22 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
     private java.util.List<String> command;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM role that the container can assume for AWS permissions.
+     * The Amazon Resource Name (ARN) of the IAM role that the container can assume for Amazon Web Services permissions.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html">IAM roles for tasks</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      */
     private String jobRoleArn;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the execution role that Batch can assume. For jobs that run on Fargate
+     * resources, you must provide an execution role. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html">Batch execution IAM role</a> in
+     * the <i>Batch User Guide</i>.
+     * </p>
+     */
+    private String executionRoleArn;
     /**
      * <p>
      * A list of data volumes used in a job.
@@ -127,12 +152,12 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      * <important>
      * <p>
-     * We do not recommend using plaintext environment variables for sensitive information, such as credential data.
+     * We don't recommend using plaintext environment variables for sensitive information, such as credential data.
      * </p>
      * </important> <note>
      * <p>
-     * Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     * variables that are set by the AWS Batch service.
+     * Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     * variables that Batch sets.
      * </p>
      * </note>
      */
@@ -158,12 +183,18 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
     private Boolean readonlyRootFilesystem;
     /**
      * <p>
-     * When this parameter is true, the container is given elevated privileges on the host container instance (similar
+     * When this parameter is true, the container is given elevated permissions on the host container instance (similar
      * to the <code>root</code> user). This parameter maps to <code>Privileged</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--privileged</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. The default value is false.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided, or
+     * specified as false.
+     * </p>
+     * </note>
      */
     private Boolean privileged;
     /**
@@ -173,6 +204,11 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--ulimit</code> option to <a
      * href="https://docs.docker.com/engine/reference/run/">docker run</a>.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided.
+     * </p>
+     * </note>
      */
     private java.util.List<Ulimit> ulimits;
     /**
@@ -186,15 +222,21 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
     private String user;
     /**
      * <p>
-     * The instance type to use for a multi-node parallel job. Currently all node groups in a multi-node parallel job
-     * must use the same instance type. This parameter is not valid for single-node container jobs.
+     * The instance type to use for a multi-node parallel job. All node groups in a multi-node parallel job must use the
+     * same instance type.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to single-node container jobs or jobs that run on Fargate resources, and
+     * shouldn't be provided.
+     * </p>
+     * </note>
      */
     private String instanceType;
     /**
      * <p>
-     * The type and amount of a resource to assign to a container. Currently, the only supported resource is
-     * <code>GPU</code>.
+     * The type and amount of resources to assign to a container. The supported resources include <code>GPU</code>,
+     * <code>MEMORY</code>, and <code>VCPU</code>.
      * </p>
      */
     private java.util.List<ResourceRequirement> resourceRequirements;
@@ -204,22 +246,116 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      */
     private LinuxParameters linuxParameters;
+    /**
+     * <p>
+     * The log configuration specification for the container.
+     * </p>
+     * <p>
+     * This parameter maps to <code>LogConfig</code> in the <a
+     * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
+     * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--log-driver</code> option
+     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. By default, containers use the same
+     * logging driver that the Docker daemon uses. However the container might use a different logging driver than the
+     * Docker daemon by specifying a log driver with this parameter in the container definition. To use a different
+     * logging driver for a container, the log system must be configured properly on the container instance (or on a
+     * different log server for remote logging options). For more information on the options for different supported log
+     * drivers, see <a href="https://docs.docker.com/engine/admin/logging/overview/">Configure logging drivers</a> in
+     * the Docker documentation.
+     * </p>
+     * <note>
+     * <p>
+     * Batch currently supports a subset of the logging drivers available to the Docker daemon (shown in the <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties-logconfiguration.html"
+     * >LogConfiguration</a> data type).
+     * </p>
+     * </note>
+     * <p>
+     * This parameter requires version 1.18 of the Docker Remote API or greater on your container instance. To check the
+     * Docker Remote API version on your container instance, log in to your container instance and run the following
+     * command: <code>sudo docker version | grep "Server API version"</code>
+     * </p>
+     * <note>
+     * <p>
+     * The Amazon ECS container agent running on a container instance must register the logging drivers available on
+     * that instance with the <code>ECS_AVAILABLE_LOGGING_DRIVERS</code> environment variable before containers placed
+     * on that instance can use these log configuration options. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html">Amazon ECS container
+     * agent configuration</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     * </note>
+     */
+    private LogConfiguration logConfiguration;
+    /**
+     * <p>
+     * The secrets for the container. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html">Specifying sensitive
+     * data</a> in the <i>Batch User Guide</i>.
+     * </p>
+     */
+    private java.util.List<Secret> secrets;
+    /**
+     * <p>
+     * The network configuration for jobs that are running on Fargate resources. Jobs that are running on Amazon EC2
+     * resources must not specify this parameter.
+     * </p>
+     */
+    private NetworkConfiguration networkConfiguration;
+    /**
+     * <p>
+     * The platform configuration for jobs that are running on Fargate resources. Jobs that are running on Amazon EC2
+     * resources must not specify this parameter.
+     * </p>
+     */
+    private FargatePlatformConfiguration fargatePlatformConfiguration;
+    /**
+     * <p>
+     * The amount of ephemeral storage to allocate for the task. This parameter is used to expand the total amount of
+     * ephemeral storage available, beyond the default amount, for tasks hosted on Fargate.
+     * </p>
+     */
+    private EphemeralStorage ephemeralStorage;
+    /**
+     * <p>
+     * An object that represents the compute environment architecture for Batch jobs on Fargate.
+     * </p>
+     */
+    private RuntimePlatform runtimePlatform;
+    /**
+     * <p>
+     * The private repository authentication credentials to use.
+     * </p>
+     */
+    private RepositoryCredentials repositoryCredentials;
 
     /**
      * <p>
-     * The image used to start a container. This string is passed directly to the Docker daemon. Images in the Docker
-     * Hub registry are available by default. Other repositories are specified with
-     * <code> <i>repository-url</i>/<i>image</i>:<i>tag</i> </code>. Up to 255 letters (uppercase and lowercase),
-     * numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed. This parameter
-     * maps to <code>Image</code> in the <a href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a
-     * container</a> section of the <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
-     * <code>IMAGE</code> parameter of <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * Required. The image used to start a container. This string is passed directly to the Docker daemon. Images in the
+     * Docker Hub registry are available by default. Other repositories are specified with
+     * <code> <i>repository-url</i>/<i>image</i>:<i>tag</i> </code>. It can be 255 characters long. It can contain
+     * uppercase and lowercase letters, numbers, hyphens (-), underscores (_), colons (:), periods (.), forward slashes
+     * (/), and number signs (#). This parameter maps to <code>Image</code> in the <a
+     * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
+     * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>IMAGE</code> parameter of <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a>.
      * </p>
+     * <note>
+     * <p>
+     * Docker image architecture must match the processor architecture of the compute resources that they're scheduled
+     * on. For example, ARM-based Docker images can only run on ARM-based compute resources.
+     * </p>
+     * </note>
      * <ul>
      * <li>
      * <p>
+     * Images in Amazon ECR Public repositories use the full <code>registry/repository[:tag]</code> or
+     * <code>registry/repository[@digest]</code> naming conventions. For example,
+     * <code>public.ecr.aws/<i>registry_alias</i>/<i>my-web-app</i>:<i>latest</i> </code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Images in Amazon ECR repositories use the full registry and repository URI (for example,
-     * <code>012345678910.dkr.ecr.&lt;region-name&gt;.amazonaws.com/&lt;repository-name&gt;</code>).
+     * <code>123456789012.dkr.ecr.&lt;region-name&gt;.amazonaws.com/&lt;repository-name&gt;</code>).
      * </p>
      * </li>
      * <li>
@@ -243,19 +379,31 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </ul>
      * 
      * @param image
-     *        The image used to start a container. This string is passed directly to the Docker daemon. Images in the
-     *        Docker Hub registry are available by default. Other repositories are specified with
-     *        <code> <i>repository-url</i>/<i>image</i>:<i>tag</i> </code>. Up to 255 letters (uppercase and lowercase),
-     *        numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed. This
-     *        parameter maps to <code>Image</code> in the <a
+     *        Required. The image used to start a container. This string is passed directly to the Docker daemon. Images
+     *        in the Docker Hub registry are available by default. Other repositories are specified with
+     *        <code> <i>repository-url</i>/<i>image</i>:<i>tag</i> </code>. It can be 255 characters long. It can
+     *        contain uppercase and lowercase letters, numbers, hyphens (-), underscores (_), colons (:), periods (.),
+     *        forward slashes (/), and number signs (#). This parameter maps to <code>Image</code> in the <a
      *        href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
      *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>IMAGE</code>
-     *        parameter of <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p>
+     *        parameter of <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
+     *        <p>
+     *        Docker image architecture must match the processor architecture of the compute resources that they're
+     *        scheduled on. For example, ARM-based Docker images can only run on ARM-based compute resources.
+     *        </p>
+     *        </note>
      *        <ul>
      *        <li>
      *        <p>
+     *        Images in Amazon ECR Public repositories use the full <code>registry/repository[:tag]</code> or
+     *        <code>registry/repository[@digest]</code> naming conventions. For example,
+     *        <code>public.ecr.aws/<i>registry_alias</i>/<i>my-web-app</i>:<i>latest</i> </code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        Images in Amazon ECR repositories use the full registry and repository URI (for example,
-     *        <code>012345678910.dkr.ecr.&lt;region-name&gt;.amazonaws.com/&lt;repository-name&gt;</code>).
+     *        <code>123456789012.dkr.ecr.&lt;region-name&gt;.amazonaws.com/&lt;repository-name&gt;</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -284,19 +432,33 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The image used to start a container. This string is passed directly to the Docker daemon. Images in the Docker
-     * Hub registry are available by default. Other repositories are specified with
-     * <code> <i>repository-url</i>/<i>image</i>:<i>tag</i> </code>. Up to 255 letters (uppercase and lowercase),
-     * numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed. This parameter
-     * maps to <code>Image</code> in the <a href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a
-     * container</a> section of the <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
-     * <code>IMAGE</code> parameter of <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * Required. The image used to start a container. This string is passed directly to the Docker daemon. Images in the
+     * Docker Hub registry are available by default. Other repositories are specified with
+     * <code> <i>repository-url</i>/<i>image</i>:<i>tag</i> </code>. It can be 255 characters long. It can contain
+     * uppercase and lowercase letters, numbers, hyphens (-), underscores (_), colons (:), periods (.), forward slashes
+     * (/), and number signs (#). This parameter maps to <code>Image</code> in the <a
+     * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
+     * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>IMAGE</code> parameter of <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a>.
      * </p>
+     * <note>
+     * <p>
+     * Docker image architecture must match the processor architecture of the compute resources that they're scheduled
+     * on. For example, ARM-based Docker images can only run on ARM-based compute resources.
+     * </p>
+     * </note>
      * <ul>
      * <li>
      * <p>
+     * Images in Amazon ECR Public repositories use the full <code>registry/repository[:tag]</code> or
+     * <code>registry/repository[@digest]</code> naming conventions. For example,
+     * <code>public.ecr.aws/<i>registry_alias</i>/<i>my-web-app</i>:<i>latest</i> </code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Images in Amazon ECR repositories use the full registry and repository URI (for example,
-     * <code>012345678910.dkr.ecr.&lt;region-name&gt;.amazonaws.com/&lt;repository-name&gt;</code>).
+     * <code>123456789012.dkr.ecr.&lt;region-name&gt;.amazonaws.com/&lt;repository-name&gt;</code>).
      * </p>
      * </li>
      * <li>
@@ -319,19 +481,31 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </li>
      * </ul>
      * 
-     * @return The image used to start a container. This string is passed directly to the Docker daemon. Images in the
-     *         Docker Hub registry are available by default. Other repositories are specified with
-     *         <code> <i>repository-url</i>/<i>image</i>:<i>tag</i> </code>. Up to 255 letters (uppercase and
-     *         lowercase), numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are
-     *         allowed. This parameter maps to <code>Image</code> in the <a
+     * @return Required. The image used to start a container. This string is passed directly to the Docker daemon.
+     *         Images in the Docker Hub registry are available by default. Other repositories are specified with
+     *         <code> <i>repository-url</i>/<i>image</i>:<i>tag</i> </code>. It can be 255 characters long. It can
+     *         contain uppercase and lowercase letters, numbers, hyphens (-), underscores (_), colons (:), periods (.),
+     *         forward slashes (/), and number signs (#). This parameter maps to <code>Image</code> in the <a
      *         href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
      *         <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>IMAGE</code>
-     *         parameter of <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p>
+     *         parameter of <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
+     *         <p>
+     *         Docker image architecture must match the processor architecture of the compute resources that they're
+     *         scheduled on. For example, ARM-based Docker images can only run on ARM-based compute resources.
+     *         </p>
+     *         </note>
      *         <ul>
      *         <li>
      *         <p>
+     *         Images in Amazon ECR Public repositories use the full <code>registry/repository[:tag]</code> or
+     *         <code>registry/repository[@digest]</code> naming conventions. For example,
+     *         <code>public.ecr.aws/<i>registry_alias</i>/<i>my-web-app</i>:<i>latest</i> </code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         Images in Amazon ECR repositories use the full registry and repository URI (for example,
-     *         <code>012345678910.dkr.ecr.&lt;region-name&gt;.amazonaws.com/&lt;repository-name&gt;</code>).
+     *         <code>123456789012.dkr.ecr.&lt;region-name&gt;.amazonaws.com/&lt;repository-name&gt;</code>).
      *         </p>
      *         </li>
      *         <li>
@@ -360,19 +534,33 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The image used to start a container. This string is passed directly to the Docker daemon. Images in the Docker
-     * Hub registry are available by default. Other repositories are specified with
-     * <code> <i>repository-url</i>/<i>image</i>:<i>tag</i> </code>. Up to 255 letters (uppercase and lowercase),
-     * numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed. This parameter
-     * maps to <code>Image</code> in the <a href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a
-     * container</a> section of the <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
-     * <code>IMAGE</code> parameter of <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * Required. The image used to start a container. This string is passed directly to the Docker daemon. Images in the
+     * Docker Hub registry are available by default. Other repositories are specified with
+     * <code> <i>repository-url</i>/<i>image</i>:<i>tag</i> </code>. It can be 255 characters long. It can contain
+     * uppercase and lowercase letters, numbers, hyphens (-), underscores (_), colons (:), periods (.), forward slashes
+     * (/), and number signs (#). This parameter maps to <code>Image</code> in the <a
+     * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
+     * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>IMAGE</code> parameter of <a
+     * href="https://docs.docker.com/engine/reference/run/">docker run</a>.
      * </p>
+     * <note>
+     * <p>
+     * Docker image architecture must match the processor architecture of the compute resources that they're scheduled
+     * on. For example, ARM-based Docker images can only run on ARM-based compute resources.
+     * </p>
+     * </note>
      * <ul>
      * <li>
      * <p>
+     * Images in Amazon ECR Public repositories use the full <code>registry/repository[:tag]</code> or
+     * <code>registry/repository[@digest]</code> naming conventions. For example,
+     * <code>public.ecr.aws/<i>registry_alias</i>/<i>my-web-app</i>:<i>latest</i> </code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Images in Amazon ECR repositories use the full registry and repository URI (for example,
-     * <code>012345678910.dkr.ecr.&lt;region-name&gt;.amazonaws.com/&lt;repository-name&gt;</code>).
+     * <code>123456789012.dkr.ecr.&lt;region-name&gt;.amazonaws.com/&lt;repository-name&gt;</code>).
      * </p>
      * </li>
      * <li>
@@ -396,19 +584,31 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </ul>
      * 
      * @param image
-     *        The image used to start a container. This string is passed directly to the Docker daemon. Images in the
-     *        Docker Hub registry are available by default. Other repositories are specified with
-     *        <code> <i>repository-url</i>/<i>image</i>:<i>tag</i> </code>. Up to 255 letters (uppercase and lowercase),
-     *        numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed. This
-     *        parameter maps to <code>Image</code> in the <a
+     *        Required. The image used to start a container. This string is passed directly to the Docker daemon. Images
+     *        in the Docker Hub registry are available by default. Other repositories are specified with
+     *        <code> <i>repository-url</i>/<i>image</i>:<i>tag</i> </code>. It can be 255 characters long. It can
+     *        contain uppercase and lowercase letters, numbers, hyphens (-), underscores (_), colons (:), periods (.),
+     *        forward slashes (/), and number signs (#). This parameter maps to <code>Image</code> in the <a
      *        href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
      *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>IMAGE</code>
-     *        parameter of <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p>
+     *        parameter of <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <note>
+     *        <p>
+     *        Docker image architecture must match the processor architecture of the compute resources that they're
+     *        scheduled on. For example, ARM-based Docker images can only run on ARM-based compute resources.
+     *        </p>
+     *        </note>
      *        <ul>
      *        <li>
      *        <p>
+     *        Images in Amazon ECR Public repositories use the full <code>registry/repository[:tag]</code> or
+     *        <code>registry/repository[@digest]</code> naming conventions. For example,
+     *        <code>public.ecr.aws/<i>registry_alias</i>/<i>my-web-app</i>:<i>latest</i> </code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        Images in Amazon ECR repositories use the full registry and repository URI (for example,
-     *        <code>012345678910.dkr.ecr.&lt;region-name&gt;.amazonaws.com/&lt;repository-name&gt;</code>).
+     *        <code>123456789012.dkr.ecr.&lt;region-name&gt;.amazonaws.com/&lt;repository-name&gt;</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -439,63 +639,93 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The number of vCPUs reserved for the container. This parameter maps to <code>CpuShares</code> in the <a
+     * This parameter is deprecated, use <code>resourceRequirements</code> to specify the vCPU requirements for the job
+     * definition. It's not supported for jobs running on Fargate resources. For jobs running on Amazon EC2 resources,
+     * it specifies the number of vCPUs reserved for the job.
+     * </p>
+     * <p>
+     * Each vCPU is equivalent to 1,024 CPU shares. This parameter maps to <code>CpuShares</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--cpu-shares</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. Each vCPU is equivalent to 1,024 CPU
-     * shares. You must specify at least one vCPU.
+     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. The number of vCPUs must be specified
+     * but can be specified in several places. You must specify it at least once for each node.
      * </p>
      * 
      * @param vcpus
-     *        The number of vCPUs reserved for the container. This parameter maps to <code>CpuShares</code> in the <a
+     *        This parameter is deprecated, use <code>resourceRequirements</code> to specify the vCPU requirements for
+     *        the job definition. It's not supported for jobs running on Fargate resources. For jobs running on Amazon
+     *        EC2 resources, it specifies the number of vCPUs reserved for the job.</p>
+     *        <p>
+     *        Each vCPU is equivalent to 1,024 CPU shares. This parameter maps to <code>CpuShares</code> in the <a
      *        href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
      *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
      *        <code>--cpu-shares</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *        run</a>. Each vCPU is equivalent to 1,024 CPU shares. You must specify at least one vCPU.
+     *        run</a>. The number of vCPUs must be specified but can be specified in several places. You must specify it
+     *        at least once for each node.
      */
-
+    @Deprecated
     public void setVcpus(Integer vcpus) {
         this.vcpus = vcpus;
     }
 
     /**
      * <p>
-     * The number of vCPUs reserved for the container. This parameter maps to <code>CpuShares</code> in the <a
+     * This parameter is deprecated, use <code>resourceRequirements</code> to specify the vCPU requirements for the job
+     * definition. It's not supported for jobs running on Fargate resources. For jobs running on Amazon EC2 resources,
+     * it specifies the number of vCPUs reserved for the job.
+     * </p>
+     * <p>
+     * Each vCPU is equivalent to 1,024 CPU shares. This parameter maps to <code>CpuShares</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--cpu-shares</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. Each vCPU is equivalent to 1,024 CPU
-     * shares. You must specify at least one vCPU.
+     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. The number of vCPUs must be specified
+     * but can be specified in several places. You must specify it at least once for each node.
      * </p>
      * 
-     * @return The number of vCPUs reserved for the container. This parameter maps to <code>CpuShares</code> in the <a
+     * @return This parameter is deprecated, use <code>resourceRequirements</code> to specify the vCPU requirements for
+     *         the job definition. It's not supported for jobs running on Fargate resources. For jobs running on Amazon
+     *         EC2 resources, it specifies the number of vCPUs reserved for the job.</p>
+     *         <p>
+     *         Each vCPU is equivalent to 1,024 CPU shares. This parameter maps to <code>CpuShares</code> in the <a
      *         href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
      *         <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
      *         <code>--cpu-shares</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *         run</a>. Each vCPU is equivalent to 1,024 CPU shares. You must specify at least one vCPU.
+     *         run</a>. The number of vCPUs must be specified but can be specified in several places. You must specify
+     *         it at least once for each node.
      */
-
+    @Deprecated
     public Integer getVcpus() {
         return this.vcpus;
     }
 
     /**
      * <p>
-     * The number of vCPUs reserved for the container. This parameter maps to <code>CpuShares</code> in the <a
+     * This parameter is deprecated, use <code>resourceRequirements</code> to specify the vCPU requirements for the job
+     * definition. It's not supported for jobs running on Fargate resources. For jobs running on Amazon EC2 resources,
+     * it specifies the number of vCPUs reserved for the job.
+     * </p>
+     * <p>
+     * Each vCPU is equivalent to 1,024 CPU shares. This parameter maps to <code>CpuShares</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--cpu-shares</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. Each vCPU is equivalent to 1,024 CPU
-     * shares. You must specify at least one vCPU.
+     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. The number of vCPUs must be specified
+     * but can be specified in several places. You must specify it at least once for each node.
      * </p>
      * 
      * @param vcpus
-     *        The number of vCPUs reserved for the container. This parameter maps to <code>CpuShares</code> in the <a
+     *        This parameter is deprecated, use <code>resourceRequirements</code> to specify the vCPU requirements for
+     *        the job definition. It's not supported for jobs running on Fargate resources. For jobs running on Amazon
+     *        EC2 resources, it specifies the number of vCPUs reserved for the job.</p>
+     *        <p>
+     *        Each vCPU is equivalent to 1,024 CPU shares. This parameter maps to <code>CpuShares</code> in the <a
      *        href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
      *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
      *        <code>--cpu-shares</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *        run</a>. Each vCPU is equivalent to 1,024 CPU shares. You must specify at least one vCPU.
+     *        run</a>. The number of vCPUs must be specified but can be specified in several places. You must specify it
+     *        at least once for each node.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public ContainerProperties withVcpus(Integer vcpus) {
         setVcpus(vcpus);
         return this;
@@ -503,111 +733,66 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The hard limit (in MiB) of memory to present to the container. If your container attempts to exceed the memory
-     * specified here, the container is killed. This parameter maps to <code>Memory</code> in the <a
-     * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
-     * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--memory</code> option to <a
-     * href="https://docs.docker.com/engine/reference/run/">docker run</a>. You must specify at least 4 MiB of memory
-     * for a job.
+     * This parameter is deprecated, use <code>resourceRequirements</code> to specify the memory requirements for the
+     * job definition. It's not supported for jobs running on Fargate resources. For jobs that run on Amazon EC2
+     * resources, it specifies the memory hard limit (in MiB) for a container. If your container attempts to exceed the
+     * specified number, it's terminated. You must specify at least 4 MiB of memory for a job using this parameter. The
+     * memory hard limit can be specified in several places. It must be specified for each node at least once.
      * </p>
-     * <note>
-     * <p>
-     * If you are trying to maximize your resource utilization by providing your jobs as much memory as possible for a
-     * particular instance type, see <a
-     * href="https://docs.aws.amazon.com/batch/latest/userguide/memory-management.html">Memory Management</a> in the
-     * <i>AWS Batch User Guide</i>.
-     * </p>
-     * </note>
      * 
      * @param memory
-     *        The hard limit (in MiB) of memory to present to the container. If your container attempts to exceed the
-     *        memory specified here, the container is killed. This parameter maps to <code>Memory</code> in the <a
-     *        href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
-     *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--memory</code>
-     *        option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. You must specify at
-     *        least 4 MiB of memory for a job.</p> <note>
-     *        <p>
-     *        If you are trying to maximize your resource utilization by providing your jobs as much memory as possible
-     *        for a particular instance type, see <a
-     *        href="https://docs.aws.amazon.com/batch/latest/userguide/memory-management.html">Memory Management</a> in
-     *        the <i>AWS Batch User Guide</i>.
-     *        </p>
+     *        This parameter is deprecated, use <code>resourceRequirements</code> to specify the memory requirements for
+     *        the job definition. It's not supported for jobs running on Fargate resources. For jobs that run on Amazon
+     *        EC2 resources, it specifies the memory hard limit (in MiB) for a container. If your container attempts to
+     *        exceed the specified number, it's terminated. You must specify at least 4 MiB of memory for a job using
+     *        this parameter. The memory hard limit can be specified in several places. It must be specified for each
+     *        node at least once.
      */
-
+    @Deprecated
     public void setMemory(Integer memory) {
         this.memory = memory;
     }
 
     /**
      * <p>
-     * The hard limit (in MiB) of memory to present to the container. If your container attempts to exceed the memory
-     * specified here, the container is killed. This parameter maps to <code>Memory</code> in the <a
-     * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
-     * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--memory</code> option to <a
-     * href="https://docs.docker.com/engine/reference/run/">docker run</a>. You must specify at least 4 MiB of memory
-     * for a job.
+     * This parameter is deprecated, use <code>resourceRequirements</code> to specify the memory requirements for the
+     * job definition. It's not supported for jobs running on Fargate resources. For jobs that run on Amazon EC2
+     * resources, it specifies the memory hard limit (in MiB) for a container. If your container attempts to exceed the
+     * specified number, it's terminated. You must specify at least 4 MiB of memory for a job using this parameter. The
+     * memory hard limit can be specified in several places. It must be specified for each node at least once.
      * </p>
-     * <note>
-     * <p>
-     * If you are trying to maximize your resource utilization by providing your jobs as much memory as possible for a
-     * particular instance type, see <a
-     * href="https://docs.aws.amazon.com/batch/latest/userguide/memory-management.html">Memory Management</a> in the
-     * <i>AWS Batch User Guide</i>.
-     * </p>
-     * </note>
      * 
-     * @return The hard limit (in MiB) of memory to present to the container. If your container attempts to exceed the
-     *         memory specified here, the container is killed. This parameter maps to <code>Memory</code> in the <a
-     *         href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
-     *         <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--memory</code>
-     *         option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. You must specify at
-     *         least 4 MiB of memory for a job.</p> <note>
-     *         <p>
-     *         If you are trying to maximize your resource utilization by providing your jobs as much memory as possible
-     *         for a particular instance type, see <a
-     *         href="https://docs.aws.amazon.com/batch/latest/userguide/memory-management.html">Memory Management</a> in
-     *         the <i>AWS Batch User Guide</i>.
-     *         </p>
+     * @return This parameter is deprecated, use <code>resourceRequirements</code> to specify the memory requirements
+     *         for the job definition. It's not supported for jobs running on Fargate resources. For jobs that run on
+     *         Amazon EC2 resources, it specifies the memory hard limit (in MiB) for a container. If your container
+     *         attempts to exceed the specified number, it's terminated. You must specify at least 4 MiB of memory for a
+     *         job using this parameter. The memory hard limit can be specified in several places. It must be specified
+     *         for each node at least once.
      */
-
+    @Deprecated
     public Integer getMemory() {
         return this.memory;
     }
 
     /**
      * <p>
-     * The hard limit (in MiB) of memory to present to the container. If your container attempts to exceed the memory
-     * specified here, the container is killed. This parameter maps to <code>Memory</code> in the <a
-     * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
-     * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--memory</code> option to <a
-     * href="https://docs.docker.com/engine/reference/run/">docker run</a>. You must specify at least 4 MiB of memory
-     * for a job.
+     * This parameter is deprecated, use <code>resourceRequirements</code> to specify the memory requirements for the
+     * job definition. It's not supported for jobs running on Fargate resources. For jobs that run on Amazon EC2
+     * resources, it specifies the memory hard limit (in MiB) for a container. If your container attempts to exceed the
+     * specified number, it's terminated. You must specify at least 4 MiB of memory for a job using this parameter. The
+     * memory hard limit can be specified in several places. It must be specified for each node at least once.
      * </p>
-     * <note>
-     * <p>
-     * If you are trying to maximize your resource utilization by providing your jobs as much memory as possible for a
-     * particular instance type, see <a
-     * href="https://docs.aws.amazon.com/batch/latest/userguide/memory-management.html">Memory Management</a> in the
-     * <i>AWS Batch User Guide</i>.
-     * </p>
-     * </note>
      * 
      * @param memory
-     *        The hard limit (in MiB) of memory to present to the container. If your container attempts to exceed the
-     *        memory specified here, the container is killed. This parameter maps to <code>Memory</code> in the <a
-     *        href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
-     *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--memory</code>
-     *        option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. You must specify at
-     *        least 4 MiB of memory for a job.</p> <note>
-     *        <p>
-     *        If you are trying to maximize your resource utilization by providing your jobs as much memory as possible
-     *        for a particular instance type, see <a
-     *        href="https://docs.aws.amazon.com/batch/latest/userguide/memory-management.html">Memory Management</a> in
-     *        the <i>AWS Batch User Guide</i>.
-     *        </p>
+     *        This parameter is deprecated, use <code>resourceRequirements</code> to specify the memory requirements for
+     *        the job definition. It's not supported for jobs running on Fargate resources. For jobs that run on Amazon
+     *        EC2 resources, it specifies the memory hard limit (in MiB) for a container. If your container attempts to
+     *        exceed the specified number, it's terminated. You must specify at least 4 MiB of memory for a job using
+     *        this parameter. The memory hard limit can be specified in several places. It must be specified for each
+     *        node at least once.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public ContainerProperties withMemory(Integer memory) {
         setMemory(memory);
         return this;
@@ -615,7 +800,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The command that is passed to the container. This parameter maps to <code>Cmd</code> in the <a
+     * The command that's passed to the container. This parameter maps to <code>Cmd</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>COMMAND</code> parameter to
      * <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. For more information, see <a
@@ -623,7 +808,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * >https://docs.docker.com/engine/reference/builder/#cmd</a>.
      * </p>
      * 
-     * @return The command that is passed to the container. This parameter maps to <code>Cmd</code> in the <a
+     * @return The command that's passed to the container. This parameter maps to <code>Cmd</code> in the <a
      *         href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
      *         <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>COMMAND</code>
      *         parameter to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. For more
@@ -638,7 +823,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The command that is passed to the container. This parameter maps to <code>Cmd</code> in the <a
+     * The command that's passed to the container. This parameter maps to <code>Cmd</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>COMMAND</code> parameter to
      * <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. For more information, see <a
@@ -647,7 +832,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      * 
      * @param command
-     *        The command that is passed to the container. This parameter maps to <code>Cmd</code> in the <a
+     *        The command that's passed to the container. This parameter maps to <code>Cmd</code> in the <a
      *        href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
      *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>COMMAND</code>
      *        parameter to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. For more information,
@@ -667,7 +852,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The command that is passed to the container. This parameter maps to <code>Cmd</code> in the <a
+     * The command that's passed to the container. This parameter maps to <code>Cmd</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>COMMAND</code> parameter to
      * <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. For more information, see <a
@@ -681,7 +866,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      * 
      * @param command
-     *        The command that is passed to the container. This parameter maps to <code>Cmd</code> in the <a
+     *        The command that's passed to the container. This parameter maps to <code>Cmd</code> in the <a
      *        href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
      *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>COMMAND</code>
      *        parameter to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. For more information,
@@ -703,7 +888,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The command that is passed to the container. This parameter maps to <code>Cmd</code> in the <a
+     * The command that's passed to the container. This parameter maps to <code>Cmd</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>COMMAND</code> parameter to
      * <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. For more information, see <a
@@ -712,7 +897,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      * 
      * @param command
-     *        The command that is passed to the container. This parameter maps to <code>Cmd</code> in the <a
+     *        The command that's passed to the container. This parameter maps to <code>Cmd</code> in the <a
      *        href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
      *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>COMMAND</code>
      *        parameter to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. For more information,
@@ -729,11 +914,17 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM role that the container can assume for AWS permissions.
+     * The Amazon Resource Name (ARN) of the IAM role that the container can assume for Amazon Web Services permissions.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html">IAM roles for tasks</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
      * @param jobRoleArn
-     *        The Amazon Resource Name (ARN) of the IAM role that the container can assume for AWS permissions.
+     *        The Amazon Resource Name (ARN) of the IAM role that the container can assume for Amazon Web Services
+     *        permissions. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html">IAM roles for
+     *        tasks</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      */
 
     public void setJobRoleArn(String jobRoleArn) {
@@ -742,10 +933,16 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM role that the container can assume for AWS permissions.
+     * The Amazon Resource Name (ARN) of the IAM role that the container can assume for Amazon Web Services permissions.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html">IAM roles for tasks</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the IAM role that the container can assume for AWS permissions.
+     * @return The Amazon Resource Name (ARN) of the IAM role that the container can assume for Amazon Web Services
+     *         permissions. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html">IAM roles for
+     *         tasks</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      */
 
     public String getJobRoleArn() {
@@ -754,16 +951,80 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM role that the container can assume for AWS permissions.
+     * The Amazon Resource Name (ARN) of the IAM role that the container can assume for Amazon Web Services permissions.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html">IAM roles for tasks</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
      * @param jobRoleArn
-     *        The Amazon Resource Name (ARN) of the IAM role that the container can assume for AWS permissions.
+     *        The Amazon Resource Name (ARN) of the IAM role that the container can assume for Amazon Web Services
+     *        permissions. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html">IAM roles for
+     *        tasks</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ContainerProperties withJobRoleArn(String jobRoleArn) {
         setJobRoleArn(jobRoleArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the execution role that Batch can assume. For jobs that run on Fargate
+     * resources, you must provide an execution role. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html">Batch execution IAM role</a> in
+     * the <i>Batch User Guide</i>.
+     * </p>
+     * 
+     * @param executionRoleArn
+     *        The Amazon Resource Name (ARN) of the execution role that Batch can assume. For jobs that run on Fargate
+     *        resources, you must provide an execution role. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html">Batch execution IAM
+     *        role</a> in the <i>Batch User Guide</i>.
+     */
+
+    public void setExecutionRoleArn(String executionRoleArn) {
+        this.executionRoleArn = executionRoleArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the execution role that Batch can assume. For jobs that run on Fargate
+     * resources, you must provide an execution role. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html">Batch execution IAM role</a> in
+     * the <i>Batch User Guide</i>.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the execution role that Batch can assume. For jobs that run on Fargate
+     *         resources, you must provide an execution role. For more information, see <a
+     *         href="https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html">Batch execution IAM
+     *         role</a> in the <i>Batch User Guide</i>.
+     */
+
+    public String getExecutionRoleArn() {
+        return this.executionRoleArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the execution role that Batch can assume. For jobs that run on Fargate
+     * resources, you must provide an execution role. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html">Batch execution IAM role</a> in
+     * the <i>Batch User Guide</i>.
+     * </p>
+     * 
+     * @param executionRoleArn
+     *        The Amazon Resource Name (ARN) of the execution role that Batch can assume. For jobs that run on Fargate
+     *        resources, you must provide an execution role. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html">Batch execution IAM
+     *        role</a> in the <i>Batch User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerProperties withExecutionRoleArn(String executionRoleArn) {
+        setExecutionRoleArn(executionRoleArn);
         return this;
     }
 
@@ -846,12 +1107,12 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      * <important>
      * <p>
-     * We do not recommend using plaintext environment variables for sensitive information, such as credential data.
+     * We don't recommend using plaintext environment variables for sensitive information, such as credential data.
      * </p>
      * </important> <note>
      * <p>
-     * Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     * variables that are set by the AWS Batch service.
+     * Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     * variables that Batch sets.
      * </p>
      * </note>
      * 
@@ -860,13 +1121,13 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      *         <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--env</code>
      *         option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <important>
      *         <p>
-     *         We do not recommend using plaintext environment variables for sensitive information, such as credential
+     *         We don't recommend using plaintext environment variables for sensitive information, such as credential
      *         data.
      *         </p>
      *         </important> <note>
      *         <p>
-     *         Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     *         variables that are set by the AWS Batch service.
+     *         Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     *         variables that Batch sets.
      *         </p>
      */
 
@@ -883,12 +1144,12 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      * <important>
      * <p>
-     * We do not recommend using plaintext environment variables for sensitive information, such as credential data.
+     * We don't recommend using plaintext environment variables for sensitive information, such as credential data.
      * </p>
      * </important> <note>
      * <p>
-     * Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     * variables that are set by the AWS Batch service.
+     * Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     * variables that Batch sets.
      * </p>
      * </note>
      * 
@@ -898,13 +1159,13 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--env</code>
      *        option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <important>
      *        <p>
-     *        We do not recommend using plaintext environment variables for sensitive information, such as credential
+     *        We don't recommend using plaintext environment variables for sensitive information, such as credential
      *        data.
      *        </p>
      *        </important> <note>
      *        <p>
-     *        Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     *        variables that are set by the AWS Batch service.
+     *        Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     *        variables that Batch sets.
      *        </p>
      */
 
@@ -926,12 +1187,12 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      * <important>
      * <p>
-     * We do not recommend using plaintext environment variables for sensitive information, such as credential data.
+     * We don't recommend using plaintext environment variables for sensitive information, such as credential data.
      * </p>
      * </important> <note>
      * <p>
-     * Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     * variables that are set by the AWS Batch service.
+     * Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     * variables that Batch sets.
      * </p>
      * </note>
      * <p>
@@ -946,13 +1207,13 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--env</code>
      *        option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <important>
      *        <p>
-     *        We do not recommend using plaintext environment variables for sensitive information, such as credential
+     *        We don't recommend using plaintext environment variables for sensitive information, such as credential
      *        data.
      *        </p>
      *        </important> <note>
      *        <p>
-     *        Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     *        variables that are set by the AWS Batch service.
+     *        Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     *        variables that Batch sets.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -976,12 +1237,12 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      * <important>
      * <p>
-     * We do not recommend using plaintext environment variables for sensitive information, such as credential data.
+     * We don't recommend using plaintext environment variables for sensitive information, such as credential data.
      * </p>
      * </important> <note>
      * <p>
-     * Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     * variables that are set by the AWS Batch service.
+     * Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     * variables that Batch sets.
      * </p>
      * </note>
      * 
@@ -991,13 +1252,13 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--env</code>
      *        option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p> <important>
      *        <p>
-     *        We do not recommend using plaintext environment variables for sensitive information, such as credential
+     *        We don't recommend using plaintext environment variables for sensitive information, such as credential
      *        data.
      *        </p>
      *        </important> <note>
      *        <p>
-     *        Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     *        variables that are set by the AWS Batch service.
+     *        Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     *        variables that Batch sets.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1187,20 +1448,30 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * When this parameter is true, the container is given elevated privileges on the host container instance (similar
+     * When this parameter is true, the container is given elevated permissions on the host container instance (similar
      * to the <code>root</code> user). This parameter maps to <code>Privileged</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--privileged</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. The default value is false.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided, or
+     * specified as false.
+     * </p>
+     * </note>
      * 
      * @param privileged
-     *        When this parameter is true, the container is given elevated privileges on the host container instance
+     *        When this parameter is true, the container is given elevated permissions on the host container instance
      *        (similar to the <code>root</code> user). This parameter maps to <code>Privileged</code> in the <a
      *        href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
      *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
      *        <code>--privileged</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *        run</a>.
+     *        run</a>. The default value is false.</p> <note>
+     *        <p>
+     *        This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided,
+     *        or specified as false.
+     *        </p>
      */
 
     public void setPrivileged(Boolean privileged) {
@@ -1209,19 +1480,29 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * When this parameter is true, the container is given elevated privileges on the host container instance (similar
+     * When this parameter is true, the container is given elevated permissions on the host container instance (similar
      * to the <code>root</code> user). This parameter maps to <code>Privileged</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--privileged</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. The default value is false.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided, or
+     * specified as false.
+     * </p>
+     * </note>
      * 
-     * @return When this parameter is true, the container is given elevated privileges on the host container instance
+     * @return When this parameter is true, the container is given elevated permissions on the host container instance
      *         (similar to the <code>root</code> user). This parameter maps to <code>Privileged</code> in the <a
      *         href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
      *         <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
      *         <code>--privileged</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *         run</a>.
+     *         run</a>. The default value is false.</p> <note>
+     *         <p>
+     *         This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided,
+     *         or specified as false.
+     *         </p>
      */
 
     public Boolean getPrivileged() {
@@ -1230,20 +1511,30 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * When this parameter is true, the container is given elevated privileges on the host container instance (similar
+     * When this parameter is true, the container is given elevated permissions on the host container instance (similar
      * to the <code>root</code> user). This parameter maps to <code>Privileged</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--privileged</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. The default value is false.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided, or
+     * specified as false.
+     * </p>
+     * </note>
      * 
      * @param privileged
-     *        When this parameter is true, the container is given elevated privileges on the host container instance
+     *        When this parameter is true, the container is given elevated permissions on the host container instance
      *        (similar to the <code>root</code> user). This parameter maps to <code>Privileged</code> in the <a
      *        href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
      *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
      *        <code>--privileged</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *        run</a>.
+     *        run</a>. The default value is false.</p> <note>
+     *        <p>
+     *        This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided,
+     *        or specified as false.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1254,19 +1545,29 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * When this parameter is true, the container is given elevated privileges on the host container instance (similar
+     * When this parameter is true, the container is given elevated permissions on the host container instance (similar
      * to the <code>root</code> user). This parameter maps to <code>Privileged</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--privileged</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. The default value is false.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided, or
+     * specified as false.
+     * </p>
+     * </note>
      * 
-     * @return When this parameter is true, the container is given elevated privileges on the host container instance
+     * @return When this parameter is true, the container is given elevated permissions on the host container instance
      *         (similar to the <code>root</code> user). This parameter maps to <code>Privileged</code> in the <a
      *         href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
      *         <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
      *         <code>--privileged</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *         run</a>.
+     *         run</a>. The default value is false.</p> <note>
+     *         <p>
+     *         This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided,
+     *         or specified as false.
+     *         </p>
      */
 
     public Boolean isPrivileged() {
@@ -1280,11 +1581,20 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--ulimit</code> option to <a
      * href="https://docs.docker.com/engine/reference/run/">docker run</a>.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided.
+     * </p>
+     * </note>
      * 
      * @return A list of <code>ulimits</code> to set in the container. This parameter maps to <code>Ulimits</code> in
      *         the <a href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section
      *         of the <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
-     *         <code>--ulimit</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     *         <code>--ulimit</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
+     *         run</a>.</p> <note>
+     *         <p>
+     *         This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided.
+     *         </p>
      */
 
     public java.util.List<Ulimit> getUlimits() {
@@ -1298,12 +1608,21 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--ulimit</code> option to <a
      * href="https://docs.docker.com/engine/reference/run/">docker run</a>.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided.
+     * </p>
+     * </note>
      * 
      * @param ulimits
      *        A list of <code>ulimits</code> to set in the container. This parameter maps to <code>Ulimits</code> in the
      *        <a href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of
      *        the <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
-     *        <code>--ulimit</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     *        <code>--ulimit</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
+     *        run</a>.</p> <note>
+     *        <p>
+     *        This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided.
+     *        </p>
      */
 
     public void setUlimits(java.util.Collection<Ulimit> ulimits) {
@@ -1322,6 +1641,11 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--ulimit</code> option to <a
      * href="https://docs.docker.com/engine/reference/run/">docker run</a>.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setUlimits(java.util.Collection)} or {@link #withUlimits(java.util.Collection)} if you want to override
@@ -1332,7 +1656,11 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      *        A list of <code>ulimits</code> to set in the container. This parameter maps to <code>Ulimits</code> in the
      *        <a href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of
      *        the <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
-     *        <code>--ulimit</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     *        <code>--ulimit</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
+     *        run</a>.</p> <note>
+     *        <p>
+     *        This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1353,12 +1681,21 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--ulimit</code> option to <a
      * href="https://docs.docker.com/engine/reference/run/">docker run</a>.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided.
+     * </p>
+     * </note>
      * 
      * @param ulimits
      *        A list of <code>ulimits</code> to set in the container. This parameter maps to <code>Ulimits</code> in the
      *        <a href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of
      *        the <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
-     *        <code>--ulimit</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     *        <code>--ulimit</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
+     *        run</a>.</p> <note>
+     *        <p>
+     *        This parameter isn't applicable to jobs that are running on Fargate resources and shouldn't be provided.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1427,13 +1764,23 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The instance type to use for a multi-node parallel job. Currently all node groups in a multi-node parallel job
-     * must use the same instance type. This parameter is not valid for single-node container jobs.
+     * The instance type to use for a multi-node parallel job. All node groups in a multi-node parallel job must use the
+     * same instance type.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to single-node container jobs or jobs that run on Fargate resources, and
+     * shouldn't be provided.
+     * </p>
+     * </note>
      * 
      * @param instanceType
-     *        The instance type to use for a multi-node parallel job. Currently all node groups in a multi-node parallel
-     *        job must use the same instance type. This parameter is not valid for single-node container jobs.
+     *        The instance type to use for a multi-node parallel job. All node groups in a multi-node parallel job must
+     *        use the same instance type.</p> <note>
+     *        <p>
+     *        This parameter isn't applicable to single-node container jobs or jobs that run on Fargate resources, and
+     *        shouldn't be provided.
+     *        </p>
      */
 
     public void setInstanceType(String instanceType) {
@@ -1442,12 +1789,22 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The instance type to use for a multi-node parallel job. Currently all node groups in a multi-node parallel job
-     * must use the same instance type. This parameter is not valid for single-node container jobs.
+     * The instance type to use for a multi-node parallel job. All node groups in a multi-node parallel job must use the
+     * same instance type.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to single-node container jobs or jobs that run on Fargate resources, and
+     * shouldn't be provided.
+     * </p>
+     * </note>
      * 
-     * @return The instance type to use for a multi-node parallel job. Currently all node groups in a multi-node
-     *         parallel job must use the same instance type. This parameter is not valid for single-node container jobs.
+     * @return The instance type to use for a multi-node parallel job. All node groups in a multi-node parallel job must
+     *         use the same instance type.</p> <note>
+     *         <p>
+     *         This parameter isn't applicable to single-node container jobs or jobs that run on Fargate resources, and
+     *         shouldn't be provided.
+     *         </p>
      */
 
     public String getInstanceType() {
@@ -1456,13 +1813,23 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The instance type to use for a multi-node parallel job. Currently all node groups in a multi-node parallel job
-     * must use the same instance type. This parameter is not valid for single-node container jobs.
+     * The instance type to use for a multi-node parallel job. All node groups in a multi-node parallel job must use the
+     * same instance type.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to single-node container jobs or jobs that run on Fargate resources, and
+     * shouldn't be provided.
+     * </p>
+     * </note>
      * 
      * @param instanceType
-     *        The instance type to use for a multi-node parallel job. Currently all node groups in a multi-node parallel
-     *        job must use the same instance type. This parameter is not valid for single-node container jobs.
+     *        The instance type to use for a multi-node parallel job. All node groups in a multi-node parallel job must
+     *        use the same instance type.</p> <note>
+     *        <p>
+     *        This parameter isn't applicable to single-node container jobs or jobs that run on Fargate resources, and
+     *        shouldn't be provided.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1473,12 +1840,12 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The type and amount of a resource to assign to a container. Currently, the only supported resource is
-     * <code>GPU</code>.
+     * The type and amount of resources to assign to a container. The supported resources include <code>GPU</code>,
+     * <code>MEMORY</code>, and <code>VCPU</code>.
      * </p>
      * 
-     * @return The type and amount of a resource to assign to a container. Currently, the only supported resource is
-     *         <code>GPU</code>.
+     * @return The type and amount of resources to assign to a container. The supported resources include
+     *         <code>GPU</code>, <code>MEMORY</code>, and <code>VCPU</code>.
      */
 
     public java.util.List<ResourceRequirement> getResourceRequirements() {
@@ -1487,13 +1854,13 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The type and amount of a resource to assign to a container. Currently, the only supported resource is
-     * <code>GPU</code>.
+     * The type and amount of resources to assign to a container. The supported resources include <code>GPU</code>,
+     * <code>MEMORY</code>, and <code>VCPU</code>.
      * </p>
      * 
      * @param resourceRequirements
-     *        The type and amount of a resource to assign to a container. Currently, the only supported resource is
-     *        <code>GPU</code>.
+     *        The type and amount of resources to assign to a container. The supported resources include
+     *        <code>GPU</code>, <code>MEMORY</code>, and <code>VCPU</code>.
      */
 
     public void setResourceRequirements(java.util.Collection<ResourceRequirement> resourceRequirements) {
@@ -1507,8 +1874,8 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The type and amount of a resource to assign to a container. Currently, the only supported resource is
-     * <code>GPU</code>.
+     * The type and amount of resources to assign to a container. The supported resources include <code>GPU</code>,
+     * <code>MEMORY</code>, and <code>VCPU</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1517,8 +1884,8 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      * 
      * @param resourceRequirements
-     *        The type and amount of a resource to assign to a container. Currently, the only supported resource is
-     *        <code>GPU</code>.
+     *        The type and amount of resources to assign to a container. The supported resources include
+     *        <code>GPU</code>, <code>MEMORY</code>, and <code>VCPU</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1534,13 +1901,13 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The type and amount of a resource to assign to a container. Currently, the only supported resource is
-     * <code>GPU</code>.
+     * The type and amount of resources to assign to a container. The supported resources include <code>GPU</code>,
+     * <code>MEMORY</code>, and <code>VCPU</code>.
      * </p>
      * 
      * @param resourceRequirements
-     *        The type and amount of a resource to assign to a container. Currently, the only supported resource is
-     *        <code>GPU</code>.
+     *        The type and amount of resources to assign to a container. The supported resources include
+     *        <code>GPU</code>, <code>MEMORY</code>, and <code>VCPU</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1590,6 +1957,551 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
     }
 
     /**
+     * <p>
+     * The log configuration specification for the container.
+     * </p>
+     * <p>
+     * This parameter maps to <code>LogConfig</code> in the <a
+     * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
+     * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--log-driver</code> option
+     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. By default, containers use the same
+     * logging driver that the Docker daemon uses. However the container might use a different logging driver than the
+     * Docker daemon by specifying a log driver with this parameter in the container definition. To use a different
+     * logging driver for a container, the log system must be configured properly on the container instance (or on a
+     * different log server for remote logging options). For more information on the options for different supported log
+     * drivers, see <a href="https://docs.docker.com/engine/admin/logging/overview/">Configure logging drivers</a> in
+     * the Docker documentation.
+     * </p>
+     * <note>
+     * <p>
+     * Batch currently supports a subset of the logging drivers available to the Docker daemon (shown in the <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties-logconfiguration.html"
+     * >LogConfiguration</a> data type).
+     * </p>
+     * </note>
+     * <p>
+     * This parameter requires version 1.18 of the Docker Remote API or greater on your container instance. To check the
+     * Docker Remote API version on your container instance, log in to your container instance and run the following
+     * command: <code>sudo docker version | grep "Server API version"</code>
+     * </p>
+     * <note>
+     * <p>
+     * The Amazon ECS container agent running on a container instance must register the logging drivers available on
+     * that instance with the <code>ECS_AVAILABLE_LOGGING_DRIVERS</code> environment variable before containers placed
+     * on that instance can use these log configuration options. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html">Amazon ECS container
+     * agent configuration</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     * </note>
+     * 
+     * @param logConfiguration
+     *        The log configuration specification for the container.</p>
+     *        <p>
+     *        This parameter maps to <code>LogConfig</code> in the <a
+     *        href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
+     *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
+     *        <code>--log-driver</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
+     *        run</a>. By default, containers use the same logging driver that the Docker daemon uses. However the
+     *        container might use a different logging driver than the Docker daemon by specifying a log driver with this
+     *        parameter in the container definition. To use a different logging driver for a container, the log system
+     *        must be configured properly on the container instance (or on a different log server for remote logging
+     *        options). For more information on the options for different supported log drivers, see <a
+     *        href="https://docs.docker.com/engine/admin/logging/overview/">Configure logging drivers</a> in the Docker
+     *        documentation.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Batch currently supports a subset of the logging drivers available to the Docker daemon (shown in the <a
+     *        href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties-logconfiguration.html"
+     *        >LogConfiguration</a> data type).
+     *        </p>
+     *        </note>
+     *        <p>
+     *        This parameter requires version 1.18 of the Docker Remote API or greater on your container instance. To
+     *        check the Docker Remote API version on your container instance, log in to your container instance and run
+     *        the following command: <code>sudo docker version | grep "Server API version"</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The Amazon ECS container agent running on a container instance must register the logging drivers available
+     *        on that instance with the <code>ECS_AVAILABLE_LOGGING_DRIVERS</code> environment variable before
+     *        containers placed on that instance can use these log configuration options. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html">Amazon ECS
+     *        container agent configuration</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     *        </p>
+     */
+
+    public void setLogConfiguration(LogConfiguration logConfiguration) {
+        this.logConfiguration = logConfiguration;
+    }
+
+    /**
+     * <p>
+     * The log configuration specification for the container.
+     * </p>
+     * <p>
+     * This parameter maps to <code>LogConfig</code> in the <a
+     * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
+     * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--log-driver</code> option
+     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. By default, containers use the same
+     * logging driver that the Docker daemon uses. However the container might use a different logging driver than the
+     * Docker daemon by specifying a log driver with this parameter in the container definition. To use a different
+     * logging driver for a container, the log system must be configured properly on the container instance (or on a
+     * different log server for remote logging options). For more information on the options for different supported log
+     * drivers, see <a href="https://docs.docker.com/engine/admin/logging/overview/">Configure logging drivers</a> in
+     * the Docker documentation.
+     * </p>
+     * <note>
+     * <p>
+     * Batch currently supports a subset of the logging drivers available to the Docker daemon (shown in the <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties-logconfiguration.html"
+     * >LogConfiguration</a> data type).
+     * </p>
+     * </note>
+     * <p>
+     * This parameter requires version 1.18 of the Docker Remote API or greater on your container instance. To check the
+     * Docker Remote API version on your container instance, log in to your container instance and run the following
+     * command: <code>sudo docker version | grep "Server API version"</code>
+     * </p>
+     * <note>
+     * <p>
+     * The Amazon ECS container agent running on a container instance must register the logging drivers available on
+     * that instance with the <code>ECS_AVAILABLE_LOGGING_DRIVERS</code> environment variable before containers placed
+     * on that instance can use these log configuration options. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html">Amazon ECS container
+     * agent configuration</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     * </note>
+     * 
+     * @return The log configuration specification for the container.</p>
+     *         <p>
+     *         This parameter maps to <code>LogConfig</code> in the <a
+     *         href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
+     *         <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
+     *         <code>--log-driver</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
+     *         run</a>. By default, containers use the same logging driver that the Docker daemon uses. However the
+     *         container might use a different logging driver than the Docker daemon by specifying a log driver with
+     *         this parameter in the container definition. To use a different logging driver for a container, the log
+     *         system must be configured properly on the container instance (or on a different log server for remote
+     *         logging options). For more information on the options for different supported log drivers, see <a
+     *         href="https://docs.docker.com/engine/admin/logging/overview/">Configure logging drivers</a> in the Docker
+     *         documentation.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Batch currently supports a subset of the logging drivers available to the Docker daemon (shown in the <a
+     *         href=
+     *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties-logconfiguration.html"
+     *         >LogConfiguration</a> data type).
+     *         </p>
+     *         </note>
+     *         <p>
+     *         This parameter requires version 1.18 of the Docker Remote API or greater on your container instance. To
+     *         check the Docker Remote API version on your container instance, log in to your container instance and run
+     *         the following command: <code>sudo docker version | grep "Server API version"</code>
+     *         </p>
+     *         <note>
+     *         <p>
+     *         The Amazon ECS container agent running on a container instance must register the logging drivers
+     *         available on that instance with the <code>ECS_AVAILABLE_LOGGING_DRIVERS</code> environment variable
+     *         before containers placed on that instance can use these log configuration options. For more information,
+     *         see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html">Amazon
+     *         ECS container agent configuration</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     *         </p>
+     */
+
+    public LogConfiguration getLogConfiguration() {
+        return this.logConfiguration;
+    }
+
+    /**
+     * <p>
+     * The log configuration specification for the container.
+     * </p>
+     * <p>
+     * This parameter maps to <code>LogConfig</code> in the <a
+     * href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the <a
+     * href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the <code>--log-driver</code> option
+     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. By default, containers use the same
+     * logging driver that the Docker daemon uses. However the container might use a different logging driver than the
+     * Docker daemon by specifying a log driver with this parameter in the container definition. To use a different
+     * logging driver for a container, the log system must be configured properly on the container instance (or on a
+     * different log server for remote logging options). For more information on the options for different supported log
+     * drivers, see <a href="https://docs.docker.com/engine/admin/logging/overview/">Configure logging drivers</a> in
+     * the Docker documentation.
+     * </p>
+     * <note>
+     * <p>
+     * Batch currently supports a subset of the logging drivers available to the Docker daemon (shown in the <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties-logconfiguration.html"
+     * >LogConfiguration</a> data type).
+     * </p>
+     * </note>
+     * <p>
+     * This parameter requires version 1.18 of the Docker Remote API or greater on your container instance. To check the
+     * Docker Remote API version on your container instance, log in to your container instance and run the following
+     * command: <code>sudo docker version | grep "Server API version"</code>
+     * </p>
+     * <note>
+     * <p>
+     * The Amazon ECS container agent running on a container instance must register the logging drivers available on
+     * that instance with the <code>ECS_AVAILABLE_LOGGING_DRIVERS</code> environment variable before containers placed
+     * on that instance can use these log configuration options. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html">Amazon ECS container
+     * agent configuration</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     * </note>
+     * 
+     * @param logConfiguration
+     *        The log configuration specification for the container.</p>
+     *        <p>
+     *        This parameter maps to <code>LogConfig</code> in the <a
+     *        href="https://docs.docker.com/engine/api/v1.23/#create-a-container">Create a container</a> section of the
+     *        <a href="https://docs.docker.com/engine/api/v1.23/">Docker Remote API</a> and the
+     *        <code>--log-driver</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
+     *        run</a>. By default, containers use the same logging driver that the Docker daemon uses. However the
+     *        container might use a different logging driver than the Docker daemon by specifying a log driver with this
+     *        parameter in the container definition. To use a different logging driver for a container, the log system
+     *        must be configured properly on the container instance (or on a different log server for remote logging
+     *        options). For more information on the options for different supported log drivers, see <a
+     *        href="https://docs.docker.com/engine/admin/logging/overview/">Configure logging drivers</a> in the Docker
+     *        documentation.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Batch currently supports a subset of the logging drivers available to the Docker daemon (shown in the <a
+     *        href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties-logconfiguration.html"
+     *        >LogConfiguration</a> data type).
+     *        </p>
+     *        </note>
+     *        <p>
+     *        This parameter requires version 1.18 of the Docker Remote API or greater on your container instance. To
+     *        check the Docker Remote API version on your container instance, log in to your container instance and run
+     *        the following command: <code>sudo docker version | grep "Server API version"</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The Amazon ECS container agent running on a container instance must register the logging drivers available
+     *        on that instance with the <code>ECS_AVAILABLE_LOGGING_DRIVERS</code> environment variable before
+     *        containers placed on that instance can use these log configuration options. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html">Amazon ECS
+     *        container agent configuration</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerProperties withLogConfiguration(LogConfiguration logConfiguration) {
+        setLogConfiguration(logConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The secrets for the container. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html">Specifying sensitive
+     * data</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * 
+     * @return The secrets for the container. For more information, see <a
+     *         href="https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html">Specifying
+     *         sensitive data</a> in the <i>Batch User Guide</i>.
+     */
+
+    public java.util.List<Secret> getSecrets() {
+        return secrets;
+    }
+
+    /**
+     * <p>
+     * The secrets for the container. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html">Specifying sensitive
+     * data</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * 
+     * @param secrets
+     *        The secrets for the container. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html">Specifying
+     *        sensitive data</a> in the <i>Batch User Guide</i>.
+     */
+
+    public void setSecrets(java.util.Collection<Secret> secrets) {
+        if (secrets == null) {
+            this.secrets = null;
+            return;
+        }
+
+        this.secrets = new java.util.ArrayList<Secret>(secrets);
+    }
+
+    /**
+     * <p>
+     * The secrets for the container. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html">Specifying sensitive
+     * data</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSecrets(java.util.Collection)} or {@link #withSecrets(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param secrets
+     *        The secrets for the container. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html">Specifying
+     *        sensitive data</a> in the <i>Batch User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerProperties withSecrets(Secret... secrets) {
+        if (this.secrets == null) {
+            setSecrets(new java.util.ArrayList<Secret>(secrets.length));
+        }
+        for (Secret ele : secrets) {
+            this.secrets.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The secrets for the container. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html">Specifying sensitive
+     * data</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * 
+     * @param secrets
+     *        The secrets for the container. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html">Specifying
+     *        sensitive data</a> in the <i>Batch User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerProperties withSecrets(java.util.Collection<Secret> secrets) {
+        setSecrets(secrets);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The network configuration for jobs that are running on Fargate resources. Jobs that are running on Amazon EC2
+     * resources must not specify this parameter.
+     * </p>
+     * 
+     * @param networkConfiguration
+     *        The network configuration for jobs that are running on Fargate resources. Jobs that are running on Amazon
+     *        EC2 resources must not specify this parameter.
+     */
+
+    public void setNetworkConfiguration(NetworkConfiguration networkConfiguration) {
+        this.networkConfiguration = networkConfiguration;
+    }
+
+    /**
+     * <p>
+     * The network configuration for jobs that are running on Fargate resources. Jobs that are running on Amazon EC2
+     * resources must not specify this parameter.
+     * </p>
+     * 
+     * @return The network configuration for jobs that are running on Fargate resources. Jobs that are running on Amazon
+     *         EC2 resources must not specify this parameter.
+     */
+
+    public NetworkConfiguration getNetworkConfiguration() {
+        return this.networkConfiguration;
+    }
+
+    /**
+     * <p>
+     * The network configuration for jobs that are running on Fargate resources. Jobs that are running on Amazon EC2
+     * resources must not specify this parameter.
+     * </p>
+     * 
+     * @param networkConfiguration
+     *        The network configuration for jobs that are running on Fargate resources. Jobs that are running on Amazon
+     *        EC2 resources must not specify this parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerProperties withNetworkConfiguration(NetworkConfiguration networkConfiguration) {
+        setNetworkConfiguration(networkConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The platform configuration for jobs that are running on Fargate resources. Jobs that are running on Amazon EC2
+     * resources must not specify this parameter.
+     * </p>
+     * 
+     * @param fargatePlatformConfiguration
+     *        The platform configuration for jobs that are running on Fargate resources. Jobs that are running on Amazon
+     *        EC2 resources must not specify this parameter.
+     */
+
+    public void setFargatePlatformConfiguration(FargatePlatformConfiguration fargatePlatformConfiguration) {
+        this.fargatePlatformConfiguration = fargatePlatformConfiguration;
+    }
+
+    /**
+     * <p>
+     * The platform configuration for jobs that are running on Fargate resources. Jobs that are running on Amazon EC2
+     * resources must not specify this parameter.
+     * </p>
+     * 
+     * @return The platform configuration for jobs that are running on Fargate resources. Jobs that are running on
+     *         Amazon EC2 resources must not specify this parameter.
+     */
+
+    public FargatePlatformConfiguration getFargatePlatformConfiguration() {
+        return this.fargatePlatformConfiguration;
+    }
+
+    /**
+     * <p>
+     * The platform configuration for jobs that are running on Fargate resources. Jobs that are running on Amazon EC2
+     * resources must not specify this parameter.
+     * </p>
+     * 
+     * @param fargatePlatformConfiguration
+     *        The platform configuration for jobs that are running on Fargate resources. Jobs that are running on Amazon
+     *        EC2 resources must not specify this parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerProperties withFargatePlatformConfiguration(FargatePlatformConfiguration fargatePlatformConfiguration) {
+        setFargatePlatformConfiguration(fargatePlatformConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The amount of ephemeral storage to allocate for the task. This parameter is used to expand the total amount of
+     * ephemeral storage available, beyond the default amount, for tasks hosted on Fargate.
+     * </p>
+     * 
+     * @param ephemeralStorage
+     *        The amount of ephemeral storage to allocate for the task. This parameter is used to expand the total
+     *        amount of ephemeral storage available, beyond the default amount, for tasks hosted on Fargate.
+     */
+
+    public void setEphemeralStorage(EphemeralStorage ephemeralStorage) {
+        this.ephemeralStorage = ephemeralStorage;
+    }
+
+    /**
+     * <p>
+     * The amount of ephemeral storage to allocate for the task. This parameter is used to expand the total amount of
+     * ephemeral storage available, beyond the default amount, for tasks hosted on Fargate.
+     * </p>
+     * 
+     * @return The amount of ephemeral storage to allocate for the task. This parameter is used to expand the total
+     *         amount of ephemeral storage available, beyond the default amount, for tasks hosted on Fargate.
+     */
+
+    public EphemeralStorage getEphemeralStorage() {
+        return this.ephemeralStorage;
+    }
+
+    /**
+     * <p>
+     * The amount of ephemeral storage to allocate for the task. This parameter is used to expand the total amount of
+     * ephemeral storage available, beyond the default amount, for tasks hosted on Fargate.
+     * </p>
+     * 
+     * @param ephemeralStorage
+     *        The amount of ephemeral storage to allocate for the task. This parameter is used to expand the total
+     *        amount of ephemeral storage available, beyond the default amount, for tasks hosted on Fargate.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerProperties withEphemeralStorage(EphemeralStorage ephemeralStorage) {
+        setEphemeralStorage(ephemeralStorage);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An object that represents the compute environment architecture for Batch jobs on Fargate.
+     * </p>
+     * 
+     * @param runtimePlatform
+     *        An object that represents the compute environment architecture for Batch jobs on Fargate.
+     */
+
+    public void setRuntimePlatform(RuntimePlatform runtimePlatform) {
+        this.runtimePlatform = runtimePlatform;
+    }
+
+    /**
+     * <p>
+     * An object that represents the compute environment architecture for Batch jobs on Fargate.
+     * </p>
+     * 
+     * @return An object that represents the compute environment architecture for Batch jobs on Fargate.
+     */
+
+    public RuntimePlatform getRuntimePlatform() {
+        return this.runtimePlatform;
+    }
+
+    /**
+     * <p>
+     * An object that represents the compute environment architecture for Batch jobs on Fargate.
+     * </p>
+     * 
+     * @param runtimePlatform
+     *        An object that represents the compute environment architecture for Batch jobs on Fargate.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerProperties withRuntimePlatform(RuntimePlatform runtimePlatform) {
+        setRuntimePlatform(runtimePlatform);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The private repository authentication credentials to use.
+     * </p>
+     * 
+     * @param repositoryCredentials
+     *        The private repository authentication credentials to use.
+     */
+
+    public void setRepositoryCredentials(RepositoryCredentials repositoryCredentials) {
+        this.repositoryCredentials = repositoryCredentials;
+    }
+
+    /**
+     * <p>
+     * The private repository authentication credentials to use.
+     * </p>
+     * 
+     * @return The private repository authentication credentials to use.
+     */
+
+    public RepositoryCredentials getRepositoryCredentials() {
+        return this.repositoryCredentials;
+    }
+
+    /**
+     * <p>
+     * The private repository authentication credentials to use.
+     * </p>
+     * 
+     * @param repositoryCredentials
+     *        The private repository authentication credentials to use.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerProperties withRepositoryCredentials(RepositoryCredentials repositoryCredentials) {
+        setRepositoryCredentials(repositoryCredentials);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1611,6 +2523,8 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
             sb.append("Command: ").append(getCommand()).append(",");
         if (getJobRoleArn() != null)
             sb.append("JobRoleArn: ").append(getJobRoleArn()).append(",");
+        if (getExecutionRoleArn() != null)
+            sb.append("ExecutionRoleArn: ").append(getExecutionRoleArn()).append(",");
         if (getVolumes() != null)
             sb.append("Volumes: ").append(getVolumes()).append(",");
         if (getEnvironment() != null)
@@ -1630,7 +2544,21 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
         if (getResourceRequirements() != null)
             sb.append("ResourceRequirements: ").append(getResourceRequirements()).append(",");
         if (getLinuxParameters() != null)
-            sb.append("LinuxParameters: ").append(getLinuxParameters());
+            sb.append("LinuxParameters: ").append(getLinuxParameters()).append(",");
+        if (getLogConfiguration() != null)
+            sb.append("LogConfiguration: ").append(getLogConfiguration()).append(",");
+        if (getSecrets() != null)
+            sb.append("Secrets: ").append(getSecrets()).append(",");
+        if (getNetworkConfiguration() != null)
+            sb.append("NetworkConfiguration: ").append(getNetworkConfiguration()).append(",");
+        if (getFargatePlatformConfiguration() != null)
+            sb.append("FargatePlatformConfiguration: ").append(getFargatePlatformConfiguration()).append(",");
+        if (getEphemeralStorage() != null)
+            sb.append("EphemeralStorage: ").append(getEphemeralStorage()).append(",");
+        if (getRuntimePlatform() != null)
+            sb.append("RuntimePlatform: ").append(getRuntimePlatform()).append(",");
+        if (getRepositoryCredentials() != null)
+            sb.append("RepositoryCredentials: ").append(getRepositoryCredentials());
         sb.append("}");
         return sb.toString();
     }
@@ -1664,6 +2592,10 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
         if (other.getJobRoleArn() == null ^ this.getJobRoleArn() == null)
             return false;
         if (other.getJobRoleArn() != null && other.getJobRoleArn().equals(this.getJobRoleArn()) == false)
+            return false;
+        if (other.getExecutionRoleArn() == null ^ this.getExecutionRoleArn() == null)
+            return false;
+        if (other.getExecutionRoleArn() != null && other.getExecutionRoleArn().equals(this.getExecutionRoleArn()) == false)
             return false;
         if (other.getVolumes() == null ^ this.getVolumes() == null)
             return false;
@@ -1705,6 +2637,34 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getLinuxParameters() != null && other.getLinuxParameters().equals(this.getLinuxParameters()) == false)
             return false;
+        if (other.getLogConfiguration() == null ^ this.getLogConfiguration() == null)
+            return false;
+        if (other.getLogConfiguration() != null && other.getLogConfiguration().equals(this.getLogConfiguration()) == false)
+            return false;
+        if (other.getSecrets() == null ^ this.getSecrets() == null)
+            return false;
+        if (other.getSecrets() != null && other.getSecrets().equals(this.getSecrets()) == false)
+            return false;
+        if (other.getNetworkConfiguration() == null ^ this.getNetworkConfiguration() == null)
+            return false;
+        if (other.getNetworkConfiguration() != null && other.getNetworkConfiguration().equals(this.getNetworkConfiguration()) == false)
+            return false;
+        if (other.getFargatePlatformConfiguration() == null ^ this.getFargatePlatformConfiguration() == null)
+            return false;
+        if (other.getFargatePlatformConfiguration() != null && other.getFargatePlatformConfiguration().equals(this.getFargatePlatformConfiguration()) == false)
+            return false;
+        if (other.getEphemeralStorage() == null ^ this.getEphemeralStorage() == null)
+            return false;
+        if (other.getEphemeralStorage() != null && other.getEphemeralStorage().equals(this.getEphemeralStorage()) == false)
+            return false;
+        if (other.getRuntimePlatform() == null ^ this.getRuntimePlatform() == null)
+            return false;
+        if (other.getRuntimePlatform() != null && other.getRuntimePlatform().equals(this.getRuntimePlatform()) == false)
+            return false;
+        if (other.getRepositoryCredentials() == null ^ this.getRepositoryCredentials() == null)
+            return false;
+        if (other.getRepositoryCredentials() != null && other.getRepositoryCredentials().equals(this.getRepositoryCredentials()) == false)
+            return false;
         return true;
     }
 
@@ -1718,6 +2678,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getMemory() == null) ? 0 : getMemory().hashCode());
         hashCode = prime * hashCode + ((getCommand() == null) ? 0 : getCommand().hashCode());
         hashCode = prime * hashCode + ((getJobRoleArn() == null) ? 0 : getJobRoleArn().hashCode());
+        hashCode = prime * hashCode + ((getExecutionRoleArn() == null) ? 0 : getExecutionRoleArn().hashCode());
         hashCode = prime * hashCode + ((getVolumes() == null) ? 0 : getVolumes().hashCode());
         hashCode = prime * hashCode + ((getEnvironment() == null) ? 0 : getEnvironment().hashCode());
         hashCode = prime * hashCode + ((getMountPoints() == null) ? 0 : getMountPoints().hashCode());
@@ -1728,6 +2689,13 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getInstanceType() == null) ? 0 : getInstanceType().hashCode());
         hashCode = prime * hashCode + ((getResourceRequirements() == null) ? 0 : getResourceRequirements().hashCode());
         hashCode = prime * hashCode + ((getLinuxParameters() == null) ? 0 : getLinuxParameters().hashCode());
+        hashCode = prime * hashCode + ((getLogConfiguration() == null) ? 0 : getLogConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getSecrets() == null) ? 0 : getSecrets().hashCode());
+        hashCode = prime * hashCode + ((getNetworkConfiguration() == null) ? 0 : getNetworkConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getFargatePlatformConfiguration() == null) ? 0 : getFargatePlatformConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getEphemeralStorage() == null) ? 0 : getEphemeralStorage().hashCode());
+        hashCode = prime * hashCode + ((getRuntimePlatform() == null) ? 0 : getRuntimePlatform().hashCode());
+        hashCode = prime * hashCode + ((getRepositoryCredentials() == null) ? 0 : getRepositoryCredentials().hashCode());
         return hashCode;
     }
 

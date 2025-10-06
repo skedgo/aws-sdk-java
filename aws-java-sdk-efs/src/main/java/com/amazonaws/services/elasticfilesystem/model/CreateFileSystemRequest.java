@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,27 +33,37 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
     private String creationToken;
     /**
      * <p>
-     * The performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for most file
+     * The Performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for all file
      * systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels of aggregate
      * throughput and operations per second with a tradeoff of slightly higher latencies for most file operations. The
-     * performance mode can't be changed after the file system has been created.
+     * performance mode can't be changed after the file system has been created. The <code>maxIO</code> mode is not
+     * supported on One Zone file systems.
+     * </p>
+     * <important>
+     * <p>
+     * Due to the higher per-operation latencies with Max I/O, we recommend using General Purpose performance mode for
+     * all file systems.
+     * </p>
+     * </important>
+     * <p>
+     * Default is <code>generalPurpose</code>.
      * </p>
      */
     private String performanceMode;
     /**
      * <p>
      * A Boolean value that, if true, creates an encrypted file system. When creating an encrypted file system, you have
-     * the option of specifying <a>CreateFileSystemRequest$KmsKeyId</a> for an existing AWS Key Management Service (AWS
-     * KMS) customer master key (CMK). If you don't specify a CMK, then the default CMK for Amazon EFS,
-     * <code>/aws/elasticfilesystem</code>, is used to protect the encrypted file system.
+     * the option of specifying an existing Key Management Service key (KMS key). If you don't specify a KMS key, then
+     * the default KMS key for Amazon EFS, <code>/aws/elasticfilesystem</code>, is used to protect the encrypted file
+     * system.
      * </p>
      */
     private Boolean encrypted;
     /**
      * <p>
-     * The ID of the AWS KMS CMK to be used to protect the encrypted file system. This parameter is only required if you
-     * want to use a nondefault CMK. If this parameter is not specified, the default CMK for Amazon EFS is used. This ID
-     * can be in one of the following formats:
+     * The ID of the KMS key that you want to use to protect the encrypted file system. This parameter is required only
+     * if you want to use a non-default KMS key. If this parameter is not specified, the default KMS key for Amazon EFS
+     * is used. You can specify a KMS key ID using the following formats:
      * </p>
      * <ul>
      * <li>
@@ -80,38 +90,82 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      * </li>
      * </ul>
      * <p>
-     * If <code>KmsKeyId</code> is specified, the <a>CreateFileSystemRequest$Encrypted</a> parameter must be set to
-     * true.
+     * If you use <code>KmsKeyId</code>, you must set the <a>CreateFileSystemRequest$Encrypted</a> parameter to true.
      * </p>
+     * <important>
+     * <p>
+     * EFS accepts only symmetric KMS keys. You cannot use asymmetric KMS keys with Amazon EFS file systems.
+     * </p>
+     * </important>
      */
     private String kmsKeyId;
     /**
      * <p>
-     * The throughput mode for the file system to be created. There are two throughput modes to choose from for your
-     * file system: <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     * decrease your file system's throughput in Provisioned Throughput mode or change between the throughput modes as
-     * long as it’s been more than 24 hours since the last decrease or throughput mode change. For more, see <a
-     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying Throughput
-     * with Provisioned Mode</a> in the <i>Amazon EFS User Guide.</i>
+     * Specifies the throughput mode for the file system. The mode can be <code>bursting</code>,
+     * <code>provisioned</code>, or <code>elastic</code>. If you set <code>ThroughputMode</code> to
+     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>. After you
+     * create the file system, you can decrease your file system's Provisioned throughput or change between the
+     * throughput modes, with certain time restrictions. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying throughput
+     * with provisioned mode</a> in the <i>Amazon EFS User Guide</i>.
+     * </p>
+     * <p>
+     * Default is <code>bursting</code>.
      * </p>
      */
     private String throughputMode;
     /**
      * <p>
-     * The throughput, measured in MiB/s, that you want to provision for a file system that you're creating. Valid
-     * values are 1-1024. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. The upper limit
-     * for throughput is 1024 MiB/s. You can get this limit increased by contacting AWS Support. For more information,
-     * see <a href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS Limits That You Can
-     * Increase</a> in the <i>Amazon EFS User Guide.</i>
+     * The throughput, measured in mebibytes per second (MiBps), that you want to provision for a file system that
+     * you're creating. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. Valid values are
+     * 1-3414 MiBps, with the upper limit depending on Region. To increase this limit, contact Amazon Web Services
+     * Support. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS quotas that you can
+     * increase</a> in the <i>Amazon EFS User Guide</i>.
      * </p>
      */
     private Double provisionedThroughputInMibps;
     /**
      * <p>
-     * A value that specifies to create one or more tags associated with the file system. Each tag is a user-defined
-     * key-value pair. Name your file system on creation by including a <code>"Key":"Name","Value":"{value}"</code>
-     * key-value pair.
+     * Used to create a One Zone file system. It specifies the Amazon Web Services Availability Zone in which to create
+     * the file system. Use the format <code>us-east-1a</code> to specify the Availability Zone. For more information
+     * about One Zone file systems, see <a href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html">Using
+     * EFS storage classes</a> in the <i>Amazon EFS User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * One Zone file systems are not available in all Availability Zones in Amazon Web Services Regions where Amazon EFS
+     * is available.
+     * </p>
+     * </note>
+     */
+    private String availabilityZoneName;
+    /**
+     * <p>
+     * Specifies whether automatic backups are enabled on the file system that you are creating. Set the value to
+     * <code>true</code> to enable automatic backups. If you are creating a One Zone file system, automatic backups are
+     * enabled by default. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/awsbackup.html#automatic-backups">Automatic backups</a> in the
+     * <i>Amazon EFS User Guide</i>.
+     * </p>
+     * <p>
+     * Default is <code>false</code>. However, if you specify an <code>AvailabilityZoneName</code>, the default is
+     * <code>true</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Backup is not available in all Amazon Web Services Regions where Amazon EFS is available.
+     * </p>
+     * </note>
+     */
+    private Boolean backup;
+    /**
+     * <p>
+     * Use to create one or more tags associated with the file system. Each tag is a user-defined key-value pair. Name
+     * your file system on creation by including a <code>"Key":"Name","Value":"{value}"</code> key-value pair. Each key
+     * must be unique. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services resources</a>
+     * in the <i>Amazon Web Services General Reference Guide</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
@@ -158,17 +212,35 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for most file
+     * The Performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for all file
      * systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels of aggregate
      * throughput and operations per second with a tradeoff of slightly higher latencies for most file operations. The
-     * performance mode can't be changed after the file system has been created.
+     * performance mode can't be changed after the file system has been created. The <code>maxIO</code> mode is not
+     * supported on One Zone file systems.
+     * </p>
+     * <important>
+     * <p>
+     * Due to the higher per-operation latencies with Max I/O, we recommend using General Purpose performance mode for
+     * all file systems.
+     * </p>
+     * </important>
+     * <p>
+     * Default is <code>generalPurpose</code>.
      * </p>
      * 
      * @param performanceMode
-     *        The performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for
-     *        most file systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels
-     *        of aggregate throughput and operations per second with a tradeoff of slightly higher latencies for most
-     *        file operations. The performance mode can't be changed after the file system has been created.
+     *        The Performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for all
+     *        file systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels of
+     *        aggregate throughput and operations per second with a tradeoff of slightly higher latencies for most file
+     *        operations. The performance mode can't be changed after the file system has been created. The
+     *        <code>maxIO</code> mode is not supported on One Zone file systems.</p> <important>
+     *        <p>
+     *        Due to the higher per-operation latencies with Max I/O, we recommend using General Purpose performance
+     *        mode for all file systems.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        Default is <code>generalPurpose</code>.
      * @see PerformanceMode
      */
 
@@ -178,16 +250,34 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for most file
+     * The Performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for all file
      * systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels of aggregate
      * throughput and operations per second with a tradeoff of slightly higher latencies for most file operations. The
-     * performance mode can't be changed after the file system has been created.
+     * performance mode can't be changed after the file system has been created. The <code>maxIO</code> mode is not
+     * supported on One Zone file systems.
+     * </p>
+     * <important>
+     * <p>
+     * Due to the higher per-operation latencies with Max I/O, we recommend using General Purpose performance mode for
+     * all file systems.
+     * </p>
+     * </important>
+     * <p>
+     * Default is <code>generalPurpose</code>.
      * </p>
      * 
-     * @return The performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for
-     *         most file systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels
+     * @return The Performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for
+     *         all file systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels
      *         of aggregate throughput and operations per second with a tradeoff of slightly higher latencies for most
-     *         file operations. The performance mode can't be changed after the file system has been created.
+     *         file operations. The performance mode can't be changed after the file system has been created. The
+     *         <code>maxIO</code> mode is not supported on One Zone file systems.</p> <important>
+     *         <p>
+     *         Due to the higher per-operation latencies with Max I/O, we recommend using General Purpose performance
+     *         mode for all file systems.
+     *         </p>
+     *         </important>
+     *         <p>
+     *         Default is <code>generalPurpose</code>.
      * @see PerformanceMode
      */
 
@@ -197,17 +287,35 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for most file
+     * The Performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for all file
      * systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels of aggregate
      * throughput and operations per second with a tradeoff of slightly higher latencies for most file operations. The
-     * performance mode can't be changed after the file system has been created.
+     * performance mode can't be changed after the file system has been created. The <code>maxIO</code> mode is not
+     * supported on One Zone file systems.
+     * </p>
+     * <important>
+     * <p>
+     * Due to the higher per-operation latencies with Max I/O, we recommend using General Purpose performance mode for
+     * all file systems.
+     * </p>
+     * </important>
+     * <p>
+     * Default is <code>generalPurpose</code>.
      * </p>
      * 
      * @param performanceMode
-     *        The performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for
-     *        most file systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels
-     *        of aggregate throughput and operations per second with a tradeoff of slightly higher latencies for most
-     *        file operations. The performance mode can't be changed after the file system has been created.
+     *        The Performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for all
+     *        file systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels of
+     *        aggregate throughput and operations per second with a tradeoff of slightly higher latencies for most file
+     *        operations. The performance mode can't be changed after the file system has been created. The
+     *        <code>maxIO</code> mode is not supported on One Zone file systems.</p> <important>
+     *        <p>
+     *        Due to the higher per-operation latencies with Max I/O, we recommend using General Purpose performance
+     *        mode for all file systems.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        Default is <code>generalPurpose</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PerformanceMode
      */
@@ -219,17 +327,35 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for most file
+     * The Performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for all file
      * systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels of aggregate
      * throughput and operations per second with a tradeoff of slightly higher latencies for most file operations. The
-     * performance mode can't be changed after the file system has been created.
+     * performance mode can't be changed after the file system has been created. The <code>maxIO</code> mode is not
+     * supported on One Zone file systems.
+     * </p>
+     * <important>
+     * <p>
+     * Due to the higher per-operation latencies with Max I/O, we recommend using General Purpose performance mode for
+     * all file systems.
+     * </p>
+     * </important>
+     * <p>
+     * Default is <code>generalPurpose</code>.
      * </p>
      * 
      * @param performanceMode
-     *        The performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for
-     *        most file systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels
-     *        of aggregate throughput and operations per second with a tradeoff of slightly higher latencies for most
-     *        file operations. The performance mode can't be changed after the file system has been created.
+     *        The Performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for all
+     *        file systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels of
+     *        aggregate throughput and operations per second with a tradeoff of slightly higher latencies for most file
+     *        operations. The performance mode can't be changed after the file system has been created. The
+     *        <code>maxIO</code> mode is not supported on One Zone file systems.</p> <important>
+     *        <p>
+     *        Due to the higher per-operation latencies with Max I/O, we recommend using General Purpose performance
+     *        mode for all file systems.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        Default is <code>generalPurpose</code>.
      * @see PerformanceMode
      */
 
@@ -239,17 +365,35 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for most file
+     * The Performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for all file
      * systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels of aggregate
      * throughput and operations per second with a tradeoff of slightly higher latencies for most file operations. The
-     * performance mode can't be changed after the file system has been created.
+     * performance mode can't be changed after the file system has been created. The <code>maxIO</code> mode is not
+     * supported on One Zone file systems.
+     * </p>
+     * <important>
+     * <p>
+     * Due to the higher per-operation latencies with Max I/O, we recommend using General Purpose performance mode for
+     * all file systems.
+     * </p>
+     * </important>
+     * <p>
+     * Default is <code>generalPurpose</code>.
      * </p>
      * 
      * @param performanceMode
-     *        The performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for
-     *        most file systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels
-     *        of aggregate throughput and operations per second with a tradeoff of slightly higher latencies for most
-     *        file operations. The performance mode can't be changed after the file system has been created.
+     *        The Performance mode of the file system. We recommend <code>generalPurpose</code> performance mode for all
+     *        file systems. File systems using the <code>maxIO</code> performance mode can scale to higher levels of
+     *        aggregate throughput and operations per second with a tradeoff of slightly higher latencies for most file
+     *        operations. The performance mode can't be changed after the file system has been created. The
+     *        <code>maxIO</code> mode is not supported on One Zone file systems.</p> <important>
+     *        <p>
+     *        Due to the higher per-operation latencies with Max I/O, we recommend using General Purpose performance
+     *        mode for all file systems.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        Default is <code>generalPurpose</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PerformanceMode
      */
@@ -262,16 +406,16 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * A Boolean value that, if true, creates an encrypted file system. When creating an encrypted file system, you have
-     * the option of specifying <a>CreateFileSystemRequest$KmsKeyId</a> for an existing AWS Key Management Service (AWS
-     * KMS) customer master key (CMK). If you don't specify a CMK, then the default CMK for Amazon EFS,
-     * <code>/aws/elasticfilesystem</code>, is used to protect the encrypted file system.
+     * the option of specifying an existing Key Management Service key (KMS key). If you don't specify a KMS key, then
+     * the default KMS key for Amazon EFS, <code>/aws/elasticfilesystem</code>, is used to protect the encrypted file
+     * system.
      * </p>
      * 
      * @param encrypted
      *        A Boolean value that, if true, creates an encrypted file system. When creating an encrypted file system,
-     *        you have the option of specifying <a>CreateFileSystemRequest$KmsKeyId</a> for an existing AWS Key
-     *        Management Service (AWS KMS) customer master key (CMK). If you don't specify a CMK, then the default CMK
-     *        for Amazon EFS, <code>/aws/elasticfilesystem</code>, is used to protect the encrypted file system.
+     *        you have the option of specifying an existing Key Management Service key (KMS key). If you don't specify a
+     *        KMS key, then the default KMS key for Amazon EFS, <code>/aws/elasticfilesystem</code>, is used to protect
+     *        the encrypted file system.
      */
 
     public void setEncrypted(Boolean encrypted) {
@@ -281,15 +425,15 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * A Boolean value that, if true, creates an encrypted file system. When creating an encrypted file system, you have
-     * the option of specifying <a>CreateFileSystemRequest$KmsKeyId</a> for an existing AWS Key Management Service (AWS
-     * KMS) customer master key (CMK). If you don't specify a CMK, then the default CMK for Amazon EFS,
-     * <code>/aws/elasticfilesystem</code>, is used to protect the encrypted file system.
+     * the option of specifying an existing Key Management Service key (KMS key). If you don't specify a KMS key, then
+     * the default KMS key for Amazon EFS, <code>/aws/elasticfilesystem</code>, is used to protect the encrypted file
+     * system.
      * </p>
      * 
      * @return A Boolean value that, if true, creates an encrypted file system. When creating an encrypted file system,
-     *         you have the option of specifying <a>CreateFileSystemRequest$KmsKeyId</a> for an existing AWS Key
-     *         Management Service (AWS KMS) customer master key (CMK). If you don't specify a CMK, then the default CMK
-     *         for Amazon EFS, <code>/aws/elasticfilesystem</code>, is used to protect the encrypted file system.
+     *         you have the option of specifying an existing Key Management Service key (KMS key). If you don't specify
+     *         a KMS key, then the default KMS key for Amazon EFS, <code>/aws/elasticfilesystem</code>, is used to
+     *         protect the encrypted file system.
      */
 
     public Boolean getEncrypted() {
@@ -299,16 +443,16 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * A Boolean value that, if true, creates an encrypted file system. When creating an encrypted file system, you have
-     * the option of specifying <a>CreateFileSystemRequest$KmsKeyId</a> for an existing AWS Key Management Service (AWS
-     * KMS) customer master key (CMK). If you don't specify a CMK, then the default CMK for Amazon EFS,
-     * <code>/aws/elasticfilesystem</code>, is used to protect the encrypted file system.
+     * the option of specifying an existing Key Management Service key (KMS key). If you don't specify a KMS key, then
+     * the default KMS key for Amazon EFS, <code>/aws/elasticfilesystem</code>, is used to protect the encrypted file
+     * system.
      * </p>
      * 
      * @param encrypted
      *        A Boolean value that, if true, creates an encrypted file system. When creating an encrypted file system,
-     *        you have the option of specifying <a>CreateFileSystemRequest$KmsKeyId</a> for an existing AWS Key
-     *        Management Service (AWS KMS) customer master key (CMK). If you don't specify a CMK, then the default CMK
-     *        for Amazon EFS, <code>/aws/elasticfilesystem</code>, is used to protect the encrypted file system.
+     *        you have the option of specifying an existing Key Management Service key (KMS key). If you don't specify a
+     *        KMS key, then the default KMS key for Amazon EFS, <code>/aws/elasticfilesystem</code>, is used to protect
+     *        the encrypted file system.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -320,15 +464,15 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * A Boolean value that, if true, creates an encrypted file system. When creating an encrypted file system, you have
-     * the option of specifying <a>CreateFileSystemRequest$KmsKeyId</a> for an existing AWS Key Management Service (AWS
-     * KMS) customer master key (CMK). If you don't specify a CMK, then the default CMK for Amazon EFS,
-     * <code>/aws/elasticfilesystem</code>, is used to protect the encrypted file system.
+     * the option of specifying an existing Key Management Service key (KMS key). If you don't specify a KMS key, then
+     * the default KMS key for Amazon EFS, <code>/aws/elasticfilesystem</code>, is used to protect the encrypted file
+     * system.
      * </p>
      * 
      * @return A Boolean value that, if true, creates an encrypted file system. When creating an encrypted file system,
-     *         you have the option of specifying <a>CreateFileSystemRequest$KmsKeyId</a> for an existing AWS Key
-     *         Management Service (AWS KMS) customer master key (CMK). If you don't specify a CMK, then the default CMK
-     *         for Amazon EFS, <code>/aws/elasticfilesystem</code>, is used to protect the encrypted file system.
+     *         you have the option of specifying an existing Key Management Service key (KMS key). If you don't specify
+     *         a KMS key, then the default KMS key for Amazon EFS, <code>/aws/elasticfilesystem</code>, is used to
+     *         protect the encrypted file system.
      */
 
     public Boolean isEncrypted() {
@@ -337,9 +481,9 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The ID of the AWS KMS CMK to be used to protect the encrypted file system. This parameter is only required if you
-     * want to use a nondefault CMK. If this parameter is not specified, the default CMK for Amazon EFS is used. This ID
-     * can be in one of the following formats:
+     * The ID of the KMS key that you want to use to protect the encrypted file system. This parameter is required only
+     * if you want to use a non-default KMS key. If this parameter is not specified, the default KMS key for Amazon EFS
+     * is used. You can specify a KMS key ID using the following formats:
      * </p>
      * <ul>
      * <li>
@@ -366,14 +510,18 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      * </li>
      * </ul>
      * <p>
-     * If <code>KmsKeyId</code> is specified, the <a>CreateFileSystemRequest$Encrypted</a> parameter must be set to
-     * true.
+     * If you use <code>KmsKeyId</code>, you must set the <a>CreateFileSystemRequest$Encrypted</a> parameter to true.
      * </p>
+     * <important>
+     * <p>
+     * EFS accepts only symmetric KMS keys. You cannot use asymmetric KMS keys with Amazon EFS file systems.
+     * </p>
+     * </important>
      * 
      * @param kmsKeyId
-     *        The ID of the AWS KMS CMK to be used to protect the encrypted file system. This parameter is only required
-     *        if you want to use a nondefault CMK. If this parameter is not specified, the default CMK for Amazon EFS is
-     *        used. This ID can be in one of the following formats:</p>
+     *        The ID of the KMS key that you want to use to protect the encrypted file system. This parameter is
+     *        required only if you want to use a non-default KMS key. If this parameter is not specified, the default
+     *        KMS key for Amazon EFS is used. You can specify a KMS key ID using the following formats:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -399,8 +547,13 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      *        </li>
      *        </ul>
      *        <p>
-     *        If <code>KmsKeyId</code> is specified, the <a>CreateFileSystemRequest$Encrypted</a> parameter must be set
-     *        to true.
+     *        If you use <code>KmsKeyId</code>, you must set the <a>CreateFileSystemRequest$Encrypted</a> parameter to
+     *        true.
+     *        </p>
+     *        <important>
+     *        <p>
+     *        EFS accepts only symmetric KMS keys. You cannot use asymmetric KMS keys with Amazon EFS file systems.
+     *        </p>
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -409,9 +562,9 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The ID of the AWS KMS CMK to be used to protect the encrypted file system. This parameter is only required if you
-     * want to use a nondefault CMK. If this parameter is not specified, the default CMK for Amazon EFS is used. This ID
-     * can be in one of the following formats:
+     * The ID of the KMS key that you want to use to protect the encrypted file system. This parameter is required only
+     * if you want to use a non-default KMS key. If this parameter is not specified, the default KMS key for Amazon EFS
+     * is used. You can specify a KMS key ID using the following formats:
      * </p>
      * <ul>
      * <li>
@@ -438,13 +591,17 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      * </li>
      * </ul>
      * <p>
-     * If <code>KmsKeyId</code> is specified, the <a>CreateFileSystemRequest$Encrypted</a> parameter must be set to
-     * true.
+     * If you use <code>KmsKeyId</code>, you must set the <a>CreateFileSystemRequest$Encrypted</a> parameter to true.
      * </p>
+     * <important>
+     * <p>
+     * EFS accepts only symmetric KMS keys. You cannot use asymmetric KMS keys with Amazon EFS file systems.
+     * </p>
+     * </important>
      * 
-     * @return The ID of the AWS KMS CMK to be used to protect the encrypted file system. This parameter is only
-     *         required if you want to use a nondefault CMK. If this parameter is not specified, the default CMK for
-     *         Amazon EFS is used. This ID can be in one of the following formats:</p>
+     * @return The ID of the KMS key that you want to use to protect the encrypted file system. This parameter is
+     *         required only if you want to use a non-default KMS key. If this parameter is not specified, the default
+     *         KMS key for Amazon EFS is used. You can specify a KMS key ID using the following formats:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -470,8 +627,13 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      *         </li>
      *         </ul>
      *         <p>
-     *         If <code>KmsKeyId</code> is specified, the <a>CreateFileSystemRequest$Encrypted</a> parameter must be set
-     *         to true.
+     *         If you use <code>KmsKeyId</code>, you must set the <a>CreateFileSystemRequest$Encrypted</a> parameter to
+     *         true.
+     *         </p>
+     *         <important>
+     *         <p>
+     *         EFS accepts only symmetric KMS keys. You cannot use asymmetric KMS keys with Amazon EFS file systems.
+     *         </p>
      */
 
     public String getKmsKeyId() {
@@ -480,9 +642,9 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The ID of the AWS KMS CMK to be used to protect the encrypted file system. This parameter is only required if you
-     * want to use a nondefault CMK. If this parameter is not specified, the default CMK for Amazon EFS is used. This ID
-     * can be in one of the following formats:
+     * The ID of the KMS key that you want to use to protect the encrypted file system. This parameter is required only
+     * if you want to use a non-default KMS key. If this parameter is not specified, the default KMS key for Amazon EFS
+     * is used. You can specify a KMS key ID using the following formats:
      * </p>
      * <ul>
      * <li>
@@ -509,14 +671,18 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      * </li>
      * </ul>
      * <p>
-     * If <code>KmsKeyId</code> is specified, the <a>CreateFileSystemRequest$Encrypted</a> parameter must be set to
-     * true.
+     * If you use <code>KmsKeyId</code>, you must set the <a>CreateFileSystemRequest$Encrypted</a> parameter to true.
      * </p>
+     * <important>
+     * <p>
+     * EFS accepts only symmetric KMS keys. You cannot use asymmetric KMS keys with Amazon EFS file systems.
+     * </p>
+     * </important>
      * 
      * @param kmsKeyId
-     *        The ID of the AWS KMS CMK to be used to protect the encrypted file system. This parameter is only required
-     *        if you want to use a nondefault CMK. If this parameter is not specified, the default CMK for Amazon EFS is
-     *        used. This ID can be in one of the following formats:</p>
+     *        The ID of the KMS key that you want to use to protect the encrypted file system. This parameter is
+     *        required only if you want to use a non-default KMS key. If this parameter is not specified, the default
+     *        KMS key for Amazon EFS is used. You can specify a KMS key ID using the following formats:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -542,8 +708,13 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      *        </li>
      *        </ul>
      *        <p>
-     *        If <code>KmsKeyId</code> is specified, the <a>CreateFileSystemRequest$Encrypted</a> parameter must be set
-     *        to true.
+     *        If you use <code>KmsKeyId</code>, you must set the <a>CreateFileSystemRequest$Encrypted</a> parameter to
+     *        true.
+     *        </p>
+     *        <important>
+     *        <p>
+     *        EFS accepts only symmetric KMS keys. You cannot use asymmetric KMS keys with Amazon EFS file systems.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -554,24 +725,28 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The throughput mode for the file system to be created. There are two throughput modes to choose from for your
-     * file system: <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     * decrease your file system's throughput in Provisioned Throughput mode or change between the throughput modes as
-     * long as it’s been more than 24 hours since the last decrease or throughput mode change. For more, see <a
-     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying Throughput
-     * with Provisioned Mode</a> in the <i>Amazon EFS User Guide.</i>
+     * Specifies the throughput mode for the file system. The mode can be <code>bursting</code>,
+     * <code>provisioned</code>, or <code>elastic</code>. If you set <code>ThroughputMode</code> to
+     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>. After you
+     * create the file system, you can decrease your file system's Provisioned throughput or change between the
+     * throughput modes, with certain time restrictions. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying throughput
+     * with provisioned mode</a> in the <i>Amazon EFS User Guide</i>.
+     * </p>
+     * <p>
+     * Default is <code>bursting</code>.
      * </p>
      * 
      * @param throughputMode
-     *        The throughput mode for the file system to be created. There are two throughput modes to choose from for
-     *        your file system: <code>bursting</code> and <code>provisioned</code>. If you set
-     *        <code>ThroughputMode</code> to <code>provisioned</code>, you must also set a value for
-     *        <code>ProvisionedThroughPutInMibps</code>. You can decrease your file system's throughput in Provisioned
-     *        Throughput mode or change between the throughput modes as long as it’s been more than 24 hours since the
-     *        last decrease or throughput mode change. For more, see <a
+     *        Specifies the throughput mode for the file system. The mode can be <code>bursting</code>,
+     *        <code>provisioned</code>, or <code>elastic</code>. If you set <code>ThroughputMode</code> to
+     *        <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>. After
+     *        you create the file system, you can decrease your file system's Provisioned throughput or change between
+     *        the throughput modes, with certain time restrictions. For more information, see <a
      *        href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying
-     *        Throughput with Provisioned Mode</a> in the <i>Amazon EFS User Guide.</i>
+     *        throughput with provisioned mode</a> in the <i>Amazon EFS User Guide</i>. </p>
+     *        <p>
+     *        Default is <code>bursting</code>.
      * @see ThroughputMode
      */
 
@@ -581,23 +756,27 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The throughput mode for the file system to be created. There are two throughput modes to choose from for your
-     * file system: <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     * decrease your file system's throughput in Provisioned Throughput mode or change between the throughput modes as
-     * long as it’s been more than 24 hours since the last decrease or throughput mode change. For more, see <a
-     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying Throughput
-     * with Provisioned Mode</a> in the <i>Amazon EFS User Guide.</i>
+     * Specifies the throughput mode for the file system. The mode can be <code>bursting</code>,
+     * <code>provisioned</code>, or <code>elastic</code>. If you set <code>ThroughputMode</code> to
+     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>. After you
+     * create the file system, you can decrease your file system's Provisioned throughput or change between the
+     * throughput modes, with certain time restrictions. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying throughput
+     * with provisioned mode</a> in the <i>Amazon EFS User Guide</i>.
+     * </p>
+     * <p>
+     * Default is <code>bursting</code>.
      * </p>
      * 
-     * @return The throughput mode for the file system to be created. There are two throughput modes to choose from for
-     *         your file system: <code>bursting</code> and <code>provisioned</code>. If you set
-     *         <code>ThroughputMode</code> to <code>provisioned</code>, you must also set a value for
-     *         <code>ProvisionedThroughPutInMibps</code>. You can decrease your file system's throughput in Provisioned
-     *         Throughput mode or change between the throughput modes as long as it’s been more than 24 hours since the
-     *         last decrease or throughput mode change. For more, see <a
+     * @return Specifies the throughput mode for the file system. The mode can be <code>bursting</code>,
+     *         <code>provisioned</code>, or <code>elastic</code>. If you set <code>ThroughputMode</code> to
+     *         <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>. After
+     *         you create the file system, you can decrease your file system's Provisioned throughput or change between
+     *         the throughput modes, with certain time restrictions. For more information, see <a
      *         href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying
-     *         Throughput with Provisioned Mode</a> in the <i>Amazon EFS User Guide.</i>
+     *         throughput with provisioned mode</a> in the <i>Amazon EFS User Guide</i>. </p>
+     *         <p>
+     *         Default is <code>bursting</code>.
      * @see ThroughputMode
      */
 
@@ -607,24 +786,28 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The throughput mode for the file system to be created. There are two throughput modes to choose from for your
-     * file system: <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     * decrease your file system's throughput in Provisioned Throughput mode or change between the throughput modes as
-     * long as it’s been more than 24 hours since the last decrease or throughput mode change. For more, see <a
-     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying Throughput
-     * with Provisioned Mode</a> in the <i>Amazon EFS User Guide.</i>
+     * Specifies the throughput mode for the file system. The mode can be <code>bursting</code>,
+     * <code>provisioned</code>, or <code>elastic</code>. If you set <code>ThroughputMode</code> to
+     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>. After you
+     * create the file system, you can decrease your file system's Provisioned throughput or change between the
+     * throughput modes, with certain time restrictions. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying throughput
+     * with provisioned mode</a> in the <i>Amazon EFS User Guide</i>.
+     * </p>
+     * <p>
+     * Default is <code>bursting</code>.
      * </p>
      * 
      * @param throughputMode
-     *        The throughput mode for the file system to be created. There are two throughput modes to choose from for
-     *        your file system: <code>bursting</code> and <code>provisioned</code>. If you set
-     *        <code>ThroughputMode</code> to <code>provisioned</code>, you must also set a value for
-     *        <code>ProvisionedThroughPutInMibps</code>. You can decrease your file system's throughput in Provisioned
-     *        Throughput mode or change between the throughput modes as long as it’s been more than 24 hours since the
-     *        last decrease or throughput mode change. For more, see <a
+     *        Specifies the throughput mode for the file system. The mode can be <code>bursting</code>,
+     *        <code>provisioned</code>, or <code>elastic</code>. If you set <code>ThroughputMode</code> to
+     *        <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>. After
+     *        you create the file system, you can decrease your file system's Provisioned throughput or change between
+     *        the throughput modes, with certain time restrictions. For more information, see <a
      *        href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying
-     *        Throughput with Provisioned Mode</a> in the <i>Amazon EFS User Guide.</i>
+     *        throughput with provisioned mode</a> in the <i>Amazon EFS User Guide</i>. </p>
+     *        <p>
+     *        Default is <code>bursting</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ThroughputMode
      */
@@ -636,24 +819,28 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The throughput mode for the file system to be created. There are two throughput modes to choose from for your
-     * file system: <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     * decrease your file system's throughput in Provisioned Throughput mode or change between the throughput modes as
-     * long as it’s been more than 24 hours since the last decrease or throughput mode change. For more, see <a
-     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying Throughput
-     * with Provisioned Mode</a> in the <i>Amazon EFS User Guide.</i>
+     * Specifies the throughput mode for the file system. The mode can be <code>bursting</code>,
+     * <code>provisioned</code>, or <code>elastic</code>. If you set <code>ThroughputMode</code> to
+     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>. After you
+     * create the file system, you can decrease your file system's Provisioned throughput or change between the
+     * throughput modes, with certain time restrictions. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying throughput
+     * with provisioned mode</a> in the <i>Amazon EFS User Guide</i>.
+     * </p>
+     * <p>
+     * Default is <code>bursting</code>.
      * </p>
      * 
      * @param throughputMode
-     *        The throughput mode for the file system to be created. There are two throughput modes to choose from for
-     *        your file system: <code>bursting</code> and <code>provisioned</code>. If you set
-     *        <code>ThroughputMode</code> to <code>provisioned</code>, you must also set a value for
-     *        <code>ProvisionedThroughPutInMibps</code>. You can decrease your file system's throughput in Provisioned
-     *        Throughput mode or change between the throughput modes as long as it’s been more than 24 hours since the
-     *        last decrease or throughput mode change. For more, see <a
+     *        Specifies the throughput mode for the file system. The mode can be <code>bursting</code>,
+     *        <code>provisioned</code>, or <code>elastic</code>. If you set <code>ThroughputMode</code> to
+     *        <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>. After
+     *        you create the file system, you can decrease your file system's Provisioned throughput or change between
+     *        the throughput modes, with certain time restrictions. For more information, see <a
      *        href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying
-     *        Throughput with Provisioned Mode</a> in the <i>Amazon EFS User Guide.</i>
+     *        throughput with provisioned mode</a> in the <i>Amazon EFS User Guide</i>. </p>
+     *        <p>
+     *        Default is <code>bursting</code>.
      * @see ThroughputMode
      */
 
@@ -663,24 +850,28 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The throughput mode for the file system to be created. There are two throughput modes to choose from for your
-     * file system: <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     * decrease your file system's throughput in Provisioned Throughput mode or change between the throughput modes as
-     * long as it’s been more than 24 hours since the last decrease or throughput mode change. For more, see <a
-     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying Throughput
-     * with Provisioned Mode</a> in the <i>Amazon EFS User Guide.</i>
+     * Specifies the throughput mode for the file system. The mode can be <code>bursting</code>,
+     * <code>provisioned</code>, or <code>elastic</code>. If you set <code>ThroughputMode</code> to
+     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>. After you
+     * create the file system, you can decrease your file system's Provisioned throughput or change between the
+     * throughput modes, with certain time restrictions. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying throughput
+     * with provisioned mode</a> in the <i>Amazon EFS User Guide</i>.
+     * </p>
+     * <p>
+     * Default is <code>bursting</code>.
      * </p>
      * 
      * @param throughputMode
-     *        The throughput mode for the file system to be created. There are two throughput modes to choose from for
-     *        your file system: <code>bursting</code> and <code>provisioned</code>. If you set
-     *        <code>ThroughputMode</code> to <code>provisioned</code>, you must also set a value for
-     *        <code>ProvisionedThroughPutInMibps</code>. You can decrease your file system's throughput in Provisioned
-     *        Throughput mode or change between the throughput modes as long as it’s been more than 24 hours since the
-     *        last decrease or throughput mode change. For more, see <a
+     *        Specifies the throughput mode for the file system. The mode can be <code>bursting</code>,
+     *        <code>provisioned</code>, or <code>elastic</code>. If you set <code>ThroughputMode</code> to
+     *        <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>. After
+     *        you create the file system, you can decrease your file system's Provisioned throughput or change between
+     *        the throughput modes, with certain time restrictions. For more information, see <a
      *        href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput">Specifying
-     *        Throughput with Provisioned Mode</a> in the <i>Amazon EFS User Guide.</i>
+     *        throughput with provisioned mode</a> in the <i>Amazon EFS User Guide</i>. </p>
+     *        <p>
+     *        Default is <code>bursting</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ThroughputMode
      */
@@ -692,19 +883,21 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The throughput, measured in MiB/s, that you want to provision for a file system that you're creating. Valid
-     * values are 1-1024. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. The upper limit
-     * for throughput is 1024 MiB/s. You can get this limit increased by contacting AWS Support. For more information,
-     * see <a href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS Limits That You Can
-     * Increase</a> in the <i>Amazon EFS User Guide.</i>
+     * The throughput, measured in mebibytes per second (MiBps), that you want to provision for a file system that
+     * you're creating. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. Valid values are
+     * 1-3414 MiBps, with the upper limit depending on Region. To increase this limit, contact Amazon Web Services
+     * Support. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS quotas that you can
+     * increase</a> in the <i>Amazon EFS User Guide</i>.
      * </p>
      * 
      * @param provisionedThroughputInMibps
-     *        The throughput, measured in MiB/s, that you want to provision for a file system that you're creating.
-     *        Valid values are 1-1024. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. The
-     *        upper limit for throughput is 1024 MiB/s. You can get this limit increased by contacting AWS Support. For
-     *        more information, see <a href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon
-     *        EFS Limits That You Can Increase</a> in the <i>Amazon EFS User Guide.</i>
+     *        The throughput, measured in mebibytes per second (MiBps), that you want to provision for a file system
+     *        that you're creating. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. Valid
+     *        values are 1-3414 MiBps, with the upper limit depending on Region. To increase this limit, contact Amazon
+     *        Web Services Support. For more information, see <a
+     *        href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS quotas that you can
+     *        increase</a> in the <i>Amazon EFS User Guide</i>.
      */
 
     public void setProvisionedThroughputInMibps(Double provisionedThroughputInMibps) {
@@ -713,18 +906,20 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The throughput, measured in MiB/s, that you want to provision for a file system that you're creating. Valid
-     * values are 1-1024. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. The upper limit
-     * for throughput is 1024 MiB/s. You can get this limit increased by contacting AWS Support. For more information,
-     * see <a href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS Limits That You Can
-     * Increase</a> in the <i>Amazon EFS User Guide.</i>
+     * The throughput, measured in mebibytes per second (MiBps), that you want to provision for a file system that
+     * you're creating. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. Valid values are
+     * 1-3414 MiBps, with the upper limit depending on Region. To increase this limit, contact Amazon Web Services
+     * Support. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS quotas that you can
+     * increase</a> in the <i>Amazon EFS User Guide</i>.
      * </p>
      * 
-     * @return The throughput, measured in MiB/s, that you want to provision for a file system that you're creating.
-     *         Valid values are 1-1024. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. The
-     *         upper limit for throughput is 1024 MiB/s. You can get this limit increased by contacting AWS Support. For
-     *         more information, see <a href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon
-     *         EFS Limits That You Can Increase</a> in the <i>Amazon EFS User Guide.</i>
+     * @return The throughput, measured in mebibytes per second (MiBps), that you want to provision for a file system
+     *         that you're creating. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. Valid
+     *         values are 1-3414 MiBps, with the upper limit depending on Region. To increase this limit, contact Amazon
+     *         Web Services Support. For more information, see <a
+     *         href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS quotas that you can
+     *         increase</a> in the <i>Amazon EFS User Guide</i>.
      */
 
     public Double getProvisionedThroughputInMibps() {
@@ -733,19 +928,21 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The throughput, measured in MiB/s, that you want to provision for a file system that you're creating. Valid
-     * values are 1-1024. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. The upper limit
-     * for throughput is 1024 MiB/s. You can get this limit increased by contacting AWS Support. For more information,
-     * see <a href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS Limits That You Can
-     * Increase</a> in the <i>Amazon EFS User Guide.</i>
+     * The throughput, measured in mebibytes per second (MiBps), that you want to provision for a file system that
+     * you're creating. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. Valid values are
+     * 1-3414 MiBps, with the upper limit depending on Region. To increase this limit, contact Amazon Web Services
+     * Support. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS quotas that you can
+     * increase</a> in the <i>Amazon EFS User Guide</i>.
      * </p>
      * 
      * @param provisionedThroughputInMibps
-     *        The throughput, measured in MiB/s, that you want to provision for a file system that you're creating.
-     *        Valid values are 1-1024. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. The
-     *        upper limit for throughput is 1024 MiB/s. You can get this limit increased by contacting AWS Support. For
-     *        more information, see <a href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon
-     *        EFS Limits That You Can Increase</a> in the <i>Amazon EFS User Guide.</i>
+     *        The throughput, measured in mebibytes per second (MiBps), that you want to provision for a file system
+     *        that you're creating. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. Valid
+     *        values are 1-3414 MiBps, with the upper limit depending on Region. To increase this limit, contact Amazon
+     *        Web Services Support. For more information, see <a
+     *        href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS quotas that you can
+     *        increase</a> in the <i>Amazon EFS User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -756,14 +953,261 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A value that specifies to create one or more tags associated with the file system. Each tag is a user-defined
-     * key-value pair. Name your file system on creation by including a <code>"Key":"Name","Value":"{value}"</code>
-     * key-value pair.
+     * Used to create a One Zone file system. It specifies the Amazon Web Services Availability Zone in which to create
+     * the file system. Use the format <code>us-east-1a</code> to specify the Availability Zone. For more information
+     * about One Zone file systems, see <a href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html">Using
+     * EFS storage classes</a> in the <i>Amazon EFS User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * One Zone file systems are not available in all Availability Zones in Amazon Web Services Regions where Amazon EFS
+     * is available.
+     * </p>
+     * </note>
+     * 
+     * @param availabilityZoneName
+     *        Used to create a One Zone file system. It specifies the Amazon Web Services Availability Zone in which to
+     *        create the file system. Use the format <code>us-east-1a</code> to specify the Availability Zone. For more
+     *        information about One Zone file systems, see <a
+     *        href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html">Using EFS storage classes</a> in the
+     *        <i>Amazon EFS User Guide</i>.</p> <note>
+     *        <p>
+     *        One Zone file systems are not available in all Availability Zones in Amazon Web Services Regions where
+     *        Amazon EFS is available.
+     *        </p>
+     */
+
+    public void setAvailabilityZoneName(String availabilityZoneName) {
+        this.availabilityZoneName = availabilityZoneName;
+    }
+
+    /**
+     * <p>
+     * Used to create a One Zone file system. It specifies the Amazon Web Services Availability Zone in which to create
+     * the file system. Use the format <code>us-east-1a</code> to specify the Availability Zone. For more information
+     * about One Zone file systems, see <a href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html">Using
+     * EFS storage classes</a> in the <i>Amazon EFS User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * One Zone file systems are not available in all Availability Zones in Amazon Web Services Regions where Amazon EFS
+     * is available.
+     * </p>
+     * </note>
+     * 
+     * @return Used to create a One Zone file system. It specifies the Amazon Web Services Availability Zone in which to
+     *         create the file system. Use the format <code>us-east-1a</code> to specify the Availability Zone. For more
+     *         information about One Zone file systems, see <a
+     *         href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html">Using EFS storage classes</a> in
+     *         the <i>Amazon EFS User Guide</i>.</p> <note>
+     *         <p>
+     *         One Zone file systems are not available in all Availability Zones in Amazon Web Services Regions where
+     *         Amazon EFS is available.
+     *         </p>
+     */
+
+    public String getAvailabilityZoneName() {
+        return this.availabilityZoneName;
+    }
+
+    /**
+     * <p>
+     * Used to create a One Zone file system. It specifies the Amazon Web Services Availability Zone in which to create
+     * the file system. Use the format <code>us-east-1a</code> to specify the Availability Zone. For more information
+     * about One Zone file systems, see <a href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html">Using
+     * EFS storage classes</a> in the <i>Amazon EFS User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * One Zone file systems are not available in all Availability Zones in Amazon Web Services Regions where Amazon EFS
+     * is available.
+     * </p>
+     * </note>
+     * 
+     * @param availabilityZoneName
+     *        Used to create a One Zone file system. It specifies the Amazon Web Services Availability Zone in which to
+     *        create the file system. Use the format <code>us-east-1a</code> to specify the Availability Zone. For more
+     *        information about One Zone file systems, see <a
+     *        href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html">Using EFS storage classes</a> in the
+     *        <i>Amazon EFS User Guide</i>.</p> <note>
+     *        <p>
+     *        One Zone file systems are not available in all Availability Zones in Amazon Web Services Regions where
+     *        Amazon EFS is available.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateFileSystemRequest withAvailabilityZoneName(String availabilityZoneName) {
+        setAvailabilityZoneName(availabilityZoneName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether automatic backups are enabled on the file system that you are creating. Set the value to
+     * <code>true</code> to enable automatic backups. If you are creating a One Zone file system, automatic backups are
+     * enabled by default. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/awsbackup.html#automatic-backups">Automatic backups</a> in the
+     * <i>Amazon EFS User Guide</i>.
+     * </p>
+     * <p>
+     * Default is <code>false</code>. However, if you specify an <code>AvailabilityZoneName</code>, the default is
+     * <code>true</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Backup is not available in all Amazon Web Services Regions where Amazon EFS is available.
+     * </p>
+     * </note>
+     * 
+     * @param backup
+     *        Specifies whether automatic backups are enabled on the file system that you are creating. Set the value to
+     *        <code>true</code> to enable automatic backups. If you are creating a One Zone file system, automatic
+     *        backups are enabled by default. For more information, see <a
+     *        href="https://docs.aws.amazon.com/efs/latest/ug/awsbackup.html#automatic-backups">Automatic backups</a> in
+     *        the <i>Amazon EFS User Guide</i>.</p>
+     *        <p>
+     *        Default is <code>false</code>. However, if you specify an <code>AvailabilityZoneName</code>, the default
+     *        is <code>true</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Backup is not available in all Amazon Web Services Regions where Amazon EFS is available.
+     *        </p>
+     */
+
+    public void setBackup(Boolean backup) {
+        this.backup = backup;
+    }
+
+    /**
+     * <p>
+     * Specifies whether automatic backups are enabled on the file system that you are creating. Set the value to
+     * <code>true</code> to enable automatic backups. If you are creating a One Zone file system, automatic backups are
+     * enabled by default. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/awsbackup.html#automatic-backups">Automatic backups</a> in the
+     * <i>Amazon EFS User Guide</i>.
+     * </p>
+     * <p>
+     * Default is <code>false</code>. However, if you specify an <code>AvailabilityZoneName</code>, the default is
+     * <code>true</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Backup is not available in all Amazon Web Services Regions where Amazon EFS is available.
+     * </p>
+     * </note>
+     * 
+     * @return Specifies whether automatic backups are enabled on the file system that you are creating. Set the value
+     *         to <code>true</code> to enable automatic backups. If you are creating a One Zone file system, automatic
+     *         backups are enabled by default. For more information, see <a
+     *         href="https://docs.aws.amazon.com/efs/latest/ug/awsbackup.html#automatic-backups">Automatic backups</a>
+     *         in the <i>Amazon EFS User Guide</i>.</p>
+     *         <p>
+     *         Default is <code>false</code>. However, if you specify an <code>AvailabilityZoneName</code>, the default
+     *         is <code>true</code>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Backup is not available in all Amazon Web Services Regions where Amazon EFS is available.
+     *         </p>
+     */
+
+    public Boolean getBackup() {
+        return this.backup;
+    }
+
+    /**
+     * <p>
+     * Specifies whether automatic backups are enabled on the file system that you are creating. Set the value to
+     * <code>true</code> to enable automatic backups. If you are creating a One Zone file system, automatic backups are
+     * enabled by default. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/awsbackup.html#automatic-backups">Automatic backups</a> in the
+     * <i>Amazon EFS User Guide</i>.
+     * </p>
+     * <p>
+     * Default is <code>false</code>. However, if you specify an <code>AvailabilityZoneName</code>, the default is
+     * <code>true</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Backup is not available in all Amazon Web Services Regions where Amazon EFS is available.
+     * </p>
+     * </note>
+     * 
+     * @param backup
+     *        Specifies whether automatic backups are enabled on the file system that you are creating. Set the value to
+     *        <code>true</code> to enable automatic backups. If you are creating a One Zone file system, automatic
+     *        backups are enabled by default. For more information, see <a
+     *        href="https://docs.aws.amazon.com/efs/latest/ug/awsbackup.html#automatic-backups">Automatic backups</a> in
+     *        the <i>Amazon EFS User Guide</i>.</p>
+     *        <p>
+     *        Default is <code>false</code>. However, if you specify an <code>AvailabilityZoneName</code>, the default
+     *        is <code>true</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Backup is not available in all Amazon Web Services Regions where Amazon EFS is available.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateFileSystemRequest withBackup(Boolean backup) {
+        setBackup(backup);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether automatic backups are enabled on the file system that you are creating. Set the value to
+     * <code>true</code> to enable automatic backups. If you are creating a One Zone file system, automatic backups are
+     * enabled by default. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/awsbackup.html#automatic-backups">Automatic backups</a> in the
+     * <i>Amazon EFS User Guide</i>.
+     * </p>
+     * <p>
+     * Default is <code>false</code>. However, if you specify an <code>AvailabilityZoneName</code>, the default is
+     * <code>true</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Backup is not available in all Amazon Web Services Regions where Amazon EFS is available.
+     * </p>
+     * </note>
+     * 
+     * @return Specifies whether automatic backups are enabled on the file system that you are creating. Set the value
+     *         to <code>true</code> to enable automatic backups. If you are creating a One Zone file system, automatic
+     *         backups are enabled by default. For more information, see <a
+     *         href="https://docs.aws.amazon.com/efs/latest/ug/awsbackup.html#automatic-backups">Automatic backups</a>
+     *         in the <i>Amazon EFS User Guide</i>.</p>
+     *         <p>
+     *         Default is <code>false</code>. However, if you specify an <code>AvailabilityZoneName</code>, the default
+     *         is <code>true</code>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Backup is not available in all Amazon Web Services Regions where Amazon EFS is available.
+     *         </p>
+     */
+
+    public Boolean isBackup() {
+        return this.backup;
+    }
+
+    /**
+     * <p>
+     * Use to create one or more tags associated with the file system. Each tag is a user-defined key-value pair. Name
+     * your file system on creation by including a <code>"Key":"Name","Value":"{value}"</code> key-value pair. Each key
+     * must be unique. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services resources</a>
+     * in the <i>Amazon Web Services General Reference Guide</i>.
      * </p>
      * 
-     * @return A value that specifies to create one or more tags associated with the file system. Each tag is a
-     *         user-defined key-value pair. Name your file system on creation by including a
-     *         <code>"Key":"Name","Value":"{value}"</code> key-value pair.
+     * @return Use to create one or more tags associated with the file system. Each tag is a user-defined key-value
+     *         pair. Name your file system on creation by including a <code>"Key":"Name","Value":"{value}"</code>
+     *         key-value pair. Each key must be unique. For more information, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *         resources</a> in the <i>Amazon Web Services General Reference Guide</i>.
      */
 
     public java.util.List<Tag> getTags() {
@@ -775,15 +1219,19 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A value that specifies to create one or more tags associated with the file system. Each tag is a user-defined
-     * key-value pair. Name your file system on creation by including a <code>"Key":"Name","Value":"{value}"</code>
-     * key-value pair.
+     * Use to create one or more tags associated with the file system. Each tag is a user-defined key-value pair. Name
+     * your file system on creation by including a <code>"Key":"Name","Value":"{value}"</code> key-value pair. Each key
+     * must be unique. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services resources</a>
+     * in the <i>Amazon Web Services General Reference Guide</i>.
      * </p>
      * 
      * @param tags
-     *        A value that specifies to create one or more tags associated with the file system. Each tag is a
-     *        user-defined key-value pair. Name your file system on creation by including a
-     *        <code>"Key":"Name","Value":"{value}"</code> key-value pair.
+     *        Use to create one or more tags associated with the file system. Each tag is a user-defined key-value pair.
+     *        Name your file system on creation by including a <code>"Key":"Name","Value":"{value}"</code> key-value
+     *        pair. Each key must be unique. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        resources</a> in the <i>Amazon Web Services General Reference Guide</i>.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -797,9 +1245,11 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A value that specifies to create one or more tags associated with the file system. Each tag is a user-defined
-     * key-value pair. Name your file system on creation by including a <code>"Key":"Name","Value":"{value}"</code>
-     * key-value pair.
+     * Use to create one or more tags associated with the file system. Each tag is a user-defined key-value pair. Name
+     * your file system on creation by including a <code>"Key":"Name","Value":"{value}"</code> key-value pair. Each key
+     * must be unique. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services resources</a>
+     * in the <i>Amazon Web Services General Reference Guide</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -808,9 +1258,11 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param tags
-     *        A value that specifies to create one or more tags associated with the file system. Each tag is a
-     *        user-defined key-value pair. Name your file system on creation by including a
-     *        <code>"Key":"Name","Value":"{value}"</code> key-value pair.
+     *        Use to create one or more tags associated with the file system. Each tag is a user-defined key-value pair.
+     *        Name your file system on creation by including a <code>"Key":"Name","Value":"{value}"</code> key-value
+     *        pair. Each key must be unique. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        resources</a> in the <i>Amazon Web Services General Reference Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -826,15 +1278,19 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A value that specifies to create one or more tags associated with the file system. Each tag is a user-defined
-     * key-value pair. Name your file system on creation by including a <code>"Key":"Name","Value":"{value}"</code>
-     * key-value pair.
+     * Use to create one or more tags associated with the file system. Each tag is a user-defined key-value pair. Name
+     * your file system on creation by including a <code>"Key":"Name","Value":"{value}"</code> key-value pair. Each key
+     * must be unique. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services resources</a>
+     * in the <i>Amazon Web Services General Reference Guide</i>.
      * </p>
      * 
      * @param tags
-     *        A value that specifies to create one or more tags associated with the file system. Each tag is a
-     *        user-defined key-value pair. Name your file system on creation by including a
-     *        <code>"Key":"Name","Value":"{value}"</code> key-value pair.
+     *        Use to create one or more tags associated with the file system. Each tag is a user-defined key-value pair.
+     *        Name your file system on creation by including a <code>"Key":"Name","Value":"{value}"</code> key-value
+     *        pair. Each key must be unique. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        resources</a> in the <i>Amazon Web Services General Reference Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -867,6 +1323,10 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
             sb.append("ThroughputMode: ").append(getThroughputMode()).append(",");
         if (getProvisionedThroughputInMibps() != null)
             sb.append("ProvisionedThroughputInMibps: ").append(getProvisionedThroughputInMibps()).append(",");
+        if (getAvailabilityZoneName() != null)
+            sb.append("AvailabilityZoneName: ").append(getAvailabilityZoneName()).append(",");
+        if (getBackup() != null)
+            sb.append("Backup: ").append(getBackup()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags());
         sb.append("}");
@@ -907,6 +1367,14 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
             return false;
         if (other.getProvisionedThroughputInMibps() != null && other.getProvisionedThroughputInMibps().equals(this.getProvisionedThroughputInMibps()) == false)
             return false;
+        if (other.getAvailabilityZoneName() == null ^ this.getAvailabilityZoneName() == null)
+            return false;
+        if (other.getAvailabilityZoneName() != null && other.getAvailabilityZoneName().equals(this.getAvailabilityZoneName()) == false)
+            return false;
+        if (other.getBackup() == null ^ this.getBackup() == null)
+            return false;
+        if (other.getBackup() != null && other.getBackup().equals(this.getBackup()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
@@ -925,6 +1393,8 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
         hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
         hashCode = prime * hashCode + ((getThroughputMode() == null) ? 0 : getThroughputMode().hashCode());
         hashCode = prime * hashCode + ((getProvisionedThroughputInMibps() == null) ? 0 : getProvisionedThroughputInMibps().hashCode());
+        hashCode = prime * hashCode + ((getAvailabilityZoneName() == null) ? 0 : getAvailabilityZoneName().hashCode());
+        hashCode = prime * hashCode + ((getBackup() == null) ? 0 : getBackup().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }

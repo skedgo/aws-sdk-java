@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -142,6 +142,10 @@ public class ModifyInstanceAttributeRequestMarshaller implements Marshaller<Requ
 
         if (modifyInstanceAttributeRequest.getValue() != null) {
             request.addParameter("Value", StringUtils.fromString(modifyInstanceAttributeRequest.getValue()));
+        }
+
+        if (modifyInstanceAttributeRequest.getDisableApiStop() != null) {
+            request.addParameter("DisableApiStop.Value", StringUtils.fromBoolean(modifyInstanceAttributeRequest.getDisableApiStop()));
         }
 
         return request;

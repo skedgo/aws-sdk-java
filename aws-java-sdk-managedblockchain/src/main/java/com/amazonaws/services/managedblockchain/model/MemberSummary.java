@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,6 +20,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * A summary of configuration properties for a member.
+ * </p>
+ * <p>
+ * Applies only to Hyperledger Fabric.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/MemberSummary" target="_top">AWS
@@ -53,7 +56,7 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <code>CREATING</code> - The AWS account is in the process of creating a member.
+     * <code>CREATING</code> - The Amazon Web Services account is in the process of creating a member.
      * </p>
      * </li>
      * <li>
@@ -63,21 +66,38 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>CREATE_FAILED</code> - The AWS account attempted to create a member and creation failed.
+     * <code>CREATE_FAILED</code> - The Amazon Web Services account attempted to create a member and creation failed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code> - The member is in the process of being updated.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DELETING</code> - The member and all associated resources are in the process of being deleted. Either the
-     * AWS account that owns the member deleted it, or the member is being deleted as the result of an
+     * Amazon Web Services account that owns the member deleted it, or the member is being deleted as the result of an
      * <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DELETED</code> - The member can no longer participate on the network and all associated resources are
-     * deleted. Either the AWS account that owns the member deleted it, or the member is being deleted as the result of
-     * an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     * deleted. Either the Amazon Web Services account that owns the member deleted it, or the member is being deleted
+     * as the result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INACCESSIBLE_ENCRYPTION_KEY</code> - The member is impaired and might not function as expected because it
+     * cannot access the specified customer managed key in Key Management Service (KMS) for encryption at rest. Either
+     * the KMS key was disabled or deleted, or the grants on the key were revoked.
+     * </p>
+     * <p>
+     * The effect of disabling or deleting a key or of revoking a grant isn't immediate. It might take some time for the
+     * member resource to discover that the key is inaccessible. When a resource is in this state, we recommend deleting
+     * and recreating the resource.
      * </p>
      * </li>
      * </ul>
@@ -91,10 +111,19 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
     private java.util.Date creationDate;
     /**
      * <p>
-     * An indicator of whether the member is owned by your AWS account or a different AWS account.
+     * An indicator of whether the member is owned by your Amazon Web Services account or a different Amazon Web
+     * Services account.
      * </p>
      */
     private Boolean isOwned;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the member. For more information about ARNs and their format, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
+     * </p>
+     */
+    private String arn;
 
     /**
      * <p>
@@ -223,7 +252,7 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <code>CREATING</code> - The AWS account is in the process of creating a member.
+     * <code>CREATING</code> - The Amazon Web Services account is in the process of creating a member.
      * </p>
      * </li>
      * <li>
@@ -233,21 +262,38 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>CREATE_FAILED</code> - The AWS account attempted to create a member and creation failed.
+     * <code>CREATE_FAILED</code> - The Amazon Web Services account attempted to create a member and creation failed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code> - The member is in the process of being updated.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DELETING</code> - The member and all associated resources are in the process of being deleted. Either the
-     * AWS account that owns the member deleted it, or the member is being deleted as the result of an
+     * Amazon Web Services account that owns the member deleted it, or the member is being deleted as the result of an
      * <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DELETED</code> - The member can no longer participate on the network and all associated resources are
-     * deleted. Either the AWS account that owns the member deleted it, or the member is being deleted as the result of
-     * an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     * deleted. Either the Amazon Web Services account that owns the member deleted it, or the member is being deleted
+     * as the result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INACCESSIBLE_ENCRYPTION_KEY</code> - The member is impaired and might not function as expected because it
+     * cannot access the specified customer managed key in Key Management Service (KMS) for encryption at rest. Either
+     * the KMS key was disabled or deleted, or the grants on the key were revoked.
+     * </p>
+     * <p>
+     * The effect of disabling or deleting a key or of revoking a grant isn't immediate. It might take some time for the
+     * member resource to discover that the key is inaccessible. When a resource is in this state, we recommend deleting
+     * and recreating the resource.
      * </p>
      * </li>
      * </ul>
@@ -257,7 +303,7 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>CREATING</code> - The AWS account is in the process of creating a member.
+     *        <code>CREATING</code> - The Amazon Web Services account is in the process of creating a member.
      *        </p>
      *        </li>
      *        <li>
@@ -267,21 +313,39 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>CREATE_FAILED</code> - The AWS account attempted to create a member and creation failed.
+     *        <code>CREATE_FAILED</code> - The Amazon Web Services account attempted to create a member and creation
+     *        failed.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UPDATING</code> - The member is in the process of being updated.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>DELETING</code> - The member and all associated resources are in the process of being deleted.
-     *        Either the AWS account that owns the member deleted it, or the member is being deleted as the result of an
-     *        <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     *        Either the Amazon Web Services account that owns the member deleted it, or the member is being deleted as
+     *        the result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>DELETED</code> - The member can no longer participate on the network and all associated resources
-     *        are deleted. Either the AWS account that owns the member deleted it, or the member is being deleted as the
-     *        result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     *        are deleted. Either the Amazon Web Services account that owns the member deleted it, or the member is
+     *        being deleted as the result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INACCESSIBLE_ENCRYPTION_KEY</code> - The member is impaired and might not function as expected
+     *        because it cannot access the specified customer managed key in Key Management Service (KMS) for encryption
+     *        at rest. Either the KMS key was disabled or deleted, or the grants on the key were revoked.
+     *        </p>
+     *        <p>
+     *        The effect of disabling or deleting a key or of revoking a grant isn't immediate. It might take some time
+     *        for the member resource to discover that the key is inaccessible. When a resource is in this state, we
+     *        recommend deleting and recreating the resource.
      *        </p>
      *        </li>
      * @see MemberStatus
@@ -298,7 +362,7 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <code>CREATING</code> - The AWS account is in the process of creating a member.
+     * <code>CREATING</code> - The Amazon Web Services account is in the process of creating a member.
      * </p>
      * </li>
      * <li>
@@ -308,21 +372,38 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>CREATE_FAILED</code> - The AWS account attempted to create a member and creation failed.
+     * <code>CREATE_FAILED</code> - The Amazon Web Services account attempted to create a member and creation failed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code> - The member is in the process of being updated.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DELETING</code> - The member and all associated resources are in the process of being deleted. Either the
-     * AWS account that owns the member deleted it, or the member is being deleted as the result of an
+     * Amazon Web Services account that owns the member deleted it, or the member is being deleted as the result of an
      * <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DELETED</code> - The member can no longer participate on the network and all associated resources are
-     * deleted. Either the AWS account that owns the member deleted it, or the member is being deleted as the result of
-     * an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     * deleted. Either the Amazon Web Services account that owns the member deleted it, or the member is being deleted
+     * as the result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INACCESSIBLE_ENCRYPTION_KEY</code> - The member is impaired and might not function as expected because it
+     * cannot access the specified customer managed key in Key Management Service (KMS) for encryption at rest. Either
+     * the KMS key was disabled or deleted, or the grants on the key were revoked.
+     * </p>
+     * <p>
+     * The effect of disabling or deleting a key or of revoking a grant isn't immediate. It might take some time for the
+     * member resource to discover that the key is inaccessible. When a resource is in this state, we recommend deleting
+     * and recreating the resource.
      * </p>
      * </li>
      * </ul>
@@ -331,7 +412,7 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>CREATING</code> - The AWS account is in the process of creating a member.
+     *         <code>CREATING</code> - The Amazon Web Services account is in the process of creating a member.
      *         </p>
      *         </li>
      *         <li>
@@ -341,21 +422,39 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
-     *         <code>CREATE_FAILED</code> - The AWS account attempted to create a member and creation failed.
+     *         <code>CREATE_FAILED</code> - The Amazon Web Services account attempted to create a member and creation
+     *         failed.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>UPDATING</code> - The member is in the process of being updated.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>DELETING</code> - The member and all associated resources are in the process of being deleted.
-     *         Either the AWS account that owns the member deleted it, or the member is being deleted as the result of
-     *         an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     *         Either the Amazon Web Services account that owns the member deleted it, or the member is being deleted as
+     *         the result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>DELETED</code> - The member can no longer participate on the network and all associated resources
-     *         are deleted. Either the AWS account that owns the member deleted it, or the member is being deleted as
-     *         the result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     *         are deleted. Either the Amazon Web Services account that owns the member deleted it, or the member is
+     *         being deleted as the result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>INACCESSIBLE_ENCRYPTION_KEY</code> - The member is impaired and might not function as expected
+     *         because it cannot access the specified customer managed key in Key Management Service (KMS) for
+     *         encryption at rest. Either the KMS key was disabled or deleted, or the grants on the key were revoked.
+     *         </p>
+     *         <p>
+     *         The effect of disabling or deleting a key or of revoking a grant isn't immediate. It might take some time
+     *         for the member resource to discover that the key is inaccessible. When a resource is in this state, we
+     *         recommend deleting and recreating the resource.
      *         </p>
      *         </li>
      * @see MemberStatus
@@ -372,7 +471,7 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <code>CREATING</code> - The AWS account is in the process of creating a member.
+     * <code>CREATING</code> - The Amazon Web Services account is in the process of creating a member.
      * </p>
      * </li>
      * <li>
@@ -382,21 +481,38 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>CREATE_FAILED</code> - The AWS account attempted to create a member and creation failed.
+     * <code>CREATE_FAILED</code> - The Amazon Web Services account attempted to create a member and creation failed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code> - The member is in the process of being updated.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DELETING</code> - The member and all associated resources are in the process of being deleted. Either the
-     * AWS account that owns the member deleted it, or the member is being deleted as the result of an
+     * Amazon Web Services account that owns the member deleted it, or the member is being deleted as the result of an
      * <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DELETED</code> - The member can no longer participate on the network and all associated resources are
-     * deleted. Either the AWS account that owns the member deleted it, or the member is being deleted as the result of
-     * an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     * deleted. Either the Amazon Web Services account that owns the member deleted it, or the member is being deleted
+     * as the result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INACCESSIBLE_ENCRYPTION_KEY</code> - The member is impaired and might not function as expected because it
+     * cannot access the specified customer managed key in Key Management Service (KMS) for encryption at rest. Either
+     * the KMS key was disabled or deleted, or the grants on the key were revoked.
+     * </p>
+     * <p>
+     * The effect of disabling or deleting a key or of revoking a grant isn't immediate. It might take some time for the
+     * member resource to discover that the key is inaccessible. When a resource is in this state, we recommend deleting
+     * and recreating the resource.
      * </p>
      * </li>
      * </ul>
@@ -406,7 +522,7 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>CREATING</code> - The AWS account is in the process of creating a member.
+     *        <code>CREATING</code> - The Amazon Web Services account is in the process of creating a member.
      *        </p>
      *        </li>
      *        <li>
@@ -416,21 +532,39 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>CREATE_FAILED</code> - The AWS account attempted to create a member and creation failed.
+     *        <code>CREATE_FAILED</code> - The Amazon Web Services account attempted to create a member and creation
+     *        failed.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UPDATING</code> - The member is in the process of being updated.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>DELETING</code> - The member and all associated resources are in the process of being deleted.
-     *        Either the AWS account that owns the member deleted it, or the member is being deleted as the result of an
-     *        <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     *        Either the Amazon Web Services account that owns the member deleted it, or the member is being deleted as
+     *        the result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>DELETED</code> - The member can no longer participate on the network and all associated resources
-     *        are deleted. Either the AWS account that owns the member deleted it, or the member is being deleted as the
-     *        result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     *        are deleted. Either the Amazon Web Services account that owns the member deleted it, or the member is
+     *        being deleted as the result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INACCESSIBLE_ENCRYPTION_KEY</code> - The member is impaired and might not function as expected
+     *        because it cannot access the specified customer managed key in Key Management Service (KMS) for encryption
+     *        at rest. Either the KMS key was disabled or deleted, or the grants on the key were revoked.
+     *        </p>
+     *        <p>
+     *        The effect of disabling or deleting a key or of revoking a grant isn't immediate. It might take some time
+     *        for the member resource to discover that the key is inaccessible. When a resource is in this state, we
+     *        recommend deleting and recreating the resource.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -449,7 +583,7 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <code>CREATING</code> - The AWS account is in the process of creating a member.
+     * <code>CREATING</code> - The Amazon Web Services account is in the process of creating a member.
      * </p>
      * </li>
      * <li>
@@ -459,21 +593,38 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>CREATE_FAILED</code> - The AWS account attempted to create a member and creation failed.
+     * <code>CREATE_FAILED</code> - The Amazon Web Services account attempted to create a member and creation failed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code> - The member is in the process of being updated.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DELETING</code> - The member and all associated resources are in the process of being deleted. Either the
-     * AWS account that owns the member deleted it, or the member is being deleted as the result of an
+     * Amazon Web Services account that owns the member deleted it, or the member is being deleted as the result of an
      * <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DELETED</code> - The member can no longer participate on the network and all associated resources are
-     * deleted. Either the AWS account that owns the member deleted it, or the member is being deleted as the result of
-     * an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     * deleted. Either the Amazon Web Services account that owns the member deleted it, or the member is being deleted
+     * as the result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INACCESSIBLE_ENCRYPTION_KEY</code> - The member is impaired and might not function as expected because it
+     * cannot access the specified customer managed key in Key Management Service (KMS) for encryption at rest. Either
+     * the KMS key was disabled or deleted, or the grants on the key were revoked.
+     * </p>
+     * <p>
+     * The effect of disabling or deleting a key or of revoking a grant isn't immediate. It might take some time for the
+     * member resource to discover that the key is inaccessible. When a resource is in this state, we recommend deleting
+     * and recreating the resource.
      * </p>
      * </li>
      * </ul>
@@ -483,7 +634,7 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>CREATING</code> - The AWS account is in the process of creating a member.
+     *        <code>CREATING</code> - The Amazon Web Services account is in the process of creating a member.
      *        </p>
      *        </li>
      *        <li>
@@ -493,21 +644,39 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>CREATE_FAILED</code> - The AWS account attempted to create a member and creation failed.
+     *        <code>CREATE_FAILED</code> - The Amazon Web Services account attempted to create a member and creation
+     *        failed.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UPDATING</code> - The member is in the process of being updated.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>DELETING</code> - The member and all associated resources are in the process of being deleted.
-     *        Either the AWS account that owns the member deleted it, or the member is being deleted as the result of an
-     *        <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     *        Either the Amazon Web Services account that owns the member deleted it, or the member is being deleted as
+     *        the result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>DELETED</code> - The member can no longer participate on the network and all associated resources
-     *        are deleted. Either the AWS account that owns the member deleted it, or the member is being deleted as the
-     *        result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     *        are deleted. Either the Amazon Web Services account that owns the member deleted it, or the member is
+     *        being deleted as the result of an <code>APPROVED</code> <code>PROPOSAL</code> to remove the member.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INACCESSIBLE_ENCRYPTION_KEY</code> - The member is impaired and might not function as expected
+     *        because it cannot access the specified customer managed key in Key Management Service (KMS) for encryption
+     *        at rest. Either the KMS key was disabled or deleted, or the grants on the key were revoked.
+     *        </p>
+     *        <p>
+     *        The effect of disabling or deleting a key or of revoking a grant isn't immediate. It might take some time
+     *        for the member resource to discover that the key is inaccessible. When a resource is in this state, we
+     *        recommend deleting and recreating the resource.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -561,11 +730,13 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An indicator of whether the member is owned by your AWS account or a different AWS account.
+     * An indicator of whether the member is owned by your Amazon Web Services account or a different Amazon Web
+     * Services account.
      * </p>
      * 
      * @param isOwned
-     *        An indicator of whether the member is owned by your AWS account or a different AWS account.
+     *        An indicator of whether the member is owned by your Amazon Web Services account or a different Amazon Web
+     *        Services account.
      */
 
     public void setIsOwned(Boolean isOwned) {
@@ -574,10 +745,12 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An indicator of whether the member is owned by your AWS account or a different AWS account.
+     * An indicator of whether the member is owned by your Amazon Web Services account or a different Amazon Web
+     * Services account.
      * </p>
      * 
-     * @return An indicator of whether the member is owned by your AWS account or a different AWS account.
+     * @return An indicator of whether the member is owned by your Amazon Web Services account or a different Amazon Web
+     *         Services account.
      */
 
     public Boolean getIsOwned() {
@@ -586,11 +759,13 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An indicator of whether the member is owned by your AWS account or a different AWS account.
+     * An indicator of whether the member is owned by your Amazon Web Services account or a different Amazon Web
+     * Services account.
      * </p>
      * 
      * @param isOwned
-     *        An indicator of whether the member is owned by your AWS account or a different AWS account.
+     *        An indicator of whether the member is owned by your Amazon Web Services account or a different Amazon Web
+     *        Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -601,14 +776,68 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An indicator of whether the member is owned by your AWS account or a different AWS account.
+     * An indicator of whether the member is owned by your Amazon Web Services account or a different Amazon Web
+     * Services account.
      * </p>
      * 
-     * @return An indicator of whether the member is owned by your AWS account or a different AWS account.
+     * @return An indicator of whether the member is owned by your Amazon Web Services account or a different Amazon Web
+     *         Services account.
      */
 
     public Boolean isOwned() {
         return this.isOwned;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the member. For more information about ARNs and their format, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * 
+     * @param arn
+     *        The Amazon Resource Name (ARN) of the member. For more information about ARNs and their format, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     *        (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
+     */
+
+    public void setArn(String arn) {
+        this.arn = arn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the member. For more information about ARNs and their format, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the member. For more information about ARNs and their format, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     *         (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
+     */
+
+    public String getArn() {
+        return this.arn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the member. For more information about ARNs and their format, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * 
+     * @param arn
+     *        The Amazon Resource Name (ARN) of the member. For more information about ARNs and their format, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     *        (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MemberSummary withArn(String arn) {
+        setArn(arn);
+        return this;
     }
 
     /**
@@ -634,7 +863,9 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
         if (getCreationDate() != null)
             sb.append("CreationDate: ").append(getCreationDate()).append(",");
         if (getIsOwned() != null)
-            sb.append("IsOwned: ").append(getIsOwned());
+            sb.append("IsOwned: ").append(getIsOwned()).append(",");
+        if (getArn() != null)
+            sb.append("Arn: ").append(getArn());
         sb.append("}");
         return sb.toString();
     }
@@ -673,6 +904,10 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getIsOwned() != null && other.getIsOwned().equals(this.getIsOwned()) == false)
             return false;
+        if (other.getArn() == null ^ this.getArn() == null)
+            return false;
+        if (other.getArn() != null && other.getArn().equals(this.getArn()) == false)
+            return false;
         return true;
     }
 
@@ -687,6 +922,7 @@ public class MemberSummary implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getCreationDate() == null) ? 0 : getCreationDate().hashCode());
         hashCode = prime * hashCode + ((getIsOwned() == null) ? 0 : getIsOwned().hashCode());
+        hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
         return hashCode;
     }
 

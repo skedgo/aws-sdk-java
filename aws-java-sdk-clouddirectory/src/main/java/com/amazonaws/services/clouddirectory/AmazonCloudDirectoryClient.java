@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.clouddirectory.AmazonCloudDirectoryClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.clouddirectory.model.*;
+
 import com.amazonaws.services.clouddirectory.model.transform.*;
 
 /**
@@ -82,112 +83,112 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidArnException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.InvalidArnException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidArnException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.InvalidArnExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("FacetInUseException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.FacetInUseException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("FacetInUseException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.FacetInUseExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidAttachmentException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.InvalidAttachmentException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidAttachmentException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.InvalidAttachmentExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("IndexedAttributeMissingException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.IndexedAttributeMissingException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("IndexedAttributeMissingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.IndexedAttributeMissingExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("IncompatibleSchemaException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.IncompatibleSchemaException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("IncompatibleSchemaException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.IncompatibleSchemaExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.InvalidNextTokenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.InvalidNextTokenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("SchemaAlreadyPublishedException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.SchemaAlreadyPublishedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("SchemaAlreadyPublishedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.SchemaAlreadyPublishedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("StillContainsLinksException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.StillContainsLinksException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("StillContainsLinksException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.StillContainsLinksExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRuleException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.InvalidRuleException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRuleException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.InvalidRuleExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DirectoryNotEnabledException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.DirectoryNotEnabledException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DirectoryNotEnabledException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.DirectoryNotEnabledExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("FacetValidationException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.FacetValidationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("FacetValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.FacetValidationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidFacetUpdateException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.InvalidFacetUpdateException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidFacetUpdateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.InvalidFacetUpdateExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("SchemaAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.SchemaAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("SchemaAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.SchemaAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.ValidationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.ValidationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServiceException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.InternalServiceException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServiceException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.InternalServiceExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("FacetAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.FacetAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("FacetAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.FacetAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotIndexException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.NotIndexException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotIndexException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.NotIndexExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ObjectAlreadyDetachedException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.ObjectAlreadyDetachedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ObjectAlreadyDetachedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.ObjectAlreadyDetachedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DirectoryDeletedException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.DirectoryDeletedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DirectoryDeletedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.DirectoryDeletedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RetryableConflictException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.RetryableConflictException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RetryableConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.RetryableConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BatchWriteException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.BatchWriteException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BatchWriteException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.BatchWriteExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTaggingRequestException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.InvalidTaggingRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTaggingRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.InvalidTaggingRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotNodeException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.NotNodeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotNodeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.NotNodeExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DirectoryAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.DirectoryAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DirectoryAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.DirectoryAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.AccessDeniedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.AccessDeniedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DirectoryNotDisabledException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.DirectoryNotDisabledException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DirectoryNotDisabledException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.DirectoryNotDisabledExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidSchemaDocException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.InvalidSchemaDocException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidSchemaDocException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.InvalidSchemaDocExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ObjectNotDetachedException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.ObjectNotDetachedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ObjectNotDetachedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.ObjectNotDetachedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LinkNameAlreadyInUseException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.LinkNameAlreadyInUseException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LinkNameAlreadyInUseException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.LinkNameAlreadyInUseExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CannotListParentOfRootException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.CannotListParentOfRootException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CannotListParentOfRootException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.CannotListParentOfRootExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotPolicyException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.NotPolicyException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotPolicyException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.NotPolicyExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("FacetNotFoundException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.FacetNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("FacetNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.FacetNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedIndexTypeException").withModeledClass(
-                                    com.amazonaws.services.clouddirectory.model.UnsupportedIndexTypeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedIndexTypeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.clouddirectory.model.transform.UnsupportedIndexTypeExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.clouddirectory.model.AmazonCloudDirectoryException.class));
 
     /**
@@ -417,7 +418,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -449,6 +451,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new AddFacetToObjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addFacetToObjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddFacetToObject");
@@ -498,7 +502,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws SchemaAlreadyExistsException
      *         Indicates that a schema could not be created due to a naming conflict. Please select a different name and
      *         then try again.
@@ -532,6 +537,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ApplySchemaRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(applySchemaRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ApplySchema");
@@ -592,7 +599,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -632,6 +640,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new AttachObjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(attachObjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AttachObject");
@@ -680,7 +690,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -712,6 +723,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new AttachPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(attachPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AttachPolicy");
@@ -760,7 +773,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws InvalidAttachmentException
@@ -801,6 +815,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new AttachToIndexRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(attachToIndexRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AttachToIndex");
@@ -851,7 +867,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -888,6 +905,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new AttachTypedLinkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(attachTypedLinkRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AttachTypedLink");
@@ -936,7 +955,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @sample AmazonCloudDirectory.BatchRead
@@ -964,6 +984,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new BatchReadRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(batchReadRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchRead");
@@ -1012,7 +1034,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws BatchWriteException
@@ -1042,6 +1065,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new BatchWriteRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(batchWriteRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchWrite");
@@ -1097,7 +1122,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryAlreadyExistsException
      *         Indicates that a <a>Directory</a> could not be created due to a naming conflict. Choose a different name
      *         and try again.
@@ -1128,6 +1154,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new CreateDirectoryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDirectoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDirectory");
@@ -1176,7 +1204,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws FacetAlreadyExistsException
@@ -1210,6 +1239,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new CreateFacetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createFacetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFacet");
@@ -1260,7 +1291,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -1297,6 +1329,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new CreateIndexRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createIndexRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateIndex");
@@ -1347,7 +1381,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -1384,6 +1419,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new CreateObjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createObjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateObject");
@@ -1451,12 +1488,14 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws SchemaAlreadyExistsException
      *         Indicates that a schema could not be created due to a naming conflict. Please select a different name and
      *         then try again.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @sample AmazonCloudDirectory.CreateSchema
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2017-01-11/CreateSchema" target="_top">AWS
      *      API Documentation</a>
@@ -1482,6 +1521,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new CreateSchemaRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createSchemaRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSchema");
@@ -1532,7 +1573,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws FacetAlreadyExistsException
@@ -1566,6 +1608,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new CreateTypedLinkFacetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createTypedLinkFacetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateTypedLinkFacet");
@@ -1611,7 +1655,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryDeletedException
      *         A directory that has been deleted and to which access has been attempted. Note: The requested resource
      *         will eventually cease to exist.
@@ -1648,6 +1693,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new DeleteDirectoryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDirectoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDirectory");
@@ -1697,7 +1744,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws FacetNotFoundException
@@ -1730,6 +1778,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new DeleteFacetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteFacetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFacet");
@@ -1781,7 +1831,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -1814,6 +1865,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new DeleteObjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteObjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteObject");
@@ -1862,7 +1915,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws StillContainsLinksException
@@ -1893,6 +1947,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new DeleteSchemaRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteSchemaRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSchema");
@@ -1943,7 +1999,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws FacetNotFoundException
@@ -1973,6 +2030,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new DeleteTypedLinkFacetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteTypedLinkFacetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteTypedLinkFacet");
@@ -2021,7 +2080,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -2055,6 +2115,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new DetachFromIndexRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(detachFromIndexRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DetachFromIndex");
@@ -2104,7 +2166,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -2137,6 +2200,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new DetachObjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(detachObjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DetachObject");
@@ -2185,7 +2250,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -2217,6 +2283,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new DetachPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(detachPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DetachPolicy");
@@ -2267,7 +2335,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -2299,6 +2368,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new DetachTypedLinkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(detachTypedLinkRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DetachTypedLink");
@@ -2345,7 +2416,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws RetryableConflictException
      *         Occurs when a conflict with a previous successful write is detected. For example, if a write operation
      *         occurs on an object and then an attempt is made to read the object using “SERIALIZABLE” consistency, this
@@ -2379,6 +2451,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new DisableDirectoryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(disableDirectoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisableDirectory");
@@ -2425,7 +2499,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws RetryableConflictException
      *         Occurs when a conflict with a previous successful write is detected. For example, if a write operation
      *         occurs on an object and then an attempt is made to read the object using “SERIALIZABLE” consistency, this
@@ -2459,6 +2534,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new EnableDirectoryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(enableDirectoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "EnableDirectory");
@@ -2507,7 +2584,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @sample AmazonCloudDirectory.GetAppliedSchemaVersion
@@ -2536,6 +2614,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(getAppliedSchemaVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAppliedSchemaVersion");
@@ -2585,7 +2665,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @sample AmazonCloudDirectory.GetDirectory
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2017-01-11/GetDirectory" target="_top">AWS
      *      API Documentation</a>
@@ -2611,6 +2692,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new GetDirectoryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDirectoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDirectory");
@@ -2660,7 +2743,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws FacetNotFoundException
@@ -2690,6 +2774,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new GetFacetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getFacetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFacet");
@@ -2738,7 +2824,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -2770,6 +2857,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new GetLinkAttributesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getLinkAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetLinkAttributes");
@@ -2818,7 +2907,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -2850,6 +2940,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new GetObjectAttributesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getObjectAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetObjectAttributes");
@@ -2898,7 +2990,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -2928,6 +3021,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new GetObjectInformationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getObjectInformationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetObjectInformation");
@@ -2978,7 +3073,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws ValidationException
@@ -3008,6 +3104,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new GetSchemaAsJsonRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSchemaAsJsonRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSchemaAsJson");
@@ -3058,7 +3156,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidNextTokenException
@@ -3091,6 +3190,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(getTypedLinkFacetInformationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetTypedLinkFacetInformation");
@@ -3141,7 +3242,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidNextTokenException
@@ -3171,6 +3273,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListAppliedSchemaArnsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listAppliedSchemaArnsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAppliedSchemaArns");
@@ -3220,7 +3324,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -3250,6 +3355,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListAttachedIndicesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listAttachedIndicesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAttachedIndices");
@@ -3298,7 +3405,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidNextTokenException
@@ -3329,6 +3437,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(listDevelopmentSchemaArnsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDevelopmentSchemaArns");
@@ -3378,7 +3488,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws InvalidNextTokenException
      *         Indicates that the <code>NextToken</code> value is not valid.
      * @sample AmazonCloudDirectory.ListDirectories
@@ -3406,6 +3517,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListDirectoriesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDirectoriesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDirectories");
@@ -3454,7 +3567,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws FacetNotFoundException
@@ -3486,6 +3600,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListFacetAttributesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listFacetAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFacetAttributes");
@@ -3534,7 +3650,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidNextTokenException
@@ -3564,6 +3681,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListFacetNamesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listFacetNamesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFacetNames");
@@ -3615,7 +3734,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -3649,6 +3769,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListIncomingTypedLinksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listIncomingTypedLinksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListIncomingTypedLinks");
@@ -3700,7 +3822,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws InvalidNextTokenException
@@ -3734,6 +3857,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListIndexRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listIndexRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListIndex");
@@ -3773,7 +3898,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      * @throws ValidationException
      *         Indicates that your request is malformed in some manner. See the exception message.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidNextTokenException
@@ -3803,6 +3929,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListManagedSchemaArnsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listManagedSchemaArnsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListManagedSchemaArns");
@@ -3852,7 +3980,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -3886,6 +4015,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListObjectAttributesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listObjectAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListObjectAttributes");
@@ -3934,7 +4065,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -3969,6 +4101,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListObjectChildrenRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listObjectChildrenRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListObjectChildren");
@@ -4027,7 +4161,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws InvalidNextTokenException
@@ -4059,6 +4194,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListObjectParentPathsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listObjectParentPathsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListObjectParentPaths");
@@ -4108,7 +4245,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -4142,6 +4280,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListObjectParentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listObjectParentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListObjectParents");
@@ -4190,7 +4330,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -4222,6 +4363,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListObjectPoliciesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listObjectPoliciesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListObjectPolicies");
@@ -4273,7 +4416,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -4307,6 +4451,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListOutgoingTypedLinksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listOutgoingTypedLinksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListOutgoingTypedLinks");
@@ -4356,7 +4502,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws InvalidNextTokenException
@@ -4390,6 +4537,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListPolicyAttachmentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPolicyAttachmentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPolicyAttachments");
@@ -4440,7 +4589,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidNextTokenException
@@ -4471,6 +4621,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(listPublishedSchemaArnsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPublishedSchemaArns");
@@ -4521,7 +4673,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidTaggingRequestException
@@ -4552,6 +4705,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -4603,7 +4758,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws FacetNotFoundException
@@ -4636,6 +4792,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(listTypedLinkFacetAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTypedLinkFacetAttributes");
@@ -4688,7 +4846,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidNextTokenException
@@ -4719,6 +4878,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(listTypedLinkFacetNamesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTypedLinkFacetNames");
@@ -4774,7 +4935,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws InvalidNextTokenException
@@ -4806,6 +4968,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new LookupPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(lookupPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "LookupPolicy");
@@ -4854,7 +5018,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws SchemaAlreadyPublishedException
@@ -4884,6 +5049,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new PublishSchemaRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(publishSchemaRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PublishSchema");
@@ -4934,7 +5101,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws InvalidSchemaDocException
      *         Indicates that the provided <code>SchemaDoc</code> value is not valid.
      * @throws InvalidRuleException
@@ -4964,6 +5132,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new PutSchemaFromJsonRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putSchemaFromJsonRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutSchemaFromJson");
@@ -5012,7 +5182,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -5044,6 +5215,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new RemoveFacetFromObjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(removeFacetFromObjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveFacetFromObject");
@@ -5093,7 +5266,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidTaggingRequestException
@@ -5124,6 +5298,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -5172,7 +5348,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidTaggingRequestException
@@ -5203,6 +5380,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -5268,7 +5447,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws InvalidFacetUpdateException
      *         An attempt to modify a <a>Facet</a> resulted in an invalid schema exception.
      * @throws FacetValidationException
@@ -5304,6 +5484,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new UpdateFacetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateFacetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateFacet");
@@ -5353,7 +5535,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -5385,6 +5568,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new UpdateLinkAttributesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateLinkAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateLinkAttributes");
@@ -5433,7 +5618,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -5468,6 +5654,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new UpdateObjectAttributesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateObjectAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateObjectAttributes");
@@ -5517,7 +5705,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @sample AmazonCloudDirectory.UpdateSchema
@@ -5545,6 +5734,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new UpdateSchemaRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateSchemaRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSchema");
@@ -5595,7 +5786,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws FacetValidationException
      *         The <a>Facet</a> that you provided was not well formed or could not be validated with the schema.
      * @throws InvalidFacetUpdateException
@@ -5631,6 +5823,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new UpdateTypedLinkFacetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateTypedLinkFacetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateTypedLinkFacet");
@@ -5682,7 +5876,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         Indicates a failure occurred while performing a check for backward compatibility between the specified
      *         schema and the schema that is currently applied to the directory.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidAttachmentException
@@ -5716,6 +5911,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new UpgradeAppliedSchemaRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(upgradeAppliedSchemaRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpgradeAppliedSchema");
@@ -5764,7 +5961,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
      *         Indicates a failure occurred while performing a check for backward compatibility between the specified
      *         schema and the schema that is currently applied to the directory.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidAttachmentException
@@ -5799,6 +5997,8 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
                 request = new UpgradePublishedSchemaRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(upgradePublishedSchemaRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudDirectory");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpgradePublishedSchema");
@@ -5895,6 +6095,11 @@ public class AmazonCloudDirectoryClient extends AmazonWebServiceClient implement
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

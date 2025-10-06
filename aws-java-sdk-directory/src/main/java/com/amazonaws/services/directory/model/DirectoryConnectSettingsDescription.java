@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,13 +36,13 @@ public class DirectoryConnectSettingsDescription implements Serializable, Clonea
     private String vpcId;
     /**
      * <p>
-     * A list of subnet identifiers in the VPC that the AD connector is in.
+     * A list of subnet identifiers in the VPC that the AD Connector is in.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> subnetIds;
     /**
      * <p>
-     * The user name of the service account in the on-premises directory.
+     * The user name of the service account in your self-managed directory.
      * </p>
      */
     private String customerUserName;
@@ -107,10 +107,10 @@ public class DirectoryConnectSettingsDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * A list of subnet identifiers in the VPC that the AD connector is in.
+     * A list of subnet identifiers in the VPC that the AD Connector is in.
      * </p>
      * 
-     * @return A list of subnet identifiers in the VPC that the AD connector is in.
+     * @return A list of subnet identifiers in the VPC that the AD Connector is in.
      */
 
     public java.util.List<String> getSubnetIds() {
@@ -122,11 +122,11 @@ public class DirectoryConnectSettingsDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * A list of subnet identifiers in the VPC that the AD connector is in.
+     * A list of subnet identifiers in the VPC that the AD Connector is in.
      * </p>
      * 
      * @param subnetIds
-     *        A list of subnet identifiers in the VPC that the AD connector is in.
+     *        A list of subnet identifiers in the VPC that the AD Connector is in.
      */
 
     public void setSubnetIds(java.util.Collection<String> subnetIds) {
@@ -140,7 +140,7 @@ public class DirectoryConnectSettingsDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * A list of subnet identifiers in the VPC that the AD connector is in.
+     * A list of subnet identifiers in the VPC that the AD Connector is in.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -149,7 +149,7 @@ public class DirectoryConnectSettingsDescription implements Serializable, Clonea
      * </p>
      * 
      * @param subnetIds
-     *        A list of subnet identifiers in the VPC that the AD connector is in.
+     *        A list of subnet identifiers in the VPC that the AD Connector is in.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -165,11 +165,11 @@ public class DirectoryConnectSettingsDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * A list of subnet identifiers in the VPC that the AD connector is in.
+     * A list of subnet identifiers in the VPC that the AD Connector is in.
      * </p>
      * 
      * @param subnetIds
-     *        A list of subnet identifiers in the VPC that the AD connector is in.
+     *        A list of subnet identifiers in the VPC that the AD Connector is in.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -180,11 +180,11 @@ public class DirectoryConnectSettingsDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * The user name of the service account in the on-premises directory.
+     * The user name of the service account in your self-managed directory.
      * </p>
      * 
      * @param customerUserName
-     *        The user name of the service account in the on-premises directory.
+     *        The user name of the service account in your self-managed directory.
      */
 
     public void setCustomerUserName(String customerUserName) {
@@ -193,10 +193,10 @@ public class DirectoryConnectSettingsDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * The user name of the service account in the on-premises directory.
+     * The user name of the service account in your self-managed directory.
      * </p>
      * 
-     * @return The user name of the service account in the on-premises directory.
+     * @return The user name of the service account in your self-managed directory.
      */
 
     public String getCustomerUserName() {
@@ -205,11 +205,11 @@ public class DirectoryConnectSettingsDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * The user name of the service account in the on-premises directory.
+     * The user name of the service account in your self-managed directory.
      * </p>
      * 
      * @param customerUserName
-     *        The user name of the service account in the on-premises directory.
+     *        The user name of the service account in your self-managed directory.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

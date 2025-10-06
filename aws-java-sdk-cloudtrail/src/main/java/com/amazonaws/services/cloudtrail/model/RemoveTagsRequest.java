@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Specifies the tags to remove from a trail.
+ * Specifies the tags to remove from a trail, event data store, or channel.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/RemoveTags" target="_top">AWS API
@@ -30,10 +30,17 @@ public class RemoveTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Specifies the ARN of the trail from which tags should be removed. The format of a trail ARN is:
+     * Specifies the ARN of the trail, event data store, or channel from which tags should be removed.
      * </p>
      * <p>
-     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * Example trail ARN format: <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * </p>
+     * <p>
+     * Example event data store ARN format:
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE</code>
+     * </p>
+     * <p>
+     * Example channel ARN format: <code>arn:aws:cloudtrail:us-east-2:123456789012:channel/01234567890</code>
      * </p>
      */
     private String resourceId;
@@ -46,16 +53,30 @@ public class RemoveTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Specifies the ARN of the trail from which tags should be removed. The format of a trail ARN is:
+     * Specifies the ARN of the trail, event data store, or channel from which tags should be removed.
      * </p>
      * <p>
-     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * Example trail ARN format: <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * </p>
+     * <p>
+     * Example event data store ARN format:
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE</code>
+     * </p>
+     * <p>
+     * Example channel ARN format: <code>arn:aws:cloudtrail:us-east-2:123456789012:channel/01234567890</code>
      * </p>
      * 
      * @param resourceId
-     *        Specifies the ARN of the trail from which tags should be removed. The format of a trail ARN is:</p>
+     *        Specifies the ARN of the trail, event data store, or channel from which tags should be removed.</p>
      *        <p>
-     *        <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     *        Example trail ARN format: <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     *        </p>
+     *        <p>
+     *        Example event data store ARN format:
+     *        <code>arn:aws:cloudtrail:us-east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE</code>
+     *        </p>
+     *        <p>
+     *        Example channel ARN format: <code>arn:aws:cloudtrail:us-east-2:123456789012:channel/01234567890</code>
      */
 
     public void setResourceId(String resourceId) {
@@ -64,15 +85,29 @@ public class RemoveTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Specifies the ARN of the trail from which tags should be removed. The format of a trail ARN is:
+     * Specifies the ARN of the trail, event data store, or channel from which tags should be removed.
      * </p>
      * <p>
-     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * Example trail ARN format: <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * </p>
+     * <p>
+     * Example event data store ARN format:
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE</code>
+     * </p>
+     * <p>
+     * Example channel ARN format: <code>arn:aws:cloudtrail:us-east-2:123456789012:channel/01234567890</code>
      * </p>
      * 
-     * @return Specifies the ARN of the trail from which tags should be removed. The format of a trail ARN is:</p>
+     * @return Specifies the ARN of the trail, event data store, or channel from which tags should be removed.</p>
      *         <p>
-     *         <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     *         Example trail ARN format: <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     *         </p>
+     *         <p>
+     *         Example event data store ARN format:
+     *         <code>arn:aws:cloudtrail:us-east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE</code>
+     *         </p>
+     *         <p>
+     *         Example channel ARN format: <code>arn:aws:cloudtrail:us-east-2:123456789012:channel/01234567890</code>
      */
 
     public String getResourceId() {
@@ -81,16 +116,30 @@ public class RemoveTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Specifies the ARN of the trail from which tags should be removed. The format of a trail ARN is:
+     * Specifies the ARN of the trail, event data store, or channel from which tags should be removed.
      * </p>
      * <p>
-     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * Example trail ARN format: <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * </p>
+     * <p>
+     * Example event data store ARN format:
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE</code>
+     * </p>
+     * <p>
+     * Example channel ARN format: <code>arn:aws:cloudtrail:us-east-2:123456789012:channel/01234567890</code>
      * </p>
      * 
      * @param resourceId
-     *        Specifies the ARN of the trail from which tags should be removed. The format of a trail ARN is:</p>
+     *        Specifies the ARN of the trail, event data store, or channel from which tags should be removed.</p>
      *        <p>
-     *        <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     *        Example trail ARN format: <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     *        </p>
+     *        <p>
+     *        Example event data store ARN format:
+     *        <code>arn:aws:cloudtrail:us-east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE</code>
+     *        </p>
+     *        <p>
+     *        Example channel ARN format: <code>arn:aws:cloudtrail:us-east-2:123456789012:channel/01234567890</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -110,6 +110,11 @@ public class CapacityReservationStaxUnmarshaller implements Unmarshaller<Capacit
                     continue;
                 }
 
+                if (context.testExpression("startDate", targetDepth)) {
+                    capacityReservation.setStartDate(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("endDate", targetDepth)) {
                     capacityReservation.setEndDate(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
                     continue;
@@ -140,6 +145,35 @@ public class CapacityReservationStaxUnmarshaller implements Unmarshaller<Capacit
                     continue;
                 }
 
+                if (context.testExpression("outpostArn", targetDepth)) {
+                    capacityReservation.setOutpostArn(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("capacityReservationFleetId", targetDepth)) {
+                    capacityReservation.setCapacityReservationFleetId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("placementGroupArn", targetDepth)) {
+                    capacityReservation.setPlacementGroupArn(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("capacityAllocationSet", targetDepth)) {
+                    capacityReservation.withCapacityAllocations(new ArrayList<CapacityAllocation>());
+                    continue;
+                }
+
+                if (context.testExpression("capacityAllocationSet/item", targetDepth)) {
+                    capacityReservation.withCapacityAllocations(CapacityAllocationStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("reservationType", targetDepth)) {
+                    capacityReservation.setReservationType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
                     return capacityReservation;

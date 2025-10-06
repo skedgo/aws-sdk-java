@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class AggregateComplianceCount implements Serializable, Cloneable, Struct
     private String groupName;
     /**
      * <p>
-     * The number of compliant and noncompliant AWS Config rules.
+     * The number of compliant and noncompliant Config rules.
      * </p>
      */
     private ComplianceSummary complianceSummary;
@@ -83,11 +83,11 @@ public class AggregateComplianceCount implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The number of compliant and noncompliant AWS Config rules.
+     * The number of compliant and noncompliant Config rules.
      * </p>
      * 
      * @param complianceSummary
-     *        The number of compliant and noncompliant AWS Config rules.
+     *        The number of compliant and noncompliant Config rules.
      */
 
     public void setComplianceSummary(ComplianceSummary complianceSummary) {
@@ -96,10 +96,10 @@ public class AggregateComplianceCount implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The number of compliant and noncompliant AWS Config rules.
+     * The number of compliant and noncompliant Config rules.
      * </p>
      * 
-     * @return The number of compliant and noncompliant AWS Config rules.
+     * @return The number of compliant and noncompliant Config rules.
      */
 
     public ComplianceSummary getComplianceSummary() {
@@ -108,11 +108,11 @@ public class AggregateComplianceCount implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The number of compliant and noncompliant AWS Config rules.
+     * The number of compliant and noncompliant Config rules.
      * </p>
      * 
      * @param complianceSummary
-     *        The number of compliant and noncompliant AWS Config rules.
+     *        The number of compliant and noncompliant Config rules.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -62,11 +62,19 @@ public class ReplicationTaskAssessmentResult implements Serializable, Cloneable,
      * <p>
      * The task assessment results in JSON format.
      * </p>
+     * <p>
+     * The response object only contains this field if you provide
+     * <a>DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn</a> in the request.
+     * </p>
      */
     private String assessmentResults;
     /**
      * <p>
      * The URL of the S3 object containing the task assessment results.
+     * </p>
+     * <p>
+     * The response object only contains this field if you provide
+     * <a>DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn</a> in the request.
      * </p>
      */
     private String s3ObjectUrl;
@@ -275,9 +283,16 @@ public class ReplicationTaskAssessmentResult implements Serializable, Cloneable,
      * <p>
      * The task assessment results in JSON format.
      * </p>
+     * <p>
+     * The response object only contains this field if you provide
+     * <a>DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn</a> in the request.
+     * </p>
      * 
      * @param assessmentResults
-     *        The task assessment results in JSON format.
+     *        The task assessment results in JSON format. </p>
+     *        <p>
+     *        The response object only contains this field if you provide
+     *        <a>DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn</a> in the request.
      */
 
     public void setAssessmentResults(String assessmentResults) {
@@ -288,8 +303,15 @@ public class ReplicationTaskAssessmentResult implements Serializable, Cloneable,
      * <p>
      * The task assessment results in JSON format.
      * </p>
+     * <p>
+     * The response object only contains this field if you provide
+     * <a>DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn</a> in the request.
+     * </p>
      * 
-     * @return The task assessment results in JSON format.
+     * @return The task assessment results in JSON format. </p>
+     *         <p>
+     *         The response object only contains this field if you provide
+     *         <a>DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn</a> in the request.
      */
 
     public String getAssessmentResults() {
@@ -300,9 +322,16 @@ public class ReplicationTaskAssessmentResult implements Serializable, Cloneable,
      * <p>
      * The task assessment results in JSON format.
      * </p>
+     * <p>
+     * The response object only contains this field if you provide
+     * <a>DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn</a> in the request.
+     * </p>
      * 
      * @param assessmentResults
-     *        The task assessment results in JSON format.
+     *        The task assessment results in JSON format. </p>
+     *        <p>
+     *        The response object only contains this field if you provide
+     *        <a>DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn</a> in the request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -315,9 +344,16 @@ public class ReplicationTaskAssessmentResult implements Serializable, Cloneable,
      * <p>
      * The URL of the S3 object containing the task assessment results.
      * </p>
+     * <p>
+     * The response object only contains this field if you provide
+     * <a>DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn</a> in the request.
+     * </p>
      * 
      * @param s3ObjectUrl
-     *        The URL of the S3 object containing the task assessment results.
+     *        The URL of the S3 object containing the task assessment results. </p>
+     *        <p>
+     *        The response object only contains this field if you provide
+     *        <a>DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn</a> in the request.
      */
 
     public void setS3ObjectUrl(String s3ObjectUrl) {
@@ -328,8 +364,15 @@ public class ReplicationTaskAssessmentResult implements Serializable, Cloneable,
      * <p>
      * The URL of the S3 object containing the task assessment results.
      * </p>
+     * <p>
+     * The response object only contains this field if you provide
+     * <a>DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn</a> in the request.
+     * </p>
      * 
-     * @return The URL of the S3 object containing the task assessment results.
+     * @return The URL of the S3 object containing the task assessment results. </p>
+     *         <p>
+     *         The response object only contains this field if you provide
+     *         <a>DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn</a> in the request.
      */
 
     public String getS3ObjectUrl() {
@@ -340,9 +383,16 @@ public class ReplicationTaskAssessmentResult implements Serializable, Cloneable,
      * <p>
      * The URL of the S3 object containing the task assessment results.
      * </p>
+     * <p>
+     * The response object only contains this field if you provide
+     * <a>DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn</a> in the request.
+     * </p>
      * 
      * @param s3ObjectUrl
-     *        The URL of the S3 object containing the task assessment results.
+     *        The URL of the S3 object containing the task assessment results. </p>
+     *        <p>
+     *        The response object only contains this field if you provide
+     *        <a>DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn</a> in the request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

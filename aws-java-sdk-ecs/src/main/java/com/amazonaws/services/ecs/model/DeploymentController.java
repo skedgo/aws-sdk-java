@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,8 +20,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * The deployment controller to use for the service. For more information, see <a
- * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html">Amazon ECS Deployment
- * Types</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+ * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html">Amazon ECS deployment
+ * types</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/DeploymentController" target="_top">AWS API
@@ -50,7 +50,7 @@ public class DeploymentController implements Serializable, Cloneable, Structured
      * <dt>CODE_DEPLOY</dt>
      * <dd>
      * <p>
-     * The blue/green (<code>CODE_DEPLOY</code>) deployment type uses the blue/green deployment model powered by AWS
+     * The blue/green (<code>CODE_DEPLOY</code>) deployment type uses the blue/green deployment model powered by
      * CodeDeploy, which allows you to verify a new deployment of a service before sending production traffic to it.
      * </p>
      * </dd>
@@ -85,7 +85,7 @@ public class DeploymentController implements Serializable, Cloneable, Structured
      * <dt>CODE_DEPLOY</dt>
      * <dd>
      * <p>
-     * The blue/green (<code>CODE_DEPLOY</code>) deployment type uses the blue/green deployment model powered by AWS
+     * The blue/green (<code>CODE_DEPLOY</code>) deployment type uses the blue/green deployment model powered by
      * CodeDeploy, which allows you to verify a new deployment of a service before sending production traffic to it.
      * </p>
      * </dd>
@@ -117,8 +117,8 @@ public class DeploymentController implements Serializable, Cloneable, Structured
      *        <dd>
      *        <p>
      *        The blue/green (<code>CODE_DEPLOY</code>) deployment type uses the blue/green deployment model powered by
-     *        AWS CodeDeploy, which allows you to verify a new deployment of a service before sending production traffic
-     *        to it.
+     *        CodeDeploy, which allows you to verify a new deployment of a service before sending production traffic to
+     *        it.
      *        </p>
      *        </dd>
      *        <dt>EXTERNAL</dt>
@@ -155,7 +155,7 @@ public class DeploymentController implements Serializable, Cloneable, Structured
      * <dt>CODE_DEPLOY</dt>
      * <dd>
      * <p>
-     * The blue/green (<code>CODE_DEPLOY</code>) deployment type uses the blue/green deployment model powered by AWS
+     * The blue/green (<code>CODE_DEPLOY</code>) deployment type uses the blue/green deployment model powered by
      * CodeDeploy, which allows you to verify a new deployment of a service before sending production traffic to it.
      * </p>
      * </dd>
@@ -186,8 +186,8 @@ public class DeploymentController implements Serializable, Cloneable, Structured
      *         <dd>
      *         <p>
      *         The blue/green (<code>CODE_DEPLOY</code>) deployment type uses the blue/green deployment model powered by
-     *         AWS CodeDeploy, which allows you to verify a new deployment of a service before sending production
-     *         traffic to it.
+     *         CodeDeploy, which allows you to verify a new deployment of a service before sending production traffic to
+     *         it.
      *         </p>
      *         </dd>
      *         <dt>EXTERNAL</dt>
@@ -224,7 +224,7 @@ public class DeploymentController implements Serializable, Cloneable, Structured
      * <dt>CODE_DEPLOY</dt>
      * <dd>
      * <p>
-     * The blue/green (<code>CODE_DEPLOY</code>) deployment type uses the blue/green deployment model powered by AWS
+     * The blue/green (<code>CODE_DEPLOY</code>) deployment type uses the blue/green deployment model powered by
      * CodeDeploy, which allows you to verify a new deployment of a service before sending production traffic to it.
      * </p>
      * </dd>
@@ -256,8 +256,8 @@ public class DeploymentController implements Serializable, Cloneable, Structured
      *        <dd>
      *        <p>
      *        The blue/green (<code>CODE_DEPLOY</code>) deployment type uses the blue/green deployment model powered by
-     *        AWS CodeDeploy, which allows you to verify a new deployment of a service before sending production traffic
-     *        to it.
+     *        CodeDeploy, which allows you to verify a new deployment of a service before sending production traffic to
+     *        it.
      *        </p>
      *        </dd>
      *        <dt>EXTERNAL</dt>
@@ -296,7 +296,7 @@ public class DeploymentController implements Serializable, Cloneable, Structured
      * <dt>CODE_DEPLOY</dt>
      * <dd>
      * <p>
-     * The blue/green (<code>CODE_DEPLOY</code>) deployment type uses the blue/green deployment model powered by AWS
+     * The blue/green (<code>CODE_DEPLOY</code>) deployment type uses the blue/green deployment model powered by
      * CodeDeploy, which allows you to verify a new deployment of a service before sending production traffic to it.
      * </p>
      * </dd>
@@ -328,8 +328,8 @@ public class DeploymentController implements Serializable, Cloneable, Structured
      *        <dd>
      *        <p>
      *        The blue/green (<code>CODE_DEPLOY</code>) deployment type uses the blue/green deployment model powered by
-     *        AWS CodeDeploy, which allows you to verify a new deployment of a service before sending production traffic
-     *        to it.
+     *        CodeDeploy, which allows you to verify a new deployment of a service before sending production traffic to
+     *        it.
      *        </p>
      *        </dd>
      *        <dt>EXTERNAL</dt>

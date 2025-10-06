@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,8 +49,7 @@ public class StepSummary implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The action to take when the cluster step fails. Possible values are TERMINATE_CLUSTER, CANCEL_AND_WAIT, and
-     * CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility. We recommend using TERMINATE_CLUSTER
-     * instead.
+     * CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility.
      * </p>
      */
     private String actionOnFailure;
@@ -184,14 +183,12 @@ public class StepSummary implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The action to take when the cluster step fails. Possible values are TERMINATE_CLUSTER, CANCEL_AND_WAIT, and
-     * CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility. We recommend using TERMINATE_CLUSTER
-     * instead.
+     * CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility.
      * </p>
      * 
      * @param actionOnFailure
      *        The action to take when the cluster step fails. Possible values are TERMINATE_CLUSTER, CANCEL_AND_WAIT,
-     *        and CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility. We recommend using
-     *        TERMINATE_CLUSTER instead.
+     *        and CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility.
      * @see ActionOnFailure
      */
 
@@ -202,13 +199,11 @@ public class StepSummary implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The action to take when the cluster step fails. Possible values are TERMINATE_CLUSTER, CANCEL_AND_WAIT, and
-     * CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility. We recommend using TERMINATE_CLUSTER
-     * instead.
+     * CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility.
      * </p>
      * 
      * @return The action to take when the cluster step fails. Possible values are TERMINATE_CLUSTER, CANCEL_AND_WAIT,
-     *         and CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility. We recommend using
-     *         TERMINATE_CLUSTER instead.
+     *         and CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility.
      * @see ActionOnFailure
      */
 
@@ -219,14 +214,12 @@ public class StepSummary implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The action to take when the cluster step fails. Possible values are TERMINATE_CLUSTER, CANCEL_AND_WAIT, and
-     * CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility. We recommend using TERMINATE_CLUSTER
-     * instead.
+     * CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility.
      * </p>
      * 
      * @param actionOnFailure
      *        The action to take when the cluster step fails. Possible values are TERMINATE_CLUSTER, CANCEL_AND_WAIT,
-     *        and CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility. We recommend using
-     *        TERMINATE_CLUSTER instead.
+     *        and CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ActionOnFailure
      */
@@ -239,14 +232,12 @@ public class StepSummary implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The action to take when the cluster step fails. Possible values are TERMINATE_CLUSTER, CANCEL_AND_WAIT, and
-     * CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility. We recommend using TERMINATE_CLUSTER
-     * instead.
+     * CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility.
      * </p>
      * 
      * @param actionOnFailure
      *        The action to take when the cluster step fails. Possible values are TERMINATE_CLUSTER, CANCEL_AND_WAIT,
-     *        and CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility. We recommend using
-     *        TERMINATE_CLUSTER instead.
+     *        and CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility.
      * @see ActionOnFailure
      */
 
@@ -257,14 +248,12 @@ public class StepSummary implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The action to take when the cluster step fails. Possible values are TERMINATE_CLUSTER, CANCEL_AND_WAIT, and
-     * CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility. We recommend using TERMINATE_CLUSTER
-     * instead.
+     * CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility.
      * </p>
      * 
      * @param actionOnFailure
      *        The action to take when the cluster step fails. Possible values are TERMINATE_CLUSTER, CANCEL_AND_WAIT,
-     *        and CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility. We recommend using
-     *        TERMINATE_CLUSTER instead.
+     *        and CONTINUE. TERMINATE_JOB_FLOW is available for backward compatibility.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ActionOnFailure
      */

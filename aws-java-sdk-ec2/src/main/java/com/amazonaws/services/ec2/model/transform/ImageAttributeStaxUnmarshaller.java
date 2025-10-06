@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -97,6 +97,36 @@ public class ImageAttributeStaxUnmarshaller implements Unmarshaller<ImageAttribu
 
                 if (context.testExpression("sriovNetSupport/value", targetDepth)) {
                     imageAttribute.setSriovNetSupport(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("bootMode/value", targetDepth)) {
+                    imageAttribute.setBootMode(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("tpmSupport/value", targetDepth)) {
+                    imageAttribute.setTpmSupport(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("uefiData/value", targetDepth)) {
+                    imageAttribute.setUefiData(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("lastLaunchedTime/value", targetDepth)) {
+                    imageAttribute.setLastLaunchedTime(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("imdsSupport/value", targetDepth)) {
+                    imageAttribute.setImdsSupport(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("deregistrationProtection/value", targetDepth)) {
+                    imageAttribute.setDeregistrationProtection(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

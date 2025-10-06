@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -522,16 +522,264 @@ public interface AmazonSimpleWorkflowAsync extends AmazonSimpleWorkflow {
 
     /**
      * <p>
+     * Deletes the specified <i>activity type</i>.
+     * </p>
+     * <p>
+     * Note: Prior to deletion, activity types must first be <b>deprecated</b>.
+     * </p>
+     * <p>
+     * After an activity type has been deleted, you cannot schedule new activities of that type. Activities that started
+     * before the type was deleted will continue to run.
+     * </p>
+     * <p>
+     * <b>Access Control</b>
+     * </p>
+     * <p>
+     * You can use IAM policies to control this action's access to Amazon SWF resources as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Use a <code>Resource</code> element with the domain name to limit the action to only specified domains.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use an <code>Action</code> element to allow or deny permission to call this action.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Constrain the following parameters by using a <code>Condition</code> element with the appropriate keys.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>activityType.name</code>: String constraint. The key is <code>swf:activityType.name</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>activityType.version</code>: String constraint. The key is <code>swf:activityType.version</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <p>
+     * If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the
+     * specified constraints, the action fails. The associated event attribute's <code>cause</code> parameter is set to
+     * <code>OPERATION_NOT_PERMITTED</code>. For details and example IAM policies, see <a
+     * href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using IAM to Manage Access to
+     * Amazon SWF Workflows</a> in the <i>Amazon SWF Developer Guide</i>.
+     * </p>
+     * 
+     * @param deleteActivityTypeRequest
+     * @sample AmazonSimpleWorkflowAsync.DeleteActivityType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/swf-2012-01-25/DeleteActivityType" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<Void> deleteActivityTypeAsync(DeleteActivityTypeRequest deleteActivityTypeRequest);
+
+    /**
+     * <p>
+     * Deletes the specified <i>activity type</i>.
+     * </p>
+     * <p>
+     * Note: Prior to deletion, activity types must first be <b>deprecated</b>.
+     * </p>
+     * <p>
+     * After an activity type has been deleted, you cannot schedule new activities of that type. Activities that started
+     * before the type was deleted will continue to run.
+     * </p>
+     * <p>
+     * <b>Access Control</b>
+     * </p>
+     * <p>
+     * You can use IAM policies to control this action's access to Amazon SWF resources as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Use a <code>Resource</code> element with the domain name to limit the action to only specified domains.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use an <code>Action</code> element to allow or deny permission to call this action.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Constrain the following parameters by using a <code>Condition</code> element with the appropriate keys.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>activityType.name</code>: String constraint. The key is <code>swf:activityType.name</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>activityType.version</code>: String constraint. The key is <code>swf:activityType.version</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <p>
+     * If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the
+     * specified constraints, the action fails. The associated event attribute's <code>cause</code> parameter is set to
+     * <code>OPERATION_NOT_PERMITTED</code>. For details and example IAM policies, see <a
+     * href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using IAM to Manage Access to
+     * Amazon SWF Workflows</a> in the <i>Amazon SWF Developer Guide</i>.
+     * </p>
+     * 
+     * @param deleteActivityTypeRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @sample AmazonSimpleWorkflowAsyncHandler.DeleteActivityType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/swf-2012-01-25/DeleteActivityType" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<Void> deleteActivityTypeAsync(DeleteActivityTypeRequest deleteActivityTypeRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteActivityTypeRequest, Void> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the specified <i>workflow type</i>.
+     * </p>
+     * <p>
+     * Note: Prior to deletion, workflow types must first be <b>deprecated</b>.
+     * </p>
+     * <p>
+     * After a workflow type has been deleted, you cannot create new executions of that type. Executions that started
+     * before the type was deleted will continue to run.
+     * </p>
+     * <p>
+     * <b>Access Control</b>
+     * </p>
+     * <p>
+     * You can use IAM policies to control this action's access to Amazon SWF resources as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Use a <code>Resource</code> element with the domain name to limit the action to only specified domains.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use an <code>Action</code> element to allow or deny permission to call this action.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Constrain the following parameters by using a <code>Condition</code> element with the appropriate keys.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>workflowType.name</code>: String constraint. The key is <code>swf:workflowType.name</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>workflowType.version</code>: String constraint. The key is <code>swf:workflowType.version</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <p>
+     * If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the
+     * specified constraints, the action fails. The associated event attribute's <code>cause</code> parameter is set to
+     * <code>OPERATION_NOT_PERMITTED</code>. For details and example IAM policies, see <a
+     * href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using IAM to Manage Access to
+     * Amazon SWF Workflows</a> in the <i>Amazon SWF Developer Guide</i>.
+     * </p>
+     * 
+     * @param deleteWorkflowTypeRequest
+     * @sample AmazonSimpleWorkflowAsync.DeleteWorkflowType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/swf-2012-01-25/DeleteWorkflowType" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<Void> deleteWorkflowTypeAsync(DeleteWorkflowTypeRequest deleteWorkflowTypeRequest);
+
+    /**
+     * <p>
+     * Deletes the specified <i>workflow type</i>.
+     * </p>
+     * <p>
+     * Note: Prior to deletion, workflow types must first be <b>deprecated</b>.
+     * </p>
+     * <p>
+     * After a workflow type has been deleted, you cannot create new executions of that type. Executions that started
+     * before the type was deleted will continue to run.
+     * </p>
+     * <p>
+     * <b>Access Control</b>
+     * </p>
+     * <p>
+     * You can use IAM policies to control this action's access to Amazon SWF resources as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Use a <code>Resource</code> element with the domain name to limit the action to only specified domains.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use an <code>Action</code> element to allow or deny permission to call this action.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Constrain the following parameters by using a <code>Condition</code> element with the appropriate keys.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>workflowType.name</code>: String constraint. The key is <code>swf:workflowType.name</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>workflowType.version</code>: String constraint. The key is <code>swf:workflowType.version</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <p>
+     * If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the
+     * specified constraints, the action fails. The associated event attribute's <code>cause</code> parameter is set to
+     * <code>OPERATION_NOT_PERMITTED</code>. For details and example IAM policies, see <a
+     * href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using IAM to Manage Access to
+     * Amazon SWF Workflows</a> in the <i>Amazon SWF Developer Guide</i>.
+     * </p>
+     * 
+     * @param deleteWorkflowTypeRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @sample AmazonSimpleWorkflowAsyncHandler.DeleteWorkflowType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/swf-2012-01-25/DeleteWorkflowType" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<Void> deleteWorkflowTypeAsync(DeleteWorkflowTypeRequest deleteWorkflowTypeRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteWorkflowTypeRequest, Void> asyncHandler);
+
+    /**
+     * <p>
      * Deprecates the specified <i>activity type</i>. After an activity type has been deprecated, you cannot create new
      * tasks of that activity type. Tasks of this type that were scheduled before the type was deprecated continue to
      * run.
      * </p>
-     * <note>
-     * <p>
-     * This operation is eventually consistent. The results are best effort and may not exactly reflect recent updates
-     * and changes.
-     * </p>
-     * </note>
      * <p>
      * <b>Access Control</b>
      * </p>
@@ -588,12 +836,6 @@ public interface AmazonSimpleWorkflowAsync extends AmazonSimpleWorkflow {
      * tasks of that activity type. Tasks of this type that were scheduled before the type was deprecated continue to
      * run.
      * </p>
-     * <note>
-     * <p>
-     * This operation is eventually consistent. The results are best effort and may not exactly reflect recent updates
-     * and changes.
-     * </p>
-     * </note>
      * <p>
      * <b>Access Control</b>
      * </p>

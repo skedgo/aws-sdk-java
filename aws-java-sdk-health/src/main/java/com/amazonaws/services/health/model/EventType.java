@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,9 +19,20 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Metadata about a type of event that is reported by AWS Health. Data consists of the category (for example,
- * <code>issue</code>), the service (for example, <code>EC2</code>), and the event type code (for example,
- * <code>AWS_EC2_SYSTEM_MAINTENANCE_EVENT</code>).
+ * Contains the metadata about a type of event that is reported by Health. The <code>EventType</code> shows the
+ * category, service, and the event type code of the event. For example, an <code>issue</code> might be the category,
+ * <code>EC2</code> the service, and <code>AWS_EC2_SYSTEM_MAINTENANCE_EVENT</code> the event type code.
+ * </p>
+ * <p>
+ * You can use the <a
+ * href="https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEventTypes.html">DescribeEventTypes</a> API
+ * operation to return this information about an event.
+ * </p>
+ * <p>
+ * You can also use the Amazon CloudWatch Events console to create a rule so that you can get notified or take action
+ * when Health delivers a specific event to your Amazon Web Services account. For more information, see <a
+ * href="https://docs.aws.amazon.com/health/latest/ug/cloudwatch-events-health.html">Monitor for Health events with
+ * Amazon CloudWatch Events</a> in the <i>Health User Guide</i>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/health-2016-08-04/EventType" target="_top">AWS API
@@ -32,7 +43,7 @@ public class EventType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      */
     private String service;
@@ -45,19 +56,19 @@ public class EventType implements Serializable, Cloneable, StructuredPojo {
     private String code;
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      */
     private String category;
 
     /**
      * <p>
-     * The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      * 
      * @param service
-     *        The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+     *        The Amazon Web Service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
      */
 
     public void setService(String service) {
@@ -66,10 +77,10 @@ public class EventType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      * 
-     * @return The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * @return The Amazon Web Service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
      */
 
     public String getService() {
@@ -78,11 +89,11 @@ public class EventType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      * 
      * @param service
-     *        The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+     *        The Amazon Web Service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -142,13 +153,14 @@ public class EventType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
      * @param category
-     *        A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     *        <code>accountNotification</code>).
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @see EventTypeCategory
      */
 
@@ -158,12 +170,13 @@ public class EventType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
-     * @return A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     *         <code>accountNotification</code>).
+     * @return A list of event type category codes. Possible values are <code>issue</code>,
+     *         <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *         <code>investigation</code> value isn't supported at this time.
      * @see EventTypeCategory
      */
 
@@ -173,13 +186,14 @@ public class EventType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
      * @param category
-     *        A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     *        <code>accountNotification</code>).
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EventTypeCategory
      */
@@ -191,13 +205,14 @@ public class EventType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
      * @param category
-     *        A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     *        <code>accountNotification</code>).
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @see EventTypeCategory
      */
 
@@ -207,13 +222,14 @@ public class EventType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
      * @param category
-     *        A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     *        <code>accountNotification</code>).
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EventTypeCategory
      */

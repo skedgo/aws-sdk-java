@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class AccountTakeoverActionType implements Serializable, Cloneable, Struc
     private Boolean notify;
     /**
      * <p>
-     * The event action.
+     * The action to take in response to the account takeover action. Valid values are as follows:
      * </p>
      * <ul>
      * <li>
@@ -46,17 +46,17 @@ public class AccountTakeoverActionType implements Serializable, Cloneable, Struc
      * </li>
      * <li>
      * <p>
-     * <code>MFA_IF_CONFIGURED</code> Throw MFA challenge if user has configured it, else allow the request.
+     * <code>MFA_IF_CONFIGURED</code> Present an MFA challenge if user has configured it, else allow the request.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MFA_REQUIRED</code> Throw MFA challenge if user has configured it, else block the request.
+     * <code>MFA_REQUIRED</code> Present an MFA challenge if user has configured it, else block the request.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NO_ACTION</code> Allow the user sign-in.
+     * <code>NO_ACTION</code> Allow the user to sign in.
      * </p>
      * </li>
      * </ul>
@@ -117,7 +117,7 @@ public class AccountTakeoverActionType implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The event action.
+     * The action to take in response to the account takeover action. Valid values are as follows:
      * </p>
      * <ul>
      * <li>
@@ -127,23 +127,23 @@ public class AccountTakeoverActionType implements Serializable, Cloneable, Struc
      * </li>
      * <li>
      * <p>
-     * <code>MFA_IF_CONFIGURED</code> Throw MFA challenge if user has configured it, else allow the request.
+     * <code>MFA_IF_CONFIGURED</code> Present an MFA challenge if user has configured it, else allow the request.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MFA_REQUIRED</code> Throw MFA challenge if user has configured it, else block the request.
+     * <code>MFA_REQUIRED</code> Present an MFA challenge if user has configured it, else block the request.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NO_ACTION</code> Allow the user sign-in.
+     * <code>NO_ACTION</code> Allow the user to sign in.
      * </p>
      * </li>
      * </ul>
      * 
      * @param eventAction
-     *        The event action.</p>
+     *        The action to take in response to the account takeover action. Valid values are as follows:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -152,17 +152,17 @@ public class AccountTakeoverActionType implements Serializable, Cloneable, Struc
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MFA_IF_CONFIGURED</code> Throw MFA challenge if user has configured it, else allow the request.
+     *        <code>MFA_IF_CONFIGURED</code> Present an MFA challenge if user has configured it, else allow the request.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MFA_REQUIRED</code> Throw MFA challenge if user has configured it, else block the request.
+     *        <code>MFA_REQUIRED</code> Present an MFA challenge if user has configured it, else block the request.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NO_ACTION</code> Allow the user sign-in.
+     *        <code>NO_ACTION</code> Allow the user to sign in.
      *        </p>
      *        </li>
      * @see AccountTakeoverEventActionType
@@ -174,7 +174,7 @@ public class AccountTakeoverActionType implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The event action.
+     * The action to take in response to the account takeover action. Valid values are as follows:
      * </p>
      * <ul>
      * <li>
@@ -184,22 +184,22 @@ public class AccountTakeoverActionType implements Serializable, Cloneable, Struc
      * </li>
      * <li>
      * <p>
-     * <code>MFA_IF_CONFIGURED</code> Throw MFA challenge if user has configured it, else allow the request.
+     * <code>MFA_IF_CONFIGURED</code> Present an MFA challenge if user has configured it, else allow the request.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MFA_REQUIRED</code> Throw MFA challenge if user has configured it, else block the request.
+     * <code>MFA_REQUIRED</code> Present an MFA challenge if user has configured it, else block the request.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NO_ACTION</code> Allow the user sign-in.
+     * <code>NO_ACTION</code> Allow the user to sign in.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The event action.</p>
+     * @return The action to take in response to the account takeover action. Valid values are as follows:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -208,17 +208,18 @@ public class AccountTakeoverActionType implements Serializable, Cloneable, Struc
      *         </li>
      *         <li>
      *         <p>
-     *         <code>MFA_IF_CONFIGURED</code> Throw MFA challenge if user has configured it, else allow the request.
+     *         <code>MFA_IF_CONFIGURED</code> Present an MFA challenge if user has configured it, else allow the
+     *         request.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>MFA_REQUIRED</code> Throw MFA challenge if user has configured it, else block the request.
+     *         <code>MFA_REQUIRED</code> Present an MFA challenge if user has configured it, else block the request.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>NO_ACTION</code> Allow the user sign-in.
+     *         <code>NO_ACTION</code> Allow the user to sign in.
      *         </p>
      *         </li>
      * @see AccountTakeoverEventActionType
@@ -230,7 +231,7 @@ public class AccountTakeoverActionType implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The event action.
+     * The action to take in response to the account takeover action. Valid values are as follows:
      * </p>
      * <ul>
      * <li>
@@ -240,23 +241,23 @@ public class AccountTakeoverActionType implements Serializable, Cloneable, Struc
      * </li>
      * <li>
      * <p>
-     * <code>MFA_IF_CONFIGURED</code> Throw MFA challenge if user has configured it, else allow the request.
+     * <code>MFA_IF_CONFIGURED</code> Present an MFA challenge if user has configured it, else allow the request.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MFA_REQUIRED</code> Throw MFA challenge if user has configured it, else block the request.
+     * <code>MFA_REQUIRED</code> Present an MFA challenge if user has configured it, else block the request.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NO_ACTION</code> Allow the user sign-in.
+     * <code>NO_ACTION</code> Allow the user to sign in.
      * </p>
      * </li>
      * </ul>
      * 
      * @param eventAction
-     *        The event action.</p>
+     *        The action to take in response to the account takeover action. Valid values are as follows:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -265,17 +266,17 @@ public class AccountTakeoverActionType implements Serializable, Cloneable, Struc
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MFA_IF_CONFIGURED</code> Throw MFA challenge if user has configured it, else allow the request.
+     *        <code>MFA_IF_CONFIGURED</code> Present an MFA challenge if user has configured it, else allow the request.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MFA_REQUIRED</code> Throw MFA challenge if user has configured it, else block the request.
+     *        <code>MFA_REQUIRED</code> Present an MFA challenge if user has configured it, else block the request.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NO_ACTION</code> Allow the user sign-in.
+     *        <code>NO_ACTION</code> Allow the user to sign in.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -289,7 +290,7 @@ public class AccountTakeoverActionType implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The event action.
+     * The action to take in response to the account takeover action. Valid values are as follows:
      * </p>
      * <ul>
      * <li>
@@ -299,23 +300,23 @@ public class AccountTakeoverActionType implements Serializable, Cloneable, Struc
      * </li>
      * <li>
      * <p>
-     * <code>MFA_IF_CONFIGURED</code> Throw MFA challenge if user has configured it, else allow the request.
+     * <code>MFA_IF_CONFIGURED</code> Present an MFA challenge if user has configured it, else allow the request.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MFA_REQUIRED</code> Throw MFA challenge if user has configured it, else block the request.
+     * <code>MFA_REQUIRED</code> Present an MFA challenge if user has configured it, else block the request.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NO_ACTION</code> Allow the user sign-in.
+     * <code>NO_ACTION</code> Allow the user to sign in.
      * </p>
      * </li>
      * </ul>
      * 
      * @param eventAction
-     *        The event action.</p>
+     *        The action to take in response to the account takeover action. Valid values are as follows:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -324,17 +325,17 @@ public class AccountTakeoverActionType implements Serializable, Cloneable, Struc
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MFA_IF_CONFIGURED</code> Throw MFA challenge if user has configured it, else allow the request.
+     *        <code>MFA_IF_CONFIGURED</code> Present an MFA challenge if user has configured it, else allow the request.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MFA_REQUIRED</code> Throw MFA challenge if user has configured it, else block the request.
+     *        <code>MFA_REQUIRED</code> Present an MFA challenge if user has configured it, else block the request.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NO_ACTION</code> Allow the user sign-in.
+     *        <code>NO_ACTION</code> Allow the user to sign in.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

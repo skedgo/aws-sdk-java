@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,7 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * A limit for the size of an attachment set has been exceeded. The limits are 3 attachments and 5 MB per attachment.
+ * A limit for the size of an attachment set has been exceeded. The limits are three attachments and 5 MB per
+ * attachment.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

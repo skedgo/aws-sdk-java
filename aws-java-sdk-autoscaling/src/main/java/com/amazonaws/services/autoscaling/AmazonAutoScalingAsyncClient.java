@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,15 +32,14 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <p>
  * <fullname>Amazon EC2 Auto Scaling</fullname>
  * <p>
- * Amazon EC2 Auto Scaling is designed to automatically launch or terminate EC2 instances based on user-defined
- * policies, schedules, and health checks. Use this service with AWS Auto Scaling, Amazon CloudWatch, and Elastic Load
- * Balancing.
+ * Amazon EC2 Auto Scaling is designed to automatically launch and terminate EC2 instances based on user-defined scaling
+ * policies, scheduled actions, and health checks.
  * </p>
  * <p>
- * For more information, including information about granting IAM users required permissions for Amazon EC2 Auto Scaling
- * actions, see the <a
+ * For more information, see the <a
  * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html">Amazon EC2 Auto
- * Scaling User Guide</a>.
+ * Scaling User Guide</a> and the <a href="https://docs.aws.amazon.com/autoscaling/ec2/APIReference/Welcome.html">Amazon
+ * EC2 Auto Scaling API Reference</a>.
  * </p>
  */
 @ThreadSafe
@@ -239,7 +238,19 @@ public class AmazonAutoScalingAsyncClient extends AmazonAutoScalingClient implem
      *        Object providing client parameters.
      */
     AmazonAutoScalingAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Auto Scaling using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonAutoScalingAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -376,6 +387,39 @@ public class AmazonAutoScalingAsyncClient extends AmazonAutoScalingClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<AttachTrafficSourcesResult> attachTrafficSourcesAsync(AttachTrafficSourcesRequest request) {
+
+        return attachTrafficSourcesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AttachTrafficSourcesResult> attachTrafficSourcesAsync(final AttachTrafficSourcesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AttachTrafficSourcesRequest, AttachTrafficSourcesResult> asyncHandler) {
+        final AttachTrafficSourcesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AttachTrafficSourcesResult>() {
+            @Override
+            public AttachTrafficSourcesResult call() throws Exception {
+                AttachTrafficSourcesResult result = null;
+
+                try {
+                    result = executeAttachTrafficSources(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<BatchDeleteScheduledActionResult> batchDeleteScheduledActionAsync(BatchDeleteScheduledActionRequest request) {
 
         return batchDeleteScheduledActionAsync(request, null);
@@ -428,6 +472,39 @@ public class AmazonAutoScalingAsyncClient extends AmazonAutoScalingClient implem
 
                 try {
                     result = executeBatchPutScheduledUpdateGroupAction(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelInstanceRefreshResult> cancelInstanceRefreshAsync(CancelInstanceRefreshRequest request) {
+
+        return cancelInstanceRefreshAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelInstanceRefreshResult> cancelInstanceRefreshAsync(final CancelInstanceRefreshRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CancelInstanceRefreshRequest, CancelInstanceRefreshResult> asyncHandler) {
+        final CancelInstanceRefreshRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CancelInstanceRefreshResult>() {
+            @Override
+            public CancelInstanceRefreshResult call() throws Exception {
+                CancelInstanceRefreshResult result = null;
+
+                try {
+                    result = executeCancelInstanceRefresh(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -809,6 +886,39 @@ public class AmazonAutoScalingAsyncClient extends AmazonAutoScalingClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteWarmPoolResult> deleteWarmPoolAsync(DeleteWarmPoolRequest request) {
+
+        return deleteWarmPoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteWarmPoolResult> deleteWarmPoolAsync(final DeleteWarmPoolRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteWarmPoolRequest, DeleteWarmPoolResult> asyncHandler) {
+        final DeleteWarmPoolRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteWarmPoolResult>() {
+            @Override
+            public DeleteWarmPoolResult call() throws Exception {
+                DeleteWarmPoolResult result = null;
+
+                try {
+                    result = executeDeleteWarmPool(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeAccountLimitsResult> describeAccountLimitsAsync(DescribeAccountLimitsRequest request) {
 
         return describeAccountLimitsAsync(request, null);
@@ -1089,6 +1199,39 @@ public class AmazonAutoScalingAsyncClient extends AmazonAutoScalingClient implem
             com.amazonaws.handlers.AsyncHandler<DescribeAutoScalingNotificationTypesRequest, DescribeAutoScalingNotificationTypesResult> asyncHandler) {
 
         return describeAutoScalingNotificationTypesAsync(new DescribeAutoScalingNotificationTypesRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeInstanceRefreshesResult> describeInstanceRefreshesAsync(DescribeInstanceRefreshesRequest request) {
+
+        return describeInstanceRefreshesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeInstanceRefreshesResult> describeInstanceRefreshesAsync(final DescribeInstanceRefreshesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeInstanceRefreshesRequest, DescribeInstanceRefreshesResult> asyncHandler) {
+        final DescribeInstanceRefreshesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeInstanceRefreshesResult>() {
+            @Override
+            public DescribeInstanceRefreshesResult call() throws Exception {
+                DescribeInstanceRefreshesResult result = null;
+
+                try {
+                    result = executeDescribeInstanceRefreshes(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -1760,6 +1903,72 @@ public class AmazonAutoScalingAsyncClient extends AmazonAutoScalingClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeTrafficSourcesResult> describeTrafficSourcesAsync(DescribeTrafficSourcesRequest request) {
+
+        return describeTrafficSourcesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTrafficSourcesResult> describeTrafficSourcesAsync(final DescribeTrafficSourcesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeTrafficSourcesRequest, DescribeTrafficSourcesResult> asyncHandler) {
+        final DescribeTrafficSourcesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeTrafficSourcesResult>() {
+            @Override
+            public DescribeTrafficSourcesResult call() throws Exception {
+                DescribeTrafficSourcesResult result = null;
+
+                try {
+                    result = executeDescribeTrafficSources(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWarmPoolResult> describeWarmPoolAsync(DescribeWarmPoolRequest request) {
+
+        return describeWarmPoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWarmPoolResult> describeWarmPoolAsync(final DescribeWarmPoolRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeWarmPoolRequest, DescribeWarmPoolResult> asyncHandler) {
+        final DescribeWarmPoolRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeWarmPoolResult>() {
+            @Override
+            public DescribeWarmPoolResult call() throws Exception {
+                DescribeWarmPoolResult result = null;
+
+                try {
+                    result = executeDescribeWarmPool(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DetachInstancesResult> detachInstancesAsync(DetachInstancesRequest request) {
 
         return detachInstancesAsync(request, null);
@@ -1880,6 +2089,39 @@ public class AmazonAutoScalingAsyncClient extends AmazonAutoScalingClient implem
             com.amazonaws.handlers.AsyncHandler<DetachLoadBalancersRequest, DetachLoadBalancersResult> asyncHandler) {
 
         return detachLoadBalancersAsync(new DetachLoadBalancersRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetachTrafficSourcesResult> detachTrafficSourcesAsync(DetachTrafficSourcesRequest request) {
+
+        return detachTrafficSourcesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetachTrafficSourcesResult> detachTrafficSourcesAsync(final DetachTrafficSourcesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DetachTrafficSourcesRequest, DetachTrafficSourcesResult> asyncHandler) {
+        final DetachTrafficSourcesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DetachTrafficSourcesResult>() {
+            @Override
+            public DetachTrafficSourcesResult call() throws Exception {
+                DetachTrafficSourcesResult result = null;
+
+                try {
+                    result = executeDetachTrafficSources(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -2048,6 +2290,39 @@ public class AmazonAutoScalingAsyncClient extends AmazonAutoScalingClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<GetPredictiveScalingForecastResult> getPredictiveScalingForecastAsync(GetPredictiveScalingForecastRequest request) {
+
+        return getPredictiveScalingForecastAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPredictiveScalingForecastResult> getPredictiveScalingForecastAsync(final GetPredictiveScalingForecastRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetPredictiveScalingForecastRequest, GetPredictiveScalingForecastResult> asyncHandler) {
+        final GetPredictiveScalingForecastRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetPredictiveScalingForecastResult>() {
+            @Override
+            public GetPredictiveScalingForecastResult call() throws Exception {
+                GetPredictiveScalingForecastResult result = null;
+
+                try {
+                    result = executeGetPredictiveScalingForecast(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<PutLifecycleHookResult> putLifecycleHookAsync(PutLifecycleHookRequest request) {
 
         return putLifecycleHookAsync(request, null);
@@ -2181,6 +2456,39 @@ public class AmazonAutoScalingAsyncClient extends AmazonAutoScalingClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<PutWarmPoolResult> putWarmPoolAsync(PutWarmPoolRequest request) {
+
+        return putWarmPoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutWarmPoolResult> putWarmPoolAsync(final PutWarmPoolRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutWarmPoolRequest, PutWarmPoolResult> asyncHandler) {
+        final PutWarmPoolRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutWarmPoolResult>() {
+            @Override
+            public PutWarmPoolResult call() throws Exception {
+                PutWarmPoolResult result = null;
+
+                try {
+                    result = executePutWarmPool(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<RecordLifecycleActionHeartbeatResult> recordLifecycleActionHeartbeatAsync(RecordLifecycleActionHeartbeatRequest request) {
 
         return recordLifecycleActionHeartbeatAsync(request, null);
@@ -2232,6 +2540,39 @@ public class AmazonAutoScalingAsyncClient extends AmazonAutoScalingClient implem
 
                 try {
                     result = executeResumeProcesses(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RollbackInstanceRefreshResult> rollbackInstanceRefreshAsync(RollbackInstanceRefreshRequest request) {
+
+        return rollbackInstanceRefreshAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RollbackInstanceRefreshResult> rollbackInstanceRefreshAsync(final RollbackInstanceRefreshRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RollbackInstanceRefreshRequest, RollbackInstanceRefreshResult> asyncHandler) {
+        final RollbackInstanceRefreshRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RollbackInstanceRefreshResult>() {
+            @Override
+            public RollbackInstanceRefreshResult call() throws Exception {
+                RollbackInstanceRefreshResult result = null;
+
+                try {
+                    result = executeRollbackInstanceRefresh(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -2331,6 +2672,39 @@ public class AmazonAutoScalingAsyncClient extends AmazonAutoScalingClient implem
 
                 try {
                     result = executeSetInstanceProtection(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartInstanceRefreshResult> startInstanceRefreshAsync(StartInstanceRefreshRequest request) {
+
+        return startInstanceRefreshAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartInstanceRefreshResult> startInstanceRefreshAsync(final StartInstanceRefreshRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartInstanceRefreshRequest, StartInstanceRefreshResult> asyncHandler) {
+        final StartInstanceRefreshRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartInstanceRefreshResult>() {
+            @Override
+            public StartInstanceRefreshResult call() throws Exception {
+                StartInstanceRefreshResult result = null;
+
+                try {
+                    result = executeStartInstanceRefresh(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,8 +31,12 @@ public class LambdaFunctionScheduledEventDetailsMarshaller {
             .marshallLocationName("resource").build();
     private static final MarshallingInfo<String> INPUT_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("input").build();
+    private static final MarshallingInfo<StructuredPojo> INPUTDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("inputDetails").build();
     private static final MarshallingInfo<Long> TIMEOUTINSECONDS_BINDING = MarshallingInfo.builder(MarshallingType.LONG)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("timeoutInSeconds").build();
+    private static final MarshallingInfo<StructuredPojo> TASKCREDENTIALS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("taskCredentials").build();
 
     private static final LambdaFunctionScheduledEventDetailsMarshaller instance = new LambdaFunctionScheduledEventDetailsMarshaller();
 
@@ -52,7 +56,9 @@ public class LambdaFunctionScheduledEventDetailsMarshaller {
         try {
             protocolMarshaller.marshall(lambdaFunctionScheduledEventDetails.getResource(), RESOURCE_BINDING);
             protocolMarshaller.marshall(lambdaFunctionScheduledEventDetails.getInput(), INPUT_BINDING);
+            protocolMarshaller.marshall(lambdaFunctionScheduledEventDetails.getInputDetails(), INPUTDETAILS_BINDING);
             protocolMarshaller.marshall(lambdaFunctionScheduledEventDetails.getTimeoutInSeconds(), TIMEOUTINSECONDS_BINDING);
+            protocolMarshaller.marshall(lambdaFunctionScheduledEventDetails.getTaskCredentials(), TASKCREDENTIALS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

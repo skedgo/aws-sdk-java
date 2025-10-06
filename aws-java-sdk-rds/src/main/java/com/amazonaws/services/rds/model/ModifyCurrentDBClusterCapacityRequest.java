@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The DB cluster identifier for the cluster being modified. This parameter is not case-sensitive.
+     * The DB cluster identifier for the cluster being modified. This parameter isn't case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -46,7 +46,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * The DB cluster capacity.
      * </p>
      * <p>
-     * When you change the capacity of a paused Aurora Serverless DB cluster, it automatically resumes.
+     * When you change the capacity of a paused Aurora Serverless v1 DB cluster, it automatically resumes.
      * </p>
      * <p>
      * Constraints:
@@ -54,8 +54,14 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * <ul>
      * <li>
      * <p>
-     * Value must be <code>1</code>, <code>2</code>, <code>4</code>, <code>8</code>, <code>16</code>, <code>32</code>,
-     * <code>64</code>, <code>128</code>, or <code>256</code>.
+     * For Aurora MySQL, valid capacity values are <code>1</code>, <code>2</code>, <code>4</code>, <code>8</code>,
+     * <code>16</code>, <code>32</code>, <code>64</code>, <code>128</code>, and <code>256</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Aurora PostgreSQL, valid capacity values are <code>2</code>, <code>4</code>, <code>8</code>, <code>16</code>,
+     * <code>32</code>, <code>64</code>, <code>192</code>, and <code>384</code>.
      * </p>
      * </li>
      * </ul>
@@ -63,16 +69,12 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
     private Integer capacity;
     /**
      * <p>
-     * The amount of time, in seconds, that Aurora Serverless tries to find a scaling point to perform seamless scaling
-     * before enforcing the timeout action. The default is 300.
+     * The amount of time, in seconds, that Aurora Serverless v1 tries to find a scaling point to perform seamless
+     * scaling before enforcing the timeout action. The default is 300.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * Value must be from 10 through 600.
+     * Specify a value between 10 and 600 seconds.
      * </p>
-     * </li>
-     * </ul>
      */
     private Integer secondsBeforeTimeout;
     /**
@@ -84,7 +86,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * <code>ForceApplyCapacityChange</code>, the default, sets the capacity to the specified value as soon as possible.
      * </p>
      * <p>
-     * <code>RollbackCapacityChange</code> ignores the capacity change if a scaling point is not found in the timeout
+     * <code>RollbackCapacityChange</code> ignores the capacity change if a scaling point isn't found in the timeout
      * period.
      * </p>
      */
@@ -92,7 +94,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The DB cluster identifier for the cluster being modified. This parameter is not case-sensitive.
+     * The DB cluster identifier for the cluster being modified. This parameter isn't case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -106,7 +108,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * </ul>
      * 
      * @param dBClusterIdentifier
-     *        The DB cluster identifier for the cluster being modified. This parameter is not case-sensitive.</p>
+     *        The DB cluster identifier for the cluster being modified. This parameter isn't case-sensitive.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -124,7 +126,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The DB cluster identifier for the cluster being modified. This parameter is not case-sensitive.
+     * The DB cluster identifier for the cluster being modified. This parameter isn't case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -137,7 +139,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * </li>
      * </ul>
      * 
-     * @return The DB cluster identifier for the cluster being modified. This parameter is not case-sensitive.</p>
+     * @return The DB cluster identifier for the cluster being modified. This parameter isn't case-sensitive.</p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -155,7 +157,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The DB cluster identifier for the cluster being modified. This parameter is not case-sensitive.
+     * The DB cluster identifier for the cluster being modified. This parameter isn't case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -169,7 +171,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * </ul>
      * 
      * @param dBClusterIdentifier
-     *        The DB cluster identifier for the cluster being modified. This parameter is not case-sensitive.</p>
+     *        The DB cluster identifier for the cluster being modified. This parameter isn't case-sensitive.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -192,7 +194,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * The DB cluster capacity.
      * </p>
      * <p>
-     * When you change the capacity of a paused Aurora Serverless DB cluster, it automatically resumes.
+     * When you change the capacity of a paused Aurora Serverless v1 DB cluster, it automatically resumes.
      * </p>
      * <p>
      * Constraints:
@@ -200,8 +202,14 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * <ul>
      * <li>
      * <p>
-     * Value must be <code>1</code>, <code>2</code>, <code>4</code>, <code>8</code>, <code>16</code>, <code>32</code>,
-     * <code>64</code>, <code>128</code>, or <code>256</code>.
+     * For Aurora MySQL, valid capacity values are <code>1</code>, <code>2</code>, <code>4</code>, <code>8</code>,
+     * <code>16</code>, <code>32</code>, <code>64</code>, <code>128</code>, and <code>256</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Aurora PostgreSQL, valid capacity values are <code>2</code>, <code>4</code>, <code>8</code>, <code>16</code>,
+     * <code>32</code>, <code>64</code>, <code>192</code>, and <code>384</code>.
      * </p>
      * </li>
      * </ul>
@@ -209,7 +217,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * @param capacity
      *        The DB cluster capacity.</p>
      *        <p>
-     *        When you change the capacity of a paused Aurora Serverless DB cluster, it automatically resumes.
+     *        When you change the capacity of a paused Aurora Serverless v1 DB cluster, it automatically resumes.
      *        </p>
      *        <p>
      *        Constraints:
@@ -217,8 +225,13 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      *        <ul>
      *        <li>
      *        <p>
-     *        Value must be <code>1</code>, <code>2</code>, <code>4</code>, <code>8</code>, <code>16</code>,
-     *        <code>32</code>, <code>64</code>, <code>128</code>, or <code>256</code>.
+     *        For Aurora MySQL, valid capacity values are <code>1</code>, <code>2</code>, <code>4</code>, <code>8</code>, <code>16</code>, <code>32</code>, <code>64</code>, <code>128</code>, and <code>256</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For Aurora PostgreSQL, valid capacity values are <code>2</code>, <code>4</code>, <code>8</code>,
+     *        <code>16</code>, <code>32</code>, <code>64</code>, <code>192</code>, and <code>384</code>.
      *        </p>
      *        </li>
      */
@@ -232,7 +245,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * The DB cluster capacity.
      * </p>
      * <p>
-     * When you change the capacity of a paused Aurora Serverless DB cluster, it automatically resumes.
+     * When you change the capacity of a paused Aurora Serverless v1 DB cluster, it automatically resumes.
      * </p>
      * <p>
      * Constraints:
@@ -240,15 +253,21 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * <ul>
      * <li>
      * <p>
-     * Value must be <code>1</code>, <code>2</code>, <code>4</code>, <code>8</code>, <code>16</code>, <code>32</code>,
-     * <code>64</code>, <code>128</code>, or <code>256</code>.
+     * For Aurora MySQL, valid capacity values are <code>1</code>, <code>2</code>, <code>4</code>, <code>8</code>,
+     * <code>16</code>, <code>32</code>, <code>64</code>, <code>128</code>, and <code>256</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Aurora PostgreSQL, valid capacity values are <code>2</code>, <code>4</code>, <code>8</code>, <code>16</code>,
+     * <code>32</code>, <code>64</code>, <code>192</code>, and <code>384</code>.
      * </p>
      * </li>
      * </ul>
      * 
      * @return The DB cluster capacity.</p>
      *         <p>
-     *         When you change the capacity of a paused Aurora Serverless DB cluster, it automatically resumes.
+     *         When you change the capacity of a paused Aurora Serverless v1 DB cluster, it automatically resumes.
      *         </p>
      *         <p>
      *         Constraints:
@@ -256,8 +275,15 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      *         <ul>
      *         <li>
      *         <p>
-     *         Value must be <code>1</code>, <code>2</code>, <code>4</code>, <code>8</code>, <code>16</code>,
-     *         <code>32</code>, <code>64</code>, <code>128</code>, or <code>256</code>.
+     *         For Aurora MySQL, valid capacity values are <code>1</code>, <code>2</code>, <code>4</code>,
+     *         <code>8</code>, <code>16</code>, <code>32</code>, <code>64</code>, <code>128</code>, and <code>256</code>
+     *         .
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For Aurora PostgreSQL, valid capacity values are <code>2</code>, <code>4</code>, <code>8</code>,
+     *         <code>16</code>, <code>32</code>, <code>64</code>, <code>192</code>, and <code>384</code>.
      *         </p>
      *         </li>
      */
@@ -271,7 +297,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * The DB cluster capacity.
      * </p>
      * <p>
-     * When you change the capacity of a paused Aurora Serverless DB cluster, it automatically resumes.
+     * When you change the capacity of a paused Aurora Serverless v1 DB cluster, it automatically resumes.
      * </p>
      * <p>
      * Constraints:
@@ -279,8 +305,14 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * <ul>
      * <li>
      * <p>
-     * Value must be <code>1</code>, <code>2</code>, <code>4</code>, <code>8</code>, <code>16</code>, <code>32</code>,
-     * <code>64</code>, <code>128</code>, or <code>256</code>.
+     * For Aurora MySQL, valid capacity values are <code>1</code>, <code>2</code>, <code>4</code>, <code>8</code>,
+     * <code>16</code>, <code>32</code>, <code>64</code>, <code>128</code>, and <code>256</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Aurora PostgreSQL, valid capacity values are <code>2</code>, <code>4</code>, <code>8</code>, <code>16</code>,
+     * <code>32</code>, <code>64</code>, <code>192</code>, and <code>384</code>.
      * </p>
      * </li>
      * </ul>
@@ -288,7 +320,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * @param capacity
      *        The DB cluster capacity.</p>
      *        <p>
-     *        When you change the capacity of a paused Aurora Serverless DB cluster, it automatically resumes.
+     *        When you change the capacity of a paused Aurora Serverless v1 DB cluster, it automatically resumes.
      *        </p>
      *        <p>
      *        Constraints:
@@ -296,8 +328,13 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      *        <ul>
      *        <li>
      *        <p>
-     *        Value must be <code>1</code>, <code>2</code>, <code>4</code>, <code>8</code>, <code>16</code>,
-     *        <code>32</code>, <code>64</code>, <code>128</code>, or <code>256</code>.
+     *        For Aurora MySQL, valid capacity values are <code>1</code>, <code>2</code>, <code>4</code>, <code>8</code>, <code>16</code>, <code>32</code>, <code>64</code>, <code>128</code>, and <code>256</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For Aurora PostgreSQL, valid capacity values are <code>2</code>, <code>4</code>, <code>8</code>,
+     *        <code>16</code>, <code>32</code>, <code>64</code>, <code>192</code>, and <code>384</code>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -310,26 +347,18 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The amount of time, in seconds, that Aurora Serverless tries to find a scaling point to perform seamless scaling
-     * before enforcing the timeout action. The default is 300.
+     * The amount of time, in seconds, that Aurora Serverless v1 tries to find a scaling point to perform seamless
+     * scaling before enforcing the timeout action. The default is 300.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * Value must be from 10 through 600.
+     * Specify a value between 10 and 600 seconds.
      * </p>
-     * </li>
-     * </ul>
      * 
      * @param secondsBeforeTimeout
-     *        The amount of time, in seconds, that Aurora Serverless tries to find a scaling point to perform seamless
-     *        scaling before enforcing the timeout action. The default is 300.</p>
-     *        <ul>
-     *        <li>
+     *        The amount of time, in seconds, that Aurora Serverless v1 tries to find a scaling point to perform
+     *        seamless scaling before enforcing the timeout action. The default is 300.</p>
      *        <p>
-     *        Value must be from 10 through 600.
-     *        </p>
-     *        </li>
+     *        Specify a value between 10 and 600 seconds.
      */
 
     public void setSecondsBeforeTimeout(Integer secondsBeforeTimeout) {
@@ -338,25 +367,17 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The amount of time, in seconds, that Aurora Serverless tries to find a scaling point to perform seamless scaling
-     * before enforcing the timeout action. The default is 300.
+     * The amount of time, in seconds, that Aurora Serverless v1 tries to find a scaling point to perform seamless
+     * scaling before enforcing the timeout action. The default is 300.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * Value must be from 10 through 600.
+     * Specify a value between 10 and 600 seconds.
      * </p>
-     * </li>
-     * </ul>
      * 
-     * @return The amount of time, in seconds, that Aurora Serverless tries to find a scaling point to perform seamless
-     *         scaling before enforcing the timeout action. The default is 300.</p>
-     *         <ul>
-     *         <li>
+     * @return The amount of time, in seconds, that Aurora Serverless v1 tries to find a scaling point to perform
+     *         seamless scaling before enforcing the timeout action. The default is 300.</p>
      *         <p>
-     *         Value must be from 10 through 600.
-     *         </p>
-     *         </li>
+     *         Specify a value between 10 and 600 seconds.
      */
 
     public Integer getSecondsBeforeTimeout() {
@@ -365,26 +386,18 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The amount of time, in seconds, that Aurora Serverless tries to find a scaling point to perform seamless scaling
-     * before enforcing the timeout action. The default is 300.
+     * The amount of time, in seconds, that Aurora Serverless v1 tries to find a scaling point to perform seamless
+     * scaling before enforcing the timeout action. The default is 300.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * Value must be from 10 through 600.
+     * Specify a value between 10 and 600 seconds.
      * </p>
-     * </li>
-     * </ul>
      * 
      * @param secondsBeforeTimeout
-     *        The amount of time, in seconds, that Aurora Serverless tries to find a scaling point to perform seamless
-     *        scaling before enforcing the timeout action. The default is 300.</p>
-     *        <ul>
-     *        <li>
+     *        The amount of time, in seconds, that Aurora Serverless v1 tries to find a scaling point to perform
+     *        seamless scaling before enforcing the timeout action. The default is 300.</p>
      *        <p>
-     *        Value must be from 10 through 600.
-     *        </p>
-     *        </li>
+     *        Specify a value between 10 and 600 seconds.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -402,7 +415,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * <code>ForceApplyCapacityChange</code>, the default, sets the capacity to the specified value as soon as possible.
      * </p>
      * <p>
-     * <code>RollbackCapacityChange</code> ignores the capacity change if a scaling point is not found in the timeout
+     * <code>RollbackCapacityChange</code> ignores the capacity change if a scaling point isn't found in the timeout
      * period.
      * </p>
      * 
@@ -414,7 +427,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      *        possible.
      *        </p>
      *        <p>
-     *        <code>RollbackCapacityChange</code> ignores the capacity change if a scaling point is not found in the
+     *        <code>RollbackCapacityChange</code> ignores the capacity change if a scaling point isn't found in the
      *        timeout period.
      */
 
@@ -431,7 +444,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * <code>ForceApplyCapacityChange</code>, the default, sets the capacity to the specified value as soon as possible.
      * </p>
      * <p>
-     * <code>RollbackCapacityChange</code> ignores the capacity change if a scaling point is not found in the timeout
+     * <code>RollbackCapacityChange</code> ignores the capacity change if a scaling point isn't found in the timeout
      * period.
      * </p>
      * 
@@ -442,7 +455,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      *         possible.
      *         </p>
      *         <p>
-     *         <code>RollbackCapacityChange</code> ignores the capacity change if a scaling point is not found in the
+     *         <code>RollbackCapacityChange</code> ignores the capacity change if a scaling point isn't found in the
      *         timeout period.
      */
 
@@ -459,7 +472,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      * <code>ForceApplyCapacityChange</code>, the default, sets the capacity to the specified value as soon as possible.
      * </p>
      * <p>
-     * <code>RollbackCapacityChange</code> ignores the capacity change if a scaling point is not found in the timeout
+     * <code>RollbackCapacityChange</code> ignores the capacity change if a scaling point isn't found in the timeout
      * period.
      * </p>
      * 
@@ -471,7 +484,7 @@ public class ModifyCurrentDBClusterCapacityRequest extends com.amazonaws.AmazonW
      *        possible.
      *        </p>
      *        <p>
-     *        <code>RollbackCapacityChange</code> ignores the capacity change if a scaling point is not found in the
+     *        <code>RollbackCapacityChange</code> ignores the capacity change if a scaling point isn't found in the
      *        timeout period.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

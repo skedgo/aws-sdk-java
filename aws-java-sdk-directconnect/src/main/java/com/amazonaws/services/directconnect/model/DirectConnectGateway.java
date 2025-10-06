@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,7 +49,7 @@ public class DirectConnectGateway implements Serializable, Cloneable, Structured
     private Long amazonSideAsn;
     /**
      * <p>
-     * The ID of the AWS account that owns the Direct Connect gateway.
+     * The ID of the Amazon Web Services account that owns the Direct Connect gateway.
      * </p>
      */
     private String ownerAccount;
@@ -210,11 +210,11 @@ public class DirectConnectGateway implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The ID of the AWS account that owns the Direct Connect gateway.
+     * The ID of the Amazon Web Services account that owns the Direct Connect gateway.
      * </p>
      * 
      * @param ownerAccount
-     *        The ID of the AWS account that owns the Direct Connect gateway.
+     *        The ID of the Amazon Web Services account that owns the Direct Connect gateway.
      */
 
     public void setOwnerAccount(String ownerAccount) {
@@ -223,10 +223,10 @@ public class DirectConnectGateway implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The ID of the AWS account that owns the Direct Connect gateway.
+     * The ID of the Amazon Web Services account that owns the Direct Connect gateway.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the Direct Connect gateway.
+     * @return The ID of the Amazon Web Services account that owns the Direct Connect gateway.
      */
 
     public String getOwnerAccount() {
@@ -235,11 +235,11 @@ public class DirectConnectGateway implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The ID of the AWS account that owns the Direct Connect gateway.
+     * The ID of the Amazon Web Services account that owns the Direct Connect gateway.
      * </p>
      * 
      * @param ownerAccount
-     *        The ID of the AWS account that owns the Direct Connect gateway.
+     *        The ID of the Amazon Web Services account that owns the Direct Connect gateway.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

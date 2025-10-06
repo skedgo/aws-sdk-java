@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,6 +22,7 @@ public enum UserStackAssociationErrorCode {
 
     STACK_NOT_FOUND("STACK_NOT_FOUND"),
     USER_NAME_NOT_FOUND("USER_NAME_NOT_FOUND"),
+    DIRECTORY_NOT_FOUND("DIRECTORY_NOT_FOUND"),
     INTERNAL_ERROR("INTERNAL_ERROR");
 
     private String value;

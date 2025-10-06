@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,56 +29,55 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the table. For Hive compatibility, this must be entirely lowercase.
+     * The table name. For Hive compatibility, this must be entirely lowercase.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * Name of the metadata database where the table metadata resides. For Hive compatibility, this must be all
-     * lowercase.
+     * The name of the database where the table metadata resides. For Hive compatibility, this must be all lowercase.
      * </p>
      */
     private String databaseName;
     /**
      * <p>
-     * Description of the table.
+     * A description of the table.
      * </p>
      */
     private String description;
     /**
      * <p>
-     * Owner of the table.
+     * The owner of the table.
      * </p>
      */
     private String owner;
     /**
      * <p>
-     * Time when the table definition was created in the Data Catalog.
+     * The time when the table definition was created in the Data Catalog.
      * </p>
      */
     private java.util.Date createTime;
     /**
      * <p>
-     * Last time the table was updated.
+     * The last time that the table was updated.
      * </p>
      */
     private java.util.Date updateTime;
     /**
      * <p>
-     * Last time the table was accessed. This is usually taken from HDFS, and may not be reliable.
+     * The last time that the table was accessed. This is usually taken from HDFS, and might not be reliable.
      * </p>
      */
     private java.util.Date lastAccessTime;
     /**
      * <p>
-     * Last time column statistics were computed for this table.
+     * The last time that column statistics were computed for this table.
      * </p>
      */
     private java.util.Date lastAnalyzedTime;
     /**
      * <p>
-     * Retention time for this table.
+     * The retention time for this table.
      * </p>
      */
     private Integer retention;
@@ -93,8 +92,8 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
      * A list of columns by which the table is partitioned. Only primitive types are supported as partition keys.
      * </p>
      * <p>
-     * When creating a table used by Athena, and you do not specify any <code>partitionKeys</code>, you must at least
-     * set the value of <code>partitionKeys</code> to an empty list. For example:
+     * When you create a table used by Amazon Athena, and you do not specify any <code>partitionKeys</code>, you must at
+     * least set the value of <code>partitionKeys</code> to an empty list. For example:
      * </p>
      * <p>
      * <code>"PartitionKeys": []</code>
@@ -103,20 +102,39 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<Column> partitionKeys;
     /**
      * <p>
-     * If the table is a view, the original text of the view; otherwise <code>null</code>.
+     * Included for Apache Hive compatibility. Not used in the normal course of Glue operations. If the table is a
+     * <code>VIRTUAL_VIEW</code>, certain Athena configuration encoded in base64.
      * </p>
      */
     private String viewOriginalText;
     /**
      * <p>
-     * If the table is a view, the expanded text of the view; otherwise <code>null</code>.
+     * Included for Apache Hive compatibility. Not used in the normal course of Glue operations.
      * </p>
      */
     private String viewExpandedText;
     /**
      * <p>
-     * The type of this table (<code>EXTERNAL_TABLE</code>, <code>VIRTUAL_VIEW</code>, etc.).
+     * The type of this table. Glue will create tables with the <code>EXTERNAL_TABLE</code> type. Other services, such
+     * as Athena, may create tables with additional table types.
      * </p>
+     * <p>
+     * Glue related table types:
+     * </p>
+     * <dl>
+     * <dt>EXTERNAL_TABLE</dt>
+     * <dd>
+     * <p>
+     * Hive compatible attribute - indicates a non-Hive managed table.
+     * </p>
+     * </dd>
+     * <dt>GOVERNED</dt>
+     * <dd>
+     * <p>
+     * Used by Lake Formation. The Glue Data Catalog understands <code>GOVERNED</code>.
+     * </p>
+     * </dd>
+     * </dl>
      */
     private String tableType;
     /**
@@ -127,18 +145,62 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
     private java.util.Map<String, String> parameters;
     /**
      * <p>
-     * Person or entity who created the table.
+     * The person or entity who created the table.
      * </p>
      */
     private String createdBy;
+    /**
+     * <p>
+     * Indicates whether the table has been registered with Lake Formation.
+     * </p>
+     */
+    private Boolean isRegisteredWithLakeFormation;
+    /**
+     * <p>
+     * A <code>TableIdentifier</code> structure that describes a target table for resource linking.
+     * </p>
+     */
+    private TableIdentifier targetTable;
+    /**
+     * <p>
+     * The ID of the Data Catalog in which the table resides.
+     * </p>
+     */
+    private String catalogId;
+    /**
+     * <p>
+     * The ID of the table version.
+     * </p>
+     */
+    private String versionId;
+    /**
+     * <p>
+     * A <code>FederatedTable</code> structure that references an entity outside the Glue Data Catalog.
+     * </p>
+     */
+    private FederatedTable federatedTable;
+    /**
+     * <p>
+     * A structure that contains all the information that defines the view, including the dialect or dialects for the
+     * view, and the query.
+     * </p>
+     */
+    private ViewDefinition viewDefinition;
+    /**
+     * <p>
+     * Specifies whether the view supports the SQL dialects of one or more different query engines and can therefore be
+     * read by those engines.
+     * </p>
+     */
+    private Boolean isMultiDialectView;
 
     /**
      * <p>
-     * Name of the table. For Hive compatibility, this must be entirely lowercase.
+     * The table name. For Hive compatibility, this must be entirely lowercase.
      * </p>
      * 
      * @param name
-     *        Name of the table. For Hive compatibility, this must be entirely lowercase.
+     *        The table name. For Hive compatibility, this must be entirely lowercase.
      */
 
     public void setName(String name) {
@@ -147,10 +209,10 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the table. For Hive compatibility, this must be entirely lowercase.
+     * The table name. For Hive compatibility, this must be entirely lowercase.
      * </p>
      * 
-     * @return Name of the table. For Hive compatibility, this must be entirely lowercase.
+     * @return The table name. For Hive compatibility, this must be entirely lowercase.
      */
 
     public String getName() {
@@ -159,11 +221,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the table. For Hive compatibility, this must be entirely lowercase.
+     * The table name. For Hive compatibility, this must be entirely lowercase.
      * </p>
      * 
      * @param name
-     *        Name of the table. For Hive compatibility, this must be entirely lowercase.
+     *        The table name. For Hive compatibility, this must be entirely lowercase.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -174,12 +236,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the metadata database where the table metadata resides. For Hive compatibility, this must be all
-     * lowercase.
+     * The name of the database where the table metadata resides. For Hive compatibility, this must be all lowercase.
      * </p>
      * 
      * @param databaseName
-     *        Name of the metadata database where the table metadata resides. For Hive compatibility, this must be all
+     *        The name of the database where the table metadata resides. For Hive compatibility, this must be all
      *        lowercase.
      */
 
@@ -189,11 +250,10 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the metadata database where the table metadata resides. For Hive compatibility, this must be all
-     * lowercase.
+     * The name of the database where the table metadata resides. For Hive compatibility, this must be all lowercase.
      * </p>
      * 
-     * @return Name of the metadata database where the table metadata resides. For Hive compatibility, this must be all
+     * @return The name of the database where the table metadata resides. For Hive compatibility, this must be all
      *         lowercase.
      */
 
@@ -203,12 +263,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the metadata database where the table metadata resides. For Hive compatibility, this must be all
-     * lowercase.
+     * The name of the database where the table metadata resides. For Hive compatibility, this must be all lowercase.
      * </p>
      * 
      * @param databaseName
-     *        Name of the metadata database where the table metadata resides. For Hive compatibility, this must be all
+     *        The name of the database where the table metadata resides. For Hive compatibility, this must be all
      *        lowercase.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -220,11 +279,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Description of the table.
+     * A description of the table.
      * </p>
      * 
      * @param description
-     *        Description of the table.
+     *        A description of the table.
      */
 
     public void setDescription(String description) {
@@ -233,10 +292,10 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Description of the table.
+     * A description of the table.
      * </p>
      * 
-     * @return Description of the table.
+     * @return A description of the table.
      */
 
     public String getDescription() {
@@ -245,11 +304,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Description of the table.
+     * A description of the table.
      * </p>
      * 
      * @param description
-     *        Description of the table.
+     *        A description of the table.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -260,11 +319,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Owner of the table.
+     * The owner of the table.
      * </p>
      * 
      * @param owner
-     *        Owner of the table.
+     *        The owner of the table.
      */
 
     public void setOwner(String owner) {
@@ -273,10 +332,10 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Owner of the table.
+     * The owner of the table.
      * </p>
      * 
-     * @return Owner of the table.
+     * @return The owner of the table.
      */
 
     public String getOwner() {
@@ -285,11 +344,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Owner of the table.
+     * The owner of the table.
      * </p>
      * 
      * @param owner
-     *        Owner of the table.
+     *        The owner of the table.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -300,11 +359,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Time when the table definition was created in the Data Catalog.
+     * The time when the table definition was created in the Data Catalog.
      * </p>
      * 
      * @param createTime
-     *        Time when the table definition was created in the Data Catalog.
+     *        The time when the table definition was created in the Data Catalog.
      */
 
     public void setCreateTime(java.util.Date createTime) {
@@ -313,10 +372,10 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Time when the table definition was created in the Data Catalog.
+     * The time when the table definition was created in the Data Catalog.
      * </p>
      * 
-     * @return Time when the table definition was created in the Data Catalog.
+     * @return The time when the table definition was created in the Data Catalog.
      */
 
     public java.util.Date getCreateTime() {
@@ -325,11 +384,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Time when the table definition was created in the Data Catalog.
+     * The time when the table definition was created in the Data Catalog.
      * </p>
      * 
      * @param createTime
-     *        Time when the table definition was created in the Data Catalog.
+     *        The time when the table definition was created in the Data Catalog.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -340,11 +399,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Last time the table was updated.
+     * The last time that the table was updated.
      * </p>
      * 
      * @param updateTime
-     *        Last time the table was updated.
+     *        The last time that the table was updated.
      */
 
     public void setUpdateTime(java.util.Date updateTime) {
@@ -353,10 +412,10 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Last time the table was updated.
+     * The last time that the table was updated.
      * </p>
      * 
-     * @return Last time the table was updated.
+     * @return The last time that the table was updated.
      */
 
     public java.util.Date getUpdateTime() {
@@ -365,11 +424,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Last time the table was updated.
+     * The last time that the table was updated.
      * </p>
      * 
      * @param updateTime
-     *        Last time the table was updated.
+     *        The last time that the table was updated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -380,11 +439,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Last time the table was accessed. This is usually taken from HDFS, and may not be reliable.
+     * The last time that the table was accessed. This is usually taken from HDFS, and might not be reliable.
      * </p>
      * 
      * @param lastAccessTime
-     *        Last time the table was accessed. This is usually taken from HDFS, and may not be reliable.
+     *        The last time that the table was accessed. This is usually taken from HDFS, and might not be reliable.
      */
 
     public void setLastAccessTime(java.util.Date lastAccessTime) {
@@ -393,10 +452,10 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Last time the table was accessed. This is usually taken from HDFS, and may not be reliable.
+     * The last time that the table was accessed. This is usually taken from HDFS, and might not be reliable.
      * </p>
      * 
-     * @return Last time the table was accessed. This is usually taken from HDFS, and may not be reliable.
+     * @return The last time that the table was accessed. This is usually taken from HDFS, and might not be reliable.
      */
 
     public java.util.Date getLastAccessTime() {
@@ -405,11 +464,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Last time the table was accessed. This is usually taken from HDFS, and may not be reliable.
+     * The last time that the table was accessed. This is usually taken from HDFS, and might not be reliable.
      * </p>
      * 
      * @param lastAccessTime
-     *        Last time the table was accessed. This is usually taken from HDFS, and may not be reliable.
+     *        The last time that the table was accessed. This is usually taken from HDFS, and might not be reliable.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -420,11 +479,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Last time column statistics were computed for this table.
+     * The last time that column statistics were computed for this table.
      * </p>
      * 
      * @param lastAnalyzedTime
-     *        Last time column statistics were computed for this table.
+     *        The last time that column statistics were computed for this table.
      */
 
     public void setLastAnalyzedTime(java.util.Date lastAnalyzedTime) {
@@ -433,10 +492,10 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Last time column statistics were computed for this table.
+     * The last time that column statistics were computed for this table.
      * </p>
      * 
-     * @return Last time column statistics were computed for this table.
+     * @return The last time that column statistics were computed for this table.
      */
 
     public java.util.Date getLastAnalyzedTime() {
@@ -445,11 +504,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Last time column statistics were computed for this table.
+     * The last time that column statistics were computed for this table.
      * </p>
      * 
      * @param lastAnalyzedTime
-     *        Last time column statistics were computed for this table.
+     *        The last time that column statistics were computed for this table.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -460,11 +519,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Retention time for this table.
+     * The retention time for this table.
      * </p>
      * 
      * @param retention
-     *        Retention time for this table.
+     *        The retention time for this table.
      */
 
     public void setRetention(Integer retention) {
@@ -473,10 +532,10 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Retention time for this table.
+     * The retention time for this table.
      * </p>
      * 
-     * @return Retention time for this table.
+     * @return The retention time for this table.
      */
 
     public Integer getRetention() {
@@ -485,11 +544,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Retention time for this table.
+     * The retention time for this table.
      * </p>
      * 
      * @param retention
-     *        Retention time for this table.
+     *        The retention time for this table.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -543,8 +602,8 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
      * A list of columns by which the table is partitioned. Only primitive types are supported as partition keys.
      * </p>
      * <p>
-     * When creating a table used by Athena, and you do not specify any <code>partitionKeys</code>, you must at least
-     * set the value of <code>partitionKeys</code> to an empty list. For example:
+     * When you create a table used by Amazon Athena, and you do not specify any <code>partitionKeys</code>, you must at
+     * least set the value of <code>partitionKeys</code> to an empty list. For example:
      * </p>
      * <p>
      * <code>"PartitionKeys": []</code>
@@ -553,8 +612,8 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
      * @return A list of columns by which the table is partitioned. Only primitive types are supported as partition
      *         keys.</p>
      *         <p>
-     *         When creating a table used by Athena, and you do not specify any <code>partitionKeys</code>, you must at
-     *         least set the value of <code>partitionKeys</code> to an empty list. For example:
+     *         When you create a table used by Amazon Athena, and you do not specify any <code>partitionKeys</code>, you
+     *         must at least set the value of <code>partitionKeys</code> to an empty list. For example:
      *         </p>
      *         <p>
      *         <code>"PartitionKeys": []</code>
@@ -569,8 +628,8 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
      * A list of columns by which the table is partitioned. Only primitive types are supported as partition keys.
      * </p>
      * <p>
-     * When creating a table used by Athena, and you do not specify any <code>partitionKeys</code>, you must at least
-     * set the value of <code>partitionKeys</code> to an empty list. For example:
+     * When you create a table used by Amazon Athena, and you do not specify any <code>partitionKeys</code>, you must at
+     * least set the value of <code>partitionKeys</code> to an empty list. For example:
      * </p>
      * <p>
      * <code>"PartitionKeys": []</code>
@@ -580,8 +639,8 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
      *        A list of columns by which the table is partitioned. Only primitive types are supported as partition
      *        keys.</p>
      *        <p>
-     *        When creating a table used by Athena, and you do not specify any <code>partitionKeys</code>, you must at
-     *        least set the value of <code>partitionKeys</code> to an empty list. For example:
+     *        When you create a table used by Amazon Athena, and you do not specify any <code>partitionKeys</code>, you
+     *        must at least set the value of <code>partitionKeys</code> to an empty list. For example:
      *        </p>
      *        <p>
      *        <code>"PartitionKeys": []</code>
@@ -601,8 +660,8 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
      * A list of columns by which the table is partitioned. Only primitive types are supported as partition keys.
      * </p>
      * <p>
-     * When creating a table used by Athena, and you do not specify any <code>partitionKeys</code>, you must at least
-     * set the value of <code>partitionKeys</code> to an empty list. For example:
+     * When you create a table used by Amazon Athena, and you do not specify any <code>partitionKeys</code>, you must at
+     * least set the value of <code>partitionKeys</code> to an empty list. For example:
      * </p>
      * <p>
      * <code>"PartitionKeys": []</code>
@@ -617,8 +676,8 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
      *        A list of columns by which the table is partitioned. Only primitive types are supported as partition
      *        keys.</p>
      *        <p>
-     *        When creating a table used by Athena, and you do not specify any <code>partitionKeys</code>, you must at
-     *        least set the value of <code>partitionKeys</code> to an empty list. For example:
+     *        When you create a table used by Amazon Athena, and you do not specify any <code>partitionKeys</code>, you
+     *        must at least set the value of <code>partitionKeys</code> to an empty list. For example:
      *        </p>
      *        <p>
      *        <code>"PartitionKeys": []</code>
@@ -640,8 +699,8 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
      * A list of columns by which the table is partitioned. Only primitive types are supported as partition keys.
      * </p>
      * <p>
-     * When creating a table used by Athena, and you do not specify any <code>partitionKeys</code>, you must at least
-     * set the value of <code>partitionKeys</code> to an empty list. For example:
+     * When you create a table used by Amazon Athena, and you do not specify any <code>partitionKeys</code>, you must at
+     * least set the value of <code>partitionKeys</code> to an empty list. For example:
      * </p>
      * <p>
      * <code>"PartitionKeys": []</code>
@@ -651,8 +710,8 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
      *        A list of columns by which the table is partitioned. Only primitive types are supported as partition
      *        keys.</p>
      *        <p>
-     *        When creating a table used by Athena, and you do not specify any <code>partitionKeys</code>, you must at
-     *        least set the value of <code>partitionKeys</code> to an empty list. For example:
+     *        When you create a table used by Amazon Athena, and you do not specify any <code>partitionKeys</code>, you
+     *        must at least set the value of <code>partitionKeys</code> to an empty list. For example:
      *        </p>
      *        <p>
      *        <code>"PartitionKeys": []</code>
@@ -666,11 +725,13 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If the table is a view, the original text of the view; otherwise <code>null</code>.
+     * Included for Apache Hive compatibility. Not used in the normal course of Glue operations. If the table is a
+     * <code>VIRTUAL_VIEW</code>, certain Athena configuration encoded in base64.
      * </p>
      * 
      * @param viewOriginalText
-     *        If the table is a view, the original text of the view; otherwise <code>null</code>.
+     *        Included for Apache Hive compatibility. Not used in the normal course of Glue operations. If the table is
+     *        a <code>VIRTUAL_VIEW</code>, certain Athena configuration encoded in base64.
      */
 
     public void setViewOriginalText(String viewOriginalText) {
@@ -679,10 +740,12 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If the table is a view, the original text of the view; otherwise <code>null</code>.
+     * Included for Apache Hive compatibility. Not used in the normal course of Glue operations. If the table is a
+     * <code>VIRTUAL_VIEW</code>, certain Athena configuration encoded in base64.
      * </p>
      * 
-     * @return If the table is a view, the original text of the view; otherwise <code>null</code>.
+     * @return Included for Apache Hive compatibility. Not used in the normal course of Glue operations. If the table is
+     *         a <code>VIRTUAL_VIEW</code>, certain Athena configuration encoded in base64.
      */
 
     public String getViewOriginalText() {
@@ -691,11 +754,13 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If the table is a view, the original text of the view; otherwise <code>null</code>.
+     * Included for Apache Hive compatibility. Not used in the normal course of Glue operations. If the table is a
+     * <code>VIRTUAL_VIEW</code>, certain Athena configuration encoded in base64.
      * </p>
      * 
      * @param viewOriginalText
-     *        If the table is a view, the original text of the view; otherwise <code>null</code>.
+     *        Included for Apache Hive compatibility. Not used in the normal course of Glue operations. If the table is
+     *        a <code>VIRTUAL_VIEW</code>, certain Athena configuration encoded in base64.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -706,11 +771,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If the table is a view, the expanded text of the view; otherwise <code>null</code>.
+     * Included for Apache Hive compatibility. Not used in the normal course of Glue operations.
      * </p>
      * 
      * @param viewExpandedText
-     *        If the table is a view, the expanded text of the view; otherwise <code>null</code>.
+     *        Included for Apache Hive compatibility. Not used in the normal course of Glue operations.
      */
 
     public void setViewExpandedText(String viewExpandedText) {
@@ -719,10 +784,10 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If the table is a view, the expanded text of the view; otherwise <code>null</code>.
+     * Included for Apache Hive compatibility. Not used in the normal course of Glue operations.
      * </p>
      * 
-     * @return If the table is a view, the expanded text of the view; otherwise <code>null</code>.
+     * @return Included for Apache Hive compatibility. Not used in the normal course of Glue operations.
      */
 
     public String getViewExpandedText() {
@@ -731,11 +796,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If the table is a view, the expanded text of the view; otherwise <code>null</code>.
+     * Included for Apache Hive compatibility. Not used in the normal course of Glue operations.
      * </p>
      * 
      * @param viewExpandedText
-     *        If the table is a view, the expanded text of the view; otherwise <code>null</code>.
+     *        Included for Apache Hive compatibility. Not used in the normal course of Glue operations.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -746,11 +811,46 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of this table (<code>EXTERNAL_TABLE</code>, <code>VIRTUAL_VIEW</code>, etc.).
+     * The type of this table. Glue will create tables with the <code>EXTERNAL_TABLE</code> type. Other services, such
+     * as Athena, may create tables with additional table types.
      * </p>
+     * <p>
+     * Glue related table types:
+     * </p>
+     * <dl>
+     * <dt>EXTERNAL_TABLE</dt>
+     * <dd>
+     * <p>
+     * Hive compatible attribute - indicates a non-Hive managed table.
+     * </p>
+     * </dd>
+     * <dt>GOVERNED</dt>
+     * <dd>
+     * <p>
+     * Used by Lake Formation. The Glue Data Catalog understands <code>GOVERNED</code>.
+     * </p>
+     * </dd>
+     * </dl>
      * 
      * @param tableType
-     *        The type of this table (<code>EXTERNAL_TABLE</code>, <code>VIRTUAL_VIEW</code>, etc.).
+     *        The type of this table. Glue will create tables with the <code>EXTERNAL_TABLE</code> type. Other services,
+     *        such as Athena, may create tables with additional table types. </p>
+     *        <p>
+     *        Glue related table types:
+     *        </p>
+     *        <dl>
+     *        <dt>EXTERNAL_TABLE</dt>
+     *        <dd>
+     *        <p>
+     *        Hive compatible attribute - indicates a non-Hive managed table.
+     *        </p>
+     *        </dd>
+     *        <dt>GOVERNED</dt>
+     *        <dd>
+     *        <p>
+     *        Used by Lake Formation. The Glue Data Catalog understands <code>GOVERNED</code>.
+     *        </p>
+     *        </dd>
      */
 
     public void setTableType(String tableType) {
@@ -759,10 +859,45 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of this table (<code>EXTERNAL_TABLE</code>, <code>VIRTUAL_VIEW</code>, etc.).
+     * The type of this table. Glue will create tables with the <code>EXTERNAL_TABLE</code> type. Other services, such
+     * as Athena, may create tables with additional table types.
      * </p>
+     * <p>
+     * Glue related table types:
+     * </p>
+     * <dl>
+     * <dt>EXTERNAL_TABLE</dt>
+     * <dd>
+     * <p>
+     * Hive compatible attribute - indicates a non-Hive managed table.
+     * </p>
+     * </dd>
+     * <dt>GOVERNED</dt>
+     * <dd>
+     * <p>
+     * Used by Lake Formation. The Glue Data Catalog understands <code>GOVERNED</code>.
+     * </p>
+     * </dd>
+     * </dl>
      * 
-     * @return The type of this table (<code>EXTERNAL_TABLE</code>, <code>VIRTUAL_VIEW</code>, etc.).
+     * @return The type of this table. Glue will create tables with the <code>EXTERNAL_TABLE</code> type. Other
+     *         services, such as Athena, may create tables with additional table types. </p>
+     *         <p>
+     *         Glue related table types:
+     *         </p>
+     *         <dl>
+     *         <dt>EXTERNAL_TABLE</dt>
+     *         <dd>
+     *         <p>
+     *         Hive compatible attribute - indicates a non-Hive managed table.
+     *         </p>
+     *         </dd>
+     *         <dt>GOVERNED</dt>
+     *         <dd>
+     *         <p>
+     *         Used by Lake Formation. The Glue Data Catalog understands <code>GOVERNED</code>.
+     *         </p>
+     *         </dd>
      */
 
     public String getTableType() {
@@ -771,11 +906,46 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of this table (<code>EXTERNAL_TABLE</code>, <code>VIRTUAL_VIEW</code>, etc.).
+     * The type of this table. Glue will create tables with the <code>EXTERNAL_TABLE</code> type. Other services, such
+     * as Athena, may create tables with additional table types.
      * </p>
+     * <p>
+     * Glue related table types:
+     * </p>
+     * <dl>
+     * <dt>EXTERNAL_TABLE</dt>
+     * <dd>
+     * <p>
+     * Hive compatible attribute - indicates a non-Hive managed table.
+     * </p>
+     * </dd>
+     * <dt>GOVERNED</dt>
+     * <dd>
+     * <p>
+     * Used by Lake Formation. The Glue Data Catalog understands <code>GOVERNED</code>.
+     * </p>
+     * </dd>
+     * </dl>
      * 
      * @param tableType
-     *        The type of this table (<code>EXTERNAL_TABLE</code>, <code>VIRTUAL_VIEW</code>, etc.).
+     *        The type of this table. Glue will create tables with the <code>EXTERNAL_TABLE</code> type. Other services,
+     *        such as Athena, may create tables with additional table types. </p>
+     *        <p>
+     *        Glue related table types:
+     *        </p>
+     *        <dl>
+     *        <dt>EXTERNAL_TABLE</dt>
+     *        <dd>
+     *        <p>
+     *        Hive compatible attribute - indicates a non-Hive managed table.
+     *        </p>
+     *        </dd>
+     *        <dt>GOVERNED</dt>
+     *        <dd>
+     *        <p>
+     *        Used by Lake Formation. The Glue Data Catalog understands <code>GOVERNED</code>.
+     *        </p>
+     *        </dd>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -824,6 +994,13 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
         return this;
     }
 
+    /**
+     * Add a single Parameters entry
+     *
+     * @see Table#withParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public Table addParametersEntry(String key, String value) {
         if (null == this.parameters) {
             this.parameters = new java.util.HashMap<String, String>();
@@ -847,11 +1024,11 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Person or entity who created the table.
+     * The person or entity who created the table.
      * </p>
      * 
      * @param createdBy
-     *        Person or entity who created the table.
+     *        The person or entity who created the table.
      */
 
     public void setCreatedBy(String createdBy) {
@@ -860,10 +1037,10 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Person or entity who created the table.
+     * The person or entity who created the table.
      * </p>
      * 
-     * @return Person or entity who created the table.
+     * @return The person or entity who created the table.
      */
 
     public String getCreatedBy() {
@@ -872,17 +1049,335 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Person or entity who created the table.
+     * The person or entity who created the table.
      * </p>
      * 
      * @param createdBy
-     *        Person or entity who created the table.
+     *        The person or entity who created the table.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Table withCreatedBy(String createdBy) {
         setCreatedBy(createdBy);
         return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the table has been registered with Lake Formation.
+     * </p>
+     * 
+     * @param isRegisteredWithLakeFormation
+     *        Indicates whether the table has been registered with Lake Formation.
+     */
+
+    public void setIsRegisteredWithLakeFormation(Boolean isRegisteredWithLakeFormation) {
+        this.isRegisteredWithLakeFormation = isRegisteredWithLakeFormation;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the table has been registered with Lake Formation.
+     * </p>
+     * 
+     * @return Indicates whether the table has been registered with Lake Formation.
+     */
+
+    public Boolean getIsRegisteredWithLakeFormation() {
+        return this.isRegisteredWithLakeFormation;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the table has been registered with Lake Formation.
+     * </p>
+     * 
+     * @param isRegisteredWithLakeFormation
+     *        Indicates whether the table has been registered with Lake Formation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Table withIsRegisteredWithLakeFormation(Boolean isRegisteredWithLakeFormation) {
+        setIsRegisteredWithLakeFormation(isRegisteredWithLakeFormation);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the table has been registered with Lake Formation.
+     * </p>
+     * 
+     * @return Indicates whether the table has been registered with Lake Formation.
+     */
+
+    public Boolean isRegisteredWithLakeFormation() {
+        return this.isRegisteredWithLakeFormation;
+    }
+
+    /**
+     * <p>
+     * A <code>TableIdentifier</code> structure that describes a target table for resource linking.
+     * </p>
+     * 
+     * @param targetTable
+     *        A <code>TableIdentifier</code> structure that describes a target table for resource linking.
+     */
+
+    public void setTargetTable(TableIdentifier targetTable) {
+        this.targetTable = targetTable;
+    }
+
+    /**
+     * <p>
+     * A <code>TableIdentifier</code> structure that describes a target table for resource linking.
+     * </p>
+     * 
+     * @return A <code>TableIdentifier</code> structure that describes a target table for resource linking.
+     */
+
+    public TableIdentifier getTargetTable() {
+        return this.targetTable;
+    }
+
+    /**
+     * <p>
+     * A <code>TableIdentifier</code> structure that describes a target table for resource linking.
+     * </p>
+     * 
+     * @param targetTable
+     *        A <code>TableIdentifier</code> structure that describes a target table for resource linking.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Table withTargetTable(TableIdentifier targetTable) {
+        setTargetTable(targetTable);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the Data Catalog in which the table resides.
+     * </p>
+     * 
+     * @param catalogId
+     *        The ID of the Data Catalog in which the table resides.
+     */
+
+    public void setCatalogId(String catalogId) {
+        this.catalogId = catalogId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Data Catalog in which the table resides.
+     * </p>
+     * 
+     * @return The ID of the Data Catalog in which the table resides.
+     */
+
+    public String getCatalogId() {
+        return this.catalogId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Data Catalog in which the table resides.
+     * </p>
+     * 
+     * @param catalogId
+     *        The ID of the Data Catalog in which the table resides.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Table withCatalogId(String catalogId) {
+        setCatalogId(catalogId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the table version.
+     * </p>
+     * 
+     * @param versionId
+     *        The ID of the table version.
+     */
+
+    public void setVersionId(String versionId) {
+        this.versionId = versionId;
+    }
+
+    /**
+     * <p>
+     * The ID of the table version.
+     * </p>
+     * 
+     * @return The ID of the table version.
+     */
+
+    public String getVersionId() {
+        return this.versionId;
+    }
+
+    /**
+     * <p>
+     * The ID of the table version.
+     * </p>
+     * 
+     * @param versionId
+     *        The ID of the table version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Table withVersionId(String versionId) {
+        setVersionId(versionId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A <code>FederatedTable</code> structure that references an entity outside the Glue Data Catalog.
+     * </p>
+     * 
+     * @param federatedTable
+     *        A <code>FederatedTable</code> structure that references an entity outside the Glue Data Catalog.
+     */
+
+    public void setFederatedTable(FederatedTable federatedTable) {
+        this.federatedTable = federatedTable;
+    }
+
+    /**
+     * <p>
+     * A <code>FederatedTable</code> structure that references an entity outside the Glue Data Catalog.
+     * </p>
+     * 
+     * @return A <code>FederatedTable</code> structure that references an entity outside the Glue Data Catalog.
+     */
+
+    public FederatedTable getFederatedTable() {
+        return this.federatedTable;
+    }
+
+    /**
+     * <p>
+     * A <code>FederatedTable</code> structure that references an entity outside the Glue Data Catalog.
+     * </p>
+     * 
+     * @param federatedTable
+     *        A <code>FederatedTable</code> structure that references an entity outside the Glue Data Catalog.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Table withFederatedTable(FederatedTable federatedTable) {
+        setFederatedTable(federatedTable);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A structure that contains all the information that defines the view, including the dialect or dialects for the
+     * view, and the query.
+     * </p>
+     * 
+     * @param viewDefinition
+     *        A structure that contains all the information that defines the view, including the dialect or dialects for
+     *        the view, and the query.
+     */
+
+    public void setViewDefinition(ViewDefinition viewDefinition) {
+        this.viewDefinition = viewDefinition;
+    }
+
+    /**
+     * <p>
+     * A structure that contains all the information that defines the view, including the dialect or dialects for the
+     * view, and the query.
+     * </p>
+     * 
+     * @return A structure that contains all the information that defines the view, including the dialect or dialects
+     *         for the view, and the query.
+     */
+
+    public ViewDefinition getViewDefinition() {
+        return this.viewDefinition;
+    }
+
+    /**
+     * <p>
+     * A structure that contains all the information that defines the view, including the dialect or dialects for the
+     * view, and the query.
+     * </p>
+     * 
+     * @param viewDefinition
+     *        A structure that contains all the information that defines the view, including the dialect or dialects for
+     *        the view, and the query.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Table withViewDefinition(ViewDefinition viewDefinition) {
+        setViewDefinition(viewDefinition);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the view supports the SQL dialects of one or more different query engines and can therefore be
+     * read by those engines.
+     * </p>
+     * 
+     * @param isMultiDialectView
+     *        Specifies whether the view supports the SQL dialects of one or more different query engines and can
+     *        therefore be read by those engines.
+     */
+
+    public void setIsMultiDialectView(Boolean isMultiDialectView) {
+        this.isMultiDialectView = isMultiDialectView;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the view supports the SQL dialects of one or more different query engines and can therefore be
+     * read by those engines.
+     * </p>
+     * 
+     * @return Specifies whether the view supports the SQL dialects of one or more different query engines and can
+     *         therefore be read by those engines.
+     */
+
+    public Boolean getIsMultiDialectView() {
+        return this.isMultiDialectView;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the view supports the SQL dialects of one or more different query engines and can therefore be
+     * read by those engines.
+     * </p>
+     * 
+     * @param isMultiDialectView
+     *        Specifies whether the view supports the SQL dialects of one or more different query engines and can
+     *        therefore be read by those engines.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Table withIsMultiDialectView(Boolean isMultiDialectView) {
+        setIsMultiDialectView(isMultiDialectView);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the view supports the SQL dialects of one or more different query engines and can therefore be
+     * read by those engines.
+     * </p>
+     * 
+     * @return Specifies whether the view supports the SQL dialects of one or more different query engines and can
+     *         therefore be read by those engines.
+     */
+
+    public Boolean isMultiDialectView() {
+        return this.isMultiDialectView;
     }
 
     /**
@@ -928,7 +1423,21 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
         if (getParameters() != null)
             sb.append("Parameters: ").append(getParameters()).append(",");
         if (getCreatedBy() != null)
-            sb.append("CreatedBy: ").append(getCreatedBy());
+            sb.append("CreatedBy: ").append(getCreatedBy()).append(",");
+        if (getIsRegisteredWithLakeFormation() != null)
+            sb.append("IsRegisteredWithLakeFormation: ").append(getIsRegisteredWithLakeFormation()).append(",");
+        if (getTargetTable() != null)
+            sb.append("TargetTable: ").append(getTargetTable()).append(",");
+        if (getCatalogId() != null)
+            sb.append("CatalogId: ").append(getCatalogId()).append(",");
+        if (getVersionId() != null)
+            sb.append("VersionId: ").append(getVersionId()).append(",");
+        if (getFederatedTable() != null)
+            sb.append("FederatedTable: ").append(getFederatedTable()).append(",");
+        if (getViewDefinition() != null)
+            sb.append("ViewDefinition: ").append(getViewDefinition()).append(",");
+        if (getIsMultiDialectView() != null)
+            sb.append("IsMultiDialectView: ").append(getIsMultiDialectView());
         sb.append("}");
         return sb.toString();
     }
@@ -1007,6 +1516,35 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getCreatedBy() != null && other.getCreatedBy().equals(this.getCreatedBy()) == false)
             return false;
+        if (other.getIsRegisteredWithLakeFormation() == null ^ this.getIsRegisteredWithLakeFormation() == null)
+            return false;
+        if (other.getIsRegisteredWithLakeFormation() != null
+                && other.getIsRegisteredWithLakeFormation().equals(this.getIsRegisteredWithLakeFormation()) == false)
+            return false;
+        if (other.getTargetTable() == null ^ this.getTargetTable() == null)
+            return false;
+        if (other.getTargetTable() != null && other.getTargetTable().equals(this.getTargetTable()) == false)
+            return false;
+        if (other.getCatalogId() == null ^ this.getCatalogId() == null)
+            return false;
+        if (other.getCatalogId() != null && other.getCatalogId().equals(this.getCatalogId()) == false)
+            return false;
+        if (other.getVersionId() == null ^ this.getVersionId() == null)
+            return false;
+        if (other.getVersionId() != null && other.getVersionId().equals(this.getVersionId()) == false)
+            return false;
+        if (other.getFederatedTable() == null ^ this.getFederatedTable() == null)
+            return false;
+        if (other.getFederatedTable() != null && other.getFederatedTable().equals(this.getFederatedTable()) == false)
+            return false;
+        if (other.getViewDefinition() == null ^ this.getViewDefinition() == null)
+            return false;
+        if (other.getViewDefinition() != null && other.getViewDefinition().equals(this.getViewDefinition()) == false)
+            return false;
+        if (other.getIsMultiDialectView() == null ^ this.getIsMultiDialectView() == null)
+            return false;
+        if (other.getIsMultiDialectView() != null && other.getIsMultiDialectView().equals(this.getIsMultiDialectView()) == false)
+            return false;
         return true;
     }
 
@@ -1031,6 +1569,13 @@ public class Table implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getTableType() == null) ? 0 : getTableType().hashCode());
         hashCode = prime * hashCode + ((getParameters() == null) ? 0 : getParameters().hashCode());
         hashCode = prime * hashCode + ((getCreatedBy() == null) ? 0 : getCreatedBy().hashCode());
+        hashCode = prime * hashCode + ((getIsRegisteredWithLakeFormation() == null) ? 0 : getIsRegisteredWithLakeFormation().hashCode());
+        hashCode = prime * hashCode + ((getTargetTable() == null) ? 0 : getTargetTable().hashCode());
+        hashCode = prime * hashCode + ((getCatalogId() == null) ? 0 : getCatalogId().hashCode());
+        hashCode = prime * hashCode + ((getVersionId() == null) ? 0 : getVersionId().hashCode());
+        hashCode = prime * hashCode + ((getFederatedTable() == null) ? 0 : getFederatedTable().hashCode());
+        hashCode = prime * hashCode + ((getViewDefinition() == null) ? 0 : getViewDefinition().hashCode());
+        hashCode = prime * hashCode + ((getIsMultiDialectView() == null) ? 0 : getIsMultiDialectView().hashCode());
         return hashCode;
     }
 

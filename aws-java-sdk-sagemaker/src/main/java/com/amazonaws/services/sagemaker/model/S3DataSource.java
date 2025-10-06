@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <p>
  * Describes the S3 data source.
  * </p>
+ * <p>
+ * Your input bucket must be in the same Amazon Web Services region as your training job.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/S3DataSource" target="_top">AWS API
  *      Documentation</a>
@@ -30,12 +33,12 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. Amazon SageMaker uses all
-     * objects that match the specified key name prefix for model training.
+     * If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. SageMaker uses all objects
+     * that match the specified key name prefix for model training.
      * </p>
      * <p>
      * If you choose <code>ManifestFile</code>, <code>S3Uri</code> identifies an object that is a manifest file
-     * containing a list of object keys that you want Amazon SageMaker to use for model training.
+     * containing a list of object keys that you want SageMaker to use for model training.
      * </p>
      * <p>
      * If you choose <code>AugmentedManifestFile</code>, S3Uri identifies an object that is an augmented manifest file
@@ -52,7 +55,7 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix</code>.
+     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix/</code>
      * </p>
      * </li>
      * <li>
@@ -60,13 +63,16 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * A manifest might look like this: <code>s3://bucketname/example.manifest</code>
      * </p>
      * <p>
-     * The manifest is an S3 object which is a JSON file with the following format:
+     * A manifest is an S3 object which is a JSON file consisting of an array of elements. The first element is a prefix
+     * which is followed by one or more suffixes. SageMaker appends the suffix elements to the prefix to get a full set
+     * of <code>S3Uri</code>. Note that the prefix must be a valid non-empty <code>S3Uri</code> that precludes users
+     * from specifying a manifest whose individual <code>S3Uri</code> is sourced from different S3 buckets.
      * </p>
      * <p>
-     * <code>[</code>
+     * The following code example shows a valid manifest format:
      * </p>
      * <p>
-     * <code> {"prefix": "s3://customer_bucket/some/prefix/"},</code>
+     * <code>[ {"prefix": "s3://customer_bucket/some/prefix/"},</code>
      * </p>
      * <p>
      * <code> "relative/path/to/custdata-1",</code>
@@ -78,10 +84,13 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * <code> ...</code>
      * </p>
      * <p>
-     * <code> ]</code>
+     * <code> "relative/path/custdata-N"</code>
      * </p>
      * <p>
-     * The preceding JSON matches the following <code>s3Uris</code>:
+     * <code>]</code>
+     * </p>
+     * <p>
+     * This JSON is equivalent to the following <code>S3Uri</code> list:
      * </p>
      * <p>
      * <code>s3://customer_bucket/some/prefix/relative/path/to/custdata-1</code>
@@ -93,21 +102,27 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * <code>...</code>
      * </p>
      * <p>
-     * The complete set of <code>s3uris</code> in this manifest is the input data for the channel for this datasource.
-     * The object that each <code>s3uris</code> points to must be readable by the IAM role that Amazon SageMaker uses to
-     * perform tasks on your behalf.
+     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-N</code>
+     * </p>
+     * <p>
+     * The complete set of <code>S3Uri</code> in this manifest is the input data for the channel for this data source.
+     * The object that each <code>S3Uri</code> points to must be readable by the IAM role that SageMaker uses to perform
+     * tasks on your behalf.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Your input bucket must be located in same Amazon Web Services region as your training job.
+     * </p>
      */
     private String s3Uri;
     /**
      * <p>
-     * If you want Amazon SageMaker to replicate the entire dataset on each ML compute instance that is launched for
-     * model training, specify <code>FullyReplicated</code>.
+     * If you want SageMaker to replicate the entire dataset on each ML compute instance that is launched for model
+     * training, specify <code>FullyReplicated</code>.
      * </p>
      * <p>
-     * If you want Amazon SageMaker to replicate a subset of data on each ML compute instance that is launched for model
+     * If you want SageMaker to replicate a subset of data on each ML compute instance that is launched for model
      * training, specify <code>ShardedByS3Key</code>. If there are <i>n</i> ML compute instances launched for a training
      * job, each instance gets approximately 1/<i>n</i> of the number of S3 objects. In this case, model training on
      * each machine uses only the subset of training data.
@@ -130,15 +145,21 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private java.util.List<String> attributeNames;
+    /**
+     * <p>
+     * A list of names of instance groups that get data from the S3 data source.
+     * </p>
+     */
+    private java.util.List<String> instanceGroupNames;
 
     /**
      * <p>
-     * If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. Amazon SageMaker uses all
-     * objects that match the specified key name prefix for model training.
+     * If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. SageMaker uses all objects
+     * that match the specified key name prefix for model training.
      * </p>
      * <p>
      * If you choose <code>ManifestFile</code>, <code>S3Uri</code> identifies an object that is a manifest file
-     * containing a list of object keys that you want Amazon SageMaker to use for model training.
+     * containing a list of object keys that you want SageMaker to use for model training.
      * </p>
      * <p>
      * If you choose <code>AugmentedManifestFile</code>, S3Uri identifies an object that is an augmented manifest file
@@ -147,11 +168,11 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param s3DataType
-     *        If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. Amazon SageMaker
-     *        uses all objects that match the specified key name prefix for model training. </p>
+     *        If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. SageMaker uses all
+     *        objects that match the specified key name prefix for model training. </p>
      *        <p>
      *        If you choose <code>ManifestFile</code>, <code>S3Uri</code> identifies an object that is a manifest file
-     *        containing a list of object keys that you want Amazon SageMaker to use for model training.
+     *        containing a list of object keys that you want SageMaker to use for model training.
      *        </p>
      *        <p>
      *        If you choose <code>AugmentedManifestFile</code>, S3Uri identifies an object that is an augmented manifest
@@ -166,12 +187,12 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. Amazon SageMaker uses all
-     * objects that match the specified key name prefix for model training.
+     * If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. SageMaker uses all objects
+     * that match the specified key name prefix for model training.
      * </p>
      * <p>
      * If you choose <code>ManifestFile</code>, <code>S3Uri</code> identifies an object that is a manifest file
-     * containing a list of object keys that you want Amazon SageMaker to use for model training.
+     * containing a list of object keys that you want SageMaker to use for model training.
      * </p>
      * <p>
      * If you choose <code>AugmentedManifestFile</code>, S3Uri identifies an object that is an augmented manifest file
@@ -179,11 +200,11 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * <code>AugmentedManifestFile</code> can only be used if the Channel's input mode is <code>Pipe</code>.
      * </p>
      * 
-     * @return If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. Amazon SageMaker
-     *         uses all objects that match the specified key name prefix for model training. </p>
+     * @return If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. SageMaker uses all
+     *         objects that match the specified key name prefix for model training. </p>
      *         <p>
      *         If you choose <code>ManifestFile</code>, <code>S3Uri</code> identifies an object that is a manifest file
-     *         containing a list of object keys that you want Amazon SageMaker to use for model training.
+     *         containing a list of object keys that you want SageMaker to use for model training.
      *         </p>
      *         <p>
      *         If you choose <code>AugmentedManifestFile</code>, S3Uri identifies an object that is an augmented
@@ -198,12 +219,12 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. Amazon SageMaker uses all
-     * objects that match the specified key name prefix for model training.
+     * If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. SageMaker uses all objects
+     * that match the specified key name prefix for model training.
      * </p>
      * <p>
      * If you choose <code>ManifestFile</code>, <code>S3Uri</code> identifies an object that is a manifest file
-     * containing a list of object keys that you want Amazon SageMaker to use for model training.
+     * containing a list of object keys that you want SageMaker to use for model training.
      * </p>
      * <p>
      * If you choose <code>AugmentedManifestFile</code>, S3Uri identifies an object that is an augmented manifest file
@@ -212,11 +233,11 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param s3DataType
-     *        If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. Amazon SageMaker
-     *        uses all objects that match the specified key name prefix for model training. </p>
+     *        If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. SageMaker uses all
+     *        objects that match the specified key name prefix for model training. </p>
      *        <p>
      *        If you choose <code>ManifestFile</code>, <code>S3Uri</code> identifies an object that is a manifest file
-     *        containing a list of object keys that you want Amazon SageMaker to use for model training.
+     *        containing a list of object keys that you want SageMaker to use for model training.
      *        </p>
      *        <p>
      *        If you choose <code>AugmentedManifestFile</code>, S3Uri identifies an object that is an augmented manifest
@@ -233,12 +254,12 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. Amazon SageMaker uses all
-     * objects that match the specified key name prefix for model training.
+     * If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. SageMaker uses all objects
+     * that match the specified key name prefix for model training.
      * </p>
      * <p>
      * If you choose <code>ManifestFile</code>, <code>S3Uri</code> identifies an object that is a manifest file
-     * containing a list of object keys that you want Amazon SageMaker to use for model training.
+     * containing a list of object keys that you want SageMaker to use for model training.
      * </p>
      * <p>
      * If you choose <code>AugmentedManifestFile</code>, S3Uri identifies an object that is an augmented manifest file
@@ -247,11 +268,11 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param s3DataType
-     *        If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. Amazon SageMaker
-     *        uses all objects that match the specified key name prefix for model training. </p>
+     *        If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. SageMaker uses all
+     *        objects that match the specified key name prefix for model training. </p>
      *        <p>
      *        If you choose <code>ManifestFile</code>, <code>S3Uri</code> identifies an object that is a manifest file
-     *        containing a list of object keys that you want Amazon SageMaker to use for model training.
+     *        containing a list of object keys that you want SageMaker to use for model training.
      *        </p>
      *        <p>
      *        If you choose <code>AugmentedManifestFile</code>, S3Uri identifies an object that is an augmented manifest
@@ -274,7 +295,7 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix</code>.
+     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix/</code>
      * </p>
      * </li>
      * <li>
@@ -282,13 +303,16 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * A manifest might look like this: <code>s3://bucketname/example.manifest</code>
      * </p>
      * <p>
-     * The manifest is an S3 object which is a JSON file with the following format:
+     * A manifest is an S3 object which is a JSON file consisting of an array of elements. The first element is a prefix
+     * which is followed by one or more suffixes. SageMaker appends the suffix elements to the prefix to get a full set
+     * of <code>S3Uri</code>. Note that the prefix must be a valid non-empty <code>S3Uri</code> that precludes users
+     * from specifying a manifest whose individual <code>S3Uri</code> is sourced from different S3 buckets.
      * </p>
      * <p>
-     * <code>[</code>
+     * The following code example shows a valid manifest format:
      * </p>
      * <p>
-     * <code> {"prefix": "s3://customer_bucket/some/prefix/"},</code>
+     * <code>[ {"prefix": "s3://customer_bucket/some/prefix/"},</code>
      * </p>
      * <p>
      * <code> "relative/path/to/custdata-1",</code>
@@ -300,10 +324,13 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * <code> ...</code>
      * </p>
      * <p>
-     * <code> ]</code>
+     * <code> "relative/path/custdata-N"</code>
      * </p>
      * <p>
-     * The preceding JSON matches the following <code>s3Uris</code>:
+     * <code>]</code>
+     * </p>
+     * <p>
+     * This JSON is equivalent to the following <code>S3Uri</code> list:
      * </p>
      * <p>
      * <code>s3://customer_bucket/some/prefix/relative/path/to/custdata-1</code>
@@ -315,12 +342,18 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * <code>...</code>
      * </p>
      * <p>
-     * The complete set of <code>s3uris</code> in this manifest is the input data for the channel for this datasource.
-     * The object that each <code>s3uris</code> points to must be readable by the IAM role that Amazon SageMaker uses to
-     * perform tasks on your behalf.
+     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-N</code>
+     * </p>
+     * <p>
+     * The complete set of <code>S3Uri</code> in this manifest is the input data for the channel for this data source.
+     * The object that each <code>S3Uri</code> points to must be readable by the IAM role that SageMaker uses to perform
+     * tasks on your behalf.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Your input bucket must be located in same Amazon Web Services region as your training job.
+     * </p>
      * 
      * @param s3Uri
      *        Depending on the value specified for the <code>S3DataType</code>, identifies either a key name prefix or a
@@ -328,7 +361,7 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        A key name prefix might look like this: <code>s3://bucketname/exampleprefix</code>.
+     *        A key name prefix might look like this: <code>s3://bucketname/exampleprefix/</code>
      *        </p>
      *        </li>
      *        <li>
@@ -336,13 +369,17 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      *        A manifest might look like this: <code>s3://bucketname/example.manifest</code>
      *        </p>
      *        <p>
-     *        The manifest is an S3 object which is a JSON file with the following format:
+     *        A manifest is an S3 object which is a JSON file consisting of an array of elements. The first element is a
+     *        prefix which is followed by one or more suffixes. SageMaker appends the suffix elements to the prefix to
+     *        get a full set of <code>S3Uri</code>. Note that the prefix must be a valid non-empty <code>S3Uri</code>
+     *        that precludes users from specifying a manifest whose individual <code>S3Uri</code> is sourced from
+     *        different S3 buckets.
      *        </p>
      *        <p>
-     *        <code>[</code>
+     *        The following code example shows a valid manifest format:
      *        </p>
      *        <p>
-     *        <code> {"prefix": "s3://customer_bucket/some/prefix/"},</code>
+     *        <code>[ {"prefix": "s3://customer_bucket/some/prefix/"},</code>
      *        </p>
      *        <p>
      *        <code> "relative/path/to/custdata-1",</code>
@@ -354,10 +391,13 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      *        <code> ...</code>
      *        </p>
      *        <p>
-     *        <code> ]</code>
+     *        <code> "relative/path/custdata-N"</code>
      *        </p>
      *        <p>
-     *        The preceding JSON matches the following <code>s3Uris</code>:
+     *        <code>]</code>
+     *        </p>
+     *        <p>
+     *        This JSON is equivalent to the following <code>S3Uri</code> list:
      *        </p>
      *        <p>
      *        <code>s3://customer_bucket/some/prefix/relative/path/to/custdata-1</code>
@@ -369,11 +409,17 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      *        <code>...</code>
      *        </p>
      *        <p>
-     *        The complete set of <code>s3uris</code> in this manifest is the input data for the channel for this
-     *        datasource. The object that each <code>s3uris</code> points to must be readable by the IAM role that
-     *        Amazon SageMaker uses to perform tasks on your behalf.
+     *        <code>s3://customer_bucket/some/prefix/relative/path/custdata-N</code>
+     *        </p>
+     *        <p>
+     *        The complete set of <code>S3Uri</code> in this manifest is the input data for the channel for this data
+     *        source. The object that each <code>S3Uri</code> points to must be readable by the IAM role that SageMaker
+     *        uses to perform tasks on your behalf.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Your input bucket must be located in same Amazon Web Services region as your training job.
      */
 
     public void setS3Uri(String s3Uri) {
@@ -388,7 +434,7 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix</code>.
+     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix/</code>
      * </p>
      * </li>
      * <li>
@@ -396,13 +442,16 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * A manifest might look like this: <code>s3://bucketname/example.manifest</code>
      * </p>
      * <p>
-     * The manifest is an S3 object which is a JSON file with the following format:
+     * A manifest is an S3 object which is a JSON file consisting of an array of elements. The first element is a prefix
+     * which is followed by one or more suffixes. SageMaker appends the suffix elements to the prefix to get a full set
+     * of <code>S3Uri</code>. Note that the prefix must be a valid non-empty <code>S3Uri</code> that precludes users
+     * from specifying a manifest whose individual <code>S3Uri</code> is sourced from different S3 buckets.
      * </p>
      * <p>
-     * <code>[</code>
+     * The following code example shows a valid manifest format:
      * </p>
      * <p>
-     * <code> {"prefix": "s3://customer_bucket/some/prefix/"},</code>
+     * <code>[ {"prefix": "s3://customer_bucket/some/prefix/"},</code>
      * </p>
      * <p>
      * <code> "relative/path/to/custdata-1",</code>
@@ -414,10 +463,13 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * <code> ...</code>
      * </p>
      * <p>
-     * <code> ]</code>
+     * <code> "relative/path/custdata-N"</code>
      * </p>
      * <p>
-     * The preceding JSON matches the following <code>s3Uris</code>:
+     * <code>]</code>
+     * </p>
+     * <p>
+     * This JSON is equivalent to the following <code>S3Uri</code> list:
      * </p>
      * <p>
      * <code>s3://customer_bucket/some/prefix/relative/path/to/custdata-1</code>
@@ -429,19 +481,25 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * <code>...</code>
      * </p>
      * <p>
-     * The complete set of <code>s3uris</code> in this manifest is the input data for the channel for this datasource.
-     * The object that each <code>s3uris</code> points to must be readable by the IAM role that Amazon SageMaker uses to
-     * perform tasks on your behalf.
+     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-N</code>
+     * </p>
+     * <p>
+     * The complete set of <code>S3Uri</code> in this manifest is the input data for the channel for this data source.
+     * The object that each <code>S3Uri</code> points to must be readable by the IAM role that SageMaker uses to perform
+     * tasks on your behalf.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Your input bucket must be located in same Amazon Web Services region as your training job.
+     * </p>
      * 
      * @return Depending on the value specified for the <code>S3DataType</code>, identifies either a key name prefix or
      *         a manifest. For example: </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         A key name prefix might look like this: <code>s3://bucketname/exampleprefix</code>.
+     *         A key name prefix might look like this: <code>s3://bucketname/exampleprefix/</code>
      *         </p>
      *         </li>
      *         <li>
@@ -449,13 +507,17 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      *         A manifest might look like this: <code>s3://bucketname/example.manifest</code>
      *         </p>
      *         <p>
-     *         The manifest is an S3 object which is a JSON file with the following format:
+     *         A manifest is an S3 object which is a JSON file consisting of an array of elements. The first element is
+     *         a prefix which is followed by one or more suffixes. SageMaker appends the suffix elements to the prefix
+     *         to get a full set of <code>S3Uri</code>. Note that the prefix must be a valid non-empty
+     *         <code>S3Uri</code> that precludes users from specifying a manifest whose individual <code>S3Uri</code> is
+     *         sourced from different S3 buckets.
      *         </p>
      *         <p>
-     *         <code>[</code>
+     *         The following code example shows a valid manifest format:
      *         </p>
      *         <p>
-     *         <code> {"prefix": "s3://customer_bucket/some/prefix/"},</code>
+     *         <code>[ {"prefix": "s3://customer_bucket/some/prefix/"},</code>
      *         </p>
      *         <p>
      *         <code> "relative/path/to/custdata-1",</code>
@@ -467,10 +529,13 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      *         <code> ...</code>
      *         </p>
      *         <p>
-     *         <code> ]</code>
+     *         <code> "relative/path/custdata-N"</code>
      *         </p>
      *         <p>
-     *         The preceding JSON matches the following <code>s3Uris</code>:
+     *         <code>]</code>
+     *         </p>
+     *         <p>
+     *         This JSON is equivalent to the following <code>S3Uri</code> list:
      *         </p>
      *         <p>
      *         <code>s3://customer_bucket/some/prefix/relative/path/to/custdata-1</code>
@@ -482,11 +547,17 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      *         <code>...</code>
      *         </p>
      *         <p>
-     *         The complete set of <code>s3uris</code> in this manifest is the input data for the channel for this
-     *         datasource. The object that each <code>s3uris</code> points to must be readable by the IAM role that
-     *         Amazon SageMaker uses to perform tasks on your behalf.
+     *         <code>s3://customer_bucket/some/prefix/relative/path/custdata-N</code>
+     *         </p>
+     *         <p>
+     *         The complete set of <code>S3Uri</code> in this manifest is the input data for the channel for this data
+     *         source. The object that each <code>S3Uri</code> points to must be readable by the IAM role that SageMaker
+     *         uses to perform tasks on your behalf.
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         Your input bucket must be located in same Amazon Web Services region as your training job.
      */
 
     public String getS3Uri() {
@@ -501,7 +572,7 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix</code>.
+     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix/</code>
      * </p>
      * </li>
      * <li>
@@ -509,13 +580,16 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * A manifest might look like this: <code>s3://bucketname/example.manifest</code>
      * </p>
      * <p>
-     * The manifest is an S3 object which is a JSON file with the following format:
+     * A manifest is an S3 object which is a JSON file consisting of an array of elements. The first element is a prefix
+     * which is followed by one or more suffixes. SageMaker appends the suffix elements to the prefix to get a full set
+     * of <code>S3Uri</code>. Note that the prefix must be a valid non-empty <code>S3Uri</code> that precludes users
+     * from specifying a manifest whose individual <code>S3Uri</code> is sourced from different S3 buckets.
      * </p>
      * <p>
-     * <code>[</code>
+     * The following code example shows a valid manifest format:
      * </p>
      * <p>
-     * <code> {"prefix": "s3://customer_bucket/some/prefix/"},</code>
+     * <code>[ {"prefix": "s3://customer_bucket/some/prefix/"},</code>
      * </p>
      * <p>
      * <code> "relative/path/to/custdata-1",</code>
@@ -527,10 +601,13 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * <code> ...</code>
      * </p>
      * <p>
-     * <code> ]</code>
+     * <code> "relative/path/custdata-N"</code>
      * </p>
      * <p>
-     * The preceding JSON matches the following <code>s3Uris</code>:
+     * <code>]</code>
+     * </p>
+     * <p>
+     * This JSON is equivalent to the following <code>S3Uri</code> list:
      * </p>
      * <p>
      * <code>s3://customer_bucket/some/prefix/relative/path/to/custdata-1</code>
@@ -542,12 +619,18 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * <code>...</code>
      * </p>
      * <p>
-     * The complete set of <code>s3uris</code> in this manifest is the input data for the channel for this datasource.
-     * The object that each <code>s3uris</code> points to must be readable by the IAM role that Amazon SageMaker uses to
-     * perform tasks on your behalf.
+     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-N</code>
+     * </p>
+     * <p>
+     * The complete set of <code>S3Uri</code> in this manifest is the input data for the channel for this data source.
+     * The object that each <code>S3Uri</code> points to must be readable by the IAM role that SageMaker uses to perform
+     * tasks on your behalf.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Your input bucket must be located in same Amazon Web Services region as your training job.
+     * </p>
      * 
      * @param s3Uri
      *        Depending on the value specified for the <code>S3DataType</code>, identifies either a key name prefix or a
@@ -555,7 +638,7 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        A key name prefix might look like this: <code>s3://bucketname/exampleprefix</code>.
+     *        A key name prefix might look like this: <code>s3://bucketname/exampleprefix/</code>
      *        </p>
      *        </li>
      *        <li>
@@ -563,13 +646,17 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      *        A manifest might look like this: <code>s3://bucketname/example.manifest</code>
      *        </p>
      *        <p>
-     *        The manifest is an S3 object which is a JSON file with the following format:
+     *        A manifest is an S3 object which is a JSON file consisting of an array of elements. The first element is a
+     *        prefix which is followed by one or more suffixes. SageMaker appends the suffix elements to the prefix to
+     *        get a full set of <code>S3Uri</code>. Note that the prefix must be a valid non-empty <code>S3Uri</code>
+     *        that precludes users from specifying a manifest whose individual <code>S3Uri</code> is sourced from
+     *        different S3 buckets.
      *        </p>
      *        <p>
-     *        <code>[</code>
+     *        The following code example shows a valid manifest format:
      *        </p>
      *        <p>
-     *        <code> {"prefix": "s3://customer_bucket/some/prefix/"},</code>
+     *        <code>[ {"prefix": "s3://customer_bucket/some/prefix/"},</code>
      *        </p>
      *        <p>
      *        <code> "relative/path/to/custdata-1",</code>
@@ -581,10 +668,13 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      *        <code> ...</code>
      *        </p>
      *        <p>
-     *        <code> ]</code>
+     *        <code> "relative/path/custdata-N"</code>
      *        </p>
      *        <p>
-     *        The preceding JSON matches the following <code>s3Uris</code>:
+     *        <code>]</code>
+     *        </p>
+     *        <p>
+     *        This JSON is equivalent to the following <code>S3Uri</code> list:
      *        </p>
      *        <p>
      *        <code>s3://customer_bucket/some/prefix/relative/path/to/custdata-1</code>
@@ -596,11 +686,17 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      *        <code>...</code>
      *        </p>
      *        <p>
-     *        The complete set of <code>s3uris</code> in this manifest is the input data for the channel for this
-     *        datasource. The object that each <code>s3uris</code> points to must be readable by the IAM role that
-     *        Amazon SageMaker uses to perform tasks on your behalf.
+     *        <code>s3://customer_bucket/some/prefix/relative/path/custdata-N</code>
+     *        </p>
+     *        <p>
+     *        The complete set of <code>S3Uri</code> in this manifest is the input data for the channel for this data
+     *        source. The object that each <code>S3Uri</code> points to must be readable by the IAM role that SageMaker
+     *        uses to perform tasks on your behalf.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Your input bucket must be located in same Amazon Web Services region as your training job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -611,11 +707,11 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If you want Amazon SageMaker to replicate the entire dataset on each ML compute instance that is launched for
-     * model training, specify <code>FullyReplicated</code>.
+     * If you want SageMaker to replicate the entire dataset on each ML compute instance that is launched for model
+     * training, specify <code>FullyReplicated</code>.
      * </p>
      * <p>
-     * If you want Amazon SageMaker to replicate a subset of data on each ML compute instance that is launched for model
+     * If you want SageMaker to replicate a subset of data on each ML compute instance that is launched for model
      * training, specify <code>ShardedByS3Key</code>. If there are <i>n</i> ML compute instances launched for a training
      * job, each instance gets approximately 1/<i>n</i> of the number of S3 objects. In this case, model training on
      * each machine uses only the subset of training data.
@@ -632,13 +728,13 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param s3DataDistributionType
-     *        If you want Amazon SageMaker to replicate the entire dataset on each ML compute instance that is launched
-     *        for model training, specify <code>FullyReplicated</code>. </p>
+     *        If you want SageMaker to replicate the entire dataset on each ML compute instance that is launched for
+     *        model training, specify <code>FullyReplicated</code>. </p>
      *        <p>
-     *        If you want Amazon SageMaker to replicate a subset of data on each ML compute instance that is launched
-     *        for model training, specify <code>ShardedByS3Key</code>. If there are <i>n</i> ML compute instances
-     *        launched for a training job, each instance gets approximately 1/<i>n</i> of the number of S3 objects. In
-     *        this case, model training on each machine uses only the subset of training data.
+     *        If you want SageMaker to replicate a subset of data on each ML compute instance that is launched for model
+     *        training, specify <code>ShardedByS3Key</code>. If there are <i>n</i> ML compute instances launched for a
+     *        training job, each instance gets approximately 1/<i>n</i> of the number of S3 objects. In this case, model
+     *        training on each machine uses only the subset of training data.
      *        </p>
      *        <p>
      *        Don't choose more ML compute instances for training than available S3 objects. If you do, some nodes won't
@@ -659,11 +755,11 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If you want Amazon SageMaker to replicate the entire dataset on each ML compute instance that is launched for
-     * model training, specify <code>FullyReplicated</code>.
+     * If you want SageMaker to replicate the entire dataset on each ML compute instance that is launched for model
+     * training, specify <code>FullyReplicated</code>.
      * </p>
      * <p>
-     * If you want Amazon SageMaker to replicate a subset of data on each ML compute instance that is launched for model
+     * If you want SageMaker to replicate a subset of data on each ML compute instance that is launched for model
      * training, specify <code>ShardedByS3Key</code>. If there are <i>n</i> ML compute instances launched for a training
      * job, each instance gets approximately 1/<i>n</i> of the number of S3 objects. In this case, model training on
      * each machine uses only the subset of training data.
@@ -679,13 +775,13 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * <code>TrainingInputMode</code> is set to <code>File</code>), this copies 1/<i>n</i> of the number of objects.
      * </p>
      * 
-     * @return If you want Amazon SageMaker to replicate the entire dataset on each ML compute instance that is launched
-     *         for model training, specify <code>FullyReplicated</code>. </p>
+     * @return If you want SageMaker to replicate the entire dataset on each ML compute instance that is launched for
+     *         model training, specify <code>FullyReplicated</code>. </p>
      *         <p>
-     *         If you want Amazon SageMaker to replicate a subset of data on each ML compute instance that is launched
-     *         for model training, specify <code>ShardedByS3Key</code>. If there are <i>n</i> ML compute instances
-     *         launched for a training job, each instance gets approximately 1/<i>n</i> of the number of S3 objects. In
-     *         this case, model training on each machine uses only the subset of training data.
+     *         If you want SageMaker to replicate a subset of data on each ML compute instance that is launched for
+     *         model training, specify <code>ShardedByS3Key</code>. If there are <i>n</i> ML compute instances launched
+     *         for a training job, each instance gets approximately 1/<i>n</i> of the number of S3 objects. In this
+     *         case, model training on each machine uses only the subset of training data.
      *         </p>
      *         <p>
      *         Don't choose more ML compute instances for training than available S3 objects. If you do, some nodes
@@ -706,11 +802,11 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If you want Amazon SageMaker to replicate the entire dataset on each ML compute instance that is launched for
-     * model training, specify <code>FullyReplicated</code>.
+     * If you want SageMaker to replicate the entire dataset on each ML compute instance that is launched for model
+     * training, specify <code>FullyReplicated</code>.
      * </p>
      * <p>
-     * If you want Amazon SageMaker to replicate a subset of data on each ML compute instance that is launched for model
+     * If you want SageMaker to replicate a subset of data on each ML compute instance that is launched for model
      * training, specify <code>ShardedByS3Key</code>. If there are <i>n</i> ML compute instances launched for a training
      * job, each instance gets approximately 1/<i>n</i> of the number of S3 objects. In this case, model training on
      * each machine uses only the subset of training data.
@@ -727,13 +823,13 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param s3DataDistributionType
-     *        If you want Amazon SageMaker to replicate the entire dataset on each ML compute instance that is launched
-     *        for model training, specify <code>FullyReplicated</code>. </p>
+     *        If you want SageMaker to replicate the entire dataset on each ML compute instance that is launched for
+     *        model training, specify <code>FullyReplicated</code>. </p>
      *        <p>
-     *        If you want Amazon SageMaker to replicate a subset of data on each ML compute instance that is launched
-     *        for model training, specify <code>ShardedByS3Key</code>. If there are <i>n</i> ML compute instances
-     *        launched for a training job, each instance gets approximately 1/<i>n</i> of the number of S3 objects. In
-     *        this case, model training on each machine uses only the subset of training data.
+     *        If you want SageMaker to replicate a subset of data on each ML compute instance that is launched for model
+     *        training, specify <code>ShardedByS3Key</code>. If there are <i>n</i> ML compute instances launched for a
+     *        training job, each instance gets approximately 1/<i>n</i> of the number of S3 objects. In this case, model
+     *        training on each machine uses only the subset of training data.
      *        </p>
      *        <p>
      *        Don't choose more ML compute instances for training than available S3 objects. If you do, some nodes won't
@@ -756,11 +852,11 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If you want Amazon SageMaker to replicate the entire dataset on each ML compute instance that is launched for
-     * model training, specify <code>FullyReplicated</code>.
+     * If you want SageMaker to replicate the entire dataset on each ML compute instance that is launched for model
+     * training, specify <code>FullyReplicated</code>.
      * </p>
      * <p>
-     * If you want Amazon SageMaker to replicate a subset of data on each ML compute instance that is launched for model
+     * If you want SageMaker to replicate a subset of data on each ML compute instance that is launched for model
      * training, specify <code>ShardedByS3Key</code>. If there are <i>n</i> ML compute instances launched for a training
      * job, each instance gets approximately 1/<i>n</i> of the number of S3 objects. In this case, model training on
      * each machine uses only the subset of training data.
@@ -777,13 +873,13 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param s3DataDistributionType
-     *        If you want Amazon SageMaker to replicate the entire dataset on each ML compute instance that is launched
-     *        for model training, specify <code>FullyReplicated</code>. </p>
+     *        If you want SageMaker to replicate the entire dataset on each ML compute instance that is launched for
+     *        model training, specify <code>FullyReplicated</code>. </p>
      *        <p>
-     *        If you want Amazon SageMaker to replicate a subset of data on each ML compute instance that is launched
-     *        for model training, specify <code>ShardedByS3Key</code>. If there are <i>n</i> ML compute instances
-     *        launched for a training job, each instance gets approximately 1/<i>n</i> of the number of S3 objects. In
-     *        this case, model training on each machine uses only the subset of training data.
+     *        If you want SageMaker to replicate a subset of data on each ML compute instance that is launched for model
+     *        training, specify <code>ShardedByS3Key</code>. If there are <i>n</i> ML compute instances launched for a
+     *        training job, each instance gets approximately 1/<i>n</i> of the number of S3 objects. In this case, model
+     *        training on each machine uses only the subset of training data.
      *        </p>
      *        <p>
      *        Don't choose more ML compute instances for training than available S3 objects. If you do, some nodes won't
@@ -875,6 +971,76 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * A list of names of instance groups that get data from the S3 data source.
+     * </p>
+     * 
+     * @return A list of names of instance groups that get data from the S3 data source.
+     */
+
+    public java.util.List<String> getInstanceGroupNames() {
+        return instanceGroupNames;
+    }
+
+    /**
+     * <p>
+     * A list of names of instance groups that get data from the S3 data source.
+     * </p>
+     * 
+     * @param instanceGroupNames
+     *        A list of names of instance groups that get data from the S3 data source.
+     */
+
+    public void setInstanceGroupNames(java.util.Collection<String> instanceGroupNames) {
+        if (instanceGroupNames == null) {
+            this.instanceGroupNames = null;
+            return;
+        }
+
+        this.instanceGroupNames = new java.util.ArrayList<String>(instanceGroupNames);
+    }
+
+    /**
+     * <p>
+     * A list of names of instance groups that get data from the S3 data source.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setInstanceGroupNames(java.util.Collection)} or {@link #withInstanceGroupNames(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param instanceGroupNames
+     *        A list of names of instance groups that get data from the S3 data source.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public S3DataSource withInstanceGroupNames(String... instanceGroupNames) {
+        if (this.instanceGroupNames == null) {
+            setInstanceGroupNames(new java.util.ArrayList<String>(instanceGroupNames.length));
+        }
+        for (String ele : instanceGroupNames) {
+            this.instanceGroupNames.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of names of instance groups that get data from the S3 data source.
+     * </p>
+     * 
+     * @param instanceGroupNames
+     *        A list of names of instance groups that get data from the S3 data source.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public S3DataSource withInstanceGroupNames(java.util.Collection<String> instanceGroupNames) {
+        setInstanceGroupNames(instanceGroupNames);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -893,7 +1059,9 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
         if (getS3DataDistributionType() != null)
             sb.append("S3DataDistributionType: ").append(getS3DataDistributionType()).append(",");
         if (getAttributeNames() != null)
-            sb.append("AttributeNames: ").append(getAttributeNames());
+            sb.append("AttributeNames: ").append(getAttributeNames()).append(",");
+        if (getInstanceGroupNames() != null)
+            sb.append("InstanceGroupNames: ").append(getInstanceGroupNames());
         sb.append("}");
         return sb.toString();
     }
@@ -924,6 +1092,10 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getAttributeNames() != null && other.getAttributeNames().equals(this.getAttributeNames()) == false)
             return false;
+        if (other.getInstanceGroupNames() == null ^ this.getInstanceGroupNames() == null)
+            return false;
+        if (other.getInstanceGroupNames() != null && other.getInstanceGroupNames().equals(this.getInstanceGroupNames()) == false)
+            return false;
         return true;
     }
 
@@ -936,6 +1108,7 @@ public class S3DataSource implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getS3Uri() == null) ? 0 : getS3Uri().hashCode());
         hashCode = prime * hashCode + ((getS3DataDistributionType() == null) ? 0 : getS3DataDistributionType().hashCode());
         hashCode = prime * hashCode + ((getAttributeNames() == null) ? 0 : getAttributeNames().hashCode());
+        hashCode = prime * hashCode + ((getInstanceGroupNames() == null) ? 0 : getInstanceGroupNames().hashCode());
         return hashCode;
     }
 

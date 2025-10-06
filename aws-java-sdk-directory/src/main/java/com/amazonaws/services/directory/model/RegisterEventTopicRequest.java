@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,25 +30,25 @@ public class RegisterEventTopicRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The Directory ID that will publish status messages to the SNS topic.
+     * The Directory ID that will publish status messages to the Amazon SNS topic.
      * </p>
      */
     private String directoryId;
     /**
      * <p>
-     * The SNS topic name to which the directory will publish status messages. This SNS topic must be in the same region
-     * as the specified Directory ID.
+     * The Amazon SNS topic name to which the directory will publish status messages. This Amazon SNS topic must be in
+     * the same region as the specified Directory ID.
      * </p>
      */
     private String topicName;
 
     /**
      * <p>
-     * The Directory ID that will publish status messages to the SNS topic.
+     * The Directory ID that will publish status messages to the Amazon SNS topic.
      * </p>
      * 
      * @param directoryId
-     *        The Directory ID that will publish status messages to the SNS topic.
+     *        The Directory ID that will publish status messages to the Amazon SNS topic.
      */
 
     public void setDirectoryId(String directoryId) {
@@ -57,10 +57,10 @@ public class RegisterEventTopicRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The Directory ID that will publish status messages to the SNS topic.
+     * The Directory ID that will publish status messages to the Amazon SNS topic.
      * </p>
      * 
-     * @return The Directory ID that will publish status messages to the SNS topic.
+     * @return The Directory ID that will publish status messages to the Amazon SNS topic.
      */
 
     public String getDirectoryId() {
@@ -69,11 +69,11 @@ public class RegisterEventTopicRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The Directory ID that will publish status messages to the SNS topic.
+     * The Directory ID that will publish status messages to the Amazon SNS topic.
      * </p>
      * 
      * @param directoryId
-     *        The Directory ID that will publish status messages to the SNS topic.
+     *        The Directory ID that will publish status messages to the Amazon SNS topic.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -84,13 +84,13 @@ public class RegisterEventTopicRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The SNS topic name to which the directory will publish status messages. This SNS topic must be in the same region
-     * as the specified Directory ID.
+     * The Amazon SNS topic name to which the directory will publish status messages. This Amazon SNS topic must be in
+     * the same region as the specified Directory ID.
      * </p>
      * 
      * @param topicName
-     *        The SNS topic name to which the directory will publish status messages. This SNS topic must be in the same
-     *        region as the specified Directory ID.
+     *        The Amazon SNS topic name to which the directory will publish status messages. This Amazon SNS topic must
+     *        be in the same region as the specified Directory ID.
      */
 
     public void setTopicName(String topicName) {
@@ -99,12 +99,12 @@ public class RegisterEventTopicRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The SNS topic name to which the directory will publish status messages. This SNS topic must be in the same region
-     * as the specified Directory ID.
+     * The Amazon SNS topic name to which the directory will publish status messages. This Amazon SNS topic must be in
+     * the same region as the specified Directory ID.
      * </p>
      * 
-     * @return The SNS topic name to which the directory will publish status messages. This SNS topic must be in the
-     *         same region as the specified Directory ID.
+     * @return The Amazon SNS topic name to which the directory will publish status messages. This Amazon SNS topic must
+     *         be in the same region as the specified Directory ID.
      */
 
     public String getTopicName() {
@@ -113,13 +113,13 @@ public class RegisterEventTopicRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The SNS topic name to which the directory will publish status messages. This SNS topic must be in the same region
-     * as the specified Directory ID.
+     * The Amazon SNS topic name to which the directory will publish status messages. This Amazon SNS topic must be in
+     * the same region as the specified Directory ID.
      * </p>
      * 
      * @param topicName
-     *        The SNS topic name to which the directory will publish status messages. This SNS topic must be in the same
-     *        region as the specified Directory ID.
+     *        The Amazon SNS topic name to which the directory will publish status messages. This Amazon SNS topic must
+     *        be in the same region as the specified Directory ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Lists parent objects that are associated with a given object in pagination fashion.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2017-01-11/BatchListObjectParents"
  *      target="_top">AWS API Documentation</a>
@@ -26,9 +29,17 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 public class BatchListObjectParents implements Serializable, Cloneable, StructuredPojo {
 
     private ObjectReference objectReference;
-
+    /**
+     * <p>
+     * The pagination token.
+     * </p>
+     */
     private String nextToken;
-
+    /**
+     * <p>
+     * The maximum number of items to be retrieved in a single call. This is an approximate number.
+     * </p>
+     */
     private Integer maxResults;
 
     /**
@@ -58,7 +69,12 @@ public class BatchListObjectParents implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * The pagination token.
+     * </p>
+     * 
      * @param nextToken
+     *        The pagination token.
      */
 
     public void setNextToken(String nextToken) {
@@ -66,7 +82,11 @@ public class BatchListObjectParents implements Serializable, Cloneable, Structur
     }
 
     /**
-     * @return
+     * <p>
+     * The pagination token.
+     * </p>
+     * 
+     * @return The pagination token.
      */
 
     public String getNextToken() {
@@ -74,7 +94,12 @@ public class BatchListObjectParents implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * The pagination token.
+     * </p>
+     * 
      * @param nextToken
+     *        The pagination token.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -84,7 +109,12 @@ public class BatchListObjectParents implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * The maximum number of items to be retrieved in a single call. This is an approximate number.
+     * </p>
+     * 
      * @param maxResults
+     *        The maximum number of items to be retrieved in a single call. This is an approximate number.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -92,7 +122,11 @@ public class BatchListObjectParents implements Serializable, Cloneable, Structur
     }
 
     /**
-     * @return
+     * <p>
+     * The maximum number of items to be retrieved in a single call. This is an approximate number.
+     * </p>
+     * 
+     * @return The maximum number of items to be retrieved in a single call. This is an approximate number.
      */
 
     public Integer getMaxResults() {
@@ -100,7 +134,12 @@ public class BatchListObjectParents implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * The maximum number of items to be retrieved in a single call. This is an approximate number.
+     * </p>
+     * 
      * @param maxResults
+     *        The maximum number of items to be retrieved in a single call. This is an approximate number.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

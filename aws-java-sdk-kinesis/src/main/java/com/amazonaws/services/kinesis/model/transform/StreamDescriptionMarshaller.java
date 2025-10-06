@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,6 +34,8 @@ public class StreamDescriptionMarshaller {
             .marshallLocationName("StreamARN").build();
     private static final MarshallingInfo<String> STREAMSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StreamStatus").build();
+    private static final MarshallingInfo<StructuredPojo> STREAMMODEDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StreamModeDetails").build();
     private static final MarshallingInfo<List> SHARDS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Shards").build();
     private static final MarshallingInfo<Boolean> HASMORESHARDS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
@@ -68,6 +70,7 @@ public class StreamDescriptionMarshaller {
             protocolMarshaller.marshall(streamDescription.getStreamName(), STREAMNAME_BINDING);
             protocolMarshaller.marshall(streamDescription.getStreamARN(), STREAMARN_BINDING);
             protocolMarshaller.marshall(streamDescription.getStreamStatus(), STREAMSTATUS_BINDING);
+            protocolMarshaller.marshall(streamDescription.getStreamModeDetails(), STREAMMODEDETAILS_BINDING);
             protocolMarshaller.marshall(streamDescription.getShards(), SHARDS_BINDING);
             protocolMarshaller.marshall(streamDescription.getHasMoreShards(), HASMORESHARDS_BINDING);
             protocolMarshaller.marshall(streamDescription.getRetentionPeriodHours(), RETENTIONPERIODHOURS_BINDING);

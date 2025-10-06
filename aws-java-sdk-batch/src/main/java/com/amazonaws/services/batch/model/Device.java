@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,13 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An object representing a container instance host device.
+ * An object that represents a container instance host device.
  * </p>
+ * <note>
+ * <p>
+ * This object isn't applicable to jobs that are running on Fargate resources and shouldn't be provided.
+ * </p>
+ * </note>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/Device" target="_top">AWS API Documentation</a>
  */
@@ -35,8 +40,8 @@ public class Device implements Serializable, Cloneable, StructuredPojo {
     private String hostPath;
     /**
      * <p>
-     * The path inside the container at which to expose the host device. By default the <code>hostPath</code> value is
-     * used.
+     * The path inside the container that's used to expose the host device. By default, the <code>hostPath</code> value
+     * is used.
      * </p>
      */
     private String containerPath;
@@ -90,12 +95,12 @@ public class Device implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The path inside the container at which to expose the host device. By default the <code>hostPath</code> value is
-     * used.
+     * The path inside the container that's used to expose the host device. By default, the <code>hostPath</code> value
+     * is used.
      * </p>
      * 
      * @param containerPath
-     *        The path inside the container at which to expose the host device. By default the <code>hostPath</code>
+     *        The path inside the container that's used to expose the host device. By default, the <code>hostPath</code>
      *        value is used.
      */
 
@@ -105,12 +110,12 @@ public class Device implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The path inside the container at which to expose the host device. By default the <code>hostPath</code> value is
-     * used.
+     * The path inside the container that's used to expose the host device. By default, the <code>hostPath</code> value
+     * is used.
      * </p>
      * 
-     * @return The path inside the container at which to expose the host device. By default the <code>hostPath</code>
-     *         value is used.
+     * @return The path inside the container that's used to expose the host device. By default, the
+     *         <code>hostPath</code> value is used.
      */
 
     public String getContainerPath() {
@@ -119,12 +124,12 @@ public class Device implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The path inside the container at which to expose the host device. By default the <code>hostPath</code> value is
-     * used.
+     * The path inside the container that's used to expose the host device. By default, the <code>hostPath</code> value
+     * is used.
      * </p>
      * 
      * @param containerPath
-     *        The path inside the container at which to expose the host device. By default the <code>hostPath</code>
+     *        The path inside the container that's used to expose the host device. By default, the <code>hostPath</code>
      *        value is used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

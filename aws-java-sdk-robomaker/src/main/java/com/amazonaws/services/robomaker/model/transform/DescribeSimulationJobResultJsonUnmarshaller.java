@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -88,6 +88,10 @@ public class DescribeSimulationJobResultJsonUnmarshaller implements Unmarshaller
                     context.nextToken();
                     describeSimulationJobResult.setOutputLocation(OutputLocationJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("loggingConfig", targetDepth)) {
+                    context.nextToken();
+                    describeSimulationJobResult.setLoggingConfig(LoggingConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("maxJobDurationInSeconds", targetDepth)) {
                     context.nextToken();
                     describeSimulationJobResult.setMaxJobDurationInSeconds(context.getUnmarshaller(Long.class).unmarshall(context));
@@ -103,12 +107,22 @@ public class DescribeSimulationJobResultJsonUnmarshaller implements Unmarshaller
                 if (context.testExpression("robotApplications", targetDepth)) {
                     context.nextToken();
                     describeSimulationJobResult.setRobotApplications(new ListUnmarshaller<RobotApplicationConfig>(RobotApplicationConfigJsonUnmarshaller
-                            .getInstance()).unmarshall(context));
+                            .getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("simulationApplications", targetDepth)) {
                     context.nextToken();
                     describeSimulationJobResult.setSimulationApplications(new ListUnmarshaller<SimulationApplicationConfig>(
-                            SimulationApplicationConfigJsonUnmarshaller.getInstance()).unmarshall(context));
+                            SimulationApplicationConfigJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("dataSources", targetDepth)) {
+                    context.nextToken();
+                    describeSimulationJobResult.setDataSources(new ListUnmarshaller<DataSource>(DataSourceJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("tags", targetDepth)) {
                     context.nextToken();
@@ -118,6 +132,14 @@ public class DescribeSimulationJobResultJsonUnmarshaller implements Unmarshaller
                 if (context.testExpression("vpcConfig", targetDepth)) {
                     context.nextToken();
                     describeSimulationJobResult.setVpcConfig(VPCConfigResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("networkInterface", targetDepth)) {
+                    context.nextToken();
+                    describeSimulationJobResult.setNetworkInterface(NetworkInterfaceJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("compute", targetDepth)) {
+                    context.nextToken();
+                    describeSimulationJobResult.setCompute(ComputeResponseJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

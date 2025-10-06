@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,7 +26,9 @@ public enum Compute {
     POWER("POWER"),
     GRAPHICS("GRAPHICS"),
     POWERPRO("POWERPRO"),
-    GRAPHICSPRO("GRAPHICSPRO");
+    GRAPHICSPRO("GRAPHICSPRO"),
+    GRAPHICS_G4DN("GRAPHICS_G4DN"),
+    GRAPHICSPRO_G4DN("GRAPHICSPRO_G4DN");
 
     private String value;
 

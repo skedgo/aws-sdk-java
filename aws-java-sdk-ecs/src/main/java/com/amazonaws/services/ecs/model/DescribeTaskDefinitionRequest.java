@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,8 +35,8 @@ public class DescribeTaskDefinitionRequest extends com.amazonaws.AmazonWebServic
     private String taskDefinition;
     /**
      * <p>
-     * Specifies whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the tags
-     * are included in the response. If this field is omitted, tags are not included in the response.
+     * Determines whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the tags
+     * are included in the response. If this field is omitted, tags aren't included in the response.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> include;
@@ -95,12 +95,12 @@ public class DescribeTaskDefinitionRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Specifies whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the tags
-     * are included in the response. If this field is omitted, tags are not included in the response.
+     * Determines whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the tags
+     * are included in the response. If this field is omitted, tags aren't included in the response.
      * </p>
      * 
-     * @return Specifies whether to see the resource tags for the task definition. If <code>TAGS</code> is specified,
-     *         the tags are included in the response. If this field is omitted, tags are not included in the response.
+     * @return Determines whether to see the resource tags for the task definition. If <code>TAGS</code> is specified,
+     *         the tags are included in the response. If this field is omitted, tags aren't included in the response.
      * @see TaskDefinitionField
      */
 
@@ -113,13 +113,13 @@ public class DescribeTaskDefinitionRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Specifies whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the tags
-     * are included in the response. If this field is omitted, tags are not included in the response.
+     * Determines whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the tags
+     * are included in the response. If this field is omitted, tags aren't included in the response.
      * </p>
      * 
      * @param include
-     *        Specifies whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the
-     *        tags are included in the response. If this field is omitted, tags are not included in the response.
+     *        Determines whether to see the resource tags for the task definition. If <code>TAGS</code> is specified,
+     *        the tags are included in the response. If this field is omitted, tags aren't included in the response.
      * @see TaskDefinitionField
      */
 
@@ -134,8 +134,8 @@ public class DescribeTaskDefinitionRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Specifies whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the tags
-     * are included in the response. If this field is omitted, tags are not included in the response.
+     * Determines whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the tags
+     * are included in the response. If this field is omitted, tags aren't included in the response.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -144,8 +144,8 @@ public class DescribeTaskDefinitionRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param include
-     *        Specifies whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the
-     *        tags are included in the response. If this field is omitted, tags are not included in the response.
+     *        Determines whether to see the resource tags for the task definition. If <code>TAGS</code> is specified,
+     *        the tags are included in the response. If this field is omitted, tags aren't included in the response.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TaskDefinitionField
      */
@@ -162,13 +162,13 @@ public class DescribeTaskDefinitionRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Specifies whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the tags
-     * are included in the response. If this field is omitted, tags are not included in the response.
+     * Determines whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the tags
+     * are included in the response. If this field is omitted, tags aren't included in the response.
      * </p>
      * 
      * @param include
-     *        Specifies whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the
-     *        tags are included in the response. If this field is omitted, tags are not included in the response.
+     *        Determines whether to see the resource tags for the task definition. If <code>TAGS</code> is specified,
+     *        the tags are included in the response. If this field is omitted, tags aren't included in the response.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TaskDefinitionField
      */
@@ -180,13 +180,13 @@ public class DescribeTaskDefinitionRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Specifies whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the tags
-     * are included in the response. If this field is omitted, tags are not included in the response.
+     * Determines whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the tags
+     * are included in the response. If this field is omitted, tags aren't included in the response.
      * </p>
      * 
      * @param include
-     *        Specifies whether to see the resource tags for the task definition. If <code>TAGS</code> is specified, the
-     *        tags are included in the response. If this field is omitted, tags are not included in the response.
+     *        Determines whether to see the resource tags for the task definition. If <code>TAGS</code> is specified,
+     *        the tags are included in the response. If this field is omitted, tags aren't included in the response.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TaskDefinitionField
      */

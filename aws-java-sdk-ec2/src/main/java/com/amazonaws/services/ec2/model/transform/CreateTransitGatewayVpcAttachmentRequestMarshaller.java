@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -70,8 +70,16 @@ public class CreateTransitGatewayVpcAttachmentRequestMarshaller implements
                 request.addParameter("Options.DnsSupport", StringUtils.fromString(options.getDnsSupport()));
             }
 
+            if (options.getSecurityGroupReferencingSupport() != null) {
+                request.addParameter("Options.SecurityGroupReferencingSupport", StringUtils.fromString(options.getSecurityGroupReferencingSupport()));
+            }
+
             if (options.getIpv6Support() != null) {
                 request.addParameter("Options.Ipv6Support", StringUtils.fromString(options.getIpv6Support()));
+            }
+
+            if (options.getApplianceModeSupport() != null) {
+                request.addParameter("Options.ApplianceModeSupport", StringUtils.fromString(options.getApplianceModeSupport()));
             }
         }
 

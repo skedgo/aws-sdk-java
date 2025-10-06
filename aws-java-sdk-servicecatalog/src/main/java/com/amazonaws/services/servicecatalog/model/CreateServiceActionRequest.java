@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,13 +45,17 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * <dt>Name</dt>
      * <dd>
      * <p>
-     * The name of the AWS Systems Manager Document. For example, <code>AWS-RestartEC2Instance</code>.
+     * The name of the Amazon Web Services Systems Manager document (SSM document). For example,
+     * <code>AWS-RestartEC2Instance</code>.
+     * </p>
+     * <p>
+     * If you are using a shared SSM document, you must provide the ARN instead of the name.
      * </p>
      * </dd>
      * <dt>Version</dt>
      * <dd>
      * <p>
-     * The AWS Systems Manager automation document version. For example, <code>"Version": "1"</code>
+     * The Amazon Web Services Systems Manager automation document version. For example, <code>"Version": "1"</code>
      * </p>
      * </dd>
      * <dt>AssumeRole</dt>
@@ -70,7 +74,8 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * The list of parameters in JSON format.
      * </p>
      * <p>
-     * For example: <code>[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]</code>.
+     * For example: <code>[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]</code> or
+     * <code>[{\"Name\":\"InstanceId\",\"Type\":\"TEXT_VALUE\"}]</code>.
      * </p>
      * </dd>
      * </dl>
@@ -87,11 +92,6 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * The language code.
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
      * <li>
      * <p>
      * <code>jp</code> - Japanese
@@ -220,13 +220,17 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * <dt>Name</dt>
      * <dd>
      * <p>
-     * The name of the AWS Systems Manager Document. For example, <code>AWS-RestartEC2Instance</code>.
+     * The name of the Amazon Web Services Systems Manager document (SSM document). For example,
+     * <code>AWS-RestartEC2Instance</code>.
+     * </p>
+     * <p>
+     * If you are using a shared SSM document, you must provide the ARN instead of the name.
      * </p>
      * </dd>
      * <dt>Version</dt>
      * <dd>
      * <p>
-     * The AWS Systems Manager automation document version. For example, <code>"Version": "1"</code>
+     * The Amazon Web Services Systems Manager automation document version. For example, <code>"Version": "1"</code>
      * </p>
      * </dd>
      * <dt>AssumeRole</dt>
@@ -245,7 +249,8 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * The list of parameters in JSON format.
      * </p>
      * <p>
-     * For example: <code>[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]</code>.
+     * For example: <code>[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]</code> or
+     * <code>[{\"Name\":\"InstanceId\",\"Type\":\"TEXT_VALUE\"}]</code>.
      * </p>
      * </dd>
      * </dl>
@@ -255,13 +260,18 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      *         <dt>Name</dt>
      *         <dd>
      *         <p>
-     *         The name of the AWS Systems Manager Document. For example, <code>AWS-RestartEC2Instance</code>.
+     *         The name of the Amazon Web Services Systems Manager document (SSM document). For example,
+     *         <code>AWS-RestartEC2Instance</code>.
+     *         </p>
+     *         <p>
+     *         If you are using a shared SSM document, you must provide the ARN instead of the name.
      *         </p>
      *         </dd>
      *         <dt>Version</dt>
      *         <dd>
      *         <p>
-     *         The AWS Systems Manager automation document version. For example, <code>"Version": "1"</code>
+     *         The Amazon Web Services Systems Manager automation document version. For example,
+     *         <code>"Version": "1"</code>
      *         </p>
      *         </dd>
      *         <dt>AssumeRole</dt>
@@ -280,7 +290,8 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      *         The list of parameters in JSON format.
      *         </p>
      *         <p>
-     *         For example: <code>[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]</code>.
+     *         For example: <code>[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]</code> or
+     *         <code>[{\"Name\":\"InstanceId\",\"Type\":\"TEXT_VALUE\"}]</code>.
      *         </p>
      *         </dd>
      */
@@ -297,13 +308,17 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * <dt>Name</dt>
      * <dd>
      * <p>
-     * The name of the AWS Systems Manager Document. For example, <code>AWS-RestartEC2Instance</code>.
+     * The name of the Amazon Web Services Systems Manager document (SSM document). For example,
+     * <code>AWS-RestartEC2Instance</code>.
+     * </p>
+     * <p>
+     * If you are using a shared SSM document, you must provide the ARN instead of the name.
      * </p>
      * </dd>
      * <dt>Version</dt>
      * <dd>
      * <p>
-     * The AWS Systems Manager automation document version. For example, <code>"Version": "1"</code>
+     * The Amazon Web Services Systems Manager automation document version. For example, <code>"Version": "1"</code>
      * </p>
      * </dd>
      * <dt>AssumeRole</dt>
@@ -322,7 +337,8 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * The list of parameters in JSON format.
      * </p>
      * <p>
-     * For example: <code>[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]</code>.
+     * For example: <code>[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]</code> or
+     * <code>[{\"Name\":\"InstanceId\",\"Type\":\"TEXT_VALUE\"}]</code>.
      * </p>
      * </dd>
      * </dl>
@@ -333,13 +349,18 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      *        <dt>Name</dt>
      *        <dd>
      *        <p>
-     *        The name of the AWS Systems Manager Document. For example, <code>AWS-RestartEC2Instance</code>.
+     *        The name of the Amazon Web Services Systems Manager document (SSM document). For example,
+     *        <code>AWS-RestartEC2Instance</code>.
+     *        </p>
+     *        <p>
+     *        If you are using a shared SSM document, you must provide the ARN instead of the name.
      *        </p>
      *        </dd>
      *        <dt>Version</dt>
      *        <dd>
      *        <p>
-     *        The AWS Systems Manager automation document version. For example, <code>"Version": "1"</code>
+     *        The Amazon Web Services Systems Manager automation document version. For example,
+     *        <code>"Version": "1"</code>
      *        </p>
      *        </dd>
      *        <dt>AssumeRole</dt>
@@ -358,7 +379,8 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      *        The list of parameters in JSON format.
      *        </p>
      *        <p>
-     *        For example: <code>[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]</code>.
+     *        For example: <code>[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]</code> or
+     *        <code>[{\"Name\":\"InstanceId\",\"Type\":\"TEXT_VALUE\"}]</code>.
      *        </p>
      *        </dd>
      */
@@ -375,13 +397,17 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * <dt>Name</dt>
      * <dd>
      * <p>
-     * The name of the AWS Systems Manager Document. For example, <code>AWS-RestartEC2Instance</code>.
+     * The name of the Amazon Web Services Systems Manager document (SSM document). For example,
+     * <code>AWS-RestartEC2Instance</code>.
+     * </p>
+     * <p>
+     * If you are using a shared SSM document, you must provide the ARN instead of the name.
      * </p>
      * </dd>
      * <dt>Version</dt>
      * <dd>
      * <p>
-     * The AWS Systems Manager automation document version. For example, <code>"Version": "1"</code>
+     * The Amazon Web Services Systems Manager automation document version. For example, <code>"Version": "1"</code>
      * </p>
      * </dd>
      * <dt>AssumeRole</dt>
@@ -400,7 +426,8 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * The list of parameters in JSON format.
      * </p>
      * <p>
-     * For example: <code>[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]</code>.
+     * For example: <code>[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]</code> or
+     * <code>[{\"Name\":\"InstanceId\",\"Type\":\"TEXT_VALUE\"}]</code>.
      * </p>
      * </dd>
      * </dl>
@@ -411,13 +438,18 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      *        <dt>Name</dt>
      *        <dd>
      *        <p>
-     *        The name of the AWS Systems Manager Document. For example, <code>AWS-RestartEC2Instance</code>.
+     *        The name of the Amazon Web Services Systems Manager document (SSM document). For example,
+     *        <code>AWS-RestartEC2Instance</code>.
+     *        </p>
+     *        <p>
+     *        If you are using a shared SSM document, you must provide the ARN instead of the name.
      *        </p>
      *        </dd>
      *        <dt>Version</dt>
      *        <dd>
      *        <p>
-     *        The AWS Systems Manager automation document version. For example, <code>"Version": "1"</code>
+     *        The Amazon Web Services Systems Manager automation document version. For example,
+     *        <code>"Version": "1"</code>
      *        </p>
      *        </dd>
      *        <dt>AssumeRole</dt>
@@ -436,7 +468,8 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      *        The list of parameters in JSON format.
      *        </p>
      *        <p>
-     *        For example: <code>[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]</code>.
+     *        For example: <code>[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]</code> or
+     *        <code>[{\"Name\":\"InstanceId\",\"Type\":\"TEXT_VALUE\"}]</code>.
      *        </p>
      *        </dd>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -446,6 +479,13 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
         setDefinition(definition);
         return this;
     }
+
+    /**
+     * Add a single Definition entry
+     *
+     * @see CreateServiceActionRequest#withDefinition
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateServiceActionRequest addDefinitionEntry(String key, String value) {
         if (null == this.definition) {
@@ -515,11 +555,6 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -533,11 +568,6 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -561,11 +591,6 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -578,11 +603,6 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * 
      * @return The language code.</p>
      *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>en</code> - English (default)
-     *         </p>
-     *         </li>
      *         <li>
      *         <p>
      *         <code>jp</code> - Japanese
@@ -606,11 +626,6 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -624,11 +639,6 @@ public class CreateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese

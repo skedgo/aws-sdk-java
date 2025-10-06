@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,13 +28,13 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The type of the AWS resource for which you want compliance information.
+     * The type of the Amazon Web Services resource for which you want compliance information.
      * </p>
      */
     private String resourceType;
     /**
      * <p>
-     * The ID of the AWS resource for which you want compliance information.
+     * The ID of the Amazon Web Services resource for which you want compliance information.
      * </p>
      */
     private String resourceId;
@@ -43,7 +43,9 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
      * Filters the results by compliance.
      * </p>
      * <p>
-     * The allowed values are <code>COMPLIANT</code>, <code>NON_COMPLIANT</code>, and <code>NOT_APPLICABLE</code>.
+     * <code>INSUFFICIENT_DATA</code> is a valid <code>ComplianceType</code> that is returned when an Config rule cannot
+     * be evaluated. However, <code>INSUFFICIENT_DATA</code> cannot be used as a <code>ComplianceType</code> for
+     * filtering results.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> complianceTypes;
@@ -54,14 +56,26 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
      * </p>
      */
     private String nextToken;
+    /**
+     * <p>
+     * The unique ID of Amazon Web Services resource execution for which you want to retrieve evaluation results.
+     * </p>
+     * <note>
+     * <p>
+     * You need to only provide either a <code>ResourceEvaluationID</code> or a <code>ResourceID </code>and
+     * <code>ResourceType</code>.
+     * </p>
+     * </note>
+     */
+    private String resourceEvaluationId;
 
     /**
      * <p>
-     * The type of the AWS resource for which you want compliance information.
+     * The type of the Amazon Web Services resource for which you want compliance information.
      * </p>
      * 
      * @param resourceType
-     *        The type of the AWS resource for which you want compliance information.
+     *        The type of the Amazon Web Services resource for which you want compliance information.
      */
 
     public void setResourceType(String resourceType) {
@@ -70,10 +84,10 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The type of the AWS resource for which you want compliance information.
+     * The type of the Amazon Web Services resource for which you want compliance information.
      * </p>
      * 
-     * @return The type of the AWS resource for which you want compliance information.
+     * @return The type of the Amazon Web Services resource for which you want compliance information.
      */
 
     public String getResourceType() {
@@ -82,11 +96,11 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The type of the AWS resource for which you want compliance information.
+     * The type of the Amazon Web Services resource for which you want compliance information.
      * </p>
      * 
      * @param resourceType
-     *        The type of the AWS resource for which you want compliance information.
+     *        The type of the Amazon Web Services resource for which you want compliance information.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -97,11 +111,11 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The ID of the AWS resource for which you want compliance information.
+     * The ID of the Amazon Web Services resource for which you want compliance information.
      * </p>
      * 
      * @param resourceId
-     *        The ID of the AWS resource for which you want compliance information.
+     *        The ID of the Amazon Web Services resource for which you want compliance information.
      */
 
     public void setResourceId(String resourceId) {
@@ -110,10 +124,10 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The ID of the AWS resource for which you want compliance information.
+     * The ID of the Amazon Web Services resource for which you want compliance information.
      * </p>
      * 
-     * @return The ID of the AWS resource for which you want compliance information.
+     * @return The ID of the Amazon Web Services resource for which you want compliance information.
      */
 
     public String getResourceId() {
@@ -122,11 +136,11 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The ID of the AWS resource for which you want compliance information.
+     * The ID of the Amazon Web Services resource for which you want compliance information.
      * </p>
      * 
      * @param resourceId
-     *        The ID of the AWS resource for which you want compliance information.
+     *        The ID of the Amazon Web Services resource for which you want compliance information.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -140,13 +154,16 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
      * Filters the results by compliance.
      * </p>
      * <p>
-     * The allowed values are <code>COMPLIANT</code>, <code>NON_COMPLIANT</code>, and <code>NOT_APPLICABLE</code>.
+     * <code>INSUFFICIENT_DATA</code> is a valid <code>ComplianceType</code> that is returned when an Config rule cannot
+     * be evaluated. However, <code>INSUFFICIENT_DATA</code> cannot be used as a <code>ComplianceType</code> for
+     * filtering results.
      * </p>
      * 
      * @return Filters the results by compliance.</p>
      *         <p>
-     *         The allowed values are <code>COMPLIANT</code>, <code>NON_COMPLIANT</code>, and
-     *         <code>NOT_APPLICABLE</code>.
+     *         <code>INSUFFICIENT_DATA</code> is a valid <code>ComplianceType</code> that is returned when an Config
+     *         rule cannot be evaluated. However, <code>INSUFFICIENT_DATA</code> cannot be used as a
+     *         <code>ComplianceType</code> for filtering results.
      * @see ComplianceType
      */
 
@@ -162,13 +179,17 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
      * Filters the results by compliance.
      * </p>
      * <p>
-     * The allowed values are <code>COMPLIANT</code>, <code>NON_COMPLIANT</code>, and <code>NOT_APPLICABLE</code>.
+     * <code>INSUFFICIENT_DATA</code> is a valid <code>ComplianceType</code> that is returned when an Config rule cannot
+     * be evaluated. However, <code>INSUFFICIENT_DATA</code> cannot be used as a <code>ComplianceType</code> for
+     * filtering results.
      * </p>
      * 
      * @param complianceTypes
      *        Filters the results by compliance.</p>
      *        <p>
-     *        The allowed values are <code>COMPLIANT</code>, <code>NON_COMPLIANT</code>, and <code>NOT_APPLICABLE</code>.
+     *        <code>INSUFFICIENT_DATA</code> is a valid <code>ComplianceType</code> that is returned when an Config rule
+     *        cannot be evaluated. However, <code>INSUFFICIENT_DATA</code> cannot be used as a
+     *        <code>ComplianceType</code> for filtering results.
      * @see ComplianceType
      */
 
@@ -186,7 +207,9 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
      * Filters the results by compliance.
      * </p>
      * <p>
-     * The allowed values are <code>COMPLIANT</code>, <code>NON_COMPLIANT</code>, and <code>NOT_APPLICABLE</code>.
+     * <code>INSUFFICIENT_DATA</code> is a valid <code>ComplianceType</code> that is returned when an Config rule cannot
+     * be evaluated. However, <code>INSUFFICIENT_DATA</code> cannot be used as a <code>ComplianceType</code> for
+     * filtering results.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -197,7 +220,9 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
      * @param complianceTypes
      *        Filters the results by compliance.</p>
      *        <p>
-     *        The allowed values are <code>COMPLIANT</code>, <code>NON_COMPLIANT</code>, and <code>NOT_APPLICABLE</code>.
+     *        <code>INSUFFICIENT_DATA</code> is a valid <code>ComplianceType</code> that is returned when an Config rule
+     *        cannot be evaluated. However, <code>INSUFFICIENT_DATA</code> cannot be used as a
+     *        <code>ComplianceType</code> for filtering results.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ComplianceType
      */
@@ -217,13 +242,17 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
      * Filters the results by compliance.
      * </p>
      * <p>
-     * The allowed values are <code>COMPLIANT</code>, <code>NON_COMPLIANT</code>, and <code>NOT_APPLICABLE</code>.
+     * <code>INSUFFICIENT_DATA</code> is a valid <code>ComplianceType</code> that is returned when an Config rule cannot
+     * be evaluated. However, <code>INSUFFICIENT_DATA</code> cannot be used as a <code>ComplianceType</code> for
+     * filtering results.
      * </p>
      * 
      * @param complianceTypes
      *        Filters the results by compliance.</p>
      *        <p>
-     *        The allowed values are <code>COMPLIANT</code>, <code>NON_COMPLIANT</code>, and <code>NOT_APPLICABLE</code>.
+     *        <code>INSUFFICIENT_DATA</code> is a valid <code>ComplianceType</code> that is returned when an Config rule
+     *        cannot be evaluated. However, <code>INSUFFICIENT_DATA</code> cannot be used as a
+     *        <code>ComplianceType</code> for filtering results.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ComplianceType
      */
@@ -238,13 +267,17 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
      * Filters the results by compliance.
      * </p>
      * <p>
-     * The allowed values are <code>COMPLIANT</code>, <code>NON_COMPLIANT</code>, and <code>NOT_APPLICABLE</code>.
+     * <code>INSUFFICIENT_DATA</code> is a valid <code>ComplianceType</code> that is returned when an Config rule cannot
+     * be evaluated. However, <code>INSUFFICIENT_DATA</code> cannot be used as a <code>ComplianceType</code> for
+     * filtering results.
      * </p>
      * 
      * @param complianceTypes
      *        Filters the results by compliance.</p>
      *        <p>
-     *        The allowed values are <code>COMPLIANT</code>, <code>NON_COMPLIANT</code>, and <code>NOT_APPLICABLE</code>.
+     *        <code>INSUFFICIENT_DATA</code> is a valid <code>ComplianceType</code> that is returned when an Config rule
+     *        cannot be evaluated. However, <code>INSUFFICIENT_DATA</code> cannot be used as a
+     *        <code>ComplianceType</code> for filtering results.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ComplianceType
      */
@@ -309,6 +342,79 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
     }
 
     /**
+     * <p>
+     * The unique ID of Amazon Web Services resource execution for which you want to retrieve evaluation results.
+     * </p>
+     * <note>
+     * <p>
+     * You need to only provide either a <code>ResourceEvaluationID</code> or a <code>ResourceID </code>and
+     * <code>ResourceType</code>.
+     * </p>
+     * </note>
+     * 
+     * @param resourceEvaluationId
+     *        The unique ID of Amazon Web Services resource execution for which you want to retrieve evaluation results.
+     *        </p> <note>
+     *        <p>
+     *        You need to only provide either a <code>ResourceEvaluationID</code> or a <code>ResourceID </code>and
+     *        <code>ResourceType</code>.
+     *        </p>
+     */
+
+    public void setResourceEvaluationId(String resourceEvaluationId) {
+        this.resourceEvaluationId = resourceEvaluationId;
+    }
+
+    /**
+     * <p>
+     * The unique ID of Amazon Web Services resource execution for which you want to retrieve evaluation results.
+     * </p>
+     * <note>
+     * <p>
+     * You need to only provide either a <code>ResourceEvaluationID</code> or a <code>ResourceID </code>and
+     * <code>ResourceType</code>.
+     * </p>
+     * </note>
+     * 
+     * @return The unique ID of Amazon Web Services resource execution for which you want to retrieve evaluation
+     *         results. </p> <note>
+     *         <p>
+     *         You need to only provide either a <code>ResourceEvaluationID</code> or a <code>ResourceID </code>and
+     *         <code>ResourceType</code>.
+     *         </p>
+     */
+
+    public String getResourceEvaluationId() {
+        return this.resourceEvaluationId;
+    }
+
+    /**
+     * <p>
+     * The unique ID of Amazon Web Services resource execution for which you want to retrieve evaluation results.
+     * </p>
+     * <note>
+     * <p>
+     * You need to only provide either a <code>ResourceEvaluationID</code> or a <code>ResourceID </code>and
+     * <code>ResourceType</code>.
+     * </p>
+     * </note>
+     * 
+     * @param resourceEvaluationId
+     *        The unique ID of Amazon Web Services resource execution for which you want to retrieve evaluation results.
+     *        </p> <note>
+     *        <p>
+     *        You need to only provide either a <code>ResourceEvaluationID</code> or a <code>ResourceID </code>and
+     *        <code>ResourceType</code>.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetComplianceDetailsByResourceRequest withResourceEvaluationId(String resourceEvaluationId) {
+        setResourceEvaluationId(resourceEvaluationId);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -327,7 +433,9 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
         if (getComplianceTypes() != null)
             sb.append("ComplianceTypes: ").append(getComplianceTypes()).append(",");
         if (getNextToken() != null)
-            sb.append("NextToken: ").append(getNextToken());
+            sb.append("NextToken: ").append(getNextToken()).append(",");
+        if (getResourceEvaluationId() != null)
+            sb.append("ResourceEvaluationId: ").append(getResourceEvaluationId());
         sb.append("}");
         return sb.toString();
     }
@@ -358,6 +466,10 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
             return false;
         if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
             return false;
+        if (other.getResourceEvaluationId() == null ^ this.getResourceEvaluationId() == null)
+            return false;
+        if (other.getResourceEvaluationId() != null && other.getResourceEvaluationId().equals(this.getResourceEvaluationId()) == false)
+            return false;
         return true;
     }
 
@@ -370,6 +482,7 @@ public class GetComplianceDetailsByResourceRequest extends com.amazonaws.AmazonW
         hashCode = prime * hashCode + ((getResourceId() == null) ? 0 : getResourceId().hashCode());
         hashCode = prime * hashCode + ((getComplianceTypes() == null) ? 0 : getComplianceTypes().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
+        hashCode = prime * hashCode + ((getResourceEvaluationId() == null) ? 0 : getResourceEvaluationId().hashCode());
         return hashCode;
     }
 

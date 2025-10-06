@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,10 +42,29 @@ public class ContactDetail implements Serializable, Cloneable, StructuredPojo {
     private String lastName;
     /**
      * <p>
-     * Indicates whether the contact is a person, company, association, or public organization. If you choose an option
-     * other than <code>PERSON</code>, you must enter an organization name, and you can't enable privacy protection for
-     * the contact.
+     * Indicates whether the contact is a person, company, association, or public organization. Note the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify a value other than <code>PERSON</code>, you must also specify a value for
+     * <code>OrganizationName</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For some TLDs, the privacy protection available depends on the value that you specify for
+     * <code>Contact Type</code>. For the privacy protection settings for your TLD, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
+     * Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For .es domains, the value of <code>ContactType</code> must be <code>PERSON</code> for all three contacts.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String contactType;
     /**
@@ -207,15 +226,53 @@ public class ContactDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether the contact is a person, company, association, or public organization. If you choose an option
-     * other than <code>PERSON</code>, you must enter an organization name, and you can't enable privacy protection for
-     * the contact.
+     * Indicates whether the contact is a person, company, association, or public organization. Note the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify a value other than <code>PERSON</code>, you must also specify a value for
+     * <code>OrganizationName</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For some TLDs, the privacy protection available depends on the value that you specify for
+     * <code>Contact Type</code>. For the privacy protection settings for your TLD, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
+     * Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For .es domains, the value of <code>ContactType</code> must be <code>PERSON</code> for all three contacts.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param contactType
-     *        Indicates whether the contact is a person, company, association, or public organization. If you choose an
-     *        option other than <code>PERSON</code>, you must enter an organization name, and you can't enable privacy
-     *        protection for the contact.
+     *        Indicates whether the contact is a person, company, association, or public organization. Note the
+     *        following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you specify a value other than <code>PERSON</code>, you must also specify a value for
+     *        <code>OrganizationName</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For some TLDs, the privacy protection available depends on the value that you specify for
+     *        <code>Contact Type</code>. For the privacy protection settings for your TLD, see <a
+     *        href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You
+     *        Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For .es domains, the value of <code>ContactType</code> must be <code>PERSON</code> for all three contacts.
+     *        </p>
+     *        </li>
      * @see ContactType
      */
 
@@ -225,14 +282,53 @@ public class ContactDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether the contact is a person, company, association, or public organization. If you choose an option
-     * other than <code>PERSON</code>, you must enter an organization name, and you can't enable privacy protection for
-     * the contact.
+     * Indicates whether the contact is a person, company, association, or public organization. Note the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify a value other than <code>PERSON</code>, you must also specify a value for
+     * <code>OrganizationName</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For some TLDs, the privacy protection available depends on the value that you specify for
+     * <code>Contact Type</code>. For the privacy protection settings for your TLD, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
+     * Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For .es domains, the value of <code>ContactType</code> must be <code>PERSON</code> for all three contacts.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return Indicates whether the contact is a person, company, association, or public organization. If you choose an
-     *         option other than <code>PERSON</code>, you must enter an organization name, and you can't enable privacy
-     *         protection for the contact.
+     * @return Indicates whether the contact is a person, company, association, or public organization. Note the
+     *         following:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If you specify a value other than <code>PERSON</code>, you must also specify a value for
+     *         <code>OrganizationName</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For some TLDs, the privacy protection available depends on the value that you specify for
+     *         <code>Contact Type</code>. For the privacy protection settings for your TLD, see <a
+     *         href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You
+     *         Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For .es domains, the value of <code>ContactType</code> must be <code>PERSON</code> for all three
+     *         contacts.
+     *         </p>
+     *         </li>
      * @see ContactType
      */
 
@@ -242,15 +338,53 @@ public class ContactDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether the contact is a person, company, association, or public organization. If you choose an option
-     * other than <code>PERSON</code>, you must enter an organization name, and you can't enable privacy protection for
-     * the contact.
+     * Indicates whether the contact is a person, company, association, or public organization. Note the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify a value other than <code>PERSON</code>, you must also specify a value for
+     * <code>OrganizationName</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For some TLDs, the privacy protection available depends on the value that you specify for
+     * <code>Contact Type</code>. For the privacy protection settings for your TLD, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
+     * Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For .es domains, the value of <code>ContactType</code> must be <code>PERSON</code> for all three contacts.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param contactType
-     *        Indicates whether the contact is a person, company, association, or public organization. If you choose an
-     *        option other than <code>PERSON</code>, you must enter an organization name, and you can't enable privacy
-     *        protection for the contact.
+     *        Indicates whether the contact is a person, company, association, or public organization. Note the
+     *        following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you specify a value other than <code>PERSON</code>, you must also specify a value for
+     *        <code>OrganizationName</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For some TLDs, the privacy protection available depends on the value that you specify for
+     *        <code>Contact Type</code>. For the privacy protection settings for your TLD, see <a
+     *        href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You
+     *        Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For .es domains, the value of <code>ContactType</code> must be <code>PERSON</code> for all three contacts.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ContactType
      */
@@ -262,15 +396,53 @@ public class ContactDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether the contact is a person, company, association, or public organization. If you choose an option
-     * other than <code>PERSON</code>, you must enter an organization name, and you can't enable privacy protection for
-     * the contact.
+     * Indicates whether the contact is a person, company, association, or public organization. Note the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify a value other than <code>PERSON</code>, you must also specify a value for
+     * <code>OrganizationName</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For some TLDs, the privacy protection available depends on the value that you specify for
+     * <code>Contact Type</code>. For the privacy protection settings for your TLD, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
+     * Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For .es domains, the value of <code>ContactType</code> must be <code>PERSON</code> for all three contacts.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param contactType
-     *        Indicates whether the contact is a person, company, association, or public organization. If you choose an
-     *        option other than <code>PERSON</code>, you must enter an organization name, and you can't enable privacy
-     *        protection for the contact.
+     *        Indicates whether the contact is a person, company, association, or public organization. Note the
+     *        following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you specify a value other than <code>PERSON</code>, you must also specify a value for
+     *        <code>OrganizationName</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For some TLDs, the privacy protection available depends on the value that you specify for
+     *        <code>Contact Type</code>. For the privacy protection settings for your TLD, see <a
+     *        href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You
+     *        Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For .es domains, the value of <code>ContactType</code> must be <code>PERSON</code> for all three contacts.
+     *        </p>
+     *        </li>
      * @see ContactType
      */
 
@@ -280,15 +452,53 @@ public class ContactDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether the contact is a person, company, association, or public organization. If you choose an option
-     * other than <code>PERSON</code>, you must enter an organization name, and you can't enable privacy protection for
-     * the contact.
+     * Indicates whether the contact is a person, company, association, or public organization. Note the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify a value other than <code>PERSON</code>, you must also specify a value for
+     * <code>OrganizationName</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For some TLDs, the privacy protection available depends on the value that you specify for
+     * <code>Contact Type</code>. For the privacy protection settings for your TLD, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
+     * Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For .es domains, the value of <code>ContactType</code> must be <code>PERSON</code> for all three contacts.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param contactType
-     *        Indicates whether the contact is a person, company, association, or public organization. If you choose an
-     *        option other than <code>PERSON</code>, you must enter an organization name, and you can't enable privacy
-     *        protection for the contact.
+     *        Indicates whether the contact is a person, company, association, or public organization. Note the
+     *        following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you specify a value other than <code>PERSON</code>, you must also specify a value for
+     *        <code>OrganizationName</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For some TLDs, the privacy protection available depends on the value that you specify for
+     *        <code>Contact Type</code>. For the privacy protection settings for your TLD, see <a
+     *        href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You
+     *        Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For .es domains, the value of <code>ContactType</code> must be <code>PERSON</code> for all three contacts.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ContactType
      */
@@ -871,31 +1081,31 @@ public class ContactDetail implements Serializable, Cloneable, StructuredPojo {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getFirstName() != null)
-            sb.append("FirstName: ").append(getFirstName()).append(",");
+            sb.append("FirstName: ").append("***Sensitive Data Redacted***").append(",");
         if (getLastName() != null)
-            sb.append("LastName: ").append(getLastName()).append(",");
+            sb.append("LastName: ").append("***Sensitive Data Redacted***").append(",");
         if (getContactType() != null)
             sb.append("ContactType: ").append(getContactType()).append(",");
         if (getOrganizationName() != null)
-            sb.append("OrganizationName: ").append(getOrganizationName()).append(",");
+            sb.append("OrganizationName: ").append("***Sensitive Data Redacted***").append(",");
         if (getAddressLine1() != null)
-            sb.append("AddressLine1: ").append(getAddressLine1()).append(",");
+            sb.append("AddressLine1: ").append("***Sensitive Data Redacted***").append(",");
         if (getAddressLine2() != null)
-            sb.append("AddressLine2: ").append(getAddressLine2()).append(",");
+            sb.append("AddressLine2: ").append("***Sensitive Data Redacted***").append(",");
         if (getCity() != null)
-            sb.append("City: ").append(getCity()).append(",");
+            sb.append("City: ").append("***Sensitive Data Redacted***").append(",");
         if (getState() != null)
-            sb.append("State: ").append(getState()).append(",");
+            sb.append("State: ").append("***Sensitive Data Redacted***").append(",");
         if (getCountryCode() != null)
-            sb.append("CountryCode: ").append(getCountryCode()).append(",");
+            sb.append("CountryCode: ").append("***Sensitive Data Redacted***").append(",");
         if (getZipCode() != null)
-            sb.append("ZipCode: ").append(getZipCode()).append(",");
+            sb.append("ZipCode: ").append("***Sensitive Data Redacted***").append(",");
         if (getPhoneNumber() != null)
-            sb.append("PhoneNumber: ").append(getPhoneNumber()).append(",");
+            sb.append("PhoneNumber: ").append("***Sensitive Data Redacted***").append(",");
         if (getEmail() != null)
-            sb.append("Email: ").append(getEmail()).append(",");
+            sb.append("Email: ").append("***Sensitive Data Redacted***").append(",");
         if (getFax() != null)
-            sb.append("Fax: ").append(getFax()).append(",");
+            sb.append("Fax: ").append("***Sensitive Data Redacted***").append(",");
         if (getExtraParams() != null)
             sb.append("ExtraParams: ").append(getExtraParams());
         sb.append("}");

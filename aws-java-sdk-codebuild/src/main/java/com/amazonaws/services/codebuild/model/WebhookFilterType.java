@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -24,7 +24,11 @@ public enum WebhookFilterType {
     BASE_REF("BASE_REF"),
     HEAD_REF("HEAD_REF"),
     ACTOR_ACCOUNT_ID("ACTOR_ACCOUNT_ID"),
-    FILE_PATH("FILE_PATH");
+    FILE_PATH("FILE_PATH"),
+    COMMIT_MESSAGE("COMMIT_MESSAGE"),
+    WORKFLOW_NAME("WORKFLOW_NAME"),
+    TAG_NAME("TAG_NAME"),
+    RELEASE_NAME("RELEASE_NAME");
 
     private String value;
 

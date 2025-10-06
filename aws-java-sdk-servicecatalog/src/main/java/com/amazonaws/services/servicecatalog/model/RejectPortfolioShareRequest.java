@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,11 +32,6 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -61,7 +56,7 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * <ul>
      * <li>
      * <p>
-     * <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the master account of your organization.
+     * <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the management account of your organization.
      * </p>
      * </li>
      * <li>
@@ -89,11 +84,6 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -107,11 +97,6 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -135,11 +120,6 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -152,11 +132,6 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * 
      * @return The language code.</p>
      *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>en</code> - English (default)
-     *         </p>
-     *         </li>
      *         <li>
      *         <p>
      *         <code>jp</code> - Japanese
@@ -180,11 +155,6 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -198,11 +168,6 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -268,7 +233,7 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * <ul>
      * <li>
      * <p>
-     * <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the master account of your organization.
+     * <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the management account of your organization.
      * </p>
      * </li>
      * <li>
@@ -292,7 +257,7 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the master account of your organization.
+     *        <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the management account of your organization.
      *        </p>
      *        </li>
      *        <li>
@@ -323,7 +288,7 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * <ul>
      * <li>
      * <p>
-     * <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the master account of your organization.
+     * <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the management account of your organization.
      * </p>
      * </li>
      * <li>
@@ -346,7 +311,7 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the master account of your organization.
+     *         <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the management account of your organization.
      *         </p>
      *         </li>
      *         <li>
@@ -377,7 +342,7 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * <ul>
      * <li>
      * <p>
-     * <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the master account of your organization.
+     * <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the management account of your organization.
      * </p>
      * </li>
      * <li>
@@ -401,7 +366,7 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the master account of your organization.
+     *        <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the management account of your organization.
      *        </p>
      *        </li>
      *        <li>
@@ -434,7 +399,7 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      * <ul>
      * <li>
      * <p>
-     * <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the master account of your organization.
+     * <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the management account of your organization.
      * </p>
      * </li>
      * <li>
@@ -458,7 +423,7 @@ public class RejectPortfolioShareRequest extends com.amazonaws.AmazonWebServiceR
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the master account of your organization.
+     *        <code>AWS_ORGANIZATIONS</code> - Reject portfolios shared by the management account of your organization.
      *        </p>
      *        </li>
      *        <li>

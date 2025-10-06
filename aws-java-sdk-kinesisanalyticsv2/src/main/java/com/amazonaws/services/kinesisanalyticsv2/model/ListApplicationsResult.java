@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,8 +33,8 @@ public class ListApplicationsResult extends com.amazonaws.AmazonWebServiceResult
      * <p>
      * The pagination token for the next set of results, or <code>null</code> if there are no additional results. Pass
      * this token into a subsequent command to retrieve the next set of items For more information about pagination, see
-     * <a href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Using the AWS Command Line Interface's
-     * Pagination Options</a>.
+     * <a href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Using the Amazon Command Line
+     * Interface's Pagination Options</a>.
      * </p>
      */
     private String nextToken;
@@ -113,15 +113,15 @@ public class ListApplicationsResult extends com.amazonaws.AmazonWebServiceResult
      * <p>
      * The pagination token for the next set of results, or <code>null</code> if there are no additional results. Pass
      * this token into a subsequent command to retrieve the next set of items For more information about pagination, see
-     * <a href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Using the AWS Command Line Interface's
-     * Pagination Options</a>.
+     * <a href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Using the Amazon Command Line
+     * Interface's Pagination Options</a>.
      * </p>
      * 
      * @param nextToken
      *        The pagination token for the next set of results, or <code>null</code> if there are no additional results.
      *        Pass this token into a subsequent command to retrieve the next set of items For more information about
-     *        pagination, see <a href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Using the AWS
-     *        Command Line Interface's Pagination Options</a>.
+     *        pagination, see <a href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Using the
+     *        Amazon Command Line Interface's Pagination Options</a>.
      */
 
     public void setNextToken(String nextToken) {
@@ -132,14 +132,14 @@ public class ListApplicationsResult extends com.amazonaws.AmazonWebServiceResult
      * <p>
      * The pagination token for the next set of results, or <code>null</code> if there are no additional results. Pass
      * this token into a subsequent command to retrieve the next set of items For more information about pagination, see
-     * <a href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Using the AWS Command Line Interface's
-     * Pagination Options</a>.
+     * <a href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Using the Amazon Command Line
+     * Interface's Pagination Options</a>.
      * </p>
      * 
      * @return The pagination token for the next set of results, or <code>null</code> if there are no additional
      *         results. Pass this token into a subsequent command to retrieve the next set of items For more information
      *         about pagination, see <a href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Using
-     *         the AWS Command Line Interface's Pagination Options</a>.
+     *         the Amazon Command Line Interface's Pagination Options</a>.
      */
 
     public String getNextToken() {
@@ -150,15 +150,15 @@ public class ListApplicationsResult extends com.amazonaws.AmazonWebServiceResult
      * <p>
      * The pagination token for the next set of results, or <code>null</code> if there are no additional results. Pass
      * this token into a subsequent command to retrieve the next set of items For more information about pagination, see
-     * <a href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Using the AWS Command Line Interface's
-     * Pagination Options</a>.
+     * <a href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Using the Amazon Command Line
+     * Interface's Pagination Options</a>.
      * </p>
      * 
      * @param nextToken
      *        The pagination token for the next set of results, or <code>null</code> if there are no additional results.
      *        Pass this token into a subsequent command to retrieve the next set of items For more information about
-     *        pagination, see <a href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Using the AWS
-     *        Command Line Interface's Pagination Options</a>.
+     *        pagination, see <a href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Using the
+     *        Amazon Command Line Interface's Pagination Options</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

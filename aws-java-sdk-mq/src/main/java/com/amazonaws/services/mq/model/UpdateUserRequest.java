@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,9 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
+ * <p>
  * Updates the information for an ActiveMQ user.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateUser" target="_top">AWS API
  *      Documentation</a>
@@ -26,28 +28,50 @@ import com.amazonaws.AmazonWebServiceRequest;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
-    /** The unique ID that Amazon MQ generates for the broker. */
+    /**
+     * <p>
+     * The unique ID that Amazon MQ generates for the broker.
+     * </p>
+     */
     private String brokerId;
-    /** Enables access to the the ActiveMQ Web Console for the ActiveMQ user. */
+    /**
+     * <p>
+     * Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
+     * </p>
+     */
     private Boolean consoleAccess;
     /**
+     * <p>
      * The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only alphanumeric
      * characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      */
     private java.util.List<String> groups;
     /**
+     * <p>
      * The password of the user. This value must be at least 12 characters long, must contain at least 4 unique
-     * characters, and must not contain commas.
+     * characters, and must not contain commas, colons, or equal signs (,:=).
+     * </p>
      */
     private String password;
     /**
-     * Required. The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes,
-     * periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * <p>
+     * The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes, periods,
+     * underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      */
     private String username;
+    /**
+     * <p>
+     * Defines whether the user is intended for data replication.
+     * </p>
+     */
+    private Boolean replicationUser;
 
     /**
+     * <p>
      * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @param brokerId
      *        The unique ID that Amazon MQ generates for the broker.
@@ -58,7 +82,9 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @return The unique ID that Amazon MQ generates for the broker.
      */
@@ -68,7 +94,9 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @param brokerId
      *        The unique ID that Amazon MQ generates for the broker.
@@ -81,7 +109,9 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
+     * </p>
      * 
      * @param consoleAccess
      *        Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
@@ -92,7 +122,9 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
+     * </p>
      * 
      * @return Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
      */
@@ -102,7 +134,9 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
+     * </p>
      * 
      * @param consoleAccess
      *        Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
@@ -115,7 +149,9 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
+     * </p>
      * 
      * @return Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
      */
@@ -125,8 +161,10 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only alphanumeric
      * characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      * 
      * @return The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only
      *         alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100
@@ -138,8 +176,10 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only alphanumeric
      * characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      * 
      * @param groups
      *        The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only
@@ -157,8 +197,10 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only alphanumeric
      * characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setGroups(java.util.Collection)} or {@link #withGroups(java.util.Collection)} if you want to override the
@@ -183,8 +225,10 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only alphanumeric
      * characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      * 
      * @param groups
      *        The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only
@@ -199,12 +243,14 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The password of the user. This value must be at least 12 characters long, must contain at least 4 unique
-     * characters, and must not contain commas.
+     * characters, and must not contain commas, colons, or equal signs (,:=).
+     * </p>
      * 
      * @param password
      *        The password of the user. This value must be at least 12 characters long, must contain at least 4 unique
-     *        characters, and must not contain commas.
+     *        characters, and must not contain commas, colons, or equal signs (,:=).
      */
 
     public void setPassword(String password) {
@@ -212,11 +258,13 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The password of the user. This value must be at least 12 characters long, must contain at least 4 unique
-     * characters, and must not contain commas.
+     * characters, and must not contain commas, colons, or equal signs (,:=).
+     * </p>
      * 
      * @return The password of the user. This value must be at least 12 characters long, must contain at least 4 unique
-     *         characters, and must not contain commas.
+     *         characters, and must not contain commas, colons, or equal signs (,:=).
      */
 
     public String getPassword() {
@@ -224,12 +272,14 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The password of the user. This value must be at least 12 characters long, must contain at least 4 unique
-     * characters, and must not contain commas.
+     * characters, and must not contain commas, colons, or equal signs (,:=).
+     * </p>
      * 
      * @param password
      *        The password of the user. This value must be at least 12 characters long, must contain at least 4 unique
-     *        characters, and must not contain commas.
+     *        characters, and must not contain commas, colons, or equal signs (,:=).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -239,12 +289,14 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
-     * Required. The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes,
-     * periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * <p>
+     * The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes, periods,
+     * underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      * 
      * @param username
-     *        Required. The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes,
-     *        periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     *        The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes, periods,
+     *        underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
      */
 
     public void setUsername(String username) {
@@ -252,11 +304,13 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
-     * Required. The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes,
-     * periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * <p>
+     * The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes, periods,
+     * underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      * 
-     * @return Required. The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes,
-     *         periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * @return The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes, periods,
+     *         underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
      */
 
     public String getUsername() {
@@ -264,18 +318,72 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
-     * Required. The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes,
-     * periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * <p>
+     * The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes, periods,
+     * underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      * 
      * @param username
-     *        Required. The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes,
-     *        periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     *        The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes, periods,
+     *        underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateUserRequest withUsername(String username) {
         setUsername(username);
         return this;
+    }
+
+    /**
+     * <p>
+     * Defines whether the user is intended for data replication.
+     * </p>
+     * 
+     * @param replicationUser
+     *        Defines whether the user is intended for data replication.
+     */
+
+    public void setReplicationUser(Boolean replicationUser) {
+        this.replicationUser = replicationUser;
+    }
+
+    /**
+     * <p>
+     * Defines whether the user is intended for data replication.
+     * </p>
+     * 
+     * @return Defines whether the user is intended for data replication.
+     */
+
+    public Boolean getReplicationUser() {
+        return this.replicationUser;
+    }
+
+    /**
+     * <p>
+     * Defines whether the user is intended for data replication.
+     * </p>
+     * 
+     * @param replicationUser
+     *        Defines whether the user is intended for data replication.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateUserRequest withReplicationUser(Boolean replicationUser) {
+        setReplicationUser(replicationUser);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Defines whether the user is intended for data replication.
+     * </p>
+     * 
+     * @return Defines whether the user is intended for data replication.
+     */
+
+    public Boolean isReplicationUser() {
+        return this.replicationUser;
     }
 
     /**
@@ -299,7 +407,9 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
         if (getPassword() != null)
             sb.append("Password: ").append(getPassword()).append(",");
         if (getUsername() != null)
-            sb.append("Username: ").append(getUsername());
+            sb.append("Username: ").append(getUsername()).append(",");
+        if (getReplicationUser() != null)
+            sb.append("ReplicationUser: ").append(getReplicationUser());
         sb.append("}");
         return sb.toString();
     }
@@ -334,6 +444,10 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
             return false;
         if (other.getUsername() != null && other.getUsername().equals(this.getUsername()) == false)
             return false;
+        if (other.getReplicationUser() == null ^ this.getReplicationUser() == null)
+            return false;
+        if (other.getReplicationUser() != null && other.getReplicationUser().equals(this.getReplicationUser()) == false)
+            return false;
         return true;
     }
 
@@ -347,6 +461,7 @@ public class UpdateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
         hashCode = prime * hashCode + ((getGroups() == null) ? 0 : getGroups().hashCode());
         hashCode = prime * hashCode + ((getPassword() == null) ? 0 : getPassword().hashCode());
         hashCode = prime * hashCode + ((getUsername() == null) ? 0 : getUsername().hashCode());
+        hashCode = prime * hashCode + ((getReplicationUser() == null) ? 0 : getReplicationUser().hashCode());
         return hashCode;
     }
 

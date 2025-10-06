@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,18 +25,21 @@ public class GetTranscriptionJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * An object that contains the results of the transcription job.
+     * Provides detailed information about the specified transcription job, including job status and, if applicable,
+     * failure reason.
      * </p>
      */
     private TranscriptionJob transcriptionJob;
 
     /**
      * <p>
-     * An object that contains the results of the transcription job.
+     * Provides detailed information about the specified transcription job, including job status and, if applicable,
+     * failure reason.
      * </p>
      * 
      * @param transcriptionJob
-     *        An object that contains the results of the transcription job.
+     *        Provides detailed information about the specified transcription job, including job status and, if
+     *        applicable, failure reason.
      */
 
     public void setTranscriptionJob(TranscriptionJob transcriptionJob) {
@@ -45,10 +48,12 @@ public class GetTranscriptionJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * An object that contains the results of the transcription job.
+     * Provides detailed information about the specified transcription job, including job status and, if applicable,
+     * failure reason.
      * </p>
      * 
-     * @return An object that contains the results of the transcription job.
+     * @return Provides detailed information about the specified transcription job, including job status and, if
+     *         applicable, failure reason.
      */
 
     public TranscriptionJob getTranscriptionJob() {
@@ -57,11 +62,13 @@ public class GetTranscriptionJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * An object that contains the results of the transcription job.
+     * Provides detailed information about the specified transcription job, including job status and, if applicable,
+     * failure reason.
      * </p>
      * 
      * @param transcriptionJob
-     *        An object that contains the results of the transcription job.
+     *        Provides detailed information about the specified transcription job, including job status and, if
+     *        applicable, failure reason.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

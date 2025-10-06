@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,46 +28,101 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum hourly price you're willing to pay for the Spot Instances. The default is the On-Demand price.
+     * The maximum hourly price that you're willing to pay for a Spot Instance. We do not recommend using this parameter
+     * because it can lead to increased interruptions. If you do not specify this parameter, you will pay the current
+     * Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your Spot Instances will be interrupted more frequently than if you do not
+     * specify this parameter.
+     * </p>
+     * </important>
      */
     private String maxPrice;
     /**
      * <p>
-     * The Spot Instance request type. For <a>RunInstances</a>, persistent Spot Instance requests are only supported
-     * when <b>InstanceInterruptionBehavior</b> is set to either <code>hibernate</code> or <code>stop</code>.
+     * The Spot Instance request type. For <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances">RunInstances</a>, persistent Spot
+     * Instance requests are only supported when the instance interruption behavior is either <code>hibernate</code> or
+     * <code>stop</code>.
      * </p>
      */
     private String spotInstanceType;
     /**
      * <p>
-     * The required duration for the Spot Instances (also known as Spot blocks), in minutes. This value must be a
-     * multiple of 60 (60, 120, 180, 240, 300, or 360).
+     * Deprecated.
      * </p>
      */
     private Integer blockDurationMinutes;
     /**
      * <p>
-     * The end date of the request. For a one-time request, the request remains active until all instances launch, the
-     * request is canceled, or this date is reached. If the request is persistent, it remains active until it is
-     * canceled or this date and time is reached. The default end date is 7 days from the current date.
+     * The end date of the request, in UTC format (<i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z).
+     * Supported only for persistent requests.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For a persistent request, the request remains active until the <code>ValidUntil</code> date and time is reached.
+     * Otherwise, the request remains active until you cancel it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For a one-time request, <code>ValidUntil</code> is not supported. The request remains active until all instances
+     * launch or you cancel the request.
+     * </p>
+     * </li>
+     * </ul>
      */
     private java.util.Date validUntil;
     /**
      * <p>
-     * The behavior when a Spot Instance is interrupted. The default is <code>terminate</code>.
+     * The behavior when a Spot Instance is interrupted.
+     * </p>
+     * <p>
+     * If <code>Configured</code> (for <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     * <code>HibernationOptions</code> </a>) is set to <code>true</code>, the <code>InstanceInterruptionBehavior</code>
+     * parameter is automatically set to <code>hibernate</code>. If you set it to <code>stop</code> or
+     * <code>terminate</code>, you'll get an error.
+     * </p>
+     * <p>
+     * If <code>Configured</code> (for <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     * <code>HibernationOptions</code> </a>) is set to <code>false</code> or <code>null</code>, the
+     * <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>terminate</code>. You can also
+     * set it to <code>stop</code> or <code>hibernate</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/interruption-behavior.html">Interruption behavior</a>
+     * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      */
     private String instanceInterruptionBehavior;
 
     /**
      * <p>
-     * The maximum hourly price you're willing to pay for the Spot Instances. The default is the On-Demand price.
+     * The maximum hourly price that you're willing to pay for a Spot Instance. We do not recommend using this parameter
+     * because it can lead to increased interruptions. If you do not specify this parameter, you will pay the current
+     * Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your Spot Instances will be interrupted more frequently than if you do not
+     * specify this parameter.
+     * </p>
+     * </important>
      * 
      * @param maxPrice
-     *        The maximum hourly price you're willing to pay for the Spot Instances. The default is the On-Demand price.
+     *        The maximum hourly price that you're willing to pay for a Spot Instance. We do not recommend using this
+     *        parameter because it can lead to increased interruptions. If you do not specify this parameter, you will
+     *        pay the current Spot price.</p> <important>
+     *        <p>
+     *        If you specify a maximum price, your Spot Instances will be interrupted more frequently than if you do not
+     *        specify this parameter.
+     *        </p>
      */
 
     public void setMaxPrice(String maxPrice) {
@@ -76,11 +131,24 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum hourly price you're willing to pay for the Spot Instances. The default is the On-Demand price.
+     * The maximum hourly price that you're willing to pay for a Spot Instance. We do not recommend using this parameter
+     * because it can lead to increased interruptions. If you do not specify this parameter, you will pay the current
+     * Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your Spot Instances will be interrupted more frequently than if you do not
+     * specify this parameter.
+     * </p>
+     * </important>
      * 
-     * @return The maximum hourly price you're willing to pay for the Spot Instances. The default is the On-Demand
-     *         price.
+     * @return The maximum hourly price that you're willing to pay for a Spot Instance. We do not recommend using this
+     *         parameter because it can lead to increased interruptions. If you do not specify this parameter, you will
+     *         pay the current Spot price.</p> <important>
+     *         <p>
+     *         If you specify a maximum price, your Spot Instances will be interrupted more frequently than if you do
+     *         not specify this parameter.
+     *         </p>
      */
 
     public String getMaxPrice() {
@@ -89,11 +157,25 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum hourly price you're willing to pay for the Spot Instances. The default is the On-Demand price.
+     * The maximum hourly price that you're willing to pay for a Spot Instance. We do not recommend using this parameter
+     * because it can lead to increased interruptions. If you do not specify this parameter, you will pay the current
+     * Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your Spot Instances will be interrupted more frequently than if you do not
+     * specify this parameter.
+     * </p>
+     * </important>
      * 
      * @param maxPrice
-     *        The maximum hourly price you're willing to pay for the Spot Instances. The default is the On-Demand price.
+     *        The maximum hourly price that you're willing to pay for a Spot Instance. We do not recommend using this
+     *        parameter because it can lead to increased interruptions. If you do not specify this parameter, you will
+     *        pay the current Spot price.</p> <important>
+     *        <p>
+     *        If you specify a maximum price, your Spot Instances will be interrupted more frequently than if you do not
+     *        specify this parameter.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -104,14 +186,17 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Spot Instance request type. For <a>RunInstances</a>, persistent Spot Instance requests are only supported
-     * when <b>InstanceInterruptionBehavior</b> is set to either <code>hibernate</code> or <code>stop</code>.
+     * The Spot Instance request type. For <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances">RunInstances</a>, persistent Spot
+     * Instance requests are only supported when the instance interruption behavior is either <code>hibernate</code> or
+     * <code>stop</code>.
      * </p>
      * 
      * @param spotInstanceType
-     *        The Spot Instance request type. For <a>RunInstances</a>, persistent Spot Instance requests are only
-     *        supported when <b>InstanceInterruptionBehavior</b> is set to either <code>hibernate</code> or
-     *        <code>stop</code>.
+     *        The Spot Instance request type. For <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances">RunInstances</a>,
+     *        persistent Spot Instance requests are only supported when the instance interruption behavior is either
+     *        <code>hibernate</code> or <code>stop</code>.
      * @see SpotInstanceType
      */
 
@@ -121,13 +206,16 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Spot Instance request type. For <a>RunInstances</a>, persistent Spot Instance requests are only supported
-     * when <b>InstanceInterruptionBehavior</b> is set to either <code>hibernate</code> or <code>stop</code>.
+     * The Spot Instance request type. For <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances">RunInstances</a>, persistent Spot
+     * Instance requests are only supported when the instance interruption behavior is either <code>hibernate</code> or
+     * <code>stop</code>.
      * </p>
      * 
-     * @return The Spot Instance request type. For <a>RunInstances</a>, persistent Spot Instance requests are only
-     *         supported when <b>InstanceInterruptionBehavior</b> is set to either <code>hibernate</code> or
-     *         <code>stop</code>.
+     * @return The Spot Instance request type. For <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances">RunInstances</a>,
+     *         persistent Spot Instance requests are only supported when the instance interruption behavior is either
+     *         <code>hibernate</code> or <code>stop</code>.
      * @see SpotInstanceType
      */
 
@@ -137,14 +225,17 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Spot Instance request type. For <a>RunInstances</a>, persistent Spot Instance requests are only supported
-     * when <b>InstanceInterruptionBehavior</b> is set to either <code>hibernate</code> or <code>stop</code>.
+     * The Spot Instance request type. For <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances">RunInstances</a>, persistent Spot
+     * Instance requests are only supported when the instance interruption behavior is either <code>hibernate</code> or
+     * <code>stop</code>.
      * </p>
      * 
      * @param spotInstanceType
-     *        The Spot Instance request type. For <a>RunInstances</a>, persistent Spot Instance requests are only
-     *        supported when <b>InstanceInterruptionBehavior</b> is set to either <code>hibernate</code> or
-     *        <code>stop</code>.
+     *        The Spot Instance request type. For <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances">RunInstances</a>,
+     *        persistent Spot Instance requests are only supported when the instance interruption behavior is either
+     *        <code>hibernate</code> or <code>stop</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SpotInstanceType
      */
@@ -156,14 +247,17 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Spot Instance request type. For <a>RunInstances</a>, persistent Spot Instance requests are only supported
-     * when <b>InstanceInterruptionBehavior</b> is set to either <code>hibernate</code> or <code>stop</code>.
+     * The Spot Instance request type. For <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances">RunInstances</a>, persistent Spot
+     * Instance requests are only supported when the instance interruption behavior is either <code>hibernate</code> or
+     * <code>stop</code>.
      * </p>
      * 
      * @param spotInstanceType
-     *        The Spot Instance request type. For <a>RunInstances</a>, persistent Spot Instance requests are only
-     *        supported when <b>InstanceInterruptionBehavior</b> is set to either <code>hibernate</code> or
-     *        <code>stop</code>.
+     *        The Spot Instance request type. For <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances">RunInstances</a>,
+     *        persistent Spot Instance requests are only supported when the instance interruption behavior is either
+     *        <code>hibernate</code> or <code>stop</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SpotInstanceType
      */
@@ -175,13 +269,11 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The required duration for the Spot Instances (also known as Spot blocks), in minutes. This value must be a
-     * multiple of 60 (60, 120, 180, 240, 300, or 360).
+     * Deprecated.
      * </p>
      * 
      * @param blockDurationMinutes
-     *        The required duration for the Spot Instances (also known as Spot blocks), in minutes. This value must be a
-     *        multiple of 60 (60, 120, 180, 240, 300, or 360).
+     *        Deprecated.
      */
 
     public void setBlockDurationMinutes(Integer blockDurationMinutes) {
@@ -190,12 +282,10 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The required duration for the Spot Instances (also known as Spot blocks), in minutes. This value must be a
-     * multiple of 60 (60, 120, 180, 240, 300, or 360).
+     * Deprecated.
      * </p>
      * 
-     * @return The required duration for the Spot Instances (also known as Spot blocks), in minutes. This value must be
-     *         a multiple of 60 (60, 120, 180, 240, 300, or 360).
+     * @return Deprecated.
      */
 
     public Integer getBlockDurationMinutes() {
@@ -204,13 +294,11 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The required duration for the Spot Instances (also known as Spot blocks), in minutes. This value must be a
-     * multiple of 60 (60, 120, 180, 240, 300, or 360).
+     * Deprecated.
      * </p>
      * 
      * @param blockDurationMinutes
-     *        The required duration for the Spot Instances (also known as Spot blocks), in minutes. This value must be a
-     *        multiple of 60 (60, 120, 180, 240, 300, or 360).
+     *        Deprecated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -221,16 +309,41 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The end date of the request. For a one-time request, the request remains active until all instances launch, the
-     * request is canceled, or this date is reached. If the request is persistent, it remains active until it is
-     * canceled or this date and time is reached. The default end date is 7 days from the current date.
+     * The end date of the request, in UTC format (<i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z).
+     * Supported only for persistent requests.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For a persistent request, the request remains active until the <code>ValidUntil</code> date and time is reached.
+     * Otherwise, the request remains active until you cancel it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For a one-time request, <code>ValidUntil</code> is not supported. The request remains active until all instances
+     * launch or you cancel the request.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param validUntil
-     *        The end date of the request. For a one-time request, the request remains active until all instances
-     *        launch, the request is canceled, or this date is reached. If the request is persistent, it remains active
-     *        until it is canceled or this date and time is reached. The default end date is 7 days from the current
-     *        date.
+     *        The end date of the request, in UTC format
+     *        (<i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). Supported only for persistent
+     *        requests.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For a persistent request, the request remains active until the <code>ValidUntil</code> date and time is
+     *        reached. Otherwise, the request remains active until you cancel it.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For a one-time request, <code>ValidUntil</code> is not supported. The request remains active until all
+     *        instances launch or you cancel the request.
+     *        </p>
+     *        </li>
      */
 
     public void setValidUntil(java.util.Date validUntil) {
@@ -239,15 +352,40 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The end date of the request. For a one-time request, the request remains active until all instances launch, the
-     * request is canceled, or this date is reached. If the request is persistent, it remains active until it is
-     * canceled or this date and time is reached. The default end date is 7 days from the current date.
+     * The end date of the request, in UTC format (<i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z).
+     * Supported only for persistent requests.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For a persistent request, the request remains active until the <code>ValidUntil</code> date and time is reached.
+     * Otherwise, the request remains active until you cancel it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For a one-time request, <code>ValidUntil</code> is not supported. The request remains active until all instances
+     * launch or you cancel the request.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The end date of the request. For a one-time request, the request remains active until all instances
-     *         launch, the request is canceled, or this date is reached. If the request is persistent, it remains active
-     *         until it is canceled or this date and time is reached. The default end date is 7 days from the current
-     *         date.
+     * @return The end date of the request, in UTC format
+     *         (<i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). Supported only for persistent
+     *         requests.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         For a persistent request, the request remains active until the <code>ValidUntil</code> date and time is
+     *         reached. Otherwise, the request remains active until you cancel it.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For a one-time request, <code>ValidUntil</code> is not supported. The request remains active until all
+     *         instances launch or you cancel the request.
+     *         </p>
+     *         </li>
      */
 
     public java.util.Date getValidUntil() {
@@ -256,16 +394,41 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The end date of the request. For a one-time request, the request remains active until all instances launch, the
-     * request is canceled, or this date is reached. If the request is persistent, it remains active until it is
-     * canceled or this date and time is reached. The default end date is 7 days from the current date.
+     * The end date of the request, in UTC format (<i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z).
+     * Supported only for persistent requests.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For a persistent request, the request remains active until the <code>ValidUntil</code> date and time is reached.
+     * Otherwise, the request remains active until you cancel it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For a one-time request, <code>ValidUntil</code> is not supported. The request remains active until all instances
+     * launch or you cancel the request.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param validUntil
-     *        The end date of the request. For a one-time request, the request remains active until all instances
-     *        launch, the request is canceled, or this date is reached. If the request is persistent, it remains active
-     *        until it is canceled or this date and time is reached. The default end date is 7 days from the current
-     *        date.
+     *        The end date of the request, in UTC format
+     *        (<i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). Supported only for persistent
+     *        requests.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For a persistent request, the request remains active until the <code>ValidUntil</code> date and time is
+     *        reached. Otherwise, the request remains active until you cancel it.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For a one-time request, <code>ValidUntil</code> is not supported. The request remains active until all
+     *        instances launch or you cancel the request.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -276,11 +439,48 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The behavior when a Spot Instance is interrupted. The default is <code>terminate</code>.
+     * The behavior when a Spot Instance is interrupted.
+     * </p>
+     * <p>
+     * If <code>Configured</code> (for <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     * <code>HibernationOptions</code> </a>) is set to <code>true</code>, the <code>InstanceInterruptionBehavior</code>
+     * parameter is automatically set to <code>hibernate</code>. If you set it to <code>stop</code> or
+     * <code>terminate</code>, you'll get an error.
+     * </p>
+     * <p>
+     * If <code>Configured</code> (for <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     * <code>HibernationOptions</code> </a>) is set to <code>false</code> or <code>null</code>, the
+     * <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>terminate</code>. You can also
+     * set it to <code>stop</code> or <code>hibernate</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/interruption-behavior.html">Interruption behavior</a>
+     * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param instanceInterruptionBehavior
-     *        The behavior when a Spot Instance is interrupted. The default is <code>terminate</code>.
+     *        The behavior when a Spot Instance is interrupted.</p>
+     *        <p>
+     *        If <code>Configured</code> (for <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     *        <code>HibernationOptions</code> </a>) is set to <code>true</code>, the
+     *        <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>hibernate</code>. If you
+     *        set it to <code>stop</code> or <code>terminate</code>, you'll get an error.
+     *        </p>
+     *        <p>
+     *        If <code>Configured</code> (for <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     *        <code>HibernationOptions</code> </a>) is set to <code>false</code> or <code>null</code>, the
+     *        <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>terminate</code>. You
+     *        can also set it to <code>stop</code> or <code>hibernate</code>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/interruption-behavior.html">Interruption
+     *        behavior</a> in the <i>Amazon EC2 User Guide</i>.
      * @see InstanceInterruptionBehavior
      */
 
@@ -290,10 +490,47 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The behavior when a Spot Instance is interrupted. The default is <code>terminate</code>.
+     * The behavior when a Spot Instance is interrupted.
+     * </p>
+     * <p>
+     * If <code>Configured</code> (for <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     * <code>HibernationOptions</code> </a>) is set to <code>true</code>, the <code>InstanceInterruptionBehavior</code>
+     * parameter is automatically set to <code>hibernate</code>. If you set it to <code>stop</code> or
+     * <code>terminate</code>, you'll get an error.
+     * </p>
+     * <p>
+     * If <code>Configured</code> (for <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     * <code>HibernationOptions</code> </a>) is set to <code>false</code> or <code>null</code>, the
+     * <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>terminate</code>. You can also
+     * set it to <code>stop</code> or <code>hibernate</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/interruption-behavior.html">Interruption behavior</a>
+     * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
-     * @return The behavior when a Spot Instance is interrupted. The default is <code>terminate</code>.
+     * @return The behavior when a Spot Instance is interrupted.</p>
+     *         <p>
+     *         If <code>Configured</code> (for <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     *         <code>HibernationOptions</code> </a>) is set to <code>true</code>, the
+     *         <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>hibernate</code>. If
+     *         you set it to <code>stop</code> or <code>terminate</code>, you'll get an error.
+     *         </p>
+     *         <p>
+     *         If <code>Configured</code> (for <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     *         <code>HibernationOptions</code> </a>) is set to <code>false</code> or <code>null</code>, the
+     *         <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>terminate</code>. You
+     *         can also set it to <code>stop</code> or <code>hibernate</code>.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/interruption-behavior.html">Interruption
+     *         behavior</a> in the <i>Amazon EC2 User Guide</i>.
      * @see InstanceInterruptionBehavior
      */
 
@@ -303,11 +540,48 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The behavior when a Spot Instance is interrupted. The default is <code>terminate</code>.
+     * The behavior when a Spot Instance is interrupted.
+     * </p>
+     * <p>
+     * If <code>Configured</code> (for <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     * <code>HibernationOptions</code> </a>) is set to <code>true</code>, the <code>InstanceInterruptionBehavior</code>
+     * parameter is automatically set to <code>hibernate</code>. If you set it to <code>stop</code> or
+     * <code>terminate</code>, you'll get an error.
+     * </p>
+     * <p>
+     * If <code>Configured</code> (for <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     * <code>HibernationOptions</code> </a>) is set to <code>false</code> or <code>null</code>, the
+     * <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>terminate</code>. You can also
+     * set it to <code>stop</code> or <code>hibernate</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/interruption-behavior.html">Interruption behavior</a>
+     * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param instanceInterruptionBehavior
-     *        The behavior when a Spot Instance is interrupted. The default is <code>terminate</code>.
+     *        The behavior when a Spot Instance is interrupted.</p>
+     *        <p>
+     *        If <code>Configured</code> (for <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     *        <code>HibernationOptions</code> </a>) is set to <code>true</code>, the
+     *        <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>hibernate</code>. If you
+     *        set it to <code>stop</code> or <code>terminate</code>, you'll get an error.
+     *        </p>
+     *        <p>
+     *        If <code>Configured</code> (for <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     *        <code>HibernationOptions</code> </a>) is set to <code>false</code> or <code>null</code>, the
+     *        <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>terminate</code>. You
+     *        can also set it to <code>stop</code> or <code>hibernate</code>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/interruption-behavior.html">Interruption
+     *        behavior</a> in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceInterruptionBehavior
      */
@@ -319,11 +593,48 @@ public class SpotMarketOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The behavior when a Spot Instance is interrupted. The default is <code>terminate</code>.
+     * The behavior when a Spot Instance is interrupted.
+     * </p>
+     * <p>
+     * If <code>Configured</code> (for <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     * <code>HibernationOptions</code> </a>) is set to <code>true</code>, the <code>InstanceInterruptionBehavior</code>
+     * parameter is automatically set to <code>hibernate</code>. If you set it to <code>stop</code> or
+     * <code>terminate</code>, you'll get an error.
+     * </p>
+     * <p>
+     * If <code>Configured</code> (for <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     * <code>HibernationOptions</code> </a>) is set to <code>false</code> or <code>null</code>, the
+     * <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>terminate</code>. You can also
+     * set it to <code>stop</code> or <code>hibernate</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/interruption-behavior.html">Interruption behavior</a>
+     * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param instanceInterruptionBehavior
-     *        The behavior when a Spot Instance is interrupted. The default is <code>terminate</code>.
+     *        The behavior when a Spot Instance is interrupted.</p>
+     *        <p>
+     *        If <code>Configured</code> (for <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     *        <code>HibernationOptions</code> </a>) is set to <code>true</code>, the
+     *        <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>hibernate</code>. If you
+     *        set it to <code>stop</code> or <code>terminate</code>, you'll get an error.
+     *        </p>
+     *        <p>
+     *        If <code>Configured</code> (for <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_HibernationOptionsRequest.html">
+     *        <code>HibernationOptions</code> </a>) is set to <code>false</code> or <code>null</code>, the
+     *        <code>InstanceInterruptionBehavior</code> parameter is automatically set to <code>terminate</code>. You
+     *        can also set it to <code>stop</code> or <code>hibernate</code>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/interruption-behavior.html">Interruption
+     *        behavior</a> in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceInterruptionBehavior
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * The request to CloudTrail to start logging AWS API calls for an account.
+ * The request to CloudTrail to start logging Amazon Web Services API calls for an account.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/StartLogging" target="_top">AWS API
@@ -30,8 +30,8 @@ public class StartLoggingRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs AWS API calls. The format of a
-     * trail ARN is:
+     * Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs Amazon Web Services API calls.
+     * The following is the format of a trail ARN.
      * </p>
      * <p>
      * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
@@ -41,16 +41,16 @@ public class StartLoggingRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs AWS API calls. The format of a
-     * trail ARN is:
+     * Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs Amazon Web Services API calls.
+     * The following is the format of a trail ARN.
      * </p>
      * <p>
      * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
      * </p>
      * 
      * @param name
-     *        Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs AWS API calls. The format
-     *        of a trail ARN is:</p>
+     *        Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs Amazon Web Services API
+     *        calls. The following is the format of a trail ARN.</p>
      *        <p>
      *        <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
      */
@@ -61,15 +61,15 @@ public class StartLoggingRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs AWS API calls. The format of a
-     * trail ARN is:
+     * Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs Amazon Web Services API calls.
+     * The following is the format of a trail ARN.
      * </p>
      * <p>
      * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
      * </p>
      * 
-     * @return Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs AWS API calls. The format
-     *         of a trail ARN is:</p>
+     * @return Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs Amazon Web Services API
+     *         calls. The following is the format of a trail ARN.</p>
      *         <p>
      *         <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
      */
@@ -80,16 +80,16 @@ public class StartLoggingRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs AWS API calls. The format of a
-     * trail ARN is:
+     * Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs Amazon Web Services API calls.
+     * The following is the format of a trail ARN.
      * </p>
      * <p>
      * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
      * </p>
      * 
      * @param name
-     *        Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs AWS API calls. The format
-     *        of a trail ARN is:</p>
+     *        Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs Amazon Web Services API
+     *        calls. The following is the format of a trail ARN.</p>
      *        <p>
      *        <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
      * @return Returns a reference to this object so that method calls can be chained together.

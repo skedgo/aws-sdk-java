@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,8 @@ import javax.annotation.Generated;
  * The type of a budget. It must be one of the following types:
  * </p>
  * <p>
- * <code>COST</code>, <code>USAGE</code>, <code>RI_UTILIZATION</code>, or <code>RI_COVERAGE</code>.
+ * <code>COST</code>, <code>USAGE</code>, <code>RI_UTILIZATION</code>, <code>RI_COVERAGE</code>,
+ * <code>SAVINGS_PLANS_UTILIZATION</code>, or <code>SAVINGS_PLANS_COVERAGE</code>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -28,7 +29,9 @@ public enum BudgetType {
     USAGE("USAGE"),
     COST("COST"),
     RI_UTILIZATION("RI_UTILIZATION"),
-    RI_COVERAGE("RI_COVERAGE");
+    RI_COVERAGE("RI_COVERAGE"),
+    SAVINGS_PLANS_UTILIZATION("SAVINGS_PLANS_UTILIZATION"),
+    SAVINGS_PLANS_COVERAGE("SAVINGS_PLANS_COVERAGE");
 
     private String value;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,22 +39,40 @@ public class ActiveViolation implements Serializable, Cloneable, StructuredPojo 
     private String thingName;
     /**
      * <p>
-     * The security profile whose behavior is in violation.
+     * The security profile with the behavior is in violation.
      * </p>
      */
     private String securityProfileName;
     /**
      * <p>
-     * The behavior which is being violated.
+     * The behavior that is being violated.
      * </p>
      */
     private Behavior behavior;
     /**
      * <p>
-     * The value of the metric (the measurement) which caused the most recent violation.
+     * The value of the metric (the measurement) that caused the most recent violation.
      * </p>
      */
     private MetricValue lastViolationValue;
+    /**
+     * <p>
+     * The details of a violation event.
+     * </p>
+     */
+    private ViolationEventAdditionalInfo violationEventAdditionalInfo;
+    /**
+     * <p>
+     * The verification state of the violation (detect alarm).
+     * </p>
+     */
+    private String verificationState;
+    /**
+     * <p>
+     * The description of the verification state of the violation.
+     * </p>
+     */
+    private String verificationStateDescription;
     /**
      * <p>
      * The time the most recent violation occurred.
@@ -150,11 +168,11 @@ public class ActiveViolation implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The security profile whose behavior is in violation.
+     * The security profile with the behavior is in violation.
      * </p>
      * 
      * @param securityProfileName
-     *        The security profile whose behavior is in violation.
+     *        The security profile with the behavior is in violation.
      */
 
     public void setSecurityProfileName(String securityProfileName) {
@@ -163,10 +181,10 @@ public class ActiveViolation implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The security profile whose behavior is in violation.
+     * The security profile with the behavior is in violation.
      * </p>
      * 
-     * @return The security profile whose behavior is in violation.
+     * @return The security profile with the behavior is in violation.
      */
 
     public String getSecurityProfileName() {
@@ -175,11 +193,11 @@ public class ActiveViolation implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The security profile whose behavior is in violation.
+     * The security profile with the behavior is in violation.
      * </p>
      * 
      * @param securityProfileName
-     *        The security profile whose behavior is in violation.
+     *        The security profile with the behavior is in violation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -190,11 +208,11 @@ public class ActiveViolation implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The behavior which is being violated.
+     * The behavior that is being violated.
      * </p>
      * 
      * @param behavior
-     *        The behavior which is being violated.
+     *        The behavior that is being violated.
      */
 
     public void setBehavior(Behavior behavior) {
@@ -203,10 +221,10 @@ public class ActiveViolation implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The behavior which is being violated.
+     * The behavior that is being violated.
      * </p>
      * 
-     * @return The behavior which is being violated.
+     * @return The behavior that is being violated.
      */
 
     public Behavior getBehavior() {
@@ -215,11 +233,11 @@ public class ActiveViolation implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The behavior which is being violated.
+     * The behavior that is being violated.
      * </p>
      * 
      * @param behavior
-     *        The behavior which is being violated.
+     *        The behavior that is being violated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -230,11 +248,11 @@ public class ActiveViolation implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The value of the metric (the measurement) which caused the most recent violation.
+     * The value of the metric (the measurement) that caused the most recent violation.
      * </p>
      * 
      * @param lastViolationValue
-     *        The value of the metric (the measurement) which caused the most recent violation.
+     *        The value of the metric (the measurement) that caused the most recent violation.
      */
 
     public void setLastViolationValue(MetricValue lastViolationValue) {
@@ -243,10 +261,10 @@ public class ActiveViolation implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The value of the metric (the measurement) which caused the most recent violation.
+     * The value of the metric (the measurement) that caused the most recent violation.
      * </p>
      * 
-     * @return The value of the metric (the measurement) which caused the most recent violation.
+     * @return The value of the metric (the measurement) that caused the most recent violation.
      */
 
     public MetricValue getLastViolationValue() {
@@ -255,16 +273,155 @@ public class ActiveViolation implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The value of the metric (the measurement) which caused the most recent violation.
+     * The value of the metric (the measurement) that caused the most recent violation.
      * </p>
      * 
      * @param lastViolationValue
-     *        The value of the metric (the measurement) which caused the most recent violation.
+     *        The value of the metric (the measurement) that caused the most recent violation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ActiveViolation withLastViolationValue(MetricValue lastViolationValue) {
         setLastViolationValue(lastViolationValue);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The details of a violation event.
+     * </p>
+     * 
+     * @param violationEventAdditionalInfo
+     *        The details of a violation event.
+     */
+
+    public void setViolationEventAdditionalInfo(ViolationEventAdditionalInfo violationEventAdditionalInfo) {
+        this.violationEventAdditionalInfo = violationEventAdditionalInfo;
+    }
+
+    /**
+     * <p>
+     * The details of a violation event.
+     * </p>
+     * 
+     * @return The details of a violation event.
+     */
+
+    public ViolationEventAdditionalInfo getViolationEventAdditionalInfo() {
+        return this.violationEventAdditionalInfo;
+    }
+
+    /**
+     * <p>
+     * The details of a violation event.
+     * </p>
+     * 
+     * @param violationEventAdditionalInfo
+     *        The details of a violation event.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ActiveViolation withViolationEventAdditionalInfo(ViolationEventAdditionalInfo violationEventAdditionalInfo) {
+        setViolationEventAdditionalInfo(violationEventAdditionalInfo);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The verification state of the violation (detect alarm).
+     * </p>
+     * 
+     * @param verificationState
+     *        The verification state of the violation (detect alarm).
+     * @see VerificationState
+     */
+
+    public void setVerificationState(String verificationState) {
+        this.verificationState = verificationState;
+    }
+
+    /**
+     * <p>
+     * The verification state of the violation (detect alarm).
+     * </p>
+     * 
+     * @return The verification state of the violation (detect alarm).
+     * @see VerificationState
+     */
+
+    public String getVerificationState() {
+        return this.verificationState;
+    }
+
+    /**
+     * <p>
+     * The verification state of the violation (detect alarm).
+     * </p>
+     * 
+     * @param verificationState
+     *        The verification state of the violation (detect alarm).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see VerificationState
+     */
+
+    public ActiveViolation withVerificationState(String verificationState) {
+        setVerificationState(verificationState);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The verification state of the violation (detect alarm).
+     * </p>
+     * 
+     * @param verificationState
+     *        The verification state of the violation (detect alarm).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see VerificationState
+     */
+
+    public ActiveViolation withVerificationState(VerificationState verificationState) {
+        this.verificationState = verificationState.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The description of the verification state of the violation.
+     * </p>
+     * 
+     * @param verificationStateDescription
+     *        The description of the verification state of the violation.
+     */
+
+    public void setVerificationStateDescription(String verificationStateDescription) {
+        this.verificationStateDescription = verificationStateDescription;
+    }
+
+    /**
+     * <p>
+     * The description of the verification state of the violation.
+     * </p>
+     * 
+     * @return The description of the verification state of the violation.
+     */
+
+    public String getVerificationStateDescription() {
+        return this.verificationStateDescription;
+    }
+
+    /**
+     * <p>
+     * The description of the verification state of the violation.
+     * </p>
+     * 
+     * @param verificationStateDescription
+     *        The description of the verification state of the violation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ActiveViolation withVerificationStateDescription(String verificationStateDescription) {
+        setVerificationStateDescription(verificationStateDescription);
         return this;
     }
 
@@ -370,6 +527,12 @@ public class ActiveViolation implements Serializable, Cloneable, StructuredPojo 
             sb.append("Behavior: ").append(getBehavior()).append(",");
         if (getLastViolationValue() != null)
             sb.append("LastViolationValue: ").append(getLastViolationValue()).append(",");
+        if (getViolationEventAdditionalInfo() != null)
+            sb.append("ViolationEventAdditionalInfo: ").append(getViolationEventAdditionalInfo()).append(",");
+        if (getVerificationState() != null)
+            sb.append("VerificationState: ").append(getVerificationState()).append(",");
+        if (getVerificationStateDescription() != null)
+            sb.append("VerificationStateDescription: ").append(getVerificationStateDescription()).append(",");
         if (getLastViolationTime() != null)
             sb.append("LastViolationTime: ").append(getLastViolationTime()).append(",");
         if (getViolationStartTime() != null)
@@ -408,6 +571,18 @@ public class ActiveViolation implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getLastViolationValue() != null && other.getLastViolationValue().equals(this.getLastViolationValue()) == false)
             return false;
+        if (other.getViolationEventAdditionalInfo() == null ^ this.getViolationEventAdditionalInfo() == null)
+            return false;
+        if (other.getViolationEventAdditionalInfo() != null && other.getViolationEventAdditionalInfo().equals(this.getViolationEventAdditionalInfo()) == false)
+            return false;
+        if (other.getVerificationState() == null ^ this.getVerificationState() == null)
+            return false;
+        if (other.getVerificationState() != null && other.getVerificationState().equals(this.getVerificationState()) == false)
+            return false;
+        if (other.getVerificationStateDescription() == null ^ this.getVerificationStateDescription() == null)
+            return false;
+        if (other.getVerificationStateDescription() != null && other.getVerificationStateDescription().equals(this.getVerificationStateDescription()) == false)
+            return false;
         if (other.getLastViolationTime() == null ^ this.getLastViolationTime() == null)
             return false;
         if (other.getLastViolationTime() != null && other.getLastViolationTime().equals(this.getLastViolationTime()) == false)
@@ -429,6 +604,9 @@ public class ActiveViolation implements Serializable, Cloneable, StructuredPojo 
         hashCode = prime * hashCode + ((getSecurityProfileName() == null) ? 0 : getSecurityProfileName().hashCode());
         hashCode = prime * hashCode + ((getBehavior() == null) ? 0 : getBehavior().hashCode());
         hashCode = prime * hashCode + ((getLastViolationValue() == null) ? 0 : getLastViolationValue().hashCode());
+        hashCode = prime * hashCode + ((getViolationEventAdditionalInfo() == null) ? 0 : getViolationEventAdditionalInfo().hashCode());
+        hashCode = prime * hashCode + ((getVerificationState() == null) ? 0 : getVerificationState().hashCode());
+        hashCode = prime * hashCode + ((getVerificationStateDescription() == null) ? 0 : getVerificationStateDescription().hashCode());
         hashCode = prime * hashCode + ((getLastViolationTime() == null) ? 0 : getLastViolationTime().hashCode());
         hashCode = prime * hashCode + ((getViolationStartTime() == null) ? 0 : getViolationStartTime().hashCode());
         return hashCode;

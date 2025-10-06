@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,10 +27,10 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the activity to create. This name must be unique for your AWS account and region for 90 days. For
-     * more information, see <a
+     * The name of the activity to create. This name must be unique for your Amazon Web Services account and region for
+     * 90 days. For more information, see <a
      * href="https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions">
-     * Limits Related to State Machine Executions</a> in the <i>AWS Step Functions Developer Guide</i>.
+     * Limits Related to State Machine Executions</a> in the <i>Step Functions Developer Guide</i>.
      * </p>
      * <p>
      * A name must <i>not</i> contain:
@@ -38,7 +38,7 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * whitespace
+     * white space
      * </p>
      * </li>
      * <li>
@@ -62,21 +62,40 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+     * </p>
      */
     private String name;
     /**
      * <p>
      * The list of tags to add to a resource.
      * </p>
+     * <p>
+     * An array of key-value pairs. For more information, see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
+     * Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>, and <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
+     * Tags</a>.
+     * </p>
+     * <p>
+     * Tags may only contain Unicode letters, digits, white space, or these symbols: <code>_ . : / = + - @</code>.
+     * </p>
      */
     private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * Settings to configure server-side encryption.
+     * </p>
+     */
+    private EncryptionConfiguration encryptionConfiguration;
 
     /**
      * <p>
-     * The name of the activity to create. This name must be unique for your AWS account and region for 90 days. For
-     * more information, see <a
+     * The name of the activity to create. This name must be unique for your Amazon Web Services account and region for
+     * 90 days. For more information, see <a
      * href="https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions">
-     * Limits Related to State Machine Executions</a> in the <i>AWS Step Functions Developer Guide</i>.
+     * Limits Related to State Machine Executions</a> in the <i>Step Functions Developer Guide</i>.
      * </p>
      * <p>
      * A name must <i>not</i> contain:
@@ -84,7 +103,7 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * whitespace
+     * white space
      * </p>
      * </li>
      * <li>
@@ -108,19 +127,22 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+     * </p>
      * 
      * @param name
-     *        The name of the activity to create. This name must be unique for your AWS account and region for 90 days.
-     *        For more information, see <a href=
+     *        The name of the activity to create. This name must be unique for your Amazon Web Services account and
+     *        region for 90 days. For more information, see <a href=
      *        "https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions"
-     *        > Limits Related to State Machine Executions</a> in the <i>AWS Step Functions Developer Guide</i>.</p>
+     *        > Limits Related to State Machine Executions</a> in the <i>Step Functions Developer Guide</i>.</p>
      *        <p>
      *        A name must <i>not</i> contain:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        whitespace
+     *        white space
      *        </p>
      *        </li>
      *        <li>
@@ -143,6 +165,9 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
      *        control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
      */
 
     public void setName(String name) {
@@ -151,10 +176,10 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the activity to create. This name must be unique for your AWS account and region for 90 days. For
-     * more information, see <a
+     * The name of the activity to create. This name must be unique for your Amazon Web Services account and region for
+     * 90 days. For more information, see <a
      * href="https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions">
-     * Limits Related to State Machine Executions</a> in the <i>AWS Step Functions Developer Guide</i>.
+     * Limits Related to State Machine Executions</a> in the <i>Step Functions Developer Guide</i>.
      * </p>
      * <p>
      * A name must <i>not</i> contain:
@@ -162,7 +187,7 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * whitespace
+     * white space
      * </p>
      * </li>
      * <li>
@@ -186,18 +211,21 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+     * </p>
      * 
-     * @return The name of the activity to create. This name must be unique for your AWS account and region for 90 days.
-     *         For more information, see <a href=
+     * @return The name of the activity to create. This name must be unique for your Amazon Web Services account and
+     *         region for 90 days. For more information, see <a href=
      *         "https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions"
-     *         > Limits Related to State Machine Executions</a> in the <i>AWS Step Functions Developer Guide</i>.</p>
+     *         > Limits Related to State Machine Executions</a> in the <i>Step Functions Developer Guide</i>.</p>
      *         <p>
      *         A name must <i>not</i> contain:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         whitespace
+     *         white space
      *         </p>
      *         </li>
      *         <li>
@@ -220,6 +248,9 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
      *         control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
      */
 
     public String getName() {
@@ -228,10 +259,10 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the activity to create. This name must be unique for your AWS account and region for 90 days. For
-     * more information, see <a
+     * The name of the activity to create. This name must be unique for your Amazon Web Services account and region for
+     * 90 days. For more information, see <a
      * href="https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions">
-     * Limits Related to State Machine Executions</a> in the <i>AWS Step Functions Developer Guide</i>.
+     * Limits Related to State Machine Executions</a> in the <i>Step Functions Developer Guide</i>.
      * </p>
      * <p>
      * A name must <i>not</i> contain:
@@ -239,7 +270,7 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * whitespace
+     * white space
      * </p>
      * </li>
      * <li>
@@ -263,19 +294,22 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+     * </p>
      * 
      * @param name
-     *        The name of the activity to create. This name must be unique for your AWS account and region for 90 days.
-     *        For more information, see <a href=
+     *        The name of the activity to create. This name must be unique for your Amazon Web Services account and
+     *        region for 90 days. For more information, see <a href=
      *        "https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions"
-     *        > Limits Related to State Machine Executions</a> in the <i>AWS Step Functions Developer Guide</i>.</p>
+     *        > Limits Related to State Machine Executions</a> in the <i>Step Functions Developer Guide</i>.</p>
      *        <p>
      *        A name must <i>not</i> contain:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        whitespace
+     *        white space
      *        </p>
      *        </li>
      *        <li>
@@ -298,6 +332,9 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
      *        control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -310,8 +347,28 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * The list of tags to add to a resource.
      * </p>
+     * <p>
+     * An array of key-value pairs. For more information, see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
+     * Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>, and <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
+     * Tags</a>.
+     * </p>
+     * <p>
+     * Tags may only contain Unicode letters, digits, white space, or these symbols: <code>_ . : / = + - @</code>.
+     * </p>
      * 
-     * @return The list of tags to add to a resource.
+     * @return The list of tags to add to a resource.</p>
+     *         <p>
+     *         An array of key-value pairs. For more information, see <a
+     *         href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
+     *         Allocation Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>, and <a
+     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
+     *         Tags</a>.
+     *         </p>
+     *         <p>
+     *         Tags may only contain Unicode letters, digits, white space, or these symbols:
+     *         <code>_ . : / = + - @</code>.
      */
 
     public java.util.List<Tag> getTags() {
@@ -322,9 +379,28 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * The list of tags to add to a resource.
      * </p>
+     * <p>
+     * An array of key-value pairs. For more information, see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
+     * Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>, and <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
+     * Tags</a>.
+     * </p>
+     * <p>
+     * Tags may only contain Unicode letters, digits, white space, or these symbols: <code>_ . : / = + - @</code>.
+     * </p>
      * 
      * @param tags
-     *        The list of tags to add to a resource.
+     *        The list of tags to add to a resource.</p>
+     *        <p>
+     *        An array of key-value pairs. For more information, see <a
+     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
+     *        Allocation Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>, and <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
+     *        Tags</a>.
+     *        </p>
+     *        <p>
+     *        Tags may only contain Unicode letters, digits, white space, or these symbols: <code>_ . : / = + - @</code>.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -341,13 +417,32 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
      * The list of tags to add to a resource.
      * </p>
      * <p>
+     * An array of key-value pairs. For more information, see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
+     * Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>, and <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
+     * Tags</a>.
+     * </p>
+     * <p>
+     * Tags may only contain Unicode letters, digits, white space, or these symbols: <code>_ . : / = + - @</code>.
+     * </p>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
      * existing values.
      * </p>
      * 
      * @param tags
-     *        The list of tags to add to a resource.
+     *        The list of tags to add to a resource.</p>
+     *        <p>
+     *        An array of key-value pairs. For more information, see <a
+     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
+     *        Allocation Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>, and <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
+     *        Tags</a>.
+     *        </p>
+     *        <p>
+     *        Tags may only contain Unicode letters, digits, white space, or these symbols: <code>_ . : / = + - @</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -365,14 +460,73 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * The list of tags to add to a resource.
      * </p>
+     * <p>
+     * An array of key-value pairs. For more information, see <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
+     * Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>, and <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
+     * Tags</a>.
+     * </p>
+     * <p>
+     * Tags may only contain Unicode letters, digits, white space, or these symbols: <code>_ . : / = + - @</code>.
+     * </p>
      * 
      * @param tags
-     *        The list of tags to add to a resource.
+     *        The list of tags to add to a resource.</p>
+     *        <p>
+     *        An array of key-value pairs. For more information, see <a
+     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
+     *        Allocation Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>, and <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
+     *        Tags</a>.
+     *        </p>
+     *        <p>
+     *        Tags may only contain Unicode letters, digits, white space, or these symbols: <code>_ . : / = + - @</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateActivityRequest withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings to configure server-side encryption.
+     * </p>
+     * 
+     * @param encryptionConfiguration
+     *        Settings to configure server-side encryption.
+     */
+
+    public void setEncryptionConfiguration(EncryptionConfiguration encryptionConfiguration) {
+        this.encryptionConfiguration = encryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * Settings to configure server-side encryption.
+     * </p>
+     * 
+     * @return Settings to configure server-side encryption.
+     */
+
+    public EncryptionConfiguration getEncryptionConfiguration() {
+        return this.encryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * Settings to configure server-side encryption.
+     * </p>
+     * 
+     * @param encryptionConfiguration
+     *        Settings to configure server-side encryption.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateActivityRequest withEncryptionConfiguration(EncryptionConfiguration encryptionConfiguration) {
+        setEncryptionConfiguration(encryptionConfiguration);
         return this;
     }
 
@@ -391,7 +545,9 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getEncryptionConfiguration() != null)
+            sb.append("EncryptionConfiguration: ").append(getEncryptionConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -414,6 +570,10 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getEncryptionConfiguration() == null ^ this.getEncryptionConfiguration() == null)
+            return false;
+        if (other.getEncryptionConfiguration() != null && other.getEncryptionConfiguration().equals(this.getEncryptionConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -424,6 +584,7 @@ public class CreateActivityRequest extends com.amazonaws.AmazonWebServiceRequest
 
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getEncryptionConfiguration() == null) ? 0 : getEncryptionConfiguration().hashCode());
         return hashCode;
     }
 

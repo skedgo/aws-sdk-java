@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,7 @@ import javax.annotation.Generated;
 /**
  * <p>
  * A document that contains additional information about the authorization status of a request from an encoded message
- * that is returned in response to an AWS request.
+ * that is returned in response to an Amazon Web Services request.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sts-2011-06-15/DecodeAuthorizationMessage" target="_top">AWS API
@@ -29,18 +29,18 @@ public class DecodeAuthorizationMessageResult extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * An XML document that contains the decoded message.
+     * The API returns a response with the decoded message.
      * </p>
      */
     private String decodedMessage;
 
     /**
      * <p>
-     * An XML document that contains the decoded message.
+     * The API returns a response with the decoded message.
      * </p>
      * 
      * @param decodedMessage
-     *        An XML document that contains the decoded message.
+     *        The API returns a response with the decoded message.
      */
 
     public void setDecodedMessage(String decodedMessage) {
@@ -49,10 +49,10 @@ public class DecodeAuthorizationMessageResult extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * An XML document that contains the decoded message.
+     * The API returns a response with the decoded message.
      * </p>
      * 
-     * @return An XML document that contains the decoded message.
+     * @return The API returns a response with the decoded message.
      */
 
     public String getDecodedMessage() {
@@ -61,11 +61,11 @@ public class DecodeAuthorizationMessageResult extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * An XML document that contains the decoded message.
+     * The API returns a response with the decoded message.
      * </p>
      * 
      * @param decodedMessage
-     *        An XML document that contains the decoded message.
+     *        The API returns a response with the decoded message.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.budgets.AWSBudgetsClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.budgets.model.*;
+
 import com.amazonaws.services.budgets.model.transform.*;
 
 /**
@@ -51,9 +52,9 @@ import com.amazonaws.services.budgets.model.transform.*;
  * service call completes.
  * <p>
  * <p>
- * The AWS Budgets API enables you to use AWS Budgets to plan your service usage, service costs, and instance
- * reservations. The API reference provides descriptions, syntax, and usage examples for each of the actions and data
- * types for AWS Budgets.
+ * Use the Amazon Web Services Budgets API to plan your service usage, service costs, and instance reservations. This
+ * API reference provides descriptions, syntax, and usage examples for each of the actions and data types for the Amazon
+ * Web Services Budgets feature.
  * </p>
  * <p>
  * Budgets provide you with a way to see the following information:
@@ -71,8 +72,8 @@ import com.amazonaws.services.budgets.model.transform.*;
  * </li>
  * <li>
  * <p>
- * Your current estimated charges from AWS, and how much your predicted usage will accrue in charges by the end of the
- * month
+ * Your current estimated charges from Amazon Web Services, and how much your predicted usage will accrue in charges by
+ * the end of the month
  * </p>
  * </li>
  * <li>
@@ -82,8 +83,8 @@ import com.amazonaws.services.budgets.model.transform.*;
  * </li>
  * </ul>
  * <p>
- * AWS updates your budget status several times a day. Budgets track your unblended costs, subscriptions, refunds, and
- * RIs. You can create the following types of budgets:
+ * Amazon Web Services updates your budget status several times a day. Budgets track your unblended costs,
+ * subscriptions, refunds, and RIs. You can create the following types of budgets:
  * </p>
  * <ul>
  * <li>
@@ -114,7 +115,7 @@ import com.amazonaws.services.budgets.model.transform.*;
  * Service Endpoint
  * </p>
  * <p>
- * The AWS Budgets API provides the following endpoint:
+ * The Amazon Web Services Budgets API provides the following endpoint:
  * </p>
  * <ul>
  * <li>
@@ -124,8 +125,8 @@ import com.amazonaws.services.budgets.model.transform.*;
  * </li>
  * </ul>
  * <p>
- * For information about costs that are associated with the AWS Budgets API, see <a
- * href="https://aws.amazon.com/aws-cost-management/pricing/">AWS Cost Management Pricing</a>.
+ * For information about costs that are associated with the Amazon Web Services Budgets API, see <a
+ * href="https://aws.amazon.com/aws-cost-management/pricing/">Amazon Web Services Cost Management Pricing</a>.
  * </p>
  */
 @ThreadSafe
@@ -151,26 +152,38 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withModeledClass(
-                                    com.amazonaws.services.budgets.model.InvalidParameterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.budgets.model.transform.InvalidParameterExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withModeledClass(
-                                    com.amazonaws.services.budgets.model.NotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.budgets.model.transform.ThrottlingExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DuplicateRecordException").withModeledClass(
-                                    com.amazonaws.services.budgets.model.DuplicateRecordException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.budgets.model.transform.NotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalErrorException").withModeledClass(
-                                    com.amazonaws.services.budgets.model.InternalErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceQuotaExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.budgets.model.transform.ServiceQuotaExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CreationLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.budgets.model.CreationLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DuplicateRecordException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.budgets.model.transform.DuplicateRecordExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withModeledClass(
-                                    com.amazonaws.services.budgets.model.InvalidNextTokenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.budgets.model.transform.InternalErrorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ExpiredNextTokenException").withModeledClass(
-                                    com.amazonaws.services.budgets.model.ExpiredNextTokenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CreationLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.budgets.model.transform.CreationLimitExceededExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.budgets.model.transform.InvalidNextTokenExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ExpiredNextTokenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.budgets.model.transform.ExpiredNextTokenExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.budgets.model.transform.AccessDeniedExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceLockedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.budgets.model.transform.ResourceLockedExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.budgets.model.AWSBudgetsException.class));
 
     /**
@@ -397,6 +410,12 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
      *         You've exceeded the notification or subscriber limit.
      * @throws DuplicateRecordException
      *         The budget name already exists. Budget names must be unique within an account.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @throws ServiceQuotaExceededException
+     *         You've reached the limit on the number of tags you can associate with a resource.
      * @sample AWSBudgets.CreateBudget
      */
     @Override
@@ -420,6 +439,8 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
                 request = new CreateBudgetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createBudgetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateBudget");
@@ -431,6 +452,75 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
 
             HttpResponseHandler<AmazonWebServiceResponse<CreateBudgetResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateBudgetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a budget action.
+     * </p>
+     * 
+     * @param createBudgetActionRequest
+     * @return Result of the CreateBudgetAction operation returned by the service.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws CreationLimitExceededException
+     *         You've exceeded the notification or subscriber limit.
+     * @throws DuplicateRecordException
+     *         The budget name already exists. Budget names must be unique within an account.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @throws ServiceQuotaExceededException
+     *         You've reached the limit on the number of tags you can associate with a resource.
+     * @sample AWSBudgets.CreateBudgetAction
+     */
+    @Override
+    public CreateBudgetActionResult createBudgetAction(CreateBudgetActionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateBudgetAction(request);
+    }
+
+    @SdkInternalApi
+    final CreateBudgetActionResult executeCreateBudgetAction(CreateBudgetActionRequest createBudgetActionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createBudgetActionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateBudgetActionRequest> request = null;
+        Response<CreateBudgetActionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateBudgetActionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createBudgetActionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateBudgetAction");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateBudgetActionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateBudgetActionResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -459,6 +549,10 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
      *         You've exceeded the notification or subscriber limit.
      * @throws DuplicateRecordException
      *         The budget name already exists. Budget names must be unique within an account.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.CreateNotification
      */
     @Override
@@ -482,6 +576,8 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
                 request = new CreateNotificationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createNotificationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateNotification");
@@ -521,6 +617,10 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
      *         The budget name already exists. Budget names must be unique within an account.
      * @throws NotFoundException
      *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.CreateSubscriber
      */
     @Override
@@ -544,6 +644,8 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
                 request = new CreateSubscriberRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createSubscriberRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSubscriber");
@@ -584,6 +686,10 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
      *         An error on the client occurred. Typically, the cause is an invalid input value.
      * @throws NotFoundException
      *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DeleteBudget
      */
     @Override
@@ -607,6 +713,8 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
                 request = new DeleteBudgetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteBudgetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteBudget");
@@ -618,6 +726,72 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
 
             HttpResponseHandler<AmazonWebServiceResponse<DeleteBudgetResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteBudgetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a budget action.
+     * </p>
+     * 
+     * @param deleteBudgetActionRequest
+     * @return Result of the DeleteBudgetAction operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ResourceLockedException
+     *         The request was received and recognized by the server, but the server rejected that particular method for
+     *         the requested resource.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.DeleteBudgetAction
+     */
+    @Override
+    public DeleteBudgetActionResult deleteBudgetAction(DeleteBudgetActionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteBudgetAction(request);
+    }
+
+    @SdkInternalApi
+    final DeleteBudgetActionResult executeDeleteBudgetAction(DeleteBudgetActionRequest deleteBudgetActionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteBudgetActionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteBudgetActionRequest> request = null;
+        Response<DeleteBudgetActionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteBudgetActionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteBudgetActionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteBudgetAction");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteBudgetActionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteBudgetActionResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -647,6 +821,10 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
      *         An error on the server occurred during the processing of your request. Try again later.
      * @throws NotFoundException
      *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DeleteNotification
      */
     @Override
@@ -670,6 +848,8 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
                 request = new DeleteNotificationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteNotificationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteNotification");
@@ -710,6 +890,10 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
      *         An error on the client occurred. Typically, the cause is an invalid input value.
      * @throws NotFoundException
      *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DeleteSubscriber
      */
     @Override
@@ -733,6 +917,8 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
                 request = new DeleteSubscriberRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteSubscriberRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSubscriber");
@@ -776,6 +962,10 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
      *         An error on the client occurred. Typically, the cause is an invalid input value.
      * @throws NotFoundException
      *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DescribeBudget
      */
     @Override
@@ -799,6 +989,8 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
                 request = new DescribeBudgetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeBudgetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBudget");
@@ -810,6 +1002,339 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
 
             HttpResponseHandler<AmazonWebServiceResponse<DescribeBudgetResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeBudgetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes a budget action detail.
+     * </p>
+     * 
+     * @param describeBudgetActionRequest
+     * @return Result of the DescribeBudgetAction operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.DescribeBudgetAction
+     */
+    @Override
+    public DescribeBudgetActionResult describeBudgetAction(DescribeBudgetActionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeBudgetAction(request);
+    }
+
+    @SdkInternalApi
+    final DescribeBudgetActionResult executeDescribeBudgetAction(DescribeBudgetActionRequest describeBudgetActionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeBudgetActionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeBudgetActionRequest> request = null;
+        Response<DescribeBudgetActionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeBudgetActionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeBudgetActionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBudgetAction");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeBudgetActionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeBudgetActionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes a budget action history detail.
+     * </p>
+     * 
+     * @param describeBudgetActionHistoriesRequest
+     * @return Result of the DescribeBudgetActionHistories operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws InvalidNextTokenException
+     *         The pagination token is invalid.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.DescribeBudgetActionHistories
+     */
+    @Override
+    public DescribeBudgetActionHistoriesResult describeBudgetActionHistories(DescribeBudgetActionHistoriesRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeBudgetActionHistories(request);
+    }
+
+    @SdkInternalApi
+    final DescribeBudgetActionHistoriesResult executeDescribeBudgetActionHistories(DescribeBudgetActionHistoriesRequest describeBudgetActionHistoriesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeBudgetActionHistoriesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeBudgetActionHistoriesRequest> request = null;
+        Response<DescribeBudgetActionHistoriesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeBudgetActionHistoriesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeBudgetActionHistoriesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBudgetActionHistories");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeBudgetActionHistoriesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeBudgetActionHistoriesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes all of the budget actions for an account.
+     * </p>
+     * 
+     * @param describeBudgetActionsForAccountRequest
+     * @return Result of the DescribeBudgetActionsForAccount operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws InvalidNextTokenException
+     *         The pagination token is invalid.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.DescribeBudgetActionsForAccount
+     */
+    @Override
+    public DescribeBudgetActionsForAccountResult describeBudgetActionsForAccount(DescribeBudgetActionsForAccountRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeBudgetActionsForAccount(request);
+    }
+
+    @SdkInternalApi
+    final DescribeBudgetActionsForAccountResult executeDescribeBudgetActionsForAccount(
+            DescribeBudgetActionsForAccountRequest describeBudgetActionsForAccountRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeBudgetActionsForAccountRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeBudgetActionsForAccountRequest> request = null;
+        Response<DescribeBudgetActionsForAccountResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeBudgetActionsForAccountRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeBudgetActionsForAccountRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBudgetActionsForAccount");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeBudgetActionsForAccountResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeBudgetActionsForAccountResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes all of the budget actions for a budget.
+     * </p>
+     * 
+     * @param describeBudgetActionsForBudgetRequest
+     * @return Result of the DescribeBudgetActionsForBudget operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws InvalidNextTokenException
+     *         The pagination token is invalid.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.DescribeBudgetActionsForBudget
+     */
+    @Override
+    public DescribeBudgetActionsForBudgetResult describeBudgetActionsForBudget(DescribeBudgetActionsForBudgetRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeBudgetActionsForBudget(request);
+    }
+
+    @SdkInternalApi
+    final DescribeBudgetActionsForBudgetResult executeDescribeBudgetActionsForBudget(DescribeBudgetActionsForBudgetRequest describeBudgetActionsForBudgetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeBudgetActionsForBudgetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeBudgetActionsForBudgetRequest> request = null;
+        Response<DescribeBudgetActionsForBudgetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeBudgetActionsForBudgetRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeBudgetActionsForBudgetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBudgetActionsForBudget");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeBudgetActionsForBudgetResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeBudgetActionsForBudgetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the budget names and notifications that are associated with an account.
+     * </p>
+     * 
+     * @param describeBudgetNotificationsForAccountRequest
+     * @return Result of the DescribeBudgetNotificationsForAccount operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws InvalidNextTokenException
+     *         The pagination token is invalid.
+     * @throws ExpiredNextTokenException
+     *         The pagination token expired.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.DescribeBudgetNotificationsForAccount
+     */
+    @Override
+    public DescribeBudgetNotificationsForAccountResult describeBudgetNotificationsForAccount(DescribeBudgetNotificationsForAccountRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeBudgetNotificationsForAccount(request);
+    }
+
+    @SdkInternalApi
+    final DescribeBudgetNotificationsForAccountResult executeDescribeBudgetNotificationsForAccount(
+            DescribeBudgetNotificationsForAccountRequest describeBudgetNotificationsForAccountRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeBudgetNotificationsForAccountRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeBudgetNotificationsForAccountRequest> request = null;
+        Response<DescribeBudgetNotificationsForAccountResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeBudgetNotificationsForAccountRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeBudgetNotificationsForAccountRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBudgetNotificationsForAccount");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeBudgetNotificationsForAccountResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeBudgetNotificationsForAccountResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -838,6 +1363,10 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
      *         The pagination token is invalid.
      * @throws ExpiredNextTokenException
      *         The pagination token expired.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DescribeBudgetPerformanceHistory
      */
     @Override
@@ -863,6 +1392,8 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
                         .beforeMarshalling(describeBudgetPerformanceHistoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBudgetPerformanceHistory");
@@ -911,6 +1442,10 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
      *         The pagination token is invalid.
      * @throws ExpiredNextTokenException
      *         The pagination token expired.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DescribeBudgets
      */
     @Override
@@ -934,6 +1469,8 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
                 request = new DescribeBudgetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeBudgetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBudgets");
@@ -973,6 +1510,10 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
      *         The pagination token is invalid.
      * @throws ExpiredNextTokenException
      *         The pagination token expired.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DescribeNotificationsForBudget
      */
     @Override
@@ -997,6 +1538,8 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
                         .beforeMarshalling(describeNotificationsForBudgetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeNotificationsForBudget");
@@ -1037,6 +1580,10 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
      *         The pagination token is invalid.
      * @throws ExpiredNextTokenException
      *         The pagination token expired.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DescribeSubscribersForNotification
      */
     @Override
@@ -1062,6 +1609,8 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
                         .beforeMarshalling(describeSubscribersForNotificationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSubscribersForNotification");
@@ -1086,9 +1635,266 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
 
     /**
      * <p>
+     * Executes a budget action.
+     * </p>
+     * 
+     * @param executeBudgetActionRequest
+     * @return Result of the ExecuteBudgetAction operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ResourceLockedException
+     *         The request was received and recognized by the server, but the server rejected that particular method for
+     *         the requested resource.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.ExecuteBudgetAction
+     */
+    @Override
+    public ExecuteBudgetActionResult executeBudgetAction(ExecuteBudgetActionRequest request) {
+        request = beforeClientExecution(request);
+        return executeExecuteBudgetAction(request);
+    }
+
+    @SdkInternalApi
+    final ExecuteBudgetActionResult executeExecuteBudgetAction(ExecuteBudgetActionRequest executeBudgetActionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(executeBudgetActionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ExecuteBudgetActionRequest> request = null;
+        Response<ExecuteBudgetActionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ExecuteBudgetActionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(executeBudgetActionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ExecuteBudgetAction");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ExecuteBudgetActionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ExecuteBudgetActionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists tags associated with a budget or budget action resource.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @sample AWSBudgets.ListTagsForResource
+     */
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForResource(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForResourceResult executeListTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates tags for a budget or budget action resource.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @throws ServiceQuotaExceededException
+     *         You've reached the limit on the number of tags you can associate with a resource.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @sample AWSBudgets.TagResource
+     */
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes tags associated with a budget or budget action resource.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @sample AWSBudgets.UntagResource
+     */
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Updates a budget. You can change every part of a budget except for the <code>budgetName</code> and the
-     * <code>calculatedSpend</code>. When you modify a budget, the <code>calculatedSpend</code> drops to zero until AWS
-     * has new usage data to use for forecasting.
+     * <code>calculatedSpend</code>. When you modify a budget, the <code>calculatedSpend</code> drops to zero until
+     * Amazon Web Services has new usage data to use for forecasting.
      * </p>
      * <important>
      * <p>
@@ -1109,6 +1915,10 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
      *         An error on the client occurred. Typically, the cause is an invalid input value.
      * @throws NotFoundException
      *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.UpdateBudget
      */
     @Override
@@ -1132,6 +1942,8 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
                 request = new UpdateBudgetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateBudgetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateBudget");
@@ -1143,6 +1955,72 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
 
             HttpResponseHandler<AmazonWebServiceResponse<UpdateBudgetResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateBudgetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a budget action.
+     * </p>
+     * 
+     * @param updateBudgetActionRequest
+     * @return Result of the UpdateBudgetAction operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ResourceLockedException
+     *         The request was received and recognized by the server, but the server rejected that particular method for
+     *         the requested resource.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.UpdateBudgetAction
+     */
+    @Override
+    public UpdateBudgetActionResult updateBudgetAction(UpdateBudgetActionRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateBudgetAction(request);
+    }
+
+    @SdkInternalApi
+    final UpdateBudgetActionResult executeUpdateBudgetAction(UpdateBudgetActionRequest updateBudgetActionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateBudgetActionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateBudgetActionRequest> request = null;
+        Response<UpdateBudgetActionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateBudgetActionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateBudgetActionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateBudgetAction");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateBudgetActionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateBudgetActionResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1169,6 +2047,10 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
      *         We can’t locate the resource that you specified.
      * @throws DuplicateRecordException
      *         The budget name already exists. Budget names must be unique within an account.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.UpdateNotification
      */
     @Override
@@ -1192,6 +2074,8 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
                 request = new UpdateNotificationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateNotificationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateNotification");
@@ -1229,6 +2113,10 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
      *         We can’t locate the resource that you specified.
      * @throws DuplicateRecordException
      *         The budget name already exists. Budget names must be unique within an account.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.UpdateSubscriber
      */
     @Override
@@ -1252,6 +2140,8 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
                 request = new UpdateSubscriberRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateSubscriberRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Budgets");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSubscriber");
@@ -1347,6 +2237,11 @@ public class AWSBudgetsClient extends AmazonWebServiceClient implements AWSBudge
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

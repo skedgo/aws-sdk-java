@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,8 @@ public class CreateTransformJobRequestMarshaller {
             .marshallLocationName("ModelName").build();
     private static final MarshallingInfo<Integer> MAXCONCURRENTTRANSFORMS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaxConcurrentTransforms").build();
+    private static final MarshallingInfo<StructuredPojo> MODELCLIENTCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ModelClientConfig").build();
     private static final MarshallingInfo<Integer> MAXPAYLOADINMB_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaxPayloadInMB").build();
     private static final MarshallingInfo<String> BATCHSTRATEGY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -45,12 +47,16 @@ public class CreateTransformJobRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TransformInput").build();
     private static final MarshallingInfo<StructuredPojo> TRANSFORMOUTPUT_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TransformOutput").build();
+    private static final MarshallingInfo<StructuredPojo> DATACAPTURECONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DataCaptureConfig").build();
     private static final MarshallingInfo<StructuredPojo> TRANSFORMRESOURCES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TransformResources").build();
     private static final MarshallingInfo<StructuredPojo> DATAPROCESSING_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DataProcessing").build();
     private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Tags").build();
+    private static final MarshallingInfo<StructuredPojo> EXPERIMENTCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExperimentConfig").build();
 
     private static final CreateTransformJobRequestMarshaller instance = new CreateTransformJobRequestMarshaller();
 
@@ -71,14 +77,17 @@ public class CreateTransformJobRequestMarshaller {
             protocolMarshaller.marshall(createTransformJobRequest.getTransformJobName(), TRANSFORMJOBNAME_BINDING);
             protocolMarshaller.marshall(createTransformJobRequest.getModelName(), MODELNAME_BINDING);
             protocolMarshaller.marshall(createTransformJobRequest.getMaxConcurrentTransforms(), MAXCONCURRENTTRANSFORMS_BINDING);
+            protocolMarshaller.marshall(createTransformJobRequest.getModelClientConfig(), MODELCLIENTCONFIG_BINDING);
             protocolMarshaller.marshall(createTransformJobRequest.getMaxPayloadInMB(), MAXPAYLOADINMB_BINDING);
             protocolMarshaller.marshall(createTransformJobRequest.getBatchStrategy(), BATCHSTRATEGY_BINDING);
             protocolMarshaller.marshall(createTransformJobRequest.getEnvironment(), ENVIRONMENT_BINDING);
             protocolMarshaller.marshall(createTransformJobRequest.getTransformInput(), TRANSFORMINPUT_BINDING);
             protocolMarshaller.marshall(createTransformJobRequest.getTransformOutput(), TRANSFORMOUTPUT_BINDING);
+            protocolMarshaller.marshall(createTransformJobRequest.getDataCaptureConfig(), DATACAPTURECONFIG_BINDING);
             protocolMarshaller.marshall(createTransformJobRequest.getTransformResources(), TRANSFORMRESOURCES_BINDING);
             protocolMarshaller.marshall(createTransformJobRequest.getDataProcessing(), DATAPROCESSING_BINDING);
             protocolMarshaller.marshall(createTransformJobRequest.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(createTransformJobRequest.getExperimentConfig(), EXPERIMENTCONFIG_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

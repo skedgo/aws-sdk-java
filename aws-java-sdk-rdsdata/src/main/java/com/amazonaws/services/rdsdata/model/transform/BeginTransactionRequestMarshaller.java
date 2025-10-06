@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,14 +27,14 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class BeginTransactionRequestMarshaller {
 
-    private static final MarshallingInfo<String> DATABASE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
-            .marshallLocationName("database").build();
     private static final MarshallingInfo<String> RESOURCEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("resourceArn").build();
-    private static final MarshallingInfo<String> SCHEMA_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
-            .marshallLocationName("schema").build();
     private static final MarshallingInfo<String> SECRETARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("secretArn").build();
+    private static final MarshallingInfo<String> DATABASE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("database").build();
+    private static final MarshallingInfo<String> SCHEMA_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("schema").build();
 
     private static final BeginTransactionRequestMarshaller instance = new BeginTransactionRequestMarshaller();
 
@@ -52,10 +52,10 @@ public class BeginTransactionRequestMarshaller {
         }
 
         try {
-            protocolMarshaller.marshall(beginTransactionRequest.getDatabase(), DATABASE_BINDING);
             protocolMarshaller.marshall(beginTransactionRequest.getResourceArn(), RESOURCEARN_BINDING);
-            protocolMarshaller.marshall(beginTransactionRequest.getSchema(), SCHEMA_BINDING);
             protocolMarshaller.marshall(beginTransactionRequest.getSecretArn(), SECRETARN_BINDING);
+            protocolMarshaller.marshall(beginTransactionRequest.getDatabase(), DATABASE_BINDING);
+            protocolMarshaller.marshall(beginTransactionRequest.getSchema(), SCHEMA_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

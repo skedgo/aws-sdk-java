@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,37 +25,37 @@ public class PutSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the secret for which you just created a version.
+     * The ARN of the secret.
      * </p>
      */
     private String aRN;
     /**
      * <p>
-     * The friendly name of the secret for which you just created or updated a version.
+     * The name of the secret.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The unique identifier of the version of the secret you just created or updated.
+     * The unique identifier of the version of the secret.
      * </p>
      */
     private String versionId;
     /**
      * <p>
-     * The list of staging labels that are currently attached to this version of the secret. Staging labels are used to
-     * track a version as it progresses through the secret rotation process.
+     * The list of staging labels that are currently attached to this version of the secret. Secrets Manager uses
+     * staging labels to track a version as it progresses through the secret rotation process.
      * </p>
      */
     private java.util.List<String> versionStages;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the secret for which you just created a version.
+     * The ARN of the secret.
      * </p>
      * 
      * @param aRN
-     *        The Amazon Resource Name (ARN) for the secret for which you just created a version.
+     *        The ARN of the secret.
      */
 
     public void setARN(String aRN) {
@@ -64,10 +64,10 @@ public class PutSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the secret for which you just created a version.
+     * The ARN of the secret.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) for the secret for which you just created a version.
+     * @return The ARN of the secret.
      */
 
     public String getARN() {
@@ -76,11 +76,11 @@ public class PutSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the secret for which you just created a version.
+     * The ARN of the secret.
      * </p>
      * 
      * @param aRN
-     *        The Amazon Resource Name (ARN) for the secret for which you just created a version.
+     *        The ARN of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -91,11 +91,11 @@ public class PutSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The friendly name of the secret for which you just created or updated a version.
+     * The name of the secret.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret for which you just created or updated a version.
+     *        The name of the secret.
      */
 
     public void setName(String name) {
@@ -104,10 +104,10 @@ public class PutSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The friendly name of the secret for which you just created or updated a version.
+     * The name of the secret.
      * </p>
      * 
-     * @return The friendly name of the secret for which you just created or updated a version.
+     * @return The name of the secret.
      */
 
     public String getName() {
@@ -116,11 +116,11 @@ public class PutSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The friendly name of the secret for which you just created or updated a version.
+     * The name of the secret.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret for which you just created or updated a version.
+     *        The name of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -131,11 +131,11 @@ public class PutSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The unique identifier of the version of the secret you just created or updated.
+     * The unique identifier of the version of the secret.
      * </p>
      * 
      * @param versionId
-     *        The unique identifier of the version of the secret you just created or updated.
+     *        The unique identifier of the version of the secret.
      */
 
     public void setVersionId(String versionId) {
@@ -144,10 +144,10 @@ public class PutSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The unique identifier of the version of the secret you just created or updated.
+     * The unique identifier of the version of the secret.
      * </p>
      * 
-     * @return The unique identifier of the version of the secret you just created or updated.
+     * @return The unique identifier of the version of the secret.
      */
 
     public String getVersionId() {
@@ -156,11 +156,11 @@ public class PutSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The unique identifier of the version of the secret you just created or updated.
+     * The unique identifier of the version of the secret.
      * </p>
      * 
      * @param versionId
-     *        The unique identifier of the version of the secret you just created or updated.
+     *        The unique identifier of the version of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -171,12 +171,12 @@ public class PutSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The list of staging labels that are currently attached to this version of the secret. Staging labels are used to
-     * track a version as it progresses through the secret rotation process.
+     * The list of staging labels that are currently attached to this version of the secret. Secrets Manager uses
+     * staging labels to track a version as it progresses through the secret rotation process.
      * </p>
      * 
-     * @return The list of staging labels that are currently attached to this version of the secret. Staging labels are
-     *         used to track a version as it progresses through the secret rotation process.
+     * @return The list of staging labels that are currently attached to this version of the secret. Secrets Manager
+     *         uses staging labels to track a version as it progresses through the secret rotation process.
      */
 
     public java.util.List<String> getVersionStages() {
@@ -185,13 +185,13 @@ public class PutSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The list of staging labels that are currently attached to this version of the secret. Staging labels are used to
-     * track a version as it progresses through the secret rotation process.
+     * The list of staging labels that are currently attached to this version of the secret. Secrets Manager uses
+     * staging labels to track a version as it progresses through the secret rotation process.
      * </p>
      * 
      * @param versionStages
-     *        The list of staging labels that are currently attached to this version of the secret. Staging labels are
-     *        used to track a version as it progresses through the secret rotation process.
+     *        The list of staging labels that are currently attached to this version of the secret. Secrets Manager uses
+     *        staging labels to track a version as it progresses through the secret rotation process.
      */
 
     public void setVersionStages(java.util.Collection<String> versionStages) {
@@ -205,8 +205,8 @@ public class PutSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The list of staging labels that are currently attached to this version of the secret. Staging labels are used to
-     * track a version as it progresses through the secret rotation process.
+     * The list of staging labels that are currently attached to this version of the secret. Secrets Manager uses
+     * staging labels to track a version as it progresses through the secret rotation process.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -215,8 +215,8 @@ public class PutSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
      * </p>
      * 
      * @param versionStages
-     *        The list of staging labels that are currently attached to this version of the secret. Staging labels are
-     *        used to track a version as it progresses through the secret rotation process.
+     *        The list of staging labels that are currently attached to this version of the secret. Secrets Manager uses
+     *        staging labels to track a version as it progresses through the secret rotation process.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -232,13 +232,13 @@ public class PutSecretValueResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The list of staging labels that are currently attached to this version of the secret. Staging labels are used to
-     * track a version as it progresses through the secret rotation process.
+     * The list of staging labels that are currently attached to this version of the secret. Secrets Manager uses
+     * staging labels to track a version as it progresses through the secret rotation process.
      * </p>
      * 
      * @param versionStages
-     *        The list of staging labels that are currently attached to this version of the secret. Staging labels are
-     *        used to track a version as it progresses through the secret rotation process.
+     *        The list of staging labels that are currently attached to this version of the secret. Secrets Manager uses
+     *        staging labels to track a version as it progresses through the secret rotation process.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

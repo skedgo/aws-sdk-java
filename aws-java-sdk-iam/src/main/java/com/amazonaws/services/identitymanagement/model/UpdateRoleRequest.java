@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,19 +40,25 @@ public class UpdateRoleRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * The maximum session duration (in seconds) that you want to set for the specified role. If you do not specify a
-     * value for this setting, the default maximum of one hour is applied. This setting can have a value from 1 hour to
-     * 12 hours.
+     * value for this setting, the default value of one hour is applied. This setting can have a value from 1 hour to 12
+     * hours.
      * </p>
      * <p>
-     * Anyone who assumes the role from the AWS CLI or API can use the <code>DurationSeconds</code> API parameter or the
+     * Anyone who assumes the role from the CLI or API can use the <code>DurationSeconds</code> API parameter or the
      * <code>duration-seconds</code> CLI parameter to request a longer session. The <code>MaxSessionDuration</code>
      * setting determines the maximum duration that can be requested using the <code>DurationSeconds</code> parameter.
      * If users don't specify a value for the <code>DurationSeconds</code> parameter, their security credentials are
      * valid for one hour by default. This applies when you use the <code>AssumeRole*</code> API operations or the
      * <code>assume-role*</code> CLI operations but does not apply when you use those operations to create a console
      * URL. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">Using
-     * IAM Roles</a> in the <i>IAM User Guide</i>.
+     * IAM roles</a> in the <i>IAM User Guide</i>.
      * </p>
+     * <note>
+     * <p>
+     * IAM role credentials provided by Amazon EC2 instances assigned to the role are not subject to the specified
+     * maximum session duration.
+     * </p>
+     * </note>
      */
     private Integer maxSessionDuration;
 
@@ -139,34 +145,46 @@ public class UpdateRoleRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * The maximum session duration (in seconds) that you want to set for the specified role. If you do not specify a
-     * value for this setting, the default maximum of one hour is applied. This setting can have a value from 1 hour to
-     * 12 hours.
+     * value for this setting, the default value of one hour is applied. This setting can have a value from 1 hour to 12
+     * hours.
      * </p>
      * <p>
-     * Anyone who assumes the role from the AWS CLI or API can use the <code>DurationSeconds</code> API parameter or the
+     * Anyone who assumes the role from the CLI or API can use the <code>DurationSeconds</code> API parameter or the
      * <code>duration-seconds</code> CLI parameter to request a longer session. The <code>MaxSessionDuration</code>
      * setting determines the maximum duration that can be requested using the <code>DurationSeconds</code> parameter.
      * If users don't specify a value for the <code>DurationSeconds</code> parameter, their security credentials are
      * valid for one hour by default. This applies when you use the <code>AssumeRole*</code> API operations or the
      * <code>assume-role*</code> CLI operations but does not apply when you use those operations to create a console
      * URL. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">Using
-     * IAM Roles</a> in the <i>IAM User Guide</i>.
+     * IAM roles</a> in the <i>IAM User Guide</i>.
      * </p>
+     * <note>
+     * <p>
+     * IAM role credentials provided by Amazon EC2 instances assigned to the role are not subject to the specified
+     * maximum session duration.
+     * </p>
+     * </note>
      * 
      * @param maxSessionDuration
      *        The maximum session duration (in seconds) that you want to set for the specified role. If you do not
-     *        specify a value for this setting, the default maximum of one hour is applied. This setting can have a
-     *        value from 1 hour to 12 hours.</p>
+     *        specify a value for this setting, the default value of one hour is applied. This setting can have a value
+     *        from 1 hour to 12 hours.</p>
      *        <p>
-     *        Anyone who assumes the role from the AWS CLI or API can use the <code>DurationSeconds</code> API parameter
-     *        or the <code>duration-seconds</code> CLI parameter to request a longer session. The
+     *        Anyone who assumes the role from the CLI or API can use the <code>DurationSeconds</code> API parameter or
+     *        the <code>duration-seconds</code> CLI parameter to request a longer session. The
      *        <code>MaxSessionDuration</code> setting determines the maximum duration that can be requested using the
      *        <code>DurationSeconds</code> parameter. If users don't specify a value for the
      *        <code>DurationSeconds</code> parameter, their security credentials are valid for one hour by default. This
      *        applies when you use the <code>AssumeRole*</code> API operations or the <code>assume-role*</code> CLI
      *        operations but does not apply when you use those operations to create a console URL. For more information,
-     *        see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">Using IAM Roles</a> in
+     *        see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">Using IAM roles</a> in
      *        the <i>IAM User Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        IAM role credentials provided by Amazon EC2 instances assigned to the role are not subject to the
+     *        specified maximum session duration.
+     *        </p>
      */
 
     public void setMaxSessionDuration(Integer maxSessionDuration) {
@@ -176,33 +194,45 @@ public class UpdateRoleRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * The maximum session duration (in seconds) that you want to set for the specified role. If you do not specify a
-     * value for this setting, the default maximum of one hour is applied. This setting can have a value from 1 hour to
-     * 12 hours.
+     * value for this setting, the default value of one hour is applied. This setting can have a value from 1 hour to 12
+     * hours.
      * </p>
      * <p>
-     * Anyone who assumes the role from the AWS CLI or API can use the <code>DurationSeconds</code> API parameter or the
+     * Anyone who assumes the role from the CLI or API can use the <code>DurationSeconds</code> API parameter or the
      * <code>duration-seconds</code> CLI parameter to request a longer session. The <code>MaxSessionDuration</code>
      * setting determines the maximum duration that can be requested using the <code>DurationSeconds</code> parameter.
      * If users don't specify a value for the <code>DurationSeconds</code> parameter, their security credentials are
      * valid for one hour by default. This applies when you use the <code>AssumeRole*</code> API operations or the
      * <code>assume-role*</code> CLI operations but does not apply when you use those operations to create a console
      * URL. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">Using
-     * IAM Roles</a> in the <i>IAM User Guide</i>.
+     * IAM roles</a> in the <i>IAM User Guide</i>.
      * </p>
+     * <note>
+     * <p>
+     * IAM role credentials provided by Amazon EC2 instances assigned to the role are not subject to the specified
+     * maximum session duration.
+     * </p>
+     * </note>
      * 
      * @return The maximum session duration (in seconds) that you want to set for the specified role. If you do not
-     *         specify a value for this setting, the default maximum of one hour is applied. This setting can have a
-     *         value from 1 hour to 12 hours.</p>
+     *         specify a value for this setting, the default value of one hour is applied. This setting can have a value
+     *         from 1 hour to 12 hours.</p>
      *         <p>
-     *         Anyone who assumes the role from the AWS CLI or API can use the <code>DurationSeconds</code> API
-     *         parameter or the <code>duration-seconds</code> CLI parameter to request a longer session. The
+     *         Anyone who assumes the role from the CLI or API can use the <code>DurationSeconds</code> API parameter or
+     *         the <code>duration-seconds</code> CLI parameter to request a longer session. The
      *         <code>MaxSessionDuration</code> setting determines the maximum duration that can be requested using the
      *         <code>DurationSeconds</code> parameter. If users don't specify a value for the
      *         <code>DurationSeconds</code> parameter, their security credentials are valid for one hour by default.
      *         This applies when you use the <code>AssumeRole*</code> API operations or the <code>assume-role*</code>
      *         CLI operations but does not apply when you use those operations to create a console URL. For more
      *         information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">Using IAM
-     *         Roles</a> in the <i>IAM User Guide</i>.
+     *         roles</a> in the <i>IAM User Guide</i>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         IAM role credentials provided by Amazon EC2 instances assigned to the role are not subject to the
+     *         specified maximum session duration.
+     *         </p>
      */
 
     public Integer getMaxSessionDuration() {
@@ -212,34 +242,46 @@ public class UpdateRoleRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * The maximum session duration (in seconds) that you want to set for the specified role. If you do not specify a
-     * value for this setting, the default maximum of one hour is applied. This setting can have a value from 1 hour to
-     * 12 hours.
+     * value for this setting, the default value of one hour is applied. This setting can have a value from 1 hour to 12
+     * hours.
      * </p>
      * <p>
-     * Anyone who assumes the role from the AWS CLI or API can use the <code>DurationSeconds</code> API parameter or the
+     * Anyone who assumes the role from the CLI or API can use the <code>DurationSeconds</code> API parameter or the
      * <code>duration-seconds</code> CLI parameter to request a longer session. The <code>MaxSessionDuration</code>
      * setting determines the maximum duration that can be requested using the <code>DurationSeconds</code> parameter.
      * If users don't specify a value for the <code>DurationSeconds</code> parameter, their security credentials are
      * valid for one hour by default. This applies when you use the <code>AssumeRole*</code> API operations or the
      * <code>assume-role*</code> CLI operations but does not apply when you use those operations to create a console
      * URL. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">Using
-     * IAM Roles</a> in the <i>IAM User Guide</i>.
+     * IAM roles</a> in the <i>IAM User Guide</i>.
      * </p>
+     * <note>
+     * <p>
+     * IAM role credentials provided by Amazon EC2 instances assigned to the role are not subject to the specified
+     * maximum session duration.
+     * </p>
+     * </note>
      * 
      * @param maxSessionDuration
      *        The maximum session duration (in seconds) that you want to set for the specified role. If you do not
-     *        specify a value for this setting, the default maximum of one hour is applied. This setting can have a
-     *        value from 1 hour to 12 hours.</p>
+     *        specify a value for this setting, the default value of one hour is applied. This setting can have a value
+     *        from 1 hour to 12 hours.</p>
      *        <p>
-     *        Anyone who assumes the role from the AWS CLI or API can use the <code>DurationSeconds</code> API parameter
-     *        or the <code>duration-seconds</code> CLI parameter to request a longer session. The
+     *        Anyone who assumes the role from the CLI or API can use the <code>DurationSeconds</code> API parameter or
+     *        the <code>duration-seconds</code> CLI parameter to request a longer session. The
      *        <code>MaxSessionDuration</code> setting determines the maximum duration that can be requested using the
      *        <code>DurationSeconds</code> parameter. If users don't specify a value for the
      *        <code>DurationSeconds</code> parameter, their security credentials are valid for one hour by default. This
      *        applies when you use the <code>AssumeRole*</code> API operations or the <code>assume-role*</code> CLI
      *        operations but does not apply when you use those operations to create a console URL. For more information,
-     *        see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">Using IAM Roles</a> in
+     *        see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">Using IAM roles</a> in
      *        the <i>IAM User Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        IAM role credentials provided by Amazon EC2 instances assigned to the role are not subject to the
+     *        specified maximum session duration.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,7 +45,7 @@ public class CacheSecurityGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the cache security group owner.
+     * The Amazon account ID of the cache security group owner.
      * </p>
      */
     private String ownerId;
@@ -67,14 +67,20 @@ public class CacheSecurityGroup implements Serializable, Cloneable {
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<EC2SecurityGroup> eC2SecurityGroups;
+    /**
+     * <p>
+     * The ARN of the cache security group,
+     * </p>
+     */
+    private String aRN;
 
     /**
      * <p>
-     * The AWS account ID of the cache security group owner.
+     * The Amazon account ID of the cache security group owner.
      * </p>
      * 
      * @param ownerId
-     *        The AWS account ID of the cache security group owner.
+     *        The Amazon account ID of the cache security group owner.
      */
 
     public void setOwnerId(String ownerId) {
@@ -83,10 +89,10 @@ public class CacheSecurityGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the cache security group owner.
+     * The Amazon account ID of the cache security group owner.
      * </p>
      * 
-     * @return The AWS account ID of the cache security group owner.
+     * @return The Amazon account ID of the cache security group owner.
      */
 
     public String getOwnerId() {
@@ -95,11 +101,11 @@ public class CacheSecurityGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the cache security group owner.
+     * The Amazon account ID of the cache security group owner.
      * </p>
      * 
      * @param ownerId
-     *        The AWS account ID of the cache security group owner.
+     *        The Amazon account ID of the cache security group owner.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -262,6 +268,46 @@ public class CacheSecurityGroup implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The ARN of the cache security group,
+     * </p>
+     * 
+     * @param aRN
+     *        The ARN of the cache security group,
+     */
+
+    public void setARN(String aRN) {
+        this.aRN = aRN;
+    }
+
+    /**
+     * <p>
+     * The ARN of the cache security group,
+     * </p>
+     * 
+     * @return The ARN of the cache security group,
+     */
+
+    public String getARN() {
+        return this.aRN;
+    }
+
+    /**
+     * <p>
+     * The ARN of the cache security group,
+     * </p>
+     * 
+     * @param aRN
+     *        The ARN of the cache security group,
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CacheSecurityGroup withARN(String aRN) {
+        setARN(aRN);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -280,7 +326,9 @@ public class CacheSecurityGroup implements Serializable, Cloneable {
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
         if (getEC2SecurityGroups() != null)
-            sb.append("EC2SecurityGroups: ").append(getEC2SecurityGroups());
+            sb.append("EC2SecurityGroups: ").append(getEC2SecurityGroups()).append(",");
+        if (getARN() != null)
+            sb.append("ARN: ").append(getARN());
         sb.append("}");
         return sb.toString();
     }
@@ -311,6 +359,10 @@ public class CacheSecurityGroup implements Serializable, Cloneable {
             return false;
         if (other.getEC2SecurityGroups() != null && other.getEC2SecurityGroups().equals(this.getEC2SecurityGroups()) == false)
             return false;
+        if (other.getARN() == null ^ this.getARN() == null)
+            return false;
+        if (other.getARN() != null && other.getARN().equals(this.getARN()) == false)
+            return false;
         return true;
     }
 
@@ -323,6 +375,7 @@ public class CacheSecurityGroup implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getCacheSecurityGroupName() == null) ? 0 : getCacheSecurityGroupName().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getEC2SecurityGroups() == null) ? 0 : getEC2SecurityGroups().hashCode());
+        hashCode = prime * hashCode + ((getARN() == null) ? 0 : getARN().hashCode());
         return hashCode;
     }
 

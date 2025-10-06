@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,8 +34,9 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A name for the subscription filter. If you are updating an existing filter, you must specify the correct name in
-     * <code>filterName</code>. Otherwise, the call fails because you cannot associate a second filter with a log group.
-     * To find the name of the filter currently associated with a log group, use <a>DescribeSubscriptionFilters</a>.
+     * <code>filterName</code>. To find the name of the filter currently associated with a log group, use <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeSubscriptionFilters.html"
+     * >DescribeSubscriptionFilters</a>.
      * </p>
      */
     private String filterName;
@@ -59,16 +60,22 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
      * <p>
      * A logical destination (specified using an ARN) belonging to a different account, for cross-account delivery.
      * </p>
+     * <p>
+     * If you're setting up a cross-account subscription, the destination must have an IAM policy associated with it.
+     * The IAM policy must allow the sender to send logs to the destination. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDestinationPolicy.html"
+     * >PutDestinationPolicy</a>.
+     * </p>
      * </li>
      * <li>
      * <p>
-     * An Amazon Kinesis Firehose delivery stream belonging to the same account as the subscription filter, for
+     * A Kinesis Data Firehose delivery stream belonging to the same account as the subscription filter, for
      * same-account delivery.
      * </p>
      * </li>
      * <li>
      * <p>
-     * An AWS Lambda function belonging to the same account as the subscription filter, for same-account delivery.
+     * A Lambda function belonging to the same account as the subscription filter, for same-account delivery.
      * </p>
      * </li>
      * </ul>
@@ -84,9 +91,9 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
     private String roleArn;
     /**
      * <p>
-     * The method used to distribute log data to the destination. By default log data is grouped by log stream, but the
+     * The method used to distribute log data to the destination. By default, log data is grouped by log stream, but the
      * grouping can be set to random for a more even distribution. This property is only applicable when the destination
-     * is an Amazon Kinesis stream.
+     * is an Amazon Kinesis data stream.
      * </p>
      */
     private String distribution;
@@ -134,15 +141,17 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A name for the subscription filter. If you are updating an existing filter, you must specify the correct name in
-     * <code>filterName</code>. Otherwise, the call fails because you cannot associate a second filter with a log group.
-     * To find the name of the filter currently associated with a log group, use <a>DescribeSubscriptionFilters</a>.
+     * <code>filterName</code>. To find the name of the filter currently associated with a log group, use <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeSubscriptionFilters.html"
+     * >DescribeSubscriptionFilters</a>.
      * </p>
      * 
      * @param filterName
      *        A name for the subscription filter. If you are updating an existing filter, you must specify the correct
-     *        name in <code>filterName</code>. Otherwise, the call fails because you cannot associate a second filter
-     *        with a log group. To find the name of the filter currently associated with a log group, use
-     *        <a>DescribeSubscriptionFilters</a>.
+     *        name in <code>filterName</code>. To find the name of the filter currently associated with a log group, use
+     *        <a href=
+     *        "https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeSubscriptionFilters.html"
+     *        >DescribeSubscriptionFilters</a>.
      */
 
     public void setFilterName(String filterName) {
@@ -152,14 +161,16 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A name for the subscription filter. If you are updating an existing filter, you must specify the correct name in
-     * <code>filterName</code>. Otherwise, the call fails because you cannot associate a second filter with a log group.
-     * To find the name of the filter currently associated with a log group, use <a>DescribeSubscriptionFilters</a>.
+     * <code>filterName</code>. To find the name of the filter currently associated with a log group, use <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeSubscriptionFilters.html"
+     * >DescribeSubscriptionFilters</a>.
      * </p>
      * 
      * @return A name for the subscription filter. If you are updating an existing filter, you must specify the correct
-     *         name in <code>filterName</code>. Otherwise, the call fails because you cannot associate a second filter
-     *         with a log group. To find the name of the filter currently associated with a log group, use
-     *         <a>DescribeSubscriptionFilters</a>.
+     *         name in <code>filterName</code>. To find the name of the filter currently associated with a log group,
+     *         use <a href=
+     *         "https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeSubscriptionFilters.html"
+     *         >DescribeSubscriptionFilters</a>.
      */
 
     public String getFilterName() {
@@ -169,15 +180,17 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A name for the subscription filter. If you are updating an existing filter, you must specify the correct name in
-     * <code>filterName</code>. Otherwise, the call fails because you cannot associate a second filter with a log group.
-     * To find the name of the filter currently associated with a log group, use <a>DescribeSubscriptionFilters</a>.
+     * <code>filterName</code>. To find the name of the filter currently associated with a log group, use <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeSubscriptionFilters.html"
+     * >DescribeSubscriptionFilters</a>.
      * </p>
      * 
      * @param filterName
      *        A name for the subscription filter. If you are updating an existing filter, you must specify the correct
-     *        name in <code>filterName</code>. Otherwise, the call fails because you cannot associate a second filter
-     *        with a log group. To find the name of the filter currently associated with a log group, use
-     *        <a>DescribeSubscriptionFilters</a>.
+     *        name in <code>filterName</code>. To find the name of the filter currently associated with a log group, use
+     *        <a href=
+     *        "https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeSubscriptionFilters.html"
+     *        >DescribeSubscriptionFilters</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -240,16 +253,22 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
      * <p>
      * A logical destination (specified using an ARN) belonging to a different account, for cross-account delivery.
      * </p>
+     * <p>
+     * If you're setting up a cross-account subscription, the destination must have an IAM policy associated with it.
+     * The IAM policy must allow the sender to send logs to the destination. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDestinationPolicy.html"
+     * >PutDestinationPolicy</a>.
+     * </p>
      * </li>
      * <li>
      * <p>
-     * An Amazon Kinesis Firehose delivery stream belonging to the same account as the subscription filter, for
+     * A Kinesis Data Firehose delivery stream belonging to the same account as the subscription filter, for
      * same-account delivery.
      * </p>
      * </li>
      * <li>
      * <p>
-     * An AWS Lambda function belonging to the same account as the subscription filter, for same-account delivery.
+     * A Lambda function belonging to the same account as the subscription filter, for same-account delivery.
      * </p>
      * </li>
      * </ul>
@@ -269,17 +288,22 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
      *        A logical destination (specified using an ARN) belonging to a different account, for cross-account
      *        delivery.
      *        </p>
+     *        <p>
+     *        If you're setting up a cross-account subscription, the destination must have an IAM policy associated with
+     *        it. The IAM policy must allow the sender to send logs to the destination. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDestinationPolicy.html">
+     *        PutDestinationPolicy</a>.
+     *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        An Amazon Kinesis Firehose delivery stream belonging to the same account as the subscription filter, for
+     *        A Kinesis Data Firehose delivery stream belonging to the same account as the subscription filter, for
      *        same-account delivery.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        An AWS Lambda function belonging to the same account as the subscription filter, for same-account
-     *        delivery.
+     *        A Lambda function belonging to the same account as the subscription filter, for same-account delivery.
      *        </p>
      *        </li>
      */
@@ -302,16 +326,22 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
      * <p>
      * A logical destination (specified using an ARN) belonging to a different account, for cross-account delivery.
      * </p>
+     * <p>
+     * If you're setting up a cross-account subscription, the destination must have an IAM policy associated with it.
+     * The IAM policy must allow the sender to send logs to the destination. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDestinationPolicy.html"
+     * >PutDestinationPolicy</a>.
+     * </p>
      * </li>
      * <li>
      * <p>
-     * An Amazon Kinesis Firehose delivery stream belonging to the same account as the subscription filter, for
+     * A Kinesis Data Firehose delivery stream belonging to the same account as the subscription filter, for
      * same-account delivery.
      * </p>
      * </li>
      * <li>
      * <p>
-     * An AWS Lambda function belonging to the same account as the subscription filter, for same-account delivery.
+     * A Lambda function belonging to the same account as the subscription filter, for same-account delivery.
      * </p>
      * </li>
      * </ul>
@@ -330,17 +360,23 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
      *         A logical destination (specified using an ARN) belonging to a different account, for cross-account
      *         delivery.
      *         </p>
+     *         <p>
+     *         If you're setting up a cross-account subscription, the destination must have an IAM policy associated
+     *         with it. The IAM policy must allow the sender to send logs to the destination. For more information, see
+     *         <a href=
+     *         "https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDestinationPolicy.html"
+     *         >PutDestinationPolicy</a>.
+     *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         An Amazon Kinesis Firehose delivery stream belonging to the same account as the subscription filter, for
+     *         A Kinesis Data Firehose delivery stream belonging to the same account as the subscription filter, for
      *         same-account delivery.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         An AWS Lambda function belonging to the same account as the subscription filter, for same-account
-     *         delivery.
+     *         A Lambda function belonging to the same account as the subscription filter, for same-account delivery.
      *         </p>
      *         </li>
      */
@@ -363,16 +399,22 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
      * <p>
      * A logical destination (specified using an ARN) belonging to a different account, for cross-account delivery.
      * </p>
+     * <p>
+     * If you're setting up a cross-account subscription, the destination must have an IAM policy associated with it.
+     * The IAM policy must allow the sender to send logs to the destination. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDestinationPolicy.html"
+     * >PutDestinationPolicy</a>.
+     * </p>
      * </li>
      * <li>
      * <p>
-     * An Amazon Kinesis Firehose delivery stream belonging to the same account as the subscription filter, for
+     * A Kinesis Data Firehose delivery stream belonging to the same account as the subscription filter, for
      * same-account delivery.
      * </p>
      * </li>
      * <li>
      * <p>
-     * An AWS Lambda function belonging to the same account as the subscription filter, for same-account delivery.
+     * A Lambda function belonging to the same account as the subscription filter, for same-account delivery.
      * </p>
      * </li>
      * </ul>
@@ -392,17 +434,22 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
      *        A logical destination (specified using an ARN) belonging to a different account, for cross-account
      *        delivery.
      *        </p>
+     *        <p>
+     *        If you're setting up a cross-account subscription, the destination must have an IAM policy associated with
+     *        it. The IAM policy must allow the sender to send logs to the destination. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDestinationPolicy.html">
+     *        PutDestinationPolicy</a>.
+     *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        An Amazon Kinesis Firehose delivery stream belonging to the same account as the subscription filter, for
+     *        A Kinesis Data Firehose delivery stream belonging to the same account as the subscription filter, for
      *        same-account delivery.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        An AWS Lambda function belonging to the same account as the subscription filter, for same-account
-     *        delivery.
+     *        A Lambda function belonging to the same account as the subscription filter, for same-account delivery.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -467,15 +514,15 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The method used to distribute log data to the destination. By default log data is grouped by log stream, but the
+     * The method used to distribute log data to the destination. By default, log data is grouped by log stream, but the
      * grouping can be set to random for a more even distribution. This property is only applicable when the destination
-     * is an Amazon Kinesis stream.
+     * is an Amazon Kinesis data stream.
      * </p>
      * 
      * @param distribution
-     *        The method used to distribute log data to the destination. By default log data is grouped by log stream,
+     *        The method used to distribute log data to the destination. By default, log data is grouped by log stream,
      *        but the grouping can be set to random for a more even distribution. This property is only applicable when
-     *        the destination is an Amazon Kinesis stream.
+     *        the destination is an Amazon Kinesis data stream.
      * @see Distribution
      */
 
@@ -485,14 +532,14 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The method used to distribute log data to the destination. By default log data is grouped by log stream, but the
+     * The method used to distribute log data to the destination. By default, log data is grouped by log stream, but the
      * grouping can be set to random for a more even distribution. This property is only applicable when the destination
-     * is an Amazon Kinesis stream.
+     * is an Amazon Kinesis data stream.
      * </p>
      * 
-     * @return The method used to distribute log data to the destination. By default log data is grouped by log stream,
+     * @return The method used to distribute log data to the destination. By default, log data is grouped by log stream,
      *         but the grouping can be set to random for a more even distribution. This property is only applicable when
-     *         the destination is an Amazon Kinesis stream.
+     *         the destination is an Amazon Kinesis data stream.
      * @see Distribution
      */
 
@@ -502,15 +549,15 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The method used to distribute log data to the destination. By default log data is grouped by log stream, but the
+     * The method used to distribute log data to the destination. By default, log data is grouped by log stream, but the
      * grouping can be set to random for a more even distribution. This property is only applicable when the destination
-     * is an Amazon Kinesis stream.
+     * is an Amazon Kinesis data stream.
      * </p>
      * 
      * @param distribution
-     *        The method used to distribute log data to the destination. By default log data is grouped by log stream,
+     *        The method used to distribute log data to the destination. By default, log data is grouped by log stream,
      *        but the grouping can be set to random for a more even distribution. This property is only applicable when
-     *        the destination is an Amazon Kinesis stream.
+     *        the destination is an Amazon Kinesis data stream.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Distribution
      */
@@ -522,15 +569,15 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The method used to distribute log data to the destination. By default log data is grouped by log stream, but the
+     * The method used to distribute log data to the destination. By default, log data is grouped by log stream, but the
      * grouping can be set to random for a more even distribution. This property is only applicable when the destination
-     * is an Amazon Kinesis stream.
+     * is an Amazon Kinesis data stream.
      * </p>
      * 
      * @param distribution
-     *        The method used to distribute log data to the destination. By default log data is grouped by log stream,
+     *        The method used to distribute log data to the destination. By default, log data is grouped by log stream,
      *        but the grouping can be set to random for a more even distribution. This property is only applicable when
-     *        the destination is an Amazon Kinesis stream.
+     *        the destination is an Amazon Kinesis data stream.
      * @see Distribution
      */
 
@@ -540,15 +587,15 @@ public class PutSubscriptionFilterRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The method used to distribute log data to the destination. By default log data is grouped by log stream, but the
+     * The method used to distribute log data to the destination. By default, log data is grouped by log stream, but the
      * grouping can be set to random for a more even distribution. This property is only applicable when the destination
-     * is an Amazon Kinesis stream.
+     * is an Amazon Kinesis data stream.
      * </p>
      * 
      * @param distribution
-     *        The method used to distribute log data to the destination. By default log data is grouped by log stream,
+     *        The method used to distribute log data to the destination. By default, log data is grouped by log stream,
      *        but the grouping can be set to random for a more even distribution. This property is only applicable when
-     *        the destination is an Amazon Kinesis stream.
+     *        the destination is an Amazon Kinesis data stream.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Distribution
      */

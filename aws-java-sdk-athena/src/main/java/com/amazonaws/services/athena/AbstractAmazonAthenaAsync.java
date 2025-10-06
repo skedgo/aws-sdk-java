@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,6 +41,19 @@ public class AbstractAmazonAthenaAsync extends AbstractAmazonAthena implements A
     }
 
     @Override
+    public java.util.concurrent.Future<BatchGetPreparedStatementResult> batchGetPreparedStatementAsync(BatchGetPreparedStatementRequest request) {
+
+        return batchGetPreparedStatementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchGetPreparedStatementResult> batchGetPreparedStatementAsync(BatchGetPreparedStatementRequest request,
+            com.amazonaws.handlers.AsyncHandler<BatchGetPreparedStatementRequest, BatchGetPreparedStatementResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<BatchGetQueryExecutionResult> batchGetQueryExecutionAsync(BatchGetQueryExecutionRequest request) {
 
         return batchGetQueryExecutionAsync(request, null);
@@ -49,6 +62,45 @@ public class AbstractAmazonAthenaAsync extends AbstractAmazonAthena implements A
     @Override
     public java.util.concurrent.Future<BatchGetQueryExecutionResult> batchGetQueryExecutionAsync(BatchGetQueryExecutionRequest request,
             com.amazonaws.handlers.AsyncHandler<BatchGetQueryExecutionRequest, BatchGetQueryExecutionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelCapacityReservationResult> cancelCapacityReservationAsync(CancelCapacityReservationRequest request) {
+
+        return cancelCapacityReservationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelCapacityReservationResult> cancelCapacityReservationAsync(CancelCapacityReservationRequest request,
+            com.amazonaws.handlers.AsyncHandler<CancelCapacityReservationRequest, CancelCapacityReservationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCapacityReservationResult> createCapacityReservationAsync(CreateCapacityReservationRequest request) {
+
+        return createCapacityReservationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCapacityReservationResult> createCapacityReservationAsync(CreateCapacityReservationRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateCapacityReservationRequest, CreateCapacityReservationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDataCatalogResult> createDataCatalogAsync(CreateDataCatalogRequest request) {
+
+        return createDataCatalogAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDataCatalogResult> createDataCatalogAsync(CreateDataCatalogRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateDataCatalogRequest, CreateDataCatalogResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -67,6 +119,45 @@ public class AbstractAmazonAthenaAsync extends AbstractAmazonAthena implements A
     }
 
     @Override
+    public java.util.concurrent.Future<CreateNotebookResult> createNotebookAsync(CreateNotebookRequest request) {
+
+        return createNotebookAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateNotebookResult> createNotebookAsync(CreateNotebookRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateNotebookRequest, CreateNotebookResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePreparedStatementResult> createPreparedStatementAsync(CreatePreparedStatementRequest request) {
+
+        return createPreparedStatementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePreparedStatementResult> createPreparedStatementAsync(CreatePreparedStatementRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreatePreparedStatementRequest, CreatePreparedStatementResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePresignedNotebookUrlResult> createPresignedNotebookUrlAsync(CreatePresignedNotebookUrlRequest request) {
+
+        return createPresignedNotebookUrlAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePresignedNotebookUrlResult> createPresignedNotebookUrlAsync(CreatePresignedNotebookUrlRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreatePresignedNotebookUrlRequest, CreatePresignedNotebookUrlResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateWorkGroupResult> createWorkGroupAsync(CreateWorkGroupRequest request) {
 
         return createWorkGroupAsync(request, null);
@@ -75,6 +166,32 @@ public class AbstractAmazonAthenaAsync extends AbstractAmazonAthena implements A
     @Override
     public java.util.concurrent.Future<CreateWorkGroupResult> createWorkGroupAsync(CreateWorkGroupRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateWorkGroupRequest, CreateWorkGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCapacityReservationResult> deleteCapacityReservationAsync(DeleteCapacityReservationRequest request) {
+
+        return deleteCapacityReservationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCapacityReservationResult> deleteCapacityReservationAsync(DeleteCapacityReservationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteCapacityReservationRequest, DeleteCapacityReservationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteDataCatalogResult> deleteDataCatalogAsync(DeleteDataCatalogRequest request) {
+
+        return deleteDataCatalogAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteDataCatalogResult> deleteDataCatalogAsync(DeleteDataCatalogRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteDataCatalogRequest, DeleteDataCatalogResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -93,6 +210,32 @@ public class AbstractAmazonAthenaAsync extends AbstractAmazonAthena implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteNotebookResult> deleteNotebookAsync(DeleteNotebookRequest request) {
+
+        return deleteNotebookAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteNotebookResult> deleteNotebookAsync(DeleteNotebookRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteNotebookRequest, DeleteNotebookResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePreparedStatementResult> deletePreparedStatementAsync(DeletePreparedStatementRequest request) {
+
+        return deletePreparedStatementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePreparedStatementResult> deletePreparedStatementAsync(DeletePreparedStatementRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeletePreparedStatementRequest, DeletePreparedStatementResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteWorkGroupResult> deleteWorkGroupAsync(DeleteWorkGroupRequest request) {
 
         return deleteWorkGroupAsync(request, null);
@@ -106,6 +249,112 @@ public class AbstractAmazonAthenaAsync extends AbstractAmazonAthena implements A
     }
 
     @Override
+    public java.util.concurrent.Future<ExportNotebookResult> exportNotebookAsync(ExportNotebookRequest request) {
+
+        return exportNotebookAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExportNotebookResult> exportNotebookAsync(ExportNotebookRequest request,
+            com.amazonaws.handlers.AsyncHandler<ExportNotebookRequest, ExportNotebookResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCalculationExecutionResult> getCalculationExecutionAsync(GetCalculationExecutionRequest request) {
+
+        return getCalculationExecutionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCalculationExecutionResult> getCalculationExecutionAsync(GetCalculationExecutionRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetCalculationExecutionRequest, GetCalculationExecutionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCalculationExecutionCodeResult> getCalculationExecutionCodeAsync(GetCalculationExecutionCodeRequest request) {
+
+        return getCalculationExecutionCodeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCalculationExecutionCodeResult> getCalculationExecutionCodeAsync(GetCalculationExecutionCodeRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetCalculationExecutionCodeRequest, GetCalculationExecutionCodeResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCalculationExecutionStatusResult> getCalculationExecutionStatusAsync(GetCalculationExecutionStatusRequest request) {
+
+        return getCalculationExecutionStatusAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCalculationExecutionStatusResult> getCalculationExecutionStatusAsync(GetCalculationExecutionStatusRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetCalculationExecutionStatusRequest, GetCalculationExecutionStatusResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCapacityAssignmentConfigurationResult> getCapacityAssignmentConfigurationAsync(
+            GetCapacityAssignmentConfigurationRequest request) {
+
+        return getCapacityAssignmentConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCapacityAssignmentConfigurationResult> getCapacityAssignmentConfigurationAsync(
+            GetCapacityAssignmentConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetCapacityAssignmentConfigurationRequest, GetCapacityAssignmentConfigurationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCapacityReservationResult> getCapacityReservationAsync(GetCapacityReservationRequest request) {
+
+        return getCapacityReservationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCapacityReservationResult> getCapacityReservationAsync(GetCapacityReservationRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetCapacityReservationRequest, GetCapacityReservationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDataCatalogResult> getDataCatalogAsync(GetDataCatalogRequest request) {
+
+        return getDataCatalogAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDataCatalogResult> getDataCatalogAsync(GetDataCatalogRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetDataCatalogRequest, GetDataCatalogResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDatabaseResult> getDatabaseAsync(GetDatabaseRequest request) {
+
+        return getDatabaseAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDatabaseResult> getDatabaseAsync(GetDatabaseRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetDatabaseRequest, GetDatabaseResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetNamedQueryResult> getNamedQueryAsync(GetNamedQueryRequest request) {
 
         return getNamedQueryAsync(request, null);
@@ -114,6 +363,32 @@ public class AbstractAmazonAthenaAsync extends AbstractAmazonAthena implements A
     @Override
     public java.util.concurrent.Future<GetNamedQueryResult> getNamedQueryAsync(GetNamedQueryRequest request,
             com.amazonaws.handlers.AsyncHandler<GetNamedQueryRequest, GetNamedQueryResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetNotebookMetadataResult> getNotebookMetadataAsync(GetNotebookMetadataRequest request) {
+
+        return getNotebookMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetNotebookMetadataResult> getNotebookMetadataAsync(GetNotebookMetadataRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetNotebookMetadataRequest, GetNotebookMetadataResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPreparedStatementResult> getPreparedStatementAsync(GetPreparedStatementRequest request) {
+
+        return getPreparedStatementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPreparedStatementResult> getPreparedStatementAsync(GetPreparedStatementRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetPreparedStatementRequest, GetPreparedStatementResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -145,6 +420,58 @@ public class AbstractAmazonAthenaAsync extends AbstractAmazonAthena implements A
     }
 
     @Override
+    public java.util.concurrent.Future<GetQueryRuntimeStatisticsResult> getQueryRuntimeStatisticsAsync(GetQueryRuntimeStatisticsRequest request) {
+
+        return getQueryRuntimeStatisticsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetQueryRuntimeStatisticsResult> getQueryRuntimeStatisticsAsync(GetQueryRuntimeStatisticsRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetQueryRuntimeStatisticsRequest, GetQueryRuntimeStatisticsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSessionResult> getSessionAsync(GetSessionRequest request) {
+
+        return getSessionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSessionResult> getSessionAsync(GetSessionRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetSessionRequest, GetSessionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSessionStatusResult> getSessionStatusAsync(GetSessionStatusRequest request) {
+
+        return getSessionStatusAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSessionStatusResult> getSessionStatusAsync(GetSessionStatusRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetSessionStatusRequest, GetSessionStatusResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTableMetadataResult> getTableMetadataAsync(GetTableMetadataRequest request) {
+
+        return getTableMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTableMetadataResult> getTableMetadataAsync(GetTableMetadataRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetTableMetadataRequest, GetTableMetadataResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetWorkGroupResult> getWorkGroupAsync(GetWorkGroupRequest request) {
 
         return getWorkGroupAsync(request, null);
@@ -153,6 +480,110 @@ public class AbstractAmazonAthenaAsync extends AbstractAmazonAthena implements A
     @Override
     public java.util.concurrent.Future<GetWorkGroupResult> getWorkGroupAsync(GetWorkGroupRequest request,
             com.amazonaws.handlers.AsyncHandler<GetWorkGroupRequest, GetWorkGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportNotebookResult> importNotebookAsync(ImportNotebookRequest request) {
+
+        return importNotebookAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportNotebookResult> importNotebookAsync(ImportNotebookRequest request,
+            com.amazonaws.handlers.AsyncHandler<ImportNotebookRequest, ImportNotebookResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListApplicationDPUSizesResult> listApplicationDPUSizesAsync(ListApplicationDPUSizesRequest request) {
+
+        return listApplicationDPUSizesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListApplicationDPUSizesResult> listApplicationDPUSizesAsync(ListApplicationDPUSizesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListApplicationDPUSizesRequest, ListApplicationDPUSizesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCalculationExecutionsResult> listCalculationExecutionsAsync(ListCalculationExecutionsRequest request) {
+
+        return listCalculationExecutionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCalculationExecutionsResult> listCalculationExecutionsAsync(ListCalculationExecutionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListCalculationExecutionsRequest, ListCalculationExecutionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCapacityReservationsResult> listCapacityReservationsAsync(ListCapacityReservationsRequest request) {
+
+        return listCapacityReservationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCapacityReservationsResult> listCapacityReservationsAsync(ListCapacityReservationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListCapacityReservationsRequest, ListCapacityReservationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDataCatalogsResult> listDataCatalogsAsync(ListDataCatalogsRequest request) {
+
+        return listDataCatalogsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDataCatalogsResult> listDataCatalogsAsync(ListDataCatalogsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListDataCatalogsRequest, ListDataCatalogsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDatabasesResult> listDatabasesAsync(ListDatabasesRequest request) {
+
+        return listDatabasesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDatabasesResult> listDatabasesAsync(ListDatabasesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListDatabasesRequest, ListDatabasesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEngineVersionsResult> listEngineVersionsAsync(ListEngineVersionsRequest request) {
+
+        return listEngineVersionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEngineVersionsResult> listEngineVersionsAsync(ListEngineVersionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListEngineVersionsRequest, ListEngineVersionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListExecutorsResult> listExecutorsAsync(ListExecutorsRequest request) {
+
+        return listExecutorsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListExecutorsResult> listExecutorsAsync(ListExecutorsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListExecutorsRequest, ListExecutorsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -171,6 +602,45 @@ public class AbstractAmazonAthenaAsync extends AbstractAmazonAthena implements A
     }
 
     @Override
+    public java.util.concurrent.Future<ListNotebookMetadataResult> listNotebookMetadataAsync(ListNotebookMetadataRequest request) {
+
+        return listNotebookMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListNotebookMetadataResult> listNotebookMetadataAsync(ListNotebookMetadataRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListNotebookMetadataRequest, ListNotebookMetadataResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListNotebookSessionsResult> listNotebookSessionsAsync(ListNotebookSessionsRequest request) {
+
+        return listNotebookSessionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListNotebookSessionsResult> listNotebookSessionsAsync(ListNotebookSessionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListNotebookSessionsRequest, ListNotebookSessionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPreparedStatementsResult> listPreparedStatementsAsync(ListPreparedStatementsRequest request) {
+
+        return listPreparedStatementsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPreparedStatementsResult> listPreparedStatementsAsync(ListPreparedStatementsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListPreparedStatementsRequest, ListPreparedStatementsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListQueryExecutionsResult> listQueryExecutionsAsync(ListQueryExecutionsRequest request) {
 
         return listQueryExecutionsAsync(request, null);
@@ -179,6 +649,32 @@ public class AbstractAmazonAthenaAsync extends AbstractAmazonAthena implements A
     @Override
     public java.util.concurrent.Future<ListQueryExecutionsResult> listQueryExecutionsAsync(ListQueryExecutionsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListQueryExecutionsRequest, ListQueryExecutionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSessionsResult> listSessionsAsync(ListSessionsRequest request) {
+
+        return listSessionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSessionsResult> listSessionsAsync(ListSessionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListSessionsRequest, ListSessionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTableMetadataResult> listTableMetadataAsync(ListTableMetadataRequest request) {
+
+        return listTableMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTableMetadataResult> listTableMetadataAsync(ListTableMetadataRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTableMetadataRequest, ListTableMetadataResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -210,6 +706,34 @@ public class AbstractAmazonAthenaAsync extends AbstractAmazonAthena implements A
     }
 
     @Override
+    public java.util.concurrent.Future<PutCapacityAssignmentConfigurationResult> putCapacityAssignmentConfigurationAsync(
+            PutCapacityAssignmentConfigurationRequest request) {
+
+        return putCapacityAssignmentConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutCapacityAssignmentConfigurationResult> putCapacityAssignmentConfigurationAsync(
+            PutCapacityAssignmentConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutCapacityAssignmentConfigurationRequest, PutCapacityAssignmentConfigurationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartCalculationExecutionResult> startCalculationExecutionAsync(StartCalculationExecutionRequest request) {
+
+        return startCalculationExecutionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartCalculationExecutionResult> startCalculationExecutionAsync(StartCalculationExecutionRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartCalculationExecutionRequest, StartCalculationExecutionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StartQueryExecutionResult> startQueryExecutionAsync(StartQueryExecutionRequest request) {
 
         return startQueryExecutionAsync(request, null);
@@ -218,6 +742,32 @@ public class AbstractAmazonAthenaAsync extends AbstractAmazonAthena implements A
     @Override
     public java.util.concurrent.Future<StartQueryExecutionResult> startQueryExecutionAsync(StartQueryExecutionRequest request,
             com.amazonaws.handlers.AsyncHandler<StartQueryExecutionRequest, StartQueryExecutionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartSessionResult> startSessionAsync(StartSessionRequest request) {
+
+        return startSessionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartSessionResult> startSessionAsync(StartSessionRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartSessionRequest, StartSessionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopCalculationExecutionResult> stopCalculationExecutionAsync(StopCalculationExecutionRequest request) {
+
+        return stopCalculationExecutionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopCalculationExecutionResult> stopCalculationExecutionAsync(StopCalculationExecutionRequest request,
+            com.amazonaws.handlers.AsyncHandler<StopCalculationExecutionRequest, StopCalculationExecutionResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -249,6 +799,19 @@ public class AbstractAmazonAthenaAsync extends AbstractAmazonAthena implements A
     }
 
     @Override
+    public java.util.concurrent.Future<TerminateSessionResult> terminateSessionAsync(TerminateSessionRequest request) {
+
+        return terminateSessionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TerminateSessionResult> terminateSessionAsync(TerminateSessionRequest request,
+            com.amazonaws.handlers.AsyncHandler<TerminateSessionRequest, TerminateSessionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
 
         return untagResourceAsync(request, null);
@@ -257,6 +820,84 @@ public class AbstractAmazonAthenaAsync extends AbstractAmazonAthena implements A
     @Override
     public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request,
             com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCapacityReservationResult> updateCapacityReservationAsync(UpdateCapacityReservationRequest request) {
+
+        return updateCapacityReservationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCapacityReservationResult> updateCapacityReservationAsync(UpdateCapacityReservationRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateCapacityReservationRequest, UpdateCapacityReservationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDataCatalogResult> updateDataCatalogAsync(UpdateDataCatalogRequest request) {
+
+        return updateDataCatalogAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDataCatalogResult> updateDataCatalogAsync(UpdateDataCatalogRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateDataCatalogRequest, UpdateDataCatalogResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateNamedQueryResult> updateNamedQueryAsync(UpdateNamedQueryRequest request) {
+
+        return updateNamedQueryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateNamedQueryResult> updateNamedQueryAsync(UpdateNamedQueryRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateNamedQueryRequest, UpdateNamedQueryResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateNotebookResult> updateNotebookAsync(UpdateNotebookRequest request) {
+
+        return updateNotebookAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateNotebookResult> updateNotebookAsync(UpdateNotebookRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateNotebookRequest, UpdateNotebookResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateNotebookMetadataResult> updateNotebookMetadataAsync(UpdateNotebookMetadataRequest request) {
+
+        return updateNotebookMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateNotebookMetadataResult> updateNotebookMetadataAsync(UpdateNotebookMetadataRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateNotebookMetadataRequest, UpdateNotebookMetadataResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePreparedStatementResult> updatePreparedStatementAsync(UpdatePreparedStatementRequest request) {
+
+        return updatePreparedStatementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePreparedStatementResult> updatePreparedStatementAsync(UpdatePreparedStatementRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdatePreparedStatementRequest, UpdatePreparedStatementResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

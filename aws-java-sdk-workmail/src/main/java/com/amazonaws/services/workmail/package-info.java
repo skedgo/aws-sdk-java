@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -13,10 +13,10 @@
 
 /**
  * <p>
- * Amazon WorkMail is a secure, managed business email and calendaring service with support for existing desktop and
- * mobile email clients. You can access your email, contacts, and calendars using Microsoft Outlook, your browser, or
- * other native iOS and Android email applications. You can integrate WorkMail with your existing corporate directory
- * and control both the keys that encrypt your data and the location in which your data is stored.
+ * WorkMail is a secure, managed business email and calendaring service with support for existing desktop and mobile
+ * email clients. You can access your email, contacts, and calendars using Microsoft Outlook, your browser, or other
+ * native iOS and Android email applications. You can integrate WorkMail with your existing corporate directory and
+ * control both the keys that encrypt your data and the location in which your data is stored.
  * </p>
  * <p>
  * The WorkMail API is designed for the following scenarios:

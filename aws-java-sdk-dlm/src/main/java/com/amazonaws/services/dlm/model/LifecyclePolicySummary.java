@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,6 +46,39 @@ public class LifecyclePolicySummary implements Serializable, Cloneable, Structur
      * </p>
      */
     private String state;
+    /**
+     * <p>
+     * The tags.
+     * </p>
+     */
+    private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * The type of policy. <code>EBS_SNAPSHOT_MANAGEMENT</code> indicates that the policy manages the lifecycle of
+     * Amazon EBS snapshots. <code>IMAGE_MANAGEMENT</code> indicates that the policy manages the lifecycle of EBS-backed
+     * AMIs. <code>EVENT_BASED_POLICY</code> indicates that the policy automates cross-account snapshot copies for
+     * snapshots that are shared with your account.
+     * </p>
+     */
+    private String policyType;
+    /**
+     * <p>
+     * <b>[Default policies only]</b> The type of default policy. Values include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VOLUME</code> - Default policy for EBS snapshots
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE</code> - Default policy for EBS-backed AMIs
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private Boolean defaultPolicy;
 
     /**
      * <p>
@@ -187,6 +220,301 @@ public class LifecyclePolicySummary implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * The tags.
+     * </p>
+     * 
+     * @return The tags.
+     */
+
+    public java.util.Map<String, String> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The tags.
+     * </p>
+     * 
+     * @param tags
+     *        The tags.
+     */
+
+    public void setTags(java.util.Map<String, String> tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * <p>
+     * The tags.
+     * </p>
+     * 
+     * @param tags
+     *        The tags.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LifecyclePolicySummary withTags(java.util.Map<String, String> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see LifecyclePolicySummary#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LifecyclePolicySummary addTagsEntry(String key, String value) {
+        if (null == this.tags) {
+            this.tags = new java.util.HashMap<String, String>();
+        }
+        if (this.tags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.tags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Tags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LifecyclePolicySummary clearTagsEntries() {
+        this.tags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of policy. <code>EBS_SNAPSHOT_MANAGEMENT</code> indicates that the policy manages the lifecycle of
+     * Amazon EBS snapshots. <code>IMAGE_MANAGEMENT</code> indicates that the policy manages the lifecycle of EBS-backed
+     * AMIs. <code>EVENT_BASED_POLICY</code> indicates that the policy automates cross-account snapshot copies for
+     * snapshots that are shared with your account.
+     * </p>
+     * 
+     * @param policyType
+     *        The type of policy. <code>EBS_SNAPSHOT_MANAGEMENT</code> indicates that the policy manages the lifecycle
+     *        of Amazon EBS snapshots. <code>IMAGE_MANAGEMENT</code> indicates that the policy manages the lifecycle of
+     *        EBS-backed AMIs. <code>EVENT_BASED_POLICY</code> indicates that the policy automates cross-account
+     *        snapshot copies for snapshots that are shared with your account.
+     * @see PolicyTypeValues
+     */
+
+    public void setPolicyType(String policyType) {
+        this.policyType = policyType;
+    }
+
+    /**
+     * <p>
+     * The type of policy. <code>EBS_SNAPSHOT_MANAGEMENT</code> indicates that the policy manages the lifecycle of
+     * Amazon EBS snapshots. <code>IMAGE_MANAGEMENT</code> indicates that the policy manages the lifecycle of EBS-backed
+     * AMIs. <code>EVENT_BASED_POLICY</code> indicates that the policy automates cross-account snapshot copies for
+     * snapshots that are shared with your account.
+     * </p>
+     * 
+     * @return The type of policy. <code>EBS_SNAPSHOT_MANAGEMENT</code> indicates that the policy manages the lifecycle
+     *         of Amazon EBS snapshots. <code>IMAGE_MANAGEMENT</code> indicates that the policy manages the lifecycle of
+     *         EBS-backed AMIs. <code>EVENT_BASED_POLICY</code> indicates that the policy automates cross-account
+     *         snapshot copies for snapshots that are shared with your account.
+     * @see PolicyTypeValues
+     */
+
+    public String getPolicyType() {
+        return this.policyType;
+    }
+
+    /**
+     * <p>
+     * The type of policy. <code>EBS_SNAPSHOT_MANAGEMENT</code> indicates that the policy manages the lifecycle of
+     * Amazon EBS snapshots. <code>IMAGE_MANAGEMENT</code> indicates that the policy manages the lifecycle of EBS-backed
+     * AMIs. <code>EVENT_BASED_POLICY</code> indicates that the policy automates cross-account snapshot copies for
+     * snapshots that are shared with your account.
+     * </p>
+     * 
+     * @param policyType
+     *        The type of policy. <code>EBS_SNAPSHOT_MANAGEMENT</code> indicates that the policy manages the lifecycle
+     *        of Amazon EBS snapshots. <code>IMAGE_MANAGEMENT</code> indicates that the policy manages the lifecycle of
+     *        EBS-backed AMIs. <code>EVENT_BASED_POLICY</code> indicates that the policy automates cross-account
+     *        snapshot copies for snapshots that are shared with your account.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PolicyTypeValues
+     */
+
+    public LifecyclePolicySummary withPolicyType(String policyType) {
+        setPolicyType(policyType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of policy. <code>EBS_SNAPSHOT_MANAGEMENT</code> indicates that the policy manages the lifecycle of
+     * Amazon EBS snapshots. <code>IMAGE_MANAGEMENT</code> indicates that the policy manages the lifecycle of EBS-backed
+     * AMIs. <code>EVENT_BASED_POLICY</code> indicates that the policy automates cross-account snapshot copies for
+     * snapshots that are shared with your account.
+     * </p>
+     * 
+     * @param policyType
+     *        The type of policy. <code>EBS_SNAPSHOT_MANAGEMENT</code> indicates that the policy manages the lifecycle
+     *        of Amazon EBS snapshots. <code>IMAGE_MANAGEMENT</code> indicates that the policy manages the lifecycle of
+     *        EBS-backed AMIs. <code>EVENT_BASED_POLICY</code> indicates that the policy automates cross-account
+     *        snapshot copies for snapshots that are shared with your account.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PolicyTypeValues
+     */
+
+    public LifecyclePolicySummary withPolicyType(PolicyTypeValues policyType) {
+        this.policyType = policyType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * <b>[Default policies only]</b> The type of default policy. Values include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VOLUME</code> - Default policy for EBS snapshots
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE</code> - Default policy for EBS-backed AMIs
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param defaultPolicy
+     *        <b>[Default policies only]</b> The type of default policy. Values include:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>VOLUME</code> - Default policy for EBS snapshots
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INSTANCE</code> - Default policy for EBS-backed AMIs
+     *        </p>
+     *        </li>
+     */
+
+    public void setDefaultPolicy(Boolean defaultPolicy) {
+        this.defaultPolicy = defaultPolicy;
+    }
+
+    /**
+     * <p>
+     * <b>[Default policies only]</b> The type of default policy. Values include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VOLUME</code> - Default policy for EBS snapshots
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE</code> - Default policy for EBS-backed AMIs
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return <b>[Default policies only]</b> The type of default policy. Values include:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>VOLUME</code> - Default policy for EBS snapshots
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>INSTANCE</code> - Default policy for EBS-backed AMIs
+     *         </p>
+     *         </li>
+     */
+
+    public Boolean getDefaultPolicy() {
+        return this.defaultPolicy;
+    }
+
+    /**
+     * <p>
+     * <b>[Default policies only]</b> The type of default policy. Values include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VOLUME</code> - Default policy for EBS snapshots
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE</code> - Default policy for EBS-backed AMIs
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param defaultPolicy
+     *        <b>[Default policies only]</b> The type of default policy. Values include:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>VOLUME</code> - Default policy for EBS snapshots
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INSTANCE</code> - Default policy for EBS-backed AMIs
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LifecyclePolicySummary withDefaultPolicy(Boolean defaultPolicy) {
+        setDefaultPolicy(defaultPolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * <b>[Default policies only]</b> The type of default policy. Values include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VOLUME</code> - Default policy for EBS snapshots
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE</code> - Default policy for EBS-backed AMIs
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return <b>[Default policies only]</b> The type of default policy. Values include:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>VOLUME</code> - Default policy for EBS snapshots
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>INSTANCE</code> - Default policy for EBS-backed AMIs
+     *         </p>
+     *         </li>
+     */
+
+    public Boolean isDefaultPolicy() {
+        return this.defaultPolicy;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -203,7 +531,13 @@ public class LifecyclePolicySummary implements Serializable, Cloneable, Structur
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
         if (getState() != null)
-            sb.append("State: ").append(getState());
+            sb.append("State: ").append(getState()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getPolicyType() != null)
+            sb.append("PolicyType: ").append(getPolicyType()).append(",");
+        if (getDefaultPolicy() != null)
+            sb.append("DefaultPolicy: ").append(getDefaultPolicy());
         sb.append("}");
         return sb.toString();
     }
@@ -230,6 +564,18 @@ public class LifecyclePolicySummary implements Serializable, Cloneable, Structur
             return false;
         if (other.getState() != null && other.getState().equals(this.getState()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getPolicyType() == null ^ this.getPolicyType() == null)
+            return false;
+        if (other.getPolicyType() != null && other.getPolicyType().equals(this.getPolicyType()) == false)
+            return false;
+        if (other.getDefaultPolicy() == null ^ this.getDefaultPolicy() == null)
+            return false;
+        if (other.getDefaultPolicy() != null && other.getDefaultPolicy().equals(this.getDefaultPolicy()) == false)
+            return false;
         return true;
     }
 
@@ -241,6 +587,9 @@ public class LifecyclePolicySummary implements Serializable, Cloneable, Structur
         hashCode = prime * hashCode + ((getPolicyId() == null) ? 0 : getPolicyId().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getPolicyType() == null) ? 0 : getPolicyType().hashCode());
+        hashCode = prime * hashCode + ((getDefaultPolicy() == null) ? 0 : getDefaultPolicy().hashCode());
         return hashCode;
     }
 

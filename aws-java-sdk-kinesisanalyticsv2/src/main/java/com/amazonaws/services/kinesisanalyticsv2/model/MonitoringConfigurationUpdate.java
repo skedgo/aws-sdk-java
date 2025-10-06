@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes updates to configuration parameters for Amazon CloudWatch logging for a Java-based Kinesis Data Analytics
- * application.
+ * Describes updates to configuration parameters for Amazon CloudWatch logging for an application.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/MonitoringConfigurationUpdate"
@@ -31,13 +30,16 @@ public class MonitoringConfigurationUpdate implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Describes updates to whether to use the default CloudWatch logging configuration for an application.
+     * Describes updates to whether to use the default CloudWatch logging configuration for an application. You must set
+     * this property to <code>CUSTOM</code> in order to set the <code>LogLevel</code> or <code>MetricsLevel</code>
+     * parameters.
      * </p>
      */
     private String configurationTypeUpdate;
     /**
      * <p>
-     * Describes updates to the granularity of the CloudWatch Logs for an application.
+     * Describes updates to the granularity of the CloudWatch Logs for an application. The <code>Parallelism</code>
+     * level is not recommended for applications with a Parallelism over 64 due to excessive costs.
      * </p>
      */
     private String metricsLevelUpdate;
@@ -50,11 +52,15 @@ public class MonitoringConfigurationUpdate implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Describes updates to whether to use the default CloudWatch logging configuration for an application.
+     * Describes updates to whether to use the default CloudWatch logging configuration for an application. You must set
+     * this property to <code>CUSTOM</code> in order to set the <code>LogLevel</code> or <code>MetricsLevel</code>
+     * parameters.
      * </p>
      * 
      * @param configurationTypeUpdate
-     *        Describes updates to whether to use the default CloudWatch logging configuration for an application.
+     *        Describes updates to whether to use the default CloudWatch logging configuration for an application. You
+     *        must set this property to <code>CUSTOM</code> in order to set the <code>LogLevel</code> or
+     *        <code>MetricsLevel</code> parameters.
      * @see ConfigurationType
      */
 
@@ -64,10 +70,14 @@ public class MonitoringConfigurationUpdate implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Describes updates to whether to use the default CloudWatch logging configuration for an application.
+     * Describes updates to whether to use the default CloudWatch logging configuration for an application. You must set
+     * this property to <code>CUSTOM</code> in order to set the <code>LogLevel</code> or <code>MetricsLevel</code>
+     * parameters.
      * </p>
      * 
-     * @return Describes updates to whether to use the default CloudWatch logging configuration for an application.
+     * @return Describes updates to whether to use the default CloudWatch logging configuration for an application. You
+     *         must set this property to <code>CUSTOM</code> in order to set the <code>LogLevel</code> or
+     *         <code>MetricsLevel</code> parameters.
      * @see ConfigurationType
      */
 
@@ -77,11 +87,15 @@ public class MonitoringConfigurationUpdate implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Describes updates to whether to use the default CloudWatch logging configuration for an application.
+     * Describes updates to whether to use the default CloudWatch logging configuration for an application. You must set
+     * this property to <code>CUSTOM</code> in order to set the <code>LogLevel</code> or <code>MetricsLevel</code>
+     * parameters.
      * </p>
      * 
      * @param configurationTypeUpdate
-     *        Describes updates to whether to use the default CloudWatch logging configuration for an application.
+     *        Describes updates to whether to use the default CloudWatch logging configuration for an application. You
+     *        must set this property to <code>CUSTOM</code> in order to set the <code>LogLevel</code> or
+     *        <code>MetricsLevel</code> parameters.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ConfigurationType
      */
@@ -93,11 +107,15 @@ public class MonitoringConfigurationUpdate implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Describes updates to whether to use the default CloudWatch logging configuration for an application.
+     * Describes updates to whether to use the default CloudWatch logging configuration for an application. You must set
+     * this property to <code>CUSTOM</code> in order to set the <code>LogLevel</code> or <code>MetricsLevel</code>
+     * parameters.
      * </p>
      * 
      * @param configurationTypeUpdate
-     *        Describes updates to whether to use the default CloudWatch logging configuration for an application.
+     *        Describes updates to whether to use the default CloudWatch logging configuration for an application. You
+     *        must set this property to <code>CUSTOM</code> in order to set the <code>LogLevel</code> or
+     *        <code>MetricsLevel</code> parameters.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ConfigurationType
      */
@@ -109,11 +127,14 @@ public class MonitoringConfigurationUpdate implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Describes updates to the granularity of the CloudWatch Logs for an application.
+     * Describes updates to the granularity of the CloudWatch Logs for an application. The <code>Parallelism</code>
+     * level is not recommended for applications with a Parallelism over 64 due to excessive costs.
      * </p>
      * 
      * @param metricsLevelUpdate
-     *        Describes updates to the granularity of the CloudWatch Logs for an application.
+     *        Describes updates to the granularity of the CloudWatch Logs for an application. The
+     *        <code>Parallelism</code> level is not recommended for applications with a Parallelism over 64 due to
+     *        excessive costs.
      * @see MetricsLevel
      */
 
@@ -123,10 +144,13 @@ public class MonitoringConfigurationUpdate implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Describes updates to the granularity of the CloudWatch Logs for an application.
+     * Describes updates to the granularity of the CloudWatch Logs for an application. The <code>Parallelism</code>
+     * level is not recommended for applications with a Parallelism over 64 due to excessive costs.
      * </p>
      * 
-     * @return Describes updates to the granularity of the CloudWatch Logs for an application.
+     * @return Describes updates to the granularity of the CloudWatch Logs for an application. The
+     *         <code>Parallelism</code> level is not recommended for applications with a Parallelism over 64 due to
+     *         excessive costs.
      * @see MetricsLevel
      */
 
@@ -136,11 +160,14 @@ public class MonitoringConfigurationUpdate implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Describes updates to the granularity of the CloudWatch Logs for an application.
+     * Describes updates to the granularity of the CloudWatch Logs for an application. The <code>Parallelism</code>
+     * level is not recommended for applications with a Parallelism over 64 due to excessive costs.
      * </p>
      * 
      * @param metricsLevelUpdate
-     *        Describes updates to the granularity of the CloudWatch Logs for an application.
+     *        Describes updates to the granularity of the CloudWatch Logs for an application. The
+     *        <code>Parallelism</code> level is not recommended for applications with a Parallelism over 64 due to
+     *        excessive costs.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see MetricsLevel
      */
@@ -152,11 +179,14 @@ public class MonitoringConfigurationUpdate implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Describes updates to the granularity of the CloudWatch Logs for an application.
+     * Describes updates to the granularity of the CloudWatch Logs for an application. The <code>Parallelism</code>
+     * level is not recommended for applications with a Parallelism over 64 due to excessive costs.
      * </p>
      * 
      * @param metricsLevelUpdate
-     *        Describes updates to the granularity of the CloudWatch Logs for an application.
+     *        Describes updates to the granularity of the CloudWatch Logs for an application. The
+     *        <code>Parallelism</code> level is not recommended for applications with a Parallelism over 64 due to
+     *        excessive costs.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see MetricsLevel
      */

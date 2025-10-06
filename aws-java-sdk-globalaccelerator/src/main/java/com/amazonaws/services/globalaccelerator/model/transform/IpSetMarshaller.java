@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,6 +32,8 @@ public class IpSetMarshaller {
             .marshallLocationName("IpFamily").build();
     private static final MarshallingInfo<List> IPADDRESSES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("IpAddresses").build();
+    private static final MarshallingInfo<String> IPADDRESSFAMILY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IpAddressFamily").build();
 
     private static final IpSetMarshaller instance = new IpSetMarshaller();
 
@@ -51,6 +53,7 @@ public class IpSetMarshaller {
         try {
             protocolMarshaller.marshall(ipSet.getIpFamily(), IPFAMILY_BINDING);
             protocolMarshaller.marshall(ipSet.getIpAddresses(), IPADDRESSES_BINDING);
+            protocolMarshaller.marshall(ipSet.getIpAddressFamily(), IPADDRESSFAMILY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

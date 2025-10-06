@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,10 +27,10 @@ public class TransactWriteItemsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * An ordered array of up to 25 <code>TransactWriteItem</code> objects, each of which contains a
+     * An ordered array of up to 100 <code>TransactWriteItem</code> objects, each of which contains a
      * <code>ConditionCheck</code>, <code>Put</code>, <code>Update</code>, or <code>Delete</code> object. These can
-     * operate on items in different tables, but the tables must reside in the same AWS account and Region, and no two
-     * of them can operate on the same item.
+     * operate on items in different tables, but the tables must reside in the same Amazon Web Services account and
+     * Region, and no two of them can operate on the same item.
      * </p>
      */
     private java.util.List<TransactWriteItem> transactItems;
@@ -51,7 +51,7 @@ public class TransactWriteItemsRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * <p>
      * Although multiple identical calls using the same client request token produce the same result on the server (no
-     * side effects), the responses to the calls might not be the same. If the <code>ReturnConsumedCapacity&gt;</code>
+     * side effects), the responses to the calls might not be the same. If the <code>ReturnConsumedCapacity</code>
      * parameter is set, then the initial <code>TransactWriteItems</code> call returns the amount of write capacity
      * units consumed in making the changes. Subsequent <code>TransactWriteItems</code> calls with the same client token
      * return the number of read capacity units consumed in reading the item.
@@ -70,16 +70,16 @@ public class TransactWriteItemsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * An ordered array of up to 25 <code>TransactWriteItem</code> objects, each of which contains a
+     * An ordered array of up to 100 <code>TransactWriteItem</code> objects, each of which contains a
      * <code>ConditionCheck</code>, <code>Put</code>, <code>Update</code>, or <code>Delete</code> object. These can
-     * operate on items in different tables, but the tables must reside in the same AWS account and Region, and no two
-     * of them can operate on the same item.
+     * operate on items in different tables, but the tables must reside in the same Amazon Web Services account and
+     * Region, and no two of them can operate on the same item.
      * </p>
      * 
-     * @return An ordered array of up to 25 <code>TransactWriteItem</code> objects, each of which contains a
+     * @return An ordered array of up to 100 <code>TransactWriteItem</code> objects, each of which contains a
      *         <code>ConditionCheck</code>, <code>Put</code>, <code>Update</code>, or <code>Delete</code> object. These
-     *         can operate on items in different tables, but the tables must reside in the same AWS account and Region,
-     *         and no two of them can operate on the same item.
+     *         can operate on items in different tables, but the tables must reside in the same Amazon Web Services
+     *         account and Region, and no two of them can operate on the same item.
      */
 
     public java.util.List<TransactWriteItem> getTransactItems() {
@@ -88,17 +88,17 @@ public class TransactWriteItemsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * An ordered array of up to 25 <code>TransactWriteItem</code> objects, each of which contains a
+     * An ordered array of up to 100 <code>TransactWriteItem</code> objects, each of which contains a
      * <code>ConditionCheck</code>, <code>Put</code>, <code>Update</code>, or <code>Delete</code> object. These can
-     * operate on items in different tables, but the tables must reside in the same AWS account and Region, and no two
-     * of them can operate on the same item.
+     * operate on items in different tables, but the tables must reside in the same Amazon Web Services account and
+     * Region, and no two of them can operate on the same item.
      * </p>
      * 
      * @param transactItems
-     *        An ordered array of up to 25 <code>TransactWriteItem</code> objects, each of which contains a
+     *        An ordered array of up to 100 <code>TransactWriteItem</code> objects, each of which contains a
      *        <code>ConditionCheck</code>, <code>Put</code>, <code>Update</code>, or <code>Delete</code> object. These
-     *        can operate on items in different tables, but the tables must reside in the same AWS account and Region,
-     *        and no two of them can operate on the same item.
+     *        can operate on items in different tables, but the tables must reside in the same Amazon Web Services
+     *        account and Region, and no two of them can operate on the same item.
      */
 
     public void setTransactItems(java.util.Collection<TransactWriteItem> transactItems) {
@@ -112,10 +112,10 @@ public class TransactWriteItemsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * An ordered array of up to 25 <code>TransactWriteItem</code> objects, each of which contains a
+     * An ordered array of up to 100 <code>TransactWriteItem</code> objects, each of which contains a
      * <code>ConditionCheck</code>, <code>Put</code>, <code>Update</code>, or <code>Delete</code> object. These can
-     * operate on items in different tables, but the tables must reside in the same AWS account and Region, and no two
-     * of them can operate on the same item.
+     * operate on items in different tables, but the tables must reside in the same Amazon Web Services account and
+     * Region, and no two of them can operate on the same item.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -124,10 +124,10 @@ public class TransactWriteItemsRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * 
      * @param transactItems
-     *        An ordered array of up to 25 <code>TransactWriteItem</code> objects, each of which contains a
+     *        An ordered array of up to 100 <code>TransactWriteItem</code> objects, each of which contains a
      *        <code>ConditionCheck</code>, <code>Put</code>, <code>Update</code>, or <code>Delete</code> object. These
-     *        can operate on items in different tables, but the tables must reside in the same AWS account and Region,
-     *        and no two of them can operate on the same item.
+     *        can operate on items in different tables, but the tables must reside in the same Amazon Web Services
+     *        account and Region, and no two of them can operate on the same item.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -143,17 +143,17 @@ public class TransactWriteItemsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * An ordered array of up to 25 <code>TransactWriteItem</code> objects, each of which contains a
+     * An ordered array of up to 100 <code>TransactWriteItem</code> objects, each of which contains a
      * <code>ConditionCheck</code>, <code>Put</code>, <code>Update</code>, or <code>Delete</code> object. These can
-     * operate on items in different tables, but the tables must reside in the same AWS account and Region, and no two
-     * of them can operate on the same item.
+     * operate on items in different tables, but the tables must reside in the same Amazon Web Services account and
+     * Region, and no two of them can operate on the same item.
      * </p>
      * 
      * @param transactItems
-     *        An ordered array of up to 25 <code>TransactWriteItem</code> objects, each of which contains a
+     *        An ordered array of up to 100 <code>TransactWriteItem</code> objects, each of which contains a
      *        <code>ConditionCheck</code>, <code>Put</code>, <code>Update</code>, or <code>Delete</code> object. These
-     *        can operate on items in different tables, but the tables must reside in the same AWS account and Region,
-     *        and no two of them can operate on the same item.
+     *        can operate on items in different tables, but the tables must reside in the same Amazon Web Services
+     *        account and Region, and no two of them can operate on the same item.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -284,7 +284,7 @@ public class TransactWriteItemsRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * <p>
      * Although multiple identical calls using the same client request token produce the same result on the server (no
-     * side effects), the responses to the calls might not be the same. If the <code>ReturnConsumedCapacity&gt;</code>
+     * side effects), the responses to the calls might not be the same. If the <code>ReturnConsumedCapacity</code>
      * parameter is set, then the initial <code>TransactWriteItems</code> call returns the amount of write capacity
      * units consumed in making the changes. Subsequent <code>TransactWriteItems</code> calls with the same client token
      * return the number of read capacity units consumed in reading the item.
@@ -305,7 +305,7 @@ public class TransactWriteItemsRequest extends com.amazonaws.AmazonWebServiceReq
      *        <p>
      *        Although multiple identical calls using the same client request token produce the same result on the
      *        server (no side effects), the responses to the calls might not be the same. If the
-     *        <code>ReturnConsumedCapacity&gt;</code> parameter is set, then the initial <code>TransactWriteItems</code>
+     *        <code>ReturnConsumedCapacity</code> parameter is set, then the initial <code>TransactWriteItems</code>
      *        call returns the amount of write capacity units consumed in making the changes. Subsequent
      *        <code>TransactWriteItems</code> calls with the same client token return the number of read capacity units
      *        consumed in reading the item.
@@ -331,7 +331,7 @@ public class TransactWriteItemsRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * <p>
      * Although multiple identical calls using the same client request token produce the same result on the server (no
-     * side effects), the responses to the calls might not be the same. If the <code>ReturnConsumedCapacity&gt;</code>
+     * side effects), the responses to the calls might not be the same. If the <code>ReturnConsumedCapacity</code>
      * parameter is set, then the initial <code>TransactWriteItems</code> call returns the amount of write capacity
      * units consumed in making the changes. Subsequent <code>TransactWriteItems</code> calls with the same client token
      * return the number of read capacity units consumed in reading the item.
@@ -351,10 +351,10 @@ public class TransactWriteItemsRequest extends com.amazonaws.AmazonWebServiceReq
      *         <p>
      *         Although multiple identical calls using the same client request token produce the same result on the
      *         server (no side effects), the responses to the calls might not be the same. If the
-     *         <code>ReturnConsumedCapacity&gt;</code> parameter is set, then the initial
-     *         <code>TransactWriteItems</code> call returns the amount of write capacity units consumed in making the
-     *         changes. Subsequent <code>TransactWriteItems</code> calls with the same client token return the number of
-     *         read capacity units consumed in reading the item.
+     *         <code>ReturnConsumedCapacity</code> parameter is set, then the initial <code>TransactWriteItems</code>
+     *         call returns the amount of write capacity units consumed in making the changes. Subsequent
+     *         <code>TransactWriteItems</code> calls with the same client token return the number of read capacity units
+     *         consumed in reading the item.
      *         </p>
      *         <p>
      *         A client request token is valid for 10 minutes after the first request that uses it is completed. After
@@ -377,7 +377,7 @@ public class TransactWriteItemsRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * <p>
      * Although multiple identical calls using the same client request token produce the same result on the server (no
-     * side effects), the responses to the calls might not be the same. If the <code>ReturnConsumedCapacity&gt;</code>
+     * side effects), the responses to the calls might not be the same. If the <code>ReturnConsumedCapacity</code>
      * parameter is set, then the initial <code>TransactWriteItems</code> call returns the amount of write capacity
      * units consumed in making the changes. Subsequent <code>TransactWriteItems</code> calls with the same client token
      * return the number of read capacity units consumed in reading the item.
@@ -398,7 +398,7 @@ public class TransactWriteItemsRequest extends com.amazonaws.AmazonWebServiceReq
      *        <p>
      *        Although multiple identical calls using the same client request token produce the same result on the
      *        server (no side effects), the responses to the calls might not be the same. If the
-     *        <code>ReturnConsumedCapacity&gt;</code> parameter is set, then the initial <code>TransactWriteItems</code>
+     *        <code>ReturnConsumedCapacity</code> parameter is set, then the initial <code>TransactWriteItems</code>
      *        call returns the amount of write capacity units consumed in making the changes. Subsequent
      *        <code>TransactWriteItems</code> calls with the same client token return the number of read capacity units
      *        consumed in reading the item.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,18 @@ public class GetConnectionStatusRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      */
     private String target;
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      * 
      * @param target
-     *        The ID of the instance.
+     *        The managed node ID.
      */
 
     public void setTarget(String target) {
@@ -47,10 +47,10 @@ public class GetConnectionStatusRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      * 
-     * @return The ID of the instance.
+     * @return The managed node ID.
      */
 
     public String getTarget() {
@@ -59,11 +59,11 @@ public class GetConnectionStatusRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      * 
      * @param target
-     *        The ID of the instance.
+     *        The managed node ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

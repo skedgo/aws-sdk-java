@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The Unix file permissions and ownership information assigned, by default, to native S3 objects when file gateway
- * discovers them in S3 buckets. This operation is only supported in file gateways.
+ * The Unix file permissions and ownership information assigned, by default, to native S3 objects when an S3 File
+ * Gateway discovers them in S3 buckets. This operation is only supported in S3 File Gateways.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NFSFileShareInfo" target="_top">AWS
@@ -40,8 +40,11 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     private String gatewayARN;
     /**
      * <p>
-     * True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by Amazon
-     * S3. Optional.
+     * Set to <code>true</code> to use Amazon S3 server-side encryption with your own KMS key, or <code>false</code> to
+     * use a key managed by Amazon S3. Optional.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      */
     private Boolean kMSEncrypted;
@@ -55,9 +58,12 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     private String locationARN;
     /**
      * <p>
-     * The default storage class for objects put into an Amazon S3 bucket by the file gateway. Possible values are
-     * <code>S3_STANDARD</code>, <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
-     * populated, the default value <code>S3_STANDARD</code> is used. Optional.
+     * The default storage class for objects put into an Amazon S3 bucket by the S3 File Gateway. The default value is
+     * <code>S3_STANDARD</code>. Optional.
+     * </p>
+     * <p>
+     * Valid Values: <code>S3_STANDARD</code> | <code>S3_INTELLIGENT_TIERING</code> | <code>S3_STANDARD_IA</code> |
+     * <code>S3_ONEZONE_IA</code>
      * </p>
      */
     private String defaultStorageClass;
@@ -69,23 +75,30 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     private String squash;
     /**
      * <p>
-     * A value that sets the write status of a file share. This value is true if the write status is read-only, and
-     * otherwise false.
+     * A value that sets the write status of a file share. Set this value to <code>true</code> to set the write status
+     * to read-only, otherwise set to <code>false</code>.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      */
     private Boolean readOnly;
     /**
      * <p>
      * A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this value to
-     * true to enable MIME type guessing, and otherwise to false. The default value is true.
+     * <code>true</code> to enable MIME type guessing, otherwise set to <code>false</code>. The default value is
+     * <code>true</code>.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      */
     private Boolean guessMIMETypeEnabled;
     /**
      * <p>
      * A value that sets who pays the cost of the request and the cost associated with data download from the S3 bucket.
-     * If this value is set to true, the requester pays the costs. Otherwise the S3 bucket owner pays. However, the S3
-     * bucket owner always pays the cost of storing data.
+     * If this value is set to <code>true</code>, the requester pays the costs; otherwise, the S3 bucket owner pays.
+     * However, the S3 bucket owner always pays the cost of storing data.
      * </p>
      * <note>
      * <p>
@@ -93,6 +106,9 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
      * configuration on the file share is the same as the S3 bucket configuration.
      * </p>
      * </note>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
+     * </p>
      */
     private Boolean requesterPays;
     /**
@@ -103,6 +119,81 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * The name of the file share. Optional.
+     * </p>
+     * <note>
+     * <p>
+     * <code>FileShareName</code> must be set if an S3 prefix name is set in <code>LocationARN</code>, or if an access
+     * point or access point alias is used.
+     * </p>
+     * </note>
+     */
+    private String fileShareName;
+    /**
+     * <p>
+     * Refresh cache information for the file share.
+     * </p>
+     */
+    private CacheAttributes cacheAttributes;
+    /**
+     * <p>
+     * The notification policy of the file share. <code>SettlingTimeInSeconds</code> controls the number of seconds to
+     * wait after the last point in time a client wrote to a file before generating an <code>ObjectUploaded</code>
+     * notification. Because clients can make many small writes to files, it's best to set this parameter for as long as
+     * possible to avoid generating multiple notifications for the same file in a small time period.
+     * </p>
+     * <note>
+     * <p>
+     * <code>SettlingTimeInSeconds</code> has no effect on the timing of the object uploading to Amazon S3, only the
+     * timing of the notification.
+     * </p>
+     * </note>
+     * <p>
+     * The following example sets <code>NotificationPolicy</code> on with <code>SettlingTimeInSeconds</code> set to 60.
+     * </p>
+     * <p>
+     * <code>{\"Upload\": {\"SettlingTimeInSeconds\": 60}}</code>
+     * </p>
+     * <p>
+     * The following example sets <code>NotificationPolicy</code> off.
+     * </p>
+     * <p>
+     * <code>{}</code>
+     * </p>
+     */
+    private String notificationPolicy;
+    /**
+     * <p>
+     * Specifies the DNS name for the VPC endpoint that the NFS file share uses to connect to Amazon S3.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is required for NFS file shares that connect to Amazon S3 through a VPC endpoint, a VPC access
+     * point, or an access point alias that points to a VPC access point.
+     * </p>
+     * </note>
+     */
+    private String vPCEndpointDNSName;
+    /**
+     * <p>
+     * Specifies the Region of the S3 bucket where the NFS file share stores files.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is required for NFS file shares that connect to Amazon S3 through a VPC endpoint, a VPC access
+     * point, or an access point alias that points to a VPC access point.
+     * </p>
+     * </note>
+     */
+    private String bucketRegion;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the storage used for audit logs.
+     * </p>
+     */
+    private String auditDestinationARN;
 
     /**
      * @param nFSFileShareDefaults
@@ -236,13 +327,18 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by Amazon
-     * S3. Optional.
+     * Set to <code>true</code> to use Amazon S3 server-side encryption with your own KMS key, or <code>false</code> to
+     * use a key managed by Amazon S3. Optional.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
      * @param kMSEncrypted
-     *        True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by
-     *        Amazon S3. Optional.
+     *        Set to <code>true</code> to use Amazon S3 server-side encryption with your own KMS key, or
+     *        <code>false</code> to use a key managed by Amazon S3. Optional.</p>
+     *        <p>
+     *        Valid Values: <code>true</code> | <code>false</code>
      */
 
     public void setKMSEncrypted(Boolean kMSEncrypted) {
@@ -251,12 +347,17 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by Amazon
-     * S3. Optional.
+     * Set to <code>true</code> to use Amazon S3 server-side encryption with your own KMS key, or <code>false</code> to
+     * use a key managed by Amazon S3. Optional.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
-     * @return True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by
-     *         Amazon S3. Optional.
+     * @return Set to <code>true</code> to use Amazon S3 server-side encryption with your own KMS key, or
+     *         <code>false</code> to use a key managed by Amazon S3. Optional.</p>
+     *         <p>
+     *         Valid Values: <code>true</code> | <code>false</code>
      */
 
     public Boolean getKMSEncrypted() {
@@ -265,13 +366,18 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by Amazon
-     * S3. Optional.
+     * Set to <code>true</code> to use Amazon S3 server-side encryption with your own KMS key, or <code>false</code> to
+     * use a key managed by Amazon S3. Optional.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
      * @param kMSEncrypted
-     *        True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by
-     *        Amazon S3. Optional.
+     *        Set to <code>true</code> to use Amazon S3 server-side encryption with your own KMS key, or
+     *        <code>false</code> to use a key managed by Amazon S3. Optional.</p>
+     *        <p>
+     *        Valid Values: <code>true</code> | <code>false</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -282,12 +388,17 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by Amazon
-     * S3. Optional.
+     * Set to <code>true</code> to use Amazon S3 server-side encryption with your own KMS key, or <code>false</code> to
+     * use a key managed by Amazon S3. Optional.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
-     * @return True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by
-     *         Amazon S3. Optional.
+     * @return Set to <code>true</code> to use Amazon S3 server-side encryption with your own KMS key, or
+     *         <code>false</code> to use a key managed by Amazon S3. Optional.</p>
+     *         <p>
+     *         Valid Values: <code>true</code> | <code>false</code>
      */
 
     public Boolean isKMSEncrypted() {
@@ -400,15 +511,20 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The default storage class for objects put into an Amazon S3 bucket by the file gateway. Possible values are
-     * <code>S3_STANDARD</code>, <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
-     * populated, the default value <code>S3_STANDARD</code> is used. Optional.
+     * The default storage class for objects put into an Amazon S3 bucket by the S3 File Gateway. The default value is
+     * <code>S3_STANDARD</code>. Optional.
+     * </p>
+     * <p>
+     * Valid Values: <code>S3_STANDARD</code> | <code>S3_INTELLIGENT_TIERING</code> | <code>S3_STANDARD_IA</code> |
+     * <code>S3_ONEZONE_IA</code>
      * </p>
      * 
      * @param defaultStorageClass
-     *        The default storage class for objects put into an Amazon S3 bucket by the file gateway. Possible values
-     *        are <code>S3_STANDARD</code>, <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is
-     *        not populated, the default value <code>S3_STANDARD</code> is used. Optional.
+     *        The default storage class for objects put into an Amazon S3 bucket by the S3 File Gateway. The default
+     *        value is <code>S3_STANDARD</code>. Optional.</p>
+     *        <p>
+     *        Valid Values: <code>S3_STANDARD</code> | <code>S3_INTELLIGENT_TIERING</code> | <code>S3_STANDARD_IA</code>
+     *        | <code>S3_ONEZONE_IA</code>
      */
 
     public void setDefaultStorageClass(String defaultStorageClass) {
@@ -417,14 +533,19 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The default storage class for objects put into an Amazon S3 bucket by the file gateway. Possible values are
-     * <code>S3_STANDARD</code>, <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
-     * populated, the default value <code>S3_STANDARD</code> is used. Optional.
+     * The default storage class for objects put into an Amazon S3 bucket by the S3 File Gateway. The default value is
+     * <code>S3_STANDARD</code>. Optional.
+     * </p>
+     * <p>
+     * Valid Values: <code>S3_STANDARD</code> | <code>S3_INTELLIGENT_TIERING</code> | <code>S3_STANDARD_IA</code> |
+     * <code>S3_ONEZONE_IA</code>
      * </p>
      * 
-     * @return The default storage class for objects put into an Amazon S3 bucket by the file gateway. Possible values
-     *         are <code>S3_STANDARD</code>, <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field
-     *         is not populated, the default value <code>S3_STANDARD</code> is used. Optional.
+     * @return The default storage class for objects put into an Amazon S3 bucket by the S3 File Gateway. The default
+     *         value is <code>S3_STANDARD</code>. Optional.</p>
+     *         <p>
+     *         Valid Values: <code>S3_STANDARD</code> | <code>S3_INTELLIGENT_TIERING</code> |
+     *         <code>S3_STANDARD_IA</code> | <code>S3_ONEZONE_IA</code>
      */
 
     public String getDefaultStorageClass() {
@@ -433,15 +554,20 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The default storage class for objects put into an Amazon S3 bucket by the file gateway. Possible values are
-     * <code>S3_STANDARD</code>, <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
-     * populated, the default value <code>S3_STANDARD</code> is used. Optional.
+     * The default storage class for objects put into an Amazon S3 bucket by the S3 File Gateway. The default value is
+     * <code>S3_STANDARD</code>. Optional.
+     * </p>
+     * <p>
+     * Valid Values: <code>S3_STANDARD</code> | <code>S3_INTELLIGENT_TIERING</code> | <code>S3_STANDARD_IA</code> |
+     * <code>S3_ONEZONE_IA</code>
      * </p>
      * 
      * @param defaultStorageClass
-     *        The default storage class for objects put into an Amazon S3 bucket by the file gateway. Possible values
-     *        are <code>S3_STANDARD</code>, <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is
-     *        not populated, the default value <code>S3_STANDARD</code> is used. Optional.
+     *        The default storage class for objects put into an Amazon S3 bucket by the S3 File Gateway. The default
+     *        value is <code>S3_STANDARD</code>. Optional.</p>
+     *        <p>
+     *        Valid Values: <code>S3_STANDARD</code> | <code>S3_INTELLIGENT_TIERING</code> | <code>S3_STANDARD_IA</code>
+     *        | <code>S3_ONEZONE_IA</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -573,13 +699,18 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A value that sets the write status of a file share. This value is true if the write status is read-only, and
-     * otherwise false.
+     * A value that sets the write status of a file share. Set this value to <code>true</code> to set the write status
+     * to read-only, otherwise set to <code>false</code>.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
      * @param readOnly
-     *        A value that sets the write status of a file share. This value is true if the write status is read-only,
-     *        and otherwise false.
+     *        A value that sets the write status of a file share. Set this value to <code>true</code> to set the write
+     *        status to read-only, otherwise set to <code>false</code>.</p>
+     *        <p>
+     *        Valid Values: <code>true</code> | <code>false</code>
      */
 
     public void setReadOnly(Boolean readOnly) {
@@ -588,12 +719,17 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A value that sets the write status of a file share. This value is true if the write status is read-only, and
-     * otherwise false.
+     * A value that sets the write status of a file share. Set this value to <code>true</code> to set the write status
+     * to read-only, otherwise set to <code>false</code>.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
-     * @return A value that sets the write status of a file share. This value is true if the write status is read-only,
-     *         and otherwise false.
+     * @return A value that sets the write status of a file share. Set this value to <code>true</code> to set the write
+     *         status to read-only, otherwise set to <code>false</code>.</p>
+     *         <p>
+     *         Valid Values: <code>true</code> | <code>false</code>
      */
 
     public Boolean getReadOnly() {
@@ -602,13 +738,18 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A value that sets the write status of a file share. This value is true if the write status is read-only, and
-     * otherwise false.
+     * A value that sets the write status of a file share. Set this value to <code>true</code> to set the write status
+     * to read-only, otherwise set to <code>false</code>.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
      * @param readOnly
-     *        A value that sets the write status of a file share. This value is true if the write status is read-only,
-     *        and otherwise false.
+     *        A value that sets the write status of a file share. Set this value to <code>true</code> to set the write
+     *        status to read-only, otherwise set to <code>false</code>.</p>
+     *        <p>
+     *        Valid Values: <code>true</code> | <code>false</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -619,12 +760,17 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A value that sets the write status of a file share. This value is true if the write status is read-only, and
-     * otherwise false.
+     * A value that sets the write status of a file share. Set this value to <code>true</code> to set the write status
+     * to read-only, otherwise set to <code>false</code>.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
-     * @return A value that sets the write status of a file share. This value is true if the write status is read-only,
-     *         and otherwise false.
+     * @return A value that sets the write status of a file share. Set this value to <code>true</code> to set the write
+     *         status to read-only, otherwise set to <code>false</code>.</p>
+     *         <p>
+     *         Valid Values: <code>true</code> | <code>false</code>
      */
 
     public Boolean isReadOnly() {
@@ -634,12 +780,19 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this value to
-     * true to enable MIME type guessing, and otherwise to false. The default value is true.
+     * <code>true</code> to enable MIME type guessing, otherwise set to <code>false</code>. The default value is
+     * <code>true</code>.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
      * @param guessMIMETypeEnabled
      *        A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this
-     *        value to true to enable MIME type guessing, and otherwise to false. The default value is true.
+     *        value to <code>true</code> to enable MIME type guessing, otherwise set to <code>false</code>. The default
+     *        value is <code>true</code>.</p>
+     *        <p>
+     *        Valid Values: <code>true</code> | <code>false</code>
      */
 
     public void setGuessMIMETypeEnabled(Boolean guessMIMETypeEnabled) {
@@ -649,11 +802,18 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this value to
-     * true to enable MIME type guessing, and otherwise to false. The default value is true.
+     * <code>true</code> to enable MIME type guessing, otherwise set to <code>false</code>. The default value is
+     * <code>true</code>.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
      * @return A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this
-     *         value to true to enable MIME type guessing, and otherwise to false. The default value is true.
+     *         value to <code>true</code> to enable MIME type guessing, otherwise set to <code>false</code>. The default
+     *         value is <code>true</code>.</p>
+     *         <p>
+     *         Valid Values: <code>true</code> | <code>false</code>
      */
 
     public Boolean getGuessMIMETypeEnabled() {
@@ -663,12 +823,19 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this value to
-     * true to enable MIME type guessing, and otherwise to false. The default value is true.
+     * <code>true</code> to enable MIME type guessing, otherwise set to <code>false</code>. The default value is
+     * <code>true</code>.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
      * @param guessMIMETypeEnabled
      *        A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this
-     *        value to true to enable MIME type guessing, and otherwise to false. The default value is true.
+     *        value to <code>true</code> to enable MIME type guessing, otherwise set to <code>false</code>. The default
+     *        value is <code>true</code>.</p>
+     *        <p>
+     *        Valid Values: <code>true</code> | <code>false</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -680,11 +847,18 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this value to
-     * true to enable MIME type guessing, and otherwise to false. The default value is true.
+     * <code>true</code> to enable MIME type guessing, otherwise set to <code>false</code>. The default value is
+     * <code>true</code>.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
      * @return A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this
-     *         value to true to enable MIME type guessing, and otherwise to false. The default value is true.
+     *         value to <code>true</code> to enable MIME type guessing, otherwise set to <code>false</code>. The default
+     *         value is <code>true</code>.</p>
+     *         <p>
+     *         Valid Values: <code>true</code> | <code>false</code>
      */
 
     public Boolean isGuessMIMETypeEnabled() {
@@ -694,8 +868,8 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * A value that sets who pays the cost of the request and the cost associated with data download from the S3 bucket.
-     * If this value is set to true, the requester pays the costs. Otherwise the S3 bucket owner pays. However, the S3
-     * bucket owner always pays the cost of storing data.
+     * If this value is set to <code>true</code>, the requester pays the costs; otherwise, the S3 bucket owner pays.
+     * However, the S3 bucket owner always pays the cost of storing data.
      * </p>
      * <note>
      * <p>
@@ -703,15 +877,21 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
      * configuration on the file share is the same as the S3 bucket configuration.
      * </p>
      * </note>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
+     * </p>
      * 
      * @param requesterPays
      *        A value that sets who pays the cost of the request and the cost associated with data download from the S3
-     *        bucket. If this value is set to true, the requester pays the costs. Otherwise the S3 bucket owner pays.
-     *        However, the S3 bucket owner always pays the cost of storing data.</p> <note>
+     *        bucket. If this value is set to <code>true</code>, the requester pays the costs; otherwise, the S3 bucket
+     *        owner pays. However, the S3 bucket owner always pays the cost of storing data.</p> <note>
      *        <p>
      *        <code>RequesterPays</code> is a configuration for the S3 bucket that backs the file share, so make sure
      *        that the configuration on the file share is the same as the S3 bucket configuration.
      *        </p>
+     *        </note>
+     *        <p>
+     *        Valid Values: <code>true</code> | <code>false</code>
      */
 
     public void setRequesterPays(Boolean requesterPays) {
@@ -721,8 +901,8 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * A value that sets who pays the cost of the request and the cost associated with data download from the S3 bucket.
-     * If this value is set to true, the requester pays the costs. Otherwise the S3 bucket owner pays. However, the S3
-     * bucket owner always pays the cost of storing data.
+     * If this value is set to <code>true</code>, the requester pays the costs; otherwise, the S3 bucket owner pays.
+     * However, the S3 bucket owner always pays the cost of storing data.
      * </p>
      * <note>
      * <p>
@@ -730,14 +910,20 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
      * configuration on the file share is the same as the S3 bucket configuration.
      * </p>
      * </note>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
+     * </p>
      * 
      * @return A value that sets who pays the cost of the request and the cost associated with data download from the S3
-     *         bucket. If this value is set to true, the requester pays the costs. Otherwise the S3 bucket owner pays.
-     *         However, the S3 bucket owner always pays the cost of storing data.</p> <note>
+     *         bucket. If this value is set to <code>true</code>, the requester pays the costs; otherwise, the S3 bucket
+     *         owner pays. However, the S3 bucket owner always pays the cost of storing data.</p> <note>
      *         <p>
      *         <code>RequesterPays</code> is a configuration for the S3 bucket that backs the file share, so make sure
      *         that the configuration on the file share is the same as the S3 bucket configuration.
      *         </p>
+     *         </note>
+     *         <p>
+     *         Valid Values: <code>true</code> | <code>false</code>
      */
 
     public Boolean getRequesterPays() {
@@ -747,8 +933,8 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * A value that sets who pays the cost of the request and the cost associated with data download from the S3 bucket.
-     * If this value is set to true, the requester pays the costs. Otherwise the S3 bucket owner pays. However, the S3
-     * bucket owner always pays the cost of storing data.
+     * If this value is set to <code>true</code>, the requester pays the costs; otherwise, the S3 bucket owner pays.
+     * However, the S3 bucket owner always pays the cost of storing data.
      * </p>
      * <note>
      * <p>
@@ -756,15 +942,21 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
      * configuration on the file share is the same as the S3 bucket configuration.
      * </p>
      * </note>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
+     * </p>
      * 
      * @param requesterPays
      *        A value that sets who pays the cost of the request and the cost associated with data download from the S3
-     *        bucket. If this value is set to true, the requester pays the costs. Otherwise the S3 bucket owner pays.
-     *        However, the S3 bucket owner always pays the cost of storing data.</p> <note>
+     *        bucket. If this value is set to <code>true</code>, the requester pays the costs; otherwise, the S3 bucket
+     *        owner pays. However, the S3 bucket owner always pays the cost of storing data.</p> <note>
      *        <p>
      *        <code>RequesterPays</code> is a configuration for the S3 bucket that backs the file share, so make sure
      *        that the configuration on the file share is the same as the S3 bucket configuration.
      *        </p>
+     *        </note>
+     *        <p>
+     *        Valid Values: <code>true</code> | <code>false</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -776,8 +968,8 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * A value that sets who pays the cost of the request and the cost associated with data download from the S3 bucket.
-     * If this value is set to true, the requester pays the costs. Otherwise the S3 bucket owner pays. However, the S3
-     * bucket owner always pays the cost of storing data.
+     * If this value is set to <code>true</code>, the requester pays the costs; otherwise, the S3 bucket owner pays.
+     * However, the S3 bucket owner always pays the cost of storing data.
      * </p>
      * <note>
      * <p>
@@ -785,14 +977,20 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
      * configuration on the file share is the same as the S3 bucket configuration.
      * </p>
      * </note>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
+     * </p>
      * 
      * @return A value that sets who pays the cost of the request and the cost associated with data download from the S3
-     *         bucket. If this value is set to true, the requester pays the costs. Otherwise the S3 bucket owner pays.
-     *         However, the S3 bucket owner always pays the cost of storing data.</p> <note>
+     *         bucket. If this value is set to <code>true</code>, the requester pays the costs; otherwise, the S3 bucket
+     *         owner pays. However, the S3 bucket owner always pays the cost of storing data.</p> <note>
      *         <p>
      *         <code>RequesterPays</code> is a configuration for the S3 bucket that backs the file share, so make sure
      *         that the configuration on the file share is the same as the S3 bucket configuration.
      *         </p>
+     *         </note>
+     *         <p>
+     *         Valid Values: <code>true</code> | <code>false</code>
      */
 
     public Boolean isRequesterPays() {
@@ -889,6 +1087,465 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * <p>
+     * The name of the file share. Optional.
+     * </p>
+     * <note>
+     * <p>
+     * <code>FileShareName</code> must be set if an S3 prefix name is set in <code>LocationARN</code>, or if an access
+     * point or access point alias is used.
+     * </p>
+     * </note>
+     * 
+     * @param fileShareName
+     *        The name of the file share. Optional.</p> <note>
+     *        <p>
+     *        <code>FileShareName</code> must be set if an S3 prefix name is set in <code>LocationARN</code>, or if an
+     *        access point or access point alias is used.
+     *        </p>
+     */
+
+    public void setFileShareName(String fileShareName) {
+        this.fileShareName = fileShareName;
+    }
+
+    /**
+     * <p>
+     * The name of the file share. Optional.
+     * </p>
+     * <note>
+     * <p>
+     * <code>FileShareName</code> must be set if an S3 prefix name is set in <code>LocationARN</code>, or if an access
+     * point or access point alias is used.
+     * </p>
+     * </note>
+     * 
+     * @return The name of the file share. Optional.</p> <note>
+     *         <p>
+     *         <code>FileShareName</code> must be set if an S3 prefix name is set in <code>LocationARN</code>, or if an
+     *         access point or access point alias is used.
+     *         </p>
+     */
+
+    public String getFileShareName() {
+        return this.fileShareName;
+    }
+
+    /**
+     * <p>
+     * The name of the file share. Optional.
+     * </p>
+     * <note>
+     * <p>
+     * <code>FileShareName</code> must be set if an S3 prefix name is set in <code>LocationARN</code>, or if an access
+     * point or access point alias is used.
+     * </p>
+     * </note>
+     * 
+     * @param fileShareName
+     *        The name of the file share. Optional.</p> <note>
+     *        <p>
+     *        <code>FileShareName</code> must be set if an S3 prefix name is set in <code>LocationARN</code>, or if an
+     *        access point or access point alias is used.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NFSFileShareInfo withFileShareName(String fileShareName) {
+        setFileShareName(fileShareName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Refresh cache information for the file share.
+     * </p>
+     * 
+     * @param cacheAttributes
+     *        Refresh cache information for the file share.
+     */
+
+    public void setCacheAttributes(CacheAttributes cacheAttributes) {
+        this.cacheAttributes = cacheAttributes;
+    }
+
+    /**
+     * <p>
+     * Refresh cache information for the file share.
+     * </p>
+     * 
+     * @return Refresh cache information for the file share.
+     */
+
+    public CacheAttributes getCacheAttributes() {
+        return this.cacheAttributes;
+    }
+
+    /**
+     * <p>
+     * Refresh cache information for the file share.
+     * </p>
+     * 
+     * @param cacheAttributes
+     *        Refresh cache information for the file share.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NFSFileShareInfo withCacheAttributes(CacheAttributes cacheAttributes) {
+        setCacheAttributes(cacheAttributes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The notification policy of the file share. <code>SettlingTimeInSeconds</code> controls the number of seconds to
+     * wait after the last point in time a client wrote to a file before generating an <code>ObjectUploaded</code>
+     * notification. Because clients can make many small writes to files, it's best to set this parameter for as long as
+     * possible to avoid generating multiple notifications for the same file in a small time period.
+     * </p>
+     * <note>
+     * <p>
+     * <code>SettlingTimeInSeconds</code> has no effect on the timing of the object uploading to Amazon S3, only the
+     * timing of the notification.
+     * </p>
+     * </note>
+     * <p>
+     * The following example sets <code>NotificationPolicy</code> on with <code>SettlingTimeInSeconds</code> set to 60.
+     * </p>
+     * <p>
+     * <code>{\"Upload\": {\"SettlingTimeInSeconds\": 60}}</code>
+     * </p>
+     * <p>
+     * The following example sets <code>NotificationPolicy</code> off.
+     * </p>
+     * <p>
+     * <code>{}</code>
+     * </p>
+     * 
+     * @param notificationPolicy
+     *        The notification policy of the file share. <code>SettlingTimeInSeconds</code> controls the number of
+     *        seconds to wait after the last point in time a client wrote to a file before generating an
+     *        <code>ObjectUploaded</code> notification. Because clients can make many small writes to files, it's best
+     *        to set this parameter for as long as possible to avoid generating multiple notifications for the same file
+     *        in a small time period.</p> <note>
+     *        <p>
+     *        <code>SettlingTimeInSeconds</code> has no effect on the timing of the object uploading to Amazon S3, only
+     *        the timing of the notification.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The following example sets <code>NotificationPolicy</code> on with <code>SettlingTimeInSeconds</code> set
+     *        to 60.
+     *        </p>
+     *        <p>
+     *        <code>{\"Upload\": {\"SettlingTimeInSeconds\": 60}}</code>
+     *        </p>
+     *        <p>
+     *        The following example sets <code>NotificationPolicy</code> off.
+     *        </p>
+     *        <p>
+     *        <code>{}</code>
+     */
+
+    public void setNotificationPolicy(String notificationPolicy) {
+        this.notificationPolicy = notificationPolicy;
+    }
+
+    /**
+     * <p>
+     * The notification policy of the file share. <code>SettlingTimeInSeconds</code> controls the number of seconds to
+     * wait after the last point in time a client wrote to a file before generating an <code>ObjectUploaded</code>
+     * notification. Because clients can make many small writes to files, it's best to set this parameter for as long as
+     * possible to avoid generating multiple notifications for the same file in a small time period.
+     * </p>
+     * <note>
+     * <p>
+     * <code>SettlingTimeInSeconds</code> has no effect on the timing of the object uploading to Amazon S3, only the
+     * timing of the notification.
+     * </p>
+     * </note>
+     * <p>
+     * The following example sets <code>NotificationPolicy</code> on with <code>SettlingTimeInSeconds</code> set to 60.
+     * </p>
+     * <p>
+     * <code>{\"Upload\": {\"SettlingTimeInSeconds\": 60}}</code>
+     * </p>
+     * <p>
+     * The following example sets <code>NotificationPolicy</code> off.
+     * </p>
+     * <p>
+     * <code>{}</code>
+     * </p>
+     * 
+     * @return The notification policy of the file share. <code>SettlingTimeInSeconds</code> controls the number of
+     *         seconds to wait after the last point in time a client wrote to a file before generating an
+     *         <code>ObjectUploaded</code> notification. Because clients can make many small writes to files, it's best
+     *         to set this parameter for as long as possible to avoid generating multiple notifications for the same
+     *         file in a small time period.</p> <note>
+     *         <p>
+     *         <code>SettlingTimeInSeconds</code> has no effect on the timing of the object uploading to Amazon S3, only
+     *         the timing of the notification.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         The following example sets <code>NotificationPolicy</code> on with <code>SettlingTimeInSeconds</code> set
+     *         to 60.
+     *         </p>
+     *         <p>
+     *         <code>{\"Upload\": {\"SettlingTimeInSeconds\": 60}}</code>
+     *         </p>
+     *         <p>
+     *         The following example sets <code>NotificationPolicy</code> off.
+     *         </p>
+     *         <p>
+     *         <code>{}</code>
+     */
+
+    public String getNotificationPolicy() {
+        return this.notificationPolicy;
+    }
+
+    /**
+     * <p>
+     * The notification policy of the file share. <code>SettlingTimeInSeconds</code> controls the number of seconds to
+     * wait after the last point in time a client wrote to a file before generating an <code>ObjectUploaded</code>
+     * notification. Because clients can make many small writes to files, it's best to set this parameter for as long as
+     * possible to avoid generating multiple notifications for the same file in a small time period.
+     * </p>
+     * <note>
+     * <p>
+     * <code>SettlingTimeInSeconds</code> has no effect on the timing of the object uploading to Amazon S3, only the
+     * timing of the notification.
+     * </p>
+     * </note>
+     * <p>
+     * The following example sets <code>NotificationPolicy</code> on with <code>SettlingTimeInSeconds</code> set to 60.
+     * </p>
+     * <p>
+     * <code>{\"Upload\": {\"SettlingTimeInSeconds\": 60}}</code>
+     * </p>
+     * <p>
+     * The following example sets <code>NotificationPolicy</code> off.
+     * </p>
+     * <p>
+     * <code>{}</code>
+     * </p>
+     * 
+     * @param notificationPolicy
+     *        The notification policy of the file share. <code>SettlingTimeInSeconds</code> controls the number of
+     *        seconds to wait after the last point in time a client wrote to a file before generating an
+     *        <code>ObjectUploaded</code> notification. Because clients can make many small writes to files, it's best
+     *        to set this parameter for as long as possible to avoid generating multiple notifications for the same file
+     *        in a small time period.</p> <note>
+     *        <p>
+     *        <code>SettlingTimeInSeconds</code> has no effect on the timing of the object uploading to Amazon S3, only
+     *        the timing of the notification.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The following example sets <code>NotificationPolicy</code> on with <code>SettlingTimeInSeconds</code> set
+     *        to 60.
+     *        </p>
+     *        <p>
+     *        <code>{\"Upload\": {\"SettlingTimeInSeconds\": 60}}</code>
+     *        </p>
+     *        <p>
+     *        The following example sets <code>NotificationPolicy</code> off.
+     *        </p>
+     *        <p>
+     *        <code>{}</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NFSFileShareInfo withNotificationPolicy(String notificationPolicy) {
+        setNotificationPolicy(notificationPolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the DNS name for the VPC endpoint that the NFS file share uses to connect to Amazon S3.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is required for NFS file shares that connect to Amazon S3 through a VPC endpoint, a VPC access
+     * point, or an access point alias that points to a VPC access point.
+     * </p>
+     * </note>
+     * 
+     * @param vPCEndpointDNSName
+     *        Specifies the DNS name for the VPC endpoint that the NFS file share uses to connect to Amazon S3.</p>
+     *        <note>
+     *        <p>
+     *        This parameter is required for NFS file shares that connect to Amazon S3 through a VPC endpoint, a VPC
+     *        access point, or an access point alias that points to a VPC access point.
+     *        </p>
+     */
+
+    public void setVPCEndpointDNSName(String vPCEndpointDNSName) {
+        this.vPCEndpointDNSName = vPCEndpointDNSName;
+    }
+
+    /**
+     * <p>
+     * Specifies the DNS name for the VPC endpoint that the NFS file share uses to connect to Amazon S3.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is required for NFS file shares that connect to Amazon S3 through a VPC endpoint, a VPC access
+     * point, or an access point alias that points to a VPC access point.
+     * </p>
+     * </note>
+     * 
+     * @return Specifies the DNS name for the VPC endpoint that the NFS file share uses to connect to Amazon S3.</p>
+     *         <note>
+     *         <p>
+     *         This parameter is required for NFS file shares that connect to Amazon S3 through a VPC endpoint, a VPC
+     *         access point, or an access point alias that points to a VPC access point.
+     *         </p>
+     */
+
+    public String getVPCEndpointDNSName() {
+        return this.vPCEndpointDNSName;
+    }
+
+    /**
+     * <p>
+     * Specifies the DNS name for the VPC endpoint that the NFS file share uses to connect to Amazon S3.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is required for NFS file shares that connect to Amazon S3 through a VPC endpoint, a VPC access
+     * point, or an access point alias that points to a VPC access point.
+     * </p>
+     * </note>
+     * 
+     * @param vPCEndpointDNSName
+     *        Specifies the DNS name for the VPC endpoint that the NFS file share uses to connect to Amazon S3.</p>
+     *        <note>
+     *        <p>
+     *        This parameter is required for NFS file shares that connect to Amazon S3 through a VPC endpoint, a VPC
+     *        access point, or an access point alias that points to a VPC access point.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NFSFileShareInfo withVPCEndpointDNSName(String vPCEndpointDNSName) {
+        setVPCEndpointDNSName(vPCEndpointDNSName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the Region of the S3 bucket where the NFS file share stores files.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is required for NFS file shares that connect to Amazon S3 through a VPC endpoint, a VPC access
+     * point, or an access point alias that points to a VPC access point.
+     * </p>
+     * </note>
+     * 
+     * @param bucketRegion
+     *        Specifies the Region of the S3 bucket where the NFS file share stores files.</p> <note>
+     *        <p>
+     *        This parameter is required for NFS file shares that connect to Amazon S3 through a VPC endpoint, a VPC
+     *        access point, or an access point alias that points to a VPC access point.
+     *        </p>
+     */
+
+    public void setBucketRegion(String bucketRegion) {
+        this.bucketRegion = bucketRegion;
+    }
+
+    /**
+     * <p>
+     * Specifies the Region of the S3 bucket where the NFS file share stores files.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is required for NFS file shares that connect to Amazon S3 through a VPC endpoint, a VPC access
+     * point, or an access point alias that points to a VPC access point.
+     * </p>
+     * </note>
+     * 
+     * @return Specifies the Region of the S3 bucket where the NFS file share stores files.</p> <note>
+     *         <p>
+     *         This parameter is required for NFS file shares that connect to Amazon S3 through a VPC endpoint, a VPC
+     *         access point, or an access point alias that points to a VPC access point.
+     *         </p>
+     */
+
+    public String getBucketRegion() {
+        return this.bucketRegion;
+    }
+
+    /**
+     * <p>
+     * Specifies the Region of the S3 bucket where the NFS file share stores files.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is required for NFS file shares that connect to Amazon S3 through a VPC endpoint, a VPC access
+     * point, or an access point alias that points to a VPC access point.
+     * </p>
+     * </note>
+     * 
+     * @param bucketRegion
+     *        Specifies the Region of the S3 bucket where the NFS file share stores files.</p> <note>
+     *        <p>
+     *        This parameter is required for NFS file shares that connect to Amazon S3 through a VPC endpoint, a VPC
+     *        access point, or an access point alias that points to a VPC access point.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NFSFileShareInfo withBucketRegion(String bucketRegion) {
+        setBucketRegion(bucketRegion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the storage used for audit logs.
+     * </p>
+     * 
+     * @param auditDestinationARN
+     *        The Amazon Resource Name (ARN) of the storage used for audit logs.
+     */
+
+    public void setAuditDestinationARN(String auditDestinationARN) {
+        this.auditDestinationARN = auditDestinationARN;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the storage used for audit logs.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the storage used for audit logs.
+     */
+
+    public String getAuditDestinationARN() {
+        return this.auditDestinationARN;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the storage used for audit logs.
+     * </p>
+     * 
+     * @param auditDestinationARN
+     *        The Amazon Resource Name (ARN) of the storage used for audit logs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NFSFileShareInfo withAuditDestinationARN(String auditDestinationARN) {
+        setAuditDestinationARN(auditDestinationARN);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -935,7 +1592,19 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
         if (getRequesterPays() != null)
             sb.append("RequesterPays: ").append(getRequesterPays()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getFileShareName() != null)
+            sb.append("FileShareName: ").append(getFileShareName()).append(",");
+        if (getCacheAttributes() != null)
+            sb.append("CacheAttributes: ").append(getCacheAttributes()).append(",");
+        if (getNotificationPolicy() != null)
+            sb.append("NotificationPolicy: ").append(getNotificationPolicy()).append(",");
+        if (getVPCEndpointDNSName() != null)
+            sb.append("VPCEndpointDNSName: ").append(getVPCEndpointDNSName()).append(",");
+        if (getBucketRegion() != null)
+            sb.append("BucketRegion: ").append(getBucketRegion()).append(",");
+        if (getAuditDestinationARN() != null)
+            sb.append("AuditDestinationARN: ").append(getAuditDestinationARN());
         sb.append("}");
         return sb.toString();
     }
@@ -1022,6 +1691,30 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getFileShareName() == null ^ this.getFileShareName() == null)
+            return false;
+        if (other.getFileShareName() != null && other.getFileShareName().equals(this.getFileShareName()) == false)
+            return false;
+        if (other.getCacheAttributes() == null ^ this.getCacheAttributes() == null)
+            return false;
+        if (other.getCacheAttributes() != null && other.getCacheAttributes().equals(this.getCacheAttributes()) == false)
+            return false;
+        if (other.getNotificationPolicy() == null ^ this.getNotificationPolicy() == null)
+            return false;
+        if (other.getNotificationPolicy() != null && other.getNotificationPolicy().equals(this.getNotificationPolicy()) == false)
+            return false;
+        if (other.getVPCEndpointDNSName() == null ^ this.getVPCEndpointDNSName() == null)
+            return false;
+        if (other.getVPCEndpointDNSName() != null && other.getVPCEndpointDNSName().equals(this.getVPCEndpointDNSName()) == false)
+            return false;
+        if (other.getBucketRegion() == null ^ this.getBucketRegion() == null)
+            return false;
+        if (other.getBucketRegion() != null && other.getBucketRegion().equals(this.getBucketRegion()) == false)
+            return false;
+        if (other.getAuditDestinationARN() == null ^ this.getAuditDestinationARN() == null)
+            return false;
+        if (other.getAuditDestinationARN() != null && other.getAuditDestinationARN().equals(this.getAuditDestinationARN()) == false)
+            return false;
         return true;
     }
 
@@ -1048,6 +1741,12 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
         hashCode = prime * hashCode + ((getGuessMIMETypeEnabled() == null) ? 0 : getGuessMIMETypeEnabled().hashCode());
         hashCode = prime * hashCode + ((getRequesterPays() == null) ? 0 : getRequesterPays().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getFileShareName() == null) ? 0 : getFileShareName().hashCode());
+        hashCode = prime * hashCode + ((getCacheAttributes() == null) ? 0 : getCacheAttributes().hashCode());
+        hashCode = prime * hashCode + ((getNotificationPolicy() == null) ? 0 : getNotificationPolicy().hashCode());
+        hashCode = prime * hashCode + ((getVPCEndpointDNSName() == null) ? 0 : getVPCEndpointDNSName().hashCode());
+        hashCode = prime * hashCode + ((getBucketRegion() == null) ? 0 : getBucketRegion().hashCode());
+        hashCode = prime * hashCode + ((getAuditDestinationARN() == null) ? 0 : getAuditDestinationARN().hashCode());
         return hashCode;
     }
 

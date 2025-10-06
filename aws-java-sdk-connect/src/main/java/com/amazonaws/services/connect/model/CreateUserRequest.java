@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,85 +27,149 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The user name in Amazon Connect for the account to create. If you are using SAML for identity management in your
-     * Amazon Connect, the value for <code>Username</code> can include up to 64 characters from [a-zA-Z0-9_-.\@]+.
+     * The user name for the account. For instances not using SAML for identity management, the user name can include up
+     * to 20 characters. If you are using SAML for identity management, the user name can include up to 64 characters
+     * from [a-zA-Z0-9_-.\@]+.
      * </p>
+     * <p>
+     * Username can include @ only if used in an email format. For example:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Correct: testuser
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Correct: testuser@example.com
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Incorrect: testuser@example
+     * </p>
+     * </li>
+     * </ul>
      */
     private String username;
     /**
      * <p>
-     * The password for the user account to create. This is required if you are using Amazon Connect for identity
-     * management. If you are using SAML for identity management and include this parameter, an
-     * <code>InvalidRequestException</code> is returned.
+     * The password for the user account. A password is required if you are using Amazon Connect for identity
+     * management. Otherwise, it is an error to include a password.
      * </p>
      */
     private String password;
     /**
      * <p>
-     * Information about the user, including email address, first name, and last name.
+     * The information about the identity of the user.
      * </p>
      */
     private UserIdentityInfo identityInfo;
     /**
      * <p>
-     * Specifies the phone settings for the user, including <code>AfterContactWorkTimeLimit</code>,
-     * <code>AutoAccept</code>, <code>DeskPhoneNumber</code>, and <code>PhoneType</code>.
+     * The phone settings for the user.
      * </p>
      */
     private UserPhoneConfig phoneConfig;
     /**
      * <p>
-     * The unique identifier for the user account in the directory service directory used for identity management. If
-     * Amazon Connect is unable to access the existing directory, you can use the <code>DirectoryUserId</code> to
-     * authenticate users. If you include the parameter, it is assumed that Amazon Connect cannot access the directory.
-     * If the parameter is not included, the <code>UserIdentityInfo</code> is used to authenticate users from your
-     * existing directory.
+     * The identifier of the user account in the directory used for identity management. If Amazon Connect cannot access
+     * the directory, you can specify this identifier to authenticate users. If you include the identifier, we assume
+     * that Amazon Connect cannot access the directory. Otherwise, the identity information is used to authenticate
+     * users from your directory.
      * </p>
      * <p>
      * This parameter is required if you are using an existing directory for identity management in Amazon Connect when
      * Amazon Connect cannot access your directory to authenticate users. If you are using SAML for identity management
-     * and include this parameter, an <code>InvalidRequestException</code> is returned.
+     * and include this parameter, an error is returned.
      * </p>
      */
     private String directoryUserId;
     /**
      * <p>
-     * The unique identifier of the security profile to assign to the user created.
+     * The identifier of the security profile for the user.
      * </p>
      */
     private java.util.List<String> securityProfileIds;
     /**
      * <p>
-     * The unique identifier for the routing profile to assign to the user created.
+     * The identifier of the routing profile for the user.
      * </p>
      */
     private String routingProfileId;
     /**
      * <p>
-     * The unique identifier for the hierarchy group to assign to the user created.
+     * The identifier of the hierarchy group for the user.
      * </p>
      */
     private String hierarchyGroupId;
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      */
     private String instanceId;
+    /**
+     * <p>
+     * The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1",
+     * "key2":"value2"} }.
+     * </p>
+     */
+    private java.util.Map<String, String> tags;
 
     /**
      * <p>
-     * The user name in Amazon Connect for the account to create. If you are using SAML for identity management in your
-     * Amazon Connect, the value for <code>Username</code> can include up to 64 characters from [a-zA-Z0-9_-.\@]+.
+     * The user name for the account. For instances not using SAML for identity management, the user name can include up
+     * to 20 characters. If you are using SAML for identity management, the user name can include up to 64 characters
+     * from [a-zA-Z0-9_-.\@]+.
      * </p>
+     * <p>
+     * Username can include @ only if used in an email format. For example:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Correct: testuser
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Correct: testuser@example.com
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Incorrect: testuser@example
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param username
-     *        The user name in Amazon Connect for the account to create. If you are using SAML for identity management
-     *        in your Amazon Connect, the value for <code>Username</code> can include up to 64 characters from
-     *        [a-zA-Z0-9_-.\@]+.
+     *        The user name for the account. For instances not using SAML for identity management, the user name can
+     *        include up to 20 characters. If you are using SAML for identity management, the user name can include up
+     *        to 64 characters from [a-zA-Z0-9_-.\@]+.</p>
+     *        <p>
+     *        Username can include @ only if used in an email format. For example:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Correct: testuser
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Correct: testuser@example.com
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Incorrect: testuser@example
+     *        </p>
+     *        </li>
      */
 
     public void setUsername(String username) {
@@ -114,13 +178,53 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The user name in Amazon Connect for the account to create. If you are using SAML for identity management in your
-     * Amazon Connect, the value for <code>Username</code> can include up to 64 characters from [a-zA-Z0-9_-.\@]+.
+     * The user name for the account. For instances not using SAML for identity management, the user name can include up
+     * to 20 characters. If you are using SAML for identity management, the user name can include up to 64 characters
+     * from [a-zA-Z0-9_-.\@]+.
      * </p>
+     * <p>
+     * Username can include @ only if used in an email format. For example:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Correct: testuser
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Correct: testuser@example.com
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Incorrect: testuser@example
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The user name in Amazon Connect for the account to create. If you are using SAML for identity management
-     *         in your Amazon Connect, the value for <code>Username</code> can include up to 64 characters from
-     *         [a-zA-Z0-9_-.\@]+.
+     * @return The user name for the account. For instances not using SAML for identity management, the user name can
+     *         include up to 20 characters. If you are using SAML for identity management, the user name can include up
+     *         to 64 characters from [a-zA-Z0-9_-.\@]+.</p>
+     *         <p>
+     *         Username can include @ only if used in an email format. For example:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Correct: testuser
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Correct: testuser@example.com
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Incorrect: testuser@example
+     *         </p>
+     *         </li>
      */
 
     public String getUsername() {
@@ -129,14 +233,54 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The user name in Amazon Connect for the account to create. If you are using SAML for identity management in your
-     * Amazon Connect, the value for <code>Username</code> can include up to 64 characters from [a-zA-Z0-9_-.\@]+.
+     * The user name for the account. For instances not using SAML for identity management, the user name can include up
+     * to 20 characters. If you are using SAML for identity management, the user name can include up to 64 characters
+     * from [a-zA-Z0-9_-.\@]+.
      * </p>
+     * <p>
+     * Username can include @ only if used in an email format. For example:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Correct: testuser
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Correct: testuser@example.com
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Incorrect: testuser@example
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param username
-     *        The user name in Amazon Connect for the account to create. If you are using SAML for identity management
-     *        in your Amazon Connect, the value for <code>Username</code> can include up to 64 characters from
-     *        [a-zA-Z0-9_-.\@]+.
+     *        The user name for the account. For instances not using SAML for identity management, the user name can
+     *        include up to 20 characters. If you are using SAML for identity management, the user name can include up
+     *        to 64 characters from [a-zA-Z0-9_-.\@]+.</p>
+     *        <p>
+     *        Username can include @ only if used in an email format. For example:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Correct: testuser
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Correct: testuser@example.com
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Incorrect: testuser@example
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -147,15 +291,13 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The password for the user account to create. This is required if you are using Amazon Connect for identity
-     * management. If you are using SAML for identity management and include this parameter, an
-     * <code>InvalidRequestException</code> is returned.
+     * The password for the user account. A password is required if you are using Amazon Connect for identity
+     * management. Otherwise, it is an error to include a password.
      * </p>
      * 
      * @param password
-     *        The password for the user account to create. This is required if you are using Amazon Connect for identity
-     *        management. If you are using SAML for identity management and include this parameter, an
-     *        <code>InvalidRequestException</code> is returned.
+     *        The password for the user account. A password is required if you are using Amazon Connect for identity
+     *        management. Otherwise, it is an error to include a password.
      */
 
     public void setPassword(String password) {
@@ -164,14 +306,12 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The password for the user account to create. This is required if you are using Amazon Connect for identity
-     * management. If you are using SAML for identity management and include this parameter, an
-     * <code>InvalidRequestException</code> is returned.
+     * The password for the user account. A password is required if you are using Amazon Connect for identity
+     * management. Otherwise, it is an error to include a password.
      * </p>
      * 
-     * @return The password for the user account to create. This is required if you are using Amazon Connect for
-     *         identity management. If you are using SAML for identity management and include this parameter, an
-     *         <code>InvalidRequestException</code> is returned.
+     * @return The password for the user account. A password is required if you are using Amazon Connect for identity
+     *         management. Otherwise, it is an error to include a password.
      */
 
     public String getPassword() {
@@ -180,15 +320,13 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The password for the user account to create. This is required if you are using Amazon Connect for identity
-     * management. If you are using SAML for identity management and include this parameter, an
-     * <code>InvalidRequestException</code> is returned.
+     * The password for the user account. A password is required if you are using Amazon Connect for identity
+     * management. Otherwise, it is an error to include a password.
      * </p>
      * 
      * @param password
-     *        The password for the user account to create. This is required if you are using Amazon Connect for identity
-     *        management. If you are using SAML for identity management and include this parameter, an
-     *        <code>InvalidRequestException</code> is returned.
+     *        The password for the user account. A password is required if you are using Amazon Connect for identity
+     *        management. Otherwise, it is an error to include a password.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -199,11 +337,11 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Information about the user, including email address, first name, and last name.
+     * The information about the identity of the user.
      * </p>
      * 
      * @param identityInfo
-     *        Information about the user, including email address, first name, and last name.
+     *        The information about the identity of the user.
      */
 
     public void setIdentityInfo(UserIdentityInfo identityInfo) {
@@ -212,10 +350,10 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Information about the user, including email address, first name, and last name.
+     * The information about the identity of the user.
      * </p>
      * 
-     * @return Information about the user, including email address, first name, and last name.
+     * @return The information about the identity of the user.
      */
 
     public UserIdentityInfo getIdentityInfo() {
@@ -224,11 +362,11 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Information about the user, including email address, first name, and last name.
+     * The information about the identity of the user.
      * </p>
      * 
      * @param identityInfo
-     *        Information about the user, including email address, first name, and last name.
+     *        The information about the identity of the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -239,13 +377,11 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Specifies the phone settings for the user, including <code>AfterContactWorkTimeLimit</code>,
-     * <code>AutoAccept</code>, <code>DeskPhoneNumber</code>, and <code>PhoneType</code>.
+     * The phone settings for the user.
      * </p>
      * 
      * @param phoneConfig
-     *        Specifies the phone settings for the user, including <code>AfterContactWorkTimeLimit</code>,
-     *        <code>AutoAccept</code>, <code>DeskPhoneNumber</code>, and <code>PhoneType</code>.
+     *        The phone settings for the user.
      */
 
     public void setPhoneConfig(UserPhoneConfig phoneConfig) {
@@ -254,12 +390,10 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Specifies the phone settings for the user, including <code>AfterContactWorkTimeLimit</code>,
-     * <code>AutoAccept</code>, <code>DeskPhoneNumber</code>, and <code>PhoneType</code>.
+     * The phone settings for the user.
      * </p>
      * 
-     * @return Specifies the phone settings for the user, including <code>AfterContactWorkTimeLimit</code>,
-     *         <code>AutoAccept</code>, <code>DeskPhoneNumber</code>, and <code>PhoneType</code>.
+     * @return The phone settings for the user.
      */
 
     public UserPhoneConfig getPhoneConfig() {
@@ -268,13 +402,11 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Specifies the phone settings for the user, including <code>AfterContactWorkTimeLimit</code>,
-     * <code>AutoAccept</code>, <code>DeskPhoneNumber</code>, and <code>PhoneType</code>.
+     * The phone settings for the user.
      * </p>
      * 
      * @param phoneConfig
-     *        Specifies the phone settings for the user, including <code>AfterContactWorkTimeLimit</code>,
-     *        <code>AutoAccept</code>, <code>DeskPhoneNumber</code>, and <code>PhoneType</code>.
+     *        The phone settings for the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -285,28 +417,26 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique identifier for the user account in the directory service directory used for identity management. If
-     * Amazon Connect is unable to access the existing directory, you can use the <code>DirectoryUserId</code> to
-     * authenticate users. If you include the parameter, it is assumed that Amazon Connect cannot access the directory.
-     * If the parameter is not included, the <code>UserIdentityInfo</code> is used to authenticate users from your
-     * existing directory.
+     * The identifier of the user account in the directory used for identity management. If Amazon Connect cannot access
+     * the directory, you can specify this identifier to authenticate users. If you include the identifier, we assume
+     * that Amazon Connect cannot access the directory. Otherwise, the identity information is used to authenticate
+     * users from your directory.
      * </p>
      * <p>
      * This parameter is required if you are using an existing directory for identity management in Amazon Connect when
      * Amazon Connect cannot access your directory to authenticate users. If you are using SAML for identity management
-     * and include this parameter, an <code>InvalidRequestException</code> is returned.
+     * and include this parameter, an error is returned.
      * </p>
      * 
      * @param directoryUserId
-     *        The unique identifier for the user account in the directory service directory used for identity
-     *        management. If Amazon Connect is unable to access the existing directory, you can use the
-     *        <code>DirectoryUserId</code> to authenticate users. If you include the parameter, it is assumed that
-     *        Amazon Connect cannot access the directory. If the parameter is not included, the
-     *        <code>UserIdentityInfo</code> is used to authenticate users from your existing directory.</p>
+     *        The identifier of the user account in the directory used for identity management. If Amazon Connect cannot
+     *        access the directory, you can specify this identifier to authenticate users. If you include the
+     *        identifier, we assume that Amazon Connect cannot access the directory. Otherwise, the identity information
+     *        is used to authenticate users from your directory.</p>
      *        <p>
      *        This parameter is required if you are using an existing directory for identity management in Amazon
      *        Connect when Amazon Connect cannot access your directory to authenticate users. If you are using SAML for
-     *        identity management and include this parameter, an <code>InvalidRequestException</code> is returned.
+     *        identity management and include this parameter, an error is returned.
      */
 
     public void setDirectoryUserId(String directoryUserId) {
@@ -315,27 +445,25 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique identifier for the user account in the directory service directory used for identity management. If
-     * Amazon Connect is unable to access the existing directory, you can use the <code>DirectoryUserId</code> to
-     * authenticate users. If you include the parameter, it is assumed that Amazon Connect cannot access the directory.
-     * If the parameter is not included, the <code>UserIdentityInfo</code> is used to authenticate users from your
-     * existing directory.
+     * The identifier of the user account in the directory used for identity management. If Amazon Connect cannot access
+     * the directory, you can specify this identifier to authenticate users. If you include the identifier, we assume
+     * that Amazon Connect cannot access the directory. Otherwise, the identity information is used to authenticate
+     * users from your directory.
      * </p>
      * <p>
      * This parameter is required if you are using an existing directory for identity management in Amazon Connect when
      * Amazon Connect cannot access your directory to authenticate users. If you are using SAML for identity management
-     * and include this parameter, an <code>InvalidRequestException</code> is returned.
+     * and include this parameter, an error is returned.
      * </p>
      * 
-     * @return The unique identifier for the user account in the directory service directory used for identity
-     *         management. If Amazon Connect is unable to access the existing directory, you can use the
-     *         <code>DirectoryUserId</code> to authenticate users. If you include the parameter, it is assumed that
-     *         Amazon Connect cannot access the directory. If the parameter is not included, the
-     *         <code>UserIdentityInfo</code> is used to authenticate users from your existing directory.</p>
+     * @return The identifier of the user account in the directory used for identity management. If Amazon Connect
+     *         cannot access the directory, you can specify this identifier to authenticate users. If you include the
+     *         identifier, we assume that Amazon Connect cannot access the directory. Otherwise, the identity
+     *         information is used to authenticate users from your directory.</p>
      *         <p>
      *         This parameter is required if you are using an existing directory for identity management in Amazon
      *         Connect when Amazon Connect cannot access your directory to authenticate users. If you are using SAML for
-     *         identity management and include this parameter, an <code>InvalidRequestException</code> is returned.
+     *         identity management and include this parameter, an error is returned.
      */
 
     public String getDirectoryUserId() {
@@ -344,28 +472,26 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique identifier for the user account in the directory service directory used for identity management. If
-     * Amazon Connect is unable to access the existing directory, you can use the <code>DirectoryUserId</code> to
-     * authenticate users. If you include the parameter, it is assumed that Amazon Connect cannot access the directory.
-     * If the parameter is not included, the <code>UserIdentityInfo</code> is used to authenticate users from your
-     * existing directory.
+     * The identifier of the user account in the directory used for identity management. If Amazon Connect cannot access
+     * the directory, you can specify this identifier to authenticate users. If you include the identifier, we assume
+     * that Amazon Connect cannot access the directory. Otherwise, the identity information is used to authenticate
+     * users from your directory.
      * </p>
      * <p>
      * This parameter is required if you are using an existing directory for identity management in Amazon Connect when
      * Amazon Connect cannot access your directory to authenticate users. If you are using SAML for identity management
-     * and include this parameter, an <code>InvalidRequestException</code> is returned.
+     * and include this parameter, an error is returned.
      * </p>
      * 
      * @param directoryUserId
-     *        The unique identifier for the user account in the directory service directory used for identity
-     *        management. If Amazon Connect is unable to access the existing directory, you can use the
-     *        <code>DirectoryUserId</code> to authenticate users. If you include the parameter, it is assumed that
-     *        Amazon Connect cannot access the directory. If the parameter is not included, the
-     *        <code>UserIdentityInfo</code> is used to authenticate users from your existing directory.</p>
+     *        The identifier of the user account in the directory used for identity management. If Amazon Connect cannot
+     *        access the directory, you can specify this identifier to authenticate users. If you include the
+     *        identifier, we assume that Amazon Connect cannot access the directory. Otherwise, the identity information
+     *        is used to authenticate users from your directory.</p>
      *        <p>
      *        This parameter is required if you are using an existing directory for identity management in Amazon
      *        Connect when Amazon Connect cannot access your directory to authenticate users. If you are using SAML for
-     *        identity management and include this parameter, an <code>InvalidRequestException</code> is returned.
+     *        identity management and include this parameter, an error is returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -376,10 +502,10 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique identifier of the security profile to assign to the user created.
+     * The identifier of the security profile for the user.
      * </p>
      * 
-     * @return The unique identifier of the security profile to assign to the user created.
+     * @return The identifier of the security profile for the user.
      */
 
     public java.util.List<String> getSecurityProfileIds() {
@@ -388,11 +514,11 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique identifier of the security profile to assign to the user created.
+     * The identifier of the security profile for the user.
      * </p>
      * 
      * @param securityProfileIds
-     *        The unique identifier of the security profile to assign to the user created.
+     *        The identifier of the security profile for the user.
      */
 
     public void setSecurityProfileIds(java.util.Collection<String> securityProfileIds) {
@@ -406,7 +532,7 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique identifier of the security profile to assign to the user created.
+     * The identifier of the security profile for the user.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -415,7 +541,7 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      * 
      * @param securityProfileIds
-     *        The unique identifier of the security profile to assign to the user created.
+     *        The identifier of the security profile for the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -431,11 +557,11 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique identifier of the security profile to assign to the user created.
+     * The identifier of the security profile for the user.
      * </p>
      * 
      * @param securityProfileIds
-     *        The unique identifier of the security profile to assign to the user created.
+     *        The identifier of the security profile for the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -446,11 +572,11 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique identifier for the routing profile to assign to the user created.
+     * The identifier of the routing profile for the user.
      * </p>
      * 
      * @param routingProfileId
-     *        The unique identifier for the routing profile to assign to the user created.
+     *        The identifier of the routing profile for the user.
      */
 
     public void setRoutingProfileId(String routingProfileId) {
@@ -459,10 +585,10 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique identifier for the routing profile to assign to the user created.
+     * The identifier of the routing profile for the user.
      * </p>
      * 
-     * @return The unique identifier for the routing profile to assign to the user created.
+     * @return The identifier of the routing profile for the user.
      */
 
     public String getRoutingProfileId() {
@@ -471,11 +597,11 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique identifier for the routing profile to assign to the user created.
+     * The identifier of the routing profile for the user.
      * </p>
      * 
      * @param routingProfileId
-     *        The unique identifier for the routing profile to assign to the user created.
+     *        The identifier of the routing profile for the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -486,11 +612,11 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique identifier for the hierarchy group to assign to the user created.
+     * The identifier of the hierarchy group for the user.
      * </p>
      * 
      * @param hierarchyGroupId
-     *        The unique identifier for the hierarchy group to assign to the user created.
+     *        The identifier of the hierarchy group for the user.
      */
 
     public void setHierarchyGroupId(String hierarchyGroupId) {
@@ -499,10 +625,10 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique identifier for the hierarchy group to assign to the user created.
+     * The identifier of the hierarchy group for the user.
      * </p>
      * 
-     * @return The unique identifier for the hierarchy group to assign to the user created.
+     * @return The identifier of the hierarchy group for the user.
      */
 
     public String getHierarchyGroupId() {
@@ -511,11 +637,11 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique identifier for the hierarchy group to assign to the user created.
+     * The identifier of the hierarchy group for the user.
      * </p>
      * 
      * @param hierarchyGroupId
-     *        The unique identifier for the hierarchy group to assign to the user created.
+     *        The identifier of the hierarchy group for the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -526,17 +652,15 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      * 
      * @param instanceId
-     *        The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and
-     *        select Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is
-     *        displayed in the Overview section of your instance settings. For example, the instance ID is the set of
-     *        characters at the end of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     *        The identifier of the Amazon Connect instance. You can <a
+     *        href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance
+     *        ID</a> in the Amazon Resource Name (ARN) of the instance.
      */
 
     public void setInstanceId(String instanceId) {
@@ -545,17 +669,14 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      * 
-     * @return The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console
-     *         and select Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID
-     *         is displayed in the Overview section of your instance settings. For example, the instance ID is the set
-     *         of characters at the end of the instance ARN, after instance/, such as
-     *         10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * @return The identifier of the Amazon Connect instance. You can <a
+     *         href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance
+     *         ID</a> in the Amazon Resource Name (ARN) of the instance.
      */
 
     public String getInstanceId() {
@@ -564,22 +685,94 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      * 
      * @param instanceId
-     *        The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and
-     *        select Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is
-     *        displayed in the Overview section of your instance settings. For example, the instance ID is the set of
-     *        characters at the end of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     *        The identifier of the Amazon Connect instance. You can <a
+     *        href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance
+     *        ID</a> in the Amazon Resource Name (ARN) of the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateUserRequest withInstanceId(String instanceId) {
         setInstanceId(instanceId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1",
+     * "key2":"value2"} }.
+     * </p>
+     * 
+     * @return The tags used to organize, track, or control access for this resource. For example, { "Tags":
+     *         {"key1":"value1", "key2":"value2"} }.
+     */
+
+    public java.util.Map<String, String> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1",
+     * "key2":"value2"} }.
+     * </p>
+     * 
+     * @param tags
+     *        The tags used to organize, track, or control access for this resource. For example, { "Tags":
+     *        {"key1":"value1", "key2":"value2"} }.
+     */
+
+    public void setTags(java.util.Map<String, String> tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * <p>
+     * The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1",
+     * "key2":"value2"} }.
+     * </p>
+     * 
+     * @param tags
+     *        The tags used to organize, track, or control access for this resource. For example, { "Tags":
+     *        {"key1":"value1", "key2":"value2"} }.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateUserRequest withTags(java.util.Map<String, String> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateUserRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateUserRequest addTagsEntry(String key, String value) {
+        if (null == this.tags) {
+            this.tags = new java.util.HashMap<String, String>();
+        }
+        if (this.tags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.tags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Tags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateUserRequest clearTagsEntries() {
+        this.tags = null;
         return this;
     }
 
@@ -598,7 +791,7 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
         if (getUsername() != null)
             sb.append("Username: ").append(getUsername()).append(",");
         if (getPassword() != null)
-            sb.append("Password: ").append(getPassword()).append(",");
+            sb.append("Password: ").append("***Sensitive Data Redacted***").append(",");
         if (getIdentityInfo() != null)
             sb.append("IdentityInfo: ").append(getIdentityInfo()).append(",");
         if (getPhoneConfig() != null)
@@ -612,7 +805,9 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
         if (getHierarchyGroupId() != null)
             sb.append("HierarchyGroupId: ").append(getHierarchyGroupId()).append(",");
         if (getInstanceId() != null)
-            sb.append("InstanceId: ").append(getInstanceId());
+            sb.append("InstanceId: ").append(getInstanceId()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -663,6 +858,10 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
             return false;
         if (other.getInstanceId() != null && other.getInstanceId().equals(this.getInstanceId()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -680,6 +879,7 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
         hashCode = prime * hashCode + ((getRoutingProfileId() == null) ? 0 : getRoutingProfileId().hashCode());
         hashCode = prime * hashCode + ((getHierarchyGroupId() == null) ? 0 : getHierarchyGroupId().hashCode());
         hashCode = prime * hashCode + ((getInstanceId() == null) ? 0 : getInstanceId().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

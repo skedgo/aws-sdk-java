@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,6 +32,8 @@ public class RunJobFlowRequestMarshaller {
             .marshallLocationName("Name").build();
     private static final MarshallingInfo<String> LOGURI_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("LogUri").build();
+    private static final MarshallingInfo<String> LOGENCRYPTIONKMSKEYID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LogEncryptionKmsKeyId").build();
     private static final MarshallingInfo<String> ADDITIONALINFO_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AdditionalInfo").build();
     private static final MarshallingInfo<String> AMIVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -74,6 +76,20 @@ public class RunJobFlowRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RepoUpgradeOnBoot").build();
     private static final MarshallingInfo<StructuredPojo> KERBEROSATTRIBUTES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("KerberosAttributes").build();
+    private static final MarshallingInfo<Integer> STEPCONCURRENCYLEVEL_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StepConcurrencyLevel").build();
+    private static final MarshallingInfo<StructuredPojo> MANAGEDSCALINGPOLICY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ManagedScalingPolicy").build();
+    private static final MarshallingInfo<List> PLACEMENTGROUPCONFIGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PlacementGroupConfigs").build();
+    private static final MarshallingInfo<StructuredPojo> AUTOTERMINATIONPOLICY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AutoTerminationPolicy").build();
+    private static final MarshallingInfo<String> OSRELEASELABEL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OSReleaseLabel").build();
+    private static final MarshallingInfo<Integer> EBSROOTVOLUMEIOPS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EbsRootVolumeIops").build();
+    private static final MarshallingInfo<Integer> EBSROOTVOLUMETHROUGHPUT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EbsRootVolumeThroughput").build();
 
     private static final RunJobFlowRequestMarshaller instance = new RunJobFlowRequestMarshaller();
 
@@ -93,6 +109,7 @@ public class RunJobFlowRequestMarshaller {
         try {
             protocolMarshaller.marshall(runJobFlowRequest.getName(), NAME_BINDING);
             protocolMarshaller.marshall(runJobFlowRequest.getLogUri(), LOGURI_BINDING);
+            protocolMarshaller.marshall(runJobFlowRequest.getLogEncryptionKmsKeyId(), LOGENCRYPTIONKMSKEYID_BINDING);
             protocolMarshaller.marshall(runJobFlowRequest.getAdditionalInfo(), ADDITIONALINFO_BINDING);
             protocolMarshaller.marshall(runJobFlowRequest.getAmiVersion(), AMIVERSION_BINDING);
             protocolMarshaller.marshall(runJobFlowRequest.getReleaseLabel(), RELEASELABEL_BINDING);
@@ -114,6 +131,13 @@ public class RunJobFlowRequestMarshaller {
             protocolMarshaller.marshall(runJobFlowRequest.getEbsRootVolumeSize(), EBSROOTVOLUMESIZE_BINDING);
             protocolMarshaller.marshall(runJobFlowRequest.getRepoUpgradeOnBoot(), REPOUPGRADEONBOOT_BINDING);
             protocolMarshaller.marshall(runJobFlowRequest.getKerberosAttributes(), KERBEROSATTRIBUTES_BINDING);
+            protocolMarshaller.marshall(runJobFlowRequest.getStepConcurrencyLevel(), STEPCONCURRENCYLEVEL_BINDING);
+            protocolMarshaller.marshall(runJobFlowRequest.getManagedScalingPolicy(), MANAGEDSCALINGPOLICY_BINDING);
+            protocolMarshaller.marshall(runJobFlowRequest.getPlacementGroupConfigs(), PLACEMENTGROUPCONFIGS_BINDING);
+            protocolMarshaller.marshall(runJobFlowRequest.getAutoTerminationPolicy(), AUTOTERMINATIONPOLICY_BINDING);
+            protocolMarshaller.marshall(runJobFlowRequest.getOSReleaseLabel(), OSRELEASELABEL_BINDING);
+            protocolMarshaller.marshall(runJobFlowRequest.getEbsRootVolumeIops(), EBSROOTVOLUMEIOPS_BINDING);
+            protocolMarshaller.marshall(runJobFlowRequest.getEbsRootVolumeThroughput(), EBSROOTVOLUMETHROUGHPUT_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

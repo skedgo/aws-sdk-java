@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,6 +51,45 @@ public class ReplicaDescriptionJsonUnmarshaller implements Unmarshaller<ReplicaD
                 if (context.testExpression("RegionName", targetDepth)) {
                     context.nextToken();
                     replicaDescription.setRegionName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ReplicaStatus", targetDepth)) {
+                    context.nextToken();
+                    replicaDescription.setReplicaStatus(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ReplicaStatusDescription", targetDepth)) {
+                    context.nextToken();
+                    replicaDescription.setReplicaStatusDescription(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ReplicaStatusPercentProgress", targetDepth)) {
+                    context.nextToken();
+                    replicaDescription.setReplicaStatusPercentProgress(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("KMSMasterKeyId", targetDepth)) {
+                    context.nextToken();
+                    replicaDescription.setKMSMasterKeyId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ProvisionedThroughputOverride", targetDepth)) {
+                    context.nextToken();
+                    replicaDescription.setProvisionedThroughputOverride(ProvisionedThroughputOverrideJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("OnDemandThroughputOverride", targetDepth)) {
+                    context.nextToken();
+                    replicaDescription.setOnDemandThroughputOverride(OnDemandThroughputOverrideJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("GlobalSecondaryIndexes", targetDepth)) {
+                    context.nextToken();
+                    replicaDescription.setGlobalSecondaryIndexes(new ListUnmarshaller<ReplicaGlobalSecondaryIndexDescription>(
+                            ReplicaGlobalSecondaryIndexDescriptionJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ReplicaInaccessibleDateTime", targetDepth)) {
+                    context.nextToken();
+                    replicaDescription.setReplicaInaccessibleDateTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("ReplicaTableClassSummary", targetDepth)) {
+                    context.nextToken();
+                    replicaDescription.setReplicaTableClassSummary(TableClassSummaryJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,26 +44,25 @@ import com.amazonaws.services.applicationinsights.AmazonApplicationInsightsClien
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.applicationinsights.model.*;
+
 import com.amazonaws.services.applicationinsights.model.transform.*;
 
 /**
  * Client for accessing Application Insights. All service calls made using this client are blocking, and will not return
  * until the service call completes.
  * <p>
- * <fullname>Amazon CloudWatch Application Insights for .NET and SQL Server</fullname>
+ * <fullname>Amazon CloudWatch Application Insights</fullname>
  * <p>
- * Amazon CloudWatch Application Insights for .NET and SQL Server is a service that helps you detect common problems
- * with your .NET and SQL Server-based applications. It enables you to pinpoint the source of issues in your
- * applications (built with technologies such as Microsoft IIS, .NET, and Microsoft SQL Server), by providing key
- * insights into detected problems.
+ * Amazon CloudWatch Application Insights is a service that helps you detect common problems with your applications. It
+ * enables you to pinpoint the source of issues in your applications (built with technologies such as Microsoft IIS,
+ * .NET, and Microsoft SQL Server), by providing key insights into detected problems.
  * </p>
  * <p>
- * After you onboard your application, CloudWatch Application Insights for .NET and SQL Server identifies, recommends,
- * and sets up metrics and logs. It continuously analyzes and correlates your metrics and logs for unusual behavior to
- * surface actionable problems with your application. For example, if your application is slow and unresponsive and
- * leading to HTTP 500 errors in your Application Load Balancer (ALB), Application Insights informs you that a memory
- * pressure problem with your SQL Server database is occurring. It bases this analysis on impactful metrics and log
- * errors.
+ * After you onboard your application, CloudWatch Application Insights identifies, recommends, and sets up metrics and
+ * logs. It continuously analyzes and correlates your metrics and logs for unusual behavior to surface actionable
+ * problems with your application. For example, if your application is slow and unresponsive and leading to HTTP 500
+ * errors in your Application Load Balancer (ALB), Application Insights informs you that a memory pressure problem with
+ * your SQL Server database is occurring. It bases this analysis on impactful metrics and log errors.
  * </p>
  */
 @ThreadSafe
@@ -89,20 +88,29 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withModeledClass(
-                                    com.amazonaws.services.applicationinsights.model.ResourceInUseException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationinsights.model.transform.ResourceInUseExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.applicationinsights.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TagsAlreadyExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationinsights.model.transform.TagsAlreadyExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withModeledClass(
-                                    com.amazonaws.services.applicationinsights.model.ValidationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationinsights.model.transform.InternalServerExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerException").withModeledClass(
-                                    com.amazonaws.services.applicationinsights.model.InternalServerException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationinsights.model.transform.AccessDeniedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withModeledClass(
-                                    com.amazonaws.services.applicationinsights.model.BadRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationinsights.model.transform.TooManyTagsExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationinsights.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationinsights.model.transform.ValidationExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationinsights.model.transform.BadRequestExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.applicationinsights.model.AmazonApplicationInsightsException.class));
 
     public static AmazonApplicationInsightsClientBuilder builder() {
@@ -153,6 +161,69 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
 
     /**
      * <p>
+     * Adds a workload to a component. Each component can have at most five workloads.
+     * </p>
+     * 
+     * @param addWorkloadRequest
+     * @return Result of the AddWorkload operation returned by the service.
+     * @throws ResourceInUseException
+     *         The resource is already created or in use.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.AddWorkload
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/AddWorkload"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public AddWorkloadResult addWorkload(AddWorkloadRequest request) {
+        request = beforeClientExecution(request);
+        return executeAddWorkload(request);
+    }
+
+    @SdkInternalApi
+    final AddWorkloadResult executeAddWorkload(AddWorkloadRequest addWorkloadRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(addWorkloadRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AddWorkloadRequest> request = null;
+        Response<AddWorkloadResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AddWorkloadRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addWorkloadRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddWorkload");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AddWorkloadResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new AddWorkloadResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Adds an application that is created from a resource group.
      * </p>
      * 
@@ -166,6 +237,10 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
      *         The parameter is not valid.
      * @throws InternalServerException
      *         The server encountered an internal error and is unable to complete the request.
+     * @throws TagsAlreadyExistException
+     *         Tags are already registered for the specified application ARN.
+     * @throws AccessDeniedException
+     *         User does not have permissions to perform this action.
      * @sample AmazonApplicationInsights.CreateApplication
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/CreateApplication"
      *      target="_top">AWS API Documentation</a>
@@ -191,6 +266,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                 request = new CreateApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateApplication");
@@ -252,6 +329,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                 request = new CreateComponentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createComponentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateComponent");
@@ -263,6 +342,69 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
 
             HttpResponseHandler<AmazonWebServiceResponse<CreateComponentResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateComponentResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Adds an log pattern to a <code>LogPatternSet</code>.
+     * </p>
+     * 
+     * @param createLogPatternRequest
+     * @return Result of the CreateLogPattern operation returned by the service.
+     * @throws ResourceInUseException
+     *         The resource is already created or in use.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.CreateLogPattern
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/CreateLogPattern"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateLogPatternResult createLogPattern(CreateLogPatternRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateLogPattern(request);
+    }
+
+    @SdkInternalApi
+    final CreateLogPatternResult executeCreateLogPattern(CreateLogPatternRequest createLogPatternRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createLogPatternRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateLogPatternRequest> request = null;
+        Response<CreateLogPatternResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateLogPatternRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createLogPatternRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateLogPattern");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateLogPatternResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateLogPatternResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -313,6 +455,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                 request = new DeleteApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteApplication");
@@ -373,6 +517,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                 request = new DeleteComponentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteComponentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteComponent");
@@ -384,6 +530,69 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
 
             HttpResponseHandler<AmazonWebServiceResponse<DeleteComponentResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteComponentResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes the specified log pattern from a <code>LogPatternSet</code>.
+     * </p>
+     * 
+     * @param deleteLogPatternRequest
+     * @return Result of the DeleteLogPattern operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws BadRequestException
+     *         The request is not understood by the server.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.DeleteLogPattern
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/DeleteLogPattern"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteLogPatternResult deleteLogPattern(DeleteLogPatternRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteLogPattern(request);
+    }
+
+    @SdkInternalApi
+    final DeleteLogPatternResult executeDeleteLogPattern(DeleteLogPatternRequest deleteLogPatternRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteLogPatternRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteLogPatternRequest> request = null;
+        Response<DeleteLogPatternResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteLogPatternRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteLogPatternRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteLogPattern");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteLogPatternResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteLogPatternResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -432,6 +641,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                 request = new DescribeApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeApplication");
@@ -491,6 +702,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                 request = new DescribeComponentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeComponentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeComponent");
@@ -552,6 +765,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                         .beforeMarshalling(describeComponentConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeComponentConfiguration");
@@ -616,6 +831,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                         .beforeMarshalling(describeComponentConfigurationRecommendationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeComponentConfigurationRecommendation");
@@ -628,6 +845,67 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
             HttpResponseHandler<AmazonWebServiceResponse<DescribeComponentConfigurationRecommendationResult>> responseHandler = protocolFactory
                     .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                             new DescribeComponentConfigurationRecommendationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describe a specific log pattern from a <code>LogPatternSet</code>.
+     * </p>
+     * 
+     * @param describeLogPatternRequest
+     * @return Result of the DescribeLogPattern operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.DescribeLogPattern
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/DescribeLogPattern"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeLogPatternResult describeLogPattern(DescribeLogPatternRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeLogPattern(request);
+    }
+
+    @SdkInternalApi
+    final DescribeLogPatternResult executeDescribeLogPattern(DescribeLogPatternRequest describeLogPatternRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeLogPatternRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeLogPatternRequest> request = null;
+        Response<DescribeLogPatternResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeLogPatternRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeLogPatternRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeLogPattern");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeLogPatternResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeLogPatternResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -676,6 +954,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                 request = new DescribeObservationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeObservationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeObservation");
@@ -735,6 +1015,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                 request = new DescribeProblemRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeProblemRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeProblem");
@@ -795,6 +1077,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                         .beforeMarshalling(describeProblemObservationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeProblemObservations");
@@ -807,6 +1091,67 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
             HttpResponseHandler<AmazonWebServiceResponse<DescribeProblemObservationsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeProblemObservationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes a workload and its configuration.
+     * </p>
+     * 
+     * @param describeWorkloadRequest
+     * @return Result of the DescribeWorkload operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.DescribeWorkload
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/DescribeWorkload"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeWorkloadResult describeWorkload(DescribeWorkloadRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeWorkload(request);
+    }
+
+    @SdkInternalApi
+    final DescribeWorkloadResult executeDescribeWorkload(DescribeWorkloadRequest describeWorkloadRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeWorkloadRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeWorkloadRequest> request = null;
+        Response<DescribeWorkloadResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeWorkloadRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeWorkloadRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorkload");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeWorkloadResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeWorkloadResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -853,6 +1198,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                 request = new ListApplicationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listApplicationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListApplications");
@@ -912,6 +1259,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                 request = new ListComponentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listComponentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListComponents");
@@ -923,6 +1272,209 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
 
             HttpResponseHandler<AmazonWebServiceResponse<ListComponentsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListComponentsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the INFO, WARN, and ERROR events for periodic configuration updates performed by Application Insights.
+     * Examples of events represented are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * INFO: creating a new alarm or updating an alarm threshold.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * WARN: alarm not created due to insufficient data points used to predict thresholds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ERROR: alarm not created due to permission errors or exceeding quotas.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param listConfigurationHistoryRequest
+     * @return Result of the ListConfigurationHistory operation returned by the service.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.ListConfigurationHistory
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/ListConfigurationHistory"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListConfigurationHistoryResult listConfigurationHistory(ListConfigurationHistoryRequest request) {
+        request = beforeClientExecution(request);
+        return executeListConfigurationHistory(request);
+    }
+
+    @SdkInternalApi
+    final ListConfigurationHistoryResult executeListConfigurationHistory(ListConfigurationHistoryRequest listConfigurationHistoryRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listConfigurationHistoryRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListConfigurationHistoryRequest> request = null;
+        Response<ListConfigurationHistoryResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListConfigurationHistoryRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listConfigurationHistoryRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListConfigurationHistory");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListConfigurationHistoryResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListConfigurationHistoryResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the log pattern sets in the specific application.
+     * </p>
+     * 
+     * @param listLogPatternSetsRequest
+     * @return Result of the ListLogPatternSets operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.ListLogPatternSets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/ListLogPatternSets"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListLogPatternSetsResult listLogPatternSets(ListLogPatternSetsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListLogPatternSets(request);
+    }
+
+    @SdkInternalApi
+    final ListLogPatternSetsResult executeListLogPatternSets(ListLogPatternSetsRequest listLogPatternSetsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listLogPatternSetsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListLogPatternSetsRequest> request = null;
+        Response<ListLogPatternSetsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListLogPatternSetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listLogPatternSetsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListLogPatternSets");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListLogPatternSetsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListLogPatternSetsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the log patterns in the specific log <code>LogPatternSet</code>.
+     * </p>
+     * 
+     * @param listLogPatternsRequest
+     * @return Result of the ListLogPatterns operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.ListLogPatterns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/ListLogPatterns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListLogPatternsResult listLogPatterns(ListLogPatternsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListLogPatterns(request);
+    }
+
+    @SdkInternalApi
+    final ListLogPatternsResult executeListLogPatterns(ListLogPatternsRequest listLogPatternsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listLogPatternsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListLogPatternsRequest> request = null;
+        Response<ListLogPatternsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListLogPatternsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listLogPatternsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListLogPatterns");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListLogPatternsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListLogPatternsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -971,6 +1523,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                 request = new ListProblemsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listProblemsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListProblems");
@@ -982,6 +1536,318 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
 
             HttpResponseHandler<AmazonWebServiceResponse<ListProblemsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListProblemsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieve a list of the tags (keys and values) that are associated with a specified application. A <i>tag</i> is a
+     * label that you optionally define and associate with an application. Each tag consists of a required <i>tag
+     * key</i> and an optional associated <i>tag value</i>. A tag key is a general label that acts as a category for
+     * more specific tag values. A tag value acts as a descriptor within a tag key.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @sample AmazonApplicationInsights.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/ListTagsForResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForResource(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForResourceResult executeListTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the workloads that are configured on a given component.
+     * </p>
+     * 
+     * @param listWorkloadsRequest
+     * @return Result of the ListWorkloads operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.ListWorkloads
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/ListWorkloads"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListWorkloadsResult listWorkloads(ListWorkloadsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListWorkloads(request);
+    }
+
+    @SdkInternalApi
+    final ListWorkloadsResult executeListWorkloads(ListWorkloadsRequest listWorkloadsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listWorkloadsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListWorkloadsRequest> request = null;
+        Response<ListWorkloadsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListWorkloadsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listWorkloadsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListWorkloads");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListWorkloadsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListWorkloadsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Remove workload from a component.
+     * </p>
+     * 
+     * @param removeWorkloadRequest
+     * @return Result of the RemoveWorkload operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.RemoveWorkload
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/RemoveWorkload"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public RemoveWorkloadResult removeWorkload(RemoveWorkloadRequest request) {
+        request = beforeClientExecution(request);
+        return executeRemoveWorkload(request);
+    }
+
+    @SdkInternalApi
+    final RemoveWorkloadResult executeRemoveWorkload(RemoveWorkloadRequest removeWorkloadRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(removeWorkloadRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RemoveWorkloadRequest> request = null;
+        Response<RemoveWorkloadResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RemoveWorkloadRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(removeWorkloadRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveWorkload");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RemoveWorkloadResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new RemoveWorkloadResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Add one or more tags (keys and values) to a specified application. A <i>tag</i> is a label that you optionally
+     * define and associate with an application. Tags can help you categorize and manage application in different ways,
+     * such as by purpose, owner, environment, or other criteria.
+     * </p>
+     * <p>
+     * Each tag consists of a required <i>tag key</i> and an associated <i>tag value</i>, both of which you define. A
+     * tag key is a general label that acts as a category for more specific tag values. A tag value acts as a descriptor
+     * within a tag key.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws TooManyTagsException
+     *         The number of the provided tags is beyond the limit, or the number of total tags you are trying to attach
+     *         to the specified resource exceeds the limit.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @sample AmazonApplicationInsights.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/TagResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Remove one or more tags (keys and values) from a specified application.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @sample AmazonApplicationInsights.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/UntagResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1030,6 +1896,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                 request = new UpdateApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateApplication");
@@ -1091,6 +1959,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                 request = new UpdateComponentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateComponentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateComponent");
@@ -1127,6 +1997,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
      *         The parameter is not valid.
      * @throws InternalServerException
      *         The server encountered an internal error and is unable to complete the request.
+     * @throws ResourceInUseException
+     *         The resource is already created or in use.
      * @sample AmazonApplicationInsights.UpdateComponentConfiguration
      * @see <a
      *      href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/UpdateComponentConfiguration"
@@ -1154,6 +2026,8 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
                         .beforeMarshalling(updateComponentConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateComponentConfiguration");
@@ -1166,6 +2040,191 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
             HttpResponseHandler<AmazonWebServiceResponse<UpdateComponentConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new UpdateComponentConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Adds a log pattern to a <code>LogPatternSet</code>.
+     * </p>
+     * 
+     * @param updateLogPatternRequest
+     * @return Result of the UpdateLogPattern operation returned by the service.
+     * @throws ResourceInUseException
+     *         The resource is already created or in use.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.UpdateLogPattern
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/UpdateLogPattern"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateLogPatternResult updateLogPattern(UpdateLogPatternRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateLogPattern(request);
+    }
+
+    @SdkInternalApi
+    final UpdateLogPatternResult executeUpdateLogPattern(UpdateLogPatternRequest updateLogPatternRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateLogPatternRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateLogPatternRequest> request = null;
+        Response<UpdateLogPatternResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateLogPatternRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateLogPatternRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateLogPattern");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateLogPatternResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateLogPatternResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the visibility of the problem or specifies the problem as <code>RESOLVED</code>.
+     * </p>
+     * 
+     * @param updateProblemRequest
+     * @return Result of the UpdateProblem operation returned by the service.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @sample AmazonApplicationInsights.UpdateProblem
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/UpdateProblem"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateProblemResult updateProblem(UpdateProblemRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateProblem(request);
+    }
+
+    @SdkInternalApi
+    final UpdateProblemResult executeUpdateProblem(UpdateProblemRequest updateProblemRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateProblemRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateProblemRequest> request = null;
+        Response<UpdateProblemResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateProblemRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateProblemRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateProblem");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateProblemResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateProblemResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Adds a workload to a component. Each component can have at most five workloads.
+     * </p>
+     * 
+     * @param updateWorkloadRequest
+     * @return Result of the UpdateWorkload operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.UpdateWorkload
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/UpdateWorkload"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateWorkloadResult updateWorkload(UpdateWorkloadRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateWorkload(request);
+    }
+
+    @SdkInternalApi
+    final UpdateWorkloadResult executeUpdateWorkload(UpdateWorkloadRequest updateWorkloadRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateWorkloadRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateWorkloadRequest> request = null;
+        Response<UpdateWorkloadResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateWorkloadRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateWorkloadRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Insights");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateWorkload");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateWorkloadResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateWorkloadResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1250,6 +2309,11 @@ public class AmazonApplicationInsightsClient extends AmazonWebServiceClient impl
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

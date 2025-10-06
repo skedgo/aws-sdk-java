@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Endpoint for mobile app and device.
+ * The endpoint for mobile app and device.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/Endpoint" target="_top">AWS API Documentation</a>
@@ -27,7 +27,7 @@ public class Endpoint implements Serializable, Cloneable {
 
     /**
      * <p>
-     * EndpointArn for mobile app and device.
+     * The <code>EndpointArn</code> for mobile app and device.
      * </p>
      */
     private String endpointArn;
@@ -40,11 +40,11 @@ public class Endpoint implements Serializable, Cloneable {
 
     /**
      * <p>
-     * EndpointArn for mobile app and device.
+     * The <code>EndpointArn</code> for mobile app and device.
      * </p>
      * 
      * @param endpointArn
-     *        EndpointArn for mobile app and device.
+     *        The <code>EndpointArn</code> for mobile app and device.
      */
 
     public void setEndpointArn(String endpointArn) {
@@ -53,10 +53,10 @@ public class Endpoint implements Serializable, Cloneable {
 
     /**
      * <p>
-     * EndpointArn for mobile app and device.
+     * The <code>EndpointArn</code> for mobile app and device.
      * </p>
      * 
-     * @return EndpointArn for mobile app and device.
+     * @return The <code>EndpointArn</code> for mobile app and device.
      */
 
     public String getEndpointArn() {
@@ -65,11 +65,11 @@ public class Endpoint implements Serializable, Cloneable {
 
     /**
      * <p>
-     * EndpointArn for mobile app and device.
+     * The <code>EndpointArn</code> for mobile app and device.
      * </p>
      * 
      * @param endpointArn
-     *        EndpointArn for mobile app and device.
+     *        The <code>EndpointArn</code> for mobile app and device.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -120,6 +120,13 @@ public class Endpoint implements Serializable, Cloneable {
         setAttributes(attributes);
         return this;
     }
+
+    /**
+     * Add a single Attributes entry
+     *
+     * @see Endpoint#withAttributes
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public Endpoint addAttributesEntry(String key, String value) {
         if (null == this.attributes) {

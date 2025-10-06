@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,7 +49,7 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
 
     /**
      * <p>
-     * Associates an Identity and Access Management (IAM) role from an Neptune DB cluster.
+     * Associates an Identity and Access Management (IAM) role with an Neptune DB cluster.
      * </p>
      * 
      * @param addRoleToDBClusterRequest
@@ -62,7 +62,7 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
 
     /**
      * <p>
-     * Associates an Identity and Access Management (IAM) role from an Neptune DB cluster.
+     * Associates an Identity and Access Management (IAM) role with an Neptune DB cluster.
      * </p>
      * 
      * @param addRoleToDBClusterRequest
@@ -224,9 +224,6 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      * <code>SourceDBClusterSnapshotIdentifier</code> must be the Amazon Resource Name (ARN) of the shared DB cluster
      * snapshot.
      * </p>
-     * <p>
-     * You can't copy from one AWS Region to another.
-     * </p>
      * 
      * @param copyDBClusterSnapshotRequest
      * @return A Java Future containing the result of the CopyDBClusterSnapshot operation returned by the service.
@@ -244,9 +241,6 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      * To copy a DB cluster snapshot from a shared manual DB cluster snapshot,
      * <code>SourceDBClusterSnapshotIdentifier</code> must be the Amazon Resource Name (ARN) of the shared DB cluster
      * snapshot.
-     * </p>
-     * <p>
-     * You can't copy from one AWS Region to another.
      * </p>
      * 
      * @param copyDBClusterSnapshotRequest
@@ -301,6 +295,12 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      * You can use the <code>ReplicationSourceIdentifier</code> parameter to create the DB cluster as a Read Replica of
      * another DB cluster or Amazon Neptune DB instance.
      * </p>
+     * <p>
+     * Note that when you create a new cluster using <code>CreateDBCluster</code> directly, deletion protection is
+     * disabled by default (when you create a new production cluster in the console, deletion protection is enabled by
+     * default). You can only delete a DB cluster if its <code>DeletionProtection</code> field is set to
+     * <code>false</code>.
+     * </p>
      * 
      * @param createDBClusterRequest
      * @return A Java Future containing the result of the CreateDBCluster operation returned by the service.
@@ -318,6 +318,12 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      * You can use the <code>ReplicationSourceIdentifier</code> parameter to create the DB cluster as a Read Replica of
      * another DB cluster or Amazon Neptune DB instance.
      * </p>
+     * <p>
+     * Note that when you create a new cluster using <code>CreateDBCluster</code> directly, deletion protection is
+     * disabled by default (when you create a new production cluster in the console, deletion protection is enabled by
+     * default). You can only delete a DB cluster if its <code>DeletionProtection</code> field is set to
+     * <code>false</code>.
+     * </p>
      * 
      * @param createDBClusterRequest
      * @param asyncHandler
@@ -331,6 +337,37 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      */
     java.util.concurrent.Future<DBCluster> createDBClusterAsync(CreateDBClusterRequest createDBClusterRequest,
             com.amazonaws.handlers.AsyncHandler<CreateDBClusterRequest, DBCluster> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new custom endpoint and associates it with an Amazon Neptune DB cluster.
+     * </p>
+     * 
+     * @param createDBClusterEndpointRequest
+     * @return A Java Future containing the result of the CreateDBClusterEndpoint operation returned by the service.
+     * @sample AmazonNeptuneAsync.CreateDBClusterEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/CreateDBClusterEndpoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateDBClusterEndpointResult> createDBClusterEndpointAsync(CreateDBClusterEndpointRequest createDBClusterEndpointRequest);
+
+    /**
+     * <p>
+     * Creates a new custom endpoint and associates it with an Amazon Neptune DB cluster.
+     * </p>
+     * 
+     * @param createDBClusterEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateDBClusterEndpoint operation returned by the service.
+     * @sample AmazonNeptuneAsyncHandler.CreateDBClusterEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/CreateDBClusterEndpoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateDBClusterEndpointResult> createDBClusterEndpointAsync(CreateDBClusterEndpointRequest createDBClusterEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateDBClusterEndpointRequest, CreateDBClusterEndpointResult> asyncHandler);
 
     /**
      * <p>
@@ -546,8 +583,8 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
 
     /**
      * <p>
-     * Creates a new DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in the AWS
-     * Region.
+     * Creates a new DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in the
+     * Amazon Region.
      * </p>
      * 
      * @param createDBSubnetGroupRequest
@@ -560,8 +597,8 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
 
     /**
      * <p>
-     * Creates a new DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in the AWS
-     * Region.
+     * Creates a new DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in the
+     * Amazon Region.
      * </p>
      * 
      * @param createDBSubnetGroupRequest
@@ -640,9 +677,58 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
 
     /**
      * <p>
+     * Creates a Neptune global database spread across multiple Amazon Regions. The global database contains a single
+     * primary cluster with read-write capability, and read-only secondary clusters that receive data from the primary
+     * cluster through high-speed replication performed by the Neptune storage subsystem.
+     * </p>
+     * <p>
+     * You can create a global database that is initially empty, and then add a primary cluster and secondary clusters
+     * to it, or you can specify an existing Neptune cluster during the create operation to become the primary cluster
+     * of the global database.
+     * </p>
+     * 
+     * @param createGlobalClusterRequest
+     * @return A Java Future containing the result of the CreateGlobalCluster operation returned by the service.
+     * @sample AmazonNeptuneAsync.CreateGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/CreateGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> createGlobalClusterAsync(CreateGlobalClusterRequest createGlobalClusterRequest);
+
+    /**
+     * <p>
+     * Creates a Neptune global database spread across multiple Amazon Regions. The global database contains a single
+     * primary cluster with read-write capability, and read-only secondary clusters that receive data from the primary
+     * cluster through high-speed replication performed by the Neptune storage subsystem.
+     * </p>
+     * <p>
+     * You can create a global database that is initially empty, and then add a primary cluster and secondary clusters
+     * to it, or you can specify an existing Neptune cluster during the create operation to become the primary cluster
+     * of the global database.
+     * </p>
+     * 
+     * @param createGlobalClusterRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateGlobalCluster operation returned by the service.
+     * @sample AmazonNeptuneAsyncHandler.CreateGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/CreateGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> createGlobalClusterAsync(CreateGlobalClusterRequest createGlobalClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateGlobalClusterRequest, GlobalCluster> asyncHandler);
+
+    /**
+     * <p>
      * The DeleteDBCluster action deletes a previously provisioned DB cluster. When you delete a DB cluster, all
      * automated backups for that DB cluster are deleted and can't be recovered. Manual DB cluster snapshots of the
      * specified DB cluster are not deleted.
+     * </p>
+     * <p>
+     * Note that the DB Cluster cannot be deleted if deletion protection is enabled. To delete it, you must first set
+     * its <code>DeletionProtection</code> field to <code>False</code>.
      * </p>
      * 
      * @param deleteDBClusterRequest
@@ -659,6 +745,10 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      * automated backups for that DB cluster are deleted and can't be recovered. Manual DB cluster snapshots of the
      * specified DB cluster are not deleted.
      * </p>
+     * <p>
+     * Note that the DB Cluster cannot be deleted if deletion protection is enabled. To delete it, you must first set
+     * its <code>DeletionProtection</code> field to <code>False</code>.
+     * </p>
      * 
      * @param deleteDBClusterRequest
      * @param asyncHandler
@@ -672,6 +762,37 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      */
     java.util.concurrent.Future<DBCluster> deleteDBClusterAsync(DeleteDBClusterRequest deleteDBClusterRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteDBClusterRequest, DBCluster> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a custom endpoint and removes it from an Amazon Neptune DB cluster.
+     * </p>
+     * 
+     * @param deleteDBClusterEndpointRequest
+     * @return A Java Future containing the result of the DeleteDBClusterEndpoint operation returned by the service.
+     * @sample AmazonNeptuneAsync.DeleteDBClusterEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/DeleteDBClusterEndpoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteDBClusterEndpointResult> deleteDBClusterEndpointAsync(DeleteDBClusterEndpointRequest deleteDBClusterEndpointRequest);
+
+    /**
+     * <p>
+     * Deletes a custom endpoint and removes it from an Amazon Neptune DB cluster.
+     * </p>
+     * 
+     * @param deleteDBClusterEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteDBClusterEndpoint operation returned by the service.
+     * @sample AmazonNeptuneAsyncHandler.DeleteDBClusterEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/DeleteDBClusterEndpoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteDBClusterEndpointResult> deleteDBClusterEndpointAsync(DeleteDBClusterEndpointRequest deleteDBClusterEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteDBClusterEndpointRequest, DeleteDBClusterEndpointResult> asyncHandler);
 
     /**
      * <p>
@@ -768,7 +889,8 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      * <code>SkipFinalSnapshot</code> parameter is set to <code>true</code>.
      * </p>
      * <p>
-     * You can't delete a DB instance if it is the only instance in the DB cluster.
+     * You can't delete a DB instance if it is the only instance in the DB cluster, or if it has deletion protection
+     * enabled.
      * </p>
      * 
      * @param deleteDBInstanceRequest
@@ -796,7 +918,8 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      * <code>SkipFinalSnapshot</code> parameter is set to <code>true</code>.
      * </p>
      * <p>
-     * You can't delete a DB instance if it is the only instance in the DB cluster.
+     * You can't delete a DB instance if it is the only instance in the DB cluster, or if it has deletion protection
+     * enabled.
      * </p>
      * 
      * @param deleteDBInstanceRequest
@@ -919,6 +1042,80 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
 
     /**
      * <p>
+     * Deletes a global database. The primary and all secondary clusters must already be detached or deleted first.
+     * </p>
+     * 
+     * @param deleteGlobalClusterRequest
+     * @return A Java Future containing the result of the DeleteGlobalCluster operation returned by the service.
+     * @sample AmazonNeptuneAsync.DeleteGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/DeleteGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> deleteGlobalClusterAsync(DeleteGlobalClusterRequest deleteGlobalClusterRequest);
+
+    /**
+     * <p>
+     * Deletes a global database. The primary and all secondary clusters must already be detached or deleted first.
+     * </p>
+     * 
+     * @param deleteGlobalClusterRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteGlobalCluster operation returned by the service.
+     * @sample AmazonNeptuneAsyncHandler.DeleteGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/DeleteGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> deleteGlobalClusterAsync(DeleteGlobalClusterRequest deleteGlobalClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteGlobalClusterRequest, GlobalCluster> asyncHandler);
+
+    /**
+     * <p>
+     * Returns information about endpoints for an Amazon Neptune DB cluster.
+     * </p>
+     * <note>
+     * <p>
+     * This operation can also return information for Amazon RDS clusters and Amazon DocDB clusters.
+     * </p>
+     * </note>
+     * 
+     * @param describeDBClusterEndpointsRequest
+     * @return A Java Future containing the result of the DescribeDBClusterEndpoints operation returned by the service.
+     * @sample AmazonNeptuneAsync.DescribeDBClusterEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/DescribeDBClusterEndpoints"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBClusterEndpointsResult> describeDBClusterEndpointsAsync(
+            DescribeDBClusterEndpointsRequest describeDBClusterEndpointsRequest);
+
+    /**
+     * <p>
+     * Returns information about endpoints for an Amazon Neptune DB cluster.
+     * </p>
+     * <note>
+     * <p>
+     * This operation can also return information for Amazon RDS clusters and Amazon DocDB clusters.
+     * </p>
+     * </note>
+     * 
+     * @param describeDBClusterEndpointsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeDBClusterEndpoints operation returned by the service.
+     * @sample AmazonNeptuneAsyncHandler.DescribeDBClusterEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/DescribeDBClusterEndpoints"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBClusterEndpointsResult> describeDBClusterEndpointsAsync(
+            DescribeDBClusterEndpointsRequest describeDBClusterEndpointsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeDBClusterEndpointsRequest, DescribeDBClusterEndpointsResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns a list of <code>DBClusterParameterGroup</code> descriptions. If a
      * <code>DBClusterParameterGroupName</code> parameter is specified, the list will contain only the description of
      * the specified DB cluster parameter group.
@@ -994,14 +1191,15 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      * Returns a list of DB cluster snapshot attribute names and values for a manual DB cluster snapshot.
      * </p>
      * <p>
-     * When sharing snapshots with other AWS accounts, <code>DescribeDBClusterSnapshotAttributes</code> returns the
-     * <code>restore</code> attribute and a list of IDs for the AWS accounts that are authorized to copy or restore the
-     * manual DB cluster snapshot. If <code>all</code> is included in the list of values for the <code>restore</code>
-     * attribute, then the manual DB cluster snapshot is public and can be copied or restored by all AWS accounts.
+     * When sharing snapshots with other Amazon accounts, <code>DescribeDBClusterSnapshotAttributes</code> returns the
+     * <code>restore</code> attribute and a list of IDs for the Amazon accounts that are authorized to copy or restore
+     * the manual DB cluster snapshot. If <code>all</code> is included in the list of values for the
+     * <code>restore</code> attribute, then the manual DB cluster snapshot is public and can be copied or restored by
+     * all Amazon accounts.
      * </p>
      * <p>
-     * To add or remove access for an AWS account to copy or restore a manual DB cluster snapshot, or to make the manual
-     * DB cluster snapshot public or private, use the <a>ModifyDBClusterSnapshotAttribute</a> API action.
+     * To add or remove access for an Amazon account to copy or restore a manual DB cluster snapshot, or to make the
+     * manual DB cluster snapshot public or private, use the <a>ModifyDBClusterSnapshotAttribute</a> API action.
      * </p>
      * 
      * @param describeDBClusterSnapshotAttributesRequest
@@ -1019,14 +1217,15 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      * Returns a list of DB cluster snapshot attribute names and values for a manual DB cluster snapshot.
      * </p>
      * <p>
-     * When sharing snapshots with other AWS accounts, <code>DescribeDBClusterSnapshotAttributes</code> returns the
-     * <code>restore</code> attribute and a list of IDs for the AWS accounts that are authorized to copy or restore the
-     * manual DB cluster snapshot. If <code>all</code> is included in the list of values for the <code>restore</code>
-     * attribute, then the manual DB cluster snapshot is public and can be copied or restored by all AWS accounts.
+     * When sharing snapshots with other Amazon accounts, <code>DescribeDBClusterSnapshotAttributes</code> returns the
+     * <code>restore</code> attribute and a list of IDs for the Amazon accounts that are authorized to copy or restore
+     * the manual DB cluster snapshot. If <code>all</code> is included in the list of values for the
+     * <code>restore</code> attribute, then the manual DB cluster snapshot is public and can be copied or restored by
+     * all Amazon accounts.
      * </p>
      * <p>
-     * To add or remove access for an AWS account to copy or restore a manual DB cluster snapshot, or to make the manual
-     * DB cluster snapshot public or private, use the <a>ModifyDBClusterSnapshotAttribute</a> API action.
+     * To add or remove access for an Amazon account to copy or restore a manual DB cluster snapshot, or to make the
+     * manual DB cluster snapshot public or private, use the <a>ModifyDBClusterSnapshotAttribute</a> API action.
      * </p>
      * 
      * @param describeDBClusterSnapshotAttributesRequest
@@ -1079,8 +1278,13 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
 
     /**
      * <p>
-     * Returns information about provisioned DB clusters. This API supports pagination.
+     * Returns information about provisioned DB clusters, and supports pagination.
      * </p>
+     * <note>
+     * <p>
+     * This operation can also return information for Amazon RDS clusters and Amazon DocDB clusters.
+     * </p>
+     * </note>
      * 
      * @param describeDBClustersRequest
      * @return A Java Future containing the result of the DescribeDBClusters operation returned by the service.
@@ -1092,8 +1296,13 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
 
     /**
      * <p>
-     * Returns information about provisioned DB clusters. This API supports pagination.
+     * Returns information about provisioned DB clusters, and supports pagination.
      * </p>
+     * <note>
+     * <p>
+     * This operation can also return information for Amazon RDS clusters and Amazon DocDB clusters.
+     * </p>
+     * </note>
      * 
      * @param describeDBClustersRequest
      * @param asyncHandler
@@ -1141,8 +1350,13 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
 
     /**
      * <p>
-     * Returns information about provisioned instances. This API supports pagination.
+     * Returns information about provisioned instances, and supports pagination.
      * </p>
+     * <note>
+     * <p>
+     * This operation can also return information for Amazon RDS instances and Amazon DocDB instances.
+     * </p>
+     * </note>
      * 
      * @param describeDBInstancesRequest
      * @return A Java Future containing the result of the DescribeDBInstances operation returned by the service.
@@ -1154,8 +1368,13 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
 
     /**
      * <p>
-     * Returns information about provisioned instances. This API supports pagination.
+     * Returns information about provisioned instances, and supports pagination.
      * </p>
+     * <note>
+     * <p>
+     * This operation can also return information for Amazon RDS instances and Amazon DocDB instances.
+     * </p>
+     * </note>
      * 
      * @param describeDBInstancesRequest
      * @param asyncHandler
@@ -1456,6 +1675,37 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
 
     /**
      * <p>
+     * Returns information about Neptune global database clusters. This API supports pagination.
+     * </p>
+     * 
+     * @param describeGlobalClustersRequest
+     * @return A Java Future containing the result of the DescribeGlobalClusters operation returned by the service.
+     * @sample AmazonNeptuneAsync.DescribeGlobalClusters
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/DescribeGlobalClusters" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeGlobalClustersResult> describeGlobalClustersAsync(DescribeGlobalClustersRequest describeGlobalClustersRequest);
+
+    /**
+     * <p>
+     * Returns information about Neptune global database clusters. This API supports pagination.
+     * </p>
+     * 
+     * @param describeGlobalClustersRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeGlobalClusters operation returned by the service.
+     * @sample AmazonNeptuneAsyncHandler.DescribeGlobalClusters
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/DescribeGlobalClusters" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeGlobalClustersResult> describeGlobalClustersAsync(DescribeGlobalClustersRequest describeGlobalClustersRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeGlobalClustersRequest, DescribeGlobalClustersResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns a list of orderable DB instance options for the specified engine.
      * </p>
      * 
@@ -1614,6 +1864,63 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
 
     /**
      * <p>
+     * Initiates the failover process for a Neptune global database.
+     * </p>
+     * <p>
+     * A failover for a Neptune global database promotes one of secondary read-only DB clusters to be the primary DB
+     * cluster and demotes the primary DB cluster to being a secondary (read-only) DB cluster. In other words, the role
+     * of the current primary DB cluster and the selected target secondary DB cluster are switched. The selected
+     * secondary DB cluster assumes full read/write capabilities for the Neptune global database.
+     * </p>
+     * <note>
+     * <p>
+     * This action applies <b>only</b> to Neptune global databases. This action is only intended for use on healthy
+     * Neptune global databases with healthy Neptune DB clusters and no region-wide outages, to test disaster recovery
+     * scenarios or to reconfigure the global database topology.
+     * </p>
+     * </note>
+     * 
+     * @param failoverGlobalClusterRequest
+     * @return A Java Future containing the result of the FailoverGlobalCluster operation returned by the service.
+     * @sample AmazonNeptuneAsync.FailoverGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/FailoverGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> failoverGlobalClusterAsync(FailoverGlobalClusterRequest failoverGlobalClusterRequest);
+
+    /**
+     * <p>
+     * Initiates the failover process for a Neptune global database.
+     * </p>
+     * <p>
+     * A failover for a Neptune global database promotes one of secondary read-only DB clusters to be the primary DB
+     * cluster and demotes the primary DB cluster to being a secondary (read-only) DB cluster. In other words, the role
+     * of the current primary DB cluster and the selected target secondary DB cluster are switched. The selected
+     * secondary DB cluster assumes full read/write capabilities for the Neptune global database.
+     * </p>
+     * <note>
+     * <p>
+     * This action applies <b>only</b> to Neptune global databases. This action is only intended for use on healthy
+     * Neptune global databases with healthy Neptune DB clusters and no region-wide outages, to test disaster recovery
+     * scenarios or to reconfigure the global database topology.
+     * </p>
+     * </note>
+     * 
+     * @param failoverGlobalClusterRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the FailoverGlobalCluster operation returned by the service.
+     * @sample AmazonNeptuneAsyncHandler.FailoverGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/FailoverGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> failoverGlobalClusterAsync(FailoverGlobalClusterRequest failoverGlobalClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<FailoverGlobalClusterRequest, GlobalCluster> asyncHandler);
+
+    /**
+     * <p>
      * Lists all tags on an Amazon Neptune resource.
      * </p>
      * 
@@ -1675,6 +1982,37 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      */
     java.util.concurrent.Future<DBCluster> modifyDBClusterAsync(ModifyDBClusterRequest modifyDBClusterRequest,
             com.amazonaws.handlers.AsyncHandler<ModifyDBClusterRequest, DBCluster> asyncHandler);
+
+    /**
+     * <p>
+     * Modifies the properties of an endpoint in an Amazon Neptune DB cluster.
+     * </p>
+     * 
+     * @param modifyDBClusterEndpointRequest
+     * @return A Java Future containing the result of the ModifyDBClusterEndpoint operation returned by the service.
+     * @sample AmazonNeptuneAsync.ModifyDBClusterEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/ModifyDBClusterEndpoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyDBClusterEndpointResult> modifyDBClusterEndpointAsync(ModifyDBClusterEndpointRequest modifyDBClusterEndpointRequest);
+
+    /**
+     * <p>
+     * Modifies the properties of an endpoint in an Amazon Neptune DB cluster.
+     * </p>
+     * 
+     * @param modifyDBClusterEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyDBClusterEndpoint operation returned by the service.
+     * @sample AmazonNeptuneAsyncHandler.ModifyDBClusterEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/ModifyDBClusterEndpoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyDBClusterEndpointResult> modifyDBClusterEndpointAsync(ModifyDBClusterEndpointRequest modifyDBClusterEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyDBClusterEndpointRequest, ModifyDBClusterEndpointResult> asyncHandler);
 
     /**
      * <p>
@@ -1754,17 +2092,17 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      * Adds an attribute and values to, or removes an attribute and values from, a manual DB cluster snapshot.
      * </p>
      * <p>
-     * To share a manual DB cluster snapshot with other AWS accounts, specify <code>restore</code> as the
-     * <code>AttributeName</code> and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the AWS
+     * To share a manual DB cluster snapshot with other Amazon accounts, specify <code>restore</code> as the
+     * <code>AttributeName</code> and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the Amazon
      * accounts that are authorized to restore the manual DB cluster snapshot. Use the value <code>all</code> to make
-     * the manual DB cluster snapshot public, which means that it can be copied or restored by all AWS accounts. Do not
-     * add the <code>all</code> value for any manual DB cluster snapshots that contain private information that you
-     * don't want available to all AWS accounts. If a manual DB cluster snapshot is encrypted, it can be shared, but
-     * only by specifying a list of authorized AWS account IDs for the <code>ValuesToAdd</code> parameter. You can't use
-     * <code>all</code> as a value for that parameter in this case.
+     * the manual DB cluster snapshot public, which means that it can be copied or restored by all Amazon accounts. Do
+     * not add the <code>all</code> value for any manual DB cluster snapshots that contain private information that you
+     * don't want available to all Amazon accounts. If a manual DB cluster snapshot is encrypted, it can be shared, but
+     * only by specifying a list of authorized Amazon account IDs for the <code>ValuesToAdd</code> parameter. You can't
+     * use <code>all</code> as a value for that parameter in this case.
      * </p>
      * <p>
-     * To view which AWS accounts have access to copy or restore a manual DB cluster snapshot, or whether a manual DB
+     * To view which Amazon accounts have access to copy or restore a manual DB cluster snapshot, or whether a manual DB
      * cluster snapshot public or private, use the <a>DescribeDBClusterSnapshotAttributes</a> API action.
      * </p>
      * 
@@ -1783,17 +2121,17 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      * Adds an attribute and values to, or removes an attribute and values from, a manual DB cluster snapshot.
      * </p>
      * <p>
-     * To share a manual DB cluster snapshot with other AWS accounts, specify <code>restore</code> as the
-     * <code>AttributeName</code> and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the AWS
+     * To share a manual DB cluster snapshot with other Amazon accounts, specify <code>restore</code> as the
+     * <code>AttributeName</code> and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the Amazon
      * accounts that are authorized to restore the manual DB cluster snapshot. Use the value <code>all</code> to make
-     * the manual DB cluster snapshot public, which means that it can be copied or restored by all AWS accounts. Do not
-     * add the <code>all</code> value for any manual DB cluster snapshots that contain private information that you
-     * don't want available to all AWS accounts. If a manual DB cluster snapshot is encrypted, it can be shared, but
-     * only by specifying a list of authorized AWS account IDs for the <code>ValuesToAdd</code> parameter. You can't use
-     * <code>all</code> as a value for that parameter in this case.
+     * the manual DB cluster snapshot public, which means that it can be copied or restored by all Amazon accounts. Do
+     * not add the <code>all</code> value for any manual DB cluster snapshots that contain private information that you
+     * don't want available to all Amazon accounts. If a manual DB cluster snapshot is encrypted, it can be shared, but
+     * only by specifying a list of authorized Amazon account IDs for the <code>ValuesToAdd</code> parameter. You can't
+     * use <code>all</code> as a value for that parameter in this case.
      * </p>
      * <p>
-     * To view which AWS accounts have access to copy or restore a manual DB cluster snapshot, or whether a manual DB
+     * To view which Amazon accounts have access to copy or restore a manual DB cluster snapshot, or whether a manual DB
      * cluster snapshot public or private, use the <a>DescribeDBClusterSnapshotAttributes</a> API action.
      * </p>
      * 
@@ -1917,7 +2255,7 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
     /**
      * <p>
      * Modifies an existing DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in
-     * the AWS Region.
+     * the Amazon Region.
      * </p>
      * 
      * @param modifyDBSubnetGroupRequest
@@ -1931,7 +2269,7 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
     /**
      * <p>
      * Modifies an existing DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in
-     * the AWS Region.
+     * the Amazon Region.
      * </p>
      * 
      * @param modifyDBSubnetGroupRequest
@@ -1989,6 +2327,39 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      */
     java.util.concurrent.Future<EventSubscription> modifyEventSubscriptionAsync(ModifyEventSubscriptionRequest modifyEventSubscriptionRequest,
             com.amazonaws.handlers.AsyncHandler<ModifyEventSubscriptionRequest, EventSubscription> asyncHandler);
+
+    /**
+     * <p>
+     * Modify a setting for an Amazon Neptune global cluster. You can change one or more database configuration
+     * parameters by specifying these parameters and their new values in the request.
+     * </p>
+     * 
+     * @param modifyGlobalClusterRequest
+     * @return A Java Future containing the result of the ModifyGlobalCluster operation returned by the service.
+     * @sample AmazonNeptuneAsync.ModifyGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/ModifyGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> modifyGlobalClusterAsync(ModifyGlobalClusterRequest modifyGlobalClusterRequest);
+
+    /**
+     * <p>
+     * Modify a setting for an Amazon Neptune global cluster. You can change one or more database configuration
+     * parameters by specifying these parameters and their new values in the request.
+     * </p>
+     * 
+     * @param modifyGlobalClusterRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyGlobalCluster operation returned by the service.
+     * @sample AmazonNeptuneAsyncHandler.ModifyGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/ModifyGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> modifyGlobalClusterAsync(ModifyGlobalClusterRequest modifyGlobalClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyGlobalClusterRequest, GlobalCluster> asyncHandler);
 
     /**
      * <p>
@@ -2063,6 +2434,41 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      */
     java.util.concurrent.Future<DBInstance> rebootDBInstanceAsync(RebootDBInstanceRequest rebootDBInstanceRequest,
             com.amazonaws.handlers.AsyncHandler<RebootDBInstanceRequest, DBInstance> asyncHandler);
+
+    /**
+     * <p>
+     * Detaches a Neptune DB cluster from a Neptune global database. A secondary cluster becomes a normal standalone
+     * cluster with read-write capability instead of being read-only, and no longer receives data from a the primary
+     * cluster.
+     * </p>
+     * 
+     * @param removeFromGlobalClusterRequest
+     * @return A Java Future containing the result of the RemoveFromGlobalCluster operation returned by the service.
+     * @sample AmazonNeptuneAsync.RemoveFromGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/RemoveFromGlobalCluster"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> removeFromGlobalClusterAsync(RemoveFromGlobalClusterRequest removeFromGlobalClusterRequest);
+
+    /**
+     * <p>
+     * Detaches a Neptune DB cluster from a Neptune global database. A secondary cluster becomes a normal standalone
+     * cluster with read-write capability instead of being read-only, and no longer receives data from a the primary
+     * cluster.
+     * </p>
+     * 
+     * @param removeFromGlobalClusterRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RemoveFromGlobalCluster operation returned by the service.
+     * @sample AmazonNeptuneAsyncHandler.RemoveFromGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/RemoveFromGlobalCluster"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> removeFromGlobalClusterAsync(RemoveFromGlobalClusterRequest removeFromGlobalClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<RemoveFromGlobalClusterRequest, GlobalCluster> asyncHandler);
 
     /**
      * <p>
@@ -2360,5 +2766,77 @@ public interface AmazonNeptuneAsync extends AmazonNeptune {
      */
     java.util.concurrent.Future<DBCluster> restoreDBClusterToPointInTimeAsync(RestoreDBClusterToPointInTimeRequest restoreDBClusterToPointInTimeRequest,
             com.amazonaws.handlers.AsyncHandler<RestoreDBClusterToPointInTimeRequest, DBCluster> asyncHandler);
+
+    /**
+     * <p>
+     * Starts an Amazon Neptune DB cluster that was stopped using the Amazon console, the Amazon CLI stop-db-cluster
+     * command, or the StopDBCluster API.
+     * </p>
+     * 
+     * @param startDBClusterRequest
+     * @return A Java Future containing the result of the StartDBCluster operation returned by the service.
+     * @sample AmazonNeptuneAsync.StartDBCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/StartDBCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DBCluster> startDBClusterAsync(StartDBClusterRequest startDBClusterRequest);
+
+    /**
+     * <p>
+     * Starts an Amazon Neptune DB cluster that was stopped using the Amazon console, the Amazon CLI stop-db-cluster
+     * command, or the StopDBCluster API.
+     * </p>
+     * 
+     * @param startDBClusterRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartDBCluster operation returned by the service.
+     * @sample AmazonNeptuneAsyncHandler.StartDBCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/StartDBCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DBCluster> startDBClusterAsync(StartDBClusterRequest startDBClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<StartDBClusterRequest, DBCluster> asyncHandler);
+
+    /**
+     * <p>
+     * Stops an Amazon Neptune DB cluster. When you stop a DB cluster, Neptune retains the DB cluster's metadata,
+     * including its endpoints and DB parameter groups.
+     * </p>
+     * <p>
+     * Neptune also retains the transaction logs so you can do a point-in-time restore if necessary.
+     * </p>
+     * 
+     * @param stopDBClusterRequest
+     * @return A Java Future containing the result of the StopDBCluster operation returned by the service.
+     * @sample AmazonNeptuneAsync.StopDBCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/StopDBCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DBCluster> stopDBClusterAsync(StopDBClusterRequest stopDBClusterRequest);
+
+    /**
+     * <p>
+     * Stops an Amazon Neptune DB cluster. When you stop a DB cluster, Neptune retains the DB cluster's metadata,
+     * including its endpoints and DB parameter groups.
+     * </p>
+     * <p>
+     * Neptune also retains the transaction logs so you can do a point-in-time restore if necessary.
+     * </p>
+     * 
+     * @param stopDBClusterRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StopDBCluster operation returned by the service.
+     * @sample AmazonNeptuneAsyncHandler.StopDBCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/StopDBCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DBCluster> stopDBClusterAsync(StopDBClusterRequest stopDBClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<StopDBClusterRequest, DBCluster> asyncHandler);
 
 }

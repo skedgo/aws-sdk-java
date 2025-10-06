@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Specifies skewed values in a table. Skewed are ones that occur with very high frequency.
+ * Specifies skewed values in a table. Skewed values are those that occur with very high frequency.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/SkewedInfo" target="_top">AWS API
@@ -226,6 +226,13 @@ public class SkewedInfo implements Serializable, Cloneable, StructuredPojo {
         setSkewedColumnValueLocationMaps(skewedColumnValueLocationMaps);
         return this;
     }
+
+    /**
+     * Add a single SkewedColumnValueLocationMaps entry
+     *
+     * @see SkewedInfo#withSkewedColumnValueLocationMaps
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public SkewedInfo addSkewedColumnValueLocationMapsEntry(String key, String value) {
         if (null == this.skewedColumnValueLocationMaps) {

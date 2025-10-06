@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,10 @@ public class GetTablesRequestMarshaller {
             .marshallLocationName("NextToken").build();
     private static final MarshallingInfo<Integer> MAXRESULTS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaxResults").build();
+    private static final MarshallingInfo<String> TRANSACTIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TransactionId").build();
+    private static final MarshallingInfo<java.util.Date> QUERYASOFTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("QueryAsOfTime").timestampFormat("unixTimestamp").build();
 
     private static final GetTablesRequestMarshaller instance = new GetTablesRequestMarshaller();
 
@@ -59,6 +63,8 @@ public class GetTablesRequestMarshaller {
             protocolMarshaller.marshall(getTablesRequest.getExpression(), EXPRESSION_BINDING);
             protocolMarshaller.marshall(getTablesRequest.getNextToken(), NEXTTOKEN_BINDING);
             protocolMarshaller.marshall(getTablesRequest.getMaxResults(), MAXRESULTS_BINDING);
+            protocolMarshaller.marshall(getTablesRequest.getTransactionId(), TRANSACTIONID_BINDING);
+            protocolMarshaller.marshall(getTablesRequest.getQueryAsOfTime(), QUERYASOFTIME_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

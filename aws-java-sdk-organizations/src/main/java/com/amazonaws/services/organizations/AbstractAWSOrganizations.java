@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,6 +53,11 @@ public class AbstractAWSOrganizations implements AWSOrganizations {
     }
 
     @Override
+    public CloseAccountResult closeAccount(CloseAccountRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateAccountResult createAccount(CreateAccountRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -98,12 +103,27 @@ public class AbstractAWSOrganizations implements AWSOrganizations {
     }
 
     @Override
+    public DeleteResourcePolicyResult deleteResourcePolicy(DeleteResourcePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeregisterDelegatedAdministratorResult deregisterDelegatedAdministrator(DeregisterDelegatedAdministratorRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeAccountResult describeAccount(DescribeAccountRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public DescribeCreateAccountStatusResult describeCreateAccountStatus(DescribeCreateAccountStatusRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeEffectivePolicyResult describeEffectivePolicy(DescribeEffectivePolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -124,6 +144,11 @@ public class AbstractAWSOrganizations implements AWSOrganizations {
 
     @Override
     public DescribePolicyResult describePolicy(DescribePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeResourcePolicyResult describeResourcePolicy(DescribeResourcePolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -193,6 +218,16 @@ public class AbstractAWSOrganizations implements AWSOrganizations {
     }
 
     @Override
+    public ListDelegatedAdministratorsResult listDelegatedAdministrators(ListDelegatedAdministratorsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListDelegatedServicesForAccountResult listDelegatedServicesForAccount(ListDelegatedServicesForAccountRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListHandshakesForAccountResult listHandshakesForAccount(ListHandshakesForAccountRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -239,6 +274,16 @@ public class AbstractAWSOrganizations implements AWSOrganizations {
 
     @Override
     public MoveAccountResult moveAccount(MoveAccountRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutResourcePolicyResult putResourcePolicy(PutResourcePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public RegisterDelegatedAdministratorResult registerDelegatedAdministrator(RegisterDelegatedAdministratorRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

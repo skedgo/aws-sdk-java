@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,28 +37,76 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * credentials.
      * </p>
      * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
      * characters consisting of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<String> policyInputList;
+    /**
+     * <p>
+     * The IAM permissions boundary policy to simulate. The permissions boundary sets the maximum permissions that an
+     * IAM entity can have. You can input only one permissions boundary when you pass a policy to this operation. For
+     * more information about permissions boundaries, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">Permissions boundaries
+     * for IAM entities</a> in the <i>IAM User Guide</i>. The policy input is specified as a string that contains the
+     * complete, valid JSON text of a permissions boundary policy.
+     * </p>
+     * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
+     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
+     * characters consisting of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> permissionsBoundaryPolicyInputList;
     /**
      * <p>
      * A list of names of API operations to evaluate in the simulation. Each operation is evaluated against each
@@ -69,10 +117,10 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
     private com.amazonaws.internal.SdkInternalList<String> actionNames;
     /**
      * <p>
-     * A list of ARNs of AWS resources to include in the simulation. If this parameter is not provided, then the value
-     * defaults to <code>*</code> (all resources). Each API in the <code>ActionNames</code> parameter is evaluated for
-     * each resource in this list. The simulation determines the access result (allowed or denied) of each combination
-     * and reports it in the response.
+     * A list of ARNs of Amazon Web Services resources to include in the simulation. If this parameter is not provided,
+     * then the value defaults to <code>*</code> (all resources). Each API in the <code>ActionNames</code> parameter is
+     * evaluated for each resource in this list. The simulation determines the access result (allowed or denied) of each
+     * combination and reports it in the response. You can simulate resources that don't exist in your account.
      * </p>
      * <p>
      * The simulation does not automatically retrieve policies for the specified resources. If you want to include a
@@ -85,9 +133,14 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
+     * <note>
+     * <p>
+     * Simulation of resource-based policies isn't supported for IAM roles.
+     * </p>
+     * </note>
      */
     private com.amazonaws.internal.SdkInternalList<String> resourceArns;
     /**
@@ -96,32 +149,45 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * treated as if it had this policy attached. You can include only one resource-based policy in a simulation.
      * </p>
      * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
      * characters consisting of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * Simulation of resource-based policies isn't supported for IAM roles.
+     * </p>
+     * </note>
      */
     private String resourcePolicy;
     /**
      * <p>
-     * An ARN representing the AWS account ID that specifies the owner of any simulated resource that does not identify
-     * its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or object. If
+     * An ARN representing the Amazon Web Services account ID that specifies the owner of any simulated resource that
+     * does not identify its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or object. If
      * <code>ResourceOwner</code> is specified, it is also used as the account owner of any <code>ResourcePolicy</code>
      * included in the simulation. If the <code>ResourceOwner</code> parameter is not specified, then the owner of the
      * resources and the resource policy defaults to the account of the identity provided in <code>CallerArn</code>.
@@ -163,36 +229,20 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * supported scenario values and the resources that you must define to run the simulation.
      * </p>
      * <p>
-     * Each of the EC2 scenarios requires that you specify instance, image, and security-group resources. If your
-     * scenario includes an EBS volume, then you must specify that volume as a resource. If the EC2 scenario includes
-     * VPC, then you must supply the network-interface resource. If it includes an IP subnet, then you must specify the
-     * subnet resource. For more information on the EC2 scenario options, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported Platforms</a>
+     * Each of the Amazon EC2 scenarios requires that you specify instance, image, and security group resources. If your
+     * scenario includes an EBS volume, then you must specify that volume as a resource. If the Amazon EC2 scenario
+     * includes VPC, then you must supply the network interface resource. If it includes an IP subnet, then you must
+     * specify the subnet resource. For more information on the Amazon EC2 scenario options, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported platforms</a>
      * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>EC2-Classic-InstanceStore</b>
-     * </p>
-     * <p>
-     * instance, image, security-group
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <b>EC2-Classic-EBS</b>
-     * </p>
-     * <p>
-     * instance, image, security-group, volume
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <b>EC2-VPC-InstanceStore</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface
+     * instance, image, security group, network interface
      * </p>
      * </li>
      * <li>
@@ -200,7 +250,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * <b>EC2-VPC-InstanceStore-Subnet</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface, subnet
+     * instance, image, security group, network interface, subnet
      * </p>
      * </li>
      * <li>
@@ -208,7 +258,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * <b>EC2-VPC-EBS</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface, volume
+     * instance, image, security group, network interface, volume
      * </p>
      * </li>
      * <li>
@@ -216,7 +266,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * <b>EC2-VPC-EBS-Subnet</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface, subnet, volume
+     * instance, image, security group, network interface, subnet, volume
      * </p>
      * </li>
      * </ul>
@@ -257,23 +307,31 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * credentials.
      * </p>
      * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
      * characters consisting of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -288,24 +346,32 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *         operations. In other words, do not use policies designed to restrict what a user can do while using the
      *         temporary credentials.</p>
      *         <p>
+     *         The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *         listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *         "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *         >IAM and STS character quotas</a>.
+     *         </p>
+     *         <p>
      *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
      *         string of characters consisting of the following:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *         range
+     *         Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *         the ASCII character range
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *         <code>\u00FF</code>)
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The special characters tab ( ), line feed ( ), and carriage return ( )
+     *         The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *         <code>\u000D</code>)
      *         </p>
      *         </li>
      */
@@ -329,23 +395,31 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * credentials.
      * </p>
      * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
      * characters consisting of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -361,24 +435,32 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        operations. In other words, do not use policies designed to restrict what a user can do while using the
      *        temporary credentials.</p>
      *        <p>
+     *        The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *        listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *        >IAM and STS character quotas</a>.
+     *        </p>
+     *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
      *        string of characters consisting of the following:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      */
@@ -404,23 +486,31 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * credentials.
      * </p>
      * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
      * characters consisting of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -441,24 +531,32 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        operations. In other words, do not use policies designed to restrict what a user can do while using the
      *        temporary credentials.</p>
      *        <p>
+     *        The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *        listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *        >IAM and STS character quotas</a>.
+     *        </p>
+     *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
      *        string of characters consisting of the following:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -486,23 +584,31 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * credentials.
      * </p>
      * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
      * characters consisting of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -518,24 +624,32 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        operations. In other words, do not use policies designed to restrict what a user can do while using the
      *        temporary credentials.</p>
      *        <p>
+     *        The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *        listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *        >IAM and STS character quotas</a>.
+     *        </p>
+     *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
      *        string of characters consisting of the following:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -543,6 +657,352 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
 
     public SimulateCustomPolicyRequest withPolicyInputList(java.util.Collection<String> policyInputList) {
         setPolicyInputList(policyInputList);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IAM permissions boundary policy to simulate. The permissions boundary sets the maximum permissions that an
+     * IAM entity can have. You can input only one permissions boundary when you pass a policy to this operation. For
+     * more information about permissions boundaries, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">Permissions boundaries
+     * for IAM entities</a> in the <i>IAM User Guide</i>. The policy input is specified as a string that contains the
+     * complete, valid JSON text of a permissions boundary policy.
+     * </p>
+     * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
+     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
+     * characters consisting of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The IAM permissions boundary policy to simulate. The permissions boundary sets the maximum permissions
+     *         that an IAM entity can have. You can input only one permissions boundary when you pass a policy to this
+     *         operation. For more information about permissions boundaries, see <a
+     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">Permissions
+     *         boundaries for IAM entities</a> in the <i>IAM User Guide</i>. The policy input is specified as a string
+     *         that contains the complete, valid JSON text of a permissions boundary policy.</p>
+     *         <p>
+     *         The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *         listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *         "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *         >IAM and STS character quotas</a>.
+     *         </p>
+     *         <p>
+     *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
+     *         string of characters consisting of the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *         the ASCII character range
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *         <code>\u00FF</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *         <code>\u000D</code>)
+     *         </p>
+     *         </li>
+     */
+
+    public java.util.List<String> getPermissionsBoundaryPolicyInputList() {
+        if (permissionsBoundaryPolicyInputList == null) {
+            permissionsBoundaryPolicyInputList = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return permissionsBoundaryPolicyInputList;
+    }
+
+    /**
+     * <p>
+     * The IAM permissions boundary policy to simulate. The permissions boundary sets the maximum permissions that an
+     * IAM entity can have. You can input only one permissions boundary when you pass a policy to this operation. For
+     * more information about permissions boundaries, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">Permissions boundaries
+     * for IAM entities</a> in the <i>IAM User Guide</i>. The policy input is specified as a string that contains the
+     * complete, valid JSON text of a permissions boundary policy.
+     * </p>
+     * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
+     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
+     * characters consisting of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param permissionsBoundaryPolicyInputList
+     *        The IAM permissions boundary policy to simulate. The permissions boundary sets the maximum permissions
+     *        that an IAM entity can have. You can input only one permissions boundary when you pass a policy to this
+     *        operation. For more information about permissions boundaries, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">Permissions
+     *        boundaries for IAM entities</a> in the <i>IAM User Guide</i>. The policy input is specified as a string
+     *        that contains the complete, valid JSON text of a permissions boundary policy.</p>
+     *        <p>
+     *        The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *        listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *        >IAM and STS character quotas</a>.
+     *        </p>
+     *        <p>
+     *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
+     *        string of characters consisting of the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
+     *        </p>
+     *        </li>
+     */
+
+    public void setPermissionsBoundaryPolicyInputList(java.util.Collection<String> permissionsBoundaryPolicyInputList) {
+        if (permissionsBoundaryPolicyInputList == null) {
+            this.permissionsBoundaryPolicyInputList = null;
+            return;
+        }
+
+        this.permissionsBoundaryPolicyInputList = new com.amazonaws.internal.SdkInternalList<String>(permissionsBoundaryPolicyInputList);
+    }
+
+    /**
+     * <p>
+     * The IAM permissions boundary policy to simulate. The permissions boundary sets the maximum permissions that an
+     * IAM entity can have. You can input only one permissions boundary when you pass a policy to this operation. For
+     * more information about permissions boundaries, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">Permissions boundaries
+     * for IAM entities</a> in the <i>IAM User Guide</i>. The policy input is specified as a string that contains the
+     * complete, valid JSON text of a permissions boundary policy.
+     * </p>
+     * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
+     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
+     * characters consisting of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setPermissionsBoundaryPolicyInputList(java.util.Collection)} or
+     * {@link #withPermissionsBoundaryPolicyInputList(java.util.Collection)} if you want to override the existing
+     * values.
+     * </p>
+     * 
+     * @param permissionsBoundaryPolicyInputList
+     *        The IAM permissions boundary policy to simulate. The permissions boundary sets the maximum permissions
+     *        that an IAM entity can have. You can input only one permissions boundary when you pass a policy to this
+     *        operation. For more information about permissions boundaries, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">Permissions
+     *        boundaries for IAM entities</a> in the <i>IAM User Guide</i>. The policy input is specified as a string
+     *        that contains the complete, valid JSON text of a permissions boundary policy.</p>
+     *        <p>
+     *        The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *        listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *        >IAM and STS character quotas</a>.
+     *        </p>
+     *        <p>
+     *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
+     *        string of characters consisting of the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SimulateCustomPolicyRequest withPermissionsBoundaryPolicyInputList(String... permissionsBoundaryPolicyInputList) {
+        if (this.permissionsBoundaryPolicyInputList == null) {
+            setPermissionsBoundaryPolicyInputList(new com.amazonaws.internal.SdkInternalList<String>(permissionsBoundaryPolicyInputList.length));
+        }
+        for (String ele : permissionsBoundaryPolicyInputList) {
+            this.permissionsBoundaryPolicyInputList.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IAM permissions boundary policy to simulate. The permissions boundary sets the maximum permissions that an
+     * IAM entity can have. You can input only one permissions boundary when you pass a policy to this operation. For
+     * more information about permissions boundaries, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">Permissions boundaries
+     * for IAM entities</a> in the <i>IAM User Guide</i>. The policy input is specified as a string that contains the
+     * complete, valid JSON text of a permissions boundary policy.
+     * </p>
+     * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
+     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
+     * characters consisting of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param permissionsBoundaryPolicyInputList
+     *        The IAM permissions boundary policy to simulate. The permissions boundary sets the maximum permissions
+     *        that an IAM entity can have. You can input only one permissions boundary when you pass a policy to this
+     *        operation. For more information about permissions boundaries, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">Permissions
+     *        boundaries for IAM entities</a> in the <i>IAM User Guide</i>. The policy input is specified as a string
+     *        that contains the complete, valid JSON text of a permissions boundary policy.</p>
+     *        <p>
+     *        The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *        listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *        >IAM and STS character quotas</a>.
+     *        </p>
+     *        <p>
+     *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
+     *        string of characters consisting of the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SimulateCustomPolicyRequest withPermissionsBoundaryPolicyInputList(java.util.Collection<String> permissionsBoundaryPolicyInputList) {
+        setPermissionsBoundaryPolicyInputList(permissionsBoundaryPolicyInputList);
         return this;
     }
 
@@ -637,10 +1097,10 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of ARNs of AWS resources to include in the simulation. If this parameter is not provided, then the value
-     * defaults to <code>*</code> (all resources). Each API in the <code>ActionNames</code> parameter is evaluated for
-     * each resource in this list. The simulation determines the access result (allowed or denied) of each combination
-     * and reports it in the response.
+     * A list of ARNs of Amazon Web Services resources to include in the simulation. If this parameter is not provided,
+     * then the value defaults to <code>*</code> (all resources). Each API in the <code>ActionNames</code> parameter is
+     * evaluated for each resource in this list. The simulation determines the access result (allowed or denied) of each
+     * combination and reports it in the response. You can simulate resources that don't exist in your account.
      * </p>
      * <p>
      * The simulation does not automatically retrieve policies for the specified resources. If you want to include a
@@ -653,14 +1113,20 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
+     * <note>
+     * <p>
+     * Simulation of resource-based policies isn't supported for IAM roles.
+     * </p>
+     * </note>
      * 
-     * @return A list of ARNs of AWS resources to include in the simulation. If this parameter is not provided, then the
-     *         value defaults to <code>*</code> (all resources). Each API in the <code>ActionNames</code> parameter is
-     *         evaluated for each resource in this list. The simulation determines the access result (allowed or denied)
-     *         of each combination and reports it in the response.</p>
+     * @return A list of ARNs of Amazon Web Services resources to include in the simulation. If this parameter is not
+     *         provided, then the value defaults to <code>*</code> (all resources). Each API in the
+     *         <code>ActionNames</code> parameter is evaluated for each resource in this list. The simulation determines
+     *         the access result (allowed or denied) of each combination and reports it in the response. You can
+     *         simulate resources that don't exist in your account.</p>
      *         <p>
      *         The simulation does not automatically retrieve policies for the specified resources. If you want to
      *         include a resource policy in the simulation, then you must include the policy as a string in the
@@ -673,7 +1139,12 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *         <p>
      *         For more information about ARNs, see <a
      *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *         (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *         (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Simulation of resource-based policies isn't supported for IAM roles.
+     *         </p>
      */
 
     public java.util.List<String> getResourceArns() {
@@ -685,10 +1156,10 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of ARNs of AWS resources to include in the simulation. If this parameter is not provided, then the value
-     * defaults to <code>*</code> (all resources). Each API in the <code>ActionNames</code> parameter is evaluated for
-     * each resource in this list. The simulation determines the access result (allowed or denied) of each combination
-     * and reports it in the response.
+     * A list of ARNs of Amazon Web Services resources to include in the simulation. If this parameter is not provided,
+     * then the value defaults to <code>*</code> (all resources). Each API in the <code>ActionNames</code> parameter is
+     * evaluated for each resource in this list. The simulation determines the access result (allowed or denied) of each
+     * combination and reports it in the response. You can simulate resources that don't exist in your account.
      * </p>
      * <p>
      * The simulation does not automatically retrieve policies for the specified resources. If you want to include a
@@ -701,15 +1172,21 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
+     * <note>
+     * <p>
+     * Simulation of resource-based policies isn't supported for IAM roles.
+     * </p>
+     * </note>
      * 
      * @param resourceArns
-     *        A list of ARNs of AWS resources to include in the simulation. If this parameter is not provided, then the
-     *        value defaults to <code>*</code> (all resources). Each API in the <code>ActionNames</code> parameter is
-     *        evaluated for each resource in this list. The simulation determines the access result (allowed or denied)
-     *        of each combination and reports it in the response.</p>
+     *        A list of ARNs of Amazon Web Services resources to include in the simulation. If this parameter is not
+     *        provided, then the value defaults to <code>*</code> (all resources). Each API in the
+     *        <code>ActionNames</code> parameter is evaluated for each resource in this list. The simulation determines
+     *        the access result (allowed or denied) of each combination and reports it in the response. You can simulate
+     *        resources that don't exist in your account.</p>
      *        <p>
      *        The simulation does not automatically retrieve policies for the specified resources. If you want to
      *        include a resource policy in the simulation, then you must include the policy as a string in the
@@ -722,7 +1199,12 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        <p>
      *        For more information about ARNs, see <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Simulation of resource-based policies isn't supported for IAM roles.
+     *        </p>
      */
 
     public void setResourceArns(java.util.Collection<String> resourceArns) {
@@ -736,10 +1218,10 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of ARNs of AWS resources to include in the simulation. If this parameter is not provided, then the value
-     * defaults to <code>*</code> (all resources). Each API in the <code>ActionNames</code> parameter is evaluated for
-     * each resource in this list. The simulation determines the access result (allowed or denied) of each combination
-     * and reports it in the response.
+     * A list of ARNs of Amazon Web Services resources to include in the simulation. If this parameter is not provided,
+     * then the value defaults to <code>*</code> (all resources). Each API in the <code>ActionNames</code> parameter is
+     * evaluated for each resource in this list. The simulation determines the access result (allowed or denied) of each
+     * combination and reports it in the response. You can simulate resources that don't exist in your account.
      * </p>
      * <p>
      * The simulation does not automatically retrieve policies for the specified resources. If you want to include a
@@ -752,9 +1234,14 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
+     * <note>
+     * <p>
+     * Simulation of resource-based policies isn't supported for IAM roles.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setResourceArns(java.util.Collection)} or {@link #withResourceArns(java.util.Collection)} if you want to
@@ -762,10 +1249,11 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param resourceArns
-     *        A list of ARNs of AWS resources to include in the simulation. If this parameter is not provided, then the
-     *        value defaults to <code>*</code> (all resources). Each API in the <code>ActionNames</code> parameter is
-     *        evaluated for each resource in this list. The simulation determines the access result (allowed or denied)
-     *        of each combination and reports it in the response.</p>
+     *        A list of ARNs of Amazon Web Services resources to include in the simulation. If this parameter is not
+     *        provided, then the value defaults to <code>*</code> (all resources). Each API in the
+     *        <code>ActionNames</code> parameter is evaluated for each resource in this list. The simulation determines
+     *        the access result (allowed or denied) of each combination and reports it in the response. You can simulate
+     *        resources that don't exist in your account.</p>
      *        <p>
      *        The simulation does not automatically retrieve policies for the specified resources. If you want to
      *        include a resource policy in the simulation, then you must include the policy as a string in the
@@ -778,7 +1266,12 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        <p>
      *        For more information about ARNs, see <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Simulation of resource-based policies isn't supported for IAM roles.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -794,10 +1287,10 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of ARNs of AWS resources to include in the simulation. If this parameter is not provided, then the value
-     * defaults to <code>*</code> (all resources). Each API in the <code>ActionNames</code> parameter is evaluated for
-     * each resource in this list. The simulation determines the access result (allowed or denied) of each combination
-     * and reports it in the response.
+     * A list of ARNs of Amazon Web Services resources to include in the simulation. If this parameter is not provided,
+     * then the value defaults to <code>*</code> (all resources). Each API in the <code>ActionNames</code> parameter is
+     * evaluated for each resource in this list. The simulation determines the access result (allowed or denied) of each
+     * combination and reports it in the response. You can simulate resources that don't exist in your account.
      * </p>
      * <p>
      * The simulation does not automatically retrieve policies for the specified resources. If you want to include a
@@ -810,15 +1303,21 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
+     * <note>
+     * <p>
+     * Simulation of resource-based policies isn't supported for IAM roles.
+     * </p>
+     * </note>
      * 
      * @param resourceArns
-     *        A list of ARNs of AWS resources to include in the simulation. If this parameter is not provided, then the
-     *        value defaults to <code>*</code> (all resources). Each API in the <code>ActionNames</code> parameter is
-     *        evaluated for each resource in this list. The simulation determines the access result (allowed or denied)
-     *        of each combination and reports it in the response.</p>
+     *        A list of ARNs of Amazon Web Services resources to include in the simulation. If this parameter is not
+     *        provided, then the value defaults to <code>*</code> (all resources). Each API in the
+     *        <code>ActionNames</code> parameter is evaluated for each resource in this list. The simulation determines
+     *        the access result (allowed or denied) of each combination and reports it in the response. You can simulate
+     *        resources that don't exist in your account.</p>
      *        <p>
      *        The simulation does not automatically retrieve policies for the specified resources. If you want to
      *        include a resource policy in the simulation, then you must include the policy as a string in the
@@ -831,7 +1330,12 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        <p>
      *        For more information about ARNs, see <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Simulation of resource-based policies isn't supported for IAM roles.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -846,31 +1350,50 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * treated as if it had this policy attached. You can include only one resource-based policy in a simulation.
      * </p>
      * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
      * characters consisting of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * Simulation of resource-based policies isn't supported for IAM roles.
+     * </p>
+     * </note>
      * 
      * @param resourcePolicy
      *        A resource-based policy to include in the simulation provided as a string. Each resource in the simulation
      *        is treated as if it had this policy attached. You can include only one resource-based policy in a
      *        simulation.</p>
+     *        <p>
+     *        The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *        listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *        >IAM and STS character quotas</a>.
+     *        </p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
      *        string of characters consisting of the following:
@@ -878,20 +1401,27 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        Simulation of resource-based policies isn't supported for IAM roles.
+     *        </p>
      */
 
     public void setResourcePolicy(String resourcePolicy) {
@@ -904,30 +1434,49 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * treated as if it had this policy attached. You can include only one resource-based policy in a simulation.
      * </p>
      * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
      * characters consisting of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * Simulation of resource-based policies isn't supported for IAM roles.
+     * </p>
+     * </note>
      * 
      * @return A resource-based policy to include in the simulation provided as a string. Each resource in the
      *         simulation is treated as if it had this policy attached. You can include only one resource-based policy
      *         in a simulation.</p>
+     *         <p>
+     *         The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *         listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *         "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *         >IAM and STS character quotas</a>.
+     *         </p>
      *         <p>
      *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
      *         string of characters consisting of the following:
@@ -935,20 +1484,27 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *         <ul>
      *         <li>
      *         <p>
-     *         Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *         range
+     *         Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *         the ASCII character range
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *         <code>\u00FF</code>)
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The special characters tab ( ), line feed ( ), and carriage return ( )
+     *         The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *         <code>\u000D</code>)
      *         </p>
      *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         Simulation of resource-based policies isn't supported for IAM roles.
+     *         </p>
      */
 
     public String getResourcePolicy() {
@@ -961,31 +1517,50 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * treated as if it had this policy attached. You can include only one resource-based policy in a simulation.
      * </p>
      * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
      * characters consisting of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * Simulation of resource-based policies isn't supported for IAM roles.
+     * </p>
+     * </note>
      * 
      * @param resourcePolicy
      *        A resource-based policy to include in the simulation provided as a string. Each resource in the simulation
      *        is treated as if it had this policy attached. You can include only one resource-based policy in a
      *        simulation.</p>
+     *        <p>
+     *        The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *        listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *        >IAM and STS character quotas</a>.
+     *        </p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
      *        string of characters consisting of the following:
@@ -993,20 +1568,27 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        Simulation of resource-based policies isn't supported for IAM roles.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1017,8 +1599,8 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * An ARN representing the AWS account ID that specifies the owner of any simulated resource that does not identify
-     * its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or object. If
+     * An ARN representing the Amazon Web Services account ID that specifies the owner of any simulated resource that
+     * does not identify its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or object. If
      * <code>ResourceOwner</code> is specified, it is also used as the account owner of any <code>ResourcePolicy</code>
      * included in the simulation. If the <code>ResourceOwner</code> parameter is not specified, then the owner of the
      * resources and the resource policy defaults to the account of the identity provided in <code>CallerArn</code>.
@@ -1032,9 +1614,9 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param resourceOwner
-     *        An ARN representing the AWS account ID that specifies the owner of any simulated resource that does not
-     *        identify its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or object. If
-     *        <code>ResourceOwner</code> is specified, it is also used as the account owner of any
+     *        An ARN representing the Amazon Web Services account ID that specifies the owner of any simulated resource
+     *        that does not identify its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or
+     *        object. If <code>ResourceOwner</code> is specified, it is also used as the account owner of any
      *        <code>ResourcePolicy</code> included in the simulation. If the <code>ResourceOwner</code> parameter is not
      *        specified, then the owner of the resources and the resource policy defaults to the account of the identity
      *        provided in <code>CallerArn</code>. This parameter is required only if you specify a resource-based policy
@@ -1052,8 +1634,8 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * An ARN representing the AWS account ID that specifies the owner of any simulated resource that does not identify
-     * its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or object. If
+     * An ARN representing the Amazon Web Services account ID that specifies the owner of any simulated resource that
+     * does not identify its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or object. If
      * <code>ResourceOwner</code> is specified, it is also used as the account owner of any <code>ResourcePolicy</code>
      * included in the simulation. If the <code>ResourceOwner</code> parameter is not specified, then the owner of the
      * resources and the resource policy defaults to the account of the identity provided in <code>CallerArn</code>.
@@ -1066,9 +1648,9 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * <code>arn:aws:iam::112233445566-ID:root</code>.
      * </p>
      * 
-     * @return An ARN representing the AWS account ID that specifies the owner of any simulated resource that does not
-     *         identify its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or object. If
-     *         <code>ResourceOwner</code> is specified, it is also used as the account owner of any
+     * @return An ARN representing the Amazon Web Services account ID that specifies the owner of any simulated resource
+     *         that does not identify its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or
+     *         object. If <code>ResourceOwner</code> is specified, it is also used as the account owner of any
      *         <code>ResourcePolicy</code> included in the simulation. If the <code>ResourceOwner</code> parameter is
      *         not specified, then the owner of the resources and the resource policy defaults to the account of the
      *         identity provided in <code>CallerArn</code>. This parameter is required only if you specify a
@@ -1086,8 +1668,8 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * An ARN representing the AWS account ID that specifies the owner of any simulated resource that does not identify
-     * its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or object. If
+     * An ARN representing the Amazon Web Services account ID that specifies the owner of any simulated resource that
+     * does not identify its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or object. If
      * <code>ResourceOwner</code> is specified, it is also used as the account owner of any <code>ResourcePolicy</code>
      * included in the simulation. If the <code>ResourceOwner</code> parameter is not specified, then the owner of the
      * resources and the resource policy defaults to the account of the identity provided in <code>CallerArn</code>.
@@ -1101,9 +1683,9 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param resourceOwner
-     *        An ARN representing the AWS account ID that specifies the owner of any simulated resource that does not
-     *        identify its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or object. If
-     *        <code>ResourceOwner</code> is specified, it is also used as the account owner of any
+     *        An ARN representing the Amazon Web Services account ID that specifies the owner of any simulated resource
+     *        that does not identify its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or
+     *        object. If <code>ResourceOwner</code> is specified, it is also used as the account owner of any
      *        <code>ResourcePolicy</code> included in the simulation. If the <code>ResourceOwner</code> parameter is not
      *        specified, then the owner of the resources and the resource policy defaults to the account of the identity
      *        provided in <code>CallerArn</code>. This parameter is required only if you specify a resource-based policy
@@ -1284,36 +1866,20 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * supported scenario values and the resources that you must define to run the simulation.
      * </p>
      * <p>
-     * Each of the EC2 scenarios requires that you specify instance, image, and security-group resources. If your
-     * scenario includes an EBS volume, then you must specify that volume as a resource. If the EC2 scenario includes
-     * VPC, then you must supply the network-interface resource. If it includes an IP subnet, then you must specify the
-     * subnet resource. For more information on the EC2 scenario options, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported Platforms</a>
+     * Each of the Amazon EC2 scenarios requires that you specify instance, image, and security group resources. If your
+     * scenario includes an EBS volume, then you must specify that volume as a resource. If the Amazon EC2 scenario
+     * includes VPC, then you must supply the network interface resource. If it includes an IP subnet, then you must
+     * specify the subnet resource. For more information on the Amazon EC2 scenario options, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported platforms</a>
      * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>EC2-Classic-InstanceStore</b>
-     * </p>
-     * <p>
-     * instance, image, security-group
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <b>EC2-Classic-EBS</b>
-     * </p>
-     * <p>
-     * instance, image, security-group, volume
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <b>EC2-VPC-InstanceStore</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface
+     * instance, image, security group, network interface
      * </p>
      * </li>
      * <li>
@@ -1321,7 +1887,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * <b>EC2-VPC-InstanceStore-Subnet</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface, subnet
+     * instance, image, security group, network interface, subnet
      * </p>
      * </li>
      * <li>
@@ -1329,7 +1895,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * <b>EC2-VPC-EBS</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface, volume
+     * instance, image, security group, network interface, volume
      * </p>
      * </li>
      * <li>
@@ -1337,7 +1903,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * <b>EC2-VPC-EBS-Subnet</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface, subnet, volume
+     * instance, image, security group, network interface, subnet, volume
      * </p>
      * </li>
      * </ul>
@@ -1350,36 +1916,21 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        following list shows each of the supported scenario values and the resources that you must define to run
      *        the simulation.</p>
      *        <p>
-     *        Each of the EC2 scenarios requires that you specify instance, image, and security-group resources. If your
-     *        scenario includes an EBS volume, then you must specify that volume as a resource. If the EC2 scenario
-     *        includes VPC, then you must supply the network-interface resource. If it includes an IP subnet, then you
-     *        must specify the subnet resource. For more information on the EC2 scenario options, see <a
+     *        Each of the Amazon EC2 scenarios requires that you specify instance, image, and security group resources.
+     *        If your scenario includes an EBS volume, then you must specify that volume as a resource. If the Amazon
+     *        EC2 scenario includes VPC, then you must supply the network interface resource. If it includes an IP
+     *        subnet, then you must specify the subnet resource. For more information on the Amazon EC2 scenario
+     *        options, see <a
      *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported
-     *        Platforms</a> in the <i>Amazon EC2 User Guide</i>.
+     *        platforms</a> in the <i>Amazon EC2 User Guide</i>.
      *        </p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <b>EC2-Classic-InstanceStore</b>
-     *        </p>
-     *        <p>
-     *        instance, image, security-group
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <b>EC2-Classic-EBS</b>
-     *        </p>
-     *        <p>
-     *        instance, image, security-group, volume
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <b>EC2-VPC-InstanceStore</b>
      *        </p>
      *        <p>
-     *        instance, image, security-group, network-interface
+     *        instance, image, security group, network interface
      *        </p>
      *        </li>
      *        <li>
@@ -1387,7 +1938,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        <b>EC2-VPC-InstanceStore-Subnet</b>
      *        </p>
      *        <p>
-     *        instance, image, security-group, network-interface, subnet
+     *        instance, image, security group, network interface, subnet
      *        </p>
      *        </li>
      *        <li>
@@ -1395,7 +1946,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        <b>EC2-VPC-EBS</b>
      *        </p>
      *        <p>
-     *        instance, image, security-group, network-interface, volume
+     *        instance, image, security group, network interface, volume
      *        </p>
      *        </li>
      *        <li>
@@ -1403,7 +1954,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        <b>EC2-VPC-EBS-Subnet</b>
      *        </p>
      *        <p>
-     *        instance, image, security-group, network-interface, subnet, volume
+     *        instance, image, security group, network interface, subnet, volume
      *        </p>
      *        </li>
      */
@@ -1421,36 +1972,20 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * supported scenario values and the resources that you must define to run the simulation.
      * </p>
      * <p>
-     * Each of the EC2 scenarios requires that you specify instance, image, and security-group resources. If your
-     * scenario includes an EBS volume, then you must specify that volume as a resource. If the EC2 scenario includes
-     * VPC, then you must supply the network-interface resource. If it includes an IP subnet, then you must specify the
-     * subnet resource. For more information on the EC2 scenario options, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported Platforms</a>
+     * Each of the Amazon EC2 scenarios requires that you specify instance, image, and security group resources. If your
+     * scenario includes an EBS volume, then you must specify that volume as a resource. If the Amazon EC2 scenario
+     * includes VPC, then you must supply the network interface resource. If it includes an IP subnet, then you must
+     * specify the subnet resource. For more information on the Amazon EC2 scenario options, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported platforms</a>
      * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>EC2-Classic-InstanceStore</b>
-     * </p>
-     * <p>
-     * instance, image, security-group
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <b>EC2-Classic-EBS</b>
-     * </p>
-     * <p>
-     * instance, image, security-group, volume
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <b>EC2-VPC-InstanceStore</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface
+     * instance, image, security group, network interface
      * </p>
      * </li>
      * <li>
@@ -1458,7 +1993,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * <b>EC2-VPC-InstanceStore-Subnet</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface, subnet
+     * instance, image, security group, network interface, subnet
      * </p>
      * </li>
      * <li>
@@ -1466,7 +2001,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * <b>EC2-VPC-EBS</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface, volume
+     * instance, image, security group, network interface, volume
      * </p>
      * </li>
      * <li>
@@ -1474,7 +2009,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * <b>EC2-VPC-EBS-Subnet</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface, subnet, volume
+     * instance, image, security group, network interface, subnet, volume
      * </p>
      * </li>
      * </ul>
@@ -1486,36 +2021,21 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *         following list shows each of the supported scenario values and the resources that you must define to run
      *         the simulation.</p>
      *         <p>
-     *         Each of the EC2 scenarios requires that you specify instance, image, and security-group resources. If
-     *         your scenario includes an EBS volume, then you must specify that volume as a resource. If the EC2
-     *         scenario includes VPC, then you must supply the network-interface resource. If it includes an IP subnet,
-     *         then you must specify the subnet resource. For more information on the EC2 scenario options, see <a
+     *         Each of the Amazon EC2 scenarios requires that you specify instance, image, and security group resources.
+     *         If your scenario includes an EBS volume, then you must specify that volume as a resource. If the Amazon
+     *         EC2 scenario includes VPC, then you must supply the network interface resource. If it includes an IP
+     *         subnet, then you must specify the subnet resource. For more information on the Amazon EC2 scenario
+     *         options, see <a
      *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported
-     *         Platforms</a> in the <i>Amazon EC2 User Guide</i>.
+     *         platforms</a> in the <i>Amazon EC2 User Guide</i>.
      *         </p>
      *         <ul>
-     *         <li>
-     *         <p>
-     *         <b>EC2-Classic-InstanceStore</b>
-     *         </p>
-     *         <p>
-     *         instance, image, security-group
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         <b>EC2-Classic-EBS</b>
-     *         </p>
-     *         <p>
-     *         instance, image, security-group, volume
-     *         </p>
-     *         </li>
      *         <li>
      *         <p>
      *         <b>EC2-VPC-InstanceStore</b>
      *         </p>
      *         <p>
-     *         instance, image, security-group, network-interface
+     *         instance, image, security group, network interface
      *         </p>
      *         </li>
      *         <li>
@@ -1523,7 +2043,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *         <b>EC2-VPC-InstanceStore-Subnet</b>
      *         </p>
      *         <p>
-     *         instance, image, security-group, network-interface, subnet
+     *         instance, image, security group, network interface, subnet
      *         </p>
      *         </li>
      *         <li>
@@ -1531,7 +2051,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *         <b>EC2-VPC-EBS</b>
      *         </p>
      *         <p>
-     *         instance, image, security-group, network-interface, volume
+     *         instance, image, security group, network interface, volume
      *         </p>
      *         </li>
      *         <li>
@@ -1539,7 +2059,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *         <b>EC2-VPC-EBS-Subnet</b>
      *         </p>
      *         <p>
-     *         instance, image, security-group, network-interface, subnet, volume
+     *         instance, image, security group, network interface, subnet, volume
      *         </p>
      *         </li>
      */
@@ -1557,36 +2077,20 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * supported scenario values and the resources that you must define to run the simulation.
      * </p>
      * <p>
-     * Each of the EC2 scenarios requires that you specify instance, image, and security-group resources. If your
-     * scenario includes an EBS volume, then you must specify that volume as a resource. If the EC2 scenario includes
-     * VPC, then you must supply the network-interface resource. If it includes an IP subnet, then you must specify the
-     * subnet resource. For more information on the EC2 scenario options, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported Platforms</a>
+     * Each of the Amazon EC2 scenarios requires that you specify instance, image, and security group resources. If your
+     * scenario includes an EBS volume, then you must specify that volume as a resource. If the Amazon EC2 scenario
+     * includes VPC, then you must supply the network interface resource. If it includes an IP subnet, then you must
+     * specify the subnet resource. For more information on the Amazon EC2 scenario options, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported platforms</a>
      * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>EC2-Classic-InstanceStore</b>
-     * </p>
-     * <p>
-     * instance, image, security-group
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <b>EC2-Classic-EBS</b>
-     * </p>
-     * <p>
-     * instance, image, security-group, volume
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <b>EC2-VPC-InstanceStore</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface
+     * instance, image, security group, network interface
      * </p>
      * </li>
      * <li>
@@ -1594,7 +2098,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * <b>EC2-VPC-InstanceStore-Subnet</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface, subnet
+     * instance, image, security group, network interface, subnet
      * </p>
      * </li>
      * <li>
@@ -1602,7 +2106,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * <b>EC2-VPC-EBS</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface, volume
+     * instance, image, security group, network interface, volume
      * </p>
      * </li>
      * <li>
@@ -1610,7 +2114,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * <b>EC2-VPC-EBS-Subnet</b>
      * </p>
      * <p>
-     * instance, image, security-group, network-interface, subnet, volume
+     * instance, image, security group, network interface, subnet, volume
      * </p>
      * </li>
      * </ul>
@@ -1623,36 +2127,21 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        following list shows each of the supported scenario values and the resources that you must define to run
      *        the simulation.</p>
      *        <p>
-     *        Each of the EC2 scenarios requires that you specify instance, image, and security-group resources. If your
-     *        scenario includes an EBS volume, then you must specify that volume as a resource. If the EC2 scenario
-     *        includes VPC, then you must supply the network-interface resource. If it includes an IP subnet, then you
-     *        must specify the subnet resource. For more information on the EC2 scenario options, see <a
+     *        Each of the Amazon EC2 scenarios requires that you specify instance, image, and security group resources.
+     *        If your scenario includes an EBS volume, then you must specify that volume as a resource. If the Amazon
+     *        EC2 scenario includes VPC, then you must supply the network interface resource. If it includes an IP
+     *        subnet, then you must specify the subnet resource. For more information on the Amazon EC2 scenario
+     *        options, see <a
      *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported
-     *        Platforms</a> in the <i>Amazon EC2 User Guide</i>.
+     *        platforms</a> in the <i>Amazon EC2 User Guide</i>.
      *        </p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <b>EC2-Classic-InstanceStore</b>
-     *        </p>
-     *        <p>
-     *        instance, image, security-group
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <b>EC2-Classic-EBS</b>
-     *        </p>
-     *        <p>
-     *        instance, image, security-group, volume
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <b>EC2-VPC-InstanceStore</b>
      *        </p>
      *        <p>
-     *        instance, image, security-group, network-interface
+     *        instance, image, security group, network interface
      *        </p>
      *        </li>
      *        <li>
@@ -1660,7 +2149,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        <b>EC2-VPC-InstanceStore-Subnet</b>
      *        </p>
      *        <p>
-     *        instance, image, security-group, network-interface, subnet
+     *        instance, image, security group, network interface, subnet
      *        </p>
      *        </li>
      *        <li>
@@ -1668,7 +2157,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        <b>EC2-VPC-EBS</b>
      *        </p>
      *        <p>
-     *        instance, image, security-group, network-interface, volume
+     *        instance, image, security group, network interface, volume
      *        </p>
      *        </li>
      *        <li>
@@ -1676,7 +2165,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
      *        <b>EC2-VPC-EBS-Subnet</b>
      *        </p>
      *        <p>
-     *        instance, image, security-group, network-interface, subnet, volume
+     *        instance, image, security group, network interface, subnet, volume
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1838,6 +2327,8 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
         sb.append("{");
         if (getPolicyInputList() != null)
             sb.append("PolicyInputList: ").append(getPolicyInputList()).append(",");
+        if (getPermissionsBoundaryPolicyInputList() != null)
+            sb.append("PermissionsBoundaryPolicyInputList: ").append(getPermissionsBoundaryPolicyInputList()).append(",");
         if (getActionNames() != null)
             sb.append("ActionNames: ").append(getActionNames()).append(",");
         if (getResourceArns() != null)
@@ -1873,6 +2364,11 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
         if (other.getPolicyInputList() == null ^ this.getPolicyInputList() == null)
             return false;
         if (other.getPolicyInputList() != null && other.getPolicyInputList().equals(this.getPolicyInputList()) == false)
+            return false;
+        if (other.getPermissionsBoundaryPolicyInputList() == null ^ this.getPermissionsBoundaryPolicyInputList() == null)
+            return false;
+        if (other.getPermissionsBoundaryPolicyInputList() != null
+                && other.getPermissionsBoundaryPolicyInputList().equals(this.getPermissionsBoundaryPolicyInputList()) == false)
             return false;
         if (other.getActionNames() == null ^ this.getActionNames() == null)
             return false;
@@ -1919,6 +2415,7 @@ public class SimulateCustomPolicyRequest extends com.amazonaws.AmazonWebServiceR
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getPolicyInputList() == null) ? 0 : getPolicyInputList().hashCode());
+        hashCode = prime * hashCode + ((getPermissionsBoundaryPolicyInputList() == null) ? 0 : getPermissionsBoundaryPolicyInputList().hashCode());
         hashCode = prime * hashCode + ((getActionNames() == null) ? 0 : getActionNames().hashCode());
         hashCode = prime * hashCode + ((getResourceArns() == null) ? 0 : getResourceArns().hashCode());
         hashCode = prime * hashCode + ((getResourcePolicy() == null) ? 0 : getResourcePolicy().hashCode());

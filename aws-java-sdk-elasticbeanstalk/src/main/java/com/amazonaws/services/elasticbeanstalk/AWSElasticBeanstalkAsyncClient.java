@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,8 +38,8 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <p>
  * For more information about this product, go to the <a href="http://aws.amazon.com/elasticbeanstalk/">AWS Elastic
  * Beanstalk</a> details page. The location of the latest AWS Elastic Beanstalk WSDL is <a
- * href="http://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl"
- * >http://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl</a>. To install the Software
+ * href="https://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl"
+ * >https://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl</a>. To install the Software
  * Development Kits (SDKs), Integrated Development Environment (IDE) Toolkits, and command line tools that enable you to
  * access the API, go to <a href="http://aws.amazon.com/tools/">Tools for Amazon Web Services</a>.
  * </p>
@@ -250,7 +250,20 @@ public class AWSElasticBeanstalkAsyncClient extends AWSElasticBeanstalkClient im
      *        Object providing client parameters.
      */
     AWSElasticBeanstalkAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Elastic Beanstalk using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSElasticBeanstalkAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -338,6 +351,41 @@ public class AWSElasticBeanstalkAsyncClient extends AWSElasticBeanstalkClient im
 
                 try {
                     result = executeApplyEnvironmentManagedAction(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateEnvironmentOperationsRoleResult> associateEnvironmentOperationsRoleAsync(
+            AssociateEnvironmentOperationsRoleRequest request) {
+
+        return associateEnvironmentOperationsRoleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateEnvironmentOperationsRoleResult> associateEnvironmentOperationsRoleAsync(
+            final AssociateEnvironmentOperationsRoleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateEnvironmentOperationsRoleRequest, AssociateEnvironmentOperationsRoleResult> asyncHandler) {
+        final AssociateEnvironmentOperationsRoleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateEnvironmentOperationsRoleResult>() {
+            @Override
+            public AssociateEnvironmentOperationsRoleResult call() throws Exception {
+                AssociateEnvironmentOperationsRoleResult result = null;
+
+                try {
+                    result = executeAssociateEnvironmentOperationsRole(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1333,6 +1381,41 @@ public class AWSElasticBeanstalkAsyncClient extends AWSElasticBeanstalkClient im
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateEnvironmentOperationsRoleResult> disassociateEnvironmentOperationsRoleAsync(
+            DisassociateEnvironmentOperationsRoleRequest request) {
+
+        return disassociateEnvironmentOperationsRoleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateEnvironmentOperationsRoleResult> disassociateEnvironmentOperationsRoleAsync(
+            final DisassociateEnvironmentOperationsRoleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisassociateEnvironmentOperationsRoleRequest, DisassociateEnvironmentOperationsRoleResult> asyncHandler) {
+        final DisassociateEnvironmentOperationsRoleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisassociateEnvironmentOperationsRoleResult>() {
+            @Override
+            public DisassociateEnvironmentOperationsRoleResult call() throws Exception {
+                DisassociateEnvironmentOperationsRoleResult result = null;
+
+                try {
+                    result = executeDisassociateEnvironmentOperationsRole(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListAvailableSolutionStacksResult> listAvailableSolutionStacksAsync(ListAvailableSolutionStacksRequest request) {
 
         return listAvailableSolutionStacksAsync(request, null);
@@ -1386,6 +1469,39 @@ public class AWSElasticBeanstalkAsyncClient extends AWSElasticBeanstalkClient im
             com.amazonaws.handlers.AsyncHandler<ListAvailableSolutionStacksRequest, ListAvailableSolutionStacksResult> asyncHandler) {
 
         return listAvailableSolutionStacksAsync(new ListAvailableSolutionStacksRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPlatformBranchesResult> listPlatformBranchesAsync(ListPlatformBranchesRequest request) {
+
+        return listPlatformBranchesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPlatformBranchesResult> listPlatformBranchesAsync(final ListPlatformBranchesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListPlatformBranchesRequest, ListPlatformBranchesResult> asyncHandler) {
+        final ListPlatformBranchesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListPlatformBranchesResult>() {
+            @Override
+            public ListPlatformBranchesResult call() throws Exception {
+                ListPlatformBranchesResult result = null;
+
+                try {
+                    result = executeListPlatformBranches(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override

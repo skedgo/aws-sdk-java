@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -43,14 +43,28 @@ import org.joda.time.DateTime;
  *     <li>ExpirationBuffer - The amount of time between when the credentials expire and when the credentials should start to be
  *     refreshed. This allows the credentials to be refreshed *before* they are reported to expire. Default: 15 seconds.</li>
  *     <li>ProcessOutputLimit - The maximum amount of data that can be returned by the external process before an exception is
- *     raised. Default: 1024 bytes.</li>
+ *     raised. Default: 64000 bytes.</li>
  * </ul>
+ *
+ * <p>
+ * <b>Migrating to the AWS SDK for Java v2</b>
+ * <p>
+ * The v2 equivalent of this class is
+ * <a href="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/auth/credentials/ProcessCredentialsProvider.html">ProcessCredentialsProvider</a>
+ *
+ * <p>
+ * See <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/migration-client-credentials.html">Migration Guide</a>
+ * for more information.
  */
 public final class ProcessCredentialsProvider implements AWSCredentialsProvider {
+
+    private static final String PROVIDER_NAME = "ProcessCredentialsProvider";
+
     private final List<String> command;
     private final int expirationBufferValue;
     private final TimeUnit expirationBufferUnit;
     private final long processOutputLimit;
+    private final String staticAccountId;
 
     private final Object credentialLock = new Object();
 
@@ -61,24 +75,31 @@ public final class ProcessCredentialsProvider implements AWSCredentialsProvider 
      * @see #builder()
      */
     private ProcessCredentialsProvider(Builder builder) {
-        List<String> cmd = new ArrayList<String>();
-
-        if (Platform.isWindows()) {
-            cmd.add("cmd.exe");
-            cmd.add("/C");
-        } else {
-            cmd.add("sh");
-            cmd.add("-c");
-        }
-
-        String builderCommand = ValidationUtils.assertNotNull(builder.command, "command");
-
-        cmd.add(builderCommand);
-
-        this.command = Collections.unmodifiableList(cmd);
+        this.command = executableCommand(builder);
         this.processOutputLimit = ValidationUtils.assertNotNull(builder.processOutputLimit, "processOutputLimit");
         this.expirationBufferValue = ValidationUtils.assertNotNull(builder.expirationBufferValue, "expirationBufferValue");
         this.expirationBufferUnit = ValidationUtils.assertNotNull(builder.expirationBufferUnit, "expirationBufferUnit");
+        this.staticAccountId = builder.staticAccountId;
+    }
+
+    private List<String> executableCommand(Builder builder) {
+        if (builder.commandAsListOfStrings != null) {
+            return Collections.unmodifiableList(builder.commandAsListOfStrings);
+        } else {
+            List<String> cmd = new ArrayList<String>();
+
+            if (Platform.isWindows()) {
+                cmd.add("cmd.exe");
+                cmd.add("/C");
+            } else {
+                cmd.add("sh");
+                cmd.add("-c");
+            }
+
+            String builderCommand = ValidationUtils.assertNotNull(builder.command, "command");
+            cmd.add(builderCommand);
+            return Collections.unmodifiableList(cmd);
+        }
     }
 
     /**
@@ -159,14 +180,17 @@ public final class ProcessCredentialsProvider implements AWSCredentialsProvider 
         String accessKeyId = getText(credentialsJson, "AccessKeyId");
         String secretAccessKey = getText(credentialsJson, "SecretAccessKey");
         String sessionToken = getText(credentialsJson, "SessionToken");
+        String accountIdFromJson = getText(credentialsJson, "AccountId");
+
+        String resolvedAccountId = accountIdFromJson == null ? this.staticAccountId : accountIdFromJson;
 
         ValidationUtils.assertStringNotEmpty(accessKeyId, "AccessKeyId");
         ValidationUtils.assertStringNotEmpty(secretAccessKey, "SecretAccessKey");
 
         if (sessionToken != null) {
-            return new BasicSessionCredentials(accessKeyId, secretAccessKey, sessionToken);
+            return new BasicSessionCredentials(accessKeyId, secretAccessKey, sessionToken, resolvedAccountId, PROVIDER_NAME);
         } else {
-            return new BasicAWSCredentials(accessKeyId, secretAccessKey);
+            return new BasicAWSCredentials(accessKeyId, secretAccessKey, resolvedAccountId, PROVIDER_NAME);
         }
     }
 
@@ -232,9 +256,11 @@ public final class ProcessCredentialsProvider implements AWSCredentialsProvider 
      */
     public static class Builder {
         private String command;
+        private List<String> commandAsListOfStrings;
         private int expirationBufferValue = 15;
         private TimeUnit expirationBufferUnit = TimeUnit.SECONDS;
-        private long processOutputLimit = 1024;
+        private long processOutputLimit = 64000;
+        private String staticAccountId;
 
         /**
          * @see #builder()
@@ -243,16 +269,44 @@ public final class ProcessCredentialsProvider implements AWSCredentialsProvider 
 
         /**
          * Configure the command that should be executed to retrieve credentials.
+         * See {@link ProcessBuilder} for details on how this command is used.
+         *
+         * @deprecated The recommended approach is to specify the command as a list of Strings, using
+         * {@link #setCommand(List)} instead, which makes it easier to programmatically add parameters to commands
+         * without needing to escape those parameters to protect against command injection.
          */
+        @Deprecated
         private void setCommand(String command) {
             this.command = command;
         }
 
         /**
-         * @see #setCommand(String)
+         * Configure the command that should be executed to retrieve credentials and return this Builder.
+         * See {@link ProcessBuilder} for details on how this command is used.
+         *
+         * @deprecated The recommended approach is to specify the command as a list of Strings, using
+         * {@link #withCommand(List)} instead, which makes it easier to programmatically add parameters to commands
+         * without needing to escape those parameters to protect against command injection.
          */
+        @Deprecated
         public Builder withCommand(String command) {
             setCommand(command);
+            return this;
+        }
+
+        /**
+         * Configure the command that should be executed to retrieve credentials, as a list of strings.
+         * See {@link ProcessBuilder} for details on how this command is used.
+         */
+        private void setCommand(List<String> commandAsListOfStrings) {
+            this.commandAsListOfStrings = commandAsListOfStrings;
+        }
+
+        /**
+         * @see #setCommand(List)
+         */
+        public Builder withCommand(List<String> commands) {
+            setCommand(commands);
             return this;
         }
 
@@ -279,7 +333,7 @@ public final class ProcessCredentialsProvider implements AWSCredentialsProvider 
          * Configure the maximum amount of data that can be returned by the external process before an exception is
          * raised.
          *
-         * Default: 1024 bytes.
+         * Default: 64000 bytes.
          */
         private void setProcessOutputLimit(long outputByteLimit) {
             this.processOutputLimit = outputByteLimit;
@@ -290,6 +344,24 @@ public final class ProcessCredentialsProvider implements AWSCredentialsProvider 
          */
         public Builder withProcessOutputLimit(long outputByteLimit) {
             setProcessOutputLimit(outputByteLimit);
+            return this;
+        }
+
+        /**
+         * Configure a static account id for this credentials provider. Account id for ProcessCredentialsProvider is only
+         * relevant in a context where a service constructs endpoint URL containing an account id.
+         * This option should ONLY be used if the provider should return credentials with account id, and the process does not
+         * output account id. If a static account ID is configured, and the process also returns an account
+         * id, the process output value overrides the static value. If used, the static account id MUST match the credentials
+         * returned by the process.
+         */
+        public void setStaticAccountId(String staticAccountId) { this.staticAccountId = staticAccountId; }
+
+        /**
+         * @see #setStaticAccountId(String)
+         */
+        public Builder withStaticAccountId(String staticAccountId) {
+            setStaticAccountId(staticAccountId);
             return this;
         }
 

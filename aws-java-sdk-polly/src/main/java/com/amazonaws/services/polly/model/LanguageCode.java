@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,7 +48,17 @@ public enum LanguageCode {
     RoRO("ro-RO"),
     RuRU("ru-RU"),
     SvSE("sv-SE"),
-    TrTR("tr-TR");
+    TrTR("tr-TR"),
+    EnNZ("en-NZ"),
+    EnZA("en-ZA"),
+    CaES("ca-ES"),
+    DeAT("de-AT"),
+    YueCN("yue-CN"),
+    ArAE("ar-AE"),
+    FiFI("fi-FI"),
+    EnIE("en-IE"),
+    NlBE("nl-BE"),
+    FrBE("fr-BE");
 
     private String value;
 

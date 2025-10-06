@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,21 +30,29 @@ public class ListPipelinesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * An identifier that was returned from the previous list pipelines call, which can be used to return the next set
-     * of pipelines in the list.
+     * An identifier that was returned from the previous list pipelines call. It can be used to return the next set of
+     * pipelines in the list.
      * </p>
      */
     private String nextToken;
+    /**
+     * <p>
+     * The maximum number of pipelines to return in a single call. To retrieve the remaining pipelines, make another
+     * call with the returned nextToken value. The minimum value you can specify is 1. The maximum accepted value is
+     * 1000.
+     * </p>
+     */
+    private Integer maxResults;
 
     /**
      * <p>
-     * An identifier that was returned from the previous list pipelines call, which can be used to return the next set
-     * of pipelines in the list.
+     * An identifier that was returned from the previous list pipelines call. It can be used to return the next set of
+     * pipelines in the list.
      * </p>
      * 
      * @param nextToken
-     *        An identifier that was returned from the previous list pipelines call, which can be used to return the
-     *        next set of pipelines in the list.
+     *        An identifier that was returned from the previous list pipelines call. It can be used to return the next
+     *        set of pipelines in the list.
      */
 
     public void setNextToken(String nextToken) {
@@ -53,12 +61,12 @@ public class ListPipelinesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * An identifier that was returned from the previous list pipelines call, which can be used to return the next set
-     * of pipelines in the list.
+     * An identifier that was returned from the previous list pipelines call. It can be used to return the next set of
+     * pipelines in the list.
      * </p>
      * 
-     * @return An identifier that was returned from the previous list pipelines call, which can be used to return the
-     *         next set of pipelines in the list.
+     * @return An identifier that was returned from the previous list pipelines call. It can be used to return the next
+     *         set of pipelines in the list.
      */
 
     public String getNextToken() {
@@ -67,18 +75,70 @@ public class ListPipelinesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * An identifier that was returned from the previous list pipelines call, which can be used to return the next set
-     * of pipelines in the list.
+     * An identifier that was returned from the previous list pipelines call. It can be used to return the next set of
+     * pipelines in the list.
      * </p>
      * 
      * @param nextToken
-     *        An identifier that was returned from the previous list pipelines call, which can be used to return the
-     *        next set of pipelines in the list.
+     *        An identifier that was returned from the previous list pipelines call. It can be used to return the next
+     *        set of pipelines in the list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ListPipelinesRequest withNextToken(String nextToken) {
         setNextToken(nextToken);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maximum number of pipelines to return in a single call. To retrieve the remaining pipelines, make another
+     * call with the returned nextToken value. The minimum value you can specify is 1. The maximum accepted value is
+     * 1000.
+     * </p>
+     * 
+     * @param maxResults
+     *        The maximum number of pipelines to return in a single call. To retrieve the remaining pipelines, make
+     *        another call with the returned nextToken value. The minimum value you can specify is 1. The maximum
+     *        accepted value is 1000.
+     */
+
+    public void setMaxResults(Integer maxResults) {
+        this.maxResults = maxResults;
+    }
+
+    /**
+     * <p>
+     * The maximum number of pipelines to return in a single call. To retrieve the remaining pipelines, make another
+     * call with the returned nextToken value. The minimum value you can specify is 1. The maximum accepted value is
+     * 1000.
+     * </p>
+     * 
+     * @return The maximum number of pipelines to return in a single call. To retrieve the remaining pipelines, make
+     *         another call with the returned nextToken value. The minimum value you can specify is 1. The maximum
+     *         accepted value is 1000.
+     */
+
+    public Integer getMaxResults() {
+        return this.maxResults;
+    }
+
+    /**
+     * <p>
+     * The maximum number of pipelines to return in a single call. To retrieve the remaining pipelines, make another
+     * call with the returned nextToken value. The minimum value you can specify is 1. The maximum accepted value is
+     * 1000.
+     * </p>
+     * 
+     * @param maxResults
+     *        The maximum number of pipelines to return in a single call. To retrieve the remaining pipelines, make
+     *        another call with the returned nextToken value. The minimum value you can specify is 1. The maximum
+     *        accepted value is 1000.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListPipelinesRequest withMaxResults(Integer maxResults) {
+        setMaxResults(maxResults);
         return this;
     }
 
@@ -95,7 +155,9 @@ public class ListPipelinesRequest extends com.amazonaws.AmazonWebServiceRequest 
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getNextToken() != null)
-            sb.append("NextToken: ").append(getNextToken());
+            sb.append("NextToken: ").append(getNextToken()).append(",");
+        if (getMaxResults() != null)
+            sb.append("MaxResults: ").append(getMaxResults());
         sb.append("}");
         return sb.toString();
     }
@@ -114,6 +176,10 @@ public class ListPipelinesRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
             return false;
+        if (other.getMaxResults() == null ^ this.getMaxResults() == null)
+            return false;
+        if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
+            return false;
         return true;
     }
 
@@ -123,6 +189,7 @@ public class ListPipelinesRequest extends com.amazonaws.AmazonWebServiceRequest 
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
+        hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
         return hashCode;
     }
 

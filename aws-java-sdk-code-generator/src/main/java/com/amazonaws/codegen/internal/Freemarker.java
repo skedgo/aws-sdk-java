@@ -44,8 +44,7 @@ public class Freemarker {
     private static CodeGenTemplatesConfig loadProtocolTemplatesConfig(IntermediateModel model) {
         // CBOR is a type of JSON Protocol.  Use JSON Protocol for templates
         Protocol templateProtocol = model.getMetadata().getProtocol();
-        if (Protocol.CBOR.equals(model.getMetadata().getProtocol()) ||
-            Protocol.ION.equals(model.getMetadata().getProtocol())) {
+        if (Protocol.CBOR.equals(model.getMetadata().getProtocol())) {
             templateProtocol = Protocol.AWS_JSON;
         }
         CodeGenTemplatesConfig protocolDefaultConfig = CodeGenTemplatesConfig.load(templateProtocol);
@@ -250,5 +249,13 @@ public class Freemarker {
 
     public Template getEndpointDiscoveryCacheLoaderTemplate() throws IOException {
         return getTemplate(templateConfig.getEndpointDiscoveryCacheLoader());
+    }
+
+    public Template getEndpointDiscoveryIdentifiersCacheTemplate() throws IOException {
+        return getTemplate(templateConfig.getEndpointDiscoveryIdentifiersCache());
+    }
+
+    public Template getEndpointDiscoveryIdentifiersCacheLoaderTemplate() throws IOException {
+        return getTemplate(templateConfig.getEndpointDiscoveryIdentifiersCacheLoader());
     }
 }

@@ -1,0 +1,495 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.ecs.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * The managed scaling settings for the Auto Scaling group capacity provider.
+ * </p>
+ * <p>
+ * When managed scaling is turned on, Amazon ECS manages the scale-in and scale-out actions of the Auto Scaling group.
+ * Amazon ECS manages a target tracking scaling policy using an Amazon ECS managed CloudWatch metric with the specified
+ * <code>targetCapacity</code> value as the target value for the metric. For more information, see <a href=
+ * "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/asg-capacity-providers.html#asg-capacity-providers-managed-scaling"
+ * >Using managed scaling</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+ * </p>
+ * <p>
+ * If managed scaling is off, the user must manage the scaling of the Auto Scaling group.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/ManagedScaling" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class ManagedScaling implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * Determines whether to use managed scaling for the capacity provider.
+     * </p>
+     */
+    private String status;
+    /**
+     * <p>
+     * The target capacity utilization as a percentage for the capacity provider. The specified value must be greater
+     * than <code>0</code> and less than or equal to <code>100</code>. For example, if you want the capacity provider to
+     * maintain 10% spare capacity, then that means the utilization is 90%, so use a <code>targetCapacity</code> of
+     * <code>90</code>. The default value of <code>100</code> percent results in the Amazon EC2 instances in your Auto
+     * Scaling group being completely used.
+     * </p>
+     */
+    private Integer targetCapacity;
+    /**
+     * <p>
+     * The minimum number of Amazon EC2 instances that Amazon ECS will scale out at one time. The scale in process is
+     * not affected by this parameter If this parameter is omitted, the default value of <code>1</code> is used.
+     * </p>
+     * <p>
+     * When additional capacity is required, Amazon ECS will scale up the minimum scaling step size even if the actual
+     * demand is less than the minimum scaling step size.
+     * </p>
+     * <p>
+     * If you use a capacity provider with an Auto Scaling group configured with more than one Amazon EC2 instance type
+     * or Availability Zone, Amazon ECS will scale up by the exact minimum scaling step size value and will ignore both
+     * the maximum scaling step size as well as the capacity demand.
+     * </p>
+     */
+    private Integer minimumScalingStepSize;
+    /**
+     * <p>
+     * The maximum number of Amazon EC2 instances that Amazon ECS will scale out at one time. The scale in process is
+     * not affected by this parameter. If this parameter is omitted, the default value of <code>10000</code> is used.
+     * </p>
+     */
+    private Integer maximumScalingStepSize;
+    /**
+     * <p>
+     * The period of time, in seconds, after a newly launched Amazon EC2 instance can contribute to CloudWatch metrics
+     * for Auto Scaling group. If this parameter is omitted, the default value of <code>300</code> seconds is used.
+     * </p>
+     */
+    private Integer instanceWarmupPeriod;
+
+    /**
+     * <p>
+     * Determines whether to use managed scaling for the capacity provider.
+     * </p>
+     * 
+     * @param status
+     *        Determines whether to use managed scaling for the capacity provider.
+     * @see ManagedScalingStatus
+     */
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * <p>
+     * Determines whether to use managed scaling for the capacity provider.
+     * </p>
+     * 
+     * @return Determines whether to use managed scaling for the capacity provider.
+     * @see ManagedScalingStatus
+     */
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    /**
+     * <p>
+     * Determines whether to use managed scaling for the capacity provider.
+     * </p>
+     * 
+     * @param status
+     *        Determines whether to use managed scaling for the capacity provider.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ManagedScalingStatus
+     */
+
+    public ManagedScaling withStatus(String status) {
+        setStatus(status);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Determines whether to use managed scaling for the capacity provider.
+     * </p>
+     * 
+     * @param status
+     *        Determines whether to use managed scaling for the capacity provider.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ManagedScalingStatus
+     */
+
+    public ManagedScaling withStatus(ManagedScalingStatus status) {
+        this.status = status.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The target capacity utilization as a percentage for the capacity provider. The specified value must be greater
+     * than <code>0</code> and less than or equal to <code>100</code>. For example, if you want the capacity provider to
+     * maintain 10% spare capacity, then that means the utilization is 90%, so use a <code>targetCapacity</code> of
+     * <code>90</code>. The default value of <code>100</code> percent results in the Amazon EC2 instances in your Auto
+     * Scaling group being completely used.
+     * </p>
+     * 
+     * @param targetCapacity
+     *        The target capacity utilization as a percentage for the capacity provider. The specified value must be
+     *        greater than <code>0</code> and less than or equal to <code>100</code>. For example, if you want the
+     *        capacity provider to maintain 10% spare capacity, then that means the utilization is 90%, so use a
+     *        <code>targetCapacity</code> of <code>90</code>. The default value of <code>100</code> percent results in
+     *        the Amazon EC2 instances in your Auto Scaling group being completely used.
+     */
+
+    public void setTargetCapacity(Integer targetCapacity) {
+        this.targetCapacity = targetCapacity;
+    }
+
+    /**
+     * <p>
+     * The target capacity utilization as a percentage for the capacity provider. The specified value must be greater
+     * than <code>0</code> and less than or equal to <code>100</code>. For example, if you want the capacity provider to
+     * maintain 10% spare capacity, then that means the utilization is 90%, so use a <code>targetCapacity</code> of
+     * <code>90</code>. The default value of <code>100</code> percent results in the Amazon EC2 instances in your Auto
+     * Scaling group being completely used.
+     * </p>
+     * 
+     * @return The target capacity utilization as a percentage for the capacity provider. The specified value must be
+     *         greater than <code>0</code> and less than or equal to <code>100</code>. For example, if you want the
+     *         capacity provider to maintain 10% spare capacity, then that means the utilization is 90%, so use a
+     *         <code>targetCapacity</code> of <code>90</code>. The default value of <code>100</code> percent results in
+     *         the Amazon EC2 instances in your Auto Scaling group being completely used.
+     */
+
+    public Integer getTargetCapacity() {
+        return this.targetCapacity;
+    }
+
+    /**
+     * <p>
+     * The target capacity utilization as a percentage for the capacity provider. The specified value must be greater
+     * than <code>0</code> and less than or equal to <code>100</code>. For example, if you want the capacity provider to
+     * maintain 10% spare capacity, then that means the utilization is 90%, so use a <code>targetCapacity</code> of
+     * <code>90</code>. The default value of <code>100</code> percent results in the Amazon EC2 instances in your Auto
+     * Scaling group being completely used.
+     * </p>
+     * 
+     * @param targetCapacity
+     *        The target capacity utilization as a percentage for the capacity provider. The specified value must be
+     *        greater than <code>0</code> and less than or equal to <code>100</code>. For example, if you want the
+     *        capacity provider to maintain 10% spare capacity, then that means the utilization is 90%, so use a
+     *        <code>targetCapacity</code> of <code>90</code>. The default value of <code>100</code> percent results in
+     *        the Amazon EC2 instances in your Auto Scaling group being completely used.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ManagedScaling withTargetCapacity(Integer targetCapacity) {
+        setTargetCapacity(targetCapacity);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The minimum number of Amazon EC2 instances that Amazon ECS will scale out at one time. The scale in process is
+     * not affected by this parameter If this parameter is omitted, the default value of <code>1</code> is used.
+     * </p>
+     * <p>
+     * When additional capacity is required, Amazon ECS will scale up the minimum scaling step size even if the actual
+     * demand is less than the minimum scaling step size.
+     * </p>
+     * <p>
+     * If you use a capacity provider with an Auto Scaling group configured with more than one Amazon EC2 instance type
+     * or Availability Zone, Amazon ECS will scale up by the exact minimum scaling step size value and will ignore both
+     * the maximum scaling step size as well as the capacity demand.
+     * </p>
+     * 
+     * @param minimumScalingStepSize
+     *        The minimum number of Amazon EC2 instances that Amazon ECS will scale out at one time. The scale in
+     *        process is not affected by this parameter If this parameter is omitted, the default value of
+     *        <code>1</code> is used.</p>
+     *        <p>
+     *        When additional capacity is required, Amazon ECS will scale up the minimum scaling step size even if the
+     *        actual demand is less than the minimum scaling step size.
+     *        </p>
+     *        <p>
+     *        If you use a capacity provider with an Auto Scaling group configured with more than one Amazon EC2
+     *        instance type or Availability Zone, Amazon ECS will scale up by the exact minimum scaling step size value
+     *        and will ignore both the maximum scaling step size as well as the capacity demand.
+     */
+
+    public void setMinimumScalingStepSize(Integer minimumScalingStepSize) {
+        this.minimumScalingStepSize = minimumScalingStepSize;
+    }
+
+    /**
+     * <p>
+     * The minimum number of Amazon EC2 instances that Amazon ECS will scale out at one time. The scale in process is
+     * not affected by this parameter If this parameter is omitted, the default value of <code>1</code> is used.
+     * </p>
+     * <p>
+     * When additional capacity is required, Amazon ECS will scale up the minimum scaling step size even if the actual
+     * demand is less than the minimum scaling step size.
+     * </p>
+     * <p>
+     * If you use a capacity provider with an Auto Scaling group configured with more than one Amazon EC2 instance type
+     * or Availability Zone, Amazon ECS will scale up by the exact minimum scaling step size value and will ignore both
+     * the maximum scaling step size as well as the capacity demand.
+     * </p>
+     * 
+     * @return The minimum number of Amazon EC2 instances that Amazon ECS will scale out at one time. The scale in
+     *         process is not affected by this parameter If this parameter is omitted, the default value of
+     *         <code>1</code> is used.</p>
+     *         <p>
+     *         When additional capacity is required, Amazon ECS will scale up the minimum scaling step size even if the
+     *         actual demand is less than the minimum scaling step size.
+     *         </p>
+     *         <p>
+     *         If you use a capacity provider with an Auto Scaling group configured with more than one Amazon EC2
+     *         instance type or Availability Zone, Amazon ECS will scale up by the exact minimum scaling step size value
+     *         and will ignore both the maximum scaling step size as well as the capacity demand.
+     */
+
+    public Integer getMinimumScalingStepSize() {
+        return this.minimumScalingStepSize;
+    }
+
+    /**
+     * <p>
+     * The minimum number of Amazon EC2 instances that Amazon ECS will scale out at one time. The scale in process is
+     * not affected by this parameter If this parameter is omitted, the default value of <code>1</code> is used.
+     * </p>
+     * <p>
+     * When additional capacity is required, Amazon ECS will scale up the minimum scaling step size even if the actual
+     * demand is less than the minimum scaling step size.
+     * </p>
+     * <p>
+     * If you use a capacity provider with an Auto Scaling group configured with more than one Amazon EC2 instance type
+     * or Availability Zone, Amazon ECS will scale up by the exact minimum scaling step size value and will ignore both
+     * the maximum scaling step size as well as the capacity demand.
+     * </p>
+     * 
+     * @param minimumScalingStepSize
+     *        The minimum number of Amazon EC2 instances that Amazon ECS will scale out at one time. The scale in
+     *        process is not affected by this parameter If this parameter is omitted, the default value of
+     *        <code>1</code> is used.</p>
+     *        <p>
+     *        When additional capacity is required, Amazon ECS will scale up the minimum scaling step size even if the
+     *        actual demand is less than the minimum scaling step size.
+     *        </p>
+     *        <p>
+     *        If you use a capacity provider with an Auto Scaling group configured with more than one Amazon EC2
+     *        instance type or Availability Zone, Amazon ECS will scale up by the exact minimum scaling step size value
+     *        and will ignore both the maximum scaling step size as well as the capacity demand.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ManagedScaling withMinimumScalingStepSize(Integer minimumScalingStepSize) {
+        setMinimumScalingStepSize(minimumScalingStepSize);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maximum number of Amazon EC2 instances that Amazon ECS will scale out at one time. The scale in process is
+     * not affected by this parameter. If this parameter is omitted, the default value of <code>10000</code> is used.
+     * </p>
+     * 
+     * @param maximumScalingStepSize
+     *        The maximum number of Amazon EC2 instances that Amazon ECS will scale out at one time. The scale in
+     *        process is not affected by this parameter. If this parameter is omitted, the default value of
+     *        <code>10000</code> is used.
+     */
+
+    public void setMaximumScalingStepSize(Integer maximumScalingStepSize) {
+        this.maximumScalingStepSize = maximumScalingStepSize;
+    }
+
+    /**
+     * <p>
+     * The maximum number of Amazon EC2 instances that Amazon ECS will scale out at one time. The scale in process is
+     * not affected by this parameter. If this parameter is omitted, the default value of <code>10000</code> is used.
+     * </p>
+     * 
+     * @return The maximum number of Amazon EC2 instances that Amazon ECS will scale out at one time. The scale in
+     *         process is not affected by this parameter. If this parameter is omitted, the default value of
+     *         <code>10000</code> is used.
+     */
+
+    public Integer getMaximumScalingStepSize() {
+        return this.maximumScalingStepSize;
+    }
+
+    /**
+     * <p>
+     * The maximum number of Amazon EC2 instances that Amazon ECS will scale out at one time. The scale in process is
+     * not affected by this parameter. If this parameter is omitted, the default value of <code>10000</code> is used.
+     * </p>
+     * 
+     * @param maximumScalingStepSize
+     *        The maximum number of Amazon EC2 instances that Amazon ECS will scale out at one time. The scale in
+     *        process is not affected by this parameter. If this parameter is omitted, the default value of
+     *        <code>10000</code> is used.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ManagedScaling withMaximumScalingStepSize(Integer maximumScalingStepSize) {
+        setMaximumScalingStepSize(maximumScalingStepSize);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The period of time, in seconds, after a newly launched Amazon EC2 instance can contribute to CloudWatch metrics
+     * for Auto Scaling group. If this parameter is omitted, the default value of <code>300</code> seconds is used.
+     * </p>
+     * 
+     * @param instanceWarmupPeriod
+     *        The period of time, in seconds, after a newly launched Amazon EC2 instance can contribute to CloudWatch
+     *        metrics for Auto Scaling group. If this parameter is omitted, the default value of <code>300</code>
+     *        seconds is used.
+     */
+
+    public void setInstanceWarmupPeriod(Integer instanceWarmupPeriod) {
+        this.instanceWarmupPeriod = instanceWarmupPeriod;
+    }
+
+    /**
+     * <p>
+     * The period of time, in seconds, after a newly launched Amazon EC2 instance can contribute to CloudWatch metrics
+     * for Auto Scaling group. If this parameter is omitted, the default value of <code>300</code> seconds is used.
+     * </p>
+     * 
+     * @return The period of time, in seconds, after a newly launched Amazon EC2 instance can contribute to CloudWatch
+     *         metrics for Auto Scaling group. If this parameter is omitted, the default value of <code>300</code>
+     *         seconds is used.
+     */
+
+    public Integer getInstanceWarmupPeriod() {
+        return this.instanceWarmupPeriod;
+    }
+
+    /**
+     * <p>
+     * The period of time, in seconds, after a newly launched Amazon EC2 instance can contribute to CloudWatch metrics
+     * for Auto Scaling group. If this parameter is omitted, the default value of <code>300</code> seconds is used.
+     * </p>
+     * 
+     * @param instanceWarmupPeriod
+     *        The period of time, in seconds, after a newly launched Amazon EC2 instance can contribute to CloudWatch
+     *        metrics for Auto Scaling group. If this parameter is omitted, the default value of <code>300</code>
+     *        seconds is used.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ManagedScaling withInstanceWarmupPeriod(Integer instanceWarmupPeriod) {
+        setInstanceWarmupPeriod(instanceWarmupPeriod);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getStatus() != null)
+            sb.append("Status: ").append(getStatus()).append(",");
+        if (getTargetCapacity() != null)
+            sb.append("TargetCapacity: ").append(getTargetCapacity()).append(",");
+        if (getMinimumScalingStepSize() != null)
+            sb.append("MinimumScalingStepSize: ").append(getMinimumScalingStepSize()).append(",");
+        if (getMaximumScalingStepSize() != null)
+            sb.append("MaximumScalingStepSize: ").append(getMaximumScalingStepSize()).append(",");
+        if (getInstanceWarmupPeriod() != null)
+            sb.append("InstanceWarmupPeriod: ").append(getInstanceWarmupPeriod());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof ManagedScaling == false)
+            return false;
+        ManagedScaling other = (ManagedScaling) obj;
+        if (other.getStatus() == null ^ this.getStatus() == null)
+            return false;
+        if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
+            return false;
+        if (other.getTargetCapacity() == null ^ this.getTargetCapacity() == null)
+            return false;
+        if (other.getTargetCapacity() != null && other.getTargetCapacity().equals(this.getTargetCapacity()) == false)
+            return false;
+        if (other.getMinimumScalingStepSize() == null ^ this.getMinimumScalingStepSize() == null)
+            return false;
+        if (other.getMinimumScalingStepSize() != null && other.getMinimumScalingStepSize().equals(this.getMinimumScalingStepSize()) == false)
+            return false;
+        if (other.getMaximumScalingStepSize() == null ^ this.getMaximumScalingStepSize() == null)
+            return false;
+        if (other.getMaximumScalingStepSize() != null && other.getMaximumScalingStepSize().equals(this.getMaximumScalingStepSize()) == false)
+            return false;
+        if (other.getInstanceWarmupPeriod() == null ^ this.getInstanceWarmupPeriod() == null)
+            return false;
+        if (other.getInstanceWarmupPeriod() != null && other.getInstanceWarmupPeriod().equals(this.getInstanceWarmupPeriod()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        hashCode = prime * hashCode + ((getTargetCapacity() == null) ? 0 : getTargetCapacity().hashCode());
+        hashCode = prime * hashCode + ((getMinimumScalingStepSize() == null) ? 0 : getMinimumScalingStepSize().hashCode());
+        hashCode = prime * hashCode + ((getMaximumScalingStepSize() == null) ? 0 : getMaximumScalingStepSize().hashCode());
+        hashCode = prime * hashCode + ((getInstanceWarmupPeriod() == null) ? 0 : getInstanceWarmupPeriod().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public ManagedScaling clone() {
+        try {
+            return (ManagedScaling) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.ecs.model.transform.ManagedScalingMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,6 +22,11 @@ import com.amazonaws.AmazonWebServiceRequest;
  * A JSON object containing the following fields:
  * </p>
  * <ul>
+ * <li>
+ * <p>
+ * <a>UpdateMaintenanceStartTimeInput$SoftwareUpdatePreferences</a>
+ * </p>
+ * </li>
  * <li>
  * <p>
  * <a>UpdateMaintenanceStartTimeInput$DayOfMonth</a>
@@ -68,22 +73,33 @@ public class UpdateMaintenanceStartTimeRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * The day of the week component of the maintenance start time week represented as an ordinal number from 0 to 6,
-     * where 0 represents Sunday and 6 Saturday.
+     * where 0 represents Sunday and 6 represents Saturday.
      * </p>
      */
     private Integer dayOfWeek;
     /**
      * <p>
      * The day of the month component of the maintenance start time represented as an ordinal number from 1 to 28, where
-     * 1 represents the first day of the month and 28 represents the last day of the month.
+     * 1 represents the first day of the month. It is not possible to set the maintenance schedule to start on days 29
+     * through 31.
      * </p>
-     * <note>
-     * <p>
-     * This value is only available for tape and volume gateways.
-     * </p>
-     * </note>
      */
     private Integer dayOfMonth;
+    /**
+     * <p>
+     * A set of variables indicating the software update preferences for the gateway.
+     * </p>
+     * <p>
+     * Includes <code>AutomaticUpdatePolicy</code> field with the following inputs:
+     * </p>
+     * <p>
+     * <code>ALL_VERSIONS</code> - Enables regular gateway maintenance updates.
+     * </p>
+     * <p>
+     * <code>EMERGENCY_VERSIONS_ONLY</code> - Disables regular gateway maintenance updates.
+     * </p>
+     */
+    private SoftwareUpdatePreferences softwareUpdatePreferences;
 
     /**
      * @param gatewayARN
@@ -206,12 +222,12 @@ public class UpdateMaintenanceStartTimeRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * The day of the week component of the maintenance start time week represented as an ordinal number from 0 to 6,
-     * where 0 represents Sunday and 6 Saturday.
+     * where 0 represents Sunday and 6 represents Saturday.
      * </p>
      * 
      * @param dayOfWeek
      *        The day of the week component of the maintenance start time week represented as an ordinal number from 0
-     *        to 6, where 0 represents Sunday and 6 Saturday.
+     *        to 6, where 0 represents Sunday and 6 represents Saturday.
      */
 
     public void setDayOfWeek(Integer dayOfWeek) {
@@ -221,11 +237,11 @@ public class UpdateMaintenanceStartTimeRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * The day of the week component of the maintenance start time week represented as an ordinal number from 0 to 6,
-     * where 0 represents Sunday and 6 Saturday.
+     * where 0 represents Sunday and 6 represents Saturday.
      * </p>
      * 
      * @return The day of the week component of the maintenance start time week represented as an ordinal number from 0
-     *         to 6, where 0 represents Sunday and 6 Saturday.
+     *         to 6, where 0 represents Sunday and 6 represents Saturday.
      */
 
     public Integer getDayOfWeek() {
@@ -235,12 +251,12 @@ public class UpdateMaintenanceStartTimeRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * The day of the week component of the maintenance start time week represented as an ordinal number from 0 to 6,
-     * where 0 represents Sunday and 6 Saturday.
+     * where 0 represents Sunday and 6 represents Saturday.
      * </p>
      * 
      * @param dayOfWeek
      *        The day of the week component of the maintenance start time week represented as an ordinal number from 0
-     *        to 6, where 0 represents Sunday and 6 Saturday.
+     *        to 6, where 0 represents Sunday and 6 represents Saturday.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -252,20 +268,14 @@ public class UpdateMaintenanceStartTimeRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * The day of the month component of the maintenance start time represented as an ordinal number from 1 to 28, where
-     * 1 represents the first day of the month and 28 represents the last day of the month.
+     * 1 represents the first day of the month. It is not possible to set the maintenance schedule to start on days 29
+     * through 31.
      * </p>
-     * <note>
-     * <p>
-     * This value is only available for tape and volume gateways.
-     * </p>
-     * </note>
      * 
      * @param dayOfMonth
      *        The day of the month component of the maintenance start time represented as an ordinal number from 1 to
-     *        28, where 1 represents the first day of the month and 28 represents the last day of the month.</p> <note>
-     *        <p>
-     *        This value is only available for tape and volume gateways.
-     *        </p>
+     *        28, where 1 represents the first day of the month. It is not possible to set the maintenance schedule to
+     *        start on days 29 through 31.
      */
 
     public void setDayOfMonth(Integer dayOfMonth) {
@@ -275,19 +285,13 @@ public class UpdateMaintenanceStartTimeRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * The day of the month component of the maintenance start time represented as an ordinal number from 1 to 28, where
-     * 1 represents the first day of the month and 28 represents the last day of the month.
+     * 1 represents the first day of the month. It is not possible to set the maintenance schedule to start on days 29
+     * through 31.
      * </p>
-     * <note>
-     * <p>
-     * This value is only available for tape and volume gateways.
-     * </p>
-     * </note>
      * 
      * @return The day of the month component of the maintenance start time represented as an ordinal number from 1 to
-     *         28, where 1 represents the first day of the month and 28 represents the last day of the month.</p> <note>
-     *         <p>
-     *         This value is only available for tape and volume gateways.
-     *         </p>
+     *         28, where 1 represents the first day of the month. It is not possible to set the maintenance schedule to
+     *         start on days 29 through 31.
      */
 
     public Integer getDayOfMonth() {
@@ -297,25 +301,110 @@ public class UpdateMaintenanceStartTimeRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * The day of the month component of the maintenance start time represented as an ordinal number from 1 to 28, where
-     * 1 represents the first day of the month and 28 represents the last day of the month.
+     * 1 represents the first day of the month. It is not possible to set the maintenance schedule to start on days 29
+     * through 31.
      * </p>
-     * <note>
-     * <p>
-     * This value is only available for tape and volume gateways.
-     * </p>
-     * </note>
      * 
      * @param dayOfMonth
      *        The day of the month component of the maintenance start time represented as an ordinal number from 1 to
-     *        28, where 1 represents the first day of the month and 28 represents the last day of the month.</p> <note>
-     *        <p>
-     *        This value is only available for tape and volume gateways.
-     *        </p>
+     *        28, where 1 represents the first day of the month. It is not possible to set the maintenance schedule to
+     *        start on days 29 through 31.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateMaintenanceStartTimeRequest withDayOfMonth(Integer dayOfMonth) {
         setDayOfMonth(dayOfMonth);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A set of variables indicating the software update preferences for the gateway.
+     * </p>
+     * <p>
+     * Includes <code>AutomaticUpdatePolicy</code> field with the following inputs:
+     * </p>
+     * <p>
+     * <code>ALL_VERSIONS</code> - Enables regular gateway maintenance updates.
+     * </p>
+     * <p>
+     * <code>EMERGENCY_VERSIONS_ONLY</code> - Disables regular gateway maintenance updates.
+     * </p>
+     * 
+     * @param softwareUpdatePreferences
+     *        A set of variables indicating the software update preferences for the gateway.</p>
+     *        <p>
+     *        Includes <code>AutomaticUpdatePolicy</code> field with the following inputs:
+     *        </p>
+     *        <p>
+     *        <code>ALL_VERSIONS</code> - Enables regular gateway maintenance updates.
+     *        </p>
+     *        <p>
+     *        <code>EMERGENCY_VERSIONS_ONLY</code> - Disables regular gateway maintenance updates.
+     */
+
+    public void setSoftwareUpdatePreferences(SoftwareUpdatePreferences softwareUpdatePreferences) {
+        this.softwareUpdatePreferences = softwareUpdatePreferences;
+    }
+
+    /**
+     * <p>
+     * A set of variables indicating the software update preferences for the gateway.
+     * </p>
+     * <p>
+     * Includes <code>AutomaticUpdatePolicy</code> field with the following inputs:
+     * </p>
+     * <p>
+     * <code>ALL_VERSIONS</code> - Enables regular gateway maintenance updates.
+     * </p>
+     * <p>
+     * <code>EMERGENCY_VERSIONS_ONLY</code> - Disables regular gateway maintenance updates.
+     * </p>
+     * 
+     * @return A set of variables indicating the software update preferences for the gateway.</p>
+     *         <p>
+     *         Includes <code>AutomaticUpdatePolicy</code> field with the following inputs:
+     *         </p>
+     *         <p>
+     *         <code>ALL_VERSIONS</code> - Enables regular gateway maintenance updates.
+     *         </p>
+     *         <p>
+     *         <code>EMERGENCY_VERSIONS_ONLY</code> - Disables regular gateway maintenance updates.
+     */
+
+    public SoftwareUpdatePreferences getSoftwareUpdatePreferences() {
+        return this.softwareUpdatePreferences;
+    }
+
+    /**
+     * <p>
+     * A set of variables indicating the software update preferences for the gateway.
+     * </p>
+     * <p>
+     * Includes <code>AutomaticUpdatePolicy</code> field with the following inputs:
+     * </p>
+     * <p>
+     * <code>ALL_VERSIONS</code> - Enables regular gateway maintenance updates.
+     * </p>
+     * <p>
+     * <code>EMERGENCY_VERSIONS_ONLY</code> - Disables regular gateway maintenance updates.
+     * </p>
+     * 
+     * @param softwareUpdatePreferences
+     *        A set of variables indicating the software update preferences for the gateway.</p>
+     *        <p>
+     *        Includes <code>AutomaticUpdatePolicy</code> field with the following inputs:
+     *        </p>
+     *        <p>
+     *        <code>ALL_VERSIONS</code> - Enables regular gateway maintenance updates.
+     *        </p>
+     *        <p>
+     *        <code>EMERGENCY_VERSIONS_ONLY</code> - Disables regular gateway maintenance updates.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateMaintenanceStartTimeRequest withSoftwareUpdatePreferences(SoftwareUpdatePreferences softwareUpdatePreferences) {
+        setSoftwareUpdatePreferences(softwareUpdatePreferences);
         return this;
     }
 
@@ -340,7 +429,9 @@ public class UpdateMaintenanceStartTimeRequest extends com.amazonaws.AmazonWebSe
         if (getDayOfWeek() != null)
             sb.append("DayOfWeek: ").append(getDayOfWeek()).append(",");
         if (getDayOfMonth() != null)
-            sb.append("DayOfMonth: ").append(getDayOfMonth());
+            sb.append("DayOfMonth: ").append(getDayOfMonth()).append(",");
+        if (getSoftwareUpdatePreferences() != null)
+            sb.append("SoftwareUpdatePreferences: ").append(getSoftwareUpdatePreferences());
         sb.append("}");
         return sb.toString();
     }
@@ -375,6 +466,10 @@ public class UpdateMaintenanceStartTimeRequest extends com.amazonaws.AmazonWebSe
             return false;
         if (other.getDayOfMonth() != null && other.getDayOfMonth().equals(this.getDayOfMonth()) == false)
             return false;
+        if (other.getSoftwareUpdatePreferences() == null ^ this.getSoftwareUpdatePreferences() == null)
+            return false;
+        if (other.getSoftwareUpdatePreferences() != null && other.getSoftwareUpdatePreferences().equals(this.getSoftwareUpdatePreferences()) == false)
+            return false;
         return true;
     }
 
@@ -388,6 +483,7 @@ public class UpdateMaintenanceStartTimeRequest extends com.amazonaws.AmazonWebSe
         hashCode = prime * hashCode + ((getMinuteOfHour() == null) ? 0 : getMinuteOfHour().hashCode());
         hashCode = prime * hashCode + ((getDayOfWeek() == null) ? 0 : getDayOfWeek().hashCode());
         hashCode = prime * hashCode + ((getDayOfMonth() == null) ? 0 : getDayOfMonth().hashCode());
+        hashCode = prime * hashCode + ((getSoftwareUpdatePreferences() == null) ? 0 : getSoftwareUpdatePreferences().hashCode());
         return hashCode;
     }
 

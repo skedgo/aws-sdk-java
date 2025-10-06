@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class PasswordPolicyType implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The minimum length of the password policy that you have set. Cannot be less than 6.
+     * The minimum length of the password in the policy that you have set. This value can't be less than 6.
      * </p>
      */
     private Integer minimumLength;
@@ -62,16 +62,29 @@ public class PasswordPolicyType implements Serializable, Cloneable, StructuredPo
      * </p>
      */
     private Boolean requireSymbols;
-
+    /**
+     * <p>
+     * The number of days a temporary password is valid in the password policy. If the user doesn't sign in during this
+     * time, an administrator must reset their password. Defaults to <code>7</code>. If you submit a value of
+     * <code>0</code>, Amazon Cognito treats it as a null value and sets <code>TemporaryPasswordValidityDays</code> to
+     * its default value.
+     * </p>
+     * <note>
+     * <p>
+     * When you set <code>TemporaryPasswordValidityDays</code> for a user pool, you can no longer set a value for the
+     * legacy <code>UnusedAccountValidityDays</code> parameter in that user pool.
+     * </p>
+     * </note>
+     */
     private Integer temporaryPasswordValidityDays;
 
     /**
      * <p>
-     * The minimum length of the password policy that you have set. Cannot be less than 6.
+     * The minimum length of the password in the policy that you have set. This value can't be less than 6.
      * </p>
      * 
      * @param minimumLength
-     *        The minimum length of the password policy that you have set. Cannot be less than 6.
+     *        The minimum length of the password in the policy that you have set. This value can't be less than 6.
      */
 
     public void setMinimumLength(Integer minimumLength) {
@@ -80,10 +93,10 @@ public class PasswordPolicyType implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The minimum length of the password policy that you have set. Cannot be less than 6.
+     * The minimum length of the password in the policy that you have set. This value can't be less than 6.
      * </p>
      * 
-     * @return The minimum length of the password policy that you have set. Cannot be less than 6.
+     * @return The minimum length of the password in the policy that you have set. This value can't be less than 6.
      */
 
     public Integer getMinimumLength() {
@@ -92,11 +105,11 @@ public class PasswordPolicyType implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The minimum length of the password policy that you have set. Cannot be less than 6.
+     * The minimum length of the password in the policy that you have set. This value can't be less than 6.
      * </p>
      * 
      * @param minimumLength
-     *        The minimum length of the password policy that you have set. Cannot be less than 6.
+     *        The minimum length of the password in the policy that you have set. This value can't be less than 6.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -346,7 +359,28 @@ public class PasswordPolicyType implements Serializable, Cloneable, StructuredPo
     }
 
     /**
+     * <p>
+     * The number of days a temporary password is valid in the password policy. If the user doesn't sign in during this
+     * time, an administrator must reset their password. Defaults to <code>7</code>. If you submit a value of
+     * <code>0</code>, Amazon Cognito treats it as a null value and sets <code>TemporaryPasswordValidityDays</code> to
+     * its default value.
+     * </p>
+     * <note>
+     * <p>
+     * When you set <code>TemporaryPasswordValidityDays</code> for a user pool, you can no longer set a value for the
+     * legacy <code>UnusedAccountValidityDays</code> parameter in that user pool.
+     * </p>
+     * </note>
+     * 
      * @param temporaryPasswordValidityDays
+     *        The number of days a temporary password is valid in the password policy. If the user doesn't sign in
+     *        during this time, an administrator must reset their password. Defaults to <code>7</code>. If you submit a
+     *        value of <code>0</code>, Amazon Cognito treats it as a null value and sets
+     *        <code>TemporaryPasswordValidityDays</code> to its default value.</p> <note>
+     *        <p>
+     *        When you set <code>TemporaryPasswordValidityDays</code> for a user pool, you can no longer set a value for
+     *        the legacy <code>UnusedAccountValidityDays</code> parameter in that user pool.
+     *        </p>
      */
 
     public void setTemporaryPasswordValidityDays(Integer temporaryPasswordValidityDays) {
@@ -354,7 +388,27 @@ public class PasswordPolicyType implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * @return
+     * <p>
+     * The number of days a temporary password is valid in the password policy. If the user doesn't sign in during this
+     * time, an administrator must reset their password. Defaults to <code>7</code>. If you submit a value of
+     * <code>0</code>, Amazon Cognito treats it as a null value and sets <code>TemporaryPasswordValidityDays</code> to
+     * its default value.
+     * </p>
+     * <note>
+     * <p>
+     * When you set <code>TemporaryPasswordValidityDays</code> for a user pool, you can no longer set a value for the
+     * legacy <code>UnusedAccountValidityDays</code> parameter in that user pool.
+     * </p>
+     * </note>
+     * 
+     * @return The number of days a temporary password is valid in the password policy. If the user doesn't sign in
+     *         during this time, an administrator must reset their password. Defaults to <code>7</code>. If you submit a
+     *         value of <code>0</code>, Amazon Cognito treats it as a null value and sets
+     *         <code>TemporaryPasswordValidityDays</code> to its default value.</p> <note>
+     *         <p>
+     *         When you set <code>TemporaryPasswordValidityDays</code> for a user pool, you can no longer set a value
+     *         for the legacy <code>UnusedAccountValidityDays</code> parameter in that user pool.
+     *         </p>
      */
 
     public Integer getTemporaryPasswordValidityDays() {
@@ -362,7 +416,28 @@ public class PasswordPolicyType implements Serializable, Cloneable, StructuredPo
     }
 
     /**
+     * <p>
+     * The number of days a temporary password is valid in the password policy. If the user doesn't sign in during this
+     * time, an administrator must reset their password. Defaults to <code>7</code>. If you submit a value of
+     * <code>0</code>, Amazon Cognito treats it as a null value and sets <code>TemporaryPasswordValidityDays</code> to
+     * its default value.
+     * </p>
+     * <note>
+     * <p>
+     * When you set <code>TemporaryPasswordValidityDays</code> for a user pool, you can no longer set a value for the
+     * legacy <code>UnusedAccountValidityDays</code> parameter in that user pool.
+     * </p>
+     * </note>
+     * 
      * @param temporaryPasswordValidityDays
+     *        The number of days a temporary password is valid in the password policy. If the user doesn't sign in
+     *        during this time, an administrator must reset their password. Defaults to <code>7</code>. If you submit a
+     *        value of <code>0</code>, Amazon Cognito treats it as a null value and sets
+     *        <code>TemporaryPasswordValidityDays</code> to its default value.</p> <note>
+     *        <p>
+     *        When you set <code>TemporaryPasswordValidityDays</code> for a user pool, you can no longer set a value for
+     *        the legacy <code>UnusedAccountValidityDays</code> parameter in that user pool.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

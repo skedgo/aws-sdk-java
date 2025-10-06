@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Structure with auto branch creation config.
+ * Describes the automated branch creation configuration.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/AutoBranchCreationConfig" target="_top">AWS
@@ -30,54 +30,78 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Stage for the auto created branch.
+     * Describes the current stage for the autocreated branch.
      * </p>
      */
     private String stage;
     /**
      * <p>
-     * Framework for the auto created branch.
+     * The framework for the autocreated branch.
      * </p>
      */
     private String framework;
     /**
      * <p>
-     * Enables auto building for the auto created branch.
+     * Enables auto building for the autocreated branch.
      * </p>
      */
     private Boolean enableAutoBuild;
     /**
      * <p>
-     * Environment Variables for the auto created branch.
+     * The environment variables for the autocreated branch.
      * </p>
      */
     private java.util.Map<String, String> environmentVariables;
     /**
      * <p>
-     * Basic Authorization credentials for the auto created branch.
+     * The basic authorization credentials for the autocreated branch. You must base64-encode the authorization
+     * credentials and provide them in the format <code>user:password</code>.
      * </p>
      */
     private String basicAuthCredentials;
     /**
      * <p>
-     * Enables Basic Auth for the auto created branch.
+     * Enables basic authorization for the autocreated branch.
      * </p>
      */
     private Boolean enableBasicAuth;
     /**
      * <p>
-     * BuildSpec for the auto created branch.
+     * Enables performance mode for the branch.
+     * </p>
+     * <p>
+     * Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a longer
+     * interval. When performance mode is enabled, hosting configuration or code changes can take up to 10 minutes to
+     * roll out.
+     * </p>
+     */
+    private Boolean enablePerformanceMode;
+    /**
+     * <p>
+     * The build specification (build spec) for the autocreated branch.
      * </p>
      */
     private String buildSpec;
+    /**
+     * <p>
+     * Enables pull request previews for the autocreated branch.
+     * </p>
+     */
+    private Boolean enablePullRequestPreview;
+    /**
+     * <p>
+     * The Amplify environment name for the pull request.
+     * </p>
+     */
+    private String pullRequestEnvironmentName;
 
     /**
      * <p>
-     * Stage for the auto created branch.
+     * Describes the current stage for the autocreated branch.
      * </p>
      * 
      * @param stage
-     *        Stage for the auto created branch.
+     *        Describes the current stage for the autocreated branch.
      * @see Stage
      */
 
@@ -87,10 +111,10 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Stage for the auto created branch.
+     * Describes the current stage for the autocreated branch.
      * </p>
      * 
-     * @return Stage for the auto created branch.
+     * @return Describes the current stage for the autocreated branch.
      * @see Stage
      */
 
@@ -100,11 +124,11 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Stage for the auto created branch.
+     * Describes the current stage for the autocreated branch.
      * </p>
      * 
      * @param stage
-     *        Stage for the auto created branch.
+     *        Describes the current stage for the autocreated branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Stage
      */
@@ -116,11 +140,11 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Stage for the auto created branch.
+     * Describes the current stage for the autocreated branch.
      * </p>
      * 
      * @param stage
-     *        Stage for the auto created branch.
+     *        Describes the current stage for the autocreated branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Stage
      */
@@ -132,11 +156,11 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Framework for the auto created branch.
+     * The framework for the autocreated branch.
      * </p>
      * 
      * @param framework
-     *        Framework for the auto created branch.
+     *        The framework for the autocreated branch.
      */
 
     public void setFramework(String framework) {
@@ -145,10 +169,10 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Framework for the auto created branch.
+     * The framework for the autocreated branch.
      * </p>
      * 
-     * @return Framework for the auto created branch.
+     * @return The framework for the autocreated branch.
      */
 
     public String getFramework() {
@@ -157,11 +181,11 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Framework for the auto created branch.
+     * The framework for the autocreated branch.
      * </p>
      * 
      * @param framework
-     *        Framework for the auto created branch.
+     *        The framework for the autocreated branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -172,11 +196,11 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Enables auto building for the auto created branch.
+     * Enables auto building for the autocreated branch.
      * </p>
      * 
      * @param enableAutoBuild
-     *        Enables auto building for the auto created branch.
+     *        Enables auto building for the autocreated branch.
      */
 
     public void setEnableAutoBuild(Boolean enableAutoBuild) {
@@ -185,10 +209,10 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Enables auto building for the auto created branch.
+     * Enables auto building for the autocreated branch.
      * </p>
      * 
-     * @return Enables auto building for the auto created branch.
+     * @return Enables auto building for the autocreated branch.
      */
 
     public Boolean getEnableAutoBuild() {
@@ -197,11 +221,11 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Enables auto building for the auto created branch.
+     * Enables auto building for the autocreated branch.
      * </p>
      * 
      * @param enableAutoBuild
-     *        Enables auto building for the auto created branch.
+     *        Enables auto building for the autocreated branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -212,10 +236,10 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Enables auto building for the auto created branch.
+     * Enables auto building for the autocreated branch.
      * </p>
      * 
-     * @return Enables auto building for the auto created branch.
+     * @return Enables auto building for the autocreated branch.
      */
 
     public Boolean isEnableAutoBuild() {
@@ -224,10 +248,10 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Environment Variables for the auto created branch.
+     * The environment variables for the autocreated branch.
      * </p>
      * 
-     * @return Environment Variables for the auto created branch.
+     * @return The environment variables for the autocreated branch.
      */
 
     public java.util.Map<String, String> getEnvironmentVariables() {
@@ -236,11 +260,11 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Environment Variables for the auto created branch.
+     * The environment variables for the autocreated branch.
      * </p>
      * 
      * @param environmentVariables
-     *        Environment Variables for the auto created branch.
+     *        The environment variables for the autocreated branch.
      */
 
     public void setEnvironmentVariables(java.util.Map<String, String> environmentVariables) {
@@ -249,11 +273,11 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Environment Variables for the auto created branch.
+     * The environment variables for the autocreated branch.
      * </p>
      * 
      * @param environmentVariables
-     *        Environment Variables for the auto created branch.
+     *        The environment variables for the autocreated branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -261,6 +285,13 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
         setEnvironmentVariables(environmentVariables);
         return this;
     }
+
+    /**
+     * Add a single EnvironmentVariables entry
+     *
+     * @see AutoBranchCreationConfig#withEnvironmentVariables
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public AutoBranchCreationConfig addEnvironmentVariablesEntry(String key, String value) {
         if (null == this.environmentVariables) {
@@ -285,11 +316,13 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Basic Authorization credentials for the auto created branch.
+     * The basic authorization credentials for the autocreated branch. You must base64-encode the authorization
+     * credentials and provide them in the format <code>user:password</code>.
      * </p>
      * 
      * @param basicAuthCredentials
-     *        Basic Authorization credentials for the auto created branch.
+     *        The basic authorization credentials for the autocreated branch. You must base64-encode the authorization
+     *        credentials and provide them in the format <code>user:password</code>.
      */
 
     public void setBasicAuthCredentials(String basicAuthCredentials) {
@@ -298,10 +331,12 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Basic Authorization credentials for the auto created branch.
+     * The basic authorization credentials for the autocreated branch. You must base64-encode the authorization
+     * credentials and provide them in the format <code>user:password</code>.
      * </p>
      * 
-     * @return Basic Authorization credentials for the auto created branch.
+     * @return The basic authorization credentials for the autocreated branch. You must base64-encode the authorization
+     *         credentials and provide them in the format <code>user:password</code>.
      */
 
     public String getBasicAuthCredentials() {
@@ -310,11 +345,13 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Basic Authorization credentials for the auto created branch.
+     * The basic authorization credentials for the autocreated branch. You must base64-encode the authorization
+     * credentials and provide them in the format <code>user:password</code>.
      * </p>
      * 
      * @param basicAuthCredentials
-     *        Basic Authorization credentials for the auto created branch.
+     *        The basic authorization credentials for the autocreated branch. You must base64-encode the authorization
+     *        credentials and provide them in the format <code>user:password</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -325,11 +362,11 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Enables Basic Auth for the auto created branch.
+     * Enables basic authorization for the autocreated branch.
      * </p>
      * 
      * @param enableBasicAuth
-     *        Enables Basic Auth for the auto created branch.
+     *        Enables basic authorization for the autocreated branch.
      */
 
     public void setEnableBasicAuth(Boolean enableBasicAuth) {
@@ -338,10 +375,10 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Enables Basic Auth for the auto created branch.
+     * Enables basic authorization for the autocreated branch.
      * </p>
      * 
-     * @return Enables Basic Auth for the auto created branch.
+     * @return Enables basic authorization for the autocreated branch.
      */
 
     public Boolean getEnableBasicAuth() {
@@ -350,11 +387,11 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Enables Basic Auth for the auto created branch.
+     * Enables basic authorization for the autocreated branch.
      * </p>
      * 
      * @param enableBasicAuth
-     *        Enables Basic Auth for the auto created branch.
+     *        Enables basic authorization for the autocreated branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -365,10 +402,10 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Enables Basic Auth for the auto created branch.
+     * Enables basic authorization for the autocreated branch.
      * </p>
      * 
-     * @return Enables Basic Auth for the auto created branch.
+     * @return Enables basic authorization for the autocreated branch.
      */
 
     public Boolean isEnableBasicAuth() {
@@ -377,11 +414,99 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * BuildSpec for the auto created branch.
+     * Enables performance mode for the branch.
+     * </p>
+     * <p>
+     * Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a longer
+     * interval. When performance mode is enabled, hosting configuration or code changes can take up to 10 minutes to
+     * roll out.
+     * </p>
+     * 
+     * @param enablePerformanceMode
+     *        Enables performance mode for the branch.</p>
+     *        <p>
+     *        Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a
+     *        longer interval. When performance mode is enabled, hosting configuration or code changes can take up to 10
+     *        minutes to roll out.
+     */
+
+    public void setEnablePerformanceMode(Boolean enablePerformanceMode) {
+        this.enablePerformanceMode = enablePerformanceMode;
+    }
+
+    /**
+     * <p>
+     * Enables performance mode for the branch.
+     * </p>
+     * <p>
+     * Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a longer
+     * interval. When performance mode is enabled, hosting configuration or code changes can take up to 10 minutes to
+     * roll out.
+     * </p>
+     * 
+     * @return Enables performance mode for the branch.</p>
+     *         <p>
+     *         Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a
+     *         longer interval. When performance mode is enabled, hosting configuration or code changes can take up to
+     *         10 minutes to roll out.
+     */
+
+    public Boolean getEnablePerformanceMode() {
+        return this.enablePerformanceMode;
+    }
+
+    /**
+     * <p>
+     * Enables performance mode for the branch.
+     * </p>
+     * <p>
+     * Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a longer
+     * interval. When performance mode is enabled, hosting configuration or code changes can take up to 10 minutes to
+     * roll out.
+     * </p>
+     * 
+     * @param enablePerformanceMode
+     *        Enables performance mode for the branch.</p>
+     *        <p>
+     *        Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a
+     *        longer interval. When performance mode is enabled, hosting configuration or code changes can take up to 10
+     *        minutes to roll out.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutoBranchCreationConfig withEnablePerformanceMode(Boolean enablePerformanceMode) {
+        setEnablePerformanceMode(enablePerformanceMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables performance mode for the branch.
+     * </p>
+     * <p>
+     * Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a longer
+     * interval. When performance mode is enabled, hosting configuration or code changes can take up to 10 minutes to
+     * roll out.
+     * </p>
+     * 
+     * @return Enables performance mode for the branch.</p>
+     *         <p>
+     *         Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a
+     *         longer interval. When performance mode is enabled, hosting configuration or code changes can take up to
+     *         10 minutes to roll out.
+     */
+
+    public Boolean isEnablePerformanceMode() {
+        return this.enablePerformanceMode;
+    }
+
+    /**
+     * <p>
+     * The build specification (build spec) for the autocreated branch.
      * </p>
      * 
      * @param buildSpec
-     *        BuildSpec for the auto created branch.
+     *        The build specification (build spec) for the autocreated branch.
      */
 
     public void setBuildSpec(String buildSpec) {
@@ -390,10 +515,10 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * BuildSpec for the auto created branch.
+     * The build specification (build spec) for the autocreated branch.
      * </p>
      * 
-     * @return BuildSpec for the auto created branch.
+     * @return The build specification (build spec) for the autocreated branch.
      */
 
     public String getBuildSpec() {
@@ -402,16 +527,108 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * BuildSpec for the auto created branch.
+     * The build specification (build spec) for the autocreated branch.
      * </p>
      * 
      * @param buildSpec
-     *        BuildSpec for the auto created branch.
+     *        The build specification (build spec) for the autocreated branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public AutoBranchCreationConfig withBuildSpec(String buildSpec) {
         setBuildSpec(buildSpec);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables pull request previews for the autocreated branch.
+     * </p>
+     * 
+     * @param enablePullRequestPreview
+     *        Enables pull request previews for the autocreated branch.
+     */
+
+    public void setEnablePullRequestPreview(Boolean enablePullRequestPreview) {
+        this.enablePullRequestPreview = enablePullRequestPreview;
+    }
+
+    /**
+     * <p>
+     * Enables pull request previews for the autocreated branch.
+     * </p>
+     * 
+     * @return Enables pull request previews for the autocreated branch.
+     */
+
+    public Boolean getEnablePullRequestPreview() {
+        return this.enablePullRequestPreview;
+    }
+
+    /**
+     * <p>
+     * Enables pull request previews for the autocreated branch.
+     * </p>
+     * 
+     * @param enablePullRequestPreview
+     *        Enables pull request previews for the autocreated branch.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutoBranchCreationConfig withEnablePullRequestPreview(Boolean enablePullRequestPreview) {
+        setEnablePullRequestPreview(enablePullRequestPreview);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables pull request previews for the autocreated branch.
+     * </p>
+     * 
+     * @return Enables pull request previews for the autocreated branch.
+     */
+
+    public Boolean isEnablePullRequestPreview() {
+        return this.enablePullRequestPreview;
+    }
+
+    /**
+     * <p>
+     * The Amplify environment name for the pull request.
+     * </p>
+     * 
+     * @param pullRequestEnvironmentName
+     *        The Amplify environment name for the pull request.
+     */
+
+    public void setPullRequestEnvironmentName(String pullRequestEnvironmentName) {
+        this.pullRequestEnvironmentName = pullRequestEnvironmentName;
+    }
+
+    /**
+     * <p>
+     * The Amplify environment name for the pull request.
+     * </p>
+     * 
+     * @return The Amplify environment name for the pull request.
+     */
+
+    public String getPullRequestEnvironmentName() {
+        return this.pullRequestEnvironmentName;
+    }
+
+    /**
+     * <p>
+     * The Amplify environment name for the pull request.
+     * </p>
+     * 
+     * @param pullRequestEnvironmentName
+     *        The Amplify environment name for the pull request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutoBranchCreationConfig withPullRequestEnvironmentName(String pullRequestEnvironmentName) {
+        setPullRequestEnvironmentName(pullRequestEnvironmentName);
         return this;
     }
 
@@ -436,11 +653,17 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
         if (getEnvironmentVariables() != null)
             sb.append("EnvironmentVariables: ").append(getEnvironmentVariables()).append(",");
         if (getBasicAuthCredentials() != null)
-            sb.append("BasicAuthCredentials: ").append(getBasicAuthCredentials()).append(",");
+            sb.append("BasicAuthCredentials: ").append("***Sensitive Data Redacted***").append(",");
         if (getEnableBasicAuth() != null)
             sb.append("EnableBasicAuth: ").append(getEnableBasicAuth()).append(",");
+        if (getEnablePerformanceMode() != null)
+            sb.append("EnablePerformanceMode: ").append(getEnablePerformanceMode()).append(",");
         if (getBuildSpec() != null)
-            sb.append("BuildSpec: ").append(getBuildSpec());
+            sb.append("BuildSpec: ").append("***Sensitive Data Redacted***").append(",");
+        if (getEnablePullRequestPreview() != null)
+            sb.append("EnablePullRequestPreview: ").append(getEnablePullRequestPreview()).append(",");
+        if (getPullRequestEnvironmentName() != null)
+            sb.append("PullRequestEnvironmentName: ").append(getPullRequestEnvironmentName());
         sb.append("}");
         return sb.toString();
     }
@@ -479,9 +702,21 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
             return false;
         if (other.getEnableBasicAuth() != null && other.getEnableBasicAuth().equals(this.getEnableBasicAuth()) == false)
             return false;
+        if (other.getEnablePerformanceMode() == null ^ this.getEnablePerformanceMode() == null)
+            return false;
+        if (other.getEnablePerformanceMode() != null && other.getEnablePerformanceMode().equals(this.getEnablePerformanceMode()) == false)
+            return false;
         if (other.getBuildSpec() == null ^ this.getBuildSpec() == null)
             return false;
         if (other.getBuildSpec() != null && other.getBuildSpec().equals(this.getBuildSpec()) == false)
+            return false;
+        if (other.getEnablePullRequestPreview() == null ^ this.getEnablePullRequestPreview() == null)
+            return false;
+        if (other.getEnablePullRequestPreview() != null && other.getEnablePullRequestPreview().equals(this.getEnablePullRequestPreview()) == false)
+            return false;
+        if (other.getPullRequestEnvironmentName() == null ^ this.getPullRequestEnvironmentName() == null)
+            return false;
+        if (other.getPullRequestEnvironmentName() != null && other.getPullRequestEnvironmentName().equals(this.getPullRequestEnvironmentName()) == false)
             return false;
         return true;
     }
@@ -497,7 +732,10 @@ public class AutoBranchCreationConfig implements Serializable, Cloneable, Struct
         hashCode = prime * hashCode + ((getEnvironmentVariables() == null) ? 0 : getEnvironmentVariables().hashCode());
         hashCode = prime * hashCode + ((getBasicAuthCredentials() == null) ? 0 : getBasicAuthCredentials().hashCode());
         hashCode = prime * hashCode + ((getEnableBasicAuth() == null) ? 0 : getEnableBasicAuth().hashCode());
+        hashCode = prime * hashCode + ((getEnablePerformanceMode() == null) ? 0 : getEnablePerformanceMode().hashCode());
         hashCode = prime * hashCode + ((getBuildSpec() == null) ? 0 : getBuildSpec().hashCode());
+        hashCode = prime * hashCode + ((getEnablePullRequestPreview() == null) ? 0 : getEnablePullRequestPreview().hashCode());
+        hashCode = prime * hashCode + ((getPullRequestEnvironmentName() == null) ? 0 : getPullRequestEnvironmentName().hashCode());
         return hashCode;
     }
 

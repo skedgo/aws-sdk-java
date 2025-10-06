@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,16 +19,13 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Policy that limits the number of game sessions a player can create on the same fleet. This optional policy gives game
- * owners control over how players can consume available game server resources. A resource creation policy makes the
- * following statement:
- * "An individual player can create a maximum number of new game sessions within a specified time period".
+ * A policy that puts limits on the number of game sessions that a player can create within a specified span of time.
+ * With this policy, you can control players' ability to consume available resources.
  * </p>
  * <p>
- * The policy is evaluated when a player tries to create a new game session. For example, with a policy of 10 new game
- * sessions and a time period of 60 minutes, on receiving a <code>CreateGameSession</code> request, Amazon GameLift
- * checks that the player (identified by <code>CreatorId</code>) has created fewer than 10 game sessions in the past 60
- * minutes.
+ * The policy is evaluated when a player tries to create a new game session. On receiving a
+ * <code>CreateGameSession</code> request, Amazon GameLift checks that the player (identified by <code>CreatorId</code>)
+ * has created fewer than game session limit in the specified time period.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/ResourceCreationLimitPolicy"
@@ -39,24 +36,41 @@ public class ResourceCreationLimitPolicy implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * Maximum number of game sessions that an individual can create during the policy period.
+     * A policy that puts limits on the number of game sessions that a player can create within a specified span of
+     * time. With this policy, you can control players' ability to consume available resources.
+     * </p>
+     * <p>
+     * The policy is evaluated when a player tries to create a new game session. On receiving a
+     * <code>CreateGameSession</code> request, Amazon GameLift checks that the player (identified by
+     * <code>CreatorId</code>) has created fewer than game session limit in the specified time period.
      * </p>
      */
     private Integer newGameSessionsPerCreator;
     /**
      * <p>
-     * Time span used in evaluating the resource creation limit policy.
+     * The time span used in evaluating the resource creation limit policy.
      * </p>
      */
     private Integer policyPeriodInMinutes;
 
     /**
      * <p>
-     * Maximum number of game sessions that an individual can create during the policy period.
+     * A policy that puts limits on the number of game sessions that a player can create within a specified span of
+     * time. With this policy, you can control players' ability to consume available resources.
+     * </p>
+     * <p>
+     * The policy is evaluated when a player tries to create a new game session. On receiving a
+     * <code>CreateGameSession</code> request, Amazon GameLift checks that the player (identified by
+     * <code>CreatorId</code>) has created fewer than game session limit in the specified time period.
      * </p>
      * 
      * @param newGameSessionsPerCreator
-     *        Maximum number of game sessions that an individual can create during the policy period.
+     *        A policy that puts limits on the number of game sessions that a player can create within a specified span
+     *        of time. With this policy, you can control players' ability to consume available resources.</p>
+     *        <p>
+     *        The policy is evaluated when a player tries to create a new game session. On receiving a
+     *        <code>CreateGameSession</code> request, Amazon GameLift checks that the player (identified by
+     *        <code>CreatorId</code>) has created fewer than game session limit in the specified time period.
      */
 
     public void setNewGameSessionsPerCreator(Integer newGameSessionsPerCreator) {
@@ -65,10 +79,21 @@ public class ResourceCreationLimitPolicy implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * Maximum number of game sessions that an individual can create during the policy period.
+     * A policy that puts limits on the number of game sessions that a player can create within a specified span of
+     * time. With this policy, you can control players' ability to consume available resources.
+     * </p>
+     * <p>
+     * The policy is evaluated when a player tries to create a new game session. On receiving a
+     * <code>CreateGameSession</code> request, Amazon GameLift checks that the player (identified by
+     * <code>CreatorId</code>) has created fewer than game session limit in the specified time period.
      * </p>
      * 
-     * @return Maximum number of game sessions that an individual can create during the policy period.
+     * @return A policy that puts limits on the number of game sessions that a player can create within a specified span
+     *         of time. With this policy, you can control players' ability to consume available resources.</p>
+     *         <p>
+     *         The policy is evaluated when a player tries to create a new game session. On receiving a
+     *         <code>CreateGameSession</code> request, Amazon GameLift checks that the player (identified by
+     *         <code>CreatorId</code>) has created fewer than game session limit in the specified time period.
      */
 
     public Integer getNewGameSessionsPerCreator() {
@@ -77,11 +102,22 @@ public class ResourceCreationLimitPolicy implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * Maximum number of game sessions that an individual can create during the policy period.
+     * A policy that puts limits on the number of game sessions that a player can create within a specified span of
+     * time. With this policy, you can control players' ability to consume available resources.
+     * </p>
+     * <p>
+     * The policy is evaluated when a player tries to create a new game session. On receiving a
+     * <code>CreateGameSession</code> request, Amazon GameLift checks that the player (identified by
+     * <code>CreatorId</code>) has created fewer than game session limit in the specified time period.
      * </p>
      * 
      * @param newGameSessionsPerCreator
-     *        Maximum number of game sessions that an individual can create during the policy period.
+     *        A policy that puts limits on the number of game sessions that a player can create within a specified span
+     *        of time. With this policy, you can control players' ability to consume available resources.</p>
+     *        <p>
+     *        The policy is evaluated when a player tries to create a new game session. On receiving a
+     *        <code>CreateGameSession</code> request, Amazon GameLift checks that the player (identified by
+     *        <code>CreatorId</code>) has created fewer than game session limit in the specified time period.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -92,11 +128,11 @@ public class ResourceCreationLimitPolicy implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * Time span used in evaluating the resource creation limit policy.
+     * The time span used in evaluating the resource creation limit policy.
      * </p>
      * 
      * @param policyPeriodInMinutes
-     *        Time span used in evaluating the resource creation limit policy.
+     *        The time span used in evaluating the resource creation limit policy.
      */
 
     public void setPolicyPeriodInMinutes(Integer policyPeriodInMinutes) {
@@ -105,10 +141,10 @@ public class ResourceCreationLimitPolicy implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * Time span used in evaluating the resource creation limit policy.
+     * The time span used in evaluating the resource creation limit policy.
      * </p>
      * 
-     * @return Time span used in evaluating the resource creation limit policy.
+     * @return The time span used in evaluating the resource creation limit policy.
      */
 
     public Integer getPolicyPeriodInMinutes() {
@@ -117,11 +153,11 @@ public class ResourceCreationLimitPolicy implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * Time span used in evaluating the resource creation limit policy.
+     * The time span used in evaluating the resource creation limit policy.
      * </p>
      * 
      * @param policyPeriodInMinutes
-     *        Time span used in evaluating the resource creation limit policy.
+     *        The time span used in evaluating the resource creation limit policy.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

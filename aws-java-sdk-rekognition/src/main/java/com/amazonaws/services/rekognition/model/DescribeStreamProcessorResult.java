@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -75,11 +75,35 @@ public class DescribeStreamProcessorResult extends com.amazonaws.AmazonWebServic
     private String roleArn;
     /**
      * <p>
-     * Face recognition input parameters that are being used by the stream processor. Includes the collection to use for
-     * face recognition and the face attributes to detect.
+     * Input parameters used in a streaming video analyzed by a stream processor. You can use <code>FaceSearch</code> to
+     * recognize faces in a streaming video, or you can use <code>ConnectedHome</code> to detect labels.
      * </p>
      */
     private StreamProcessorSettings settings;
+
+    private StreamProcessorNotificationChannel notificationChannel;
+    /**
+     * <p>
+     * The identifier for your AWS Key Management Service key (AWS KMS key). This is an optional parameter for label
+     * detection stream processors.
+     * </p>
+     */
+    private String kmsKeyId;
+    /**
+     * <p>
+     * Specifies locations in the frames where Amazon Rekognition checks for objects or people. This is an optional
+     * parameter for label detection stream processors.
+     * </p>
+     */
+    private java.util.List<RegionOfInterest> regionsOfInterest;
+    /**
+     * <p>
+     * Shows whether you are sharing data with Rekognition to improve model performance. You can choose this option at
+     * the account level or on a per-stream basis. Note that if you opt out at the account level this setting is ignored
+     * on individual streams.
+     * </p>
+     */
+    private StreamProcessorDataSharingPreference dataSharingPreference;
 
     /**
      * <p>
@@ -468,13 +492,14 @@ public class DescribeStreamProcessorResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Face recognition input parameters that are being used by the stream processor. Includes the collection to use for
-     * face recognition and the face attributes to detect.
+     * Input parameters used in a streaming video analyzed by a stream processor. You can use <code>FaceSearch</code> to
+     * recognize faces in a streaming video, or you can use <code>ConnectedHome</code> to detect labels.
      * </p>
      * 
      * @param settings
-     *        Face recognition input parameters that are being used by the stream processor. Includes the collection to
-     *        use for face recognition and the face attributes to detect.
+     *        Input parameters used in a streaming video analyzed by a stream processor. You can use
+     *        <code>FaceSearch</code> to recognize faces in a streaming video, or you can use <code>ConnectedHome</code>
+     *        to detect labels.
      */
 
     public void setSettings(StreamProcessorSettings settings) {
@@ -483,12 +508,13 @@ public class DescribeStreamProcessorResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Face recognition input parameters that are being used by the stream processor. Includes the collection to use for
-     * face recognition and the face attributes to detect.
+     * Input parameters used in a streaming video analyzed by a stream processor. You can use <code>FaceSearch</code> to
+     * recognize faces in a streaming video, or you can use <code>ConnectedHome</code> to detect labels.
      * </p>
      * 
-     * @return Face recognition input parameters that are being used by the stream processor. Includes the collection to
-     *         use for face recognition and the face attributes to detect.
+     * @return Input parameters used in a streaming video analyzed by a stream processor. You can use
+     *         <code>FaceSearch</code> to recognize faces in a streaming video, or you can use
+     *         <code>ConnectedHome</code> to detect labels.
      */
 
     public StreamProcessorSettings getSettings() {
@@ -497,18 +523,221 @@ public class DescribeStreamProcessorResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Face recognition input parameters that are being used by the stream processor. Includes the collection to use for
-     * face recognition and the face attributes to detect.
+     * Input parameters used in a streaming video analyzed by a stream processor. You can use <code>FaceSearch</code> to
+     * recognize faces in a streaming video, or you can use <code>ConnectedHome</code> to detect labels.
      * </p>
      * 
      * @param settings
-     *        Face recognition input parameters that are being used by the stream processor. Includes the collection to
-     *        use for face recognition and the face attributes to detect.
+     *        Input parameters used in a streaming video analyzed by a stream processor. You can use
+     *        <code>FaceSearch</code> to recognize faces in a streaming video, or you can use <code>ConnectedHome</code>
+     *        to detect labels.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DescribeStreamProcessorResult withSettings(StreamProcessorSettings settings) {
         setSettings(settings);
+        return this;
+    }
+
+    /**
+     * @param notificationChannel
+     */
+
+    public void setNotificationChannel(StreamProcessorNotificationChannel notificationChannel) {
+        this.notificationChannel = notificationChannel;
+    }
+
+    /**
+     * @return
+     */
+
+    public StreamProcessorNotificationChannel getNotificationChannel() {
+        return this.notificationChannel;
+    }
+
+    /**
+     * @param notificationChannel
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeStreamProcessorResult withNotificationChannel(StreamProcessorNotificationChannel notificationChannel) {
+        setNotificationChannel(notificationChannel);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The identifier for your AWS Key Management Service key (AWS KMS key). This is an optional parameter for label
+     * detection stream processors.
+     * </p>
+     * 
+     * @param kmsKeyId
+     *        The identifier for your AWS Key Management Service key (AWS KMS key). This is an optional parameter for
+     *        label detection stream processors.
+     */
+
+    public void setKmsKeyId(String kmsKeyId) {
+        this.kmsKeyId = kmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The identifier for your AWS Key Management Service key (AWS KMS key). This is an optional parameter for label
+     * detection stream processors.
+     * </p>
+     * 
+     * @return The identifier for your AWS Key Management Service key (AWS KMS key). This is an optional parameter for
+     *         label detection stream processors.
+     */
+
+    public String getKmsKeyId() {
+        return this.kmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The identifier for your AWS Key Management Service key (AWS KMS key). This is an optional parameter for label
+     * detection stream processors.
+     * </p>
+     * 
+     * @param kmsKeyId
+     *        The identifier for your AWS Key Management Service key (AWS KMS key). This is an optional parameter for
+     *        label detection stream processors.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeStreamProcessorResult withKmsKeyId(String kmsKeyId) {
+        setKmsKeyId(kmsKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies locations in the frames where Amazon Rekognition checks for objects or people. This is an optional
+     * parameter for label detection stream processors.
+     * </p>
+     * 
+     * @return Specifies locations in the frames where Amazon Rekognition checks for objects or people. This is an
+     *         optional parameter for label detection stream processors.
+     */
+
+    public java.util.List<RegionOfInterest> getRegionsOfInterest() {
+        return regionsOfInterest;
+    }
+
+    /**
+     * <p>
+     * Specifies locations in the frames where Amazon Rekognition checks for objects or people. This is an optional
+     * parameter for label detection stream processors.
+     * </p>
+     * 
+     * @param regionsOfInterest
+     *        Specifies locations in the frames where Amazon Rekognition checks for objects or people. This is an
+     *        optional parameter for label detection stream processors.
+     */
+
+    public void setRegionsOfInterest(java.util.Collection<RegionOfInterest> regionsOfInterest) {
+        if (regionsOfInterest == null) {
+            this.regionsOfInterest = null;
+            return;
+        }
+
+        this.regionsOfInterest = new java.util.ArrayList<RegionOfInterest>(regionsOfInterest);
+    }
+
+    /**
+     * <p>
+     * Specifies locations in the frames where Amazon Rekognition checks for objects or people. This is an optional
+     * parameter for label detection stream processors.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRegionsOfInterest(java.util.Collection)} or {@link #withRegionsOfInterest(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param regionsOfInterest
+     *        Specifies locations in the frames where Amazon Rekognition checks for objects or people. This is an
+     *        optional parameter for label detection stream processors.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeStreamProcessorResult withRegionsOfInterest(RegionOfInterest... regionsOfInterest) {
+        if (this.regionsOfInterest == null) {
+            setRegionsOfInterest(new java.util.ArrayList<RegionOfInterest>(regionsOfInterest.length));
+        }
+        for (RegionOfInterest ele : regionsOfInterest) {
+            this.regionsOfInterest.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies locations in the frames where Amazon Rekognition checks for objects or people. This is an optional
+     * parameter for label detection stream processors.
+     * </p>
+     * 
+     * @param regionsOfInterest
+     *        Specifies locations in the frames where Amazon Rekognition checks for objects or people. This is an
+     *        optional parameter for label detection stream processors.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeStreamProcessorResult withRegionsOfInterest(java.util.Collection<RegionOfInterest> regionsOfInterest) {
+        setRegionsOfInterest(regionsOfInterest);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Shows whether you are sharing data with Rekognition to improve model performance. You can choose this option at
+     * the account level or on a per-stream basis. Note that if you opt out at the account level this setting is ignored
+     * on individual streams.
+     * </p>
+     * 
+     * @param dataSharingPreference
+     *        Shows whether you are sharing data with Rekognition to improve model performance. You can choose this
+     *        option at the account level or on a per-stream basis. Note that if you opt out at the account level this
+     *        setting is ignored on individual streams.
+     */
+
+    public void setDataSharingPreference(StreamProcessorDataSharingPreference dataSharingPreference) {
+        this.dataSharingPreference = dataSharingPreference;
+    }
+
+    /**
+     * <p>
+     * Shows whether you are sharing data with Rekognition to improve model performance. You can choose this option at
+     * the account level or on a per-stream basis. Note that if you opt out at the account level this setting is ignored
+     * on individual streams.
+     * </p>
+     * 
+     * @return Shows whether you are sharing data with Rekognition to improve model performance. You can choose this
+     *         option at the account level or on a per-stream basis. Note that if you opt out at the account level this
+     *         setting is ignored on individual streams.
+     */
+
+    public StreamProcessorDataSharingPreference getDataSharingPreference() {
+        return this.dataSharingPreference;
+    }
+
+    /**
+     * <p>
+     * Shows whether you are sharing data with Rekognition to improve model performance. You can choose this option at
+     * the account level or on a per-stream basis. Note that if you opt out at the account level this setting is ignored
+     * on individual streams.
+     * </p>
+     * 
+     * @param dataSharingPreference
+     *        Shows whether you are sharing data with Rekognition to improve model performance. You can choose this
+     *        option at the account level or on a per-stream basis. Note that if you opt out at the account level this
+     *        setting is ignored on individual streams.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeStreamProcessorResult withDataSharingPreference(StreamProcessorDataSharingPreference dataSharingPreference) {
+        setDataSharingPreference(dataSharingPreference);
         return this;
     }
 
@@ -543,7 +772,15 @@ public class DescribeStreamProcessorResult extends com.amazonaws.AmazonWebServic
         if (getRoleArn() != null)
             sb.append("RoleArn: ").append(getRoleArn()).append(",");
         if (getSettings() != null)
-            sb.append("Settings: ").append(getSettings());
+            sb.append("Settings: ").append(getSettings()).append(",");
+        if (getNotificationChannel() != null)
+            sb.append("NotificationChannel: ").append(getNotificationChannel()).append(",");
+        if (getKmsKeyId() != null)
+            sb.append("KmsKeyId: ").append(getKmsKeyId()).append(",");
+        if (getRegionsOfInterest() != null)
+            sb.append("RegionsOfInterest: ").append(getRegionsOfInterest()).append(",");
+        if (getDataSharingPreference() != null)
+            sb.append("DataSharingPreference: ").append(getDataSharingPreference());
         sb.append("}");
         return sb.toString();
     }
@@ -598,6 +835,22 @@ public class DescribeStreamProcessorResult extends com.amazonaws.AmazonWebServic
             return false;
         if (other.getSettings() != null && other.getSettings().equals(this.getSettings()) == false)
             return false;
+        if (other.getNotificationChannel() == null ^ this.getNotificationChannel() == null)
+            return false;
+        if (other.getNotificationChannel() != null && other.getNotificationChannel().equals(this.getNotificationChannel()) == false)
+            return false;
+        if (other.getKmsKeyId() == null ^ this.getKmsKeyId() == null)
+            return false;
+        if (other.getKmsKeyId() != null && other.getKmsKeyId().equals(this.getKmsKeyId()) == false)
+            return false;
+        if (other.getRegionsOfInterest() == null ^ this.getRegionsOfInterest() == null)
+            return false;
+        if (other.getRegionsOfInterest() != null && other.getRegionsOfInterest().equals(this.getRegionsOfInterest()) == false)
+            return false;
+        if (other.getDataSharingPreference() == null ^ this.getDataSharingPreference() == null)
+            return false;
+        if (other.getDataSharingPreference() != null && other.getDataSharingPreference().equals(this.getDataSharingPreference()) == false)
+            return false;
         return true;
     }
 
@@ -616,6 +869,10 @@ public class DescribeStreamProcessorResult extends com.amazonaws.AmazonWebServic
         hashCode = prime * hashCode + ((getOutput() == null) ? 0 : getOutput().hashCode());
         hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
         hashCode = prime * hashCode + ((getSettings() == null) ? 0 : getSettings().hashCode());
+        hashCode = prime * hashCode + ((getNotificationChannel() == null) ? 0 : getNotificationChannel().hashCode());
+        hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
+        hashCode = prime * hashCode + ((getRegionsOfInterest() == null) ? 0 : getRegionsOfInterest().hashCode());
+        hashCode = prime * hashCode + ((getDataSharingPreference() == null) ? 0 : getDataSharingPreference().hashCode());
         return hashCode;
     }
 

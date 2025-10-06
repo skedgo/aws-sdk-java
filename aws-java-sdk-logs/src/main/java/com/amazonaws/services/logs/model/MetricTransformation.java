@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,10 @@ public class MetricTransformation implements Serializable, Cloneable, Structured
     private String metricName;
     /**
      * <p>
-     * The namespace of the CloudWatch metric.
+     * A custom namespace to contain your metric in CloudWatch. Use namespaces to group together metrics that are
+     * similar. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace"
+     * >Namespaces</a>.
      * </p>
      */
     private String metricNamespace;
@@ -52,6 +55,36 @@ public class MetricTransformation implements Serializable, Cloneable, Structured
      * </p>
      */
     private Double defaultValue;
+    /**
+     * <p>
+     * The fields to use as dimensions for the metric. One metric filter can include as many as three dimensions.
+     * </p>
+     * <important>
+     * <p>
+     * Metrics extracted from log events are charged as custom metrics. To prevent unexpected high charges, do not
+     * specify high-cardinality fields such as <code>IPAddress</code> or <code>requestID</code> as dimensions. Each
+     * different value found for a dimension is treated as a separate metric and accrues charges as a separate custom
+     * metric.
+     * </p>
+     * <p>
+     * CloudWatch Logs disables a metric filter if it generates 1000 different name/value pairs for your specified
+     * dimensions within a certain amount of time. This helps to prevent accidental high charges.
+     * </p>
+     * <p>
+     * You can also set up a billing alarm to alert you if your charges are higher than expected. For more information,
+     * see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html">
+     * Creating a Billing Alarm to Monitor Your Estimated Amazon Web Services Charges</a>.
+     * </p>
+     * </important>
+     */
+    private com.amazonaws.internal.SdkInternalMap<String, String> dimensions;
+    /**
+     * <p>
+     * The unit to assign to the metric. If you omit this, the unit is set as <code>None</code>.
+     * </p>
+     */
+    private String unit;
 
     /**
      * <p>
@@ -95,11 +128,17 @@ public class MetricTransformation implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The namespace of the CloudWatch metric.
+     * A custom namespace to contain your metric in CloudWatch. Use namespaces to group together metrics that are
+     * similar. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace"
+     * >Namespaces</a>.
      * </p>
      * 
      * @param metricNamespace
-     *        The namespace of the CloudWatch metric.
+     *        A custom namespace to contain your metric in CloudWatch. Use namespaces to group together metrics that are
+     *        similar. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace"
+     *        >Namespaces</a>.
      */
 
     public void setMetricNamespace(String metricNamespace) {
@@ -108,10 +147,16 @@ public class MetricTransformation implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The namespace of the CloudWatch metric.
+     * A custom namespace to contain your metric in CloudWatch. Use namespaces to group together metrics that are
+     * similar. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace"
+     * >Namespaces</a>.
      * </p>
      * 
-     * @return The namespace of the CloudWatch metric.
+     * @return A custom namespace to contain your metric in CloudWatch. Use namespaces to group together metrics that
+     *         are similar. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace"
+     *         >Namespaces</a>.
      */
 
     public String getMetricNamespace() {
@@ -120,11 +165,17 @@ public class MetricTransformation implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The namespace of the CloudWatch metric.
+     * A custom namespace to contain your metric in CloudWatch. Use namespaces to group together metrics that are
+     * similar. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace"
+     * >Namespaces</a>.
      * </p>
      * 
      * @param metricNamespace
-     *        The namespace of the CloudWatch metric.
+     *        A custom namespace to contain your metric in CloudWatch. Use namespaces to group together metrics that are
+     *        similar. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace"
+     *        >Namespaces</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -214,6 +265,241 @@ public class MetricTransformation implements Serializable, Cloneable, Structured
     }
 
     /**
+     * <p>
+     * The fields to use as dimensions for the metric. One metric filter can include as many as three dimensions.
+     * </p>
+     * <important>
+     * <p>
+     * Metrics extracted from log events are charged as custom metrics. To prevent unexpected high charges, do not
+     * specify high-cardinality fields such as <code>IPAddress</code> or <code>requestID</code> as dimensions. Each
+     * different value found for a dimension is treated as a separate metric and accrues charges as a separate custom
+     * metric.
+     * </p>
+     * <p>
+     * CloudWatch Logs disables a metric filter if it generates 1000 different name/value pairs for your specified
+     * dimensions within a certain amount of time. This helps to prevent accidental high charges.
+     * </p>
+     * <p>
+     * You can also set up a billing alarm to alert you if your charges are higher than expected. For more information,
+     * see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html">
+     * Creating a Billing Alarm to Monitor Your Estimated Amazon Web Services Charges</a>.
+     * </p>
+     * </important>
+     * 
+     * @return The fields to use as dimensions for the metric. One metric filter can include as many as three
+     *         dimensions.</p> <important>
+     *         <p>
+     *         Metrics extracted from log events are charged as custom metrics. To prevent unexpected high charges, do
+     *         not specify high-cardinality fields such as <code>IPAddress</code> or <code>requestID</code> as
+     *         dimensions. Each different value found for a dimension is treated as a separate metric and accrues
+     *         charges as a separate custom metric.
+     *         </p>
+     *         <p>
+     *         CloudWatch Logs disables a metric filter if it generates 1000 different name/value pairs for your
+     *         specified dimensions within a certain amount of time. This helps to prevent accidental high charges.
+     *         </p>
+     *         <p>
+     *         You can also set up a billing alarm to alert you if your charges are higher than expected. For more
+     *         information, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html"
+     *         > Creating a Billing Alarm to Monitor Your Estimated Amazon Web Services Charges</a>.
+     *         </p>
+     */
+
+    public java.util.Map<String, String> getDimensions() {
+        if (dimensions == null) {
+            dimensions = new com.amazonaws.internal.SdkInternalMap<String, String>();
+        }
+        return dimensions;
+    }
+
+    /**
+     * <p>
+     * The fields to use as dimensions for the metric. One metric filter can include as many as three dimensions.
+     * </p>
+     * <important>
+     * <p>
+     * Metrics extracted from log events are charged as custom metrics. To prevent unexpected high charges, do not
+     * specify high-cardinality fields such as <code>IPAddress</code> or <code>requestID</code> as dimensions. Each
+     * different value found for a dimension is treated as a separate metric and accrues charges as a separate custom
+     * metric.
+     * </p>
+     * <p>
+     * CloudWatch Logs disables a metric filter if it generates 1000 different name/value pairs for your specified
+     * dimensions within a certain amount of time. This helps to prevent accidental high charges.
+     * </p>
+     * <p>
+     * You can also set up a billing alarm to alert you if your charges are higher than expected. For more information,
+     * see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html">
+     * Creating a Billing Alarm to Monitor Your Estimated Amazon Web Services Charges</a>.
+     * </p>
+     * </important>
+     * 
+     * @param dimensions
+     *        The fields to use as dimensions for the metric. One metric filter can include as many as three
+     *        dimensions.</p> <important>
+     *        <p>
+     *        Metrics extracted from log events are charged as custom metrics. To prevent unexpected high charges, do
+     *        not specify high-cardinality fields such as <code>IPAddress</code> or <code>requestID</code> as
+     *        dimensions. Each different value found for a dimension is treated as a separate metric and accrues charges
+     *        as a separate custom metric.
+     *        </p>
+     *        <p>
+     *        CloudWatch Logs disables a metric filter if it generates 1000 different name/value pairs for your
+     *        specified dimensions within a certain amount of time. This helps to prevent accidental high charges.
+     *        </p>
+     *        <p>
+     *        You can also set up a billing alarm to alert you if your charges are higher than expected. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html"
+     *        > Creating a Billing Alarm to Monitor Your Estimated Amazon Web Services Charges</a>.
+     *        </p>
+     */
+
+    public void setDimensions(java.util.Map<String, String> dimensions) {
+        this.dimensions = dimensions == null ? null : new com.amazonaws.internal.SdkInternalMap<String, String>(dimensions);
+    }
+
+    /**
+     * <p>
+     * The fields to use as dimensions for the metric. One metric filter can include as many as three dimensions.
+     * </p>
+     * <important>
+     * <p>
+     * Metrics extracted from log events are charged as custom metrics. To prevent unexpected high charges, do not
+     * specify high-cardinality fields such as <code>IPAddress</code> or <code>requestID</code> as dimensions. Each
+     * different value found for a dimension is treated as a separate metric and accrues charges as a separate custom
+     * metric.
+     * </p>
+     * <p>
+     * CloudWatch Logs disables a metric filter if it generates 1000 different name/value pairs for your specified
+     * dimensions within a certain amount of time. This helps to prevent accidental high charges.
+     * </p>
+     * <p>
+     * You can also set up a billing alarm to alert you if your charges are higher than expected. For more information,
+     * see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html">
+     * Creating a Billing Alarm to Monitor Your Estimated Amazon Web Services Charges</a>.
+     * </p>
+     * </important>
+     * 
+     * @param dimensions
+     *        The fields to use as dimensions for the metric. One metric filter can include as many as three
+     *        dimensions.</p> <important>
+     *        <p>
+     *        Metrics extracted from log events are charged as custom metrics. To prevent unexpected high charges, do
+     *        not specify high-cardinality fields such as <code>IPAddress</code> or <code>requestID</code> as
+     *        dimensions. Each different value found for a dimension is treated as a separate metric and accrues charges
+     *        as a separate custom metric.
+     *        </p>
+     *        <p>
+     *        CloudWatch Logs disables a metric filter if it generates 1000 different name/value pairs for your
+     *        specified dimensions within a certain amount of time. This helps to prevent accidental high charges.
+     *        </p>
+     *        <p>
+     *        You can also set up a billing alarm to alert you if your charges are higher than expected. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html"
+     *        > Creating a Billing Alarm to Monitor Your Estimated Amazon Web Services Charges</a>.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MetricTransformation withDimensions(java.util.Map<String, String> dimensions) {
+        setDimensions(dimensions);
+        return this;
+    }
+
+    /**
+     * Add a single Dimensions entry
+     *
+     * @see MetricTransformation#withDimensions
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MetricTransformation addDimensionsEntry(String key, String value) {
+        if (null == this.dimensions) {
+            this.dimensions = new com.amazonaws.internal.SdkInternalMap<String, String>();
+        }
+        if (this.dimensions.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.dimensions.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Dimensions.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MetricTransformation clearDimensionsEntries() {
+        this.dimensions = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The unit to assign to the metric. If you omit this, the unit is set as <code>None</code>.
+     * </p>
+     * 
+     * @param unit
+     *        The unit to assign to the metric. If you omit this, the unit is set as <code>None</code>.
+     * @see StandardUnit
+     */
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    /**
+     * <p>
+     * The unit to assign to the metric. If you omit this, the unit is set as <code>None</code>.
+     * </p>
+     * 
+     * @return The unit to assign to the metric. If you omit this, the unit is set as <code>None</code>.
+     * @see StandardUnit
+     */
+
+    public String getUnit() {
+        return this.unit;
+    }
+
+    /**
+     * <p>
+     * The unit to assign to the metric. If you omit this, the unit is set as <code>None</code>.
+     * </p>
+     * 
+     * @param unit
+     *        The unit to assign to the metric. If you omit this, the unit is set as <code>None</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StandardUnit
+     */
+
+    public MetricTransformation withUnit(String unit) {
+        setUnit(unit);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The unit to assign to the metric. If you omit this, the unit is set as <code>None</code>.
+     * </p>
+     * 
+     * @param unit
+     *        The unit to assign to the metric. If you omit this, the unit is set as <code>None</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StandardUnit
+     */
+
+    public MetricTransformation withUnit(StandardUnit unit) {
+        this.unit = unit.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -232,7 +518,11 @@ public class MetricTransformation implements Serializable, Cloneable, Structured
         if (getMetricValue() != null)
             sb.append("MetricValue: ").append(getMetricValue()).append(",");
         if (getDefaultValue() != null)
-            sb.append("DefaultValue: ").append(getDefaultValue());
+            sb.append("DefaultValue: ").append(getDefaultValue()).append(",");
+        if (getDimensions() != null)
+            sb.append("Dimensions: ").append(getDimensions()).append(",");
+        if (getUnit() != null)
+            sb.append("Unit: ").append(getUnit());
         sb.append("}");
         return sb.toString();
     }
@@ -263,6 +553,14 @@ public class MetricTransformation implements Serializable, Cloneable, Structured
             return false;
         if (other.getDefaultValue() != null && other.getDefaultValue().equals(this.getDefaultValue()) == false)
             return false;
+        if (other.getDimensions() == null ^ this.getDimensions() == null)
+            return false;
+        if (other.getDimensions() != null && other.getDimensions().equals(this.getDimensions()) == false)
+            return false;
+        if (other.getUnit() == null ^ this.getUnit() == null)
+            return false;
+        if (other.getUnit() != null && other.getUnit().equals(this.getUnit()) == false)
+            return false;
         return true;
     }
 
@@ -275,6 +573,8 @@ public class MetricTransformation implements Serializable, Cloneable, Structured
         hashCode = prime * hashCode + ((getMetricNamespace() == null) ? 0 : getMetricNamespace().hashCode());
         hashCode = prime * hashCode + ((getMetricValue() == null) ? 0 : getMetricValue().hashCode());
         hashCode = prime * hashCode + ((getDefaultValue() == null) ? 0 : getDefaultValue().hashCode());
+        hashCode = prime * hashCode + ((getDimensions() == null) ? 0 : getDimensions().hashCode());
+        hashCode = prime * hashCode + ((getUnit() == null) ? 0 : getUnit().hashCode());
         return hashCode;
     }
 

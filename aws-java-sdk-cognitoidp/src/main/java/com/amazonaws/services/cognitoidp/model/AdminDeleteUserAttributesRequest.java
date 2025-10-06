@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,13 +36,16 @@ public class AdminDeleteUserAttributesRequest extends com.amazonaws.AmazonWebSer
     private String userPoolId;
     /**
      * <p>
-     * The user name of the user from which you would like to delete attributes.
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
      * </p>
      */
     private String username;
     /**
      * <p>
-     * An array of strings representing the user attribute names you wish to delete.
+     * An array of strings representing the user attribute names you want to delete.
      * </p>
      * <p>
      * For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
@@ -92,11 +95,17 @@ public class AdminDeleteUserAttributesRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The user name of the user from which you would like to delete attributes.
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
      * </p>
      * 
      * @param username
-     *        The user name of the user from which you would like to delete attributes.
+     *        The username of the user that you want to query or modify. The value of this parameter is typically your
+     *        user's username, but it can be any of their alias attributes. If <code>username</code> isn't an alias
+     *        attribute in your user pool, this value must be the <code>sub</code> of a local user or the username of a
+     *        user from a third-party IdP.
      */
 
     public void setUsername(String username) {
@@ -105,10 +114,16 @@ public class AdminDeleteUserAttributesRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The user name of the user from which you would like to delete attributes.
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
      * </p>
      * 
-     * @return The user name of the user from which you would like to delete attributes.
+     * @return The username of the user that you want to query or modify. The value of this parameter is typically your
+     *         user's username, but it can be any of their alias attributes. If <code>username</code> isn't an alias
+     *         attribute in your user pool, this value must be the <code>sub</code> of a local user or the username of a
+     *         user from a third-party IdP.
      */
 
     public String getUsername() {
@@ -117,11 +132,17 @@ public class AdminDeleteUserAttributesRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The user name of the user from which you would like to delete attributes.
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
      * </p>
      * 
      * @param username
-     *        The user name of the user from which you would like to delete attributes.
+     *        The username of the user that you want to query or modify. The value of this parameter is typically your
+     *        user's username, but it can be any of their alias attributes. If <code>username</code> isn't an alias
+     *        attribute in your user pool, this value must be the <code>sub</code> of a local user or the username of a
+     *        user from a third-party IdP.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -132,13 +153,13 @@ public class AdminDeleteUserAttributesRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * An array of strings representing the user attribute names you wish to delete.
+     * An array of strings representing the user attribute names you want to delete.
      * </p>
      * <p>
      * For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
      * </p>
      * 
-     * @return An array of strings representing the user attribute names you wish to delete.</p>
+     * @return An array of strings representing the user attribute names you want to delete.</p>
      *         <p>
      *         For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
      */
@@ -149,14 +170,14 @@ public class AdminDeleteUserAttributesRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * An array of strings representing the user attribute names you wish to delete.
+     * An array of strings representing the user attribute names you want to delete.
      * </p>
      * <p>
      * For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
      * </p>
      * 
      * @param userAttributeNames
-     *        An array of strings representing the user attribute names you wish to delete.</p>
+     *        An array of strings representing the user attribute names you want to delete.</p>
      *        <p>
      *        For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
      */
@@ -172,7 +193,7 @@ public class AdminDeleteUserAttributesRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * An array of strings representing the user attribute names you wish to delete.
+     * An array of strings representing the user attribute names you want to delete.
      * </p>
      * <p>
      * For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
@@ -184,7 +205,7 @@ public class AdminDeleteUserAttributesRequest extends com.amazonaws.AmazonWebSer
      * </p>
      * 
      * @param userAttributeNames
-     *        An array of strings representing the user attribute names you wish to delete.</p>
+     *        An array of strings representing the user attribute names you want to delete.</p>
      *        <p>
      *        For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -202,14 +223,14 @@ public class AdminDeleteUserAttributesRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * An array of strings representing the user attribute names you wish to delete.
+     * An array of strings representing the user attribute names you want to delete.
      * </p>
      * <p>
      * For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
      * </p>
      * 
      * @param userAttributeNames
-     *        An array of strings representing the user attribute names you wish to delete.</p>
+     *        An array of strings representing the user attribute names you want to delete.</p>
      *        <p>
      *        For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
      * @return Returns a reference to this object so that method calls can be chained together.

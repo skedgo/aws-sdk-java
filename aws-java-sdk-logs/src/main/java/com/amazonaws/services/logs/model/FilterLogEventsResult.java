@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,6 +30,9 @@ public class FilterLogEventsResult extends com.amazonaws.AmazonWebServiceResult<
      */
     private com.amazonaws.internal.SdkInternalList<FilteredLogEvent> events;
     /**
+     * <p>
+     * <b>Important</b> As of May 15, 2020, this parameter is no longer supported. This parameter returns an empty list.
+     * </p>
      * <p>
      * Indicates which log streams have been searched and whether each has been searched completely.
      * </p>
@@ -117,10 +120,16 @@ public class FilterLogEventsResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
+     * <b>Important</b> As of May 15, 2020, this parameter is no longer supported. This parameter returns an empty list.
+     * </p>
+     * <p>
      * Indicates which log streams have been searched and whether each has been searched completely.
      * </p>
      * 
-     * @return Indicates which log streams have been searched and whether each has been searched completely.
+     * @return <b>Important</b> As of May 15, 2020, this parameter is no longer supported. This parameter returns an
+     *         empty list.</p>
+     *         <p>
+     *         Indicates which log streams have been searched and whether each has been searched completely.
      */
 
     public java.util.List<SearchedLogStream> getSearchedLogStreams() {
@@ -132,10 +141,16 @@ public class FilterLogEventsResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
+     * <b>Important</b> As of May 15, 2020, this parameter is no longer supported. This parameter returns an empty list.
+     * </p>
+     * <p>
      * Indicates which log streams have been searched and whether each has been searched completely.
      * </p>
      * 
      * @param searchedLogStreams
+     *        <b>Important</b> As of May 15, 2020, this parameter is no longer supported. This parameter returns an
+     *        empty list.</p>
+     *        <p>
      *        Indicates which log streams have been searched and whether each has been searched completely.
      */
 
@@ -150,6 +165,9 @@ public class FilterLogEventsResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
+     * <b>Important</b> As of May 15, 2020, this parameter is no longer supported. This parameter returns an empty list.
+     * </p>
+     * <p>
      * Indicates which log streams have been searched and whether each has been searched completely.
      * </p>
      * <p>
@@ -159,6 +177,9 @@ public class FilterLogEventsResult extends com.amazonaws.AmazonWebServiceResult<
      * </p>
      * 
      * @param searchedLogStreams
+     *        <b>Important</b> As of May 15, 2020, this parameter is no longer supported. This parameter returns an
+     *        empty list.</p>
+     *        <p>
      *        Indicates which log streams have been searched and whether each has been searched completely.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -175,10 +196,16 @@ public class FilterLogEventsResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
+     * <b>Important</b> As of May 15, 2020, this parameter is no longer supported. This parameter returns an empty list.
+     * </p>
+     * <p>
      * Indicates which log streams have been searched and whether each has been searched completely.
      * </p>
      * 
      * @param searchedLogStreams
+     *        <b>Important</b> As of May 15, 2020, this parameter is no longer supported. This parameter returns an
+     *        empty list.</p>
+     *        <p>
      *        Indicates which log streams have been searched and whether each has been searched completely.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

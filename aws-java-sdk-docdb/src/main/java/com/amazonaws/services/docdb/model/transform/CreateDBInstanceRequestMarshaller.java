@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -74,13 +74,15 @@ public class CreateDBInstanceRequestMarshaller implements Marshaller<Request<Cre
                 int tagsListIndex = 1;
 
                 for (Tag tagsListValue : tagsList) {
+                    if (tagsListValue != null) {
 
-                    if (tagsListValue.getKey() != null) {
-                        request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
-                    }
+                        if (tagsListValue.getKey() != null) {
+                            request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
+                        }
 
-                    if (tagsListValue.getValue() != null) {
-                        request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                        if (tagsListValue.getValue() != null) {
+                            request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                        }
                     }
                     tagsListIndex++;
                 }
@@ -91,8 +93,24 @@ public class CreateDBInstanceRequestMarshaller implements Marshaller<Request<Cre
             request.addParameter("DBClusterIdentifier", StringUtils.fromString(createDBInstanceRequest.getDBClusterIdentifier()));
         }
 
+        if (createDBInstanceRequest.getCopyTagsToSnapshot() != null) {
+            request.addParameter("CopyTagsToSnapshot", StringUtils.fromBoolean(createDBInstanceRequest.getCopyTagsToSnapshot()));
+        }
+
         if (createDBInstanceRequest.getPromotionTier() != null) {
             request.addParameter("PromotionTier", StringUtils.fromInteger(createDBInstanceRequest.getPromotionTier()));
+        }
+
+        if (createDBInstanceRequest.getEnablePerformanceInsights() != null) {
+            request.addParameter("EnablePerformanceInsights", StringUtils.fromBoolean(createDBInstanceRequest.getEnablePerformanceInsights()));
+        }
+
+        if (createDBInstanceRequest.getPerformanceInsightsKMSKeyId() != null) {
+            request.addParameter("PerformanceInsightsKMSKeyId", StringUtils.fromString(createDBInstanceRequest.getPerformanceInsightsKMSKeyId()));
+        }
+
+        if (createDBInstanceRequest.getCACertificateIdentifier() != null) {
+            request.addParameter("CACertificateIdentifier", StringUtils.fromString(createDBInstanceRequest.getCACertificateIdentifier()));
         }
 
         return request;

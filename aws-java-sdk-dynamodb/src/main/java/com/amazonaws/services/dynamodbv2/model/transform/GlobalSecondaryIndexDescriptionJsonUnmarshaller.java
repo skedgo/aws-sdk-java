@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,7 +55,8 @@ public class GlobalSecondaryIndexDescriptionJsonUnmarshaller implements Unmarsha
                 if (context.testExpression("KeySchema", targetDepth)) {
                     context.nextToken();
                     globalSecondaryIndexDescription.setKeySchema(new ListUnmarshaller<KeySchemaElement>(KeySchemaElementJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("Projection", targetDepth)) {
                     context.nextToken();
@@ -85,6 +86,10 @@ public class GlobalSecondaryIndexDescriptionJsonUnmarshaller implements Unmarsha
                 if (context.testExpression("IndexArn", targetDepth)) {
                     context.nextToken();
                     globalSecondaryIndexDescription.setIndexArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("OnDemandThroughput", targetDepth)) {
+                    context.nextToken();
+                    globalSecondaryIndexDescription.setOnDemandThroughput(OnDemandThroughputJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

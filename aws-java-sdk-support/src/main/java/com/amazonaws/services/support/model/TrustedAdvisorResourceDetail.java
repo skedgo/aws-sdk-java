@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class TrustedAdvisorResourceDetail implements Serializable, Cloneable, St
     private String status;
     /**
      * <p>
-     * The AWS region in which the identified resource is located.
+     * The Amazon Web Services Region in which the identified resource is located.
      * </p>
      */
     private String region;
@@ -48,8 +48,8 @@ public class TrustedAdvisorResourceDetail implements Serializable, Cloneable, St
     private String resourceId;
     /**
      * <p>
-     * Specifies whether the AWS resource was ignored by Trusted Advisor because it was marked as suppressed by the
-     * user.
+     * Specifies whether the Amazon Web Services resource was ignored by Trusted Advisor because it was marked as
+     * suppressed by the user.
      * </p>
      */
     private Boolean isSuppressed;
@@ -105,11 +105,11 @@ public class TrustedAdvisorResourceDetail implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The AWS region in which the identified resource is located.
+     * The Amazon Web Services Region in which the identified resource is located.
      * </p>
      * 
      * @param region
-     *        The AWS region in which the identified resource is located.
+     *        The Amazon Web Services Region in which the identified resource is located.
      */
 
     public void setRegion(String region) {
@@ -118,10 +118,10 @@ public class TrustedAdvisorResourceDetail implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The AWS region in which the identified resource is located.
+     * The Amazon Web Services Region in which the identified resource is located.
      * </p>
      * 
-     * @return The AWS region in which the identified resource is located.
+     * @return The Amazon Web Services Region in which the identified resource is located.
      */
 
     public String getRegion() {
@@ -130,11 +130,11 @@ public class TrustedAdvisorResourceDetail implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The AWS region in which the identified resource is located.
+     * The Amazon Web Services Region in which the identified resource is located.
      * </p>
      * 
      * @param region
-     *        The AWS region in which the identified resource is located.
+     *        The Amazon Web Services Region in which the identified resource is located.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -185,13 +185,13 @@ public class TrustedAdvisorResourceDetail implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * Specifies whether the AWS resource was ignored by Trusted Advisor because it was marked as suppressed by the
-     * user.
+     * Specifies whether the Amazon Web Services resource was ignored by Trusted Advisor because it was marked as
+     * suppressed by the user.
      * </p>
      * 
      * @param isSuppressed
-     *        Specifies whether the AWS resource was ignored by Trusted Advisor because it was marked as suppressed by
-     *        the user.
+     *        Specifies whether the Amazon Web Services resource was ignored by Trusted Advisor because it was marked as
+     *        suppressed by the user.
      */
 
     public void setIsSuppressed(Boolean isSuppressed) {
@@ -200,12 +200,12 @@ public class TrustedAdvisorResourceDetail implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * Specifies whether the AWS resource was ignored by Trusted Advisor because it was marked as suppressed by the
-     * user.
+     * Specifies whether the Amazon Web Services resource was ignored by Trusted Advisor because it was marked as
+     * suppressed by the user.
      * </p>
      * 
-     * @return Specifies whether the AWS resource was ignored by Trusted Advisor because it was marked as suppressed by
-     *         the user.
+     * @return Specifies whether the Amazon Web Services resource was ignored by Trusted Advisor because it was marked
+     *         as suppressed by the user.
      */
 
     public Boolean getIsSuppressed() {
@@ -214,13 +214,13 @@ public class TrustedAdvisorResourceDetail implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * Specifies whether the AWS resource was ignored by Trusted Advisor because it was marked as suppressed by the
-     * user.
+     * Specifies whether the Amazon Web Services resource was ignored by Trusted Advisor because it was marked as
+     * suppressed by the user.
      * </p>
      * 
      * @param isSuppressed
-     *        Specifies whether the AWS resource was ignored by Trusted Advisor because it was marked as suppressed by
-     *        the user.
+     *        Specifies whether the Amazon Web Services resource was ignored by Trusted Advisor because it was marked as
+     *        suppressed by the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -231,12 +231,12 @@ public class TrustedAdvisorResourceDetail implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * Specifies whether the AWS resource was ignored by Trusted Advisor because it was marked as suppressed by the
-     * user.
+     * Specifies whether the Amazon Web Services resource was ignored by Trusted Advisor because it was marked as
+     * suppressed by the user.
      * </p>
      * 
-     * @return Specifies whether the AWS resource was ignored by Trusted Advisor because it was marked as suppressed by
-     *         the user.
+     * @return Specifies whether the Amazon Web Services resource was ignored by Trusted Advisor because it was marked
+     *         as suppressed by the user.
      */
 
     public Boolean isSuppressed() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,14 +27,15 @@ public class GetParameterHistoryRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of a parameter you want to query.
+     * The name or Amazon Resource Name (ARN) of the parameter for which you want to review history. For parameters
+     * shared with you from another account, you must use the full ARN.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * Return decrypted values for secure string parameters. This flag is ignored for String and StringList parameter
-     * types.
+     * Return decrypted values for secure string parameters. This flag is ignored for <code>String</code> and
+     * <code>StringList</code> parameter types.
      * </p>
      */
     private Boolean withDecryption;
@@ -54,11 +55,13 @@ public class GetParameterHistoryRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of a parameter you want to query.
+     * The name or Amazon Resource Name (ARN) of the parameter for which you want to review history. For parameters
+     * shared with you from another account, you must use the full ARN.
      * </p>
      * 
      * @param name
-     *        The name of a parameter you want to query.
+     *        The name or Amazon Resource Name (ARN) of the parameter for which you want to review history. For
+     *        parameters shared with you from another account, you must use the full ARN.
      */
 
     public void setName(String name) {
@@ -67,10 +70,12 @@ public class GetParameterHistoryRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of a parameter you want to query.
+     * The name or Amazon Resource Name (ARN) of the parameter for which you want to review history. For parameters
+     * shared with you from another account, you must use the full ARN.
      * </p>
      * 
-     * @return The name of a parameter you want to query.
+     * @return The name or Amazon Resource Name (ARN) of the parameter for which you want to review history. For
+     *         parameters shared with you from another account, you must use the full ARN.
      */
 
     public String getName() {
@@ -79,11 +84,13 @@ public class GetParameterHistoryRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of a parameter you want to query.
+     * The name or Amazon Resource Name (ARN) of the parameter for which you want to review history. For parameters
+     * shared with you from another account, you must use the full ARN.
      * </p>
      * 
      * @param name
-     *        The name of a parameter you want to query.
+     *        The name or Amazon Resource Name (ARN) of the parameter for which you want to review history. For
+     *        parameters shared with you from another account, you must use the full ARN.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -94,13 +101,13 @@ public class GetParameterHistoryRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Return decrypted values for secure string parameters. This flag is ignored for String and StringList parameter
-     * types.
+     * Return decrypted values for secure string parameters. This flag is ignored for <code>String</code> and
+     * <code>StringList</code> parameter types.
      * </p>
      * 
      * @param withDecryption
-     *        Return decrypted values for secure string parameters. This flag is ignored for String and StringList
-     *        parameter types.
+     *        Return decrypted values for secure string parameters. This flag is ignored for <code>String</code> and
+     *        <code>StringList</code> parameter types.
      */
 
     public void setWithDecryption(Boolean withDecryption) {
@@ -109,12 +116,12 @@ public class GetParameterHistoryRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Return decrypted values for secure string parameters. This flag is ignored for String and StringList parameter
-     * types.
+     * Return decrypted values for secure string parameters. This flag is ignored for <code>String</code> and
+     * <code>StringList</code> parameter types.
      * </p>
      * 
-     * @return Return decrypted values for secure string parameters. This flag is ignored for String and StringList
-     *         parameter types.
+     * @return Return decrypted values for secure string parameters. This flag is ignored for <code>String</code> and
+     *         <code>StringList</code> parameter types.
      */
 
     public Boolean getWithDecryption() {
@@ -123,13 +130,13 @@ public class GetParameterHistoryRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Return decrypted values for secure string parameters. This flag is ignored for String and StringList parameter
-     * types.
+     * Return decrypted values for secure string parameters. This flag is ignored for <code>String</code> and
+     * <code>StringList</code> parameter types.
      * </p>
      * 
      * @param withDecryption
-     *        Return decrypted values for secure string parameters. This flag is ignored for String and StringList
-     *        parameter types.
+     *        Return decrypted values for secure string parameters. This flag is ignored for <code>String</code> and
+     *        <code>StringList</code> parameter types.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -140,12 +147,12 @@ public class GetParameterHistoryRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Return decrypted values for secure string parameters. This flag is ignored for String and StringList parameter
-     * types.
+     * Return decrypted values for secure string parameters. This flag is ignored for <code>String</code> and
+     * <code>StringList</code> parameter types.
      * </p>
      * 
-     * @return Return decrypted values for secure string parameters. This flag is ignored for String and StringList
-     *         parameter types.
+     * @return Return decrypted values for secure string parameters. This flag is ignored for <code>String</code> and
+     *         <code>StringList</code> parameter types.
      */
 
     public Boolean isWithDecryption() {

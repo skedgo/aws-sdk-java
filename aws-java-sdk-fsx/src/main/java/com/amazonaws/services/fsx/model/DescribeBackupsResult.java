@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Response object for <code>DescribeBackups</code> operation.
+ * Response object for the <code>DescribeBackups</code> operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/DescribeBackups" target="_top">AWS API
@@ -28,24 +28,24 @@ public class DescribeBackupsResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Any array of backups.
+     * An array of backups.
      * </p>
      */
     private java.util.List<Backup> backups;
     /**
      * <p>
-     * This is present if there are more backups than returned in the response (String). You can use the
-     * <code>NextToken</code> value in the later request to fetch the backups.
+     * A <code>NextToken</code> value is present if there are more backups than returned in the response. You can use
+     * the <code>NextToken</code> value in the subsequent request to fetch the backups.
      * </p>
      */
     private String nextToken;
 
     /**
      * <p>
-     * Any array of backups.
+     * An array of backups.
      * </p>
      * 
-     * @return Any array of backups.
+     * @return An array of backups.
      */
 
     public java.util.List<Backup> getBackups() {
@@ -54,11 +54,11 @@ public class DescribeBackupsResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Any array of backups.
+     * An array of backups.
      * </p>
      * 
      * @param backups
-     *        Any array of backups.
+     *        An array of backups.
      */
 
     public void setBackups(java.util.Collection<Backup> backups) {
@@ -72,7 +72,7 @@ public class DescribeBackupsResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Any array of backups.
+     * An array of backups.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -81,7 +81,7 @@ public class DescribeBackupsResult extends com.amazonaws.AmazonWebServiceResult<
      * </p>
      * 
      * @param backups
-     *        Any array of backups.
+     *        An array of backups.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -97,11 +97,11 @@ public class DescribeBackupsResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Any array of backups.
+     * An array of backups.
      * </p>
      * 
      * @param backups
-     *        Any array of backups.
+     *        An array of backups.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -112,13 +112,13 @@ public class DescribeBackupsResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * This is present if there are more backups than returned in the response (String). You can use the
-     * <code>NextToken</code> value in the later request to fetch the backups.
+     * A <code>NextToken</code> value is present if there are more backups than returned in the response. You can use
+     * the <code>NextToken</code> value in the subsequent request to fetch the backups.
      * </p>
      * 
      * @param nextToken
-     *        This is present if there are more backups than returned in the response (String). You can use the
-     *        <code>NextToken</code> value in the later request to fetch the backups.
+     *        A <code>NextToken</code> value is present if there are more backups than returned in the response. You can
+     *        use the <code>NextToken</code> value in the subsequent request to fetch the backups.
      */
 
     public void setNextToken(String nextToken) {
@@ -127,12 +127,12 @@ public class DescribeBackupsResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * This is present if there are more backups than returned in the response (String). You can use the
-     * <code>NextToken</code> value in the later request to fetch the backups.
+     * A <code>NextToken</code> value is present if there are more backups than returned in the response. You can use
+     * the <code>NextToken</code> value in the subsequent request to fetch the backups.
      * </p>
      * 
-     * @return This is present if there are more backups than returned in the response (String). You can use the
-     *         <code>NextToken</code> value in the later request to fetch the backups.
+     * @return A <code>NextToken</code> value is present if there are more backups than returned in the response. You
+     *         can use the <code>NextToken</code> value in the subsequent request to fetch the backups.
      */
 
     public String getNextToken() {
@@ -141,13 +141,13 @@ public class DescribeBackupsResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * This is present if there are more backups than returned in the response (String). You can use the
-     * <code>NextToken</code> value in the later request to fetch the backups.
+     * A <code>NextToken</code> value is present if there are more backups than returned in the response. You can use
+     * the <code>NextToken</code> value in the subsequent request to fetch the backups.
      * </p>
      * 
      * @param nextToken
-     *        This is present if there are more backups than returned in the response (String). You can use the
-     *        <code>NextToken</code> value in the later request to fetch the backups.
+     *        A <code>NextToken</code> value is present if there are more backups than returned in the response. You can
+     *        use the <code>NextToken</code> value in the subsequent request to fetch the backups.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

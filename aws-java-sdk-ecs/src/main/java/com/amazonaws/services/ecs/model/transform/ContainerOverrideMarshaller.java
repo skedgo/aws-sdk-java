@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,6 +34,8 @@ public class ContainerOverrideMarshaller {
             .marshallLocationName("command").build();
     private static final MarshallingInfo<List> ENVIRONMENT_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("environment").build();
+    private static final MarshallingInfo<List> ENVIRONMENTFILES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("environmentFiles").build();
     private static final MarshallingInfo<Integer> CPU_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("cpu").build();
     private static final MarshallingInfo<Integer> MEMORY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER).marshallLocation(MarshallLocation.PAYLOAD)
@@ -62,6 +64,7 @@ public class ContainerOverrideMarshaller {
             protocolMarshaller.marshall(containerOverride.getName(), NAME_BINDING);
             protocolMarshaller.marshall(containerOverride.getCommand(), COMMAND_BINDING);
             protocolMarshaller.marshall(containerOverride.getEnvironment(), ENVIRONMENT_BINDING);
+            protocolMarshaller.marshall(containerOverride.getEnvironmentFiles(), ENVIRONMENTFILES_BINDING);
             protocolMarshaller.marshall(containerOverride.getCpu(), CPU_BINDING);
             protocolMarshaller.marshall(containerOverride.getMemory(), MEMORY_BINDING);
             protocolMarshaller.marshall(containerOverride.getMemoryReservation(), MEMORYRESERVATION_BINDING);

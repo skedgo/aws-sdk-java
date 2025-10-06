@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,10 @@ public class MaintenanceWindowRunCommandParametersJsonUnmarshaller implements Un
                     context.nextToken();
                     maintenanceWindowRunCommandParameters.setComment(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("CloudWatchOutputConfig", targetDepth)) {
+                    context.nextToken();
+                    maintenanceWindowRunCommandParameters.setCloudWatchOutputConfig(CloudWatchOutputConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("DocumentHash", targetDepth)) {
                     context.nextToken();
                     maintenanceWindowRunCommandParameters.setDocumentHash(context.getUnmarshaller(String.class).unmarshall(context));
@@ -59,6 +63,10 @@ public class MaintenanceWindowRunCommandParametersJsonUnmarshaller implements Un
                 if (context.testExpression("DocumentHashType", targetDepth)) {
                     context.nextToken();
                     maintenanceWindowRunCommandParameters.setDocumentHashType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("DocumentVersion", targetDepth)) {
+                    context.nextToken();
+                    maintenanceWindowRunCommandParameters.setDocumentVersion(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("NotificationConfig", targetDepth)) {
                     context.nextToken();
@@ -75,7 +83,9 @@ public class MaintenanceWindowRunCommandParametersJsonUnmarshaller implements Un
                 if (context.testExpression("Parameters", targetDepth)) {
                     context.nextToken();
                     maintenanceWindowRunCommandParameters.setParameters(new MapUnmarshaller<String, java.util.List<String>>(context
-                            .getUnmarshaller(String.class), new ListUnmarshaller<String>(context.getUnmarshaller(String.class))).unmarshall(context));
+                            .getUnmarshaller(String.class), new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    ).unmarshall(context));
                 }
                 if (context.testExpression("ServiceRoleArn", targetDepth)) {
                     context.nextToken();

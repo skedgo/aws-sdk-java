@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@ package com.amazonaws.monitoring.internal;
 import com.amazonaws.annotation.SdkInternalApi;
 import com.amazonaws.annotation.SdkTestInternalApi;
 import com.amazonaws.monitoring.MonitoringEvent;
+import com.amazonaws.util.PropertyNamingStrategyUtils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -31,6 +31,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
 
 /**
  * Dispatches {@link MonitoringEvent}s to the local agent asynchronously.
@@ -54,10 +55,9 @@ public class AsynchronousAgentDispatcher {
     private volatile boolean initialized = false;
 
     private AsynchronousAgentDispatcher() {
-        this.writer = new ObjectMapper()
-                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-                .setPropertyNamingStrategy(new PropertyNamingStrategy.PascalCaseStrategy())
-                .writer();
+        ObjectMapper mapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        PropertyNamingStrategyUtils.configureUpperCamelCase(mapper);
+        this.writer = mapper.writer();
     }
 
     @SdkTestInternalApi
@@ -86,7 +86,15 @@ public class AsynchronousAgentDispatcher {
     public synchronized void init() {
         if (!initialized) {
             tasks = new LinkedBlockingQueue<WriteTask>(QUEUE_SIZE);
-            exec = Executors.newSingleThreadExecutor();
+            exec = Executors.newSingleThreadExecutor(new ThreadFactory() {
+                @Override
+                public Thread newThread(Runnable r) {
+                    Thread t = new Thread(r);
+                    t.setName("CsmAgentAsyncDispatchThread");
+                    t.setDaemon(true);
+                    return t;
+                }
+            });
             exec.submit(new WriterRunnable());
             initialized = true;
         }

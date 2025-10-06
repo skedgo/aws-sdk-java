@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,8 @@ public class NewTransitVirtualInterfaceMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("directConnectGatewayId").build();
     private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("tags").build();
+    private static final MarshallingInfo<Boolean> ENABLESITELINK_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("enableSiteLink").build();
 
     private static final NewTransitVirtualInterfaceMarshaller instance = new NewTransitVirtualInterfaceMarshaller();
 
@@ -75,6 +77,7 @@ public class NewTransitVirtualInterfaceMarshaller {
             protocolMarshaller.marshall(newTransitVirtualInterface.getAddressFamily(), ADDRESSFAMILY_BINDING);
             protocolMarshaller.marshall(newTransitVirtualInterface.getDirectConnectGatewayId(), DIRECTCONNECTGATEWAYID_BINDING);
             protocolMarshaller.marshall(newTransitVirtualInterface.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(newTransitVirtualInterface.getEnableSiteLink(), ENABLESITELINK_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

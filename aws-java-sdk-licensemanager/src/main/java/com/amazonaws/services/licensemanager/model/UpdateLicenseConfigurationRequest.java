@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,19 +27,20 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * ARN for a license configuration.
+     * Amazon Resource Name (ARN) of the license configuration.
      * </p>
      */
     private String licenseConfigurationArn;
     /**
      * <p>
-     * New status of the license configuration (<code>ACTIVE</code> or <code>INACTIVE</code>).
+     * New status of the license configuration.
      * </p>
      */
     private String licenseConfigurationStatus;
     /**
      * <p>
-     * List of flexible text strings designating license rules.
+     * New license rule. The only rule that you can add after you create a license configuration is
+     * licenseAffinityToHost.
      * </p>
      */
     private java.util.List<String> licenseRules;
@@ -51,7 +52,7 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
     private Long licenseCount;
     /**
      * <p>
-     * Sets the number of available licenses as a hard limit.
+     * New hard limit of the number of available licenses.
      * </p>
      */
     private Boolean licenseCountHardLimit;
@@ -63,18 +64,30 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
     private String name;
     /**
      * <p>
-     * New human-friendly description of the license configuration.
+     * New description of the license configuration.
      * </p>
      */
     private String description;
+    /**
+     * <p>
+     * New product information.
+     * </p>
+     */
+    private java.util.List<ProductInformation> productInformationList;
+    /**
+     * <p>
+     * When true, disassociates a resource when software is uninstalled.
+     * </p>
+     */
+    private Boolean disassociateWhenNotFound;
 
     /**
      * <p>
-     * ARN for a license configuration.
+     * Amazon Resource Name (ARN) of the license configuration.
      * </p>
      * 
      * @param licenseConfigurationArn
-     *        ARN for a license configuration.
+     *        Amazon Resource Name (ARN) of the license configuration.
      */
 
     public void setLicenseConfigurationArn(String licenseConfigurationArn) {
@@ -83,10 +96,10 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * ARN for a license configuration.
+     * Amazon Resource Name (ARN) of the license configuration.
      * </p>
      * 
-     * @return ARN for a license configuration.
+     * @return Amazon Resource Name (ARN) of the license configuration.
      */
 
     public String getLicenseConfigurationArn() {
@@ -95,11 +108,11 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * ARN for a license configuration.
+     * Amazon Resource Name (ARN) of the license configuration.
      * </p>
      * 
      * @param licenseConfigurationArn
-     *        ARN for a license configuration.
+     *        Amazon Resource Name (ARN) of the license configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -110,11 +123,11 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * New status of the license configuration (<code>ACTIVE</code> or <code>INACTIVE</code>).
+     * New status of the license configuration.
      * </p>
      * 
      * @param licenseConfigurationStatus
-     *        New status of the license configuration (<code>ACTIVE</code> or <code>INACTIVE</code>).
+     *        New status of the license configuration.
      * @see LicenseConfigurationStatus
      */
 
@@ -124,10 +137,10 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * New status of the license configuration (<code>ACTIVE</code> or <code>INACTIVE</code>).
+     * New status of the license configuration.
      * </p>
      * 
-     * @return New status of the license configuration (<code>ACTIVE</code> or <code>INACTIVE</code>).
+     * @return New status of the license configuration.
      * @see LicenseConfigurationStatus
      */
 
@@ -137,11 +150,11 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * New status of the license configuration (<code>ACTIVE</code> or <code>INACTIVE</code>).
+     * New status of the license configuration.
      * </p>
      * 
      * @param licenseConfigurationStatus
-     *        New status of the license configuration (<code>ACTIVE</code> or <code>INACTIVE</code>).
+     *        New status of the license configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LicenseConfigurationStatus
      */
@@ -153,11 +166,11 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * New status of the license configuration (<code>ACTIVE</code> or <code>INACTIVE</code>).
+     * New status of the license configuration.
      * </p>
      * 
      * @param licenseConfigurationStatus
-     *        New status of the license configuration (<code>ACTIVE</code> or <code>INACTIVE</code>).
+     *        New status of the license configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LicenseConfigurationStatus
      */
@@ -169,10 +182,12 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * List of flexible text strings designating license rules.
+     * New license rule. The only rule that you can add after you create a license configuration is
+     * licenseAffinityToHost.
      * </p>
      * 
-     * @return List of flexible text strings designating license rules.
+     * @return New license rule. The only rule that you can add after you create a license configuration is
+     *         licenseAffinityToHost.
      */
 
     public java.util.List<String> getLicenseRules() {
@@ -181,11 +196,13 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * List of flexible text strings designating license rules.
+     * New license rule. The only rule that you can add after you create a license configuration is
+     * licenseAffinityToHost.
      * </p>
      * 
      * @param licenseRules
-     *        List of flexible text strings designating license rules.
+     *        New license rule. The only rule that you can add after you create a license configuration is
+     *        licenseAffinityToHost.
      */
 
     public void setLicenseRules(java.util.Collection<String> licenseRules) {
@@ -199,7 +216,8 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * List of flexible text strings designating license rules.
+     * New license rule. The only rule that you can add after you create a license configuration is
+     * licenseAffinityToHost.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -208,7 +226,8 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
      * </p>
      * 
      * @param licenseRules
-     *        List of flexible text strings designating license rules.
+     *        New license rule. The only rule that you can add after you create a license configuration is
+     *        licenseAffinityToHost.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -224,11 +243,13 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * List of flexible text strings designating license rules.
+     * New license rule. The only rule that you can add after you create a license configuration is
+     * licenseAffinityToHost.
      * </p>
      * 
      * @param licenseRules
-     *        List of flexible text strings designating license rules.
+     *        New license rule. The only rule that you can add after you create a license configuration is
+     *        licenseAffinityToHost.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -279,11 +300,11 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Sets the number of available licenses as a hard limit.
+     * New hard limit of the number of available licenses.
      * </p>
      * 
      * @param licenseCountHardLimit
-     *        Sets the number of available licenses as a hard limit.
+     *        New hard limit of the number of available licenses.
      */
 
     public void setLicenseCountHardLimit(Boolean licenseCountHardLimit) {
@@ -292,10 +313,10 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Sets the number of available licenses as a hard limit.
+     * New hard limit of the number of available licenses.
      * </p>
      * 
-     * @return Sets the number of available licenses as a hard limit.
+     * @return New hard limit of the number of available licenses.
      */
 
     public Boolean getLicenseCountHardLimit() {
@@ -304,11 +325,11 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Sets the number of available licenses as a hard limit.
+     * New hard limit of the number of available licenses.
      * </p>
      * 
      * @param licenseCountHardLimit
-     *        Sets the number of available licenses as a hard limit.
+     *        New hard limit of the number of available licenses.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -319,10 +340,10 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Sets the number of available licenses as a hard limit.
+     * New hard limit of the number of available licenses.
      * </p>
      * 
-     * @return Sets the number of available licenses as a hard limit.
+     * @return New hard limit of the number of available licenses.
      */
 
     public Boolean isLicenseCountHardLimit() {
@@ -371,11 +392,11 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * New human-friendly description of the license configuration.
+     * New description of the license configuration.
      * </p>
      * 
      * @param description
-     *        New human-friendly description of the license configuration.
+     *        New description of the license configuration.
      */
 
     public void setDescription(String description) {
@@ -384,10 +405,10 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * New human-friendly description of the license configuration.
+     * New description of the license configuration.
      * </p>
      * 
-     * @return New human-friendly description of the license configuration.
+     * @return New description of the license configuration.
      */
 
     public String getDescription() {
@@ -396,17 +417,139 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * New human-friendly description of the license configuration.
+     * New description of the license configuration.
      * </p>
      * 
      * @param description
-     *        New human-friendly description of the license configuration.
+     *        New description of the license configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateLicenseConfigurationRequest withDescription(String description) {
         setDescription(description);
         return this;
+    }
+
+    /**
+     * <p>
+     * New product information.
+     * </p>
+     * 
+     * @return New product information.
+     */
+
+    public java.util.List<ProductInformation> getProductInformationList() {
+        return productInformationList;
+    }
+
+    /**
+     * <p>
+     * New product information.
+     * </p>
+     * 
+     * @param productInformationList
+     *        New product information.
+     */
+
+    public void setProductInformationList(java.util.Collection<ProductInformation> productInformationList) {
+        if (productInformationList == null) {
+            this.productInformationList = null;
+            return;
+        }
+
+        this.productInformationList = new java.util.ArrayList<ProductInformation>(productInformationList);
+    }
+
+    /**
+     * <p>
+     * New product information.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setProductInformationList(java.util.Collection)} or
+     * {@link #withProductInformationList(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param productInformationList
+     *        New product information.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateLicenseConfigurationRequest withProductInformationList(ProductInformation... productInformationList) {
+        if (this.productInformationList == null) {
+            setProductInformationList(new java.util.ArrayList<ProductInformation>(productInformationList.length));
+        }
+        for (ProductInformation ele : productInformationList) {
+            this.productInformationList.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * New product information.
+     * </p>
+     * 
+     * @param productInformationList
+     *        New product information.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateLicenseConfigurationRequest withProductInformationList(java.util.Collection<ProductInformation> productInformationList) {
+        setProductInformationList(productInformationList);
+        return this;
+    }
+
+    /**
+     * <p>
+     * When true, disassociates a resource when software is uninstalled.
+     * </p>
+     * 
+     * @param disassociateWhenNotFound
+     *        When true, disassociates a resource when software is uninstalled.
+     */
+
+    public void setDisassociateWhenNotFound(Boolean disassociateWhenNotFound) {
+        this.disassociateWhenNotFound = disassociateWhenNotFound;
+    }
+
+    /**
+     * <p>
+     * When true, disassociates a resource when software is uninstalled.
+     * </p>
+     * 
+     * @return When true, disassociates a resource when software is uninstalled.
+     */
+
+    public Boolean getDisassociateWhenNotFound() {
+        return this.disassociateWhenNotFound;
+    }
+
+    /**
+     * <p>
+     * When true, disassociates a resource when software is uninstalled.
+     * </p>
+     * 
+     * @param disassociateWhenNotFound
+     *        When true, disassociates a resource when software is uninstalled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateLicenseConfigurationRequest withDisassociateWhenNotFound(Boolean disassociateWhenNotFound) {
+        setDisassociateWhenNotFound(disassociateWhenNotFound);
+        return this;
+    }
+
+    /**
+     * <p>
+     * When true, disassociates a resource when software is uninstalled.
+     * </p>
+     * 
+     * @return When true, disassociates a resource when software is uninstalled.
+     */
+
+    public Boolean isDisassociateWhenNotFound() {
+        return this.disassociateWhenNotFound;
     }
 
     /**
@@ -434,7 +577,11 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getDescription() != null)
-            sb.append("Description: ").append(getDescription());
+            sb.append("Description: ").append(getDescription()).append(",");
+        if (getProductInformationList() != null)
+            sb.append("ProductInformationList: ").append(getProductInformationList()).append(",");
+        if (getDisassociateWhenNotFound() != null)
+            sb.append("DisassociateWhenNotFound: ").append(getDisassociateWhenNotFound());
         sb.append("}");
         return sb.toString();
     }
@@ -477,6 +624,14 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
             return false;
+        if (other.getProductInformationList() == null ^ this.getProductInformationList() == null)
+            return false;
+        if (other.getProductInformationList() != null && other.getProductInformationList().equals(this.getProductInformationList()) == false)
+            return false;
+        if (other.getDisassociateWhenNotFound() == null ^ this.getDisassociateWhenNotFound() == null)
+            return false;
+        if (other.getDisassociateWhenNotFound() != null && other.getDisassociateWhenNotFound().equals(this.getDisassociateWhenNotFound()) == false)
+            return false;
         return true;
     }
 
@@ -492,6 +647,8 @@ public class UpdateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
         hashCode = prime * hashCode + ((getLicenseCountHardLimit() == null) ? 0 : getLicenseCountHardLimit().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        hashCode = prime * hashCode + ((getProductInformationList() == null) ? 0 : getProductInformationList().hashCode());
+        hashCode = prime * hashCode + ((getDisassociateWhenNotFound() == null) ? 0 : getDisassociateWhenNotFound().hashCode());
         return hashCode;
     }
 

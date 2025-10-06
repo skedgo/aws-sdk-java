@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,7 +46,7 @@ public class CreateInvalidationRequestMarshaller implements Marshaller<Request<C
 
         request.setHttpMethod(HttpMethodName.POST);
 
-        String uriResourcePath = "/2019-03-26/distribution/{DistributionId}/invalidation";
+        String uriResourcePath = "/2020-05-31/distribution/{DistributionId}/invalidation";
 
         uriResourcePath = com.amazonaws.transform.PathMarshallers.NON_GREEDY.marshall(uriResourcePath, "DistributionId",
                 createInvalidationRequest.getDistributionId());
@@ -54,32 +54,34 @@ public class CreateInvalidationRequestMarshaller implements Marshaller<Request<C
 
         try {
             StringWriter stringWriter = new StringWriter();
-            XMLWriter xmlWriter = new XMLWriter(stringWriter, "http://cloudfront.amazonaws.com/doc/2019-03-26/");
+            XMLWriter xmlWriter = new XMLWriter(stringWriter, "http://cloudfront.amazonaws.com/doc/2020-05-31/");
 
             InvalidationBatch invalidationBatch = createInvalidationRequest.getInvalidationBatch();
             if (invalidationBatch != null) {
                 xmlWriter.startElement("InvalidationBatch");
 
-                Paths paths = invalidationBatch.getPaths();
-                if (paths != null) {
-                    xmlWriter.startElement("Paths");
+                {
+                    Paths paths = invalidationBatch.getPaths();
+                    if (paths != null) {
+                        xmlWriter.startElement("Paths");
 
-                    if (paths.getQuantity() != null) {
-                        xmlWriter.startElement("Quantity").value(paths.getQuantity()).endElement();
-                    }
+                        if (paths.getQuantity() != null) {
+                            xmlWriter.startElement("Quantity").value(paths.getQuantity()).endElement();
+                        }
 
-                    com.amazonaws.internal.SdkInternalList<String> pathsItemsList = (com.amazonaws.internal.SdkInternalList<String>) paths.getItems();
-                    if (!pathsItemsList.isEmpty() || !pathsItemsList.isAutoConstruct()) {
-                        xmlWriter.startElement("Items");
+                        com.amazonaws.internal.SdkInternalList<String> pathsItemsList = (com.amazonaws.internal.SdkInternalList<String>) paths.getItems();
+                        if (!pathsItemsList.isEmpty() || !pathsItemsList.isAutoConstruct()) {
+                            xmlWriter.startElement("Items");
 
-                        for (String pathsItemsListValue : pathsItemsList) {
-                            xmlWriter.startElement("Path");
-                            xmlWriter.value(pathsItemsListValue);
+                            for (String pathsItemsListValue : pathsItemsList) {
+                                xmlWriter.startElement("Path");
+                                xmlWriter.value(pathsItemsListValue);
+                                xmlWriter.endElement();
+                            }
                             xmlWriter.endElement();
                         }
                         xmlWriter.endElement();
                     }
-                    xmlWriter.endElement();
                 }
 
                 if (invalidationBatch.getCallerReference() != null) {

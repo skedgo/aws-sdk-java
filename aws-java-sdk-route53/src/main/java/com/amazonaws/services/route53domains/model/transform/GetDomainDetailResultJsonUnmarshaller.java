@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,7 +54,9 @@ public class GetDomainDetailResultJsonUnmarshaller implements Unmarshaller<GetDo
                 }
                 if (context.testExpression("Nameservers", targetDepth)) {
                     context.nextToken();
-                    getDomainDetailResult.setNameservers(new ListUnmarshaller<Nameserver>(NameserverJsonUnmarshaller.getInstance()).unmarshall(context));
+                    getDomainDetailResult.setNameservers(new ListUnmarshaller<Nameserver>(NameserverJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("AutoRenew", targetDepth)) {
                     context.nextToken();
@@ -130,7 +132,23 @@ public class GetDomainDetailResultJsonUnmarshaller implements Unmarshaller<GetDo
                 }
                 if (context.testExpression("StatusList", targetDepth)) {
                     context.nextToken();
-                    getDomainDetailResult.setStatusList(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    getDomainDetailResult.setStatusList(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("DnssecKeys", targetDepth)) {
+                    context.nextToken();
+                    getDomainDetailResult.setDnssecKeys(new ListUnmarshaller<DnssecKey>(DnssecKeyJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("BillingContact", targetDepth)) {
+                    context.nextToken();
+                    getDomainDetailResult.setBillingContact(ContactDetailJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("BillingPrivacy", targetDepth)) {
+                    context.nextToken();
+                    getDomainDetailResult.setBillingPrivacy(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

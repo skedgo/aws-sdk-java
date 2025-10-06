@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,6 +45,8 @@ public enum CodepipelineActions implements Action {
     DisableStageTransition("codepipeline:DisableStageTransition"),
     /** Action for the EnableStageTransition operation. */
     EnableStageTransition("codepipeline:EnableStageTransition"),
+    /** Action for the GetActionType operation. */
+    GetActionType("codepipeline:GetActionType"),
     /** Action for the GetJobDetails operation. */
     GetJobDetails("codepipeline:GetJobDetails"),
     /** Action for the GetPipeline operation. */
@@ -63,10 +65,16 @@ public enum CodepipelineActions implements Action {
     ListPipelineExecutions("codepipeline:ListPipelineExecutions"),
     /** Action for the ListPipelines operation. */
     ListPipelines("codepipeline:ListPipelines"),
+    /** Action for the ListRuleExecutions operation. */
+    ListRuleExecutions("codepipeline:ListRuleExecutions"),
+    /** Action for the ListRuleTypes operation. */
+    ListRuleTypes("codepipeline:ListRuleTypes"),
     /** Action for the ListTagsForResource operation. */
     ListTagsForResource("codepipeline:ListTagsForResource"),
     /** Action for the ListWebhooks operation. */
     ListWebhooks("codepipeline:ListWebhooks"),
+    /** Action for the OverrideStageCondition operation. */
+    OverrideStageCondition("codepipeline:OverrideStageCondition"),
     /** Action for the PollForJobs operation. */
     PollForJobs("codepipeline:PollForJobs"),
     /** Action for the PollForThirdPartyJobs operation. */
@@ -89,12 +97,18 @@ public enum CodepipelineActions implements Action {
     RegisterWebhookWithThirdParty("codepipeline:RegisterWebhookWithThirdParty"),
     /** Action for the RetryStageExecution operation. */
     RetryStageExecution("codepipeline:RetryStageExecution"),
+    /** Action for the RollbackStage operation. */
+    RollbackStage("codepipeline:RollbackStage"),
     /** Action for the StartPipelineExecution operation. */
     StartPipelineExecution("codepipeline:StartPipelineExecution"),
+    /** Action for the StopPipelineExecution operation. */
+    StopPipelineExecution("codepipeline:StopPipelineExecution"),
     /** Action for the TagResource operation. */
     TagResource("codepipeline:TagResource"),
     /** Action for the UntagResource operation. */
     UntagResource("codepipeline:UntagResource"),
+    /** Action for the UpdateActionType operation. */
+    UpdateActionType("codepipeline:UpdateActionType"),
     /** Action for the UpdatePipeline operation. */
     UpdatePipeline("codepipeline:UpdatePipeline"),
 
@@ -108,5 +122,9 @@ public enum CodepipelineActions implements Action {
 
     public String getActionName() {
         return this.action;
+    }
+
+    public boolean isNotType() {
+        return false;
     }
 }

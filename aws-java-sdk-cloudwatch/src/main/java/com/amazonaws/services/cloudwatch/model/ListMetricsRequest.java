@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,19 +27,19 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The namespace to filter against.
+     * The metric namespace to filter against. Only the namespace that matches exactly will be returned.
      * </p>
      */
     private String namespace;
     /**
      * <p>
-     * The name of the metric to filter against.
+     * The name of the metric to filter against. Only the metrics with names that match exactly will be returned.
      * </p>
      */
     private String metricName;
     /**
      * <p>
-     * The dimensions to filter against.
+     * The dimensions to filter against. Only the dimensions that match exactly will be returned.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<DimensionFilter> dimensions;
@@ -49,14 +49,44 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      */
     private String nextToken;
+    /**
+     * <p>
+     * To filter the results to show only metrics that have had data points published in the past three hours, specify
+     * this parameter with a value of <code>PT3H</code>. This is the only valid value for this parameter.
+     * </p>
+     * <p>
+     * The results that are returned are an approximation of the value you specify. There is a low probability that the
+     * returned results include metrics with last published data as much as 40 minutes more than the specified time
+     * interval.
+     * </p>
+     */
+    private String recentlyActive;
+    /**
+     * <p>
+     * If you are using this operation in a monitoring account, specify <code>true</code> to include metrics from source
+     * accounts in the returned data.
+     * </p>
+     * <p>
+     * The default is <code>false</code>.
+     * </p>
+     */
+    private Boolean includeLinkedAccounts;
+    /**
+     * <p>
+     * When you use this operation in a monitoring account, use this field to return metrics only from one source
+     * account. To do so, specify that source account ID in this field, and also specify <code>true</code> for
+     * <code>IncludeLinkedAccounts</code>.
+     * </p>
+     */
+    private String owningAccount;
 
     /**
      * <p>
-     * The namespace to filter against.
+     * The metric namespace to filter against. Only the namespace that matches exactly will be returned.
      * </p>
      * 
      * @param namespace
-     *        The namespace to filter against.
+     *        The metric namespace to filter against. Only the namespace that matches exactly will be returned.
      */
 
     public void setNamespace(String namespace) {
@@ -65,10 +95,10 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The namespace to filter against.
+     * The metric namespace to filter against. Only the namespace that matches exactly will be returned.
      * </p>
      * 
-     * @return The namespace to filter against.
+     * @return The metric namespace to filter against. Only the namespace that matches exactly will be returned.
      */
 
     public String getNamespace() {
@@ -77,11 +107,11 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The namespace to filter against.
+     * The metric namespace to filter against. Only the namespace that matches exactly will be returned.
      * </p>
      * 
      * @param namespace
-     *        The namespace to filter against.
+     *        The metric namespace to filter against. Only the namespace that matches exactly will be returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -92,11 +122,11 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the metric to filter against.
+     * The name of the metric to filter against. Only the metrics with names that match exactly will be returned.
      * </p>
      * 
      * @param metricName
-     *        The name of the metric to filter against.
+     *        The name of the metric to filter against. Only the metrics with names that match exactly will be returned.
      */
 
     public void setMetricName(String metricName) {
@@ -105,10 +135,11 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the metric to filter against.
+     * The name of the metric to filter against. Only the metrics with names that match exactly will be returned.
      * </p>
      * 
-     * @return The name of the metric to filter against.
+     * @return The name of the metric to filter against. Only the metrics with names that match exactly will be
+     *         returned.
      */
 
     public String getMetricName() {
@@ -117,11 +148,11 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the metric to filter against.
+     * The name of the metric to filter against. Only the metrics with names that match exactly will be returned.
      * </p>
      * 
      * @param metricName
-     *        The name of the metric to filter against.
+     *        The name of the metric to filter against. Only the metrics with names that match exactly will be returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -132,10 +163,10 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The dimensions to filter against.
+     * The dimensions to filter against. Only the dimensions that match exactly will be returned.
      * </p>
      * 
-     * @return The dimensions to filter against.
+     * @return The dimensions to filter against. Only the dimensions that match exactly will be returned.
      */
 
     public java.util.List<DimensionFilter> getDimensions() {
@@ -147,11 +178,11 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The dimensions to filter against.
+     * The dimensions to filter against. Only the dimensions that match exactly will be returned.
      * </p>
      * 
      * @param dimensions
-     *        The dimensions to filter against.
+     *        The dimensions to filter against. Only the dimensions that match exactly will be returned.
      */
 
     public void setDimensions(java.util.Collection<DimensionFilter> dimensions) {
@@ -165,7 +196,7 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The dimensions to filter against.
+     * The dimensions to filter against. Only the dimensions that match exactly will be returned.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -174,7 +205,7 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @param dimensions
-     *        The dimensions to filter against.
+     *        The dimensions to filter against. Only the dimensions that match exactly will be returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -190,11 +221,11 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The dimensions to filter against.
+     * The dimensions to filter against. Only the dimensions that match exactly will be returned.
      * </p>
      * 
      * @param dimensions
-     *        The dimensions to filter against.
+     *        The dimensions to filter against. Only the dimensions that match exactly will be returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -244,6 +275,245 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
+     * To filter the results to show only metrics that have had data points published in the past three hours, specify
+     * this parameter with a value of <code>PT3H</code>. This is the only valid value for this parameter.
+     * </p>
+     * <p>
+     * The results that are returned are an approximation of the value you specify. There is a low probability that the
+     * returned results include metrics with last published data as much as 40 minutes more than the specified time
+     * interval.
+     * </p>
+     * 
+     * @param recentlyActive
+     *        To filter the results to show only metrics that have had data points published in the past three hours,
+     *        specify this parameter with a value of <code>PT3H</code>. This is the only valid value for this
+     *        parameter.</p>
+     *        <p>
+     *        The results that are returned are an approximation of the value you specify. There is a low probability
+     *        that the returned results include metrics with last published data as much as 40 minutes more than the
+     *        specified time interval.
+     * @see RecentlyActive
+     */
+
+    public void setRecentlyActive(String recentlyActive) {
+        this.recentlyActive = recentlyActive;
+    }
+
+    /**
+     * <p>
+     * To filter the results to show only metrics that have had data points published in the past three hours, specify
+     * this parameter with a value of <code>PT3H</code>. This is the only valid value for this parameter.
+     * </p>
+     * <p>
+     * The results that are returned are an approximation of the value you specify. There is a low probability that the
+     * returned results include metrics with last published data as much as 40 minutes more than the specified time
+     * interval.
+     * </p>
+     * 
+     * @return To filter the results to show only metrics that have had data points published in the past three hours,
+     *         specify this parameter with a value of <code>PT3H</code>. This is the only valid value for this
+     *         parameter.</p>
+     *         <p>
+     *         The results that are returned are an approximation of the value you specify. There is a low probability
+     *         that the returned results include metrics with last published data as much as 40 minutes more than the
+     *         specified time interval.
+     * @see RecentlyActive
+     */
+
+    public String getRecentlyActive() {
+        return this.recentlyActive;
+    }
+
+    /**
+     * <p>
+     * To filter the results to show only metrics that have had data points published in the past three hours, specify
+     * this parameter with a value of <code>PT3H</code>. This is the only valid value for this parameter.
+     * </p>
+     * <p>
+     * The results that are returned are an approximation of the value you specify. There is a low probability that the
+     * returned results include metrics with last published data as much as 40 minutes more than the specified time
+     * interval.
+     * </p>
+     * 
+     * @param recentlyActive
+     *        To filter the results to show only metrics that have had data points published in the past three hours,
+     *        specify this parameter with a value of <code>PT3H</code>. This is the only valid value for this
+     *        parameter.</p>
+     *        <p>
+     *        The results that are returned are an approximation of the value you specify. There is a low probability
+     *        that the returned results include metrics with last published data as much as 40 minutes more than the
+     *        specified time interval.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see RecentlyActive
+     */
+
+    public ListMetricsRequest withRecentlyActive(String recentlyActive) {
+        setRecentlyActive(recentlyActive);
+        return this;
+    }
+
+    /**
+     * <p>
+     * To filter the results to show only metrics that have had data points published in the past three hours, specify
+     * this parameter with a value of <code>PT3H</code>. This is the only valid value for this parameter.
+     * </p>
+     * <p>
+     * The results that are returned are an approximation of the value you specify. There is a low probability that the
+     * returned results include metrics with last published data as much as 40 minutes more than the specified time
+     * interval.
+     * </p>
+     * 
+     * @param recentlyActive
+     *        To filter the results to show only metrics that have had data points published in the past three hours,
+     *        specify this parameter with a value of <code>PT3H</code>. This is the only valid value for this
+     *        parameter.</p>
+     *        <p>
+     *        The results that are returned are an approximation of the value you specify. There is a low probability
+     *        that the returned results include metrics with last published data as much as 40 minutes more than the
+     *        specified time interval.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see RecentlyActive
+     */
+
+    public ListMetricsRequest withRecentlyActive(RecentlyActive recentlyActive) {
+        this.recentlyActive = recentlyActive.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * If you are using this operation in a monitoring account, specify <code>true</code> to include metrics from source
+     * accounts in the returned data.
+     * </p>
+     * <p>
+     * The default is <code>false</code>.
+     * </p>
+     * 
+     * @param includeLinkedAccounts
+     *        If you are using this operation in a monitoring account, specify <code>true</code> to include metrics from
+     *        source accounts in the returned data.</p>
+     *        <p>
+     *        The default is <code>false</code>.
+     */
+
+    public void setIncludeLinkedAccounts(Boolean includeLinkedAccounts) {
+        this.includeLinkedAccounts = includeLinkedAccounts;
+    }
+
+    /**
+     * <p>
+     * If you are using this operation in a monitoring account, specify <code>true</code> to include metrics from source
+     * accounts in the returned data.
+     * </p>
+     * <p>
+     * The default is <code>false</code>.
+     * </p>
+     * 
+     * @return If you are using this operation in a monitoring account, specify <code>true</code> to include metrics
+     *         from source accounts in the returned data.</p>
+     *         <p>
+     *         The default is <code>false</code>.
+     */
+
+    public Boolean getIncludeLinkedAccounts() {
+        return this.includeLinkedAccounts;
+    }
+
+    /**
+     * <p>
+     * If you are using this operation in a monitoring account, specify <code>true</code> to include metrics from source
+     * accounts in the returned data.
+     * </p>
+     * <p>
+     * The default is <code>false</code>.
+     * </p>
+     * 
+     * @param includeLinkedAccounts
+     *        If you are using this operation in a monitoring account, specify <code>true</code> to include metrics from
+     *        source accounts in the returned data.</p>
+     *        <p>
+     *        The default is <code>false</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListMetricsRequest withIncludeLinkedAccounts(Boolean includeLinkedAccounts) {
+        setIncludeLinkedAccounts(includeLinkedAccounts);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If you are using this operation in a monitoring account, specify <code>true</code> to include metrics from source
+     * accounts in the returned data.
+     * </p>
+     * <p>
+     * The default is <code>false</code>.
+     * </p>
+     * 
+     * @return If you are using this operation in a monitoring account, specify <code>true</code> to include metrics
+     *         from source accounts in the returned data.</p>
+     *         <p>
+     *         The default is <code>false</code>.
+     */
+
+    public Boolean isIncludeLinkedAccounts() {
+        return this.includeLinkedAccounts;
+    }
+
+    /**
+     * <p>
+     * When you use this operation in a monitoring account, use this field to return metrics only from one source
+     * account. To do so, specify that source account ID in this field, and also specify <code>true</code> for
+     * <code>IncludeLinkedAccounts</code>.
+     * </p>
+     * 
+     * @param owningAccount
+     *        When you use this operation in a monitoring account, use this field to return metrics only from one source
+     *        account. To do so, specify that source account ID in this field, and also specify <code>true</code> for
+     *        <code>IncludeLinkedAccounts</code>.
+     */
+
+    public void setOwningAccount(String owningAccount) {
+        this.owningAccount = owningAccount;
+    }
+
+    /**
+     * <p>
+     * When you use this operation in a monitoring account, use this field to return metrics only from one source
+     * account. To do so, specify that source account ID in this field, and also specify <code>true</code> for
+     * <code>IncludeLinkedAccounts</code>.
+     * </p>
+     * 
+     * @return When you use this operation in a monitoring account, use this field to return metrics only from one
+     *         source account. To do so, specify that source account ID in this field, and also specify
+     *         <code>true</code> for <code>IncludeLinkedAccounts</code>.
+     */
+
+    public String getOwningAccount() {
+        return this.owningAccount;
+    }
+
+    /**
+     * <p>
+     * When you use this operation in a monitoring account, use this field to return metrics only from one source
+     * account. To do so, specify that source account ID in this field, and also specify <code>true</code> for
+     * <code>IncludeLinkedAccounts</code>.
+     * </p>
+     * 
+     * @param owningAccount
+     *        When you use this operation in a monitoring account, use this field to return metrics only from one source
+     *        account. To do so, specify that source account ID in this field, and also specify <code>true</code> for
+     *        <code>IncludeLinkedAccounts</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListMetricsRequest withOwningAccount(String owningAccount) {
+        setOwningAccount(owningAccount);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -262,7 +532,13 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getDimensions() != null)
             sb.append("Dimensions: ").append(getDimensions()).append(",");
         if (getNextToken() != null)
-            sb.append("NextToken: ").append(getNextToken());
+            sb.append("NextToken: ").append(getNextToken()).append(",");
+        if (getRecentlyActive() != null)
+            sb.append("RecentlyActive: ").append(getRecentlyActive()).append(",");
+        if (getIncludeLinkedAccounts() != null)
+            sb.append("IncludeLinkedAccounts: ").append(getIncludeLinkedAccounts()).append(",");
+        if (getOwningAccount() != null)
+            sb.append("OwningAccount: ").append(getOwningAccount());
         sb.append("}");
         return sb.toString();
     }
@@ -293,6 +569,18 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
             return false;
+        if (other.getRecentlyActive() == null ^ this.getRecentlyActive() == null)
+            return false;
+        if (other.getRecentlyActive() != null && other.getRecentlyActive().equals(this.getRecentlyActive()) == false)
+            return false;
+        if (other.getIncludeLinkedAccounts() == null ^ this.getIncludeLinkedAccounts() == null)
+            return false;
+        if (other.getIncludeLinkedAccounts() != null && other.getIncludeLinkedAccounts().equals(this.getIncludeLinkedAccounts()) == false)
+            return false;
+        if (other.getOwningAccount() == null ^ this.getOwningAccount() == null)
+            return false;
+        if (other.getOwningAccount() != null && other.getOwningAccount().equals(this.getOwningAccount()) == false)
+            return false;
         return true;
     }
 
@@ -305,6 +593,9 @@ public class ListMetricsRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getMetricName() == null) ? 0 : getMetricName().hashCode());
         hashCode = prime * hashCode + ((getDimensions() == null) ? 0 : getDimensions().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
+        hashCode = prime * hashCode + ((getRecentlyActive() == null) ? 0 : getRecentlyActive().hashCode());
+        hashCode = prime * hashCode + ((getIncludeLinkedAccounts() == null) ? 0 : getIncludeLinkedAccounts().hashCode());
+        hashCode = prime * hashCode + ((getOwningAccount() == null) ? 0 : getOwningAccount().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,10 +34,29 @@ public class TestInvokeAuthorizerRequest extends com.amazonaws.AmazonWebServiceR
     private String token;
     /**
      * <p>
-     * The signature made with the token and your custom authentication service's private key.
+     * The signature made with the token and your custom authentication service's private key. This value must be
+     * Base-64-encoded.
      * </p>
      */
     private String tokenSignature;
+    /**
+     * <p>
+     * Specifies a test HTTP authorization request.
+     * </p>
+     */
+    private HttpContext httpContext;
+    /**
+     * <p>
+     * Specifies a test MQTT authorization request.
+     * </p>
+     */
+    private MqttContext mqttContext;
+    /**
+     * <p>
+     * Specifies a test TLS authorization request.
+     * </p>
+     */
+    private TlsContext tlsContext;
 
     /**
      * <p>
@@ -121,11 +140,13 @@ public class TestInvokeAuthorizerRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The signature made with the token and your custom authentication service's private key.
+     * The signature made with the token and your custom authentication service's private key. This value must be
+     * Base-64-encoded.
      * </p>
      * 
      * @param tokenSignature
-     *        The signature made with the token and your custom authentication service's private key.
+     *        The signature made with the token and your custom authentication service's private key. This value must be
+     *        Base-64-encoded.
      */
 
     public void setTokenSignature(String tokenSignature) {
@@ -134,10 +155,12 @@ public class TestInvokeAuthorizerRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The signature made with the token and your custom authentication service's private key.
+     * The signature made with the token and your custom authentication service's private key. This value must be
+     * Base-64-encoded.
      * </p>
      * 
-     * @return The signature made with the token and your custom authentication service's private key.
+     * @return The signature made with the token and your custom authentication service's private key. This value must
+     *         be Base-64-encoded.
      */
 
     public String getTokenSignature() {
@@ -146,16 +169,138 @@ public class TestInvokeAuthorizerRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The signature made with the token and your custom authentication service's private key.
+     * The signature made with the token and your custom authentication service's private key. This value must be
+     * Base-64-encoded.
      * </p>
      * 
      * @param tokenSignature
-     *        The signature made with the token and your custom authentication service's private key.
+     *        The signature made with the token and your custom authentication service's private key. This value must be
+     *        Base-64-encoded.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public TestInvokeAuthorizerRequest withTokenSignature(String tokenSignature) {
         setTokenSignature(tokenSignature);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies a test HTTP authorization request.
+     * </p>
+     * 
+     * @param httpContext
+     *        Specifies a test HTTP authorization request.
+     */
+
+    public void setHttpContext(HttpContext httpContext) {
+        this.httpContext = httpContext;
+    }
+
+    /**
+     * <p>
+     * Specifies a test HTTP authorization request.
+     * </p>
+     * 
+     * @return Specifies a test HTTP authorization request.
+     */
+
+    public HttpContext getHttpContext() {
+        return this.httpContext;
+    }
+
+    /**
+     * <p>
+     * Specifies a test HTTP authorization request.
+     * </p>
+     * 
+     * @param httpContext
+     *        Specifies a test HTTP authorization request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TestInvokeAuthorizerRequest withHttpContext(HttpContext httpContext) {
+        setHttpContext(httpContext);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies a test MQTT authorization request.
+     * </p>
+     * 
+     * @param mqttContext
+     *        Specifies a test MQTT authorization request.
+     */
+
+    public void setMqttContext(MqttContext mqttContext) {
+        this.mqttContext = mqttContext;
+    }
+
+    /**
+     * <p>
+     * Specifies a test MQTT authorization request.
+     * </p>
+     * 
+     * @return Specifies a test MQTT authorization request.
+     */
+
+    public MqttContext getMqttContext() {
+        return this.mqttContext;
+    }
+
+    /**
+     * <p>
+     * Specifies a test MQTT authorization request.
+     * </p>
+     * 
+     * @param mqttContext
+     *        Specifies a test MQTT authorization request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TestInvokeAuthorizerRequest withMqttContext(MqttContext mqttContext) {
+        setMqttContext(mqttContext);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies a test TLS authorization request.
+     * </p>
+     * 
+     * @param tlsContext
+     *        Specifies a test TLS authorization request.
+     */
+
+    public void setTlsContext(TlsContext tlsContext) {
+        this.tlsContext = tlsContext;
+    }
+
+    /**
+     * <p>
+     * Specifies a test TLS authorization request.
+     * </p>
+     * 
+     * @return Specifies a test TLS authorization request.
+     */
+
+    public TlsContext getTlsContext() {
+        return this.tlsContext;
+    }
+
+    /**
+     * <p>
+     * Specifies a test TLS authorization request.
+     * </p>
+     * 
+     * @param tlsContext
+     *        Specifies a test TLS authorization request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TestInvokeAuthorizerRequest withTlsContext(TlsContext tlsContext) {
+        setTlsContext(tlsContext);
         return this;
     }
 
@@ -176,7 +321,13 @@ public class TestInvokeAuthorizerRequest extends com.amazonaws.AmazonWebServiceR
         if (getToken() != null)
             sb.append("Token: ").append(getToken()).append(",");
         if (getTokenSignature() != null)
-            sb.append("TokenSignature: ").append(getTokenSignature());
+            sb.append("TokenSignature: ").append(getTokenSignature()).append(",");
+        if (getHttpContext() != null)
+            sb.append("HttpContext: ").append(getHttpContext()).append(",");
+        if (getMqttContext() != null)
+            sb.append("MqttContext: ").append(getMqttContext()).append(",");
+        if (getTlsContext() != null)
+            sb.append("TlsContext: ").append(getTlsContext());
         sb.append("}");
         return sb.toString();
     }
@@ -203,6 +354,18 @@ public class TestInvokeAuthorizerRequest extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getTokenSignature() != null && other.getTokenSignature().equals(this.getTokenSignature()) == false)
             return false;
+        if (other.getHttpContext() == null ^ this.getHttpContext() == null)
+            return false;
+        if (other.getHttpContext() != null && other.getHttpContext().equals(this.getHttpContext()) == false)
+            return false;
+        if (other.getMqttContext() == null ^ this.getMqttContext() == null)
+            return false;
+        if (other.getMqttContext() != null && other.getMqttContext().equals(this.getMqttContext()) == false)
+            return false;
+        if (other.getTlsContext() == null ^ this.getTlsContext() == null)
+            return false;
+        if (other.getTlsContext() != null && other.getTlsContext().equals(this.getTlsContext()) == false)
+            return false;
         return true;
     }
 
@@ -214,6 +377,9 @@ public class TestInvokeAuthorizerRequest extends com.amazonaws.AmazonWebServiceR
         hashCode = prime * hashCode + ((getAuthorizerName() == null) ? 0 : getAuthorizerName().hashCode());
         hashCode = prime * hashCode + ((getToken() == null) ? 0 : getToken().hashCode());
         hashCode = prime * hashCode + ((getTokenSignature() == null) ? 0 : getTokenSignature().hashCode());
+        hashCode = prime * hashCode + ((getHttpContext() == null) ? 0 : getHttpContext().hashCode());
+        hashCode = prime * hashCode + ((getMqttContext() == null) ? 0 : getMqttContext().hashCode());
+        hashCode = prime * hashCode + ((getTlsContext() == null) ? 0 : getTlsContext().hashCode());
         return hashCode;
     }
 

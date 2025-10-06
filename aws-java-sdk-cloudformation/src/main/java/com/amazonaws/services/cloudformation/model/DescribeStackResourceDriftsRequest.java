@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,12 +49,12 @@ public class DescribeStackResourceDriftsRequest extends com.amazonaws.AmazonWebS
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     * <code>NOT_CHECKED</code>: CloudFormation doesn't currently return this value.
      * </p>
      * </li>
      * </ul>
@@ -133,12 +133,12 @@ public class DescribeStackResourceDriftsRequest extends com.amazonaws.AmazonWebS
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     * <code>NOT_CHECKED</code>: CloudFormation doesn't currently return this value.
      * </p>
      * </li>
      * </ul>
@@ -158,12 +158,12 @@ public class DescribeStackResourceDriftsRequest extends com.amazonaws.AmazonWebS
      *         </li>
      *         <li>
      *         <p>
-     *         <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     *         <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     *         <code>NOT_CHECKED</code>: CloudFormation doesn't currently return this value.
      *         </p>
      *         </li>
      * @see StackResourceDriftStatus
@@ -194,12 +194,12 @@ public class DescribeStackResourceDriftsRequest extends com.amazonaws.AmazonWebS
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     * <code>NOT_CHECKED</code>: CloudFormation doesn't currently return this value.
      * </p>
      * </li>
      * </ul>
@@ -220,12 +220,12 @@ public class DescribeStackResourceDriftsRequest extends com.amazonaws.AmazonWebS
      *        </li>
      *        <li>
      *        <p>
-     *        <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     *        <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     *        <code>NOT_CHECKED</code>: CloudFormation doesn't currently return this value.
      *        </p>
      *        </li>
      * @see StackResourceDriftStatus
@@ -258,12 +258,12 @@ public class DescribeStackResourceDriftsRequest extends com.amazonaws.AmazonWebS
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     * <code>NOT_CHECKED</code>: CloudFormation doesn't currently return this value.
      * </p>
      * </li>
      * </ul>
@@ -289,12 +289,12 @@ public class DescribeStackResourceDriftsRequest extends com.amazonaws.AmazonWebS
      *        </li>
      *        <li>
      *        <p>
-     *        <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     *        <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     *        <code>NOT_CHECKED</code>: CloudFormation doesn't currently return this value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -329,12 +329,12 @@ public class DescribeStackResourceDriftsRequest extends com.amazonaws.AmazonWebS
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     * <code>NOT_CHECKED</code>: CloudFormation doesn't currently return this value.
      * </p>
      * </li>
      * </ul>
@@ -355,12 +355,12 @@ public class DescribeStackResourceDriftsRequest extends com.amazonaws.AmazonWebS
      *        </li>
      *        <li>
      *        <p>
-     *        <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     *        <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     *        <code>NOT_CHECKED</code>: CloudFormation doesn't currently return this value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -390,12 +390,12 @@ public class DescribeStackResourceDriftsRequest extends com.amazonaws.AmazonWebS
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     * <code>NOT_CHECKED</code>: CloudFormation doesn't currently return this value.
      * </p>
      * </li>
      * </ul>
@@ -416,12 +416,12 @@ public class DescribeStackResourceDriftsRequest extends com.amazonaws.AmazonWebS
      *        </li>
      *        <li>
      *        <p>
-     *        <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     *        <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     *        <code>NOT_CHECKED</code>: CloudFormation doesn't currently return this value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

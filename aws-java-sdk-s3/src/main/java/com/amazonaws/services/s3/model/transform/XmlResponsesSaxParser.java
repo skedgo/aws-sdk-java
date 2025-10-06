@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Portions copyright 2006-2009 James Murty. Please see LICENSE.txt
  * for applicable license terms and NOTICE.txt for applicable notices.
@@ -17,12 +17,25 @@
  */
 package com.amazonaws.services.s3.model.transform;
 
+import com.amazonaws.services.s3.TargetObjectKeyFormat;
 import com.amazonaws.services.s3.model.*;
 
 import static com.amazonaws.util.StringUtils.UTF8;
 
+import com.amazonaws.services.s3.model.BucketLifecycleConfiguration.NoncurrentVersionExpiration;
+import com.amazonaws.services.s3.model.intelligenttiering.IntelligentTieringAccessTier;
+import com.amazonaws.services.s3.model.intelligenttiering.IntelligentTieringAndOperator;
+import com.amazonaws.services.s3.model.intelligenttiering.IntelligentTieringConfiguration;
+import com.amazonaws.services.s3.model.intelligenttiering.IntelligentTieringFilter;
+import com.amazonaws.services.s3.model.intelligenttiering.IntelligentTieringFilterPredicate;
+import com.amazonaws.services.s3.model.intelligenttiering.IntelligentTieringPrefixPredicate;
+import com.amazonaws.services.s3.model.intelligenttiering.IntelligentTieringStatus;
+import com.amazonaws.services.s3.model.intelligenttiering.IntelligentTieringTagPredicate;
+import com.amazonaws.services.s3.model.intelligenttiering.Tiering;
 import com.amazonaws.services.s3.model.inventory.ServerSideEncryptionKMS;
 import com.amazonaws.services.s3.model.inventory.ServerSideEncryptionS3;
+import com.amazonaws.services.s3.model.ownership.OwnershipControls;
+import com.amazonaws.services.s3.model.ownership.OwnershipControlsRule;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -38,8 +51,11 @@ import java.util.Map;
 import com.amazonaws.services.s3.model.lifecycle.LifecycleAndOperator;
 import com.amazonaws.services.s3.model.lifecycle.LifecycleFilter;
 import com.amazonaws.services.s3.model.lifecycle.LifecycleFilterPredicate;
+import com.amazonaws.services.s3.model.lifecycle.LifecycleObjectSizeGreaterThanPredicate;
+import com.amazonaws.services.s3.model.lifecycle.LifecycleObjectSizeLessThanPredicate;
 import com.amazonaws.services.s3.model.lifecycle.LifecyclePrefixPredicate;
 import com.amazonaws.services.s3.model.lifecycle.LifecycleTagPredicate;
+import com.amazonaws.services.s3.model.metrics.MetricsAccessPointArnPredicate;
 import com.amazonaws.services.s3.model.metrics.MetricsAndOperator;
 import com.amazonaws.services.s3.model.metrics.MetricsConfiguration;
 import com.amazonaws.services.s3.model.metrics.MetricsFilter;
@@ -236,6 +252,7 @@ public class XmlResponsesSaxParser {
      * @throws SAXNotSupportedException
      */
     private void disableExternalResourceFetching(XMLReader reader) throws SAXNotRecognizedException, SAXNotSupportedException {
+        reader.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
         reader.setFeature("http://xml.org/sax/features/external-general-entities", false);
         reader.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
         reader.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd",false);
@@ -528,6 +545,13 @@ public class XmlResponsesSaxParser {
         return handler;
     }
 
+    public GetBucketOwnershipControlsHandler parseGetBucketOwnershipControlsResponse(InputStream inputStream)
+        throws IOException {
+        GetBucketOwnershipControlsHandler handler = new GetBucketOwnershipControlsHandler();
+        parseXmlInputStream(handler, inputStream);
+        return handler;
+    }
+
     public GetBucketAnalyticsConfigurationHandler parseGetBucketAnalyticsConfigurationResponse(InputStream inputStream)
             throws IOException {
         GetBucketAnalyticsConfigurationHandler handler = new GetBucketAnalyticsConfigurationHandler();
@@ -538,6 +562,21 @@ public class XmlResponsesSaxParser {
     public ListBucketAnalyticsConfigurationHandler parseListBucketAnalyticsConfigurationResponse(InputStream inputStream)
             throws IOException {
         ListBucketAnalyticsConfigurationHandler handler = new ListBucketAnalyticsConfigurationHandler();
+        parseXmlInputStream(handler, inputStream);
+        return handler;
+    }
+
+
+    public GetBucketIntelligentTieringConfigurationHandler parseGetBucketIntelligentTieringConfigurationResponse(InputStream inputStream)
+            throws IOException {
+        GetBucketIntelligentTieringConfigurationHandler handler = new GetBucketIntelligentTieringConfigurationHandler();
+        parseXmlInputStream(handler, inputStream);
+        return handler;
+    }
+
+    public ListBucketIntelligentTieringConfigurationHandler parseListBucketIntelligentTieringConfigurationResponse(InputStream inputStream)
+            throws IOException {
+        ListBucketIntelligentTieringConfigurationHandler handler = new ListBucketIntelligentTieringConfigurationHandler();
         parseXmlInputStream(handler, inputStream);
         return handler;
     }
@@ -602,6 +641,7 @@ public class XmlResponsesSaxParser {
 
         private S3ObjectSummary currentObject = null;
         private Owner currentOwner = null;
+        private RestoreStatus currentRestoreStatus = null;
         private String lastKey = null;
 
         public ListBucketHandler(final boolean shouldSDKDecodeResponse) {
@@ -629,6 +669,10 @@ public class XmlResponsesSaxParser {
             else if (in("ListBucketResult", "Contents")) {
                 if (name.equals("Owner")) {
                     currentOwner = new Owner();
+
+                } else if (name.equals("RestoreStatus")) {
+                    currentRestoreStatus = new RestoreStatus();
+
                 }
             }
         }
@@ -738,6 +782,19 @@ public class XmlResponsesSaxParser {
                 } else if (name.equals("Owner")) {
                     currentObject.setOwner(currentOwner);
                     currentOwner = null;
+
+                } else if (name.equals("RestoreStatus")) {
+                    currentObject.setRestoreStatus(currentRestoreStatus);
+                    currentRestoreStatus = null;
+                }
+            }
+
+            else if (in("ListBucketResult", "Contents", "RestoreStatus")) {
+                if (name.equals("IsRestoreInProgress")) {
+                    currentRestoreStatus.setIsRestoreInProgress(Boolean.parseBoolean(getText()));
+
+                } else if (name.equals("RestoreExpiryDate")) {
+                    currentRestoreStatus.setRestoreExpiryDate(ServiceUtils.parseIso8601Date(getText()));
                 }
             }
 
@@ -768,6 +825,7 @@ public class XmlResponsesSaxParser {
 
         private S3ObjectSummary currentObject = null;
         private Owner currentOwner = null;
+        private RestoreStatus currentRestoreStatus = null;
         private String lastKey = null;
 
         public ListObjectsV2Handler(final boolean shouldSDKDecodeResponse) {
@@ -795,6 +853,10 @@ public class XmlResponsesSaxParser {
             else if (in("ListBucketResult", "Contents")) {
                 if (name.equals("Owner")) {
                     currentOwner = new Owner();
+
+                } else if (name.equals("RestoreStatus")) {
+                    currentRestoreStatus = new RestoreStatus();
+
                 }
             }
         }
@@ -904,6 +966,19 @@ public class XmlResponsesSaxParser {
                 } else if (name.equals("Owner")) {
                     currentObject.setOwner(currentOwner);
                     currentOwner = null;
+
+                } else if (name.equals("RestoreStatus")) {
+                    currentObject.setRestoreStatus(currentRestoreStatus);
+                    currentRestoreStatus = null;
+                }
+            }
+
+            else if (in("ListBucketResult", "Contents", "RestoreStatus")) {
+                if (name.equals("IsRestoreInProgress")) {
+                    currentRestoreStatus.setIsRestoreInProgress(Boolean.parseBoolean(getText()));
+
+                } else if (name.equals("RestoreExpiryDate")) {
+                    currentRestoreStatus.setRestoreExpiryDate(ServiceUtils.parseIso8601Date(getText()));
                 }
             }
 
@@ -936,6 +1011,9 @@ public class XmlResponsesSaxParser {
         private Owner bucketsOwner = null;
 
         private Bucket currentBucket = null;
+        private String continuationToken;
+        private String prefix;
+        private ListBucketsPaginatedResult result = new ListBucketsPaginatedResult();
 
         /**
          * @return the buckets listed in the document.
@@ -949,6 +1027,13 @@ public class XmlResponsesSaxParser {
          */
         public Owner getOwner() {
             return bucketsOwner;
+        }
+
+        public ListBucketsPaginatedResult getResult() {
+            return  new ListBucketsPaginatedResult().withBuckets(buckets)
+                                                    .withOwner(bucketsOwner)
+                                                    .withContinuationToken(continuationToken)
+                                                    .withPrefix(prefix);
         }
 
         @Override
@@ -972,7 +1057,14 @@ public class XmlResponsesSaxParser {
 
         @Override
         protected void doEndElement(String uri, String name, String qName) {
-            if (in("ListAllMyBucketsResult", "Owner")) {
+            if (in("ListAllMyBucketsResult")) {
+                 if (name.equals("ContinuationToken")) {
+                    continuationToken = getText();
+                }
+                else if (name.equals("Prefix")) {
+                    prefix = getText();
+                }
+            } else if (in("ListAllMyBucketsResult", "Owner")) {
                 if (name.equals("ID")) {
                     bucketsOwner.setId(getText());
 
@@ -995,6 +1087,9 @@ public class XmlResponsesSaxParser {
                 } else if (name.equals("CreationDate")) {
                     Date creationDate = DateUtils.parseISO8601Date(getText());
                     currentBucket.setCreationDate(creationDate);
+                }
+                else if (name.equals("BucketRegion")) {
+                    currentBucket.setRegion(getText());
                 }
             }
         }
@@ -1135,10 +1230,18 @@ public class XmlResponsesSaxParser {
                 if (name.equals("TargetBucket")) {
                     bucketLoggingConfiguration
                         .setDestinationBucketName(getText());
-
                 } else if (name.equals("TargetPrefix")) {
                     bucketLoggingConfiguration
                         .setLogFilePrefix(getText());
+                }
+            } else if (in("BucketLoggingStatus", "LoggingEnabled", "TargetObjectKeyFormat")) {
+                if (name.equals("SimplePrefix")) {
+                    bucketLoggingConfiguration.setTargetObjectKeyFormat(
+                            new TargetObjectKeyFormat(new SimplePrefix()));
+                } else if (name.equals("PartitionedPrefix")) {
+                    bucketLoggingConfiguration.setTargetObjectKeyFormat(
+                            new TargetObjectKeyFormat(
+                                    new PartitionedPrefix().withPartitionDateSource(checkForEmptyString(getText()))));
                 }
             }
         }
@@ -1352,6 +1455,7 @@ public class XmlResponsesSaxParser {
 
         private S3VersionSummary currentVersionSummary;
         private Owner currentOwner;
+        private RestoreStatus currentRestoreStatus;
 
         public ListVersionsHandler(final boolean shouldSDKDecodeResponse) {
             this.shouldSDKDecodeResponse = shouldSDKDecodeResponse;
@@ -1386,6 +1490,10 @@ public class XmlResponsesSaxParser {
                     || in("ListVersionsResult", "DeleteMarker")) {
                 if (name.equals("Owner")) {
                     currentOwner = new Owner();
+
+                } else if (name.equals("RestoreStatus")) {
+                    currentRestoreStatus = new RestoreStatus();
+
                 }
             }
         }
@@ -1478,6 +1586,18 @@ public class XmlResponsesSaxParser {
 
                 } else if (name.equals("StorageClass")) {
                     currentVersionSummary.setStorageClass(getText());
+
+                } else if (name.equals("RestoreStatus")) {
+                    currentVersionSummary.setRestoreStatus(currentRestoreStatus);
+                    currentRestoreStatus = null;
+                }
+            }
+
+            else if (in("ListVersionsResult", "Version", "RestoreStatus")) {
+                if (name.equals("IsRestoreInProgress")) {
+                    currentRestoreStatus.setIsRestoreInProgress(Boolean.parseBoolean(getText()));
+                } else if (name.equals("RestoreExpiryDate")) {
+                    currentRestoreStatus.setRestoreExpiryDate(ServiceUtils.parseIso8601Date(getText()));
                 }
             }
 
@@ -2185,12 +2305,16 @@ public class XmlResponsesSaxParser {
         private List<ReplicationFilterPredicate> andOperandsList;
         private String currentTagKey;
         private String currentTagValue;
+        private ExistingObjectReplication existingObjectReplication;
         private DeleteMarkerReplication deleteMarkerReplication;
         private ReplicationDestinationConfig destinationConfig;
         private AccessControlTranslation accessControlTranslation;
         private EncryptionConfiguration encryptionConfiguration;
+        private ReplicationTime replicationTime;
+        private Metrics metrics;
         private SourceSelectionCriteria sourceSelectionCriteria;
         private SseKmsEncryptedObjects sseKmsEncryptedObjects;
+        private ReplicaModifications replicaModifications;
         private static final String REPLICATION_CONFIG = "ReplicationConfiguration";
         private static final String ROLE = "Role";
         private static final String RULE = "Rule";
@@ -2202,6 +2326,7 @@ public class XmlResponsesSaxParser {
         private static final String TAG = "Tag";
         private static final String TAG_KEY = "Key";
         private static final String TAG_VALUE = "Value";
+        private static final String EXISTING_OBJECT_REPLICATION = "ExistingObjectReplication";
         private static final String DELETE_MARKER_REPLICATION = "DeleteMarkerReplication";
         private static final String PRIORITY = "Priority";
         private static final String STATUS = "Status";
@@ -2211,9 +2336,15 @@ public class XmlResponsesSaxParser {
         private static final String ACCESS_CONTROL_TRANSLATION = "AccessControlTranslation";
         private static final String OWNER = "Owner";
         private static final String ENCRYPTION_CONFIGURATION = "EncryptionConfiguration";
+        private static final String REPLICATION_TIME = "ReplicationTime";
+        private static final String TIME = "Time";
+        private static final String MINUTES = "Minutes";
+        private static final String METRICS = "Metrics";
+        private static final String EVENT_THRESHOLD = "EventThreshold";
         private static final String REPLICA_KMS_KEY_ID = "ReplicaKmsKeyID";
         private static final String SOURCE_SELECTION_CRITERIA = "SourceSelectionCriteria";
         private static final String SSE_KMS_ENCRYPTED_OBJECTS = "SseKmsEncryptedObjects";
+        private static final String REPLICA_MODIFICATIONS = "ReplicaModifications";
 
         public BucketReplicationConfiguration getConfiguration() {
             return bucketReplicationConfiguration;
@@ -2232,6 +2363,8 @@ public class XmlResponsesSaxParser {
                     destinationConfig = new ReplicationDestinationConfig();
                 } else if (name.equals(SOURCE_SELECTION_CRITERIA)) {
                     sourceSelectionCriteria = new SourceSelectionCriteria();
+                } else if (name.equals(EXISTING_OBJECT_REPLICATION)) {
+                    existingObjectReplication = new ExistingObjectReplication();
                 } else if (name.equals(DELETE_MARKER_REPLICATION)) {
                     deleteMarkerReplication = new DeleteMarkerReplication();
                 } else if (name.equals(FILTER)) {
@@ -2242,10 +2375,24 @@ public class XmlResponsesSaxParser {
                     accessControlTranslation = new AccessControlTranslation();
                 } else if (name.equals(ENCRYPTION_CONFIGURATION)) {
                     encryptionConfiguration = new EncryptionConfiguration();
+                } else if (name.equals(REPLICATION_TIME)) {
+                    replicationTime = new ReplicationTime();
+                } else if (name.equals(METRICS)) {
+                    metrics = new Metrics();
+                }
+            } else if (in(REPLICATION_CONFIG, RULE, DESTINATION, REPLICATION_TIME)) {
+                if (name.equals(TIME)) {
+                    replicationTime.setTime(new ReplicationTimeValue());
+                }
+            } else if (in(REPLICATION_CONFIG, RULE, DESTINATION, METRICS)) {
+                if (name.equals(EVENT_THRESHOLD)) {
+                    metrics.setEventThreshold(new ReplicationTimeValue());
                 }
             } else if (in(REPLICATION_CONFIG, RULE, SOURCE_SELECTION_CRITERIA)) {
                 if (name.equals(SSE_KMS_ENCRYPTED_OBJECTS)) {
                     sseKmsEncryptedObjects = new SseKmsEncryptedObjects();
+                } else if (name.equals(REPLICA_MODIFICATIONS)) {
+                    replicaModifications = new ReplicaModifications();
                 }
             } else if (in(REPLICATION_CONFIG, RULE, FILTER)) {
                 if (name.equals(AND)) {
@@ -2262,11 +2409,13 @@ public class XmlResponsesSaxParser {
                             currentRule);
                     currentRule = null;
                     currentRuleId = null;
+                    existingObjectReplication = null;
                     deleteMarkerReplication = null;
                     destinationConfig = null;
                     sseKmsEncryptedObjects = null;
                     accessControlTranslation = null;
                     encryptionConfiguration = null;
+                    replicaModifications = null;
                 } else if (name.equals(ROLE)) {
                     bucketReplicationConfiguration.setRoleARN(getText());
                 }
@@ -2277,6 +2426,8 @@ public class XmlResponsesSaxParser {
                     currentRule.setPrefix(getText());
                 } else if (name.equals(PRIORITY)) {
                     currentRule.setPriority(Integer.valueOf(getText()));
+                } else if (name.equals(EXISTING_OBJECT_REPLICATION)){
+                    currentRule.setExistingObjectReplication(existingObjectReplication);
                 } else if (name.equals(DELETE_MARKER_REPLICATION)) {
                     currentRule.setDeleteMarkerReplication(deleteMarkerReplication);
                 } else if (name.equals(SOURCE_SELECTION_CRITERIA)) {
@@ -2326,10 +2477,20 @@ public class XmlResponsesSaxParser {
             } else if (in(REPLICATION_CONFIG, RULE, SOURCE_SELECTION_CRITERIA)) {
                 if (name.equals(SSE_KMS_ENCRYPTED_OBJECTS)) {
                     sourceSelectionCriteria.setSseKmsEncryptedObjects(sseKmsEncryptedObjects);
+                } else if (name.equals(REPLICA_MODIFICATIONS)) {
+                    sourceSelectionCriteria.setReplicaModifications(replicaModifications);
                 }
             } else if (in(REPLICATION_CONFIG, RULE, SOURCE_SELECTION_CRITERIA, SSE_KMS_ENCRYPTED_OBJECTS)) {
                 if (name.equals(STATUS)) {
                     sseKmsEncryptedObjects.setStatus(getText());
+                }
+            } else if (in(REPLICATION_CONFIG, RULE, SOURCE_SELECTION_CRITERIA, REPLICA_MODIFICATIONS)) {
+                if (name.equals(STATUS)) {
+                    replicaModifications.setStatus(getText());
+                }
+            } else if (in(REPLICATION_CONFIG, RULE, EXISTING_OBJECT_REPLICATION)) {
+                if (name.equals(STATUS)) {
+                    existingObjectReplication.setStatus(getText());
                 }
             } else if (in(REPLICATION_CONFIG, RULE, DELETE_MARKER_REPLICATION)) {
                 if (name.equals(STATUS)) {
@@ -2346,6 +2507,10 @@ public class XmlResponsesSaxParser {
                     destinationConfig.setAccessControlTranslation(accessControlTranslation);
                 } else if (name.equals(ENCRYPTION_CONFIGURATION)) {
                     destinationConfig.setEncryptionConfiguration(encryptionConfiguration);
+                } else if (name.equals(REPLICATION_TIME)) {
+                    destinationConfig.setReplicationTime(replicationTime);
+                } else if (name.equals(METRICS)) {
+                    destinationConfig.setMetrics(metrics);
                 }
             } else if (in(REPLICATION_CONFIG, RULE, DESTINATION, ACCESS_CONTROL_TRANSLATION)) {
                 if (name.equals(OWNER)) {
@@ -2354,6 +2519,22 @@ public class XmlResponsesSaxParser {
             } else if (in(REPLICATION_CONFIG, RULE, DESTINATION, ENCRYPTION_CONFIGURATION)) {
                 if (name.equals(REPLICA_KMS_KEY_ID)) {
                     encryptionConfiguration.setReplicaKmsKeyID(getText());
+                }
+            } else if (in(REPLICATION_CONFIG, RULE, DESTINATION, REPLICATION_TIME)) {
+                if (name.equals(STATUS)) {
+                    replicationTime.setStatus(getText());
+                }
+            } else if (in(REPLICATION_CONFIG, RULE, DESTINATION, REPLICATION_TIME, TIME)) {
+                if (name.equals(MINUTES)) {
+                    replicationTime.getTime().setMinutes(Integer.parseInt(getText()));
+                }
+            } else if (in(REPLICATION_CONFIG, RULE, DESTINATION, METRICS)) {
+              if (name.equals(STATUS)) {
+                  metrics.setStatus(getText());
+              }
+            } else if (in(REPLICATION_CONFIG, RULE, DESTINATION, METRICS, EVENT_THRESHOLD)) {
+                if (name.equals(MINUTES)) {
+                    metrics.getEventThreshold().setMinutes(Integer.parseInt(getText()));
                 }
             }
         }
@@ -2579,6 +2760,12 @@ public class XmlResponsesSaxParser {
                     currentError.setMessage(getText());
                 }
             }
+
+            else if (in("Error")) {
+                if (name.equals("Code") && getText().equals("SlowDown")) {
+                    throw new MultiObjectDeleteSlowdownException();
+                }
+            }
         }
     }
 
@@ -2662,6 +2849,7 @@ public class XmlResponsesSaxParser {
         private Rule currentRule;
         private Transition currentTransition;
         private NoncurrentVersionTransition currentNcvTransition;
+        private NoncurrentVersionExpiration ncvExpiration;
         private AbortIncompleteMultipartUpload abortIncompleteMultipartUpload;
         private LifecycleFilter currentFilter;
         private List<LifecycleFilterPredicate> andOperandsList;
@@ -2688,6 +2876,8 @@ public class XmlResponsesSaxParser {
                     currentTransition = new Transition();
                 } else if (name.equals("NoncurrentVersionTransition")) {
                     currentNcvTransition = new NoncurrentVersionTransition();
+                } else if (name.equals("NoncurrentVersionExpiration")) {
+                    ncvExpiration = new NoncurrentVersionExpiration();
                 } else if (name.equals("AbortIncompleteMultipartUpload")) {
                     abortIncompleteMultipartUpload = new
                             AbortIncompleteMultipartUpload();
@@ -2728,6 +2918,9 @@ public class XmlResponsesSaxParser {
                     currentRule.addNoncurrentVersionTransition(
                             currentNcvTransition);
                     currentNcvTransition = null;
+                } else if (name.equals("NoncurrentVersionExpiration")) {
+                    currentRule.setNoncurrentVersionExpiration(ncvExpiration);
+                    ncvExpiration = null;
                 } else if (name.equals("AbortIncompleteMultipartUpload")) {
                     currentRule.setAbortIncompleteMultipartUpload(abortIncompleteMultipartUpload);
                     abortIncompleteMultipartUpload = null;
@@ -2763,8 +2956,9 @@ public class XmlResponsesSaxParser {
 
             else if (in("LifecycleConfiguration", "Rule", "NoncurrentVersionExpiration")) {
                 if (name.equals("NoncurrentDays")) {
-                    currentRule.setNoncurrentVersionExpirationInDays(
-                            Integer.parseInt(getText()));
+                    ncvExpiration.setDays(Integer.parseInt(getText()));
+                } else if (name.equals("NewerNoncurrentVersions")) {
+                    ncvExpiration.setNewerNoncurrentVersions(Integer.parseInt(getText()));
                 }
             }
 
@@ -2773,6 +2967,8 @@ public class XmlResponsesSaxParser {
                     currentNcvTransition.setStorageClass(getText());
                 } else if (name.equals("NoncurrentDays")) {
                     currentNcvTransition.setDays(Integer.parseInt(getText()));
+                } else if (name.equals("NewerNoncurrentVersions")) {
+                    currentNcvTransition.setNewerNoncurrentVersions(Integer.parseInt(getText()));
                 }
             }
 
@@ -2790,6 +2986,10 @@ public class XmlResponsesSaxParser {
                     currentFilter.setPredicate(new LifecycleTagPredicate(new Tag(currentTagKey, currentTagValue)));
                     currentTagKey = null;
                     currentTagValue = null;
+                } else if (name.equals("ObjectSizeGreaterThan")) {
+                    currentFilter.setPredicate(new LifecycleObjectSizeGreaterThanPredicate(Long.parseLong(getText())));
+                } else if (name.equals("ObjectSizeLessThan")) {
+                    currentFilter.setPredicate(new LifecycleObjectSizeLessThanPredicate(Long.parseLong(getText())));
                 } else if (name.equals("And")) {
                     currentFilter.setPredicate(new LifecycleAndOperator(andOperandsList));
                     andOperandsList = null;
@@ -2811,6 +3011,10 @@ public class XmlResponsesSaxParser {
                     andOperandsList.add(new LifecycleTagPredicate(new Tag(currentTagKey, currentTagValue)));
                     currentTagKey = null;
                     currentTagValue = null;
+                } else if (name.equals("ObjectSizeGreaterThan")) {
+                    andOperandsList.add(new LifecycleObjectSizeGreaterThanPredicate(Long.parseLong(getText())));
+                } else if (name.equals("ObjectSizeLessThan")) {
+                    andOperandsList.add(new LifecycleObjectSizeLessThanPredicate(Long.parseLong(getText())));
                 }
             }
 
@@ -3006,6 +3210,8 @@ public class XmlResponsesSaxParser {
                     filter.setPredicate(new MetricsTagPredicate(new Tag(currentTagKey, currentTagValue)));
                     currentTagKey = null;
                     currentTagValue = null;
+                } else if (name.equals("AccessPointArn")) {
+                    filter.setPredicate(new MetricsAccessPointArnPredicate(getText()));
                 } else if (name.equals("And")) {
                     filter.setPredicate(new MetricsAndOperator(andOperandsList));
                     andOperandsList = null;
@@ -3028,6 +3234,8 @@ public class XmlResponsesSaxParser {
                             new Tag(currentTagKey, currentTagValue)));
                     currentTagKey = null;
                     currentTagValue = null;
+                } else if (name.equals("AccessPointArn")) {
+                    andOperandsList.add(new MetricsAccessPointArnPredicate(getText()));
                 }
             }
 
@@ -3136,6 +3344,8 @@ public class XmlResponsesSaxParser {
                 } else if (name.equals("And")) {
                     currentFilter.setPredicate(new MetricsAndOperator(andOperandsList));
                     andOperandsList = null;
+                }else if (name.equals("AccessPointArn")) {
+                    currentFilter.setPredicate(new MetricsAccessPointArnPredicate(getText()));
                 }
             }
 
@@ -3154,6 +3364,8 @@ public class XmlResponsesSaxParser {
                     andOperandsList.add(new MetricsTagPredicate(new Tag(currentTagKey, currentTagValue)));
                     currentTagKey = null;
                     currentTagValue = null;
+                } else if (name.equals("AccessPointArn")) {
+                    andOperandsList.add(new MetricsAccessPointArnPredicate(getText()));
                 }
             }
 
@@ -3165,6 +3377,41 @@ public class XmlResponsesSaxParser {
                 }
             }
         }
+    }
+
+    public static class GetBucketOwnershipControlsHandler extends AbstractHandler {
+        private List<OwnershipControlsRule> rulesList;
+
+        public GetBucketOwnershipControlsResult getResult() {
+            OwnershipControls ownershipControls = new OwnershipControls().withRules(rulesList);
+            return new GetBucketOwnershipControlsResult().withOwnershipControls(ownershipControls);
+        }
+
+        @Override
+        protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
+            // <OwnershipControls xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+            // <Rule>
+            // <ObjectOwnership>ObjectWriter</ObjectOwnership>
+            // </Rule>
+            // </OwnershipControls>
+            if (in("OwnershipControls")) {
+                if (name.equals("Rule")) {
+                    if (rulesList == null) {
+                        rulesList = new ArrayList<OwnershipControlsRule>();
+                    }
+                }
+            }
+        }
+
+        @Override
+        protected void doEndElement(String uri, String name, String qName) {
+            if (in("OwnershipControls", "Rule")) {
+                if (name.equals("ObjectOwnership")) {
+                    rulesList.add(new OwnershipControlsRule().withOwnership(getText()));
+                }
+            }
+        }
+
     }
 
     /*
@@ -3519,6 +3766,239 @@ public class XmlResponsesSaxParser {
                     s3BucketDestination.setPrefix(getText());
                 }
             }
+        }
+
+    }
+
+    public static class GetBucketIntelligentTieringConfigurationHandler extends AbstractHandler {
+
+        private final IntelligentTieringConfiguration configuration = new IntelligentTieringConfiguration();
+
+        private IntelligentTieringFilter filter;
+        private List<IntelligentTieringFilterPredicate> andOperandsList;
+        private Tiering currentTiering;
+
+        private String currentTagKey;
+        private String currentTagValue;
+
+        public GetBucketIntelligentTieringConfigurationResult getResult() {
+            return new GetBucketIntelligentTieringConfigurationResult().withIntelligentTieringConfiguration(configuration);
+        }
+
+        @Override
+        protected void doStartElement(
+                String uri,
+                String name,
+                String qName,
+                Attributes attrs) {
+
+            if (in("IntelligentTieringConfiguration")) {
+                if (name.equals("Filter")) {
+                    filter = new IntelligentTieringFilter();
+                } else if (name.equals("Tiering")) {
+                    currentTiering = new Tiering();
+                }
+            } else if (in("IntelligentTieringConfiguration", "Filter")) {
+                if (name.equals("And")) {
+                    andOperandsList = new ArrayList<>();
+                }
+
+            }
+        }
+
+        @Override
+        protected void doEndElement(String uri, String name, String qName) {
+            if (in("IntelligentTieringConfiguration")) {
+                if (name.equals("Id")) {
+                    configuration.setId(getText());
+                } else if (name.equals("Filter")) {
+                    configuration.setFilter(filter);
+                } else if (name.equals("Status")) {
+                    configuration.setStatus(IntelligentTieringStatus.fromValue(getText()));
+                } else if (name.equals("Tiering")) {
+                    if (configuration.getTierings() == null) {
+                        configuration.setTierings(new ArrayList<Tiering>());
+                    }
+                    configuration.getTierings().add(currentTiering);
+                    currentTiering = null;
+                }
+            }
+
+            else if (in("IntelligentTieringConfiguration", "Filter")) {
+                if (name.equals("Prefix")) {
+                    filter.setPredicate(new IntelligentTieringPrefixPredicate(getText()));
+                } else if (name.equals("Tag")) {
+                    filter.setPredicate(new IntelligentTieringTagPredicate(new Tag(currentTagKey, currentTagValue)));
+                    currentTagKey = null;
+                    currentTagValue = null;
+                } else if (name.equals("And")) {
+                    filter.setPredicate(new IntelligentTieringAndOperator(andOperandsList));
+                    andOperandsList = null;
+                }
+            }
+
+            else if (in("IntelligentTieringConfiguration", "Filter", "Tag")) {
+                if (name.equals("Key")) {
+                    currentTagKey = getText();
+                } else if (name.equals("Value")) {
+                    currentTagValue = getText();
+                }
+            }
+
+            else if (in("IntelligentTieringConfiguration", "Filter", "And")) {
+                if (name.equals("Prefix")) {
+                    andOperandsList.add(new IntelligentTieringPrefixPredicate(getText()));
+                } else if (name.equals("Tag")) {
+                    andOperandsList.add(new IntelligentTieringTagPredicate(new Tag(currentTagKey, currentTagValue)));
+                    currentTagKey = null;
+                    currentTagValue = null;
+                }
+            }
+
+            else if (in("IntelligentTieringConfiguration", "Filter", "And", "Tag")) {
+                if (name.equals("Key")) {
+                    currentTagKey = getText();
+                } else if (name.equals("Value")) {
+                    currentTagValue = getText();
+                }
+            }
+
+            else if (in("IntelligentTieringConfiguration", "Tiering")) {
+                if (name.equals("AccessTier")) {
+                    currentTiering.setAccessTier(IntelligentTieringAccessTier.fromValue(getText()));
+                } else if (name.equals("Days")) {
+                    currentTiering.setDays(Integer.parseInt(getText()));
+                }
+            }
+        }
+    }
+
+    public static class ListBucketIntelligentTieringConfigurationHandler extends AbstractHandler {
+
+        private final ListBucketIntelligentTieringConfigurationsResult result =
+                new ListBucketIntelligentTieringConfigurationsResult();
+
+        private IntelligentTieringConfiguration currentConfiguration;
+        private IntelligentTieringFilter currentFilter;
+        private List<IntelligentTieringFilterPredicate> andOperandsList;
+        private Tiering currentTiering;
+
+        private String currentTagKey;
+        private String currentTagValue;
+
+        public ListBucketIntelligentTieringConfigurationsResult getResult() {
+            return result;
+        }
+
+        @Override
+        protected void doStartElement(
+                String uri,
+                String name,
+                String qName,
+                Attributes attrs) {
+
+            if (in("ListIntelligentTieringConfigurationsResult")) {
+                if (name.equals("IntelligentTieringConfiguration")) {
+                    currentConfiguration = new IntelligentTieringConfiguration();
+                }
+
+            } else if (in("ListIntelligentTieringConfigurationsResult", "IntelligentTieringConfiguration")) {
+                if (name.equals("Filter")) {
+                    currentFilter = new IntelligentTieringFilter();
+                } else if (name.equals("Tiering")) {
+                    currentTiering = new Tiering();
+                }
+
+            } else if (in("ListIntelligentTieringConfigurationsResult", "IntelligentTieringConfiguration", "Filter")) {
+                if (name.equals("And")) {
+                    andOperandsList = new ArrayList<IntelligentTieringFilterPredicate>();
+                }
+
+            }
+        }
+
+        @Override
+        protected void doEndElement(String uri, String name, String qName) {
+
+            if (in("ListIntelligentTieringConfigurationsResult")) {
+                if (name.equals("IntelligentTieringConfiguration")) {
+                    if (result.getIntelligentTieringConfigurationList() == null) {
+                        result.setIntelligentTieringConfigurationList(new ArrayList<IntelligentTieringConfiguration>());
+                    }
+                    result.getIntelligentTieringConfigurationList().add(currentConfiguration);
+                    currentConfiguration = null;
+                } else if (name.equals("IsTruncated")) {
+                    result.setTruncated("true".equals(getText()));
+                } else if (name.equals("ContinuationToken")) {
+                    result.setContinuationToken(getText());
+                } else if (name.equals("NextContinuationToken")) {
+                    result.setNextContinuationToken(getText());
+                }
+            }
+
+            else if (in("ListIntelligentTieringConfigurationsResult", "IntelligentTieringConfiguration")) {
+                if (name.equals("Id")) {
+                    currentConfiguration.setId(getText());
+                } else if (name.equals("Filter")) {
+                    currentConfiguration.setFilter(currentFilter);
+                } else if (name.equals("Status")) {
+                    currentConfiguration.setStatus(IntelligentTieringStatus.fromValue(getText()));
+                } else if (name.equals("Tiering")) {
+                    if (currentConfiguration.getTierings() == null) {
+                        currentConfiguration.setTierings(new ArrayList<Tiering>());
+                    }
+                    currentConfiguration.getTierings().add(currentTiering);
+                    currentTiering = null;
+                }
+            }
+
+            else if (in("ListIntelligentTieringConfigurationsResult", "IntelligentTieringConfiguration", "Filter")) {
+                if (name.equals("Prefix")) {
+                    currentFilter.setPredicate(new IntelligentTieringPrefixPredicate(getText()));
+                } else if (name.equals("Tag")) {
+                    currentFilter.setPredicate(new IntelligentTieringTagPredicate(new Tag(currentTagKey, currentTagValue)));
+                    currentTagKey = null;
+                    currentTagValue = null;
+                } else if (name.equals("And")) {
+                    currentFilter.setPredicate(new IntelligentTieringAndOperator(andOperandsList));
+                    andOperandsList = null;
+                }
+            }
+
+            else if (in("ListIntelligentTieringConfigurationsResult", "IntelligentTieringConfiguration", "Filter", "Tag")) {
+                if (name.equals("Key")) {
+                    currentTagKey = getText();
+                } else if (name.equals("Value")) {
+                    currentTagValue = getText();
+                }
+            }
+
+            else if (in("ListIntelligentTieringConfigurationsResult", "IntelligentTieringConfiguration", "Filter", "And")) {
+                if (name.equals("Prefix")) {
+                    andOperandsList.add(new IntelligentTieringPrefixPredicate(getText()));
+                } else if (name.equals("Tag")) {
+                    andOperandsList.add(new IntelligentTieringTagPredicate(new Tag(currentTagKey, currentTagValue)));
+                    currentTagKey = null;
+                    currentTagValue = null;
+                }
+            }
+
+            else if (in("ListIntelligentTieringConfigurationsResult", "IntelligentTieringConfiguration", "Filter", "And", "Tag")) {
+                if (name.equals("Key")) {
+                    currentTagKey = getText();
+                } else if (name.equals("Value")) {
+                    currentTagValue = getText();
+                }
+            }
+
+            else if (in("ListIntelligentTieringConfigurationsResult", "IntelligentTieringConfiguration", "Tiering")) {
+                if (name.equals("AccessTier")) {
+                    currentTiering.setAccessTier(IntelligentTieringAccessTier.fromValue(getText()));
+                } else if (name.equals("Days")) {
+                    currentTiering.setDays(Integer.parseInt(getText()));
+                }
+            }
+
         }
 
     }

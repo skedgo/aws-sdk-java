@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,14 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class StartOutboundVoiceContactRequestMarshaller {
 
+    private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Name").build();
+    private static final MarshallingInfo<String> DESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Description").build();
+    private static final MarshallingInfo<Map> REFERENCES_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("References").build();
+    private static final MarshallingInfo<String> RELATEDCONTACTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RelatedContactId").build();
     private static final MarshallingInfo<String> DESTINATIONPHONENUMBER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DestinationPhoneNumber").build();
     private static final MarshallingInfo<String> CONTACTFLOWID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -46,6 +54,12 @@ public class StartOutboundVoiceContactRequestMarshaller {
             .marshallLocationName("QueueId").build();
     private static final MarshallingInfo<Map> ATTRIBUTES_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Attributes").build();
+    private static final MarshallingInfo<StructuredPojo> ANSWERMACHINEDETECTIONCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AnswerMachineDetectionConfig").build();
+    private static final MarshallingInfo<String> CAMPAIGNID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CampaignId").build();
+    private static final MarshallingInfo<String> TRAFFICTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TrafficType").build();
 
     private static final StartOutboundVoiceContactRequestMarshaller instance = new StartOutboundVoiceContactRequestMarshaller();
 
@@ -63,6 +77,10 @@ public class StartOutboundVoiceContactRequestMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(startOutboundVoiceContactRequest.getName(), NAME_BINDING);
+            protocolMarshaller.marshall(startOutboundVoiceContactRequest.getDescription(), DESCRIPTION_BINDING);
+            protocolMarshaller.marshall(startOutboundVoiceContactRequest.getReferences(), REFERENCES_BINDING);
+            protocolMarshaller.marshall(startOutboundVoiceContactRequest.getRelatedContactId(), RELATEDCONTACTID_BINDING);
             protocolMarshaller.marshall(startOutboundVoiceContactRequest.getDestinationPhoneNumber(), DESTINATIONPHONENUMBER_BINDING);
             protocolMarshaller.marshall(startOutboundVoiceContactRequest.getContactFlowId(), CONTACTFLOWID_BINDING);
             protocolMarshaller.marshall(startOutboundVoiceContactRequest.getInstanceId(), INSTANCEID_BINDING);
@@ -70,6 +88,9 @@ public class StartOutboundVoiceContactRequestMarshaller {
             protocolMarshaller.marshall(startOutboundVoiceContactRequest.getSourcePhoneNumber(), SOURCEPHONENUMBER_BINDING);
             protocolMarshaller.marshall(startOutboundVoiceContactRequest.getQueueId(), QUEUEID_BINDING);
             protocolMarshaller.marshall(startOutboundVoiceContactRequest.getAttributes(), ATTRIBUTES_BINDING);
+            protocolMarshaller.marshall(startOutboundVoiceContactRequest.getAnswerMachineDetectionConfig(), ANSWERMACHINEDETECTIONCONFIG_BINDING);
+            protocolMarshaller.marshall(startOutboundVoiceContactRequest.getCampaignId(), CAMPAIGNID_BINDING);
+            protocolMarshaller.marshall(startOutboundVoiceContactRequest.getTrafficType(), TRAFFICTYPE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

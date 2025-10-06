@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class CancelStepsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The <code>ClusterID</code> for which specified steps will be canceled. Use <a>RunJobFlow</a> and
+     * The <code>ClusterID</code> for the specified steps that will be canceled. Use <a>RunJobFlow</a> and
      * <a>ListClusters</a> to get ClusterIDs.
      * </p>
      */
@@ -42,15 +42,21 @@ public class CancelStepsRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> stepIds;
+    /**
+     * <p>
+     * The option to choose to cancel <code>RUNNING</code> steps. By default, the value is <code>SEND_INTERRUPT</code>.
+     * </p>
+     */
+    private String stepCancellationOption;
 
     /**
      * <p>
-     * The <code>ClusterID</code> for which specified steps will be canceled. Use <a>RunJobFlow</a> and
+     * The <code>ClusterID</code> for the specified steps that will be canceled. Use <a>RunJobFlow</a> and
      * <a>ListClusters</a> to get ClusterIDs.
      * </p>
      * 
      * @param clusterId
-     *        The <code>ClusterID</code> for which specified steps will be canceled. Use <a>RunJobFlow</a> and
+     *        The <code>ClusterID</code> for the specified steps that will be canceled. Use <a>RunJobFlow</a> and
      *        <a>ListClusters</a> to get ClusterIDs.
      */
 
@@ -60,11 +66,11 @@ public class CancelStepsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The <code>ClusterID</code> for which specified steps will be canceled. Use <a>RunJobFlow</a> and
+     * The <code>ClusterID</code> for the specified steps that will be canceled. Use <a>RunJobFlow</a> and
      * <a>ListClusters</a> to get ClusterIDs.
      * </p>
      * 
-     * @return The <code>ClusterID</code> for which specified steps will be canceled. Use <a>RunJobFlow</a> and
+     * @return The <code>ClusterID</code> for the specified steps that will be canceled. Use <a>RunJobFlow</a> and
      *         <a>ListClusters</a> to get ClusterIDs.
      */
 
@@ -74,12 +80,12 @@ public class CancelStepsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The <code>ClusterID</code> for which specified steps will be canceled. Use <a>RunJobFlow</a> and
+     * The <code>ClusterID</code> for the specified steps that will be canceled. Use <a>RunJobFlow</a> and
      * <a>ListClusters</a> to get ClusterIDs.
      * </p>
      * 
      * @param clusterId
-     *        The <code>ClusterID</code> for which specified steps will be canceled. Use <a>RunJobFlow</a> and
+     *        The <code>ClusterID</code> for the specified steps that will be canceled. Use <a>RunJobFlow</a> and
      *        <a>ListClusters</a> to get ClusterIDs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -171,6 +177,69 @@ public class CancelStepsRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
+     * The option to choose to cancel <code>RUNNING</code> steps. By default, the value is <code>SEND_INTERRUPT</code>.
+     * </p>
+     * 
+     * @param stepCancellationOption
+     *        The option to choose to cancel <code>RUNNING</code> steps. By default, the value is
+     *        <code>SEND_INTERRUPT</code>.
+     * @see StepCancellationOption
+     */
+
+    public void setStepCancellationOption(String stepCancellationOption) {
+        this.stepCancellationOption = stepCancellationOption;
+    }
+
+    /**
+     * <p>
+     * The option to choose to cancel <code>RUNNING</code> steps. By default, the value is <code>SEND_INTERRUPT</code>.
+     * </p>
+     * 
+     * @return The option to choose to cancel <code>RUNNING</code> steps. By default, the value is
+     *         <code>SEND_INTERRUPT</code>.
+     * @see StepCancellationOption
+     */
+
+    public String getStepCancellationOption() {
+        return this.stepCancellationOption;
+    }
+
+    /**
+     * <p>
+     * The option to choose to cancel <code>RUNNING</code> steps. By default, the value is <code>SEND_INTERRUPT</code>.
+     * </p>
+     * 
+     * @param stepCancellationOption
+     *        The option to choose to cancel <code>RUNNING</code> steps. By default, the value is
+     *        <code>SEND_INTERRUPT</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StepCancellationOption
+     */
+
+    public CancelStepsRequest withStepCancellationOption(String stepCancellationOption) {
+        setStepCancellationOption(stepCancellationOption);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The option to choose to cancel <code>RUNNING</code> steps. By default, the value is <code>SEND_INTERRUPT</code>.
+     * </p>
+     * 
+     * @param stepCancellationOption
+     *        The option to choose to cancel <code>RUNNING</code> steps. By default, the value is
+     *        <code>SEND_INTERRUPT</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StepCancellationOption
+     */
+
+    public CancelStepsRequest withStepCancellationOption(StepCancellationOption stepCancellationOption) {
+        this.stepCancellationOption = stepCancellationOption.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -185,7 +254,9 @@ public class CancelStepsRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getClusterId() != null)
             sb.append("ClusterId: ").append(getClusterId()).append(",");
         if (getStepIds() != null)
-            sb.append("StepIds: ").append(getStepIds());
+            sb.append("StepIds: ").append(getStepIds()).append(",");
+        if (getStepCancellationOption() != null)
+            sb.append("StepCancellationOption: ").append(getStepCancellationOption());
         sb.append("}");
         return sb.toString();
     }
@@ -208,6 +279,10 @@ public class CancelStepsRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getStepIds() != null && other.getStepIds().equals(this.getStepIds()) == false)
             return false;
+        if (other.getStepCancellationOption() == null ^ this.getStepCancellationOption() == null)
+            return false;
+        if (other.getStepCancellationOption() != null && other.getStepCancellationOption().equals(this.getStepCancellationOption()) == false)
+            return false;
         return true;
     }
 
@@ -218,6 +293,7 @@ public class CancelStepsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
         hashCode = prime * hashCode + ((getClusterId() == null) ? 0 : getClusterId().hashCode());
         hashCode = prime * hashCode + ((getStepIds() == null) ? 0 : getStepIds().hashCode());
+        hashCode = prime * hashCode + ((getStepCancellationOption() == null) ? 0 : getStepCancellationOption().hashCode());
         return hashCode;
     }
 

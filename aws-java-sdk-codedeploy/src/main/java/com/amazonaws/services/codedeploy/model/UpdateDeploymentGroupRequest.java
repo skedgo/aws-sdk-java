@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Represents the input of an UpdateDeploymentGroup operation.
+ * Represents the input of an <code>UpdateDeploymentGroup</code> operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/UpdateDeploymentGroup" target="_top">AWS
@@ -69,9 +69,23 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The replacement list of Auto Scaling groups to be included in the deployment group, if you want to change them.
-     * To keep the Auto Scaling groups, enter their names. To remove Auto Scaling groups, do not enter any Auto Scaling
-     * group names.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To keep the Auto Scaling groups, enter their names or do not specify this parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To remove Auto Scaling groups, specify a non-null empty list of Auto Scaling group names to detach all
+     * CodeDeploy-managed Auto Scaling lifecycle hooks. For examples, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/troubleshooting-auto-scaling.html#troubleshooting-auto-scaling-heartbeat"
+     * >Amazon EC2 instances in an Amazon EC2 Auto Scaling group fail to launch and receive the error
+     * "Heartbeat Timeout"</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<String> autoScalingGroups;
     /**
@@ -83,8 +97,8 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Information about triggers to change when the deployment group is updated. For examples, see <a
-     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Modify Triggers in an AWS
-     * CodeDeploy Deployment Group</a> in the AWS CodeDeploy User Guide.
+     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Edit a Trigger in a
+     * CodeDeploy Deployment Group</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<TriggerConfig> triggerConfigurations;
@@ -100,6 +114,21 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
      * </p>
      */
     private AutoRollbackConfiguration autoRollbackConfiguration;
+    /**
+     * <p>
+     * Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the deployed
+     * application revision.
+     * </p>
+     * <p>
+     * If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more 'auto-update
+     * outdated instances' deployments to apply the deployed application revision to the new Amazon EC2 instances.
+     * </p>
+     * <p>
+     * If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new Amazon
+     * EC2 instances. This may result in instances having different revisions.
+     * </p>
+     */
+    private String outdatedInstancesStrategy;
     /**
      * <p>
      * Information about the type of deployment, either in-place or blue/green, you want to run and whether to route
@@ -121,7 +150,7 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     private LoadBalancerInfo loadBalancerInfo;
     /**
      * <p>
-     * Information about groups of tags applied to on-premises instances. The deployment group includes only EC2
+     * Information about groups of tags applied to on-premises instances. The deployment group includes only Amazon EC2
      * instances identified by all the tag groups.
      * </p>
      */
@@ -141,6 +170,29 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
      * </p>
      */
     private OnPremisesTagSet onPremisesTagSet;
+    /**
+     * <p>
+     * This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more information, see
+     * <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html">Integrating
+     * CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination hook into
+     * your Auto Scaling group when you update a deployment group. When this hook is installed, CodeDeploy will perform
+     * termination deployments.
+     * </p>
+     * <p>
+     * For information about termination deployments, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     * >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about Auto Scaling scale-in events, see the <a href=
+     * "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     * >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
+     */
+    private Boolean terminationHookEnabled;
 
     /**
      * <p>
@@ -467,13 +519,41 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The replacement list of Auto Scaling groups to be included in the deployment group, if you want to change them.
-     * To keep the Auto Scaling groups, enter their names. To remove Auto Scaling groups, do not enter any Auto Scaling
-     * group names.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To keep the Auto Scaling groups, enter their names or do not specify this parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To remove Auto Scaling groups, specify a non-null empty list of Auto Scaling group names to detach all
+     * CodeDeploy-managed Auto Scaling lifecycle hooks. For examples, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/troubleshooting-auto-scaling.html#troubleshooting-auto-scaling-heartbeat"
+     * >Amazon EC2 instances in an Amazon EC2 Auto Scaling group fail to launch and receive the error
+     * "Heartbeat Timeout"</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return The replacement list of Auto Scaling groups to be included in the deployment group, if you want to change
-     *         them. To keep the Auto Scaling groups, enter their names. To remove Auto Scaling groups, do not enter any
-     *         Auto Scaling group names.
+     *         them.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         To keep the Auto Scaling groups, enter their names or do not specify this parameter.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         To remove Auto Scaling groups, specify a non-null empty list of Auto Scaling group names to detach all
+     *         CodeDeploy-managed Auto Scaling lifecycle hooks. For examples, see <a href=
+     *         "https://docs.aws.amazon.com/codedeploy/latest/userguide/troubleshooting-auto-scaling.html#troubleshooting-auto-scaling-heartbeat"
+     *         >Amazon EC2 instances in an Amazon EC2 Auto Scaling group fail to launch and receive the error
+     *         "Heartbeat Timeout"</a> in the <i>CodeDeploy User Guide</i>.
+     *         </p>
+     *         </li>
      */
 
     public java.util.List<String> getAutoScalingGroups() {
@@ -486,14 +566,42 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The replacement list of Auto Scaling groups to be included in the deployment group, if you want to change them.
-     * To keep the Auto Scaling groups, enter their names. To remove Auto Scaling groups, do not enter any Auto Scaling
-     * group names.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To keep the Auto Scaling groups, enter their names or do not specify this parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To remove Auto Scaling groups, specify a non-null empty list of Auto Scaling group names to detach all
+     * CodeDeploy-managed Auto Scaling lifecycle hooks. For examples, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/troubleshooting-auto-scaling.html#troubleshooting-auto-scaling-heartbeat"
+     * >Amazon EC2 instances in an Amazon EC2 Auto Scaling group fail to launch and receive the error
+     * "Heartbeat Timeout"</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param autoScalingGroups
      *        The replacement list of Auto Scaling groups to be included in the deployment group, if you want to change
-     *        them. To keep the Auto Scaling groups, enter their names. To remove Auto Scaling groups, do not enter any
-     *        Auto Scaling group names.
+     *        them.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        To keep the Auto Scaling groups, enter their names or do not specify this parameter.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        To remove Auto Scaling groups, specify a non-null empty list of Auto Scaling group names to detach all
+     *        CodeDeploy-managed Auto Scaling lifecycle hooks. For examples, see <a href=
+     *        "https://docs.aws.amazon.com/codedeploy/latest/userguide/troubleshooting-auto-scaling.html#troubleshooting-auto-scaling-heartbeat"
+     *        >Amazon EC2 instances in an Amazon EC2 Auto Scaling group fail to launch and receive the error
+     *        "Heartbeat Timeout"</a> in the <i>CodeDeploy User Guide</i>.
+     *        </p>
+     *        </li>
      */
 
     public void setAutoScalingGroups(java.util.Collection<String> autoScalingGroups) {
@@ -508,9 +616,23 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The replacement list of Auto Scaling groups to be included in the deployment group, if you want to change them.
-     * To keep the Auto Scaling groups, enter their names. To remove Auto Scaling groups, do not enter any Auto Scaling
-     * group names.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To keep the Auto Scaling groups, enter their names or do not specify this parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To remove Auto Scaling groups, specify a non-null empty list of Auto Scaling group names to detach all
+     * CodeDeploy-managed Auto Scaling lifecycle hooks. For examples, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/troubleshooting-auto-scaling.html#troubleshooting-auto-scaling-heartbeat"
+     * >Amazon EC2 instances in an Amazon EC2 Auto Scaling group fail to launch and receive the error
+     * "Heartbeat Timeout"</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setAutoScalingGroups(java.util.Collection)} or {@link #withAutoScalingGroups(java.util.Collection)} if
@@ -519,8 +641,22 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
      * 
      * @param autoScalingGroups
      *        The replacement list of Auto Scaling groups to be included in the deployment group, if you want to change
-     *        them. To keep the Auto Scaling groups, enter their names. To remove Auto Scaling groups, do not enter any
-     *        Auto Scaling group names.
+     *        them.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        To keep the Auto Scaling groups, enter their names or do not specify this parameter.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        To remove Auto Scaling groups, specify a non-null empty list of Auto Scaling group names to detach all
+     *        CodeDeploy-managed Auto Scaling lifecycle hooks. For examples, see <a href=
+     *        "https://docs.aws.amazon.com/codedeploy/latest/userguide/troubleshooting-auto-scaling.html#troubleshooting-auto-scaling-heartbeat"
+     *        >Amazon EC2 instances in an Amazon EC2 Auto Scaling group fail to launch and receive the error
+     *        "Heartbeat Timeout"</a> in the <i>CodeDeploy User Guide</i>.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -537,14 +673,42 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The replacement list of Auto Scaling groups to be included in the deployment group, if you want to change them.
-     * To keep the Auto Scaling groups, enter their names. To remove Auto Scaling groups, do not enter any Auto Scaling
-     * group names.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To keep the Auto Scaling groups, enter their names or do not specify this parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To remove Auto Scaling groups, specify a non-null empty list of Auto Scaling group names to detach all
+     * CodeDeploy-managed Auto Scaling lifecycle hooks. For examples, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/troubleshooting-auto-scaling.html#troubleshooting-auto-scaling-heartbeat"
+     * >Amazon EC2 instances in an Amazon EC2 Auto Scaling group fail to launch and receive the error
+     * "Heartbeat Timeout"</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param autoScalingGroups
      *        The replacement list of Auto Scaling groups to be included in the deployment group, if you want to change
-     *        them. To keep the Auto Scaling groups, enter their names. To remove Auto Scaling groups, do not enter any
-     *        Auto Scaling group names.
+     *        them.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        To keep the Auto Scaling groups, enter their names or do not specify this parameter.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        To remove Auto Scaling groups, specify a non-null empty list of Auto Scaling group names to detach all
+     *        CodeDeploy-managed Auto Scaling lifecycle hooks. For examples, see <a href=
+     *        "https://docs.aws.amazon.com/codedeploy/latest/userguide/troubleshooting-auto-scaling.html#troubleshooting-auto-scaling-heartbeat"
+     *        >Amazon EC2 instances in an Amazon EC2 Auto Scaling group fail to launch and receive the error
+     *        "Heartbeat Timeout"</a> in the <i>CodeDeploy User Guide</i>.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -596,13 +760,13 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Information about triggers to change when the deployment group is updated. For examples, see <a
-     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Modify Triggers in an AWS
-     * CodeDeploy Deployment Group</a> in the AWS CodeDeploy User Guide.
+     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Edit a Trigger in a
+     * CodeDeploy Deployment Group</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      * 
      * @return Information about triggers to change when the deployment group is updated. For examples, see <a
-     *         href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Modify Triggers in
-     *         an AWS CodeDeploy Deployment Group</a> in the AWS CodeDeploy User Guide.
+     *         href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Edit a Trigger in
+     *         a CodeDeploy Deployment Group</a> in the <i>CodeDeploy User Guide</i>.
      */
 
     public java.util.List<TriggerConfig> getTriggerConfigurations() {
@@ -615,14 +779,14 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Information about triggers to change when the deployment group is updated. For examples, see <a
-     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Modify Triggers in an AWS
-     * CodeDeploy Deployment Group</a> in the AWS CodeDeploy User Guide.
+     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Edit a Trigger in a
+     * CodeDeploy Deployment Group</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      * 
      * @param triggerConfigurations
      *        Information about triggers to change when the deployment group is updated. For examples, see <a
-     *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Modify Triggers in
-     *        an AWS CodeDeploy Deployment Group</a> in the AWS CodeDeploy User Guide.
+     *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Edit a Trigger in a
+     *        CodeDeploy Deployment Group</a> in the <i>CodeDeploy User Guide</i>.
      */
 
     public void setTriggerConfigurations(java.util.Collection<TriggerConfig> triggerConfigurations) {
@@ -637,8 +801,8 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Information about triggers to change when the deployment group is updated. For examples, see <a
-     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Modify Triggers in an AWS
-     * CodeDeploy Deployment Group</a> in the AWS CodeDeploy User Guide.
+     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Edit a Trigger in a
+     * CodeDeploy Deployment Group</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -648,8 +812,8 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
      * 
      * @param triggerConfigurations
      *        Information about triggers to change when the deployment group is updated. For examples, see <a
-     *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Modify Triggers in
-     *        an AWS CodeDeploy Deployment Group</a> in the AWS CodeDeploy User Guide.
+     *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Edit a Trigger in a
+     *        CodeDeploy Deployment Group</a> in the <i>CodeDeploy User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -666,14 +830,14 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Information about triggers to change when the deployment group is updated. For examples, see <a
-     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Modify Triggers in an AWS
-     * CodeDeploy Deployment Group</a> in the AWS CodeDeploy User Guide.
+     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Edit a Trigger in a
+     * CodeDeploy Deployment Group</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      * 
      * @param triggerConfigurations
      *        Information about triggers to change when the deployment group is updated. For examples, see <a
-     *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Modify Triggers in
-     *        an AWS CodeDeploy Deployment Group</a> in the AWS CodeDeploy User Guide.
+     *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html">Edit a Trigger in a
+     *        CodeDeploy Deployment Group</a> in the <i>CodeDeploy User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -762,6 +926,137 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     public UpdateDeploymentGroupRequest withAutoRollbackConfiguration(AutoRollbackConfiguration autoRollbackConfiguration) {
         setAutoRollbackConfiguration(autoRollbackConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the deployed
+     * application revision.
+     * </p>
+     * <p>
+     * If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more 'auto-update
+     * outdated instances' deployments to apply the deployed application revision to the new Amazon EC2 instances.
+     * </p>
+     * <p>
+     * If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new Amazon
+     * EC2 instances. This may result in instances having different revisions.
+     * </p>
+     * 
+     * @param outdatedInstancesStrategy
+     *        Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the
+     *        deployed application revision.</p>
+     *        <p>
+     *        If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more
+     *        'auto-update outdated instances' deployments to apply the deployed application revision to the new Amazon
+     *        EC2 instances.
+     *        </p>
+     *        <p>
+     *        If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new
+     *        Amazon EC2 instances. This may result in instances having different revisions.
+     * @see OutdatedInstancesStrategy
+     */
+
+    public void setOutdatedInstancesStrategy(String outdatedInstancesStrategy) {
+        this.outdatedInstancesStrategy = outdatedInstancesStrategy;
+    }
+
+    /**
+     * <p>
+     * Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the deployed
+     * application revision.
+     * </p>
+     * <p>
+     * If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more 'auto-update
+     * outdated instances' deployments to apply the deployed application revision to the new Amazon EC2 instances.
+     * </p>
+     * <p>
+     * If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new Amazon
+     * EC2 instances. This may result in instances having different revisions.
+     * </p>
+     * 
+     * @return Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the
+     *         deployed application revision.</p>
+     *         <p>
+     *         If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more
+     *         'auto-update outdated instances' deployments to apply the deployed application revision to the new Amazon
+     *         EC2 instances.
+     *         </p>
+     *         <p>
+     *         If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new
+     *         Amazon EC2 instances. This may result in instances having different revisions.
+     * @see OutdatedInstancesStrategy
+     */
+
+    public String getOutdatedInstancesStrategy() {
+        return this.outdatedInstancesStrategy;
+    }
+
+    /**
+     * <p>
+     * Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the deployed
+     * application revision.
+     * </p>
+     * <p>
+     * If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more 'auto-update
+     * outdated instances' deployments to apply the deployed application revision to the new Amazon EC2 instances.
+     * </p>
+     * <p>
+     * If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new Amazon
+     * EC2 instances. This may result in instances having different revisions.
+     * </p>
+     * 
+     * @param outdatedInstancesStrategy
+     *        Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the
+     *        deployed application revision.</p>
+     *        <p>
+     *        If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more
+     *        'auto-update outdated instances' deployments to apply the deployed application revision to the new Amazon
+     *        EC2 instances.
+     *        </p>
+     *        <p>
+     *        If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new
+     *        Amazon EC2 instances. This may result in instances having different revisions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OutdatedInstancesStrategy
+     */
+
+    public UpdateDeploymentGroupRequest withOutdatedInstancesStrategy(String outdatedInstancesStrategy) {
+        setOutdatedInstancesStrategy(outdatedInstancesStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the deployed
+     * application revision.
+     * </p>
+     * <p>
+     * If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more 'auto-update
+     * outdated instances' deployments to apply the deployed application revision to the new Amazon EC2 instances.
+     * </p>
+     * <p>
+     * If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new Amazon
+     * EC2 instances. This may result in instances having different revisions.
+     * </p>
+     * 
+     * @param outdatedInstancesStrategy
+     *        Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the
+     *        deployed application revision.</p>
+     *        <p>
+     *        If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more
+     *        'auto-update outdated instances' deployments to apply the deployed application revision to the new Amazon
+     *        EC2 instances.
+     *        </p>
+     *        <p>
+     *        If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new
+     *        Amazon EC2 instances. This may result in instances having different revisions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OutdatedInstancesStrategy
+     */
+
+    public UpdateDeploymentGroupRequest withOutdatedInstancesStrategy(OutdatedInstancesStrategy outdatedInstancesStrategy) {
+        this.outdatedInstancesStrategy = outdatedInstancesStrategy.toString();
         return this;
     }
 
@@ -893,13 +1188,13 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Information about groups of tags applied to on-premises instances. The deployment group includes only EC2
+     * Information about groups of tags applied to on-premises instances. The deployment group includes only Amazon EC2
      * instances identified by all the tag groups.
      * </p>
      * 
      * @param ec2TagSet
-     *        Information about groups of tags applied to on-premises instances. The deployment group includes only EC2
-     *        instances identified by all the tag groups.
+     *        Information about groups of tags applied to on-premises instances. The deployment group includes only
+     *        Amazon EC2 instances identified by all the tag groups.
      */
 
     public void setEc2TagSet(EC2TagSet ec2TagSet) {
@@ -908,12 +1203,12 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Information about groups of tags applied to on-premises instances. The deployment group includes only EC2
+     * Information about groups of tags applied to on-premises instances. The deployment group includes only Amazon EC2
      * instances identified by all the tag groups.
      * </p>
      * 
-     * @return Information about groups of tags applied to on-premises instances. The deployment group includes only EC2
-     *         instances identified by all the tag groups.
+     * @return Information about groups of tags applied to on-premises instances. The deployment group includes only
+     *         Amazon EC2 instances identified by all the tag groups.
      */
 
     public EC2TagSet getEc2TagSet() {
@@ -922,13 +1217,13 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Information about groups of tags applied to on-premises instances. The deployment group includes only EC2
+     * Information about groups of tags applied to on-premises instances. The deployment group includes only Amazon EC2
      * instances identified by all the tag groups.
      * </p>
      * 
      * @param ec2TagSet
-     *        Information about groups of tags applied to on-premises instances. The deployment group includes only EC2
-     *        instances identified by all the tag groups.
+     *        Information about groups of tags applied to on-premises instances. The deployment group includes only
+     *        Amazon EC2 instances identified by all the tag groups.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1073,6 +1368,198 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     }
 
     /**
+     * <p>
+     * This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more information, see
+     * <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html">Integrating
+     * CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination hook into
+     * your Auto Scaling group when you update a deployment group. When this hook is installed, CodeDeploy will perform
+     * termination deployments.
+     * </p>
+     * <p>
+     * For information about termination deployments, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     * >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about Auto Scaling scale-in events, see the <a href=
+     * "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     * >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
+     * 
+     * @param terminationHookEnabled
+     *        This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html"
+     *        >Integrating CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.</p>
+     *        <p>
+     *        Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination hook
+     *        into your Auto Scaling group when you update a deployment group. When this hook is installed, CodeDeploy
+     *        will perform termination deployments.
+     *        </p>
+     *        <p>
+     *        For information about termination deployments, see <a href=
+     *        "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     *        >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User
+     *        Guide</i>.
+     *        </p>
+     *        <p>
+     *        For more information about Auto Scaling scale-in events, see the <a href=
+     *        "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     *        >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     */
+
+    public void setTerminationHookEnabled(Boolean terminationHookEnabled) {
+        this.terminationHookEnabled = terminationHookEnabled;
+    }
+
+    /**
+     * <p>
+     * This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more information, see
+     * <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html">Integrating
+     * CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination hook into
+     * your Auto Scaling group when you update a deployment group. When this hook is installed, CodeDeploy will perform
+     * termination deployments.
+     * </p>
+     * <p>
+     * For information about termination deployments, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     * >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about Auto Scaling scale-in events, see the <a href=
+     * "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     * >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
+     * 
+     * @return This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html"
+     *         >Integrating CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.</p>
+     *         <p>
+     *         Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination
+     *         hook into your Auto Scaling group when you update a deployment group. When this hook is installed,
+     *         CodeDeploy will perform termination deployments.
+     *         </p>
+     *         <p>
+     *         For information about termination deployments, see <a href=
+     *         "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     *         >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User
+     *         Guide</i>.
+     *         </p>
+     *         <p>
+     *         For more information about Auto Scaling scale-in events, see the <a href=
+     *         "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     *         >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     */
+
+    public Boolean getTerminationHookEnabled() {
+        return this.terminationHookEnabled;
+    }
+
+    /**
+     * <p>
+     * This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more information, see
+     * <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html">Integrating
+     * CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination hook into
+     * your Auto Scaling group when you update a deployment group. When this hook is installed, CodeDeploy will perform
+     * termination deployments.
+     * </p>
+     * <p>
+     * For information about termination deployments, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     * >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about Auto Scaling scale-in events, see the <a href=
+     * "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     * >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
+     * 
+     * @param terminationHookEnabled
+     *        This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html"
+     *        >Integrating CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.</p>
+     *        <p>
+     *        Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination hook
+     *        into your Auto Scaling group when you update a deployment group. When this hook is installed, CodeDeploy
+     *        will perform termination deployments.
+     *        </p>
+     *        <p>
+     *        For information about termination deployments, see <a href=
+     *        "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     *        >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User
+     *        Guide</i>.
+     *        </p>
+     *        <p>
+     *        For more information about Auto Scaling scale-in events, see the <a href=
+     *        "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     *        >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateDeploymentGroupRequest withTerminationHookEnabled(Boolean terminationHookEnabled) {
+        setTerminationHookEnabled(terminationHookEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more information, see
+     * <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html">Integrating
+     * CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination hook into
+     * your Auto Scaling group when you update a deployment group. When this hook is installed, CodeDeploy will perform
+     * termination deployments.
+     * </p>
+     * <p>
+     * For information about termination deployments, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     * >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about Auto Scaling scale-in events, see the <a href=
+     * "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     * >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
+     * 
+     * @return This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html"
+     *         >Integrating CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.</p>
+     *         <p>
+     *         Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination
+     *         hook into your Auto Scaling group when you update a deployment group. When this hook is installed,
+     *         CodeDeploy will perform termination deployments.
+     *         </p>
+     *         <p>
+     *         For information about termination deployments, see <a href=
+     *         "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     *         >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User
+     *         Guide</i>.
+     *         </p>
+     *         <p>
+     *         For more information about Auto Scaling scale-in events, see the <a href=
+     *         "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     *         >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     */
+
+    public Boolean isTerminationHookEnabled() {
+        return this.terminationHookEnabled;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1106,6 +1593,8 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
             sb.append("AlarmConfiguration: ").append(getAlarmConfiguration()).append(",");
         if (getAutoRollbackConfiguration() != null)
             sb.append("AutoRollbackConfiguration: ").append(getAutoRollbackConfiguration()).append(",");
+        if (getOutdatedInstancesStrategy() != null)
+            sb.append("OutdatedInstancesStrategy: ").append(getOutdatedInstancesStrategy()).append(",");
         if (getDeploymentStyle() != null)
             sb.append("DeploymentStyle: ").append(getDeploymentStyle()).append(",");
         if (getBlueGreenDeploymentConfiguration() != null)
@@ -1117,7 +1606,9 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
         if (getEcsServices() != null)
             sb.append("EcsServices: ").append(getEcsServices()).append(",");
         if (getOnPremisesTagSet() != null)
-            sb.append("OnPremisesTagSet: ").append(getOnPremisesTagSet());
+            sb.append("OnPremisesTagSet: ").append(getOnPremisesTagSet()).append(",");
+        if (getTerminationHookEnabled() != null)
+            sb.append("TerminationHookEnabled: ").append(getTerminationHookEnabled());
         sb.append("}");
         return sb.toString();
     }
@@ -1176,6 +1667,10 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
             return false;
         if (other.getAutoRollbackConfiguration() != null && other.getAutoRollbackConfiguration().equals(this.getAutoRollbackConfiguration()) == false)
             return false;
+        if (other.getOutdatedInstancesStrategy() == null ^ this.getOutdatedInstancesStrategy() == null)
+            return false;
+        if (other.getOutdatedInstancesStrategy() != null && other.getOutdatedInstancesStrategy().equals(this.getOutdatedInstancesStrategy()) == false)
+            return false;
         if (other.getDeploymentStyle() == null ^ this.getDeploymentStyle() == null)
             return false;
         if (other.getDeploymentStyle() != null && other.getDeploymentStyle().equals(this.getDeploymentStyle()) == false)
@@ -1201,6 +1696,10 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
             return false;
         if (other.getOnPremisesTagSet() != null && other.getOnPremisesTagSet().equals(this.getOnPremisesTagSet()) == false)
             return false;
+        if (other.getTerminationHookEnabled() == null ^ this.getTerminationHookEnabled() == null)
+            return false;
+        if (other.getTerminationHookEnabled() != null && other.getTerminationHookEnabled().equals(this.getTerminationHookEnabled()) == false)
+            return false;
         return true;
     }
 
@@ -1220,12 +1719,14 @@ public class UpdateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
         hashCode = prime * hashCode + ((getTriggerConfigurations() == null) ? 0 : getTriggerConfigurations().hashCode());
         hashCode = prime * hashCode + ((getAlarmConfiguration() == null) ? 0 : getAlarmConfiguration().hashCode());
         hashCode = prime * hashCode + ((getAutoRollbackConfiguration() == null) ? 0 : getAutoRollbackConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getOutdatedInstancesStrategy() == null) ? 0 : getOutdatedInstancesStrategy().hashCode());
         hashCode = prime * hashCode + ((getDeploymentStyle() == null) ? 0 : getDeploymentStyle().hashCode());
         hashCode = prime * hashCode + ((getBlueGreenDeploymentConfiguration() == null) ? 0 : getBlueGreenDeploymentConfiguration().hashCode());
         hashCode = prime * hashCode + ((getLoadBalancerInfo() == null) ? 0 : getLoadBalancerInfo().hashCode());
         hashCode = prime * hashCode + ((getEc2TagSet() == null) ? 0 : getEc2TagSet().hashCode());
         hashCode = prime * hashCode + ((getEcsServices() == null) ? 0 : getEcsServices().hashCode());
         hashCode = prime * hashCode + ((getOnPremisesTagSet() == null) ? 0 : getOnPremisesTagSet().hashCode());
+        hashCode = prime * hashCode + ((getTerminationHookEnabled() == null) ? 0 : getTerminationHookEnabled().hashCode());
         return hashCode;
     }
 

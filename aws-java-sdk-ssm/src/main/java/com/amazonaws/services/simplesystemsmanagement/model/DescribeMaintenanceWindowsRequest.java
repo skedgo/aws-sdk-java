@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,8 @@ public class DescribeMaintenanceWindowsRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Optional filters used to narrow down the scope of the returned maintenance windows. Supported filter keys are
-     * <b>Name</b> and <b>Enabled</b>.
+     * <code>Name</code> and <code>Enabled</code>. For example, <code>Name=MyMaintenanceWindow</code> and
+     * <code>Enabled=True</code>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<MaintenanceWindowFilter> filters;
@@ -49,11 +50,13 @@ public class DescribeMaintenanceWindowsRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Optional filters used to narrow down the scope of the returned maintenance windows. Supported filter keys are
-     * <b>Name</b> and <b>Enabled</b>.
+     * <code>Name</code> and <code>Enabled</code>. For example, <code>Name=MyMaintenanceWindow</code> and
+     * <code>Enabled=True</code>.
      * </p>
      * 
      * @return Optional filters used to narrow down the scope of the returned maintenance windows. Supported filter keys
-     *         are <b>Name</b> and <b>Enabled</b>.
+     *         are <code>Name</code> and <code>Enabled</code>. For example, <code>Name=MyMaintenanceWindow</code> and
+     *         <code>Enabled=True</code>.
      */
 
     public java.util.List<MaintenanceWindowFilter> getFilters() {
@@ -66,12 +69,14 @@ public class DescribeMaintenanceWindowsRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Optional filters used to narrow down the scope of the returned maintenance windows. Supported filter keys are
-     * <b>Name</b> and <b>Enabled</b>.
+     * <code>Name</code> and <code>Enabled</code>. For example, <code>Name=MyMaintenanceWindow</code> and
+     * <code>Enabled=True</code>.
      * </p>
      * 
      * @param filters
      *        Optional filters used to narrow down the scope of the returned maintenance windows. Supported filter keys
-     *        are <b>Name</b> and <b>Enabled</b>.
+     *        are <code>Name</code> and <code>Enabled</code>. For example, <code>Name=MyMaintenanceWindow</code> and
+     *        <code>Enabled=True</code>.
      */
 
     public void setFilters(java.util.Collection<MaintenanceWindowFilter> filters) {
@@ -86,7 +91,8 @@ public class DescribeMaintenanceWindowsRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Optional filters used to narrow down the scope of the returned maintenance windows. Supported filter keys are
-     * <b>Name</b> and <b>Enabled</b>.
+     * <code>Name</code> and <code>Enabled</code>. For example, <code>Name=MyMaintenanceWindow</code> and
+     * <code>Enabled=True</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -96,7 +102,8 @@ public class DescribeMaintenanceWindowsRequest extends com.amazonaws.AmazonWebSe
      * 
      * @param filters
      *        Optional filters used to narrow down the scope of the returned maintenance windows. Supported filter keys
-     *        are <b>Name</b> and <b>Enabled</b>.
+     *        are <code>Name</code> and <code>Enabled</code>. For example, <code>Name=MyMaintenanceWindow</code> and
+     *        <code>Enabled=True</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -113,12 +120,14 @@ public class DescribeMaintenanceWindowsRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Optional filters used to narrow down the scope of the returned maintenance windows. Supported filter keys are
-     * <b>Name</b> and <b>Enabled</b>.
+     * <code>Name</code> and <code>Enabled</code>. For example, <code>Name=MyMaintenanceWindow</code> and
+     * <code>Enabled=True</code>.
      * </p>
      * 
      * @param filters
      *        Optional filters used to narrow down the scope of the returned maintenance windows. Supported filter keys
-     *        are <b>Name</b> and <b>Enabled</b>.
+     *        are <code>Name</code> and <code>Enabled</code>. For example, <code>Name=MyMaintenanceWindow</code> and
+     *        <code>Enabled=True</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

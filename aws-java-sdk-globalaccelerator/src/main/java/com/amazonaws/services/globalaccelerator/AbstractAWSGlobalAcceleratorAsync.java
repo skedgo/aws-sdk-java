@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,58 @@ public class AbstractAWSGlobalAcceleratorAsync extends AbstractAWSGlobalAccelera
     }
 
     @Override
+    public java.util.concurrent.Future<AddCustomRoutingEndpointsResult> addCustomRoutingEndpointsAsync(AddCustomRoutingEndpointsRequest request) {
+
+        return addCustomRoutingEndpointsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddCustomRoutingEndpointsResult> addCustomRoutingEndpointsAsync(AddCustomRoutingEndpointsRequest request,
+            com.amazonaws.handlers.AsyncHandler<AddCustomRoutingEndpointsRequest, AddCustomRoutingEndpointsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddEndpointsResult> addEndpointsAsync(AddEndpointsRequest request) {
+
+        return addEndpointsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddEndpointsResult> addEndpointsAsync(AddEndpointsRequest request,
+            com.amazonaws.handlers.AsyncHandler<AddEndpointsRequest, AddEndpointsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<AdvertiseByoipCidrResult> advertiseByoipCidrAsync(AdvertiseByoipCidrRequest request) {
+
+        return advertiseByoipCidrAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AdvertiseByoipCidrResult> advertiseByoipCidrAsync(AdvertiseByoipCidrRequest request,
+            com.amazonaws.handlers.AsyncHandler<AdvertiseByoipCidrRequest, AdvertiseByoipCidrResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<AllowCustomRoutingTrafficResult> allowCustomRoutingTrafficAsync(AllowCustomRoutingTrafficRequest request) {
+
+        return allowCustomRoutingTrafficAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AllowCustomRoutingTrafficResult> allowCustomRoutingTrafficAsync(AllowCustomRoutingTrafficRequest request,
+            com.amazonaws.handlers.AsyncHandler<AllowCustomRoutingTrafficRequest, AllowCustomRoutingTrafficResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateAcceleratorResult> createAcceleratorAsync(CreateAcceleratorRequest request) {
 
         return createAcceleratorAsync(request, null);
@@ -36,6 +88,60 @@ public class AbstractAWSGlobalAcceleratorAsync extends AbstractAWSGlobalAccelera
     @Override
     public java.util.concurrent.Future<CreateAcceleratorResult> createAcceleratorAsync(CreateAcceleratorRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateAcceleratorRequest, CreateAcceleratorResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCrossAccountAttachmentResult> createCrossAccountAttachmentAsync(CreateCrossAccountAttachmentRequest request) {
+
+        return createCrossAccountAttachmentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCrossAccountAttachmentResult> createCrossAccountAttachmentAsync(CreateCrossAccountAttachmentRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateCrossAccountAttachmentRequest, CreateCrossAccountAttachmentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCustomRoutingAcceleratorResult> createCustomRoutingAcceleratorAsync(CreateCustomRoutingAcceleratorRequest request) {
+
+        return createCustomRoutingAcceleratorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCustomRoutingAcceleratorResult> createCustomRoutingAcceleratorAsync(CreateCustomRoutingAcceleratorRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateCustomRoutingAcceleratorRequest, CreateCustomRoutingAcceleratorResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCustomRoutingEndpointGroupResult> createCustomRoutingEndpointGroupAsync(
+            CreateCustomRoutingEndpointGroupRequest request) {
+
+        return createCustomRoutingEndpointGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCustomRoutingEndpointGroupResult> createCustomRoutingEndpointGroupAsync(
+            CreateCustomRoutingEndpointGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateCustomRoutingEndpointGroupRequest, CreateCustomRoutingEndpointGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCustomRoutingListenerResult> createCustomRoutingListenerAsync(CreateCustomRoutingListenerRequest request) {
+
+        return createCustomRoutingListenerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCustomRoutingListenerResult> createCustomRoutingListenerAsync(CreateCustomRoutingListenerRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateCustomRoutingListenerRequest, CreateCustomRoutingListenerResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -80,6 +186,60 @@ public class AbstractAWSGlobalAcceleratorAsync extends AbstractAWSGlobalAccelera
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteCrossAccountAttachmentResult> deleteCrossAccountAttachmentAsync(DeleteCrossAccountAttachmentRequest request) {
+
+        return deleteCrossAccountAttachmentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCrossAccountAttachmentResult> deleteCrossAccountAttachmentAsync(DeleteCrossAccountAttachmentRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteCrossAccountAttachmentRequest, DeleteCrossAccountAttachmentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCustomRoutingAcceleratorResult> deleteCustomRoutingAcceleratorAsync(DeleteCustomRoutingAcceleratorRequest request) {
+
+        return deleteCustomRoutingAcceleratorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCustomRoutingAcceleratorResult> deleteCustomRoutingAcceleratorAsync(DeleteCustomRoutingAcceleratorRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteCustomRoutingAcceleratorRequest, DeleteCustomRoutingAcceleratorResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCustomRoutingEndpointGroupResult> deleteCustomRoutingEndpointGroupAsync(
+            DeleteCustomRoutingEndpointGroupRequest request) {
+
+        return deleteCustomRoutingEndpointGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCustomRoutingEndpointGroupResult> deleteCustomRoutingEndpointGroupAsync(
+            DeleteCustomRoutingEndpointGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteCustomRoutingEndpointGroupRequest, DeleteCustomRoutingEndpointGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCustomRoutingListenerResult> deleteCustomRoutingListenerAsync(DeleteCustomRoutingListenerRequest request) {
+
+        return deleteCustomRoutingListenerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCustomRoutingListenerResult> deleteCustomRoutingListenerAsync(DeleteCustomRoutingListenerRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteCustomRoutingListenerRequest, DeleteCustomRoutingListenerResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteEndpointGroupResult> deleteEndpointGroupAsync(DeleteEndpointGroupRequest request) {
 
         return deleteEndpointGroupAsync(request, null);
@@ -106,6 +266,32 @@ public class AbstractAWSGlobalAcceleratorAsync extends AbstractAWSGlobalAccelera
     }
 
     @Override
+    public java.util.concurrent.Future<DenyCustomRoutingTrafficResult> denyCustomRoutingTrafficAsync(DenyCustomRoutingTrafficRequest request) {
+
+        return denyCustomRoutingTrafficAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DenyCustomRoutingTrafficResult> denyCustomRoutingTrafficAsync(DenyCustomRoutingTrafficRequest request,
+            com.amazonaws.handlers.AsyncHandler<DenyCustomRoutingTrafficRequest, DenyCustomRoutingTrafficResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeprovisionByoipCidrResult> deprovisionByoipCidrAsync(DeprovisionByoipCidrRequest request) {
+
+        return deprovisionByoipCidrAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeprovisionByoipCidrResult> deprovisionByoipCidrAsync(DeprovisionByoipCidrRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeprovisionByoipCidrRequest, DeprovisionByoipCidrResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeAcceleratorResult> describeAcceleratorAsync(DescribeAcceleratorRequest request) {
 
         return describeAcceleratorAsync(request, null);
@@ -127,6 +313,77 @@ public class AbstractAWSGlobalAcceleratorAsync extends AbstractAWSGlobalAccelera
     @Override
     public java.util.concurrent.Future<DescribeAcceleratorAttributesResult> describeAcceleratorAttributesAsync(DescribeAcceleratorAttributesRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeAcceleratorAttributesRequest, DescribeAcceleratorAttributesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCrossAccountAttachmentResult> describeCrossAccountAttachmentAsync(DescribeCrossAccountAttachmentRequest request) {
+
+        return describeCrossAccountAttachmentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCrossAccountAttachmentResult> describeCrossAccountAttachmentAsync(DescribeCrossAccountAttachmentRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeCrossAccountAttachmentRequest, DescribeCrossAccountAttachmentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingAcceleratorResult> describeCustomRoutingAcceleratorAsync(
+            DescribeCustomRoutingAcceleratorRequest request) {
+
+        return describeCustomRoutingAcceleratorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingAcceleratorResult> describeCustomRoutingAcceleratorAsync(
+            DescribeCustomRoutingAcceleratorRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeCustomRoutingAcceleratorRequest, DescribeCustomRoutingAcceleratorResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingAcceleratorAttributesResult> describeCustomRoutingAcceleratorAttributesAsync(
+            DescribeCustomRoutingAcceleratorAttributesRequest request) {
+
+        return describeCustomRoutingAcceleratorAttributesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingAcceleratorAttributesResult> describeCustomRoutingAcceleratorAttributesAsync(
+            DescribeCustomRoutingAcceleratorAttributesRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeCustomRoutingAcceleratorAttributesRequest, DescribeCustomRoutingAcceleratorAttributesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingEndpointGroupResult> describeCustomRoutingEndpointGroupAsync(
+            DescribeCustomRoutingEndpointGroupRequest request) {
+
+        return describeCustomRoutingEndpointGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingEndpointGroupResult> describeCustomRoutingEndpointGroupAsync(
+            DescribeCustomRoutingEndpointGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeCustomRoutingEndpointGroupRequest, DescribeCustomRoutingEndpointGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingListenerResult> describeCustomRoutingListenerAsync(DescribeCustomRoutingListenerRequest request) {
+
+        return describeCustomRoutingListenerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingListenerResult> describeCustomRoutingListenerAsync(DescribeCustomRoutingListenerRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeCustomRoutingListenerRequest, DescribeCustomRoutingListenerResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -171,6 +428,129 @@ public class AbstractAWSGlobalAcceleratorAsync extends AbstractAWSGlobalAccelera
     }
 
     @Override
+    public java.util.concurrent.Future<ListByoipCidrsResult> listByoipCidrsAsync(ListByoipCidrsRequest request) {
+
+        return listByoipCidrsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListByoipCidrsResult> listByoipCidrsAsync(ListByoipCidrsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListByoipCidrsRequest, ListByoipCidrsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCrossAccountAttachmentsResult> listCrossAccountAttachmentsAsync(ListCrossAccountAttachmentsRequest request) {
+
+        return listCrossAccountAttachmentsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCrossAccountAttachmentsResult> listCrossAccountAttachmentsAsync(ListCrossAccountAttachmentsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListCrossAccountAttachmentsRequest, ListCrossAccountAttachmentsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCrossAccountResourceAccountsResult> listCrossAccountResourceAccountsAsync(
+            ListCrossAccountResourceAccountsRequest request) {
+
+        return listCrossAccountResourceAccountsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCrossAccountResourceAccountsResult> listCrossAccountResourceAccountsAsync(
+            ListCrossAccountResourceAccountsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListCrossAccountResourceAccountsRequest, ListCrossAccountResourceAccountsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCrossAccountResourcesResult> listCrossAccountResourcesAsync(ListCrossAccountResourcesRequest request) {
+
+        return listCrossAccountResourcesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCrossAccountResourcesResult> listCrossAccountResourcesAsync(ListCrossAccountResourcesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListCrossAccountResourcesRequest, ListCrossAccountResourcesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingAcceleratorsResult> listCustomRoutingAcceleratorsAsync(ListCustomRoutingAcceleratorsRequest request) {
+
+        return listCustomRoutingAcceleratorsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingAcceleratorsResult> listCustomRoutingAcceleratorsAsync(ListCustomRoutingAcceleratorsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListCustomRoutingAcceleratorsRequest, ListCustomRoutingAcceleratorsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingEndpointGroupsResult> listCustomRoutingEndpointGroupsAsync(
+            ListCustomRoutingEndpointGroupsRequest request) {
+
+        return listCustomRoutingEndpointGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingEndpointGroupsResult> listCustomRoutingEndpointGroupsAsync(
+            ListCustomRoutingEndpointGroupsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListCustomRoutingEndpointGroupsRequest, ListCustomRoutingEndpointGroupsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingListenersResult> listCustomRoutingListenersAsync(ListCustomRoutingListenersRequest request) {
+
+        return listCustomRoutingListenersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingListenersResult> listCustomRoutingListenersAsync(ListCustomRoutingListenersRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListCustomRoutingListenersRequest, ListCustomRoutingListenersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingPortMappingsResult> listCustomRoutingPortMappingsAsync(ListCustomRoutingPortMappingsRequest request) {
+
+        return listCustomRoutingPortMappingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingPortMappingsResult> listCustomRoutingPortMappingsAsync(ListCustomRoutingPortMappingsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListCustomRoutingPortMappingsRequest, ListCustomRoutingPortMappingsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingPortMappingsByDestinationResult> listCustomRoutingPortMappingsByDestinationAsync(
+            ListCustomRoutingPortMappingsByDestinationRequest request) {
+
+        return listCustomRoutingPortMappingsByDestinationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingPortMappingsByDestinationResult> listCustomRoutingPortMappingsByDestinationAsync(
+            ListCustomRoutingPortMappingsByDestinationRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListCustomRoutingPortMappingsByDestinationRequest, ListCustomRoutingPortMappingsByDestinationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListEndpointGroupsResult> listEndpointGroupsAsync(ListEndpointGroupsRequest request) {
 
         return listEndpointGroupsAsync(request, null);
@@ -192,6 +572,84 @@ public class AbstractAWSGlobalAcceleratorAsync extends AbstractAWSGlobalAccelera
     @Override
     public java.util.concurrent.Future<ListListenersResult> listListenersAsync(ListListenersRequest request,
             com.amazonaws.handlers.AsyncHandler<ListListenersRequest, ListListenersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ProvisionByoipCidrResult> provisionByoipCidrAsync(ProvisionByoipCidrRequest request) {
+
+        return provisionByoipCidrAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ProvisionByoipCidrResult> provisionByoipCidrAsync(ProvisionByoipCidrRequest request,
+            com.amazonaws.handlers.AsyncHandler<ProvisionByoipCidrRequest, ProvisionByoipCidrResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveCustomRoutingEndpointsResult> removeCustomRoutingEndpointsAsync(RemoveCustomRoutingEndpointsRequest request) {
+
+        return removeCustomRoutingEndpointsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveCustomRoutingEndpointsResult> removeCustomRoutingEndpointsAsync(RemoveCustomRoutingEndpointsRequest request,
+            com.amazonaws.handlers.AsyncHandler<RemoveCustomRoutingEndpointsRequest, RemoveCustomRoutingEndpointsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveEndpointsResult> removeEndpointsAsync(RemoveEndpointsRequest request) {
+
+        return removeEndpointsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveEndpointsResult> removeEndpointsAsync(RemoveEndpointsRequest request,
+            com.amazonaws.handlers.AsyncHandler<RemoveEndpointsRequest, RemoveEndpointsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -223,6 +681,60 @@ public class AbstractAWSGlobalAcceleratorAsync extends AbstractAWSGlobalAccelera
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateCrossAccountAttachmentResult> updateCrossAccountAttachmentAsync(UpdateCrossAccountAttachmentRequest request) {
+
+        return updateCrossAccountAttachmentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCrossAccountAttachmentResult> updateCrossAccountAttachmentAsync(UpdateCrossAccountAttachmentRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateCrossAccountAttachmentRequest, UpdateCrossAccountAttachmentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCustomRoutingAcceleratorResult> updateCustomRoutingAcceleratorAsync(UpdateCustomRoutingAcceleratorRequest request) {
+
+        return updateCustomRoutingAcceleratorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCustomRoutingAcceleratorResult> updateCustomRoutingAcceleratorAsync(UpdateCustomRoutingAcceleratorRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateCustomRoutingAcceleratorRequest, UpdateCustomRoutingAcceleratorResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCustomRoutingAcceleratorAttributesResult> updateCustomRoutingAcceleratorAttributesAsync(
+            UpdateCustomRoutingAcceleratorAttributesRequest request) {
+
+        return updateCustomRoutingAcceleratorAttributesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCustomRoutingAcceleratorAttributesResult> updateCustomRoutingAcceleratorAttributesAsync(
+            UpdateCustomRoutingAcceleratorAttributesRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateCustomRoutingAcceleratorAttributesRequest, UpdateCustomRoutingAcceleratorAttributesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCustomRoutingListenerResult> updateCustomRoutingListenerAsync(UpdateCustomRoutingListenerRequest request) {
+
+        return updateCustomRoutingListenerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCustomRoutingListenerResult> updateCustomRoutingListenerAsync(UpdateCustomRoutingListenerRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateCustomRoutingListenerRequest, UpdateCustomRoutingListenerResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateEndpointGroupResult> updateEndpointGroupAsync(UpdateEndpointGroupRequest request) {
 
         return updateEndpointGroupAsync(request, null);
@@ -244,6 +756,19 @@ public class AbstractAWSGlobalAcceleratorAsync extends AbstractAWSGlobalAccelera
     @Override
     public java.util.concurrent.Future<UpdateListenerResult> updateListenerAsync(UpdateListenerRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateListenerRequest, UpdateListenerResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<WithdrawByoipCidrResult> withdrawByoipCidrAsync(WithdrawByoipCidrRequest request) {
+
+        return withdrawByoipCidrAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<WithdrawByoipCidrResult> withdrawByoipCidrAsync(WithdrawByoipCidrRequest request,
+            com.amazonaws.handlers.AsyncHandler<WithdrawByoipCidrRequest, WithdrawByoipCidrResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

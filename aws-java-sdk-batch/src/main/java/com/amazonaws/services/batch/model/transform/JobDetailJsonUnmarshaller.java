@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,10 @@ public class JobDetailJsonUnmarshaller implements Unmarshaller<JobDetail, JsonUn
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("jobArn", targetDepth)) {
+                    context.nextToken();
+                    jobDetail.setJobArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("jobName", targetDepth)) {
                     context.nextToken();
                     jobDetail.setJobName(context.getUnmarshaller(String.class).unmarshall(context));
@@ -64,9 +68,19 @@ public class JobDetailJsonUnmarshaller implements Unmarshaller<JobDetail, JsonUn
                     context.nextToken();
                     jobDetail.setStatus(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("shareIdentifier", targetDepth)) {
+                    context.nextToken();
+                    jobDetail.setShareIdentifier(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("schedulingPriority", targetDepth)) {
+                    context.nextToken();
+                    jobDetail.setSchedulingPriority(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
                 if (context.testExpression("attempts", targetDepth)) {
                     context.nextToken();
-                    jobDetail.setAttempts(new ListUnmarshaller<AttemptDetail>(AttemptDetailJsonUnmarshaller.getInstance()).unmarshall(context));
+                    jobDetail.setAttempts(new ListUnmarshaller<AttemptDetail>(AttemptDetailJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("statusReason", targetDepth)) {
                     context.nextToken();
@@ -90,7 +104,9 @@ public class JobDetailJsonUnmarshaller implements Unmarshaller<JobDetail, JsonUn
                 }
                 if (context.testExpression("dependsOn", targetDepth)) {
                     context.nextToken();
-                    jobDetail.setDependsOn(new ListUnmarshaller<JobDependency>(JobDependencyJsonUnmarshaller.getInstance()).unmarshall(context));
+                    jobDetail.setDependsOn(new ListUnmarshaller<JobDependency>(JobDependencyJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("jobDefinition", targetDepth)) {
                     context.nextToken();
@@ -120,6 +136,43 @@ public class JobDetailJsonUnmarshaller implements Unmarshaller<JobDetail, JsonUn
                 if (context.testExpression("timeout", targetDepth)) {
                     context.nextToken();
                     jobDetail.setTimeout(JobTimeoutJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("tags", targetDepth)) {
+                    context.nextToken();
+                    jobDetail.setTags(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
+                            .unmarshall(context));
+                }
+                if (context.testExpression("propagateTags", targetDepth)) {
+                    context.nextToken();
+                    jobDetail.setPropagateTags(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("platformCapabilities", targetDepth)) {
+                    context.nextToken();
+                    jobDetail.setPlatformCapabilities(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("eksProperties", targetDepth)) {
+                    context.nextToken();
+                    jobDetail.setEksProperties(EksPropertiesDetailJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("eksAttempts", targetDepth)) {
+                    context.nextToken();
+                    jobDetail.setEksAttempts(new ListUnmarshaller<EksAttemptDetail>(EksAttemptDetailJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ecsProperties", targetDepth)) {
+                    context.nextToken();
+                    jobDetail.setEcsProperties(EcsPropertiesDetailJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("isCancelled", targetDepth)) {
+                    context.nextToken();
+                    jobDetail.setIsCancelled(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("isTerminated", targetDepth)) {
+                    context.nextToken();
+                    jobDetail.setIsTerminated(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

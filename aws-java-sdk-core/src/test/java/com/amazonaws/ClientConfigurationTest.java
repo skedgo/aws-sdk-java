@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -24,7 +24,11 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
+import com.amazonaws.endpoints.AccountIdEndpointMode;
+import com.amazonaws.http.SystemPropertyTlsKeyManagersProvider;
+import com.amazonaws.http.TlsKeyManagersProvider;
 import com.amazonaws.retry.PredefinedRetryPolicies;
+import com.amazonaws.retry.RetryMode;
 import com.amazonaws.retry.RetryPolicy;
 import com.amazonaws.util.ImmutableMapParameter;
 import java.lang.reflect.Field;
@@ -250,6 +254,10 @@ public class ClientConfigurationTest {
         config = new ClientConfiguration();
         assertNull(config.getProxyHost());
 
+        environmentVariableHelper.set("https_proxy", "");
+        config = new ClientConfiguration();
+        assertNull(config.getProxyHost());
+
         environmentVariableHelper.set("https_proxy", "bad-url");
         config = new ClientConfiguration();
         assertNull(config.getProxyHost());
@@ -300,6 +308,10 @@ public class ClientConfigurationTest {
         EnvironmentVariableHelper environmentVariableHelper = new EnvironmentVariableHelper();
         ClientConfiguration config;
 
+        config = new ClientConfiguration();
+        assertEquals(-1, config.getProxyPort());
+
+        environmentVariableHelper.set("https_proxy", "");
         config = new ClientConfiguration();
         assertEquals(-1, config.getProxyPort());
 
@@ -356,6 +368,10 @@ public class ClientConfigurationTest {
         config = new ClientConfiguration();
         assertNull(config.getProxyUsername());
 
+        environmentVariableHelper.set("https_proxy", "");
+        config = new ClientConfiguration();
+        assertNull(config.getProxyUsername());
+
         environmentVariableHelper.set("https_proxy", "bad-url");
         config = new ClientConfiguration();
         assertNull(config.getProxyUsername());
@@ -406,6 +422,10 @@ public class ClientConfigurationTest {
         EnvironmentVariableHelper environmentVariableHelper = new EnvironmentVariableHelper();
         ClientConfiguration config;
 
+        config = new ClientConfiguration();
+        assertNull(config.getProxyPassword());
+
+        environmentVariableHelper.set("https_proxy", "");
         config = new ClientConfiguration();
         assertNull(config.getProxyPassword());
 
@@ -557,6 +577,12 @@ public class ClientConfigurationTest {
                 if (field.getName().equals("httpProxyHolder")) {
                     field.set(customConfig, new AtomicReference<ClientConfiguration.URLHolder>(new ClientConfiguration.URLHolder()));
                 }
+            } else if (clzz.isAssignableFrom(TlsKeyManagersProvider.class)) {
+                field.set(customConfig, new SystemPropertyTlsKeyManagersProvider());
+            } else if (clzz.isAssignableFrom(RetryMode.class)) {
+                field.set(customConfig, RetryMode.LEGACY);
+            } else if (clzz.isAssignableFrom(AccountIdEndpointMode.class)){
+              field.set(customConfig, AccountIdEndpointMode.PREFERRED);
             } else {
                 throw new RuntimeException(
                         String.format("Field %s of type %s is not supported",
@@ -587,6 +613,66 @@ public class ClientConfigurationTest {
            }
        };
        assertThat(new ClientConfiguration(config).getSocketTimeout(), equalTo(Integer.MAX_VALUE));
+    }
+
+    @Test
+    public void getProxyUserName_envVarSet_noUserName_doesNotThrow() {
+        EnvironmentVariableHelper environmentVariableHelper = new EnvironmentVariableHelper();
+
+        environmentVariableHelper.set("HTTPS_PROXY", "http://localhost");
+        new ClientConfiguration().getProxyUsername();
+        environmentVariableHelper.reset();
+
+        environmentVariableHelper.set("HTTP_PROXY", "http://localhost");
+        ClientConfiguration cfg = new ClientConfiguration();
+        cfg.setProtocol(Protocol.HTTP);
+        cfg.getProxyUsername();
+        environmentVariableHelper.reset();
+    }
+
+    @Test
+    public void getProxyPassword_envVarSet_noPassword_doesNotThrow() {
+        EnvironmentVariableHelper environmentVariableHelper = new EnvironmentVariableHelper();
+
+        environmentVariableHelper.set("HTTPS_PROXY", "http://localhost");
+        new ClientConfiguration().getProxyPassword();
+        environmentVariableHelper.reset();
+
+        environmentVariableHelper.set("HTTP_PROXY", "http://localhost");
+        ClientConfiguration cfg = new ClientConfiguration();
+        cfg.setProtocol(Protocol.HTTP);
+        cfg.getProxyPassword();
+        environmentVariableHelper.reset();
+    }
+
+    @Test
+    public void protocolChanged_resolvesCorrectProxyVar() {
+        EnvironmentVariableHelper environmentVariableHelper = new EnvironmentVariableHelper();
+        environmentVariableHelper.set("HTTP_PROXY", "http://http-proxy");
+        environmentVariableHelper.set("HTTPS_PROXY", "http://https-proxy");
+
+        ClientConfiguration cfg = new ClientConfiguration();
+        assertThat(cfg.getProxyHost(), equalTo("https-proxy"));
+
+        cfg.setProtocol(Protocol.HTTP);
+        assertThat(cfg.getProxyHost(), equalTo("http-proxy"));
+
+        environmentVariableHelper.reset();
+    }
+
+    @Test
+    public void getProxyHost_envVarSet_emptyUrl_doesNotThrow() {
+        EnvironmentVariableHelper environmentVariableHelper = new EnvironmentVariableHelper();
+
+        environmentVariableHelper.set("https_proxy", "");
+        ClientConfiguration config = new ClientConfiguration();
+        assertNull(config.getProxyHost());
+        environmentVariableHelper.reset();
+
+        environmentVariableHelper.set("http_proxy", "");
+        config = new ClientConfiguration();
+        assertNull(config.getProxyHost());
+        environmentVariableHelper.reset();
     }
 
     private boolean isStaticField(Field field) {

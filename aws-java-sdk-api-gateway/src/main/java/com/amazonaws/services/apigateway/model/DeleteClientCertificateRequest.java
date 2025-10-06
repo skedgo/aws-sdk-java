@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * A request to delete the <a>ClientCertificate</a> resource.
+ * A request to delete the ClientCertificate resource.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -27,18 +27,18 @@ public class DeleteClientCertificateRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * [Required] The identifier of the <a>ClientCertificate</a> resource to be deleted.
+     * The identifier of the ClientCertificate resource to be deleted.
      * </p>
      */
     private String clientCertificateId;
 
     /**
      * <p>
-     * [Required] The identifier of the <a>ClientCertificate</a> resource to be deleted.
+     * The identifier of the ClientCertificate resource to be deleted.
      * </p>
      * 
      * @param clientCertificateId
-     *        [Required] The identifier of the <a>ClientCertificate</a> resource to be deleted.
+     *        The identifier of the ClientCertificate resource to be deleted.
      */
 
     public void setClientCertificateId(String clientCertificateId) {
@@ -47,10 +47,10 @@ public class DeleteClientCertificateRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * [Required] The identifier of the <a>ClientCertificate</a> resource to be deleted.
+     * The identifier of the ClientCertificate resource to be deleted.
      * </p>
      * 
-     * @return [Required] The identifier of the <a>ClientCertificate</a> resource to be deleted.
+     * @return The identifier of the ClientCertificate resource to be deleted.
      */
 
     public String getClientCertificateId() {
@@ -59,11 +59,11 @@ public class DeleteClientCertificateRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * [Required] The identifier of the <a>ClientCertificate</a> resource to be deleted.
+     * The identifier of the ClientCertificate resource to be deleted.
      * </p>
      * 
      * @param clientCertificateId
-     *        [Required] The identifier of the <a>ClientCertificate</a> resource to be deleted.
+     *        The identifier of the ClientCertificate resource to be deleted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

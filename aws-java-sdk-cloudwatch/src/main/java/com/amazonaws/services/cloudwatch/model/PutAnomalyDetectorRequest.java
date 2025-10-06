@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,24 +30,28 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      * The namespace of the metric to create the anomaly detection model for.
      * </p>
      */
+    @Deprecated
     private String namespace;
     /**
      * <p>
      * The name of the metric to create the anomaly detection model for.
      * </p>
      */
+    @Deprecated
     private String metricName;
     /**
      * <p>
      * The metric dimensions to create the anomaly detection model for.
      * </p>
      */
+    @Deprecated
     private com.amazonaws.internal.SdkInternalList<Dimension> dimensions;
     /**
      * <p>
      * The statistic to use for the metric and the anomaly detection model.
      * </p>
      */
+    @Deprecated
     private String stat;
     /**
      * <p>
@@ -57,11 +61,97 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * The configuration can also include the time zone to use for the metric.
      * </p>
-     * <p>
-     * You can in
-     * </p>
      */
     private AnomalyDetectorConfiguration configuration;
+    /**
+     * <p>
+     * Use this object to include parameters to provide information about your metric to CloudWatch to help it build
+     * more accurate anomaly detection models. Currently, it includes the <code>PeriodicSpikes</code> parameter.
+     * </p>
+     */
+    private MetricCharacteristics metricCharacteristics;
+    /**
+     * <p>
+     * A single metric anomaly detector to be created.
+     * </p>
+     * <p>
+     * When using <code>SingleMetricAnomalyDetector</code>, you cannot include the following parameters in the same
+     * operation:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Dimensions</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MetricName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Namespace</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Stat</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * the <code>MetricMathAnomalyDetector</code> parameters of <code>PutAnomalyDetectorInput</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Instead, specify the single metric anomaly detector attributes as part of the property
+     * <code>SingleMetricAnomalyDetector</code>.
+     * </p>
+     */
+    private SingleMetricAnomalyDetector singleMetricAnomalyDetector;
+    /**
+     * <p>
+     * The metric math anomaly detector to be created.
+     * </p>
+     * <p>
+     * When using <code>MetricMathAnomalyDetector</code>, you cannot include the following parameters in the same
+     * operation:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Dimensions</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MetricName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Namespace</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Stat</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * the <code>SingleMetricAnomalyDetector</code> parameters of <code>PutAnomalyDetectorInput</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Instead, specify the metric math anomaly detector attributes as part of the property
+     * <code>MetricMathAnomalyDetector</code>.
+     * </p>
+     */
+    private MetricMathAnomalyDetector metricMathAnomalyDetector;
 
     /**
      * <p>
@@ -71,7 +161,7 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      * @param namespace
      *        The namespace of the metric to create the anomaly detection model for.
      */
-
+    @Deprecated
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
@@ -83,7 +173,7 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      * 
      * @return The namespace of the metric to create the anomaly detection model for.
      */
-
+    @Deprecated
     public String getNamespace() {
         return this.namespace;
     }
@@ -97,7 +187,7 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      *        The namespace of the metric to create the anomaly detection model for.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public PutAnomalyDetectorRequest withNamespace(String namespace) {
         setNamespace(namespace);
         return this;
@@ -111,7 +201,7 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      * @param metricName
      *        The name of the metric to create the anomaly detection model for.
      */
-
+    @Deprecated
     public void setMetricName(String metricName) {
         this.metricName = metricName;
     }
@@ -123,7 +213,7 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      * 
      * @return The name of the metric to create the anomaly detection model for.
      */
-
+    @Deprecated
     public String getMetricName() {
         return this.metricName;
     }
@@ -137,7 +227,7 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      *        The name of the metric to create the anomaly detection model for.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public PutAnomalyDetectorRequest withMetricName(String metricName) {
         setMetricName(metricName);
         return this;
@@ -150,7 +240,7 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      * 
      * @return The metric dimensions to create the anomaly detection model for.
      */
-
+    @Deprecated
     public java.util.List<Dimension> getDimensions() {
         if (dimensions == null) {
             dimensions = new com.amazonaws.internal.SdkInternalList<Dimension>();
@@ -166,7 +256,7 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      * @param dimensions
      *        The metric dimensions to create the anomaly detection model for.
      */
-
+    @Deprecated
     public void setDimensions(java.util.Collection<Dimension> dimensions) {
         if (dimensions == null) {
             this.dimensions = null;
@@ -190,7 +280,7 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      *        The metric dimensions to create the anomaly detection model for.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public PutAnomalyDetectorRequest withDimensions(Dimension... dimensions) {
         if (this.dimensions == null) {
             setDimensions(new com.amazonaws.internal.SdkInternalList<Dimension>(dimensions.length));
@@ -210,7 +300,7 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      *        The metric dimensions to create the anomaly detection model for.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public PutAnomalyDetectorRequest withDimensions(java.util.Collection<Dimension> dimensions) {
         setDimensions(dimensions);
         return this;
@@ -224,7 +314,7 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      * @param stat
      *        The statistic to use for the metric and the anomaly detection model.
      */
-
+    @Deprecated
     public void setStat(String stat) {
         this.stat = stat;
     }
@@ -236,7 +326,7 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      * 
      * @return The statistic to use for the metric and the anomaly detection model.
      */
-
+    @Deprecated
     public String getStat() {
         return this.stat;
     }
@@ -250,7 +340,7 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      *        The statistic to use for the metric and the anomaly detection model.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public PutAnomalyDetectorRequest withStat(String stat) {
         setStat(stat);
         return this;
@@ -264,18 +354,12 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * The configuration can also include the time zone to use for the metric.
      * </p>
-     * <p>
-     * You can in
-     * </p>
      * 
      * @param configuration
      *        The configuration specifies details about how the anomaly detection model is to be trained, including time
      *        ranges to exclude when training and updating the model. You can specify as many as 10 time ranges.</p>
      *        <p>
      *        The configuration can also include the time zone to use for the metric.
-     *        </p>
-     *        <p>
-     *        You can in
      */
 
     public void setConfiguration(AnomalyDetectorConfiguration configuration) {
@@ -290,18 +374,12 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * The configuration can also include the time zone to use for the metric.
      * </p>
-     * <p>
-     * You can in
-     * </p>
      * 
      * @return The configuration specifies details about how the anomaly detection model is to be trained, including
      *         time ranges to exclude when training and updating the model. You can specify as many as 10 time
      *         ranges.</p>
      *         <p>
      *         The configuration can also include the time zone to use for the metric.
-     *         </p>
-     *         <p>
-     *         You can in
      */
 
     public AnomalyDetectorConfiguration getConfiguration() {
@@ -316,23 +394,560 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * The configuration can also include the time zone to use for the metric.
      * </p>
-     * <p>
-     * You can in
-     * </p>
      * 
      * @param configuration
      *        The configuration specifies details about how the anomaly detection model is to be trained, including time
      *        ranges to exclude when training and updating the model. You can specify as many as 10 time ranges.</p>
      *        <p>
      *        The configuration can also include the time zone to use for the metric.
-     *        </p>
-     *        <p>
-     *        You can in
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public PutAnomalyDetectorRequest withConfiguration(AnomalyDetectorConfiguration configuration) {
         setConfiguration(configuration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Use this object to include parameters to provide information about your metric to CloudWatch to help it build
+     * more accurate anomaly detection models. Currently, it includes the <code>PeriodicSpikes</code> parameter.
+     * </p>
+     * 
+     * @param metricCharacteristics
+     *        Use this object to include parameters to provide information about your metric to CloudWatch to help it
+     *        build more accurate anomaly detection models. Currently, it includes the <code>PeriodicSpikes</code>
+     *        parameter.
+     */
+
+    public void setMetricCharacteristics(MetricCharacteristics metricCharacteristics) {
+        this.metricCharacteristics = metricCharacteristics;
+    }
+
+    /**
+     * <p>
+     * Use this object to include parameters to provide information about your metric to CloudWatch to help it build
+     * more accurate anomaly detection models. Currently, it includes the <code>PeriodicSpikes</code> parameter.
+     * </p>
+     * 
+     * @return Use this object to include parameters to provide information about your metric to CloudWatch to help it
+     *         build more accurate anomaly detection models. Currently, it includes the <code>PeriodicSpikes</code>
+     *         parameter.
+     */
+
+    public MetricCharacteristics getMetricCharacteristics() {
+        return this.metricCharacteristics;
+    }
+
+    /**
+     * <p>
+     * Use this object to include parameters to provide information about your metric to CloudWatch to help it build
+     * more accurate anomaly detection models. Currently, it includes the <code>PeriodicSpikes</code> parameter.
+     * </p>
+     * 
+     * @param metricCharacteristics
+     *        Use this object to include parameters to provide information about your metric to CloudWatch to help it
+     *        build more accurate anomaly detection models. Currently, it includes the <code>PeriodicSpikes</code>
+     *        parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutAnomalyDetectorRequest withMetricCharacteristics(MetricCharacteristics metricCharacteristics) {
+        setMetricCharacteristics(metricCharacteristics);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A single metric anomaly detector to be created.
+     * </p>
+     * <p>
+     * When using <code>SingleMetricAnomalyDetector</code>, you cannot include the following parameters in the same
+     * operation:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Dimensions</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MetricName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Namespace</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Stat</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * the <code>MetricMathAnomalyDetector</code> parameters of <code>PutAnomalyDetectorInput</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Instead, specify the single metric anomaly detector attributes as part of the property
+     * <code>SingleMetricAnomalyDetector</code>.
+     * </p>
+     * 
+     * @param singleMetricAnomalyDetector
+     *        A single metric anomaly detector to be created.</p>
+     *        <p>
+     *        When using <code>SingleMetricAnomalyDetector</code>, you cannot include the following parameters in the
+     *        same operation:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Dimensions</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MetricName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Namespace</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Stat</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        the <code>MetricMathAnomalyDetector</code> parameters of <code>PutAnomalyDetectorInput</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Instead, specify the single metric anomaly detector attributes as part of the property
+     *        <code>SingleMetricAnomalyDetector</code>.
+     */
+
+    public void setSingleMetricAnomalyDetector(SingleMetricAnomalyDetector singleMetricAnomalyDetector) {
+        this.singleMetricAnomalyDetector = singleMetricAnomalyDetector;
+    }
+
+    /**
+     * <p>
+     * A single metric anomaly detector to be created.
+     * </p>
+     * <p>
+     * When using <code>SingleMetricAnomalyDetector</code>, you cannot include the following parameters in the same
+     * operation:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Dimensions</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MetricName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Namespace</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Stat</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * the <code>MetricMathAnomalyDetector</code> parameters of <code>PutAnomalyDetectorInput</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Instead, specify the single metric anomaly detector attributes as part of the property
+     * <code>SingleMetricAnomalyDetector</code>.
+     * </p>
+     * 
+     * @return A single metric anomaly detector to be created.</p>
+     *         <p>
+     *         When using <code>SingleMetricAnomalyDetector</code>, you cannot include the following parameters in the
+     *         same operation:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>Dimensions</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>MetricName</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Namespace</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Stat</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         the <code>MetricMathAnomalyDetector</code> parameters of <code>PutAnomalyDetectorInput</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Instead, specify the single metric anomaly detector attributes as part of the property
+     *         <code>SingleMetricAnomalyDetector</code>.
+     */
+
+    public SingleMetricAnomalyDetector getSingleMetricAnomalyDetector() {
+        return this.singleMetricAnomalyDetector;
+    }
+
+    /**
+     * <p>
+     * A single metric anomaly detector to be created.
+     * </p>
+     * <p>
+     * When using <code>SingleMetricAnomalyDetector</code>, you cannot include the following parameters in the same
+     * operation:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Dimensions</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MetricName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Namespace</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Stat</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * the <code>MetricMathAnomalyDetector</code> parameters of <code>PutAnomalyDetectorInput</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Instead, specify the single metric anomaly detector attributes as part of the property
+     * <code>SingleMetricAnomalyDetector</code>.
+     * </p>
+     * 
+     * @param singleMetricAnomalyDetector
+     *        A single metric anomaly detector to be created.</p>
+     *        <p>
+     *        When using <code>SingleMetricAnomalyDetector</code>, you cannot include the following parameters in the
+     *        same operation:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Dimensions</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MetricName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Namespace</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Stat</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        the <code>MetricMathAnomalyDetector</code> parameters of <code>PutAnomalyDetectorInput</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Instead, specify the single metric anomaly detector attributes as part of the property
+     *        <code>SingleMetricAnomalyDetector</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutAnomalyDetectorRequest withSingleMetricAnomalyDetector(SingleMetricAnomalyDetector singleMetricAnomalyDetector) {
+        setSingleMetricAnomalyDetector(singleMetricAnomalyDetector);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The metric math anomaly detector to be created.
+     * </p>
+     * <p>
+     * When using <code>MetricMathAnomalyDetector</code>, you cannot include the following parameters in the same
+     * operation:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Dimensions</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MetricName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Namespace</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Stat</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * the <code>SingleMetricAnomalyDetector</code> parameters of <code>PutAnomalyDetectorInput</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Instead, specify the metric math anomaly detector attributes as part of the property
+     * <code>MetricMathAnomalyDetector</code>.
+     * </p>
+     * 
+     * @param metricMathAnomalyDetector
+     *        The metric math anomaly detector to be created.</p>
+     *        <p>
+     *        When using <code>MetricMathAnomalyDetector</code>, you cannot include the following parameters in the same
+     *        operation:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Dimensions</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MetricName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Namespace</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Stat</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        the <code>SingleMetricAnomalyDetector</code> parameters of <code>PutAnomalyDetectorInput</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Instead, specify the metric math anomaly detector attributes as part of the property
+     *        <code>MetricMathAnomalyDetector</code>.
+     */
+
+    public void setMetricMathAnomalyDetector(MetricMathAnomalyDetector metricMathAnomalyDetector) {
+        this.metricMathAnomalyDetector = metricMathAnomalyDetector;
+    }
+
+    /**
+     * <p>
+     * The metric math anomaly detector to be created.
+     * </p>
+     * <p>
+     * When using <code>MetricMathAnomalyDetector</code>, you cannot include the following parameters in the same
+     * operation:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Dimensions</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MetricName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Namespace</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Stat</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * the <code>SingleMetricAnomalyDetector</code> parameters of <code>PutAnomalyDetectorInput</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Instead, specify the metric math anomaly detector attributes as part of the property
+     * <code>MetricMathAnomalyDetector</code>.
+     * </p>
+     * 
+     * @return The metric math anomaly detector to be created.</p>
+     *         <p>
+     *         When using <code>MetricMathAnomalyDetector</code>, you cannot include the following parameters in the
+     *         same operation:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>Dimensions</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>MetricName</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Namespace</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Stat</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         the <code>SingleMetricAnomalyDetector</code> parameters of <code>PutAnomalyDetectorInput</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Instead, specify the metric math anomaly detector attributes as part of the property
+     *         <code>MetricMathAnomalyDetector</code>.
+     */
+
+    public MetricMathAnomalyDetector getMetricMathAnomalyDetector() {
+        return this.metricMathAnomalyDetector;
+    }
+
+    /**
+     * <p>
+     * The metric math anomaly detector to be created.
+     * </p>
+     * <p>
+     * When using <code>MetricMathAnomalyDetector</code>, you cannot include the following parameters in the same
+     * operation:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Dimensions</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MetricName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Namespace</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Stat</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * the <code>SingleMetricAnomalyDetector</code> parameters of <code>PutAnomalyDetectorInput</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Instead, specify the metric math anomaly detector attributes as part of the property
+     * <code>MetricMathAnomalyDetector</code>.
+     * </p>
+     * 
+     * @param metricMathAnomalyDetector
+     *        The metric math anomaly detector to be created.</p>
+     *        <p>
+     *        When using <code>MetricMathAnomalyDetector</code>, you cannot include the following parameters in the same
+     *        operation:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Dimensions</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MetricName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Namespace</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Stat</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        the <code>SingleMetricAnomalyDetector</code> parameters of <code>PutAnomalyDetectorInput</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Instead, specify the metric math anomaly detector attributes as part of the property
+     *        <code>MetricMathAnomalyDetector</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutAnomalyDetectorRequest withMetricMathAnomalyDetector(MetricMathAnomalyDetector metricMathAnomalyDetector) {
+        setMetricMathAnomalyDetector(metricMathAnomalyDetector);
         return this;
     }
 
@@ -357,7 +972,13 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
         if (getStat() != null)
             sb.append("Stat: ").append(getStat()).append(",");
         if (getConfiguration() != null)
-            sb.append("Configuration: ").append(getConfiguration());
+            sb.append("Configuration: ").append(getConfiguration()).append(",");
+        if (getMetricCharacteristics() != null)
+            sb.append("MetricCharacteristics: ").append(getMetricCharacteristics()).append(",");
+        if (getSingleMetricAnomalyDetector() != null)
+            sb.append("SingleMetricAnomalyDetector: ").append(getSingleMetricAnomalyDetector()).append(",");
+        if (getMetricMathAnomalyDetector() != null)
+            sb.append("MetricMathAnomalyDetector: ").append(getMetricMathAnomalyDetector());
         sb.append("}");
         return sb.toString();
     }
@@ -392,6 +1013,18 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
             return false;
         if (other.getConfiguration() != null && other.getConfiguration().equals(this.getConfiguration()) == false)
             return false;
+        if (other.getMetricCharacteristics() == null ^ this.getMetricCharacteristics() == null)
+            return false;
+        if (other.getMetricCharacteristics() != null && other.getMetricCharacteristics().equals(this.getMetricCharacteristics()) == false)
+            return false;
+        if (other.getSingleMetricAnomalyDetector() == null ^ this.getSingleMetricAnomalyDetector() == null)
+            return false;
+        if (other.getSingleMetricAnomalyDetector() != null && other.getSingleMetricAnomalyDetector().equals(this.getSingleMetricAnomalyDetector()) == false)
+            return false;
+        if (other.getMetricMathAnomalyDetector() == null ^ this.getMetricMathAnomalyDetector() == null)
+            return false;
+        if (other.getMetricMathAnomalyDetector() != null && other.getMetricMathAnomalyDetector().equals(this.getMetricMathAnomalyDetector()) == false)
+            return false;
         return true;
     }
 
@@ -405,6 +1038,9 @@ public class PutAnomalyDetectorRequest extends com.amazonaws.AmazonWebServiceReq
         hashCode = prime * hashCode + ((getDimensions() == null) ? 0 : getDimensions().hashCode());
         hashCode = prime * hashCode + ((getStat() == null) ? 0 : getStat().hashCode());
         hashCode = prime * hashCode + ((getConfiguration() == null) ? 0 : getConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getMetricCharacteristics() == null) ? 0 : getMetricCharacteristics().hashCode());
+        hashCode = prime * hashCode + ((getSingleMetricAnomalyDetector() == null) ? 0 : getSingleMetricAnomalyDetector().hashCode());
+        hashCode = prime * hashCode + ((getMetricMathAnomalyDetector() == null) ? 0 : getMetricMathAnomalyDetector().hashCode());
         return hashCode;
     }
 

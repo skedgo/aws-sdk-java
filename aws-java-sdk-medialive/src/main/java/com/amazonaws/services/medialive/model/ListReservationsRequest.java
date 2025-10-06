@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,33 +26,25 @@ import com.amazonaws.AmazonWebServiceRequest;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class ListReservationsRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
-    /**
-     * Filter by channel class, 'STANDARD' or 'SINGLE_PIPELINE'
-     */
+    /** Filter by channel class, 'STANDARD' or 'SINGLE_PIPELINE' */
     private String channelClass;
-    /** Filter by codec, 'AVC', 'HEVC', 'MPEG2', or 'AUDIO' */
+    /** Filter by codec, 'AVC', 'HEVC', 'MPEG2', 'AUDIO', or 'LINK' */
     private String codec;
 
     private Integer maxResults;
-    /**
-     * Filter by bitrate, 'MAX_10_MBPS', 'MAX_20_MBPS', or 'MAX_50_MBPS'
-     */
+    /** Filter by bitrate, 'MAX_10_MBPS', 'MAX_20_MBPS', or 'MAX_50_MBPS' */
     private String maximumBitrate;
     /** Filter by framerate, 'MAX_30_FPS' or 'MAX_60_FPS' */
     private String maximumFramerate;
 
     private String nextToken;
-    /** Filter by resolution, 'SD', 'HD', or 'UHD' */
+    /** Filter by resolution, 'SD', 'HD', 'FHD', or 'UHD' */
     private String resolution;
-    /** Filter by resource type, 'INPUT', 'OUTPUT', or 'CHANNEL' */
+    /** Filter by resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL' */
     private String resourceType;
-    /**
-     * Filter by special feature, 'ADVANCED_AUDIO' or 'AUDIO_NORMALIZATION'
-     */
+    /** Filter by special feature, 'ADVANCED_AUDIO' or 'AUDIO_NORMALIZATION' */
     private String specialFeature;
-    /**
-     * Filter by video quality, 'STANDARD', 'ENHANCED', or 'PREMIUM'
-     */
+    /** Filter by video quality, 'STANDARD', 'ENHANCED', or 'PREMIUM' */
     private String videoQuality;
 
     /**
@@ -90,10 +82,10 @@ public class ListReservationsRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
-     * Filter by codec, 'AVC', 'HEVC', 'MPEG2', or 'AUDIO'
+     * Filter by codec, 'AVC', 'HEVC', 'MPEG2', 'AUDIO', or 'LINK'
      * 
      * @param codec
-     *        Filter by codec, 'AVC', 'HEVC', 'MPEG2', or 'AUDIO'
+     *        Filter by codec, 'AVC', 'HEVC', 'MPEG2', 'AUDIO', or 'LINK'
      */
 
     public void setCodec(String codec) {
@@ -101,9 +93,9 @@ public class ListReservationsRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
-     * Filter by codec, 'AVC', 'HEVC', 'MPEG2', or 'AUDIO'
+     * Filter by codec, 'AVC', 'HEVC', 'MPEG2', 'AUDIO', or 'LINK'
      * 
-     * @return Filter by codec, 'AVC', 'HEVC', 'MPEG2', or 'AUDIO'
+     * @return Filter by codec, 'AVC', 'HEVC', 'MPEG2', 'AUDIO', or 'LINK'
      */
 
     public String getCodec() {
@@ -111,10 +103,10 @@ public class ListReservationsRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
-     * Filter by codec, 'AVC', 'HEVC', 'MPEG2', or 'AUDIO'
+     * Filter by codec, 'AVC', 'HEVC', 'MPEG2', 'AUDIO', or 'LINK'
      * 
      * @param codec
-     *        Filter by codec, 'AVC', 'HEVC', 'MPEG2', or 'AUDIO'
+     *        Filter by codec, 'AVC', 'HEVC', 'MPEG2', 'AUDIO', or 'LINK'
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -244,10 +236,10 @@ public class ListReservationsRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
-     * Filter by resolution, 'SD', 'HD', or 'UHD'
+     * Filter by resolution, 'SD', 'HD', 'FHD', or 'UHD'
      * 
      * @param resolution
-     *        Filter by resolution, 'SD', 'HD', or 'UHD'
+     *        Filter by resolution, 'SD', 'HD', 'FHD', or 'UHD'
      */
 
     public void setResolution(String resolution) {
@@ -255,9 +247,9 @@ public class ListReservationsRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
-     * Filter by resolution, 'SD', 'HD', or 'UHD'
+     * Filter by resolution, 'SD', 'HD', 'FHD', or 'UHD'
      * 
-     * @return Filter by resolution, 'SD', 'HD', or 'UHD'
+     * @return Filter by resolution, 'SD', 'HD', 'FHD', or 'UHD'
      */
 
     public String getResolution() {
@@ -265,10 +257,10 @@ public class ListReservationsRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
-     * Filter by resolution, 'SD', 'HD', or 'UHD'
+     * Filter by resolution, 'SD', 'HD', 'FHD', or 'UHD'
      * 
      * @param resolution
-     *        Filter by resolution, 'SD', 'HD', or 'UHD'
+     *        Filter by resolution, 'SD', 'HD', 'FHD', or 'UHD'
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -278,10 +270,10 @@ public class ListReservationsRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
-     * Filter by resource type, 'INPUT', 'OUTPUT', or 'CHANNEL'
+     * Filter by resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
      * 
      * @param resourceType
-     *        Filter by resource type, 'INPUT', 'OUTPUT', or 'CHANNEL'
+     *        Filter by resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
      */
 
     public void setResourceType(String resourceType) {
@@ -289,9 +281,9 @@ public class ListReservationsRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
-     * Filter by resource type, 'INPUT', 'OUTPUT', or 'CHANNEL'
+     * Filter by resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
      * 
-     * @return Filter by resource type, 'INPUT', 'OUTPUT', or 'CHANNEL'
+     * @return Filter by resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
      */
 
     public String getResourceType() {
@@ -299,10 +291,10 @@ public class ListReservationsRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
-     * Filter by resource type, 'INPUT', 'OUTPUT', or 'CHANNEL'
+     * Filter by resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
      * 
      * @param resourceType
-     *        Filter by resource type, 'INPUT', 'OUTPUT', or 'CHANNEL'
+     *        Filter by resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

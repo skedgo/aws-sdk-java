@@ -1,0 +1,208 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.apptest.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * Compares the database CDC step output.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/apptest-2022-12-06/CompareDatabaseCDCStepOutput"
+ *      target="_top">AWS API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class CompareDatabaseCDCStepOutput implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * The comparison output of the compare database CDC step output.
+     * </p>
+     */
+    private String comparisonOutputLocation;
+    /**
+     * <p>
+     * The comparison status of the compare database CDC step output.
+     * </p>
+     */
+    private String comparisonStatus;
+
+    /**
+     * <p>
+     * The comparison output of the compare database CDC step output.
+     * </p>
+     * 
+     * @param comparisonOutputLocation
+     *        The comparison output of the compare database CDC step output.
+     */
+
+    public void setComparisonOutputLocation(String comparisonOutputLocation) {
+        this.comparisonOutputLocation = comparisonOutputLocation;
+    }
+
+    /**
+     * <p>
+     * The comparison output of the compare database CDC step output.
+     * </p>
+     * 
+     * @return The comparison output of the compare database CDC step output.
+     */
+
+    public String getComparisonOutputLocation() {
+        return this.comparisonOutputLocation;
+    }
+
+    /**
+     * <p>
+     * The comparison output of the compare database CDC step output.
+     * </p>
+     * 
+     * @param comparisonOutputLocation
+     *        The comparison output of the compare database CDC step output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CompareDatabaseCDCStepOutput withComparisonOutputLocation(String comparisonOutputLocation) {
+        setComparisonOutputLocation(comparisonOutputLocation);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The comparison status of the compare database CDC step output.
+     * </p>
+     * 
+     * @param comparisonStatus
+     *        The comparison status of the compare database CDC step output.
+     * @see ComparisonStatusEnum
+     */
+
+    public void setComparisonStatus(String comparisonStatus) {
+        this.comparisonStatus = comparisonStatus;
+    }
+
+    /**
+     * <p>
+     * The comparison status of the compare database CDC step output.
+     * </p>
+     * 
+     * @return The comparison status of the compare database CDC step output.
+     * @see ComparisonStatusEnum
+     */
+
+    public String getComparisonStatus() {
+        return this.comparisonStatus;
+    }
+
+    /**
+     * <p>
+     * The comparison status of the compare database CDC step output.
+     * </p>
+     * 
+     * @param comparisonStatus
+     *        The comparison status of the compare database CDC step output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ComparisonStatusEnum
+     */
+
+    public CompareDatabaseCDCStepOutput withComparisonStatus(String comparisonStatus) {
+        setComparisonStatus(comparisonStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The comparison status of the compare database CDC step output.
+     * </p>
+     * 
+     * @param comparisonStatus
+     *        The comparison status of the compare database CDC step output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ComparisonStatusEnum
+     */
+
+    public CompareDatabaseCDCStepOutput withComparisonStatus(ComparisonStatusEnum comparisonStatus) {
+        this.comparisonStatus = comparisonStatus.toString();
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getComparisonOutputLocation() != null)
+            sb.append("ComparisonOutputLocation: ").append(getComparisonOutputLocation()).append(",");
+        if (getComparisonStatus() != null)
+            sb.append("ComparisonStatus: ").append(getComparisonStatus());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof CompareDatabaseCDCStepOutput == false)
+            return false;
+        CompareDatabaseCDCStepOutput other = (CompareDatabaseCDCStepOutput) obj;
+        if (other.getComparisonOutputLocation() == null ^ this.getComparisonOutputLocation() == null)
+            return false;
+        if (other.getComparisonOutputLocation() != null && other.getComparisonOutputLocation().equals(this.getComparisonOutputLocation()) == false)
+            return false;
+        if (other.getComparisonStatus() == null ^ this.getComparisonStatus() == null)
+            return false;
+        if (other.getComparisonStatus() != null && other.getComparisonStatus().equals(this.getComparisonStatus()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getComparisonOutputLocation() == null) ? 0 : getComparisonOutputLocation().hashCode());
+        hashCode = prime * hashCode + ((getComparisonStatus() == null) ? 0 : getComparisonStatus().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public CompareDatabaseCDCStepOutput clone() {
+        try {
+            return (CompareDatabaseCDCStepOutput) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.apptest.model.transform.CompareDatabaseCDCStepOutputMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

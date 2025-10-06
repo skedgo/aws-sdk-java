@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,13 +34,13 @@ public class DownloadDBLogFilePortionResult extends com.amazonaws.AmazonWebServi
     private String logFileData;
     /**
      * <p>
-     * A pagination token that can be used in a subsequent DownloadDBLogFilePortion request.
+     * A pagination token that can be used in a later <code>DownloadDBLogFilePortion</code> request.
      * </p>
      */
     private String marker;
     /**
      * <p>
-     * Boolean value that if true, indicates there is more data to be downloaded.
+     * A Boolean value that, if true, indicates there is more data to be downloaded.
      * </p>
      */
     private Boolean additionalDataPending;
@@ -87,11 +87,11 @@ public class DownloadDBLogFilePortionResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A pagination token that can be used in a subsequent DownloadDBLogFilePortion request.
+     * A pagination token that can be used in a later <code>DownloadDBLogFilePortion</code> request.
      * </p>
      * 
      * @param marker
-     *        A pagination token that can be used in a subsequent DownloadDBLogFilePortion request.
+     *        A pagination token that can be used in a later <code>DownloadDBLogFilePortion</code> request.
      */
 
     public void setMarker(String marker) {
@@ -100,10 +100,10 @@ public class DownloadDBLogFilePortionResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A pagination token that can be used in a subsequent DownloadDBLogFilePortion request.
+     * A pagination token that can be used in a later <code>DownloadDBLogFilePortion</code> request.
      * </p>
      * 
-     * @return A pagination token that can be used in a subsequent DownloadDBLogFilePortion request.
+     * @return A pagination token that can be used in a later <code>DownloadDBLogFilePortion</code> request.
      */
 
     public String getMarker() {
@@ -112,11 +112,11 @@ public class DownloadDBLogFilePortionResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A pagination token that can be used in a subsequent DownloadDBLogFilePortion request.
+     * A pagination token that can be used in a later <code>DownloadDBLogFilePortion</code> request.
      * </p>
      * 
      * @param marker
-     *        A pagination token that can be used in a subsequent DownloadDBLogFilePortion request.
+     *        A pagination token that can be used in a later <code>DownloadDBLogFilePortion</code> request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -127,11 +127,11 @@ public class DownloadDBLogFilePortionResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Boolean value that if true, indicates there is more data to be downloaded.
+     * A Boolean value that, if true, indicates there is more data to be downloaded.
      * </p>
      * 
      * @param additionalDataPending
-     *        Boolean value that if true, indicates there is more data to be downloaded.
+     *        A Boolean value that, if true, indicates there is more data to be downloaded.
      */
 
     public void setAdditionalDataPending(Boolean additionalDataPending) {
@@ -140,10 +140,10 @@ public class DownloadDBLogFilePortionResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Boolean value that if true, indicates there is more data to be downloaded.
+     * A Boolean value that, if true, indicates there is more data to be downloaded.
      * </p>
      * 
-     * @return Boolean value that if true, indicates there is more data to be downloaded.
+     * @return A Boolean value that, if true, indicates there is more data to be downloaded.
      */
 
     public Boolean getAdditionalDataPending() {
@@ -152,11 +152,11 @@ public class DownloadDBLogFilePortionResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Boolean value that if true, indicates there is more data to be downloaded.
+     * A Boolean value that, if true, indicates there is more data to be downloaded.
      * </p>
      * 
      * @param additionalDataPending
-     *        Boolean value that if true, indicates there is more data to be downloaded.
+     *        A Boolean value that, if true, indicates there is more data to be downloaded.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -167,10 +167,10 @@ public class DownloadDBLogFilePortionResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Boolean value that if true, indicates there is more data to be downloaded.
+     * A Boolean value that, if true, indicates there is more data to be downloaded.
      * </p>
      * 
-     * @return Boolean value that if true, indicates there is more data to be downloaded.
+     * @return A Boolean value that, if true, indicates there is more data to be downloaded.
      */
 
     public Boolean isAdditionalDataPending() {

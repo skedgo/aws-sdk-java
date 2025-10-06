@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class ThingConnectivityMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("connected").build();
     private static final MarshallingInfo<Long> TIMESTAMP_BINDING = MarshallingInfo.builder(MarshallingType.LONG).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("timestamp").build();
+    private static final MarshallingInfo<String> DISCONNECTREASON_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("disconnectReason").build();
 
     private static final ThingConnectivityMarshaller instance = new ThingConnectivityMarshaller();
 
@@ -50,6 +52,7 @@ public class ThingConnectivityMarshaller {
         try {
             protocolMarshaller.marshall(thingConnectivity.getConnected(), CONNECTED_BINDING);
             protocolMarshaller.marshall(thingConnectivity.getTimestamp(), TIMESTAMP_BINDING);
+            protocolMarshaller.marshall(thingConnectivity.getDisconnectReason(), DISCONNECTREASON_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Data returned from the <b>DescribeEventCategories</b> action.
+ * Data returned from the <code>DescribeEventCategories</code> operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeEventCategories" target="_top">AWS API
@@ -28,17 +28,17 @@ public class DescribeEventCategoriesResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of EventCategoriesMap data types.
+     * A list of <code>EventCategoriesMap</code> data types.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<EventCategoriesMap> eventCategoriesMapList;
 
     /**
      * <p>
-     * A list of EventCategoriesMap data types.
+     * A list of <code>EventCategoriesMap</code> data types.
      * </p>
      * 
-     * @return A list of EventCategoriesMap data types.
+     * @return A list of <code>EventCategoriesMap</code> data types.
      */
 
     public java.util.List<EventCategoriesMap> getEventCategoriesMapList() {
@@ -50,11 +50,11 @@ public class DescribeEventCategoriesResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of EventCategoriesMap data types.
+     * A list of <code>EventCategoriesMap</code> data types.
      * </p>
      * 
      * @param eventCategoriesMapList
-     *        A list of EventCategoriesMap data types.
+     *        A list of <code>EventCategoriesMap</code> data types.
      */
 
     public void setEventCategoriesMapList(java.util.Collection<EventCategoriesMap> eventCategoriesMapList) {
@@ -68,7 +68,7 @@ public class DescribeEventCategoriesResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of EventCategoriesMap data types.
+     * A list of <code>EventCategoriesMap</code> data types.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -77,7 +77,7 @@ public class DescribeEventCategoriesResult extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param eventCategoriesMapList
-     *        A list of EventCategoriesMap data types.
+     *        A list of <code>EventCategoriesMap</code> data types.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -93,11 +93,11 @@ public class DescribeEventCategoriesResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of EventCategoriesMap data types.
+     * A list of <code>EventCategoriesMap</code> data types.
      * </p>
      * 
      * @param eventCategoriesMapList
-     *        A list of EventCategoriesMap data types.
+     *        A list of <code>EventCategoriesMap</code> data types.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

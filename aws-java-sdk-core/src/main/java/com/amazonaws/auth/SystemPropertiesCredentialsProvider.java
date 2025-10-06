@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 package com.amazonaws.auth;
 
 import static com.amazonaws.SDKGlobalConfiguration.ACCESS_KEY_SYSTEM_PROPERTY;
+import static com.amazonaws.SDKGlobalConfiguration.AWS_ACCOUNT_ID_SYSTEM_PROPERTY;
 import static com.amazonaws.SDKGlobalConfiguration.SECRET_KEY_SYSTEM_PROPERTY;
 import static com.amazonaws.SDKGlobalConfiguration.SESSION_TOKEN_SYSTEM_PROPERTY;
 
@@ -28,11 +29,14 @@ import com.amazonaws.util.StringUtils;
  */
 public class SystemPropertiesCredentialsProvider implements AWSCredentialsProvider {
 
+    private static final String PROVIDER_NAME = "SystemPropertyCredentialsProvider";
+
     @Override
     public AWSCredentials getCredentials() {
         String accessKey = StringUtils.trim(System.getProperty(ACCESS_KEY_SYSTEM_PROPERTY));
         String secretKey = StringUtils.trim(System.getProperty(SECRET_KEY_SYSTEM_PROPERTY));
         String sessionToken = StringUtils.trim(System.getProperty(SESSION_TOKEN_SYSTEM_PROPERTY));
+        String accountId = StringUtils.trim(System.getProperty(AWS_ACCOUNT_ID_SYSTEM_PROPERTY));
 
         if (StringUtils.isNullOrEmpty(accessKey) || StringUtils.isNullOrEmpty(secretKey)) {
             throw new SdkClientException(
@@ -41,9 +45,9 @@ public class SystemPropertiesCredentialsProvider implements AWSCredentialsProvid
                     + SECRET_KEY_SYSTEM_PROPERTY + ")");
         }
         if (StringUtils.isNullOrEmpty(sessionToken)) {
-            return new BasicAWSCredentials(accessKey, secretKey);
+            return new BasicAWSCredentials(accessKey, secretKey, accountId, PROVIDER_NAME);
         } else {
-            return new BasicSessionCredentials(accessKey, secretKey, sessionToken);
+            return new BasicSessionCredentials(accessKey, secretKey, sessionToken, accountId, PROVIDER_NAME);
         }
     }
 

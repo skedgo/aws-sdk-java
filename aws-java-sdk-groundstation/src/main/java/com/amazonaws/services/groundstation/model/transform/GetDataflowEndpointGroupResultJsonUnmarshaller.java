@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,14 @@ public class GetDataflowEndpointGroupResultJsonUnmarshaller implements Unmarshal
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("contactPostPassDurationSeconds", targetDepth)) {
+                    context.nextToken();
+                    getDataflowEndpointGroupResult.setContactPostPassDurationSeconds(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("contactPrePassDurationSeconds", targetDepth)) {
+                    context.nextToken();
+                    getDataflowEndpointGroupResult.setContactPrePassDurationSeconds(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
                 if (context.testExpression("dataflowEndpointGroupArn", targetDepth)) {
                     context.nextToken();
                     getDataflowEndpointGroupResult.setDataflowEndpointGroupArn(context.getUnmarshaller(String.class).unmarshall(context));
@@ -59,7 +67,8 @@ public class GetDataflowEndpointGroupResultJsonUnmarshaller implements Unmarshal
                 if (context.testExpression("endpointsDetails", targetDepth)) {
                     context.nextToken();
                     getDataflowEndpointGroupResult.setEndpointsDetails(new ListUnmarshaller<EndpointDetails>(EndpointDetailsJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("tags", targetDepth)) {
                     context.nextToken();

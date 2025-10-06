@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,9 +17,9 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * An object that contains details about when a principal in the reported AWS Organizations entity last attempted to
- * access an AWS service. A principal can be an IAM user, an IAM role, or the AWS account root user within the reported
- * Organizations entity.
+ * An object that contains details about when a principal in the reported Organizations entity last attempted to access
+ * an Amazon Web Services service. A principal can be an IAM user, an IAM role, or the Amazon Web Services account root
+ * user within the reported Organizations entity.
  * </p>
  * <p>
  * This data type is a response element in the <a>GetOrganizationsAccessReport</a> operation.
@@ -42,13 +42,14 @@ public class AccessDetail implements Serializable, Cloneable {
      * The namespace of the service in which access was attempted.
      * </p>
      * <p>
-     * To learn the service namespace of a service, go to <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html"
-     * >Actions, Resources, and Condition Keys for AWS Services</a> in the <i>IAM User Guide</i>. Choose the name of the
-     * service to view details for that service. In the first paragraph, find the service prefix. For example,
-     * <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
+     * To learn the service namespace of a service, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html"
+     * >Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>Service Authorization
+     * Reference</i>. Choose the name of the service to view details for that service. In the first paragraph, find the
+     * service prefix. For example, <code>(service prefix: a4b)</code>. For more information about service namespaces,
+     * see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * >Amazon Web Services service namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      */
     private String serviceNamespace;
@@ -60,41 +61,41 @@ public class AccessDetail implements Serializable, Cloneable {
      * This field is null if no principals in the reported Organizations entity attempted to access the service within
      * the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      */
     private String region;
     /**
      * <p>
      * The path of the Organizations entity (root, organizational unit, or account) from which an authenticated
-     * principal last attempted to access the service. AWS does not report unauthenticated requests.
+     * principal last attempted to access the service. Amazon Web Services does not report unauthenticated requests.
      * </p>
      * <p>
-     * This field is null if no principals (IAM users, IAM roles, or root users) in the reported Organizations entity
+     * This field is null if no principals (IAM users, IAM roles, or root user) in the reported Organizations entity
      * attempted to access the service within the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      */
     private String entityPath;
     /**
      * <p>
      * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when an
-     * authenticated principal most recently attempted to access the service. AWS does not report unauthenticated
-     * requests.
+     * authenticated principal most recently attempted to access the service. Amazon Web Services does not report
+     * unauthenticated requests.
      * </p>
      * <p>
      * This field is null if no principals in the reported Organizations entity attempted to access the service within
      * the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      */
     private java.util.Date lastAuthenticatedTime;
     /**
      * <p>
-     * The number of accounts with authenticated principals (root users, IAM users, and IAM roles) that attempted to
-     * access the service in the reporting period.
+     * The number of accounts with authenticated principals (root user, IAM users, and IAM roles) that attempted to
+     * access the service in the tracking period.
      * </p>
      */
     private Integer totalAuthenticatedEntities;
@@ -144,25 +145,27 @@ public class AccessDetail implements Serializable, Cloneable {
      * The namespace of the service in which access was attempted.
      * </p>
      * <p>
-     * To learn the service namespace of a service, go to <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html"
-     * >Actions, Resources, and Condition Keys for AWS Services</a> in the <i>IAM User Guide</i>. Choose the name of the
-     * service to view details for that service. In the first paragraph, find the service prefix. For example,
-     * <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
+     * To learn the service namespace of a service, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html"
+     * >Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>Service Authorization
+     * Reference</i>. Choose the name of the service to view details for that service. In the first paragraph, find the
+     * service prefix. For example, <code>(service prefix: a4b)</code>. For more information about service namespaces,
+     * see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * >Amazon Web Services service namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param serviceNamespace
      *        The namespace of the service in which access was attempted.</p>
      *        <p>
-     *        To learn the service namespace of a service, go to <a href=
-     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html"
-     *        >Actions, Resources, and Condition Keys for AWS Services</a> in the <i>IAM User Guide</i>. Choose the name
-     *        of the service to view details for that service. In the first paragraph, find the service prefix. For
-     *        example, <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *        >AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        To learn the service namespace of a service, see <a href=
+     *        "https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html"
+     *        >Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>Service
+     *        Authorization Reference</i>. Choose the name of the service to view details for that service. In the first
+     *        paragraph, find the service prefix. For example, <code>(service prefix: a4b)</code>. For more information
+     *        about service namespaces, see <a href=
+     *        "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
+     *        >Amazon Web Services service namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      */
 
     public void setServiceNamespace(String serviceNamespace) {
@@ -174,25 +177,26 @@ public class AccessDetail implements Serializable, Cloneable {
      * The namespace of the service in which access was attempted.
      * </p>
      * <p>
-     * To learn the service namespace of a service, go to <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html"
-     * >Actions, Resources, and Condition Keys for AWS Services</a> in the <i>IAM User Guide</i>. Choose the name of the
-     * service to view details for that service. In the first paragraph, find the service prefix. For example,
-     * <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
+     * To learn the service namespace of a service, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html"
+     * >Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>Service Authorization
+     * Reference</i>. Choose the name of the service to view details for that service. In the first paragraph, find the
+     * service prefix. For example, <code>(service prefix: a4b)</code>. For more information about service namespaces,
+     * see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * >Amazon Web Services service namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @return The namespace of the service in which access was attempted.</p>
      *         <p>
-     *         To learn the service namespace of a service, go to <a href=
-     *         "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html"
-     *         >Actions, Resources, and Condition Keys for AWS Services</a> in the <i>IAM User Guide</i>. Choose the
-     *         name of the service to view details for that service. In the first paragraph, find the service prefix.
-     *         For example, <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
-     *         href=
+     *         To learn the service namespace of a service, see <a href=
+     *         "https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html"
+     *         >Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>Service
+     *         Authorization Reference</i>. Choose the name of the service to view details for that service. In the
+     *         first paragraph, find the service prefix. For example, <code>(service prefix: a4b)</code>. For more
+     *         information about service namespaces, see <a href=
      *         "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *         >AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *         >Amazon Web Services service namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      */
 
     public String getServiceNamespace() {
@@ -204,25 +208,27 @@ public class AccessDetail implements Serializable, Cloneable {
      * The namespace of the service in which access was attempted.
      * </p>
      * <p>
-     * To learn the service namespace of a service, go to <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html"
-     * >Actions, Resources, and Condition Keys for AWS Services</a> in the <i>IAM User Guide</i>. Choose the name of the
-     * service to view details for that service. In the first paragraph, find the service prefix. For example,
-     * <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
+     * To learn the service namespace of a service, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html"
+     * >Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>Service Authorization
+     * Reference</i>. Choose the name of the service to view details for that service. In the first paragraph, find the
+     * service prefix. For example, <code>(service prefix: a4b)</code>. For more information about service namespaces,
+     * see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * >Amazon Web Services service namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param serviceNamespace
      *        The namespace of the service in which access was attempted.</p>
      *        <p>
-     *        To learn the service namespace of a service, go to <a href=
-     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html"
-     *        >Actions, Resources, and Condition Keys for AWS Services</a> in the <i>IAM User Guide</i>. Choose the name
-     *        of the service to view details for that service. In the first paragraph, find the service prefix. For
-     *        example, <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *        >AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        To learn the service namespace of a service, see <a href=
+     *        "https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html"
+     *        >Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>Service
+     *        Authorization Reference</i>. Choose the name of the service to view details for that service. In the first
+     *        paragraph, find the service prefix. For example, <code>(service prefix: a4b)</code>. For more information
+     *        about service namespaces, see <a href=
+     *        "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
+     *        >Amazon Web Services service namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -239,7 +245,7 @@ public class AccessDetail implements Serializable, Cloneable {
      * This field is null if no principals in the reported Organizations entity attempted to access the service within
      * the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      * 
      * @param region
@@ -248,7 +254,7 @@ public class AccessDetail implements Serializable, Cloneable {
      *        This field is null if no principals in the reported Organizations entity attempted to access the service
      *        within the <a href=
      *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     *        >reporting period</a>.
+     *        >tracking period</a>.
      */
 
     public void setRegion(String region) {
@@ -263,7 +269,7 @@ public class AccessDetail implements Serializable, Cloneable {
      * This field is null if no principals in the reported Organizations entity attempted to access the service within
      * the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      * 
      * @return The Region where the last service access attempt occurred.</p>
@@ -271,7 +277,7 @@ public class AccessDetail implements Serializable, Cloneable {
      *         This field is null if no principals in the reported Organizations entity attempted to access the service
      *         within the <a href=
      *         "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     *         >reporting period</a>.
+     *         >tracking period</a>.
      */
 
     public String getRegion() {
@@ -286,7 +292,7 @@ public class AccessDetail implements Serializable, Cloneable {
      * This field is null if no principals in the reported Organizations entity attempted to access the service within
      * the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      * 
      * @param region
@@ -295,7 +301,7 @@ public class AccessDetail implements Serializable, Cloneable {
      *        This field is null if no principals in the reported Organizations entity attempted to access the service
      *        within the <a href=
      *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     *        >reporting period</a>.
+     *        >tracking period</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -307,23 +313,24 @@ public class AccessDetail implements Serializable, Cloneable {
     /**
      * <p>
      * The path of the Organizations entity (root, organizational unit, or account) from which an authenticated
-     * principal last attempted to access the service. AWS does not report unauthenticated requests.
+     * principal last attempted to access the service. Amazon Web Services does not report unauthenticated requests.
      * </p>
      * <p>
-     * This field is null if no principals (IAM users, IAM roles, or root users) in the reported Organizations entity
+     * This field is null if no principals (IAM users, IAM roles, or root user) in the reported Organizations entity
      * attempted to access the service within the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      * 
      * @param entityPath
      *        The path of the Organizations entity (root, organizational unit, or account) from which an authenticated
-     *        principal last attempted to access the service. AWS does not report unauthenticated requests.</p>
+     *        principal last attempted to access the service. Amazon Web Services does not report unauthenticated
+     *        requests.</p>
      *        <p>
-     *        This field is null if no principals (IAM users, IAM roles, or root users) in the reported Organizations
+     *        This field is null if no principals (IAM users, IAM roles, or root user) in the reported Organizations
      *        entity attempted to access the service within the <a href=
      *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     *        >reporting period</a>.
+     *        >tracking period</a>.
      */
 
     public void setEntityPath(String entityPath) {
@@ -333,22 +340,23 @@ public class AccessDetail implements Serializable, Cloneable {
     /**
      * <p>
      * The path of the Organizations entity (root, organizational unit, or account) from which an authenticated
-     * principal last attempted to access the service. AWS does not report unauthenticated requests.
+     * principal last attempted to access the service. Amazon Web Services does not report unauthenticated requests.
      * </p>
      * <p>
-     * This field is null if no principals (IAM users, IAM roles, or root users) in the reported Organizations entity
+     * This field is null if no principals (IAM users, IAM roles, or root user) in the reported Organizations entity
      * attempted to access the service within the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      * 
      * @return The path of the Organizations entity (root, organizational unit, or account) from which an authenticated
-     *         principal last attempted to access the service. AWS does not report unauthenticated requests.</p>
+     *         principal last attempted to access the service. Amazon Web Services does not report unauthenticated
+     *         requests.</p>
      *         <p>
-     *         This field is null if no principals (IAM users, IAM roles, or root users) in the reported Organizations
+     *         This field is null if no principals (IAM users, IAM roles, or root user) in the reported Organizations
      *         entity attempted to access the service within the <a href=
      *         "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     *         >reporting period</a>.
+     *         >tracking period</a>.
      */
 
     public String getEntityPath() {
@@ -358,23 +366,24 @@ public class AccessDetail implements Serializable, Cloneable {
     /**
      * <p>
      * The path of the Organizations entity (root, organizational unit, or account) from which an authenticated
-     * principal last attempted to access the service. AWS does not report unauthenticated requests.
+     * principal last attempted to access the service. Amazon Web Services does not report unauthenticated requests.
      * </p>
      * <p>
-     * This field is null if no principals (IAM users, IAM roles, or root users) in the reported Organizations entity
+     * This field is null if no principals (IAM users, IAM roles, or root user) in the reported Organizations entity
      * attempted to access the service within the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      * 
      * @param entityPath
      *        The path of the Organizations entity (root, organizational unit, or account) from which an authenticated
-     *        principal last attempted to access the service. AWS does not report unauthenticated requests.</p>
+     *        principal last attempted to access the service. Amazon Web Services does not report unauthenticated
+     *        requests.</p>
      *        <p>
-     *        This field is null if no principals (IAM users, IAM roles, or root users) in the reported Organizations
+     *        This field is null if no principals (IAM users, IAM roles, or root user) in the reported Organizations
      *        entity attempted to access the service within the <a href=
      *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     *        >reporting period</a>.
+     *        >tracking period</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -386,25 +395,25 @@ public class AccessDetail implements Serializable, Cloneable {
     /**
      * <p>
      * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when an
-     * authenticated principal most recently attempted to access the service. AWS does not report unauthenticated
-     * requests.
+     * authenticated principal most recently attempted to access the service. Amazon Web Services does not report
+     * unauthenticated requests.
      * </p>
      * <p>
      * This field is null if no principals in the reported Organizations entity attempted to access the service within
      * the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      * 
      * @param lastAuthenticatedTime
      *        The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when an
-     *        authenticated principal most recently attempted to access the service. AWS does not report unauthenticated
-     *        requests.</p>
+     *        authenticated principal most recently attempted to access the service. Amazon Web Services does not report
+     *        unauthenticated requests.</p>
      *        <p>
      *        This field is null if no principals in the reported Organizations entity attempted to access the service
      *        within the <a href=
      *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     *        >reporting period</a>.
+     *        >tracking period</a>.
      */
 
     public void setLastAuthenticatedTime(java.util.Date lastAuthenticatedTime) {
@@ -414,24 +423,24 @@ public class AccessDetail implements Serializable, Cloneable {
     /**
      * <p>
      * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when an
-     * authenticated principal most recently attempted to access the service. AWS does not report unauthenticated
-     * requests.
+     * authenticated principal most recently attempted to access the service. Amazon Web Services does not report
+     * unauthenticated requests.
      * </p>
      * <p>
      * This field is null if no principals in the reported Organizations entity attempted to access the service within
      * the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      * 
      * @return The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when an
-     *         authenticated principal most recently attempted to access the service. AWS does not report
-     *         unauthenticated requests.</p>
+     *         authenticated principal most recently attempted to access the service. Amazon Web Services does not
+     *         report unauthenticated requests.</p>
      *         <p>
      *         This field is null if no principals in the reported Organizations entity attempted to access the service
      *         within the <a href=
      *         "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     *         >reporting period</a>.
+     *         >tracking period</a>.
      */
 
     public java.util.Date getLastAuthenticatedTime() {
@@ -441,25 +450,25 @@ public class AccessDetail implements Serializable, Cloneable {
     /**
      * <p>
      * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when an
-     * authenticated principal most recently attempted to access the service. AWS does not report unauthenticated
-     * requests.
+     * authenticated principal most recently attempted to access the service. Amazon Web Services does not report
+     * unauthenticated requests.
      * </p>
      * <p>
      * This field is null if no principals in the reported Organizations entity attempted to access the service within
      * the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      * 
      * @param lastAuthenticatedTime
      *        The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when an
-     *        authenticated principal most recently attempted to access the service. AWS does not report unauthenticated
-     *        requests.</p>
+     *        authenticated principal most recently attempted to access the service. Amazon Web Services does not report
+     *        unauthenticated requests.</p>
      *        <p>
      *        This field is null if no principals in the reported Organizations entity attempted to access the service
      *        within the <a href=
      *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     *        >reporting period</a>.
+     *        >tracking period</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -470,13 +479,13 @@ public class AccessDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of accounts with authenticated principals (root users, IAM users, and IAM roles) that attempted to
-     * access the service in the reporting period.
+     * The number of accounts with authenticated principals (root user, IAM users, and IAM roles) that attempted to
+     * access the service in the tracking period.
      * </p>
      * 
      * @param totalAuthenticatedEntities
-     *        The number of accounts with authenticated principals (root users, IAM users, and IAM roles) that attempted
-     *        to access the service in the reporting period.
+     *        The number of accounts with authenticated principals (root user, IAM users, and IAM roles) that attempted
+     *        to access the service in the tracking period.
      */
 
     public void setTotalAuthenticatedEntities(Integer totalAuthenticatedEntities) {
@@ -485,12 +494,12 @@ public class AccessDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of accounts with authenticated principals (root users, IAM users, and IAM roles) that attempted to
-     * access the service in the reporting period.
+     * The number of accounts with authenticated principals (root user, IAM users, and IAM roles) that attempted to
+     * access the service in the tracking period.
      * </p>
      * 
-     * @return The number of accounts with authenticated principals (root users, IAM users, and IAM roles) that
-     *         attempted to access the service in the reporting period.
+     * @return The number of accounts with authenticated principals (root user, IAM users, and IAM roles) that attempted
+     *         to access the service in the tracking period.
      */
 
     public Integer getTotalAuthenticatedEntities() {
@@ -499,13 +508,13 @@ public class AccessDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of accounts with authenticated principals (root users, IAM users, and IAM roles) that attempted to
-     * access the service in the reporting period.
+     * The number of accounts with authenticated principals (root user, IAM users, and IAM roles) that attempted to
+     * access the service in the tracking period.
      * </p>
      * 
      * @param totalAuthenticatedEntities
-     *        The number of accounts with authenticated principals (root users, IAM users, and IAM roles) that attempted
-     *        to access the service in the reporting period.
+     *        The number of accounts with authenticated principals (root user, IAM users, and IAM roles) that attempted
+     *        to access the service in the tracking period.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

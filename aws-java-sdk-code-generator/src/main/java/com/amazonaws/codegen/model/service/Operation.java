@@ -16,6 +16,7 @@
 package com.amazonaws.codegen.model.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collections;
 import java.util.List;
 
 public class Operation {
@@ -34,7 +35,7 @@ public class Operation {
 
     private String authorizer;
 
-    private List<ErrorMap> errors;
+    private List<ErrorMap> errors = Collections.emptyList();
 
     private boolean requiresApiKey;
 

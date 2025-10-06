@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,14 @@ public class GetDocumentResultJsonUnmarshaller implements Unmarshaller<GetDocume
                     context.nextToken();
                     getDocumentResult.setName(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("CreatedDate", targetDepth)) {
+                    context.nextToken();
+                    getDocumentResult.setCreatedDate(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("DisplayName", targetDepth)) {
+                    context.nextToken();
+                    getDocumentResult.setDisplayName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("VersionName", targetDepth)) {
                     context.nextToken();
                     getDocumentResult.setVersionName(context.getUnmarshaller(String.class).unmarshall(context));
@@ -80,10 +88,21 @@ public class GetDocumentResultJsonUnmarshaller implements Unmarshaller<GetDocume
                     context.nextToken();
                     getDocumentResult.setDocumentFormat(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("Requires", targetDepth)) {
+                    context.nextToken();
+                    getDocumentResult.setRequires(new ListUnmarshaller<DocumentRequires>(DocumentRequiresJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
                 if (context.testExpression("AttachmentsContent", targetDepth)) {
                     context.nextToken();
                     getDocumentResult.setAttachmentsContent(new ListUnmarshaller<AttachmentContent>(AttachmentContentJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ReviewStatus", targetDepth)) {
+                    context.nextToken();
+                    getDocumentResult.setReviewStatus(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

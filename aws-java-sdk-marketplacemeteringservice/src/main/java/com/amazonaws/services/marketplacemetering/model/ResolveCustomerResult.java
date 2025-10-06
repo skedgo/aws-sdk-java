@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The result of the ResolveCustomer operation. Contains the CustomerIdentifier and product code.
+ * The result of the <code>ResolveCustomer</code> operation. Contains the <code>CustomerIdentifier</code> along with the
+ * <code>CustomerAWSAccountId</code> and <code>ProductCode</code>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/meteringmarketplace-2016-01-14/ResolveCustomer"
@@ -28,28 +29,36 @@ public class ResolveCustomerResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * The CustomerIdentifier is used to identify an individual customer in your application. Calls to BatchMeterUsage
-     * require CustomerIdentifiers for each UsageRecord.
+     * The <code>CustomerIdentifier</code> is used to identify an individual customer in your application. Calls to
+     * <code>BatchMeterUsage</code> require <code>CustomerIdentifiers</code> for each <code>UsageRecord</code>.
      * </p>
      */
     private String customerIdentifier;
     /**
      * <p>
      * The product code is returned to confirm that the buyer is registering for your product. Subsequent
-     * BatchMeterUsage calls should be made using this product code.
+     * <code>BatchMeterUsage</code> calls should be made using this product code.
      * </p>
      */
     private String productCode;
+    /**
+     * <p>
+     * The <code>CustomerAWSAccountId</code> provides the AWS account ID associated with the
+     * <code>CustomerIdentifier</code> for the individual customer.
+     * </p>
+     */
+    private String customerAWSAccountId;
 
     /**
      * <p>
-     * The CustomerIdentifier is used to identify an individual customer in your application. Calls to BatchMeterUsage
-     * require CustomerIdentifiers for each UsageRecord.
+     * The <code>CustomerIdentifier</code> is used to identify an individual customer in your application. Calls to
+     * <code>BatchMeterUsage</code> require <code>CustomerIdentifiers</code> for each <code>UsageRecord</code>.
      * </p>
      * 
      * @param customerIdentifier
-     *        The CustomerIdentifier is used to identify an individual customer in your application. Calls to
-     *        BatchMeterUsage require CustomerIdentifiers for each UsageRecord.
+     *        The <code>CustomerIdentifier</code> is used to identify an individual customer in your application. Calls
+     *        to <code>BatchMeterUsage</code> require <code>CustomerIdentifiers</code> for each <code>UsageRecord</code>
+     *        .
      */
 
     public void setCustomerIdentifier(String customerIdentifier) {
@@ -58,12 +67,13 @@ public class ResolveCustomerResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * The CustomerIdentifier is used to identify an individual customer in your application. Calls to BatchMeterUsage
-     * require CustomerIdentifiers for each UsageRecord.
+     * The <code>CustomerIdentifier</code> is used to identify an individual customer in your application. Calls to
+     * <code>BatchMeterUsage</code> require <code>CustomerIdentifiers</code> for each <code>UsageRecord</code>.
      * </p>
      * 
-     * @return The CustomerIdentifier is used to identify an individual customer in your application. Calls to
-     *         BatchMeterUsage require CustomerIdentifiers for each UsageRecord.
+     * @return The <code>CustomerIdentifier</code> is used to identify an individual customer in your application. Calls
+     *         to <code>BatchMeterUsage</code> require <code>CustomerIdentifiers</code> for each
+     *         <code>UsageRecord</code>.
      */
 
     public String getCustomerIdentifier() {
@@ -72,13 +82,14 @@ public class ResolveCustomerResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * The CustomerIdentifier is used to identify an individual customer in your application. Calls to BatchMeterUsage
-     * require CustomerIdentifiers for each UsageRecord.
+     * The <code>CustomerIdentifier</code> is used to identify an individual customer in your application. Calls to
+     * <code>BatchMeterUsage</code> require <code>CustomerIdentifiers</code> for each <code>UsageRecord</code>.
      * </p>
      * 
      * @param customerIdentifier
-     *        The CustomerIdentifier is used to identify an individual customer in your application. Calls to
-     *        BatchMeterUsage require CustomerIdentifiers for each UsageRecord.
+     *        The <code>CustomerIdentifier</code> is used to identify an individual customer in your application. Calls
+     *        to <code>BatchMeterUsage</code> require <code>CustomerIdentifiers</code> for each <code>UsageRecord</code>
+     *        .
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -90,12 +101,12 @@ public class ResolveCustomerResult extends com.amazonaws.AmazonWebServiceResult<
     /**
      * <p>
      * The product code is returned to confirm that the buyer is registering for your product. Subsequent
-     * BatchMeterUsage calls should be made using this product code.
+     * <code>BatchMeterUsage</code> calls should be made using this product code.
      * </p>
      * 
      * @param productCode
      *        The product code is returned to confirm that the buyer is registering for your product. Subsequent
-     *        BatchMeterUsage calls should be made using this product code.
+     *        <code>BatchMeterUsage</code> calls should be made using this product code.
      */
 
     public void setProductCode(String productCode) {
@@ -105,11 +116,11 @@ public class ResolveCustomerResult extends com.amazonaws.AmazonWebServiceResult<
     /**
      * <p>
      * The product code is returned to confirm that the buyer is registering for your product. Subsequent
-     * BatchMeterUsage calls should be made using this product code.
+     * <code>BatchMeterUsage</code> calls should be made using this product code.
      * </p>
      * 
      * @return The product code is returned to confirm that the buyer is registering for your product. Subsequent
-     *         BatchMeterUsage calls should be made using this product code.
+     *         <code>BatchMeterUsage</code> calls should be made using this product code.
      */
 
     public String getProductCode() {
@@ -119,17 +130,63 @@ public class ResolveCustomerResult extends com.amazonaws.AmazonWebServiceResult<
     /**
      * <p>
      * The product code is returned to confirm that the buyer is registering for your product. Subsequent
-     * BatchMeterUsage calls should be made using this product code.
+     * <code>BatchMeterUsage</code> calls should be made using this product code.
      * </p>
      * 
      * @param productCode
      *        The product code is returned to confirm that the buyer is registering for your product. Subsequent
-     *        BatchMeterUsage calls should be made using this product code.
+     *        <code>BatchMeterUsage</code> calls should be made using this product code.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ResolveCustomerResult withProductCode(String productCode) {
         setProductCode(productCode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The <code>CustomerAWSAccountId</code> provides the AWS account ID associated with the
+     * <code>CustomerIdentifier</code> for the individual customer.
+     * </p>
+     * 
+     * @param customerAWSAccountId
+     *        The <code>CustomerAWSAccountId</code> provides the AWS account ID associated with the
+     *        <code>CustomerIdentifier</code> for the individual customer.
+     */
+
+    public void setCustomerAWSAccountId(String customerAWSAccountId) {
+        this.customerAWSAccountId = customerAWSAccountId;
+    }
+
+    /**
+     * <p>
+     * The <code>CustomerAWSAccountId</code> provides the AWS account ID associated with the
+     * <code>CustomerIdentifier</code> for the individual customer.
+     * </p>
+     * 
+     * @return The <code>CustomerAWSAccountId</code> provides the AWS account ID associated with the
+     *         <code>CustomerIdentifier</code> for the individual customer.
+     */
+
+    public String getCustomerAWSAccountId() {
+        return this.customerAWSAccountId;
+    }
+
+    /**
+     * <p>
+     * The <code>CustomerAWSAccountId</code> provides the AWS account ID associated with the
+     * <code>CustomerIdentifier</code> for the individual customer.
+     * </p>
+     * 
+     * @param customerAWSAccountId
+     *        The <code>CustomerAWSAccountId</code> provides the AWS account ID associated with the
+     *        <code>CustomerIdentifier</code> for the individual customer.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResolveCustomerResult withCustomerAWSAccountId(String customerAWSAccountId) {
+        setCustomerAWSAccountId(customerAWSAccountId);
         return this;
     }
 
@@ -148,7 +205,9 @@ public class ResolveCustomerResult extends com.amazonaws.AmazonWebServiceResult<
         if (getCustomerIdentifier() != null)
             sb.append("CustomerIdentifier: ").append(getCustomerIdentifier()).append(",");
         if (getProductCode() != null)
-            sb.append("ProductCode: ").append(getProductCode());
+            sb.append("ProductCode: ").append(getProductCode()).append(",");
+        if (getCustomerAWSAccountId() != null)
+            sb.append("CustomerAWSAccountId: ").append(getCustomerAWSAccountId());
         sb.append("}");
         return sb.toString();
     }
@@ -171,6 +230,10 @@ public class ResolveCustomerResult extends com.amazonaws.AmazonWebServiceResult<
             return false;
         if (other.getProductCode() != null && other.getProductCode().equals(this.getProductCode()) == false)
             return false;
+        if (other.getCustomerAWSAccountId() == null ^ this.getCustomerAWSAccountId() == null)
+            return false;
+        if (other.getCustomerAWSAccountId() != null && other.getCustomerAWSAccountId().equals(this.getCustomerAWSAccountId()) == false)
+            return false;
         return true;
     }
 
@@ -181,6 +244,7 @@ public class ResolveCustomerResult extends com.amazonaws.AmazonWebServiceResult<
 
         hashCode = prime * hashCode + ((getCustomerIdentifier() == null) ? 0 : getCustomerIdentifier().hashCode());
         hashCode = prime * hashCode + ((getProductCode() == null) ? 0 : getProductCode().hashCode());
+        hashCode = prime * hashCode + ((getCustomerAWSAccountId() == null) ? 0 : getCustomerAWSAccountId().hashCode());
         return hashCode;
     }
 

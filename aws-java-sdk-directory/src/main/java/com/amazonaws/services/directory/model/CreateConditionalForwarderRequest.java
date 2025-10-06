@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Initiates the creation of a conditional forwarder for your AWS Directory Service for Microsoft Active Directory.
+ * Initiates the creation of a conditional forwarder for your Directory Service for Microsoft Active Directory.
  * Conditional forwarders are required in order to set up a trust relationship with another domain.
  * </p>
  * 
@@ -31,7 +31,7 @@ public class CreateConditionalForwarderRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The directory ID of the AWS directory for which you are creating the conditional forwarder.
+     * The directory ID of the Amazon Web Services directory for which you are creating the conditional forwarder.
      * </p>
      */
     private String directoryId;
@@ -50,11 +50,12 @@ public class CreateConditionalForwarderRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The directory ID of the AWS directory for which you are creating the conditional forwarder.
+     * The directory ID of the Amazon Web Services directory for which you are creating the conditional forwarder.
      * </p>
      * 
      * @param directoryId
-     *        The directory ID of the AWS directory for which you are creating the conditional forwarder.
+     *        The directory ID of the Amazon Web Services directory for which you are creating the conditional
+     *        forwarder.
      */
 
     public void setDirectoryId(String directoryId) {
@@ -63,10 +64,11 @@ public class CreateConditionalForwarderRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The directory ID of the AWS directory for which you are creating the conditional forwarder.
+     * The directory ID of the Amazon Web Services directory for which you are creating the conditional forwarder.
      * </p>
      * 
-     * @return The directory ID of the AWS directory for which you are creating the conditional forwarder.
+     * @return The directory ID of the Amazon Web Services directory for which you are creating the conditional
+     *         forwarder.
      */
 
     public String getDirectoryId() {
@@ -75,11 +77,12 @@ public class CreateConditionalForwarderRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The directory ID of the AWS directory for which you are creating the conditional forwarder.
+     * The directory ID of the Amazon Web Services directory for which you are creating the conditional forwarder.
      * </p>
      * 
      * @param directoryId
-     *        The directory ID of the AWS directory for which you are creating the conditional forwarder.
+     *        The directory ID of the Amazon Web Services directory for which you are creating the conditional
+     *        forwarder.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

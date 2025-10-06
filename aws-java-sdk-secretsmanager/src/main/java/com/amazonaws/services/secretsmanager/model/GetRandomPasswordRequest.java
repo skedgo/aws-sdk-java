@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,78 +27,67 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The desired length of the generated password. The default value if you do not include this parameter is 32
-     * characters.
+     * The length of the password. If you don't include this parameter, the default length is 32 characters.
      * </p>
      */
     private Long passwordLength;
     /**
      * <p>
-     * A string that includes characters that should not be included in the generated password. The default is that all
-     * characters from the included sets can be used.
+     * A string of the characters that you don't want in the password.
      * </p>
      */
     private String excludeCharacters;
     /**
      * <p>
-     * Specifies that the generated password should not include digits. The default if you do not include this switch
-     * parameter is that digits can be included.
+     * Specifies whether to exclude numbers from the password. If you don't include this switch, the password can
+     * contain numbers.
      * </p>
      */
     private Boolean excludeNumbers;
     /**
      * <p>
-     * Specifies that the generated password should not include punctuation characters. The default if you do not
-     * include this switch parameter is that punctuation characters can be included.
-     * </p>
-     * <p>
-     * The following are the punctuation characters that <i>can</i> be included in the generated password if you don't
-     * explicitly exclude them with <code>ExcludeCharacters</code> or <code>ExcludePunctuation</code>:
-     * </p>
-     * <p>
-     * <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>
+     * Specifies whether to exclude the following punctuation characters from the password:
+     * <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>. If you don't include this
+     * switch, the password can contain punctuation.
      * </p>
      */
     private Boolean excludePunctuation;
     /**
      * <p>
-     * Specifies that the generated password should not include uppercase letters. The default if you do not include
-     * this switch parameter is that uppercase letters can be included.
+     * Specifies whether to exclude uppercase letters from the password. If you don't include this switch, the password
+     * can contain uppercase letters.
      * </p>
      */
     private Boolean excludeUppercase;
     /**
      * <p>
-     * Specifies that the generated password should not include lowercase letters. The default if you do not include
-     * this switch parameter is that lowercase letters can be included.
+     * Specifies whether to exclude lowercase letters from the password. If you don't include this switch, the password
+     * can contain lowercase letters.
      * </p>
      */
     private Boolean excludeLowercase;
     /**
      * <p>
-     * Specifies that the generated password can include the space character. The default if you do not include this
-     * switch parameter is that the space character is not included.
+     * Specifies whether to include the space character. If you include this switch, the password can contain space
+     * characters.
      * </p>
      */
     private Boolean includeSpace;
     /**
      * <p>
-     * A boolean value that specifies whether the generated password must include at least one of every allowed
-     * character type. The default value is <code>True</code> and the operation requires at least one of every character
-     * type.
+     * Specifies whether to include at least one upper and lowercase letter, one number, and one punctuation. If you
+     * don't include this switch, the password contains at least one of every character type.
      * </p>
      */
     private Boolean requireEachIncludedType;
 
     /**
      * <p>
-     * The desired length of the generated password. The default value if you do not include this parameter is 32
-     * characters.
+     * The length of the password. If you don't include this parameter, the default length is 32 characters.
      * </p>
      * 
      * @param passwordLength
-     *        The desired length of the generated password. The default value if you do not include this parameter is 32
-     *        characters.
+     *        The length of the password. If you don't include this parameter, the default length is 32 characters.
      */
 
     public void setPasswordLength(Long passwordLength) {
@@ -107,12 +96,10 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The desired length of the generated password. The default value if you do not include this parameter is 32
-     * characters.
+     * The length of the password. If you don't include this parameter, the default length is 32 characters.
      * </p>
      * 
-     * @return The desired length of the generated password. The default value if you do not include this parameter is
-     *         32 characters.
+     * @return The length of the password. If you don't include this parameter, the default length is 32 characters.
      */
 
     public Long getPasswordLength() {
@@ -121,13 +108,11 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The desired length of the generated password. The default value if you do not include this parameter is 32
-     * characters.
+     * The length of the password. If you don't include this parameter, the default length is 32 characters.
      * </p>
      * 
      * @param passwordLength
-     *        The desired length of the generated password. The default value if you do not include this parameter is 32
-     *        characters.
+     *        The length of the password. If you don't include this parameter, the default length is 32 characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -138,13 +123,11 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A string that includes characters that should not be included in the generated password. The default is that all
-     * characters from the included sets can be used.
+     * A string of the characters that you don't want in the password.
      * </p>
      * 
      * @param excludeCharacters
-     *        A string that includes characters that should not be included in the generated password. The default is
-     *        that all characters from the included sets can be used.
+     *        A string of the characters that you don't want in the password.
      */
 
     public void setExcludeCharacters(String excludeCharacters) {
@@ -153,12 +136,10 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A string that includes characters that should not be included in the generated password. The default is that all
-     * characters from the included sets can be used.
+     * A string of the characters that you don't want in the password.
      * </p>
      * 
-     * @return A string that includes characters that should not be included in the generated password. The default is
-     *         that all characters from the included sets can be used.
+     * @return A string of the characters that you don't want in the password.
      */
 
     public String getExcludeCharacters() {
@@ -167,13 +148,11 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A string that includes characters that should not be included in the generated password. The default is that all
-     * characters from the included sets can be used.
+     * A string of the characters that you don't want in the password.
      * </p>
      * 
      * @param excludeCharacters
-     *        A string that includes characters that should not be included in the generated password. The default is
-     *        that all characters from the included sets can be used.
+     *        A string of the characters that you don't want in the password.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -184,13 +163,13 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include digits. The default if you do not include this switch
-     * parameter is that digits can be included.
+     * Specifies whether to exclude numbers from the password. If you don't include this switch, the password can
+     * contain numbers.
      * </p>
      * 
      * @param excludeNumbers
-     *        Specifies that the generated password should not include digits. The default if you do not include this
-     *        switch parameter is that digits can be included.
+     *        Specifies whether to exclude numbers from the password. If you don't include this switch, the password can
+     *        contain numbers.
      */
 
     public void setExcludeNumbers(Boolean excludeNumbers) {
@@ -199,12 +178,12 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include digits. The default if you do not include this switch
-     * parameter is that digits can be included.
+     * Specifies whether to exclude numbers from the password. If you don't include this switch, the password can
+     * contain numbers.
      * </p>
      * 
-     * @return Specifies that the generated password should not include digits. The default if you do not include this
-     *         switch parameter is that digits can be included.
+     * @return Specifies whether to exclude numbers from the password. If you don't include this switch, the password
+     *         can contain numbers.
      */
 
     public Boolean getExcludeNumbers() {
@@ -213,13 +192,13 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include digits. The default if you do not include this switch
-     * parameter is that digits can be included.
+     * Specifies whether to exclude numbers from the password. If you don't include this switch, the password can
+     * contain numbers.
      * </p>
      * 
      * @param excludeNumbers
-     *        Specifies that the generated password should not include digits. The default if you do not include this
-     *        switch parameter is that digits can be included.
+     *        Specifies whether to exclude numbers from the password. If you don't include this switch, the password can
+     *        contain numbers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -230,12 +209,12 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include digits. The default if you do not include this switch
-     * parameter is that digits can be included.
+     * Specifies whether to exclude numbers from the password. If you don't include this switch, the password can
+     * contain numbers.
      * </p>
      * 
-     * @return Specifies that the generated password should not include digits. The default if you do not include this
-     *         switch parameter is that digits can be included.
+     * @return Specifies whether to exclude numbers from the password. If you don't include this switch, the password
+     *         can contain numbers.
      */
 
     public Boolean isExcludeNumbers() {
@@ -244,26 +223,15 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include punctuation characters. The default if you do not
-     * include this switch parameter is that punctuation characters can be included.
-     * </p>
-     * <p>
-     * The following are the punctuation characters that <i>can</i> be included in the generated password if you don't
-     * explicitly exclude them with <code>ExcludeCharacters</code> or <code>ExcludePunctuation</code>:
-     * </p>
-     * <p>
-     * <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>
+     * Specifies whether to exclude the following punctuation characters from the password:
+     * <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>. If you don't include this
+     * switch, the password can contain punctuation.
      * </p>
      * 
      * @param excludePunctuation
-     *        Specifies that the generated password should not include punctuation characters. The default if you do not
-     *        include this switch parameter is that punctuation characters can be included.</p>
-     *        <p>
-     *        The following are the punctuation characters that <i>can</i> be included in the generated password if you
-     *        don't explicitly exclude them with <code>ExcludeCharacters</code> or <code>ExcludePunctuation</code>:
-     *        </p>
-     *        <p>
-     *        <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>
+     *        Specifies whether to exclude the following punctuation characters from the password:
+     *        <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>. If you don't
+     *        include this switch, the password can contain punctuation.
      */
 
     public void setExcludePunctuation(Boolean excludePunctuation) {
@@ -272,25 +240,14 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include punctuation characters. The default if you do not
-     * include this switch parameter is that punctuation characters can be included.
-     * </p>
-     * <p>
-     * The following are the punctuation characters that <i>can</i> be included in the generated password if you don't
-     * explicitly exclude them with <code>ExcludeCharacters</code> or <code>ExcludePunctuation</code>:
-     * </p>
-     * <p>
-     * <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>
+     * Specifies whether to exclude the following punctuation characters from the password:
+     * <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>. If you don't include this
+     * switch, the password can contain punctuation.
      * </p>
      * 
-     * @return Specifies that the generated password should not include punctuation characters. The default if you do
-     *         not include this switch parameter is that punctuation characters can be included.</p>
-     *         <p>
-     *         The following are the punctuation characters that <i>can</i> be included in the generated password if you
-     *         don't explicitly exclude them with <code>ExcludeCharacters</code> or <code>ExcludePunctuation</code>:
-     *         </p>
-     *         <p>
-     *         <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>
+     * @return Specifies whether to exclude the following punctuation characters from the password:
+     *         <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>. If you don't
+     *         include this switch, the password can contain punctuation.
      */
 
     public Boolean getExcludePunctuation() {
@@ -299,26 +256,15 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include punctuation characters. The default if you do not
-     * include this switch parameter is that punctuation characters can be included.
-     * </p>
-     * <p>
-     * The following are the punctuation characters that <i>can</i> be included in the generated password if you don't
-     * explicitly exclude them with <code>ExcludeCharacters</code> or <code>ExcludePunctuation</code>:
-     * </p>
-     * <p>
-     * <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>
+     * Specifies whether to exclude the following punctuation characters from the password:
+     * <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>. If you don't include this
+     * switch, the password can contain punctuation.
      * </p>
      * 
      * @param excludePunctuation
-     *        Specifies that the generated password should not include punctuation characters. The default if you do not
-     *        include this switch parameter is that punctuation characters can be included.</p>
-     *        <p>
-     *        The following are the punctuation characters that <i>can</i> be included in the generated password if you
-     *        don't explicitly exclude them with <code>ExcludeCharacters</code> or <code>ExcludePunctuation</code>:
-     *        </p>
-     *        <p>
-     *        <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>
+     *        Specifies whether to exclude the following punctuation characters from the password:
+     *        <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>. If you don't
+     *        include this switch, the password can contain punctuation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -329,25 +275,14 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include punctuation characters. The default if you do not
-     * include this switch parameter is that punctuation characters can be included.
-     * </p>
-     * <p>
-     * The following are the punctuation characters that <i>can</i> be included in the generated password if you don't
-     * explicitly exclude them with <code>ExcludeCharacters</code> or <code>ExcludePunctuation</code>:
-     * </p>
-     * <p>
-     * <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>
+     * Specifies whether to exclude the following punctuation characters from the password:
+     * <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>. If you don't include this
+     * switch, the password can contain punctuation.
      * </p>
      * 
-     * @return Specifies that the generated password should not include punctuation characters. The default if you do
-     *         not include this switch parameter is that punctuation characters can be included.</p>
-     *         <p>
-     *         The following are the punctuation characters that <i>can</i> be included in the generated password if you
-     *         don't explicitly exclude them with <code>ExcludeCharacters</code> or <code>ExcludePunctuation</code>:
-     *         </p>
-     *         <p>
-     *         <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>
+     * @return Specifies whether to exclude the following punctuation characters from the password:
+     *         <code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ \ ] ^ _ ` { | } ~</code>. If you don't
+     *         include this switch, the password can contain punctuation.
      */
 
     public Boolean isExcludePunctuation() {
@@ -356,13 +291,13 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include uppercase letters. The default if you do not include
-     * this switch parameter is that uppercase letters can be included.
+     * Specifies whether to exclude uppercase letters from the password. If you don't include this switch, the password
+     * can contain uppercase letters.
      * </p>
      * 
      * @param excludeUppercase
-     *        Specifies that the generated password should not include uppercase letters. The default if you do not
-     *        include this switch parameter is that uppercase letters can be included.
+     *        Specifies whether to exclude uppercase letters from the password. If you don't include this switch, the
+     *        password can contain uppercase letters.
      */
 
     public void setExcludeUppercase(Boolean excludeUppercase) {
@@ -371,12 +306,12 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include uppercase letters. The default if you do not include
-     * this switch parameter is that uppercase letters can be included.
+     * Specifies whether to exclude uppercase letters from the password. If you don't include this switch, the password
+     * can contain uppercase letters.
      * </p>
      * 
-     * @return Specifies that the generated password should not include uppercase letters. The default if you do not
-     *         include this switch parameter is that uppercase letters can be included.
+     * @return Specifies whether to exclude uppercase letters from the password. If you don't include this switch, the
+     *         password can contain uppercase letters.
      */
 
     public Boolean getExcludeUppercase() {
@@ -385,13 +320,13 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include uppercase letters. The default if you do not include
-     * this switch parameter is that uppercase letters can be included.
+     * Specifies whether to exclude uppercase letters from the password. If you don't include this switch, the password
+     * can contain uppercase letters.
      * </p>
      * 
      * @param excludeUppercase
-     *        Specifies that the generated password should not include uppercase letters. The default if you do not
-     *        include this switch parameter is that uppercase letters can be included.
+     *        Specifies whether to exclude uppercase letters from the password. If you don't include this switch, the
+     *        password can contain uppercase letters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -402,12 +337,12 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include uppercase letters. The default if you do not include
-     * this switch parameter is that uppercase letters can be included.
+     * Specifies whether to exclude uppercase letters from the password. If you don't include this switch, the password
+     * can contain uppercase letters.
      * </p>
      * 
-     * @return Specifies that the generated password should not include uppercase letters. The default if you do not
-     *         include this switch parameter is that uppercase letters can be included.
+     * @return Specifies whether to exclude uppercase letters from the password. If you don't include this switch, the
+     *         password can contain uppercase letters.
      */
 
     public Boolean isExcludeUppercase() {
@@ -416,13 +351,13 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include lowercase letters. The default if you do not include
-     * this switch parameter is that lowercase letters can be included.
+     * Specifies whether to exclude lowercase letters from the password. If you don't include this switch, the password
+     * can contain lowercase letters.
      * </p>
      * 
      * @param excludeLowercase
-     *        Specifies that the generated password should not include lowercase letters. The default if you do not
-     *        include this switch parameter is that lowercase letters can be included.
+     *        Specifies whether to exclude lowercase letters from the password. If you don't include this switch, the
+     *        password can contain lowercase letters.
      */
 
     public void setExcludeLowercase(Boolean excludeLowercase) {
@@ -431,12 +366,12 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include lowercase letters. The default if you do not include
-     * this switch parameter is that lowercase letters can be included.
+     * Specifies whether to exclude lowercase letters from the password. If you don't include this switch, the password
+     * can contain lowercase letters.
      * </p>
      * 
-     * @return Specifies that the generated password should not include lowercase letters. The default if you do not
-     *         include this switch parameter is that lowercase letters can be included.
+     * @return Specifies whether to exclude lowercase letters from the password. If you don't include this switch, the
+     *         password can contain lowercase letters.
      */
 
     public Boolean getExcludeLowercase() {
@@ -445,13 +380,13 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include lowercase letters. The default if you do not include
-     * this switch parameter is that lowercase letters can be included.
+     * Specifies whether to exclude lowercase letters from the password. If you don't include this switch, the password
+     * can contain lowercase letters.
      * </p>
      * 
      * @param excludeLowercase
-     *        Specifies that the generated password should not include lowercase letters. The default if you do not
-     *        include this switch parameter is that lowercase letters can be included.
+     *        Specifies whether to exclude lowercase letters from the password. If you don't include this switch, the
+     *        password can contain lowercase letters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -462,12 +397,12 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password should not include lowercase letters. The default if you do not include
-     * this switch parameter is that lowercase letters can be included.
+     * Specifies whether to exclude lowercase letters from the password. If you don't include this switch, the password
+     * can contain lowercase letters.
      * </p>
      * 
-     * @return Specifies that the generated password should not include lowercase letters. The default if you do not
-     *         include this switch parameter is that lowercase letters can be included.
+     * @return Specifies whether to exclude lowercase letters from the password. If you don't include this switch, the
+     *         password can contain lowercase letters.
      */
 
     public Boolean isExcludeLowercase() {
@@ -476,13 +411,13 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password can include the space character. The default if you do not include this
-     * switch parameter is that the space character is not included.
+     * Specifies whether to include the space character. If you include this switch, the password can contain space
+     * characters.
      * </p>
      * 
      * @param includeSpace
-     *        Specifies that the generated password can include the space character. The default if you do not include
-     *        this switch parameter is that the space character is not included.
+     *        Specifies whether to include the space character. If you include this switch, the password can contain
+     *        space characters.
      */
 
     public void setIncludeSpace(Boolean includeSpace) {
@@ -491,12 +426,12 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password can include the space character. The default if you do not include this
-     * switch parameter is that the space character is not included.
+     * Specifies whether to include the space character. If you include this switch, the password can contain space
+     * characters.
      * </p>
      * 
-     * @return Specifies that the generated password can include the space character. The default if you do not include
-     *         this switch parameter is that the space character is not included.
+     * @return Specifies whether to include the space character. If you include this switch, the password can contain
+     *         space characters.
      */
 
     public Boolean getIncludeSpace() {
@@ -505,13 +440,13 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password can include the space character. The default if you do not include this
-     * switch parameter is that the space character is not included.
+     * Specifies whether to include the space character. If you include this switch, the password can contain space
+     * characters.
      * </p>
      * 
      * @param includeSpace
-     *        Specifies that the generated password can include the space character. The default if you do not include
-     *        this switch parameter is that the space character is not included.
+     *        Specifies whether to include the space character. If you include this switch, the password can contain
+     *        space characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -522,12 +457,12 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies that the generated password can include the space character. The default if you do not include this
-     * switch parameter is that the space character is not included.
+     * Specifies whether to include the space character. If you include this switch, the password can contain space
+     * characters.
      * </p>
      * 
-     * @return Specifies that the generated password can include the space character. The default if you do not include
-     *         this switch parameter is that the space character is not included.
+     * @return Specifies whether to include the space character. If you include this switch, the password can contain
+     *         space characters.
      */
 
     public Boolean isIncludeSpace() {
@@ -536,15 +471,13 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A boolean value that specifies whether the generated password must include at least one of every allowed
-     * character type. The default value is <code>True</code> and the operation requires at least one of every character
-     * type.
+     * Specifies whether to include at least one upper and lowercase letter, one number, and one punctuation. If you
+     * don't include this switch, the password contains at least one of every character type.
      * </p>
      * 
      * @param requireEachIncludedType
-     *        A boolean value that specifies whether the generated password must include at least one of every allowed
-     *        character type. The default value is <code>True</code> and the operation requires at least one of every
-     *        character type.
+     *        Specifies whether to include at least one upper and lowercase letter, one number, and one punctuation. If
+     *        you don't include this switch, the password contains at least one of every character type.
      */
 
     public void setRequireEachIncludedType(Boolean requireEachIncludedType) {
@@ -553,14 +486,12 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A boolean value that specifies whether the generated password must include at least one of every allowed
-     * character type. The default value is <code>True</code> and the operation requires at least one of every character
-     * type.
+     * Specifies whether to include at least one upper and lowercase letter, one number, and one punctuation. If you
+     * don't include this switch, the password contains at least one of every character type.
      * </p>
      * 
-     * @return A boolean value that specifies whether the generated password must include at least one of every allowed
-     *         character type. The default value is <code>True</code> and the operation requires at least one of every
-     *         character type.
+     * @return Specifies whether to include at least one upper and lowercase letter, one number, and one punctuation. If
+     *         you don't include this switch, the password contains at least one of every character type.
      */
 
     public Boolean getRequireEachIncludedType() {
@@ -569,15 +500,13 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A boolean value that specifies whether the generated password must include at least one of every allowed
-     * character type. The default value is <code>True</code> and the operation requires at least one of every character
-     * type.
+     * Specifies whether to include at least one upper and lowercase letter, one number, and one punctuation. If you
+     * don't include this switch, the password contains at least one of every character type.
      * </p>
      * 
      * @param requireEachIncludedType
-     *        A boolean value that specifies whether the generated password must include at least one of every allowed
-     *        character type. The default value is <code>True</code> and the operation requires at least one of every
-     *        character type.
+     *        Specifies whether to include at least one upper and lowercase letter, one number, and one punctuation. If
+     *        you don't include this switch, the password contains at least one of every character type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -588,14 +517,12 @@ public class GetRandomPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A boolean value that specifies whether the generated password must include at least one of every allowed
-     * character type. The default value is <code>True</code> and the operation requires at least one of every character
-     * type.
+     * Specifies whether to include at least one upper and lowercase letter, one number, and one punctuation. If you
+     * don't include this switch, the password contains at least one of every character type.
      * </p>
      * 
-     * @return A boolean value that specifies whether the generated password must include at least one of every allowed
-     *         character type. The default value is <code>True</code> and the operation requires at least one of every
-     *         character type.
+     * @return Specifies whether to include at least one upper and lowercase letter, one number, and one punctuation. If
+     *         you don't include this switch, the password contains at least one of every character type.
      */
 
     public Boolean isRequireEachIncludedType() {

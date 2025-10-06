@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -107,13 +107,20 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Adds up to 50 cost allocation tags to the named resource. A cost allocation tag is a key-value pair where the key
-     * and value are case-sensitive. You can use cost allocation tags to categorize and track your AWS costs.
+     * A tag is a key-value pair where the key and value are case-sensitive. You can use tags to categorize and track
+     * all your ElastiCache resources, with the exception of global replication group. When you add or remove tags on
+     * replication groups, those actions will be replicated to all nodes in the replication group. For more information,
+     * see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.ResourceLevelPermissions.html">Resource
+     * -level permissions</a>.
      * </p>
      * <p>
-     * When you apply tags to your ElastiCache resources, AWS generates a cost allocation report as a comma-separated
-     * value (CSV) file with your usage and costs aggregated by your tags. You can apply tags that represent business
-     * categories (such as cost centers, application names, or owners) to organize your costs across multiple services.
+     * For example, you can use cost-allocation tags to your ElastiCache resources, Amazon generates a cost allocation
+     * report as a comma-separated value (CSV) file with your usage and costs aggregated by your tags. You can apply
+     * tags that represent business categories (such as cost centers, application names, or owners) to organize your
+     * costs across multiple services.
+     * </p>
+     * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Tagging.html">Using Cost Allocation Tags in
      * Amazon ElastiCache</a> in the <i>ElastiCache User Guide</i>.
@@ -124,8 +131,34 @@ public interface AmazonElastiCache {
      * @return Result of the AddTagsToResource operation returned by the service.
      * @throws CacheClusterNotFoundException
      *         The requested cluster ID does not refer to an existing cluster.
+     * @throws CacheParameterGroupNotFoundException
+     *         The requested cache parameter group name does not refer to an existing cache parameter group.
+     * @throws CacheSecurityGroupNotFoundException
+     *         The requested cache security group name does not refer to an existing cache security group.
+     * @throws CacheSubnetGroupNotFoundException
+     *         The requested cache subnet group name does not refer to an existing cache subnet group.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws ReservedCacheNodeNotFoundException
+     *         The requested reserved cache node was not found.
      * @throws SnapshotNotFoundException
      *         The requested snapshot name does not refer to an existing snapshot.
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidServerlessCacheStateException
+     *         The account for these credentials is not currently active.
+     * @throws ServerlessCacheSnapshotNotFoundException
+     *         This serverless cache snapshot could not be found or does not exist. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws InvalidServerlessCacheSnapshotStateException
+     *         The state of the serverless cache snapshot was not received. Available for Redis OSS and Serverless
+     *         Memcached only.
      * @throws TagQuotaPerResourceExceededException
      *         The request cannot be processed because it would cause the resource to have more than the allowed number
      *         of tags. The maximum number of tags permitted on a resource is 50.
@@ -208,11 +241,64 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
+     * Complete the migration of data.
+     * </p>
+     * 
+     * @param completeMigrationRequest
+     * @return Result of the CompleteMigration operation returned by the service.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws ReplicationGroupNotUnderMigrationException
+     *         The designated replication group is not available for data migration.
+     * @sample AmazonElastiCache.CompleteMigration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CompleteMigration" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ReplicationGroup completeMigration(CompleteMigrationRequest completeMigrationRequest);
+
+    /**
+     * <p>
+     * Creates a copy of an existing serverless cache’s snapshot. Available for Redis OSS and Serverless Memcached only.
+     * </p>
+     * 
+     * @param copyServerlessCacheSnapshotRequest
+     * @return Result of the CopyServerlessCacheSnapshot operation returned by the service.
+     * @throws ServerlessCacheSnapshotAlreadyExistsException
+     *         A serverless cache snapshot with this name already exists. Available for Redis OSS and Serverless
+     *         Memcached only.
+     * @throws ServerlessCacheSnapshotNotFoundException
+     *         This serverless cache snapshot could not be found or does not exist. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws ServerlessCacheSnapshotQuotaExceededException
+     *         The number of serverless cache snapshots exceeds the customer snapshot quota. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws InvalidServerlessCacheSnapshotStateException
+     *         The state of the serverless cache snapshot was not received. Available for Redis OSS and Serverless
+     *         Memcached only.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.CopyServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CopyServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CopyServerlessCacheSnapshotResult copyServerlessCacheSnapshot(CopyServerlessCacheSnapshotRequest copyServerlessCacheSnapshotRequest);
+
+    /**
+     * <p>
      * Makes a copy of an existing snapshot.
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note> <important>
      * <p>
@@ -326,6 +412,9 @@ public interface AmazonElastiCache {
      *         The request cannot be processed because it would exceed the maximum number of snapshots.
      * @throws InvalidSnapshotStateException
      *         The current state of the snapshot does not allow the requested operation to occur.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -339,10 +428,10 @@ public interface AmazonElastiCache {
     /**
      * <p>
      * Creates a cluster. All nodes in the cluster run the same protocol-compliant cache engine software, either
-     * Memcached or Redis.
+     * Memcached or Redis OSS.
      * </p>
      * <p>
-     * This operation is not supported for Redis (cluster mode enabled) clusters.
+     * This operation is not supported for Redis OSS (cluster mode enabled) clusters.
      * </p>
      * 
      * @param createCacheClusterRequest
@@ -422,6 +511,9 @@ public interface AmazonElastiCache {
      *         A cache parameter group with the requested name already exists.
      * @throws InvalidCacheParameterGroupStateException
      *         The current state of the cache parameter group does not allow the requested operation to occur.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -451,6 +543,9 @@ public interface AmazonElastiCache {
      *         A cache security group with the specified name already exists.
      * @throws CacheSecurityGroupQuotaExceededException
      *         The request cannot be processed because it would exceed the allowed number of cache security groups.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -479,8 +574,15 @@ public interface AmazonElastiCache {
      * @throws CacheSubnetQuotaExceededException
      *         The request cannot be processed because it would exceed the allowed number of subnets in a cache subnet
      *         group.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
      * @throws InvalidSubnetException
      *         An invalid subnet identifier was specified.
+     * @throws SubnetNotAllowedException
+     *         At least one subnet ID does not match the other subnet IDs. This mismatch typically occurs when a user
+     *         sets one subnet ID to a regional Availability Zone and a different one to an outpost. Or when a user sets
+     *         the subnet ID to an Outpost when not subscribed on this service.
      * @sample AmazonElastiCache.CreateCacheSubnetGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateCacheSubnetGroup"
      *      target="_top">AWS API Documentation</a>
@@ -489,31 +591,86 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Creates a Redis (cluster mode disabled) or a Redis (cluster mode enabled) replication group.
+     * Global Datastore for Redis OSS offers fully managed, fast, reliable and secure cross-region replication. Using
+     * Global Datastore for Redis OSS, you can create cross-region read replica clusters for ElastiCache (Redis OSS) to
+     * enable low-latency reads and disaster recovery across regions. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Redis-Global-Datastore.html">Replication Across
+     * Regions Using Global Datastore</a>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The <b>GlobalReplicationGroupIdSuffix</b> is the name of the Global datastore.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <b>PrimaryReplicationGroupId</b> represents the name of the primary cluster that accepts writes and will
+     * replicate updates to the secondary cluster.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createGlobalReplicationGroupRequest
+     * @return Result of the CreateGlobalReplicationGroup operation returned by the service.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws GlobalReplicationGroupAlreadyExistsException
+     *         The Global datastore name already exists.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.CreateGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GlobalReplicationGroup createGlobalReplicationGroup(CreateGlobalReplicationGroupRequest createGlobalReplicationGroupRequest);
+
+    /**
+     * <p>
+     * Creates a Redis OSS (cluster mode disabled) or a Redis OSS (cluster mode enabled) replication group.
      * </p>
      * <p>
-     * A Redis (cluster mode disabled) replication group is a collection of clusters, where one of the clusters is a
+     * This API can be used to create a standalone regional replication group or a secondary replication group
+     * associated with a Global datastore.
+     * </p>
+     * <p>
+     * A Redis OSS (cluster mode disabled) replication group is a collection of nodes, where one of the nodes is a
      * read/write primary and the others are read-only replicas. Writes to the primary are asynchronously propagated to
      * the replicas.
      * </p>
      * <p>
-     * A Redis (cluster mode enabled) replication group is a collection of 1 to 90 node groups (shards). Each node group
-     * (shard) has one read/write primary node and up to 5 read-only replica nodes. Writes to the primary are
-     * asynchronously propagated to the replicas. Redis (cluster mode enabled) replication groups partition the data
-     * across node groups (shards).
+     * A Redis OSS cluster-mode enabled cluster is comprised of from 1 to 90 shards (API/CLI: node groups). Each shard
+     * has a primary node and up to 5 read-only replica nodes. The configuration can range from 90 shards and 0 replicas
+     * to 15 shards and 5 replicas, which is the maximum number or replicas allowed.
      * </p>
      * <p>
-     * When a Redis (cluster mode disabled) replication group has been successfully created, you can add one or more
-     * read replicas to it, up to a total of 5 read replicas. You cannot alter a Redis (cluster mode enabled)
-     * replication group after it has been created. However, if you need to increase or decrease the number of node
-     * groups (console: shards), you can avail yourself of ElastiCache for Redis' enhanced backup and restore. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-restoring.html">Restoring From a Backup
-     * with Cluster Resizing</a> in the <i>ElastiCache User Guide</i>.
+     * The node or shard limit can be increased to a maximum of 500 per cluster if the Redis OSS engine version is 5.0.6
+     * or higher. For example, you can choose to configure a 500 node cluster that ranges between 83 shards (one primary
+     * and 5 replicas per shard) and 500 shards (single primary and no replicas). Make sure there are enough available
+     * IP addresses to accommodate the increase. Common pitfalls include the subnets in the subnet group have too small
+     * a CIDR range or the subnets are shared and heavily used by other clusters. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SubnetGroups.Creating.html">Creating a Subnet
+     * Group</a>. For versions below 5.0.6, the limit is 250 per cluster.
+     * </p>
+     * <p>
+     * To request a limit increase, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html">Amazon Service Limits</a> and choose
+     * the limit type <b>Nodes per cluster per instance type</b>.
+     * </p>
+     * <p>
+     * When a Redis OSS (cluster mode disabled) replication group has been successfully created, you can add one or more
+     * read replicas to it, up to a total of 5 read replicas. If you need to increase or decrease the number of node
+     * groups (console: shards), you can use ElastiCache (Redis OSS) scaling. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Scaling.html">Scaling ElastiCache (Redis OSS)
+     * Clusters</a> in the <i>ElastiCache User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -526,6 +683,10 @@ public interface AmazonElastiCache {
      *         The requested cluster is not in the <code>available</code> state.
      * @throws ReplicationGroupAlreadyExistsException
      *         The specified replication group already exists.
+     * @throws InvalidUserGroupStateException
+     *         The user group is not in an active state.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
      * @throws InsufficientCacheClusterCapacityException
      *         The requested cache node type is not available in the specified Availability Zone. For more information,
      *         see <a href=
@@ -552,6 +713,10 @@ public interface AmazonElastiCache {
      * @throws NodeGroupsPerReplicationGroupQuotaExceededException
      *         The request cannot be processed because it would exceed the maximum allowed number of node groups
      *         (shards) in a single replication group. The default maximum is 90
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -564,11 +729,80 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
+     * Creates a serverless cache.
+     * </p>
+     * 
+     * @param createServerlessCacheRequest
+     * @return Result of the CreateServerlessCache operation returned by the service.
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidServerlessCacheStateException
+     *         The account for these credentials is not currently active.
+     * @throws ServerlessCacheAlreadyExistsException
+     *         A serverless cache with this name already exists.
+     * @throws ServerlessCacheQuotaForCustomerExceededException
+     *         The number of serverless caches exceeds the customer quota.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @throws InvalidCredentialsException
+     *         You must enter valid credentials.
+     * @throws InvalidUserGroupStateException
+     *         The user group is not in an active state.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @sample AmazonElastiCache.CreateServerlessCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateServerlessCache"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateServerlessCacheResult createServerlessCache(CreateServerlessCacheRequest createServerlessCacheRequest);
+
+    /**
+     * <p>
+     * This API creates a copy of an entire ServerlessCache at a specific moment in time. Available for Redis OSS and
+     * Serverless Memcached only.
+     * </p>
+     * 
+     * @param createServerlessCacheSnapshotRequest
+     * @return Result of the CreateServerlessCacheSnapshot operation returned by the service.
+     * @throws ServerlessCacheSnapshotAlreadyExistsException
+     *         A serverless cache snapshot with this name already exists. Available for Redis OSS and Serverless
+     *         Memcached only.
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidServerlessCacheStateException
+     *         The account for these credentials is not currently active.
+     * @throws ServerlessCacheSnapshotQuotaExceededException
+     *         The number of serverless cache snapshots exceeds the customer snapshot quota. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.CreateServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateServerlessCacheSnapshotResult createServerlessCacheSnapshot(CreateServerlessCacheSnapshotRequest createServerlessCacheSnapshotRequest);
+
+    /**
+     * <p>
      * Creates a copy of an entire cluster or replication group at a specific moment in time.
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -592,17 +826,20 @@ public interface AmazonElastiCache {
      *         <ul>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a Redis cluster running on a <code>cache.t1.micro</code> cache node.
+     *         Creating a snapshot of a Redis OSS cluster running on a <code>cache.t1.micro</code> cache node.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a cluster that is running Memcached rather than Redis.
+     *         Creating a snapshot of a cluster that is running Memcached rather than Redis OSS.
      *         </p>
      *         </li>
      *         </ul>
      *         <p>
      *         Neither of these are supported by ElastiCache.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
      * @throws InvalidParameterCombinationException
      *         Two or more incompatible parameters were specified.
      * @throws InvalidParameterValueException
@@ -615,9 +852,94 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Dynamically decreases the number of replics in a Redis (cluster mode disabled) replication group or the number of
-     * replica nodes in one or more node groups (shards) of a Redis (cluster mode enabled) replication group. This
-     * operation is performed with no cluster down time.
+     * For Redis OSS engine version 6.0 onwards: Creates a Redis OSS user. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>.
+     * </p>
+     * 
+     * @param createUserRequest
+     * @return Result of the CreateUser operation returned by the service.
+     * @throws UserAlreadyExistsException
+     *         A user with this ID already exists.
+     * @throws UserQuotaExceededException
+     *         The quota of users has been exceeded.
+     * @throws DuplicateUserNameException
+     *         A user with this username already exists.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
+     * @sample AmazonElastiCache.CreateUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateUser" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateUserResult createUser(CreateUserRequest createUserRequest);
+
+    /**
+     * <p>
+     * For Redis OSS engine version 6.0 onwards: Creates a Redis OSS user group. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>
+     * </p>
+     * 
+     * @param createUserGroupRequest
+     * @return Result of the CreateUserGroup operation returned by the service.
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws DuplicateUserNameException
+     *         A user with this username already exists.
+     * @throws UserGroupAlreadyExistsException
+     *         The user group with this ID already exists.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws DefaultUserRequiredException
+     *         You must add default user to a user group.
+     * @throws UserGroupQuotaExceededException
+     *         The number of users exceeds the user group limit.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
+     * @sample AmazonElastiCache.CreateUserGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateUserGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateUserGroupResult createUserGroup(CreateUserGroupRequest createUserGroupRequest);
+
+    /**
+     * <p>
+     * Decreases the number of node groups in a Global datastore
+     * </p>
+     * 
+     * @param decreaseNodeGroupsInGlobalReplicationGroupRequest
+     * @return Result of the DecreaseNodeGroupsInGlobalReplicationGroup operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.DecreaseNodeGroupsInGlobalReplicationGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DecreaseNodeGroupsInGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GlobalReplicationGroup decreaseNodeGroupsInGlobalReplicationGroup(
+            DecreaseNodeGroupsInGlobalReplicationGroupRequest decreaseNodeGroupsInGlobalReplicationGroupRequest);
+
+    /**
+     * <p>
+     * Dynamically decreases the number of replicas in a Redis OSS (cluster mode disabled) replication group or the
+     * number of replica nodes in one or more node groups (shards) of a Redis OSS (cluster mode enabled) replication
+     * group. This operation is performed with no cluster down time.
      * </p>
      * 
      * @param decreaseReplicaCountRequest
@@ -668,7 +990,12 @@ public interface AmazonElastiCache {
      * <ul>
      * <li>
      * <p>
-     * Redis (cluster mode enabled) clusters
+     * Redis OSS (cluster mode enabled) clusters
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Redis OSS (cluster mode disabled) clusters
      * </p>
      * </li>
      * <li>
@@ -678,12 +1005,17 @@ public interface AmazonElastiCache {
      * </li>
      * <li>
      * <p>
+     * A cluster that is the primary node of a replication group
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * A node group (shard) that has Multi-AZ mode enabled
      * </p>
      * </li>
      * <li>
      * <p>
-     * A cluster from a Redis (cluster mode enabled) replication group
+     * A cluster from a Redis OSS (cluster mode enabled) replication group
      * </p>
      * </li>
      * <li>
@@ -707,12 +1039,12 @@ public interface AmazonElastiCache {
      *         <ul>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a Redis cluster running on a <code>cache.t1.micro</code> cache node.
+     *         Creating a snapshot of a Redis OSS cluster running on a <code>cache.t1.micro</code> cache node.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a cluster that is running Memcached rather than Redis.
+     *         Creating a snapshot of a cluster that is running Memcached rather than Redis OSS.
      *         </p>
      *         </li>
      *         </ul>
@@ -733,7 +1065,7 @@ public interface AmazonElastiCache {
     /**
      * <p>
      * Deletes the specified cache parameter group. You cannot delete a cache parameter group if it is associated with
-     * any cache clusters.
+     * any cache clusters. You cannot delete the default cache parameter groups in your account.
      * </p>
      * 
      * @param deleteCacheParameterGroupRequest
@@ -786,7 +1118,7 @@ public interface AmazonElastiCache {
      * </p>
      * <note>
      * <p>
-     * You cannot delete a cache subnet group if it is associated with any clusters.
+     * You cannot delete a default cache subnet group or one that is associated with any clusters.
      * </p>
      * </note>
      * 
@@ -805,6 +1137,49 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
+     * Deleting a Global datastore is a two-step process:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * First, you must <a>DisassociateGlobalReplicationGroup</a> to remove the secondary clusters in the Global
+     * datastore.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Once the Global datastore contains only the primary cluster, you can use the
+     * <code>DeleteGlobalReplicationGroup</code> API to delete the Global datastore while retainining the primary
+     * cluster using <code>RetainPrimaryReplicationGroup=true</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Since the Global Datastore has only a primary cluster, you can delete the Global Datastore while retaining the
+     * primary by setting <code>RetainPrimaryReplicationGroup=true</code>. The primary cluster is never deleted when
+     * deleting a Global Datastore. It can only be deleted when it no longer is associated with any Global Datastore.
+     * </p>
+     * <p>
+     * When you receive a successful response from this operation, Amazon ElastiCache immediately begins deleting the
+     * selected resources; you cannot cancel or revert this operation.
+     * </p>
+     * 
+     * @param deleteGlobalReplicationGroupRequest
+     * @return Result of the DeleteGlobalReplicationGroup operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.DeleteGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GlobalReplicationGroup deleteGlobalReplicationGroup(DeleteGlobalReplicationGroupRequest deleteGlobalReplicationGroupRequest);
+
+    /**
+     * <p>
      * Deletes an existing replication group. By default, this operation deletes the entire replication group, including
      * the primary/primaries and all of the read replicas. If the replication group has only one primary, you can
      * optionally delete only the read replicas, while retaining the primary by setting
@@ -815,9 +1190,19 @@ public interface AmazonElastiCache {
      * selected resources; you cannot cancel or revert this operation.
      * </p>
      * <note>
+     * <ul>
+     * <li>
      * <p>
-     * This operation is valid for Redis only.
+     * <code>CreateSnapshot</code> permission is required to create a final snapshot. Without this permission, the API
+     * call will fail with an <code>Access Denied</code> exception.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * This operation is valid for Redis OSS only.
+     * </p>
+     * </li>
+     * </ul>
      * </note>
      * 
      * @param deleteReplicationGroupRequest
@@ -834,12 +1219,12 @@ public interface AmazonElastiCache {
      *         <ul>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a Redis cluster running on a <code>cache.t1.micro</code> cache node.
+     *         Creating a snapshot of a Redis OSS cluster running on a <code>cache.t1.micro</code> cache node.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a cluster that is running Memcached rather than Redis.
+     *         Creating a snapshot of a cluster that is running Memcached rather than Redis OSS.
      *         </p>
      *         </li>
      *         </ul>
@@ -859,12 +1244,69 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
+     * Deletes a specified existing serverless cache.
+     * </p>
+     * <note>
+     * <p>
+     * <code>CreateServerlessCacheSnapshot</code> permission is required to create a final snapshot. Without this
+     * permission, the API call will fail with an <code>Access Denied</code> exception.
+     * </p>
+     * </note>
+     * 
+     * @param deleteServerlessCacheRequest
+     * @return Result of the DeleteServerlessCache operation returned by the service.
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidServerlessCacheStateException
+     *         The account for these credentials is not currently active.
+     * @throws ServerlessCacheSnapshotAlreadyExistsException
+     *         A serverless cache snapshot with this name already exists. Available for Redis OSS and Serverless
+     *         Memcached only.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @throws InvalidCredentialsException
+     *         You must enter valid credentials.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @sample AmazonElastiCache.DeleteServerlessCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteServerlessCache"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteServerlessCacheResult deleteServerlessCache(DeleteServerlessCacheRequest deleteServerlessCacheRequest);
+
+    /**
+     * <p>
+     * Deletes an existing serverless cache snapshot. Available for Redis OSS and Serverless Memcached only.
+     * </p>
+     * 
+     * @param deleteServerlessCacheSnapshotRequest
+     * @return Result of the DeleteServerlessCacheSnapshot operation returned by the service.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws ServerlessCacheSnapshotNotFoundException
+     *         This serverless cache snapshot could not be found or does not exist. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws InvalidServerlessCacheSnapshotStateException
+     *         The state of the serverless cache snapshot was not received. Available for Redis OSS and Serverless
+     *         Memcached only.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.DeleteServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteServerlessCacheSnapshotResult deleteServerlessCacheSnapshot(DeleteServerlessCacheSnapshotRequest deleteServerlessCacheSnapshotRequest);
+
+    /**
+     * <p>
      * Deletes an existing snapshot. When you receive a successful response from this operation, ElastiCache immediately
      * begins deleting the snapshot; you cannot cancel or revert this operation.
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -884,6 +1326,56 @@ public interface AmazonElastiCache {
      *      Documentation</a>
      */
     Snapshot deleteSnapshot(DeleteSnapshotRequest deleteSnapshotRequest);
+
+    /**
+     * <p>
+     * For Redis OSS engine version 6.0 onwards: Deletes a user. The user will be removed from all user groups and in
+     * turn removed from all replication groups. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>.
+     * </p>
+     * 
+     * @param deleteUserRequest
+     * @return Result of the DeleteUser operation returned by the service.
+     * @throws InvalidUserStateException
+     *         The user is not in active state.
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws DefaultUserAssociatedToUserGroupException
+     *         The default user assigned to the user group.
+     * @sample AmazonElastiCache.DeleteUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteUser" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteUserResult deleteUser(DeleteUserRequest deleteUserRequest);
+
+    /**
+     * <p>
+     * For Redis OSS engine version 6.0 onwards: Deletes a user group. The user group must first be disassociated from
+     * the replication group before it can be deleted. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>.
+     * </p>
+     * 
+     * @param deleteUserGroupRequest
+     * @return Result of the DeleteUserGroup operation returned by the service.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws InvalidUserGroupStateException
+     *         The user group is not in an active state.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.DeleteUserGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteUserGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteUserGroupResult deleteUserGroup(DeleteUserGroupRequest deleteUserGroupRequest);
 
     /**
      * <p>
@@ -1107,12 +1599,32 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
+     * Returns information about a particular global replication group. If no identifier is specified, returns
+     * information about all Global datastores.
+     * </p>
+     * 
+     * @param describeGlobalReplicationGroupsRequest
+     * @return Result of the DescribeGlobalReplicationGroups operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.DescribeGlobalReplicationGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeGlobalReplicationGroups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeGlobalReplicationGroupsResult describeGlobalReplicationGroups(DescribeGlobalReplicationGroupsRequest describeGlobalReplicationGroupsRequest);
+
+    /**
+     * <p>
      * Returns information about a particular replication group. If no identifier is specified,
      * <code>DescribeReplicationGroups</code> returns information about all replication groups.
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -1195,6 +1707,50 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
+     * Returns information about serverless cache snapshots. By default, this API lists all of the customer’s serverless
+     * cache snapshots. It can also describe a single serverless cache snapshot, or the snapshots associated with a
+     * particular serverless cache. Available for Redis OSS and Serverless Memcached only.
+     * </p>
+     * 
+     * @param describeServerlessCacheSnapshotsRequest
+     * @return Result of the DescribeServerlessCacheSnapshots operation returned by the service.
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws ServerlessCacheSnapshotNotFoundException
+     *         This serverless cache snapshot could not be found or does not exist. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.DescribeServerlessCacheSnapshots
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeServerlessCacheSnapshots"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeServerlessCacheSnapshotsResult describeServerlessCacheSnapshots(DescribeServerlessCacheSnapshotsRequest describeServerlessCacheSnapshotsRequest);
+
+    /**
+     * <p>
+     * Returns information about a specific serverless cache. If no identifier is specified, then the API returns
+     * information on all the serverless caches belonging to this Amazon Web Services account.
+     * </p>
+     * 
+     * @param describeServerlessCachesRequest
+     * @return Result of the DescribeServerlessCaches operation returned by the service.
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.DescribeServerlessCaches
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeServerlessCaches"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeServerlessCachesResult describeServerlessCaches(DescribeServerlessCachesRequest describeServerlessCachesRequest);
+
+    /**
+     * <p>
      * Returns details of the service updates
      * </p>
      * 
@@ -1220,7 +1776,7 @@ public interface AmazonElastiCache {
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -1267,9 +1823,137 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Dynamically increases the number of replics in a Redis (cluster mode disabled) replication group or the number of
-     * replica nodes in one or more node groups (shards) of a Redis (cluster mode enabled) replication group. This
-     * operation is performed with no cluster down time.
+     * Returns a list of user groups.
+     * </p>
+     * 
+     * @param describeUserGroupsRequest
+     * @return Result of the DescribeUserGroups operation returned by the service.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.DescribeUserGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeUserGroups" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DescribeUserGroupsResult describeUserGroups(DescribeUserGroupsRequest describeUserGroupsRequest);
+
+    /**
+     * <p>
+     * Returns a list of users.
+     * </p>
+     * 
+     * @param describeUsersRequest
+     * @return Result of the DescribeUsers operation returned by the service.
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.DescribeUsers
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeUsers" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DescribeUsersResult describeUsers(DescribeUsersRequest describeUsersRequest);
+
+    /**
+     * <p>
+     * Remove a secondary cluster from the Global datastore using the Global datastore name. The secondary cluster will
+     * no longer receive updates from the primary cluster, but will remain as a standalone cluster in that Amazon
+     * region.
+     * </p>
+     * 
+     * @param disassociateGlobalReplicationGroupRequest
+     * @return Result of the DisassociateGlobalReplicationGroup operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.DisassociateGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DisassociateGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GlobalReplicationGroup disassociateGlobalReplicationGroup(DisassociateGlobalReplicationGroupRequest disassociateGlobalReplicationGroupRequest);
+
+    /**
+     * <p>
+     * Provides the functionality to export the serverless cache snapshot data to Amazon S3. Available for Redis OSS
+     * only.
+     * </p>
+     * 
+     * @param exportServerlessCacheSnapshotRequest
+     * @return Result of the ExportServerlessCacheSnapshot operation returned by the service.
+     * @throws ServerlessCacheSnapshotNotFoundException
+     *         This serverless cache snapshot could not be found or does not exist. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws InvalidServerlessCacheSnapshotStateException
+     *         The state of the serverless cache snapshot was not received. Available for Redis OSS and Serverless
+     *         Memcached only.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.ExportServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ExportServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ExportServerlessCacheSnapshotResult exportServerlessCacheSnapshot(ExportServerlessCacheSnapshotRequest exportServerlessCacheSnapshotRequest);
+
+    /**
+     * <p>
+     * Used to failover the primary region to a secondary region. The secondary region will become primary, and all
+     * other clusters will become secondary.
+     * </p>
+     * 
+     * @param failoverGlobalReplicationGroupRequest
+     * @return Result of the FailoverGlobalReplicationGroup operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.FailoverGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/FailoverGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GlobalReplicationGroup failoverGlobalReplicationGroup(FailoverGlobalReplicationGroupRequest failoverGlobalReplicationGroupRequest);
+
+    /**
+     * <p>
+     * Increase the number of node groups in the Global datastore
+     * </p>
+     * 
+     * @param increaseNodeGroupsInGlobalReplicationGroupRequest
+     * @return Result of the IncreaseNodeGroupsInGlobalReplicationGroup operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.IncreaseNodeGroupsInGlobalReplicationGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/IncreaseNodeGroupsInGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GlobalReplicationGroup increaseNodeGroupsInGlobalReplicationGroup(
+            IncreaseNodeGroupsInGlobalReplicationGroupRequest increaseNodeGroupsInGlobalReplicationGroupRequest);
+
+    /**
+     * <p>
+     * Dynamically increases the number of replicas in a Redis OSS (cluster mode disabled) replication group or the
+     * number of replica nodes in one or more node groups (shards) of a Redis OSS (cluster mode enabled) replication
+     * group. This operation is performed with no cluster down time.
      * </p>
      * 
      * @param increaseReplicaCountRequest
@@ -1296,6 +1980,8 @@ public interface AmazonElastiCache {
      *         The request cannot be processed because it would exceed the allowed number of cache nodes per customer.
      * @throws NoOperationException
      *         The operation was not performed because no changes were required.
+     * @throws InvalidKMSKeyException
+     *         The KMS key supplied is not valid.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -1308,13 +1994,13 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Lists all available node types that you can scale your Redis cluster's or replication group's current node type
-     * up to.
+     * Lists all available node types that you can scale your Redis OSS cluster's or replication group's current node
+     * type.
      * </p>
      * <p>
-     * When you use the <code>ModifyCacheCluster</code> or <code>ModifyReplicationGroup</code> operations to scale up
-     * your cluster or replication group, the value of the <code>CacheNodeType</code> parameter must be one of the node
-     * types returned by this operation.
+     * When you use the <code>ModifyCacheCluster</code> or <code>ModifyReplicationGroup</code> operations to scale your
+     * cluster or replication group, the value of the <code>CacheNodeType</code> parameter must be one of the node types
+     * returned by this operation.
      * </p>
      * 
      * @param listAllowedNodeTypeModificationsRequest
@@ -1343,16 +2029,18 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Lists all cost allocation tags currently on the named resource. A <code>cost allocation tag</code> is a key-value
-     * pair where the key is case-sensitive and the value is optional. You can use cost allocation tags to categorize
-     * and track your AWS costs.
+     * Lists all tags currently on a named resource.
+     * </p>
+     * <p>
+     * A tag is a key-value pair where the key and value are case-sensitive. You can use tags to categorize and track
+     * all your ElastiCache resources, with the exception of global replication group. When you add or remove tags on
+     * replication groups, those actions will be replicated to all nodes in the replication group. For more information,
+     * see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.ResourceLevelPermissions.html">Resource
+     * -level permissions</a>.
      * </p>
      * <p>
      * If the cluster is not in the <i>available</i> state, <code>ListTagsForResource</code> returns an error.
-     * </p>
-     * <p>
-     * You can have a maximum of 50 cost allocation tags on an ElastiCache resource. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Tagging.html">Monitoring Costs with Tags</a>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -1360,8 +2048,34 @@ public interface AmazonElastiCache {
      * @return Result of the ListTagsForResource operation returned by the service.
      * @throws CacheClusterNotFoundException
      *         The requested cluster ID does not refer to an existing cluster.
+     * @throws CacheParameterGroupNotFoundException
+     *         The requested cache parameter group name does not refer to an existing cache parameter group.
+     * @throws CacheSecurityGroupNotFoundException
+     *         The requested cache security group name does not refer to an existing cache security group.
+     * @throws CacheSubnetGroupNotFoundException
+     *         The requested cache subnet group name does not refer to an existing cache subnet group.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws ReservedCacheNodeNotFoundException
+     *         The requested reserved cache node was not found.
      * @throws SnapshotNotFoundException
      *         The requested snapshot name does not refer to an existing snapshot.
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidServerlessCacheStateException
+     *         The account for these credentials is not currently active.
+     * @throws ServerlessCacheSnapshotNotFoundException
+     *         This serverless cache snapshot could not be found or does not exist. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws InvalidServerlessCacheSnapshotStateException
+     *         The state of the serverless cache snapshot was not received. Available for Redis OSS and Serverless
+     *         Memcached only.
      * @throws InvalidARNException
      *         The requested Amazon Resource Name (ARN) does not refer to an existing resource.
      * @sample AmazonElastiCache.ListTagsForResource
@@ -1428,6 +2142,8 @@ public interface AmazonElastiCache {
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
      *         Two or more incompatible parameters were specified.
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
      * @sample AmazonElastiCache.ModifyCacheParameterGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyCacheParameterGroup"
      *      target="_top">AWS API Documentation</a>
@@ -1451,6 +2167,10 @@ public interface AmazonElastiCache {
      *         The requested subnet is being used by another cache subnet group.
      * @throws InvalidSubnetException
      *         An invalid subnet identifier was specified.
+     * @throws SubnetNotAllowedException
+     *         At least one subnet ID does not match the other subnet IDs. This mismatch typically occurs when a user
+     *         sets one subnet ID to a regional Availability Zone and a different one to an outpost. Or when a user sets
+     *         the subnet ID to an Outpost when not subscribed on this service.
      * @sample AmazonElastiCache.ModifyCacheSubnetGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyCacheSubnetGroup"
      *      target="_top">AWS API Documentation</a>
@@ -1459,17 +2179,32 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Modifies the settings for a replication group.
+     * Modifies the settings for a Global datastore.
      * </p>
+     * 
+     * @param modifyGlobalReplicationGroupRequest
+     * @return Result of the ModifyGlobalReplicationGroup operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.ModifyGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GlobalReplicationGroup modifyGlobalReplicationGroup(ModifyGlobalReplicationGroupRequest modifyGlobalReplicationGroupRequest);
+
+    /**
      * <p>
-     * For Redis (cluster mode enabled) clusters, this operation cannot be used to change a cluster's node type or
-     * engine version. For more information, see:
+     * Modifies the settings for a replication group. This is limited to Redis OSS 7 and newer.
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/scaling-redis-cluster-mode-enabled.html">
-     * Scaling for Amazon ElastiCache for Redis (cluster mode enabled)</a> in the ElastiCache User Guide
+     * Scaling for Amazon ElastiCache (Redis OSS) (cluster mode enabled)</a> in the ElastiCache User Guide
      * </p>
      * </li>
      * <li>
@@ -1482,7 +2217,7 @@ public interface AmazonElastiCache {
      * </ul>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -1493,6 +2228,10 @@ public interface AmazonElastiCache {
      *         The specified replication group does not exist.
      * @throws InvalidReplicationGroupStateException
      *         The requested replication group is not in the <code>available</code> state.
+     * @throws InvalidUserGroupStateException
+     *         The user group is not in an active state.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
      * @throws InvalidCacheClusterStateException
      *         The requested cluster is not in the <code>available</code> state.
      * @throws InvalidCacheSecurityGroupStateException
@@ -1515,6 +2254,8 @@ public interface AmazonElastiCache {
      *         The requested cache parameter group name does not refer to an existing cache parameter group.
      * @throws InvalidVPCNetworkStateException
      *         The VPC network is in an invalid state.
+     * @throws InvalidKMSKeyException
+     *         The KMS key supplied is not valid.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -1528,7 +2269,7 @@ public interface AmazonElastiCache {
     /**
      * <p>
      * Modifies a replication group's shards (node groups) by allowing you to add shards, remove shards, or rebalance
-     * the keyspaces among exisiting shards.
+     * the keyspaces among existing shards.
      * </p>
      * 
      * @param modifyReplicationGroupShardConfigurationRequest
@@ -1552,6 +2293,8 @@ public interface AmazonElastiCache {
      *         (shards) in a single replication group. The default maximum is 90
      * @throws NodeQuotaForCustomerExceededException
      *         The request cannot be processed because it would exceed the allowed number of cache nodes per customer.
+     * @throws InvalidKMSKeyException
+     *         The KMS key supplied is not valid.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -1565,7 +2308,93 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Allows you to purchase a reserved cache node offering.
+     * This API modifies the attributes of a serverless cache.
+     * </p>
+     * 
+     * @param modifyServerlessCacheRequest
+     * @return Result of the ModifyServerlessCache operation returned by the service.
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidServerlessCacheStateException
+     *         The account for these credentials is not currently active.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @throws InvalidCredentialsException
+     *         You must enter valid credentials.
+     * @throws InvalidUserGroupStateException
+     *         The user group is not in an active state.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @sample AmazonElastiCache.ModifyServerlessCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyServerlessCache"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ModifyServerlessCacheResult modifyServerlessCache(ModifyServerlessCacheRequest modifyServerlessCacheRequest);
+
+    /**
+     * <p>
+     * Changes user password(s) and/or access string.
+     * </p>
+     * 
+     * @param modifyUserRequest
+     * @return Result of the ModifyUser operation returned by the service.
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws InvalidUserStateException
+     *         The user is not in active state.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.ModifyUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyUser" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ModifyUserResult modifyUser(ModifyUserRequest modifyUserRequest);
+
+    /**
+     * <p>
+     * Changes the list of users that belong to the user group.
+     * </p>
+     * 
+     * @param modifyUserGroupRequest
+     * @return Result of the ModifyUserGroup operation returned by the service.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws DuplicateUserNameException
+     *         A user with this username already exists.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws DefaultUserRequiredException
+     *         You must add default user to a user group.
+     * @throws InvalidUserGroupStateException
+     *         The user group is not in an active state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.ModifyUserGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyUserGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ModifyUserGroupResult modifyUserGroup(ModifyUserGroupRequest modifyUserGroupRequest);
+
+    /**
+     * <p>
+     * Allows you to purchase a reserved cache node offering. Reserved nodes are not eligible for cancellation and are
+     * non-refundable. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/reserved-nodes.html">Managing Costs with
+     * Reserved Nodes</a> for Redis OSS or <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/reserved-nodes.html">Managing Costs with
+     * Reserved Nodes</a> for Memcached.
      * </p>
      * 
      * @param purchaseReservedCacheNodesOfferingRequest
@@ -1577,6 +2406,9 @@ public interface AmazonElastiCache {
      *         You already have a reservation with the given identifier.
      * @throws ReservedCacheNodeQuotaExceededException
      *         The request cannot be processed because it would exceed the user's cache node quota.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -1586,6 +2418,26 @@ public interface AmazonElastiCache {
      *      target="_top">AWS API Documentation</a>
      */
     ReservedCacheNode purchaseReservedCacheNodesOffering(PurchaseReservedCacheNodesOfferingRequest purchaseReservedCacheNodesOfferingRequest);
+
+    /**
+     * <p>
+     * Redistribute slots to ensure uniform distribution across existing shards in the cluster.
+     * </p>
+     * 
+     * @param rebalanceSlotsInGlobalReplicationGroupRequest
+     * @return Result of the RebalanceSlotsInGlobalReplicationGroup operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.RebalanceSlotsInGlobalReplicationGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/RebalanceSlotsInGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GlobalReplicationGroup rebalanceSlotsInGlobalReplicationGroup(RebalanceSlotsInGlobalReplicationGroupRequest rebalanceSlotsInGlobalReplicationGroupRequest);
 
     /**
      * <p>
@@ -1600,13 +2452,13 @@ public interface AmazonElastiCache {
      * When the reboot is complete, a cluster event is created.
      * </p>
      * <p>
-     * Rebooting a cluster is currently supported on Memcached and Redis (cluster mode disabled) clusters. Rebooting is
-     * not supported on Redis (cluster mode enabled) clusters.
+     * Rebooting a cluster is currently supported on Memcached and Redis OSS (cluster mode disabled) clusters. Rebooting
+     * is not supported on Redis OSS (cluster mode enabled) clusters.
      * </p>
      * <p>
-     * If you make changes to parameters that require a Redis (cluster mode enabled) cluster reboot for the changes to
-     * be applied, see <a
-     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html">Rebooting a Cluster</a>
+     * If you make changes to parameters that require a Redis OSS (cluster mode enabled) cluster reboot for the changes
+     * to be applied, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/nodes.rebooting.html">Rebooting a Cluster</a>
      * for an alternate process.
      * </p>
      * 
@@ -1625,7 +2477,12 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Removes the tags identified by the <code>TagKeys</code> list from the named resource.
+     * Removes the tags identified by the <code>TagKeys</code> list from the named resource. A tag is a key-value pair
+     * where the key and value are case-sensitive. You can use tags to categorize and track all your ElastiCache
+     * resources, with the exception of global replication group. When you add or remove tags on replication groups,
+     * those actions will be replicated to all nodes in the replication group. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.ResourceLevelPermissions.html"
+     * >Resource-level permissions</a>.
      * </p>
      * 
      * @param removeTagsFromResourceRequest
@@ -1633,8 +2490,34 @@ public interface AmazonElastiCache {
      * @return Result of the RemoveTagsFromResource operation returned by the service.
      * @throws CacheClusterNotFoundException
      *         The requested cluster ID does not refer to an existing cluster.
+     * @throws CacheParameterGroupNotFoundException
+     *         The requested cache parameter group name does not refer to an existing cache parameter group.
+     * @throws CacheSecurityGroupNotFoundException
+     *         The requested cache security group name does not refer to an existing cache security group.
+     * @throws CacheSubnetGroupNotFoundException
+     *         The requested cache subnet group name does not refer to an existing cache subnet group.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws ReservedCacheNodeNotFoundException
+     *         The requested reserved cache node was not found.
      * @throws SnapshotNotFoundException
      *         The requested snapshot name does not refer to an existing snapshot.
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidServerlessCacheStateException
+     *         The account for these credentials is not currently active.
+     * @throws ServerlessCacheSnapshotNotFoundException
+     *         This serverless cache snapshot could not be found or does not exist. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws InvalidServerlessCacheSnapshotStateException
+     *         The state of the serverless cache snapshot was not received. Available for Redis OSS and Serverless
+     *         Memcached only.
      * @throws InvalidARNException
      *         The requested Amazon Resource Name (ARN) does not refer to an existing resource.
      * @throws TagNotFoundException
@@ -1663,6 +2546,8 @@ public interface AmazonElastiCache {
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
      *         Two or more incompatible parameters were specified.
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
      * @sample AmazonElastiCache.ResetCacheParameterGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ResetCacheParameterGroup"
      *      target="_top">AWS API Documentation</a>
@@ -1696,8 +2581,34 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Represents the input of a <code>TestFailover</code> operation which test automatic failover on a specified node
+     * Start the migration of data.
+     * </p>
+     * 
+     * @param startMigrationRequest
+     * @return Result of the StartMigration operation returned by the service.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws ReplicationGroupAlreadyUnderMigrationException
+     *         The targeted replication group is not available.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.StartMigration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/StartMigration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ReplicationGroup startMigration(StartMigrationRequest startMigrationRequest);
+
+    /**
+     * <p>
+     * Represents the input of a <code>TestFailover</code> operation which tests automatic failover on a specified node
      * group (called shard in the console) in a replication group (called cluster in the console).
+     * </p>
+     * <p>
+     * This API is designed for testing the behavior of your application in case of ElastiCache failover. It is not
+     * designed to be an operational tool for initiating a failover to overcome a problem you may have with the cluster.
+     * Moreover, in certain conditions such as large-scale operational events, Amazon may block this API.
      * </p>
      * <p class="title">
      * <b>Note the following</b>
@@ -1705,8 +2616,8 @@ public interface AmazonElastiCache {
      * <ul>
      * <li>
      * <p>
-     * A customer can use this operation to test automatic failover on up to 5 shards (called node groups in the
-     * ElastiCache API and AWS CLI) in any rolling 24-hour period.
+     * A customer can use this operation to test automatic failover on up to 15 shards (called node groups in the
+     * ElastiCache API and Amazon CLI) in any rolling 24-hour period.
      * </p>
      * </li>
      * <li>
@@ -1718,14 +2629,14 @@ public interface AmazonElastiCache {
      * </p></li>
      * <li>
      * <p>
-     * If calling this operation multiple times on different shards in the same Redis (cluster mode enabled) replication
-     * group, the first node replacement must complete before a subsequent call can be made.
+     * If calling this operation multiple times on different shards in the same Redis OSS (cluster mode enabled)
+     * replication group, the first node replacement must complete before a subsequent call can be made.
      * </p>
      * </li>
      * <li>
      * <p>
      * To determine whether the node replacement is complete you can check Events using the Amazon ElastiCache console,
-     * the AWS CLI, or the ElastiCache API. Look for the following automatic failover related events, listed here in
+     * the Amazon CLI, or the ElastiCache API. Look for the following automatic failover related events, listed here in
      * order of occurrance:
      * </p>
      * <ol>
@@ -1737,13 +2648,13 @@ public interface AmazonElastiCache {
      * <li>
      * <p>
      * Cache cluster message:
-     * <code>Failover from master node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
+     * <code>Failover from primary node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
      * </p>
      * </li>
      * <li>
      * <p>
      * Replication group message:
-     * <code>Failover from master node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
+     * <code>Failover from primary node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
      * </p>
      * </li>
      * <li>
@@ -1780,7 +2691,7 @@ public interface AmazonElastiCache {
      * <p>
      * Also see, <a
      * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html#auto-failover-test">Testing
-     * Multi-AZ with Automatic Failover</a> in the <i>ElastiCache User Guide</i>.
+     * Multi-AZ </a> in the <i>ElastiCache User Guide</i>.
      * </p>
      * 
      * @param testFailoverRequest
@@ -1798,6 +2709,8 @@ public interface AmazonElastiCache {
      *         The specified replication group does not exist.
      * @throws TestFailoverNotAvailableException
      *         The <code>TestFailover</code> action is not available.
+     * @throws InvalidKMSKeyException
+     *         The KMS key supplied is not valid.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -1807,6 +2720,27 @@ public interface AmazonElastiCache {
      *      Documentation</a>
      */
     ReplicationGroup testFailover(TestFailoverRequest testFailoverRequest);
+
+    /**
+     * <p>
+     * Async API to test connection between source and target replication group.
+     * </p>
+     * 
+     * @param testMigrationRequest
+     * @return Result of the TestMigration operation returned by the service.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws ReplicationGroupAlreadyUnderMigrationException
+     *         The targeted replication group is not available.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.TestMigration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/TestMigration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ReplicationGroup testMigration(TestMigrationRequest testMigrationRequest);
 
     /**
      * Shuts down this client object, releasing any resources that might be held open. This is an optional method, and

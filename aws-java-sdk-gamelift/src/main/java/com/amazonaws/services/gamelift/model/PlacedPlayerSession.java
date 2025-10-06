@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,49 +19,11 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about a player session that was created as part of a <a>StartGameSessionPlacement</a> request. This
- * object contains only the player ID and player session ID. To retrieve full details on a player session, call
- * <a>DescribePlayerSessions</a> with the player session ID.
+ * Information about a player session. This object contains only the player ID and player session ID. To retrieve full
+ * details on a player session, call <a
+ * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_DescribePlayerSessions.html"
+ * >DescribePlayerSessions</a> with the player session ID.
  * </p>
- * <ul>
- * <li>
- * <p>
- * <a>CreatePlayerSession</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>CreatePlayerSessions</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribePlayerSessions</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * Game session placements
- * </p>
- * <ul>
- * <li>
- * <p>
- * <a>StartGameSessionPlacement</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeGameSessionPlacement</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>StopGameSessionPlacement</a>
- * </p>
- * </li>
- * </ul>
- * </li>
- * </ul>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/PlacedPlayerSession" target="_top">AWS API
  *      Documentation</a>
@@ -71,24 +33,24 @@ public class PlacedPlayerSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Unique identifier for a player that is associated with this player session.
+     * A unique identifier for a player that is associated with this player session.
      * </p>
      */
     private String playerId;
     /**
      * <p>
-     * Unique identifier for a player session.
+     * A unique identifier for a player session.
      * </p>
      */
     private String playerSessionId;
 
     /**
      * <p>
-     * Unique identifier for a player that is associated with this player session.
+     * A unique identifier for a player that is associated with this player session.
      * </p>
      * 
      * @param playerId
-     *        Unique identifier for a player that is associated with this player session.
+     *        A unique identifier for a player that is associated with this player session.
      */
 
     public void setPlayerId(String playerId) {
@@ -97,10 +59,10 @@ public class PlacedPlayerSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Unique identifier for a player that is associated with this player session.
+     * A unique identifier for a player that is associated with this player session.
      * </p>
      * 
-     * @return Unique identifier for a player that is associated with this player session.
+     * @return A unique identifier for a player that is associated with this player session.
      */
 
     public String getPlayerId() {
@@ -109,11 +71,11 @@ public class PlacedPlayerSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Unique identifier for a player that is associated with this player session.
+     * A unique identifier for a player that is associated with this player session.
      * </p>
      * 
      * @param playerId
-     *        Unique identifier for a player that is associated with this player session.
+     *        A unique identifier for a player that is associated with this player session.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -124,11 +86,11 @@ public class PlacedPlayerSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Unique identifier for a player session.
+     * A unique identifier for a player session.
      * </p>
      * 
      * @param playerSessionId
-     *        Unique identifier for a player session.
+     *        A unique identifier for a player session.
      */
 
     public void setPlayerSessionId(String playerSessionId) {
@@ -137,10 +99,10 @@ public class PlacedPlayerSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Unique identifier for a player session.
+     * A unique identifier for a player session.
      * </p>
      * 
-     * @return Unique identifier for a player session.
+     * @return A unique identifier for a player session.
      */
 
     public String getPlayerSessionId() {
@@ -149,11 +111,11 @@ public class PlacedPlayerSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Unique identifier for a player session.
+     * A unique identifier for a player session.
      * </p>
      * 
      * @param playerSessionId
-     *        Unique identifier for a player session.
+     *        A unique identifier for a player session.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -175,7 +137,7 @@ public class PlacedPlayerSession implements Serializable, Cloneable, StructuredP
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getPlayerId() != null)
-            sb.append("PlayerId: ").append(getPlayerId()).append(",");
+            sb.append("PlayerId: ").append("***Sensitive Data Redacted***").append(",");
         if (getPlayerSessionId() != null)
             sb.append("PlayerSessionId: ").append(getPlayerSessionId());
         sb.append("}");

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -126,7 +126,77 @@ public class PublishVersionResultJsonUnmarshaller implements Unmarshaller<Publis
                 }
                 if (context.testExpression("Layers", targetDepth)) {
                     context.nextToken();
-                    publishVersionResult.setLayers(new ListUnmarshaller<Layer>(LayerJsonUnmarshaller.getInstance()).unmarshall(context));
+                    publishVersionResult.setLayers(new ListUnmarshaller<Layer>(LayerJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("State", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setState(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("StateReason", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setStateReason(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("StateReasonCode", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setStateReasonCode(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("LastUpdateStatus", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setLastUpdateStatus(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("LastUpdateStatusReason", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setLastUpdateStatusReason(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("LastUpdateStatusReasonCode", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setLastUpdateStatusReasonCode(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("FileSystemConfigs", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setFileSystemConfigs(new ListUnmarshaller<FileSystemConfig>(FileSystemConfigJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("PackageType", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setPackageType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ImageConfigResponse", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setImageConfigResponse(ImageConfigResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("SigningProfileVersionArn", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setSigningProfileVersionArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("SigningJobArn", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setSigningJobArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Architectures", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setArchitectures(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("EphemeralStorage", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setEphemeralStorage(EphemeralStorageJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("SnapStart", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setSnapStart(SnapStartResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("RuntimeVersionConfig", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setRuntimeVersionConfig(RuntimeVersionConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("LoggingConfig", targetDepth)) {
+                    context.nextToken();
+                    publishVersionResult.setLoggingConfig(LoggingConfigJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

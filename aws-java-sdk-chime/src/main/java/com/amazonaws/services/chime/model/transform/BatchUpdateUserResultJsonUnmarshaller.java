@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,7 +50,9 @@ public class BatchUpdateUserResultJsonUnmarshaller implements Unmarshaller<Batch
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("UserErrors", targetDepth)) {
                     context.nextToken();
-                    batchUpdateUserResult.setUserErrors(new ListUnmarshaller<UserError>(UserErrorJsonUnmarshaller.getInstance()).unmarshall(context));
+                    batchUpdateUserResult.setUserErrors(new ListUnmarshaller<UserError>(UserErrorJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

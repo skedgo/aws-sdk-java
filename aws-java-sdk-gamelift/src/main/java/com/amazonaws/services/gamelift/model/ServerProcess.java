@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,11 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A set of instructions for launching server processes on each instance in a fleet. Server processes run either a
- * custom game build executable or a Realtime Servers script. Each instruction set identifies the location of the custom
- * game build executable or Realtime launch script, optional launch parameters, and the number of server processes with
- * this configuration to maintain concurrently on the instance. Server process configurations make up a fleet's
- * <code> <a>RuntimeConfiguration</a> </code>.
+ * A set of instructions for launching server processes on fleet computes. Server processes run either an executable in
+ * a custom game build or a Realtime Servers script. Server process configurations are part of a fleet's runtime
+ * configuration.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/ServerProcess" target="_top">AWS API
@@ -34,13 +32,13 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Location of the server executable in a custom game build or the name of the Realtime script file that contains
-     * the <code>Init()</code> function. Game builds and Realtime scripts are installed on instances at the root:
+     * The location of a game build executable or Realtime script. Game builds and Realtime scripts are installed on
+     * instances at the root:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Windows (for custom game builds only): <code>C:\game</code>. Example: "<code>C:\game\MyGame\server.exe</code>"
+     * Windows (custom game builds only): <code>C:\game</code>. Example: "<code>C:\game\MyGame\server.exe</code>"
      * </p>
      * </li>
      * <li>
@@ -50,30 +48,37 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * Amazon GameLift doesn't support the use of setup scripts that launch the game executable. For custom game builds,
+     * this parameter must indicate the executable that calls the server SDK operations <code>initSDK()</code> and
+     * <code>ProcessReady()</code>.
+     * </p>
+     * </note>
      */
     private String launchPath;
     /**
      * <p>
-     * Optional list of parameters to pass to the server executable or Realtime script on launch.
+     * An optional list of parameters to pass to the server executable or Realtime script on launch.
      * </p>
      */
     private String parameters;
     /**
      * <p>
-     * Number of server processes using this configuration to run concurrently on an instance.
+     * The number of server processes using this configuration that run concurrently on each instance or container..
      * </p>
      */
     private Integer concurrentExecutions;
 
     /**
      * <p>
-     * Location of the server executable in a custom game build or the name of the Realtime script file that contains
-     * the <code>Init()</code> function. Game builds and Realtime scripts are installed on instances at the root:
+     * The location of a game build executable or Realtime script. Game builds and Realtime scripts are installed on
+     * instances at the root:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Windows (for custom game builds only): <code>C:\game</code>. Example: "<code>C:\game\MyGame\server.exe</code>"
+     * Windows (custom game builds only): <code>C:\game</code>. Example: "<code>C:\game\MyGame\server.exe</code>"
      * </p>
      * </li>
      * <li>
@@ -83,16 +88,21 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * Amazon GameLift doesn't support the use of setup scripts that launch the game executable. For custom game builds,
+     * this parameter must indicate the executable that calls the server SDK operations <code>initSDK()</code> and
+     * <code>ProcessReady()</code>.
+     * </p>
+     * </note>
      * 
      * @param launchPath
-     *        Location of the server executable in a custom game build or the name of the Realtime script file that
-     *        contains the <code>Init()</code> function. Game builds and Realtime scripts are installed on instances at
-     *        the root: </p>
+     *        The location of a game build executable or Realtime script. Game builds and Realtime scripts are installed
+     *        on instances at the root: </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Windows (for custom game builds only): <code>C:\game</code>. Example: "
-     *        <code>C:\game\MyGame\server.exe</code>"
+     *        Windows (custom game builds only): <code>C:\game</code>. Example: "<code>C:\game\MyGame\server.exe</code>"
      *        </p>
      *        </li>
      *        <li>
@@ -101,6 +111,13 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
      *        <code>/local/game/MyRealtimeScript.js</code>"
      *        </p>
      *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        Amazon GameLift doesn't support the use of setup scripts that launch the game executable. For custom game
+     *        builds, this parameter must indicate the executable that calls the server SDK operations
+     *        <code>initSDK()</code> and <code>ProcessReady()</code>.
+     *        </p>
      */
 
     public void setLaunchPath(String launchPath) {
@@ -109,13 +126,13 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Location of the server executable in a custom game build or the name of the Realtime script file that contains
-     * the <code>Init()</code> function. Game builds and Realtime scripts are installed on instances at the root:
+     * The location of a game build executable or Realtime script. Game builds and Realtime scripts are installed on
+     * instances at the root:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Windows (for custom game builds only): <code>C:\game</code>. Example: "<code>C:\game\MyGame\server.exe</code>"
+     * Windows (custom game builds only): <code>C:\game</code>. Example: "<code>C:\game\MyGame\server.exe</code>"
      * </p>
      * </li>
      * <li>
@@ -125,15 +142,21 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * Amazon GameLift doesn't support the use of setup scripts that launch the game executable. For custom game builds,
+     * this parameter must indicate the executable that calls the server SDK operations <code>initSDK()</code> and
+     * <code>ProcessReady()</code>.
+     * </p>
+     * </note>
      * 
-     * @return Location of the server executable in a custom game build or the name of the Realtime script file that
-     *         contains the <code>Init()</code> function. Game builds and Realtime scripts are installed on instances at
-     *         the root: </p>
+     * @return The location of a game build executable or Realtime script. Game builds and Realtime scripts are
+     *         installed on instances at the root: </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Windows (for custom game builds only): <code>C:\game</code>. Example: "
-     *         <code>C:\game\MyGame\server.exe</code>"
+     *         Windows (custom game builds only): <code>C:\game</code>. Example: "<code>C:\game\MyGame\server.exe</code>
+     *         "
      *         </p>
      *         </li>
      *         <li>
@@ -142,6 +165,13 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
      *         <code>/local/game/MyRealtimeScript.js</code>"
      *         </p>
      *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         Amazon GameLift doesn't support the use of setup scripts that launch the game executable. For custom game
+     *         builds, this parameter must indicate the executable that calls the server SDK operations
+     *         <code>initSDK()</code> and <code>ProcessReady()</code>.
+     *         </p>
      */
 
     public String getLaunchPath() {
@@ -150,13 +180,13 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Location of the server executable in a custom game build or the name of the Realtime script file that contains
-     * the <code>Init()</code> function. Game builds and Realtime scripts are installed on instances at the root:
+     * The location of a game build executable or Realtime script. Game builds and Realtime scripts are installed on
+     * instances at the root:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Windows (for custom game builds only): <code>C:\game</code>. Example: "<code>C:\game\MyGame\server.exe</code>"
+     * Windows (custom game builds only): <code>C:\game</code>. Example: "<code>C:\game\MyGame\server.exe</code>"
      * </p>
      * </li>
      * <li>
@@ -166,16 +196,21 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * Amazon GameLift doesn't support the use of setup scripts that launch the game executable. For custom game builds,
+     * this parameter must indicate the executable that calls the server SDK operations <code>initSDK()</code> and
+     * <code>ProcessReady()</code>.
+     * </p>
+     * </note>
      * 
      * @param launchPath
-     *        Location of the server executable in a custom game build or the name of the Realtime script file that
-     *        contains the <code>Init()</code> function. Game builds and Realtime scripts are installed on instances at
-     *        the root: </p>
+     *        The location of a game build executable or Realtime script. Game builds and Realtime scripts are installed
+     *        on instances at the root: </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Windows (for custom game builds only): <code>C:\game</code>. Example: "
-     *        <code>C:\game\MyGame\server.exe</code>"
+     *        Windows (custom game builds only): <code>C:\game</code>. Example: "<code>C:\game\MyGame\server.exe</code>"
      *        </p>
      *        </li>
      *        <li>
@@ -184,6 +219,13 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
      *        <code>/local/game/MyRealtimeScript.js</code>"
      *        </p>
      *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        Amazon GameLift doesn't support the use of setup scripts that launch the game executable. For custom game
+     *        builds, this parameter must indicate the executable that calls the server SDK operations
+     *        <code>initSDK()</code> and <code>ProcessReady()</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -194,11 +236,11 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Optional list of parameters to pass to the server executable or Realtime script on launch.
+     * An optional list of parameters to pass to the server executable or Realtime script on launch.
      * </p>
      * 
      * @param parameters
-     *        Optional list of parameters to pass to the server executable or Realtime script on launch.
+     *        An optional list of parameters to pass to the server executable or Realtime script on launch.
      */
 
     public void setParameters(String parameters) {
@@ -207,10 +249,10 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Optional list of parameters to pass to the server executable or Realtime script on launch.
+     * An optional list of parameters to pass to the server executable or Realtime script on launch.
      * </p>
      * 
-     * @return Optional list of parameters to pass to the server executable or Realtime script on launch.
+     * @return An optional list of parameters to pass to the server executable or Realtime script on launch.
      */
 
     public String getParameters() {
@@ -219,11 +261,11 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Optional list of parameters to pass to the server executable or Realtime script on launch.
+     * An optional list of parameters to pass to the server executable or Realtime script on launch.
      * </p>
      * 
      * @param parameters
-     *        Optional list of parameters to pass to the server executable or Realtime script on launch.
+     *        An optional list of parameters to pass to the server executable or Realtime script on launch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -234,11 +276,12 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Number of server processes using this configuration to run concurrently on an instance.
+     * The number of server processes using this configuration that run concurrently on each instance or container..
      * </p>
      * 
      * @param concurrentExecutions
-     *        Number of server processes using this configuration to run concurrently on an instance.
+     *        The number of server processes using this configuration that run concurrently on each instance or
+     *        container..
      */
 
     public void setConcurrentExecutions(Integer concurrentExecutions) {
@@ -247,10 +290,11 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Number of server processes using this configuration to run concurrently on an instance.
+     * The number of server processes using this configuration that run concurrently on each instance or container..
      * </p>
      * 
-     * @return Number of server processes using this configuration to run concurrently on an instance.
+     * @return The number of server processes using this configuration that run concurrently on each instance or
+     *         container..
      */
 
     public Integer getConcurrentExecutions() {
@@ -259,11 +303,12 @@ public class ServerProcess implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Number of server processes using this configuration to run concurrently on an instance.
+     * The number of server processes using this configuration that run concurrently on each instance or container..
      * </p>
      * 
      * @param concurrentExecutions
-     *        Number of server processes using this configuration to run concurrently on an instance.
+     *        The number of server processes using this configuration that run concurrently on each instance or
+     *        container..
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

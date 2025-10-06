@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,13 +52,51 @@ public class ResourceJsonUnmarshaller implements Unmarshaller<Resource, JsonUnma
                     context.nextToken();
                     resource.setAccessKeyDetails(AccessKeyDetailsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("s3BucketDetails", targetDepth)) {
+                    context.nextToken();
+                    resource.setS3BucketDetails(new ListUnmarshaller<S3BucketDetail>(S3BucketDetailJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
                 if (context.testExpression("instanceDetails", targetDepth)) {
                     context.nextToken();
                     resource.setInstanceDetails(InstanceDetailsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("eksClusterDetails", targetDepth)) {
+                    context.nextToken();
+                    resource.setEksClusterDetails(EksClusterDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("kubernetesDetails", targetDepth)) {
+                    context.nextToken();
+                    resource.setKubernetesDetails(KubernetesDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("resourceType", targetDepth)) {
                     context.nextToken();
                     resource.setResourceType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ebsVolumeDetails", targetDepth)) {
+                    context.nextToken();
+                    resource.setEbsVolumeDetails(EbsVolumeDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ecsClusterDetails", targetDepth)) {
+                    context.nextToken();
+                    resource.setEcsClusterDetails(EcsClusterDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("containerDetails", targetDepth)) {
+                    context.nextToken();
+                    resource.setContainerDetails(ContainerJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("rdsDbInstanceDetails", targetDepth)) {
+                    context.nextToken();
+                    resource.setRdsDbInstanceDetails(RdsDbInstanceDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("rdsDbUserDetails", targetDepth)) {
+                    context.nextToken();
+                    resource.setRdsDbUserDetails(RdsDbUserDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("lambdaDetails", targetDepth)) {
+                    context.nextToken();
+                    resource.setLambdaDetails(LambdaDetailsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

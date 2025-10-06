@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,7 +58,17 @@ public class GetBotResultJsonUnmarshaller implements Unmarshaller<GetBotResult, 
                 }
                 if (context.testExpression("intents", targetDepth)) {
                     context.nextToken();
-                    getBotResult.setIntents(new ListUnmarshaller<Intent>(IntentJsonUnmarshaller.getInstance()).unmarshall(context));
+                    getBotResult.setIntents(new ListUnmarshaller<Intent>(IntentJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("enableModelImprovements", targetDepth)) {
+                    context.nextToken();
+                    getBotResult.setEnableModelImprovements(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("nluIntentConfidenceThreshold", targetDepth)) {
+                    context.nextToken();
+                    getBotResult.setNluIntentConfidenceThreshold(context.getUnmarshaller(Double.class).unmarshall(context));
                 }
                 if (context.testExpression("clarificationPrompt", targetDepth)) {
                     context.nextToken();
@@ -107,6 +117,10 @@ public class GetBotResultJsonUnmarshaller implements Unmarshaller<GetBotResult, 
                 if (context.testExpression("childDirected", targetDepth)) {
                     context.nextToken();
                     getBotResult.setChildDirected(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("detectSentiment", targetDepth)) {
+                    context.nextToken();
+                    getBotResult.setDetectSentiment(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

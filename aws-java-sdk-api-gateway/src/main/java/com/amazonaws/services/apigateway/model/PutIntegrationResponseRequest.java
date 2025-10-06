@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,26 +27,25 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      */
     private String restApiId;
     /**
      * <p>
-     * [Required] Specifies a put integration response request's resource identifier.
+     * Specifies a put integration response request's resource identifier.
      * </p>
      */
     private String resourceId;
     /**
      * <p>
-     * [Required] Specifies a put integration response request's HTTP method.
+     * Specifies a put integration response request's HTTP method.
      * </p>
      */
     private String httpMethod;
     /**
      * <p>
-     * [Required] Specifies the status code that is used to map the integration response to an existing
-     * <a>MethodResponse</a>.
+     * Specifies the status code that is used to map the integration response to an existing MethodResponse.
      * </p>
      */
     private String statusCode;
@@ -80,19 +79,6 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
      * Specifies how to handle response payload content type conversions. Supported values are
      * <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_BINARY</code>: Converts a response payload from a Base64-encoded string to the corresponding
-     * binary blob.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_TEXT</code>: Converts a response payload from a binary blob to a Base64-encoded string.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * If this property is not defined, the response payload will be passed through from the integration response to the
      * method response without modification.
@@ -102,11 +88,11 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      */
 
     public void setRestApiId(String restApiId) {
@@ -115,10 +101,10 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
-     * @return [Required] The string identifier of the associated <a>RestApi</a>.
+     * @return The string identifier of the associated RestApi.
      */
 
     public String getRestApiId() {
@@ -127,11 +113,11 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -142,11 +128,11 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * [Required] Specifies a put integration response request's resource identifier.
+     * Specifies a put integration response request's resource identifier.
      * </p>
      * 
      * @param resourceId
-     *        [Required] Specifies a put integration response request's resource identifier.
+     *        Specifies a put integration response request's resource identifier.
      */
 
     public void setResourceId(String resourceId) {
@@ -155,10 +141,10 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * [Required] Specifies a put integration response request's resource identifier.
+     * Specifies a put integration response request's resource identifier.
      * </p>
      * 
-     * @return [Required] Specifies a put integration response request's resource identifier.
+     * @return Specifies a put integration response request's resource identifier.
      */
 
     public String getResourceId() {
@@ -167,11 +153,11 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * [Required] Specifies a put integration response request's resource identifier.
+     * Specifies a put integration response request's resource identifier.
      * </p>
      * 
      * @param resourceId
-     *        [Required] Specifies a put integration response request's resource identifier.
+     *        Specifies a put integration response request's resource identifier.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -182,11 +168,11 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * [Required] Specifies a put integration response request's HTTP method.
+     * Specifies a put integration response request's HTTP method.
      * </p>
      * 
      * @param httpMethod
-     *        [Required] Specifies a put integration response request's HTTP method.
+     *        Specifies a put integration response request's HTTP method.
      */
 
     public void setHttpMethod(String httpMethod) {
@@ -195,10 +181,10 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * [Required] Specifies a put integration response request's HTTP method.
+     * Specifies a put integration response request's HTTP method.
      * </p>
      * 
-     * @return [Required] Specifies a put integration response request's HTTP method.
+     * @return Specifies a put integration response request's HTTP method.
      */
 
     public String getHttpMethod() {
@@ -207,11 +193,11 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * [Required] Specifies a put integration response request's HTTP method.
+     * Specifies a put integration response request's HTTP method.
      * </p>
      * 
      * @param httpMethod
-     *        [Required] Specifies a put integration response request's HTTP method.
+     *        Specifies a put integration response request's HTTP method.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -222,13 +208,11 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * [Required] Specifies the status code that is used to map the integration response to an existing
-     * <a>MethodResponse</a>.
+     * Specifies the status code that is used to map the integration response to an existing MethodResponse.
      * </p>
      * 
      * @param statusCode
-     *        [Required] Specifies the status code that is used to map the integration response to an existing
-     *        <a>MethodResponse</a>.
+     *        Specifies the status code that is used to map the integration response to an existing MethodResponse.
      */
 
     public void setStatusCode(String statusCode) {
@@ -237,12 +221,10 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * [Required] Specifies the status code that is used to map the integration response to an existing
-     * <a>MethodResponse</a>.
+     * Specifies the status code that is used to map the integration response to an existing MethodResponse.
      * </p>
      * 
-     * @return [Required] Specifies the status code that is used to map the integration response to an existing
-     *         <a>MethodResponse</a>.
+     * @return Specifies the status code that is used to map the integration response to an existing MethodResponse.
      */
 
     public String getStatusCode() {
@@ -251,13 +233,11 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * [Required] Specifies the status code that is used to map the integration response to an existing
-     * <a>MethodResponse</a>.
+     * Specifies the status code that is used to map the integration response to an existing MethodResponse.
      * </p>
      * 
      * @param statusCode
-     *        [Required] Specifies the status code that is used to map the integration response to an existing
-     *        <a>MethodResponse</a>.
+     *        Specifies the status code that is used to map the integration response to an existing MethodResponse.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -391,6 +371,13 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
         return this;
     }
 
+    /**
+     * Add a single ResponseParameters entry
+     *
+     * @see PutIntegrationResponseRequest#withResponseParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public PutIntegrationResponseRequest addResponseParametersEntry(String key, String value) {
         if (null == this.responseParameters) {
             this.responseParameters = new java.util.HashMap<String, String>();
@@ -452,6 +439,13 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
         return this;
     }
 
+    /**
+     * Add a single ResponseTemplates entry
+     *
+     * @see PutIntegrationResponseRequest#withResponseTemplates
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public PutIntegrationResponseRequest addResponseTemplatesEntry(String key, String value) {
         if (null == this.responseTemplates) {
             this.responseTemplates = new java.util.HashMap<String, String>();
@@ -478,19 +472,6 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
      * Specifies how to handle response payload content type conversions. Supported values are
      * <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_BINARY</code>: Converts a response payload from a Base64-encoded string to the corresponding
-     * binary blob.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_TEXT</code>: Converts a response payload from a binary blob to a Base64-encoded string.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * If this property is not defined, the response payload will be passed through from the integration response to the
      * method response without modification.
@@ -499,19 +480,6 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
      * @param contentHandling
      *        Specifies how to handle response payload content type conversions. Supported values are
      *        <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:</p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_BINARY</code>: Converts a response payload from a Base64-encoded string to the
-     *        corresponding binary blob.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_TEXT</code>: Converts a response payload from a binary blob to a Base64-encoded string.
-     *        </p>
-     *        </li>
-     *        </ul>
      *        <p>
      *        If this property is not defined, the response payload will be passed through from the integration response
      *        to the method response without modification.
@@ -527,19 +495,6 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
      * Specifies how to handle response payload content type conversions. Supported values are
      * <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_BINARY</code>: Converts a response payload from a Base64-encoded string to the corresponding
-     * binary blob.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_TEXT</code>: Converts a response payload from a binary blob to a Base64-encoded string.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * If this property is not defined, the response payload will be passed through from the integration response to the
      * method response without modification.
@@ -547,19 +502,6 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
      * 
      * @return Specifies how to handle response payload content type conversions. Supported values are
      *         <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:</p>
-     *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>CONVERT_TO_BINARY</code>: Converts a response payload from a Base64-encoded string to the
-     *         corresponding binary blob.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         <code>CONVERT_TO_TEXT</code>: Converts a response payload from a binary blob to a Base64-encoded string.
-     *         </p>
-     *         </li>
-     *         </ul>
      *         <p>
      *         If this property is not defined, the response payload will be passed through from the integration
      *         response to the method response without modification.
@@ -575,19 +517,6 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
      * Specifies how to handle response payload content type conversions. Supported values are
      * <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_BINARY</code>: Converts a response payload from a Base64-encoded string to the corresponding
-     * binary blob.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_TEXT</code>: Converts a response payload from a binary blob to a Base64-encoded string.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * If this property is not defined, the response payload will be passed through from the integration response to the
      * method response without modification.
@@ -596,19 +525,6 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
      * @param contentHandling
      *        Specifies how to handle response payload content type conversions. Supported values are
      *        <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:</p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_BINARY</code>: Converts a response payload from a Base64-encoded string to the
-     *        corresponding binary blob.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_TEXT</code>: Converts a response payload from a binary blob to a Base64-encoded string.
-     *        </p>
-     *        </li>
-     *        </ul>
      *        <p>
      *        If this property is not defined, the response payload will be passed through from the integration response
      *        to the method response without modification.
@@ -626,19 +542,6 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
      * Specifies how to handle response payload content type conversions. Supported values are
      * <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_BINARY</code>: Converts a response payload from a Base64-encoded string to the corresponding
-     * binary blob.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_TEXT</code>: Converts a response payload from a binary blob to a Base64-encoded string.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * If this property is not defined, the response payload will be passed through from the integration response to the
      * method response without modification.
@@ -647,19 +550,6 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
      * @param contentHandling
      *        Specifies how to handle response payload content type conversions. Supported values are
      *        <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:</p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_BINARY</code>: Converts a response payload from a Base64-encoded string to the
-     *        corresponding binary blob.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_TEXT</code>: Converts a response payload from a binary blob to a Base64-encoded string.
-     *        </p>
-     *        </li>
-     *        </ul>
      *        <p>
      *        If this property is not defined, the response payload will be passed through from the integration response
      *        to the method response without modification.
@@ -675,19 +565,6 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
      * Specifies how to handle response payload content type conversions. Supported values are
      * <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_BINARY</code>: Converts a response payload from a Base64-encoded string to the corresponding
-     * binary blob.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_TEXT</code>: Converts a response payload from a binary blob to a Base64-encoded string.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * If this property is not defined, the response payload will be passed through from the integration response to the
      * method response without modification.
@@ -696,19 +573,6 @@ public class PutIntegrationResponseRequest extends com.amazonaws.AmazonWebServic
      * @param contentHandling
      *        Specifies how to handle response payload content type conversions. Supported values are
      *        <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:</p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_BINARY</code>: Converts a response payload from a Base64-encoded string to the
-     *        corresponding binary blob.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_TEXT</code>: Converts a response payload from a binary blob to a Base64-encoded string.
-     *        </p>
-     *        </li>
-     *        </ul>
      *        <p>
      *        If this property is not defined, the response payload will be passed through from the integration response
      *        to the method response without modification.

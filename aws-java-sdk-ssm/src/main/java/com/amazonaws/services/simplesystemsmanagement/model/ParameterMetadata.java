@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Metadata includes information like the ARN of the last user and the date/time the parameter was last used.
+ * Metadata includes information like the Amazon Resource Name (ARN) of the last user to update the parameter and the
+ * date and time the parameter was last used.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ParameterMetadata" target="_top">AWS API
@@ -36,13 +37,21 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
     private String name;
     /**
      * <p>
-     * The type of parameter. Valid parameter types include the following: String, String list, Secure string.
+     * The (ARN) of the last user to update the parameter.
+     * </p>
+     */
+    private String aRN;
+    /**
+     * <p>
+     * The type of parameter. Valid parameter types include the following: <code>String</code>, <code>StringList</code>,
+     * and <code>SecureString</code>.
      * </p>
      */
     private String type;
     /**
      * <p>
-     * The ID of the query key used for this parameter.
+     * The alias of the Key Management Service (KMS) key used to encrypt the parameter. Applies to
+     * <code>SecureString</code> parameters only.
      * </p>
      */
     private String keyId;
@@ -54,7 +63,7 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
     private java.util.Date lastModifiedDate;
     /**
      * <p>
-     * Amazon Resource Name (ARN) of the AWS user who last changed the parameter.
+     * Amazon Resource Name (ARN) of the Amazon Web Services user who last changed the parameter.
      * </p>
      */
     private String lastModifiedUser;
@@ -91,6 +100,13 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<ParameterInlinePolicy> policies;
+    /**
+     * <p>
+     * The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is
+     * <code>text</code>.
+     * </p>
+     */
+    private String dataType;
 
     /**
      * <p>
@@ -134,11 +150,53 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The type of parameter. Valid parameter types include the following: String, String list, Secure string.
+     * The (ARN) of the last user to update the parameter.
+     * </p>
+     * 
+     * @param aRN
+     *        The (ARN) of the last user to update the parameter.
+     */
+
+    public void setARN(String aRN) {
+        this.aRN = aRN;
+    }
+
+    /**
+     * <p>
+     * The (ARN) of the last user to update the parameter.
+     * </p>
+     * 
+     * @return The (ARN) of the last user to update the parameter.
+     */
+
+    public String getARN() {
+        return this.aRN;
+    }
+
+    /**
+     * <p>
+     * The (ARN) of the last user to update the parameter.
+     * </p>
+     * 
+     * @param aRN
+     *        The (ARN) of the last user to update the parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ParameterMetadata withARN(String aRN) {
+        setARN(aRN);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of parameter. Valid parameter types include the following: <code>String</code>, <code>StringList</code>,
+     * and <code>SecureString</code>.
      * </p>
      * 
      * @param type
-     *        The type of parameter. Valid parameter types include the following: String, String list, Secure string.
+     *        The type of parameter. Valid parameter types include the following: <code>String</code>,
+     *        <code>StringList</code>, and <code>SecureString</code>.
      * @see ParameterType
      */
 
@@ -148,10 +206,12 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The type of parameter. Valid parameter types include the following: String, String list, Secure string.
+     * The type of parameter. Valid parameter types include the following: <code>String</code>, <code>StringList</code>,
+     * and <code>SecureString</code>.
      * </p>
      * 
-     * @return The type of parameter. Valid parameter types include the following: String, String list, Secure string.
+     * @return The type of parameter. Valid parameter types include the following: <code>String</code>,
+     *         <code>StringList</code>, and <code>SecureString</code>.
      * @see ParameterType
      */
 
@@ -161,11 +221,13 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The type of parameter. Valid parameter types include the following: String, String list, Secure string.
+     * The type of parameter. Valid parameter types include the following: <code>String</code>, <code>StringList</code>,
+     * and <code>SecureString</code>.
      * </p>
      * 
      * @param type
-     *        The type of parameter. Valid parameter types include the following: String, String list, Secure string.
+     *        The type of parameter. Valid parameter types include the following: <code>String</code>,
+     *        <code>StringList</code>, and <code>SecureString</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ParameterType
      */
@@ -177,11 +239,13 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The type of parameter. Valid parameter types include the following: String, String list, Secure string.
+     * The type of parameter. Valid parameter types include the following: <code>String</code>, <code>StringList</code>,
+     * and <code>SecureString</code>.
      * </p>
      * 
      * @param type
-     *        The type of parameter. Valid parameter types include the following: String, String list, Secure string.
+     *        The type of parameter. Valid parameter types include the following: <code>String</code>,
+     *        <code>StringList</code>, and <code>SecureString</code>.
      * @see ParameterType
      */
 
@@ -191,11 +255,13 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The type of parameter. Valid parameter types include the following: String, String list, Secure string.
+     * The type of parameter. Valid parameter types include the following: <code>String</code>, <code>StringList</code>,
+     * and <code>SecureString</code>.
      * </p>
      * 
      * @param type
-     *        The type of parameter. Valid parameter types include the following: String, String list, Secure string.
+     *        The type of parameter. Valid parameter types include the following: <code>String</code>,
+     *        <code>StringList</code>, and <code>SecureString</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ParameterType
      */
@@ -207,11 +273,13 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The ID of the query key used for this parameter.
+     * The alias of the Key Management Service (KMS) key used to encrypt the parameter. Applies to
+     * <code>SecureString</code> parameters only.
      * </p>
      * 
      * @param keyId
-     *        The ID of the query key used for this parameter.
+     *        The alias of the Key Management Service (KMS) key used to encrypt the parameter. Applies to
+     *        <code>SecureString</code> parameters only.
      */
 
     public void setKeyId(String keyId) {
@@ -220,10 +288,12 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The ID of the query key used for this parameter.
+     * The alias of the Key Management Service (KMS) key used to encrypt the parameter. Applies to
+     * <code>SecureString</code> parameters only.
      * </p>
      * 
-     * @return The ID of the query key used for this parameter.
+     * @return The alias of the Key Management Service (KMS) key used to encrypt the parameter. Applies to
+     *         <code>SecureString</code> parameters only.
      */
 
     public String getKeyId() {
@@ -232,11 +302,13 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The ID of the query key used for this parameter.
+     * The alias of the Key Management Service (KMS) key used to encrypt the parameter. Applies to
+     * <code>SecureString</code> parameters only.
      * </p>
      * 
      * @param keyId
-     *        The ID of the query key used for this parameter.
+     *        The alias of the Key Management Service (KMS) key used to encrypt the parameter. Applies to
+     *        <code>SecureString</code> parameters only.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -287,11 +359,11 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Amazon Resource Name (ARN) of the AWS user who last changed the parameter.
+     * Amazon Resource Name (ARN) of the Amazon Web Services user who last changed the parameter.
      * </p>
      * 
      * @param lastModifiedUser
-     *        Amazon Resource Name (ARN) of the AWS user who last changed the parameter.
+     *        Amazon Resource Name (ARN) of the Amazon Web Services user who last changed the parameter.
      */
 
     public void setLastModifiedUser(String lastModifiedUser) {
@@ -300,10 +372,10 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Amazon Resource Name (ARN) of the AWS user who last changed the parameter.
+     * Amazon Resource Name (ARN) of the Amazon Web Services user who last changed the parameter.
      * </p>
      * 
-     * @return Amazon Resource Name (ARN) of the AWS user who last changed the parameter.
+     * @return Amazon Resource Name (ARN) of the Amazon Web Services user who last changed the parameter.
      */
 
     public String getLastModifiedUser() {
@@ -312,11 +384,11 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Amazon Resource Name (ARN) of the AWS user who last changed the parameter.
+     * Amazon Resource Name (ARN) of the Amazon Web Services user who last changed the parameter.
      * </p>
      * 
      * @param lastModifiedUser
-     *        Amazon Resource Name (ARN) of the AWS user who last changed the parameter.
+     *        Amazon Resource Name (ARN) of the Amazon Web Services user who last changed the parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -607,6 +679,52 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
+     * <p>
+     * The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is
+     * <code>text</code>.
+     * </p>
+     * 
+     * @param dataType
+     *        The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is
+     *        <code>text</code>.
+     */
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
+    /**
+     * <p>
+     * The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is
+     * <code>text</code>.
+     * </p>
+     * 
+     * @return The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is
+     *         <code>text</code>.
+     */
+
+    public String getDataType() {
+        return this.dataType;
+    }
+
+    /**
+     * <p>
+     * The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is
+     * <code>text</code>.
+     * </p>
+     * 
+     * @param dataType
+     *        The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is
+     *        <code>text</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ParameterMetadata withDataType(String dataType) {
+        setDataType(dataType);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -620,6 +738,8 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
         sb.append("{");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
+        if (getARN() != null)
+            sb.append("ARN: ").append(getARN()).append(",");
         if (getType() != null)
             sb.append("Type: ").append(getType()).append(",");
         if (getKeyId() != null)
@@ -637,7 +757,9 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
         if (getTier() != null)
             sb.append("Tier: ").append(getTier()).append(",");
         if (getPolicies() != null)
-            sb.append("Policies: ").append(getPolicies());
+            sb.append("Policies: ").append(getPolicies()).append(",");
+        if (getDataType() != null)
+            sb.append("DataType: ").append(getDataType());
         sb.append("}");
         return sb.toString();
     }
@@ -655,6 +777,10 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
         if (other.getName() == null ^ this.getName() == null)
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
+        if (other.getARN() == null ^ this.getARN() == null)
+            return false;
+        if (other.getARN() != null && other.getARN().equals(this.getARN()) == false)
             return false;
         if (other.getType() == null ^ this.getType() == null)
             return false;
@@ -692,6 +818,10 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getPolicies() != null && other.getPolicies().equals(this.getPolicies()) == false)
             return false;
+        if (other.getDataType() == null ^ this.getDataType() == null)
+            return false;
+        if (other.getDataType() != null && other.getDataType().equals(this.getDataType()) == false)
+            return false;
         return true;
     }
 
@@ -701,6 +831,7 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getARN() == null) ? 0 : getARN().hashCode());
         hashCode = prime * hashCode + ((getType() == null) ? 0 : getType().hashCode());
         hashCode = prime * hashCode + ((getKeyId() == null) ? 0 : getKeyId().hashCode());
         hashCode = prime * hashCode + ((getLastModifiedDate() == null) ? 0 : getLastModifiedDate().hashCode());
@@ -710,6 +841,7 @@ public class ParameterMetadata implements Serializable, Cloneable, StructuredPoj
         hashCode = prime * hashCode + ((getVersion() == null) ? 0 : getVersion().hashCode());
         hashCode = prime * hashCode + ((getTier() == null) ? 0 : getTier().hashCode());
         hashCode = prime * hashCode + ((getPolicies() == null) ? 0 : getPolicies().hashCode());
+        hashCode = prime * hashCode + ((getDataType() == null) ? 0 : getDataType().hashCode());
         return hashCode;
     }
 

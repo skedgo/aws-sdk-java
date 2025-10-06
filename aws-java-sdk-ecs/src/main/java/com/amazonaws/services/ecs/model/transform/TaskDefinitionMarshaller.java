@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,18 +52,30 @@ public class TaskDefinitionMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("placementConstraints").build();
     private static final MarshallingInfo<List> COMPATIBILITIES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("compatibilities").build();
+    private static final MarshallingInfo<StructuredPojo> RUNTIMEPLATFORM_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("runtimePlatform").build();
     private static final MarshallingInfo<List> REQUIRESCOMPATIBILITIES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("requiresCompatibilities").build();
     private static final MarshallingInfo<String> CPU_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("cpu").build();
     private static final MarshallingInfo<String> MEMORY_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("memory").build();
+    private static final MarshallingInfo<List> INFERENCEACCELERATORS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("inferenceAccelerators").build();
     private static final MarshallingInfo<String> PIDMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("pidMode").build();
     private static final MarshallingInfo<String> IPCMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("ipcMode").build();
     private static final MarshallingInfo<StructuredPojo> PROXYCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("proxyConfiguration").build();
+    private static final MarshallingInfo<java.util.Date> REGISTEREDAT_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("registeredAt").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<java.util.Date> DEREGISTEREDAT_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("deregisteredAt").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<String> REGISTEREDBY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("registeredBy").build();
+    private static final MarshallingInfo<StructuredPojo> EPHEMERALSTORAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ephemeralStorage").build();
 
     private static final TaskDefinitionMarshaller instance = new TaskDefinitionMarshaller();
 
@@ -93,12 +105,18 @@ public class TaskDefinitionMarshaller {
             protocolMarshaller.marshall(taskDefinition.getRequiresAttributes(), REQUIRESATTRIBUTES_BINDING);
             protocolMarshaller.marshall(taskDefinition.getPlacementConstraints(), PLACEMENTCONSTRAINTS_BINDING);
             protocolMarshaller.marshall(taskDefinition.getCompatibilities(), COMPATIBILITIES_BINDING);
+            protocolMarshaller.marshall(taskDefinition.getRuntimePlatform(), RUNTIMEPLATFORM_BINDING);
             protocolMarshaller.marshall(taskDefinition.getRequiresCompatibilities(), REQUIRESCOMPATIBILITIES_BINDING);
             protocolMarshaller.marshall(taskDefinition.getCpu(), CPU_BINDING);
             protocolMarshaller.marshall(taskDefinition.getMemory(), MEMORY_BINDING);
+            protocolMarshaller.marshall(taskDefinition.getInferenceAccelerators(), INFERENCEACCELERATORS_BINDING);
             protocolMarshaller.marshall(taskDefinition.getPidMode(), PIDMODE_BINDING);
             protocolMarshaller.marshall(taskDefinition.getIpcMode(), IPCMODE_BINDING);
             protocolMarshaller.marshall(taskDefinition.getProxyConfiguration(), PROXYCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(taskDefinition.getRegisteredAt(), REGISTEREDAT_BINDING);
+            protocolMarshaller.marshall(taskDefinition.getDeregisteredAt(), DEREGISTEREDAT_BINDING);
+            protocolMarshaller.marshall(taskDefinition.getRegisteredBy(), REGISTEREDBY_BINDING);
+            protocolMarshaller.marshall(taskDefinition.getEphemeralStorage(), EPHEMERALSTORAGE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

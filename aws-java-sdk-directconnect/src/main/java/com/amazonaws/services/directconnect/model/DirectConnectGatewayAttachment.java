@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,13 +42,13 @@ public class DirectConnectGatewayAttachment implements Serializable, Cloneable, 
     private String virtualInterfaceId;
     /**
      * <p>
-     * The AWS Region where the virtual interface is located.
+     * The Amazon Web Services Region where the virtual interface is located.
      * </p>
      */
     private String virtualInterfaceRegion;
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual interface.
+     * The ID of the Amazon Web Services account that owns the virtual interface.
      * </p>
      */
     private String virtualInterfaceOwnerAccount;
@@ -83,7 +83,7 @@ public class DirectConnectGatewayAttachment implements Serializable, Cloneable, 
     private String attachmentState;
     /**
      * <p>
-     * The interface type.
+     * The type of attachment.
      * </p>
      */
     private String attachmentType;
@@ -176,11 +176,11 @@ public class DirectConnectGatewayAttachment implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The AWS Region where the virtual interface is located.
+     * The Amazon Web Services Region where the virtual interface is located.
      * </p>
      * 
      * @param virtualInterfaceRegion
-     *        The AWS Region where the virtual interface is located.
+     *        The Amazon Web Services Region where the virtual interface is located.
      */
 
     public void setVirtualInterfaceRegion(String virtualInterfaceRegion) {
@@ -189,10 +189,10 @@ public class DirectConnectGatewayAttachment implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The AWS Region where the virtual interface is located.
+     * The Amazon Web Services Region where the virtual interface is located.
      * </p>
      * 
-     * @return The AWS Region where the virtual interface is located.
+     * @return The Amazon Web Services Region where the virtual interface is located.
      */
 
     public String getVirtualInterfaceRegion() {
@@ -201,11 +201,11 @@ public class DirectConnectGatewayAttachment implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The AWS Region where the virtual interface is located.
+     * The Amazon Web Services Region where the virtual interface is located.
      * </p>
      * 
      * @param virtualInterfaceRegion
-     *        The AWS Region where the virtual interface is located.
+     *        The Amazon Web Services Region where the virtual interface is located.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -216,11 +216,11 @@ public class DirectConnectGatewayAttachment implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual interface.
+     * The ID of the Amazon Web Services account that owns the virtual interface.
      * </p>
      * 
      * @param virtualInterfaceOwnerAccount
-     *        The ID of the AWS account that owns the virtual interface.
+     *        The ID of the Amazon Web Services account that owns the virtual interface.
      */
 
     public void setVirtualInterfaceOwnerAccount(String virtualInterfaceOwnerAccount) {
@@ -229,10 +229,10 @@ public class DirectConnectGatewayAttachment implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual interface.
+     * The ID of the Amazon Web Services account that owns the virtual interface.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the virtual interface.
+     * @return The ID of the Amazon Web Services account that owns the virtual interface.
      */
 
     public String getVirtualInterfaceOwnerAccount() {
@@ -241,11 +241,11 @@ public class DirectConnectGatewayAttachment implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual interface.
+     * The ID of the Amazon Web Services account that owns the virtual interface.
      * </p>
      * 
      * @param virtualInterfaceOwnerAccount
-     *        The ID of the AWS account that owns the virtual interface.
+     *        The ID of the Amazon Web Services account that owns the virtual interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -503,11 +503,11 @@ public class DirectConnectGatewayAttachment implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The interface type.
+     * The type of attachment.
      * </p>
      * 
      * @param attachmentType
-     *        The interface type.
+     *        The type of attachment.
      * @see DirectConnectGatewayAttachmentType
      */
 
@@ -517,10 +517,10 @@ public class DirectConnectGatewayAttachment implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The interface type.
+     * The type of attachment.
      * </p>
      * 
-     * @return The interface type.
+     * @return The type of attachment.
      * @see DirectConnectGatewayAttachmentType
      */
 
@@ -530,11 +530,11 @@ public class DirectConnectGatewayAttachment implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The interface type.
+     * The type of attachment.
      * </p>
      * 
      * @param attachmentType
-     *        The interface type.
+     *        The type of attachment.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DirectConnectGatewayAttachmentType
      */
@@ -546,11 +546,11 @@ public class DirectConnectGatewayAttachment implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The interface type.
+     * The type of attachment.
      * </p>
      * 
      * @param attachmentType
-     *        The interface type.
+     *        The type of attachment.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DirectConnectGatewayAttachmentType
      */

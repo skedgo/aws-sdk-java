@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,15 +25,32 @@ import com.amazonaws.services.rdsdata.model.*;
  * {@link com.amazonaws.services.rdsdata.AbstractAWSRDSDataAsync} instead.
  * </p>
  * <p>
- * <fullname>Amazon RDS Data Service</fullname>
  * <p>
- * Amazon RDS provides an HTTP endpoint to run SQL statements on an Amazon Aurora Serverless DB cluster. To run these
- * statements, you work with the Data Service API.
+ * <fullname>RDS Data API</fullname>
+ * <p>
+ * Amazon RDS provides an HTTP endpoint to run SQL statements on an Amazon Aurora DB cluster. To run these statements,
+ * you use the RDS Data API (Data API).
  * </p>
  * <p>
- * For more information about the Data Service API, see <a
- * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using the Data API for Aurora
- * Serverless</a> in the <i>Amazon Aurora User Guide</i>.
+ * Data API is available with the following types of Aurora databases:
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * Aurora PostgreSQL - Serverless v2, Serverless v1, and provisioned
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Aurora MySQL - Serverless v1 only
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * For more information about the Data API, see <a
+ * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a> in the
+ * <i>Amazon Aurora User Guide</i>.
+ * </p>
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -48,12 +65,22 @@ public interface AWSRDSDataAsync extends AWSRDSData {
      * sets. Bulk operations can provide a significant performance improvement over individual insert and update
      * operations.
      * </p>
-     * <important>
+     * <note>
      * <p>
      * If a call isn't part of a transaction because it doesn't include the <code>transactionID</code> parameter,
      * changes that result from the call are committed automatically.
      * </p>
-     * </important>
+     * <p>
+     * There isn't a fixed upper limit on the number of parameter sets. However, the maximum size of the HTTP request
+     * submitted through the Data API is 4 MiB. If the request exceeds this limit, the Data API returns an error and
+     * doesn't process the request. This 4-MiB limit includes the size of the HTTP headers and the JSON notation in the
+     * request. Thus, the number of parameter sets that you can include depends on a combination of factors, such as the
+     * size of the SQL statement and the size of each parameter set.
+     * </p>
+     * <p>
+     * The response size limit is 1 MiB. If the call returns more than 1 MiB of response data, the call is terminated.
+     * </p>
+     * </note>
      * 
      * @param batchExecuteStatementRequest
      *        The request parameters represent the input of a SQL statement over an array of data.
@@ -73,12 +100,22 @@ public interface AWSRDSDataAsync extends AWSRDSData {
      * sets. Bulk operations can provide a significant performance improvement over individual insert and update
      * operations.
      * </p>
-     * <important>
+     * <note>
      * <p>
      * If a call isn't part of a transaction because it doesn't include the <code>transactionID</code> parameter,
      * changes that result from the call are committed automatically.
      * </p>
-     * </important>
+     * <p>
+     * There isn't a fixed upper limit on the number of parameter sets. However, the maximum size of the HTTP request
+     * submitted through the Data API is 4 MiB. If the request exceeds this limit, the Data API returns an error and
+     * doesn't process the request. This 4-MiB limit includes the size of the HTTP headers and the JSON notation in the
+     * request. Thus, the number of parameter sets that you can include depends on a combination of factors, such as the
+     * size of the SQL statement and the size of each parameter set.
+     * </p>
+     * <p>
+     * The response size limit is 1 MiB. If the call returns more than 1 MiB of response data, the call is terminated.
+     * </p>
+     * </note>
      * 
      * @param batchExecuteStatementRequest
      *        The request parameters represent the input of a SQL statement over an array of data.
@@ -98,8 +135,7 @@ public interface AWSRDSDataAsync extends AWSRDSData {
      * <p>
      * Starts a SQL transaction.
      * </p>
-     * 
-     * <important>
+     * <note>
      * <p>
      * A transaction can run for a maximum of 24 hours. A transaction is terminated and rolled back automatically after
      * 24 hours.
@@ -112,7 +148,7 @@ public interface AWSRDSDataAsync extends AWSRDSData {
      * DDL statements inside a transaction cause an implicit commit. We recommend that you run each DDL statement in a
      * separate <code>ExecuteStatement</code> call with <code>continueAfterTimeout</code> enabled.
      * </p>
-     * </important>
+     * </note>
      * 
      * @param beginTransactionRequest
      *        The request parameters represent the input of a request to start a SQL transaction.
@@ -127,8 +163,7 @@ public interface AWSRDSDataAsync extends AWSRDSData {
      * <p>
      * Starts a SQL transaction.
      * </p>
-     * 
-     * <important>
+     * <note>
      * <p>
      * A transaction can run for a maximum of 24 hours. A transaction is terminated and rolled back automatically after
      * 24 hours.
@@ -141,7 +176,7 @@ public interface AWSRDSDataAsync extends AWSRDSData {
      * DDL statements inside a transaction cause an implicit commit. We recommend that you run each DDL statement in a
      * separate <code>ExecuteStatement</code> call with <code>continueAfterTimeout</code> enabled.
      * </p>
-     * </important>
+     * </note>
      * 
      * @param beginTransactionRequest
      *        The request parameters represent the input of a request to start a SQL transaction.
@@ -194,12 +229,13 @@ public interface AWSRDSDataAsync extends AWSRDSData {
      * <p>
      * Runs one or more SQL statements.
      * </p>
-     * <important>
+     * <note>
      * <p>
-     * This operation is deprecated. Use the <code>BatchExecuteStatement</code> or <code>ExecuteStatement</code>
-     * operation.
+     * This operation isn't supported for Aurora PostgreSQL Serverless v2 and provisioned DB clusters, and for Aurora
+     * Serverless v1 DB clusters, the operation is deprecated. Use the <code>BatchExecuteStatement</code> or
+     * <code>ExecuteStatement</code> operation.
      * </p>
-     * </important>
+     * </note>
      * 
      * @param executeSqlRequest
      *        The request parameters represent the input of a request to run one or more SQL statements.
@@ -215,12 +251,13 @@ public interface AWSRDSDataAsync extends AWSRDSData {
      * <p>
      * Runs one or more SQL statements.
      * </p>
-     * <important>
+     * <note>
      * <p>
-     * This operation is deprecated. Use the <code>BatchExecuteStatement</code> or <code>ExecuteStatement</code>
-     * operation.
+     * This operation isn't supported for Aurora PostgreSQL Serverless v2 and provisioned DB clusters, and for Aurora
+     * Serverless v1 DB clusters, the operation is deprecated. Use the <code>BatchExecuteStatement</code> or
+     * <code>ExecuteStatement</code> operation.
      * </p>
-     * </important>
+     * </note>
      * 
      * @param executeSqlRequest
      *        The request parameters represent the input of a request to run one or more SQL statements.
@@ -241,16 +278,15 @@ public interface AWSRDSDataAsync extends AWSRDSData {
      * <p>
      * Runs a SQL statement against a database.
      * </p>
-     * <important>
+     * <note>
      * <p>
      * If a call isn't part of a transaction because it doesn't include the <code>transactionID</code> parameter,
      * changes that result from the call are committed automatically.
      * </p>
-     * </important>
      * <p>
-     * The response size limit is 1 MB or 1,000 records. If the call returns more than 1 MB of response data or over
-     * 1,000 records, the call is terminated.
+     * If the binary response data from the database is more than 1 MB, the call is terminated.
      * </p>
+     * </note>
      * 
      * @param executeStatementRequest
      *        The request parameters represent the input of a request to run a SQL statement against a database.
@@ -265,16 +301,15 @@ public interface AWSRDSDataAsync extends AWSRDSData {
      * <p>
      * Runs a SQL statement against a database.
      * </p>
-     * <important>
+     * <note>
      * <p>
      * If a call isn't part of a transaction because it doesn't include the <code>transactionID</code> parameter,
      * changes that result from the call are committed automatically.
      * </p>
-     * </important>
      * <p>
-     * The response size limit is 1 MB or 1,000 records. If the call returns more than 1 MB of response data or over
-     * 1,000 records, the call is terminated.
+     * If the binary response data from the database is more than 1 MB, the call is terminated.
      * </p>
+     * </note>
      * 
      * @param executeStatementRequest
      *        The request parameters represent the input of a request to run a SQL statement against a database.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,12 +34,12 @@ public class DescribeVpcEndpointConnectionNotificationsRequest extends AmazonWeb
     private String connectionNotificationId;
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>connection-notification-arn</code> - The ARN of SNS topic for the notification.
+     * <code>connection-notification-arn</code> - The ARN of the SNS topic for the notification.
      * </p>
      * </li>
      * <li>
@@ -127,12 +127,12 @@ public class DescribeVpcEndpointConnectionNotificationsRequest extends AmazonWeb
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>connection-notification-arn</code> - The ARN of SNS topic for the notification.
+     * <code>connection-notification-arn</code> - The ARN of the SNS topic for the notification.
      * </p>
      * </li>
      * <li>
@@ -163,11 +163,11 @@ public class DescribeVpcEndpointConnectionNotificationsRequest extends AmazonWeb
      * </li>
      * </ul>
      * 
-     * @return One or more filters.</p>
+     * @return The filters.</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>connection-notification-arn</code> - The ARN of SNS topic for the notification.
+     *         <code>connection-notification-arn</code> - The ARN of the SNS topic for the notification.
      *         </p>
      *         </li>
      *         <li>
@@ -207,12 +207,12 @@ public class DescribeVpcEndpointConnectionNotificationsRequest extends AmazonWeb
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>connection-notification-arn</code> - The ARN of SNS topic for the notification.
+     * <code>connection-notification-arn</code> - The ARN of the SNS topic for the notification.
      * </p>
      * </li>
      * <li>
@@ -244,11 +244,11 @@ public class DescribeVpcEndpointConnectionNotificationsRequest extends AmazonWeb
      * </ul>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>connection-notification-arn</code> - The ARN of SNS topic for the notification.
+     *        <code>connection-notification-arn</code> - The ARN of the SNS topic for the notification.
      *        </p>
      *        </li>
      *        <li>
@@ -290,12 +290,12 @@ public class DescribeVpcEndpointConnectionNotificationsRequest extends AmazonWeb
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>connection-notification-arn</code> - The ARN of SNS topic for the notification.
+     * <code>connection-notification-arn</code> - The ARN of the SNS topic for the notification.
      * </p>
      * </li>
      * <li>
@@ -332,11 +332,11 @@ public class DescribeVpcEndpointConnectionNotificationsRequest extends AmazonWeb
      * </p>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>connection-notification-arn</code> - The ARN of SNS topic for the notification.
+     *        <code>connection-notification-arn</code> - The ARN of the SNS topic for the notification.
      *        </p>
      *        </li>
      *        <li>
@@ -380,12 +380,12 @@ public class DescribeVpcEndpointConnectionNotificationsRequest extends AmazonWeb
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>connection-notification-arn</code> - The ARN of SNS topic for the notification.
+     * <code>connection-notification-arn</code> - The ARN of the SNS topic for the notification.
      * </p>
      * </li>
      * <li>
@@ -417,11 +417,11 @@ public class DescribeVpcEndpointConnectionNotificationsRequest extends AmazonWeb
      * </ul>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>connection-notification-arn</code> - The ARN of SNS topic for the notification.
+     *        <code>connection-notification-arn</code> - The ARN of the SNS topic for the notification.
      *        </p>
      *        </li>
      *        <li>

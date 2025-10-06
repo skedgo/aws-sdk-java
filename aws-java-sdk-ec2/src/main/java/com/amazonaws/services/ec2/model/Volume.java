@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,6 +26,11 @@ import javax.annotation.Generated;
 public class Volume implements Serializable, Cloneable {
 
     /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
      * <p>
      * Information about the volume attachments.
      * </p>
@@ -51,11 +56,16 @@ public class Volume implements Serializable, Cloneable {
     private Boolean encrypted;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was
-     * used to protect the volume encryption key for the volume.
+     * The Amazon Resource Name (ARN) of the KMS key that was used to protect the volume encryption key for the volume.
      * </p>
      */
     private String kmsKeyId;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     */
+    private String outpostArn;
     /**
      * <p>
      * The size of the volume, in GiBs.
@@ -82,22 +92,10 @@ public class Volume implements Serializable, Cloneable {
     private String volumeId;
     /**
      * <p>
-     * The number of I/O operations per second (IOPS) that the volume supports. For Provisioned IOPS SSD volumes, this
-     * represents the number of IOPS that are provisioned for the volume. For General Purpose SSD volumes, this
-     * represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits for
-     * bursting. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
-     * </p>
-     * <p>
-     * Constraints: Range is 100-16,000 IOPS for <code>gp2</code> volumes and 100 to 64,000IOPS for <code>io1</code>
-     * volumes, in most Regions. The maximum IOPS for <code>io1</code> of 64,000 is guaranteed only on <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based
-     * instances</a>. Other instance families guarantee performance up to 32,000 IOPS.
-     * </p>
-     * <p>
-     * Condition: This parameter is required for requests to create <code>io1</code> volumes; it is not used in requests
-     * to create <code>gp2</code>, <code>st1</code>, <code>sc1</code>, or <code>standard</code> volumes.
+     * The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and <code>io2</code>
+     * volumes, this represents the number of IOPS that are provisioned for the volume. For <code>gp2</code> volumes,
+     * this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits
+     * for bursting.
      * </p>
      */
     private Integer iops;
@@ -109,19 +107,61 @@ public class Volume implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
     /**
      * <p>
-     * The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD,
-     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
-     * Magnetic volumes.
+     * The volume type.
      * </p>
      */
     private String volumeType;
+    /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
+     * <p>
+     * Indicates whether the volume was created using fast snapshot restore.
+     * </p>
+     */
+    private Boolean fastRestored;
+    /**
+     * <p>
+     * Indicates whether Amazon EBS Multi-Attach is enabled.
+     * </p>
+     */
+    private Boolean multiAttachEnabled;
+    /**
+     * <p>
+     * The throughput that the volume supports, in MiB/s.
+     * </p>
+     */
+    private Integer throughput;
+    /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
+     * <p>
+     * Reserved for future use.
+     * </p>
+     */
+    private String sseType;
 
     /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
      * <p>
      * Information about the volume attachments.
      * </p>
      * 
-     * @return Information about the volume attachments.
+     * @return <p>
+     *         This parameter is not returned by CreateVolume.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         Information about the volume attachments.
      */
 
     public java.util.List<VolumeAttachment> getAttachments() {
@@ -132,11 +172,21 @@ public class Volume implements Serializable, Cloneable {
     }
 
     /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
      * <p>
      * Information about the volume attachments.
      * </p>
      * 
      * @param attachments
+     *        <p>
+     *        This parameter is not returned by CreateVolume.
+     *        </p>
+     *        </note>
+     *        <p>
      *        Information about the volume attachments.
      */
 
@@ -150,6 +200,11 @@ public class Volume implements Serializable, Cloneable {
     }
 
     /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
      * <p>
      * Information about the volume attachments.
      * </p>
@@ -160,6 +215,11 @@ public class Volume implements Serializable, Cloneable {
      * </p>
      * 
      * @param attachments
+     *        <p>
+     *        This parameter is not returned by CreateVolume.
+     *        </p>
+     *        </note>
+     *        <p>
      *        Information about the volume attachments.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -175,11 +235,21 @@ public class Volume implements Serializable, Cloneable {
     }
 
     /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
      * <p>
      * Information about the volume attachments.
      * </p>
      * 
      * @param attachments
+     *        <p>
+     *        This parameter is not returned by CreateVolume.
+     *        </p>
+     *        </note>
+     *        <p>
      *        Information about the volume attachments.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -323,13 +393,12 @@ public class Volume implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was
-     * used to protect the volume encryption key for the volume.
+     * The Amazon Resource Name (ARN) of the KMS key that was used to protect the volume encryption key for the volume.
      * </p>
      * 
      * @param kmsKeyId
-     *        The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that
-     *        was used to protect the volume encryption key for the volume.
+     *        The Amazon Resource Name (ARN) of the KMS key that was used to protect the volume encryption key for the
+     *        volume.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -338,12 +407,11 @@ public class Volume implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was
-     * used to protect the volume encryption key for the volume.
+     * The Amazon Resource Name (ARN) of the KMS key that was used to protect the volume encryption key for the volume.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that
-     *         was used to protect the volume encryption key for the volume.
+     * @return The Amazon Resource Name (ARN) of the KMS key that was used to protect the volume encryption key for the
+     *         volume.
      */
 
     public String getKmsKeyId() {
@@ -352,18 +420,57 @@ public class Volume implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was
-     * used to protect the volume encryption key for the volume.
+     * The Amazon Resource Name (ARN) of the KMS key that was used to protect the volume encryption key for the volume.
      * </p>
      * 
      * @param kmsKeyId
-     *        The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that
-     *        was used to protect the volume encryption key for the volume.
+     *        The Amazon Resource Name (ARN) of the KMS key that was used to protect the volume encryption key for the
+     *        volume.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Volume withKmsKeyId(String kmsKeyId) {
         setKmsKeyId(kmsKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost.
+     */
+
+    public void setOutpostArn(String outpostArn) {
+        this.outpostArn = outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the Outpost.
+     */
+
+    public String getOutpostArn() {
+        return this.outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Volume withOutpostArn(String outpostArn) {
+        setOutpostArn(outpostArn);
         return this;
     }
 
@@ -562,41 +669,17 @@ public class Volume implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of I/O operations per second (IOPS) that the volume supports. For Provisioned IOPS SSD volumes, this
-     * represents the number of IOPS that are provisioned for the volume. For General Purpose SSD volumes, this
-     * represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits for
-     * bursting. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
-     * </p>
-     * <p>
-     * Constraints: Range is 100-16,000 IOPS for <code>gp2</code> volumes and 100 to 64,000IOPS for <code>io1</code>
-     * volumes, in most Regions. The maximum IOPS for <code>io1</code> of 64,000 is guaranteed only on <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based
-     * instances</a>. Other instance families guarantee performance up to 32,000 IOPS.
-     * </p>
-     * <p>
-     * Condition: This parameter is required for requests to create <code>io1</code> volumes; it is not used in requests
-     * to create <code>gp2</code>, <code>st1</code>, <code>sc1</code>, or <code>standard</code> volumes.
+     * The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and <code>io2</code>
+     * volumes, this represents the number of IOPS that are provisioned for the volume. For <code>gp2</code> volumes,
+     * this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits
+     * for bursting.
      * </p>
      * 
      * @param iops
-     *        The number of I/O operations per second (IOPS) that the volume supports. For Provisioned IOPS SSD volumes,
-     *        this represents the number of IOPS that are provisioned for the volume. For General Purpose SSD volumes,
-     *        this represents the baseline performance of the volume and the rate at which the volume accumulates I/O
-     *        credits for bursting. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a>
-     *        in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
-     *        <p>
-     *        Constraints: Range is 100-16,000 IOPS for <code>gp2</code> volumes and 100 to 64,000IOPS for
-     *        <code>io1</code> volumes, in most Regions. The maximum IOPS for <code>io1</code> of 64,000 is guaranteed
-     *        only on <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances"
-     *        >Nitro-based instances</a>. Other instance families guarantee performance up to 32,000 IOPS.
-     *        </p>
-     *        <p>
-     *        Condition: This parameter is required for requests to create <code>io1</code> volumes; it is not used in
-     *        requests to create <code>gp2</code>, <code>st1</code>, <code>sc1</code>, or <code>standard</code> volumes.
+     *        The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and
+     *        <code>io2</code> volumes, this represents the number of IOPS that are provisioned for the volume. For
+     *        <code>gp2</code> volumes, this represents the baseline performance of the volume and the rate at which the
+     *        volume accumulates I/O credits for bursting.
      */
 
     public void setIops(Integer iops) {
@@ -605,41 +688,16 @@ public class Volume implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of I/O operations per second (IOPS) that the volume supports. For Provisioned IOPS SSD volumes, this
-     * represents the number of IOPS that are provisioned for the volume. For General Purpose SSD volumes, this
-     * represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits for
-     * bursting. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
-     * </p>
-     * <p>
-     * Constraints: Range is 100-16,000 IOPS for <code>gp2</code> volumes and 100 to 64,000IOPS for <code>io1</code>
-     * volumes, in most Regions. The maximum IOPS for <code>io1</code> of 64,000 is guaranteed only on <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based
-     * instances</a>. Other instance families guarantee performance up to 32,000 IOPS.
-     * </p>
-     * <p>
-     * Condition: This parameter is required for requests to create <code>io1</code> volumes; it is not used in requests
-     * to create <code>gp2</code>, <code>st1</code>, <code>sc1</code>, or <code>standard</code> volumes.
+     * The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and <code>io2</code>
+     * volumes, this represents the number of IOPS that are provisioned for the volume. For <code>gp2</code> volumes,
+     * this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits
+     * for bursting.
      * </p>
      * 
-     * @return The number of I/O operations per second (IOPS) that the volume supports. For Provisioned IOPS SSD
-     *         volumes, this represents the number of IOPS that are provisioned for the volume. For General Purpose SSD
-     *         volumes, this represents the baseline performance of the volume and the rate at which the volume
-     *         accumulates I/O credits for bursting. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume
-     *         Types</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
-     *         <p>
-     *         Constraints: Range is 100-16,000 IOPS for <code>gp2</code> volumes and 100 to 64,000IOPS for
-     *         <code>io1</code> volumes, in most Regions. The maximum IOPS for <code>io1</code> of 64,000 is guaranteed
-     *         only on <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances"
-     *         >Nitro-based instances</a>. Other instance families guarantee performance up to 32,000 IOPS.
-     *         </p>
-     *         <p>
-     *         Condition: This parameter is required for requests to create <code>io1</code> volumes; it is not used in
-     *         requests to create <code>gp2</code>, <code>st1</code>, <code>sc1</code>, or <code>standard</code>
-     *         volumes.
+     * @return The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and
+     *         <code>io2</code> volumes, this represents the number of IOPS that are provisioned for the volume. For
+     *         <code>gp2</code> volumes, this represents the baseline performance of the volume and the rate at which
+     *         the volume accumulates I/O credits for bursting.
      */
 
     public Integer getIops() {
@@ -648,41 +706,17 @@ public class Volume implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of I/O operations per second (IOPS) that the volume supports. For Provisioned IOPS SSD volumes, this
-     * represents the number of IOPS that are provisioned for the volume. For General Purpose SSD volumes, this
-     * represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits for
-     * bursting. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
-     * </p>
-     * <p>
-     * Constraints: Range is 100-16,000 IOPS for <code>gp2</code> volumes and 100 to 64,000IOPS for <code>io1</code>
-     * volumes, in most Regions. The maximum IOPS for <code>io1</code> of 64,000 is guaranteed only on <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based
-     * instances</a>. Other instance families guarantee performance up to 32,000 IOPS.
-     * </p>
-     * <p>
-     * Condition: This parameter is required for requests to create <code>io1</code> volumes; it is not used in requests
-     * to create <code>gp2</code>, <code>st1</code>, <code>sc1</code>, or <code>standard</code> volumes.
+     * The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and <code>io2</code>
+     * volumes, this represents the number of IOPS that are provisioned for the volume. For <code>gp2</code> volumes,
+     * this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits
+     * for bursting.
      * </p>
      * 
      * @param iops
-     *        The number of I/O operations per second (IOPS) that the volume supports. For Provisioned IOPS SSD volumes,
-     *        this represents the number of IOPS that are provisioned for the volume. For General Purpose SSD volumes,
-     *        this represents the baseline performance of the volume and the rate at which the volume accumulates I/O
-     *        credits for bursting. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a>
-     *        in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
-     *        <p>
-     *        Constraints: Range is 100-16,000 IOPS for <code>gp2</code> volumes and 100 to 64,000IOPS for
-     *        <code>io1</code> volumes, in most Regions. The maximum IOPS for <code>io1</code> of 64,000 is guaranteed
-     *        only on <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances"
-     *        >Nitro-based instances</a>. Other instance families guarantee performance up to 32,000 IOPS.
-     *        </p>
-     *        <p>
-     *        Condition: This parameter is required for requests to create <code>io1</code> volumes; it is not used in
-     *        requests to create <code>gp2</code>, <code>st1</code>, <code>sc1</code>, or <code>standard</code> volumes.
+     *        The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and
+     *        <code>io2</code> volumes, this represents the number of IOPS that are provisioned for the volume. For
+     *        <code>gp2</code> volumes, this represents the baseline performance of the volume and the rate at which the
+     *        volume accumulates I/O credits for bursting.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -766,15 +800,11 @@ public class Volume implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD,
-     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
-     * Magnetic volumes.
+     * The volume type.
      * </p>
      * 
      * @param volumeType
-     *        The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned
-     *        IOPS SSD, <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or
-     *        <code>standard</code> for Magnetic volumes.
+     *        The volume type.
      * @see VolumeType
      */
 
@@ -784,14 +814,10 @@ public class Volume implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD,
-     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
-     * Magnetic volumes.
+     * The volume type.
      * </p>
      * 
-     * @return The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned
-     *         IOPS SSD, <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or
-     *         <code>standard</code> for Magnetic volumes.
+     * @return The volume type.
      * @see VolumeType
      */
 
@@ -801,15 +827,11 @@ public class Volume implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD,
-     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
-     * Magnetic volumes.
+     * The volume type.
      * </p>
      * 
      * @param volumeType
-     *        The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned
-     *        IOPS SSD, <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or
-     *        <code>standard</code> for Magnetic volumes.
+     *        The volume type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VolumeType
      */
@@ -821,15 +843,11 @@ public class Volume implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD,
-     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
-     * Magnetic volumes.
+     * The volume type.
      * </p>
      * 
      * @param volumeType
-     *        The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned
-     *        IOPS SSD, <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or
-     *        <code>standard</code> for Magnetic volumes.
+     *        The volume type.
      * @see VolumeType
      */
 
@@ -839,21 +857,324 @@ public class Volume implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD,
-     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
-     * Magnetic volumes.
+     * The volume type.
      * </p>
      * 
      * @param volumeType
-     *        The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned
-     *        IOPS SSD, <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or
-     *        <code>standard</code> for Magnetic volumes.
+     *        The volume type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VolumeType
      */
 
     public Volume withVolumeType(VolumeType volumeType) {
         this.volumeType = volumeType.toString();
+        return this;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
+     * <p>
+     * Indicates whether the volume was created using fast snapshot restore.
+     * </p>
+     * 
+     * @param fastRestored
+     *        <p>
+     *        This parameter is not returned by CreateVolume.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Indicates whether the volume was created using fast snapshot restore.
+     */
+
+    public void setFastRestored(Boolean fastRestored) {
+        this.fastRestored = fastRestored;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
+     * <p>
+     * Indicates whether the volume was created using fast snapshot restore.
+     * </p>
+     * 
+     * @return <p>
+     *         This parameter is not returned by CreateVolume.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         Indicates whether the volume was created using fast snapshot restore.
+     */
+
+    public Boolean getFastRestored() {
+        return this.fastRestored;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
+     * <p>
+     * Indicates whether the volume was created using fast snapshot restore.
+     * </p>
+     * 
+     * @param fastRestored
+     *        <p>
+     *        This parameter is not returned by CreateVolume.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Indicates whether the volume was created using fast snapshot restore.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Volume withFastRestored(Boolean fastRestored) {
+        setFastRestored(fastRestored);
+        return this;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
+     * <p>
+     * Indicates whether the volume was created using fast snapshot restore.
+     * </p>
+     * 
+     * @return <p>
+     *         This parameter is not returned by CreateVolume.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         Indicates whether the volume was created using fast snapshot restore.
+     */
+
+    public Boolean isFastRestored() {
+        return this.fastRestored;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Amazon EBS Multi-Attach is enabled.
+     * </p>
+     * 
+     * @param multiAttachEnabled
+     *        Indicates whether Amazon EBS Multi-Attach is enabled.
+     */
+
+    public void setMultiAttachEnabled(Boolean multiAttachEnabled) {
+        this.multiAttachEnabled = multiAttachEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Amazon EBS Multi-Attach is enabled.
+     * </p>
+     * 
+     * @return Indicates whether Amazon EBS Multi-Attach is enabled.
+     */
+
+    public Boolean getMultiAttachEnabled() {
+        return this.multiAttachEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Amazon EBS Multi-Attach is enabled.
+     * </p>
+     * 
+     * @param multiAttachEnabled
+     *        Indicates whether Amazon EBS Multi-Attach is enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Volume withMultiAttachEnabled(Boolean multiAttachEnabled) {
+        setMultiAttachEnabled(multiAttachEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Amazon EBS Multi-Attach is enabled.
+     * </p>
+     * 
+     * @return Indicates whether Amazon EBS Multi-Attach is enabled.
+     */
+
+    public Boolean isMultiAttachEnabled() {
+        return this.multiAttachEnabled;
+    }
+
+    /**
+     * <p>
+     * The throughput that the volume supports, in MiB/s.
+     * </p>
+     * 
+     * @param throughput
+     *        The throughput that the volume supports, in MiB/s.
+     */
+
+    public void setThroughput(Integer throughput) {
+        this.throughput = throughput;
+    }
+
+    /**
+     * <p>
+     * The throughput that the volume supports, in MiB/s.
+     * </p>
+     * 
+     * @return The throughput that the volume supports, in MiB/s.
+     */
+
+    public Integer getThroughput() {
+        return this.throughput;
+    }
+
+    /**
+     * <p>
+     * The throughput that the volume supports, in MiB/s.
+     * </p>
+     * 
+     * @param throughput
+     *        The throughput that the volume supports, in MiB/s.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Volume withThroughput(Integer throughput) {
+        setThroughput(throughput);
+        return this;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @param sseType
+     *        <p>
+     *        This parameter is not returned by CreateVolume.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Reserved for future use.
+     * @see SSEType
+     */
+
+    public void setSseType(String sseType) {
+        this.sseType = sseType;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @return <p>
+     *         This parameter is not returned by CreateVolume.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         Reserved for future use.
+     * @see SSEType
+     */
+
+    public String getSseType() {
+        return this.sseType;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @param sseType
+     *        <p>
+     *        This parameter is not returned by CreateVolume.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Reserved for future use.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SSEType
+     */
+
+    public Volume withSseType(String sseType) {
+        setSseType(sseType);
+        return this;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @param sseType
+     *        <p>
+     *        This parameter is not returned by CreateVolume.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Reserved for future use.
+     * @see SSEType
+     */
+
+    public void setSseType(SSEType sseType) {
+        withSseType(sseType);
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is not returned by CreateVolume.
+     * </p>
+     * </note>
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @param sseType
+     *        <p>
+     *        This parameter is not returned by CreateVolume.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Reserved for future use.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SSEType
+     */
+
+    public Volume withSseType(SSEType sseType) {
+        this.sseType = sseType.toString();
         return this;
     }
 
@@ -879,6 +1200,8 @@ public class Volume implements Serializable, Cloneable {
             sb.append("Encrypted: ").append(getEncrypted()).append(",");
         if (getKmsKeyId() != null)
             sb.append("KmsKeyId: ").append(getKmsKeyId()).append(",");
+        if (getOutpostArn() != null)
+            sb.append("OutpostArn: ").append(getOutpostArn()).append(",");
         if (getSize() != null)
             sb.append("Size: ").append(getSize()).append(",");
         if (getSnapshotId() != null)
@@ -892,7 +1215,15 @@ public class Volume implements Serializable, Cloneable {
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getVolumeType() != null)
-            sb.append("VolumeType: ").append(getVolumeType());
+            sb.append("VolumeType: ").append(getVolumeType()).append(",");
+        if (getFastRestored() != null)
+            sb.append("FastRestored: ").append(getFastRestored()).append(",");
+        if (getMultiAttachEnabled() != null)
+            sb.append("MultiAttachEnabled: ").append(getMultiAttachEnabled()).append(",");
+        if (getThroughput() != null)
+            sb.append("Throughput: ").append(getThroughput()).append(",");
+        if (getSseType() != null)
+            sb.append("SseType: ").append(getSseType());
         sb.append("}");
         return sb.toString();
     }
@@ -927,6 +1258,10 @@ public class Volume implements Serializable, Cloneable {
             return false;
         if (other.getKmsKeyId() != null && other.getKmsKeyId().equals(this.getKmsKeyId()) == false)
             return false;
+        if (other.getOutpostArn() == null ^ this.getOutpostArn() == null)
+            return false;
+        if (other.getOutpostArn() != null && other.getOutpostArn().equals(this.getOutpostArn()) == false)
+            return false;
         if (other.getSize() == null ^ this.getSize() == null)
             return false;
         if (other.getSize() != null && other.getSize().equals(this.getSize()) == false)
@@ -955,6 +1290,22 @@ public class Volume implements Serializable, Cloneable {
             return false;
         if (other.getVolumeType() != null && other.getVolumeType().equals(this.getVolumeType()) == false)
             return false;
+        if (other.getFastRestored() == null ^ this.getFastRestored() == null)
+            return false;
+        if (other.getFastRestored() != null && other.getFastRestored().equals(this.getFastRestored()) == false)
+            return false;
+        if (other.getMultiAttachEnabled() == null ^ this.getMultiAttachEnabled() == null)
+            return false;
+        if (other.getMultiAttachEnabled() != null && other.getMultiAttachEnabled().equals(this.getMultiAttachEnabled()) == false)
+            return false;
+        if (other.getThroughput() == null ^ this.getThroughput() == null)
+            return false;
+        if (other.getThroughput() != null && other.getThroughput().equals(this.getThroughput()) == false)
+            return false;
+        if (other.getSseType() == null ^ this.getSseType() == null)
+            return false;
+        if (other.getSseType() != null && other.getSseType().equals(this.getSseType()) == false)
+            return false;
         return true;
     }
 
@@ -968,6 +1319,7 @@ public class Volume implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         hashCode = prime * hashCode + ((getEncrypted() == null) ? 0 : getEncrypted().hashCode());
         hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
+        hashCode = prime * hashCode + ((getOutpostArn() == null) ? 0 : getOutpostArn().hashCode());
         hashCode = prime * hashCode + ((getSize() == null) ? 0 : getSize().hashCode());
         hashCode = prime * hashCode + ((getSnapshotId() == null) ? 0 : getSnapshotId().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
@@ -975,6 +1327,10 @@ public class Volume implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getIops() == null) ? 0 : getIops().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getVolumeType() == null) ? 0 : getVolumeType().hashCode());
+        hashCode = prime * hashCode + ((getFastRestored() == null) ? 0 : getFastRestored().hashCode());
+        hashCode = prime * hashCode + ((getMultiAttachEnabled() == null) ? 0 : getMultiAttachEnabled().hashCode());
+        hashCode = prime * hashCode + ((getThroughput() == null) ? 0 : getThroughput().hashCode());
+        hashCode = prime * hashCode + ((getSseType() == null) ? 0 : getSseType().hashCode());
         return hashCode;
     }
 

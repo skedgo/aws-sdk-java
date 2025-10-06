@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,14 +45,13 @@ public class UpdateIPSetRequest extends com.amazonaws.AmazonWebServiceRequest im
     private String name;
     /**
      * <p>
-     * The updated URI of the file that contains the IPSet. For example
-     * (https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key).
+     * The updated URI of the file that contains the IPSet.
      * </p>
      */
     private String location;
     /**
      * <p>
-     * The updated boolean value that specifies whether the IPSet is active or not.
+     * The updated Boolean value that specifies whether the IPSet is active or not.
      * </p>
      */
     private Boolean activate;
@@ -179,13 +178,11 @@ public class UpdateIPSetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The updated URI of the file that contains the IPSet. For example
-     * (https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key).
+     * The updated URI of the file that contains the IPSet.
      * </p>
      * 
      * @param location
-     *        The updated URI of the file that contains the IPSet. For example
-     *        (https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key).
+     *        The updated URI of the file that contains the IPSet.
      */
 
     public void setLocation(String location) {
@@ -194,12 +191,10 @@ public class UpdateIPSetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The updated URI of the file that contains the IPSet. For example
-     * (https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key).
+     * The updated URI of the file that contains the IPSet.
      * </p>
      * 
-     * @return The updated URI of the file that contains the IPSet. For example
-     *         (https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key).
+     * @return The updated URI of the file that contains the IPSet.
      */
 
     public String getLocation() {
@@ -208,13 +203,11 @@ public class UpdateIPSetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The updated URI of the file that contains the IPSet. For example
-     * (https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key).
+     * The updated URI of the file that contains the IPSet.
      * </p>
      * 
      * @param location
-     *        The updated URI of the file that contains the IPSet. For example
-     *        (https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key).
+     *        The updated URI of the file that contains the IPSet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -225,11 +218,11 @@ public class UpdateIPSetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The updated boolean value that specifies whether the IPSet is active or not.
+     * The updated Boolean value that specifies whether the IPSet is active or not.
      * </p>
      * 
      * @param activate
-     *        The updated boolean value that specifies whether the IPSet is active or not.
+     *        The updated Boolean value that specifies whether the IPSet is active or not.
      */
 
     public void setActivate(Boolean activate) {
@@ -238,10 +231,10 @@ public class UpdateIPSetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The updated boolean value that specifies whether the IPSet is active or not.
+     * The updated Boolean value that specifies whether the IPSet is active or not.
      * </p>
      * 
-     * @return The updated boolean value that specifies whether the IPSet is active or not.
+     * @return The updated Boolean value that specifies whether the IPSet is active or not.
      */
 
     public Boolean getActivate() {
@@ -250,11 +243,11 @@ public class UpdateIPSetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The updated boolean value that specifies whether the IPSet is active or not.
+     * The updated Boolean value that specifies whether the IPSet is active or not.
      * </p>
      * 
      * @param activate
-     *        The updated boolean value that specifies whether the IPSet is active or not.
+     *        The updated Boolean value that specifies whether the IPSet is active or not.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -265,10 +258,10 @@ public class UpdateIPSetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The updated boolean value that specifies whether the IPSet is active or not.
+     * The updated Boolean value that specifies whether the IPSet is active or not.
      * </p>
      * 
-     * @return The updated boolean value that specifies whether the IPSet is active or not.
+     * @return The updated Boolean value that specifies whether the IPSet is active or not.
      */
 
     public Boolean isActivate() {

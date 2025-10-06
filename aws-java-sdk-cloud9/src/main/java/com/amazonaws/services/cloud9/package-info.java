@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,23 +12,22 @@
  */
 
 /**
- * <fullname>AWS Cloud9</fullname>
+ * <fullname>Cloud9</fullname>
  * <p>
- * AWS Cloud9 is a collection of tools that you can use to code, build, run, test, debug, and release software in the
- * cloud.
+ * Cloud9 is a collection of tools that you can use to code, build, run, test, debug, and release software in the cloud.
  * </p>
  * <p>
- * For more information about AWS Cloud9, see the <a href="https://docs.aws.amazon.com/cloud9/latest/user-guide">AWS
- * Cloud9 User Guide</a>.
+ * For more information about Cloud9, see the <a href="https://docs.aws.amazon.com/cloud9/latest/user-guide">Cloud9 User
+ * Guide</a>.
  * </p>
  * <p>
- * AWS Cloud9 supports these operations:
+ * Cloud9 supports these operations:
  * </p>
  * <ul>
  * <li>
  * <p>
- * <code>CreateEnvironmentEC2</code>: Creates an AWS Cloud9 development environment, launches an Amazon EC2 instance,
- * and then connects from the instance to the environment.
+ * <code>CreateEnvironmentEC2</code>: Creates an Cloud9 development environment, launches an Amazon EC2 instance, and
+ * then connects from the instance to the environment.
  * </p>
  * </li>
  * <li>
@@ -65,6 +64,21 @@
  * <li>
  * <p>
  * <code>ListEnvironments</code>: Gets a list of environment identifiers.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <code>ListTagsForResource</code>: Gets the tags for an environment.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <code>TagResource</code>: Adds tags to an environment.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <code>UntagResource</code>: Removes tags from an environment.
  * </p>
  * </li>
  * <li>

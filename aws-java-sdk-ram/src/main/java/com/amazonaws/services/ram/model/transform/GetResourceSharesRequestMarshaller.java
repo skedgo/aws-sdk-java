@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,6 +42,10 @@ public class GetResourceSharesRequestMarshaller {
             .marshallLocationName("nextToken").build();
     private static final MarshallingInfo<Integer> MAXRESULTS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("maxResults").build();
+    private static final MarshallingInfo<String> PERMISSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("permissionArn").build();
+    private static final MarshallingInfo<Integer> PERMISSIONVERSION_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("permissionVersion").build();
 
     private static final GetResourceSharesRequestMarshaller instance = new GetResourceSharesRequestMarshaller();
 
@@ -66,6 +70,8 @@ public class GetResourceSharesRequestMarshaller {
             protocolMarshaller.marshall(getResourceSharesRequest.getTagFilters(), TAGFILTERS_BINDING);
             protocolMarshaller.marshall(getResourceSharesRequest.getNextToken(), NEXTTOKEN_BINDING);
             protocolMarshaller.marshall(getResourceSharesRequest.getMaxResults(), MAXRESULTS_BINDING);
+            protocolMarshaller.marshall(getResourceSharesRequest.getPermissionArn(), PERMISSIONARN_BINDING);
+            protocolMarshaller.marshall(getResourceSharesRequest.getPermissionVersion(), PERMISSIONVERSION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

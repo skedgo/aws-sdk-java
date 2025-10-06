@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class DeleteInventoryRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The name of the custom inventory type for which you want to delete either all previously collected data, or the
+     * The name of the custom inventory type for which you want to delete either all previously collected data or the
      * inventory type itself.
      * </p>
      */
@@ -40,7 +40,7 @@ public class DeleteInventoryRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * <p>
      * DisableSchema: If you choose this option, the system ignores all inventory data for the specified version, and
-     * any earlier versions. To enable this schema again, you must call the <code>PutInventory</code> action for a
+     * any earlier versions. To enable this schema again, you must call the <code>PutInventory</code> operation for a
      * version greater than the disabled version.
      * </p>
      * <p>
@@ -66,13 +66,13 @@ public class DeleteInventoryRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The name of the custom inventory type for which you want to delete either all previously collected data, or the
+     * The name of the custom inventory type for which you want to delete either all previously collected data or the
      * inventory type itself.
      * </p>
      * 
      * @param typeName
-     *        The name of the custom inventory type for which you want to delete either all previously collected data,
-     *        or the inventory type itself.
+     *        The name of the custom inventory type for which you want to delete either all previously collected data or
+     *        the inventory type itself.
      */
 
     public void setTypeName(String typeName) {
@@ -81,11 +81,11 @@ public class DeleteInventoryRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The name of the custom inventory type for which you want to delete either all previously collected data, or the
+     * The name of the custom inventory type for which you want to delete either all previously collected data or the
      * inventory type itself.
      * </p>
      * 
-     * @return The name of the custom inventory type for which you want to delete either all previously collected data,
+     * @return The name of the custom inventory type for which you want to delete either all previously collected data
      *         or the inventory type itself.
      */
 
@@ -95,13 +95,13 @@ public class DeleteInventoryRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The name of the custom inventory type for which you want to delete either all previously collected data, or the
+     * The name of the custom inventory type for which you want to delete either all previously collected data or the
      * inventory type itself.
      * </p>
      * 
      * @param typeName
-     *        The name of the custom inventory type for which you want to delete either all previously collected data,
-     *        or the inventory type itself.
+     *        The name of the custom inventory type for which you want to delete either all previously collected data or
+     *        the inventory type itself.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -118,7 +118,7 @@ public class DeleteInventoryRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * <p>
      * DisableSchema: If you choose this option, the system ignores all inventory data for the specified version, and
-     * any earlier versions. To enable this schema again, you must call the <code>PutInventory</code> action for a
+     * any earlier versions. To enable this schema again, you must call the <code>PutInventory</code> operation for a
      * version greater than the disabled version.
      * </p>
      * <p>
@@ -132,8 +132,8 @@ public class DeleteInventoryRequest extends com.amazonaws.AmazonWebServiceReques
      *        Choose one of the following options:</p>
      *        <p>
      *        DisableSchema: If you choose this option, the system ignores all inventory data for the specified version,
-     *        and any earlier versions. To enable this schema again, you must call the <code>PutInventory</code> action
-     *        for a version greater than the disabled version.
+     *        and any earlier versions. To enable this schema again, you must call the <code>PutInventory</code>
+     *        operation for a version greater than the disabled version.
      *        </p>
      *        <p>
      *        DeleteSchema: This option deletes the specified custom type from the Inventory service. You can recreate
@@ -153,7 +153,7 @@ public class DeleteInventoryRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * <p>
      * DisableSchema: If you choose this option, the system ignores all inventory data for the specified version, and
-     * any earlier versions. To enable this schema again, you must call the <code>PutInventory</code> action for a
+     * any earlier versions. To enable this schema again, you must call the <code>PutInventory</code> operation for a
      * version greater than the disabled version.
      * </p>
      * <p>
@@ -167,7 +167,7 @@ public class DeleteInventoryRequest extends com.amazonaws.AmazonWebServiceReques
      *         <p>
      *         DisableSchema: If you choose this option, the system ignores all inventory data for the specified
      *         version, and any earlier versions. To enable this schema again, you must call the
-     *         <code>PutInventory</code> action for a version greater than the disabled version.
+     *         <code>PutInventory</code> operation for a version greater than the disabled version.
      *         </p>
      *         <p>
      *         DeleteSchema: This option deletes the specified custom type from the Inventory service. You can recreate
@@ -187,7 +187,7 @@ public class DeleteInventoryRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * <p>
      * DisableSchema: If you choose this option, the system ignores all inventory data for the specified version, and
-     * any earlier versions. To enable this schema again, you must call the <code>PutInventory</code> action for a
+     * any earlier versions. To enable this schema again, you must call the <code>PutInventory</code> operation for a
      * version greater than the disabled version.
      * </p>
      * <p>
@@ -201,8 +201,8 @@ public class DeleteInventoryRequest extends com.amazonaws.AmazonWebServiceReques
      *        Choose one of the following options:</p>
      *        <p>
      *        DisableSchema: If you choose this option, the system ignores all inventory data for the specified version,
-     *        and any earlier versions. To enable this schema again, you must call the <code>PutInventory</code> action
-     *        for a version greater than the disabled version.
+     *        and any earlier versions. To enable this schema again, you must call the <code>PutInventory</code>
+     *        operation for a version greater than the disabled version.
      *        </p>
      *        <p>
      *        DeleteSchema: This option deletes the specified custom type from the Inventory service. You can recreate
@@ -224,7 +224,7 @@ public class DeleteInventoryRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * <p>
      * DisableSchema: If you choose this option, the system ignores all inventory data for the specified version, and
-     * any earlier versions. To enable this schema again, you must call the <code>PutInventory</code> action for a
+     * any earlier versions. To enable this schema again, you must call the <code>PutInventory</code> operation for a
      * version greater than the disabled version.
      * </p>
      * <p>
@@ -238,8 +238,8 @@ public class DeleteInventoryRequest extends com.amazonaws.AmazonWebServiceReques
      *        Choose one of the following options:</p>
      *        <p>
      *        DisableSchema: If you choose this option, the system ignores all inventory data for the specified version,
-     *        and any earlier versions. To enable this schema again, you must call the <code>PutInventory</code> action
-     *        for a version greater than the disabled version.
+     *        and any earlier versions. To enable this schema again, you must call the <code>PutInventory</code>
+     *        operation for a version greater than the disabled version.
      *        </p>
      *        <p>
      *        DeleteSchema: This option deletes the specified custom type from the Inventory service. You can recreate

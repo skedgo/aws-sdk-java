@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,27 +26,26 @@ import com.amazonaws.services.rds.model.*;
  * </p>
  * <p>
  * <fullname>Amazon Relational Database Service</fullname>
- * <p>
- * </p>
+ * <p/>
  * <p>
  * Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to set up, operate, and scale a
- * relational database in the cloud. It provides cost-efficient, resizable capacity for an industry-standard relational
+ * relational database in the cloud. It provides cost-efficient, resizeable capacity for an industry-standard relational
  * database and manages common database administration tasks, freeing up developers to focus on what makes their
  * applications and businesses unique.
  * </p>
  * <p>
- * Amazon RDS gives you access to the capabilities of a MySQL, MariaDB, PostgreSQL, Microsoft SQL Server, Oracle, or
- * Amazon Aurora database server. These capabilities mean that the code, applications, and tools you already use today
- * with your existing databases work with Amazon RDS without modification. Amazon RDS automatically backs up your
+ * Amazon RDS gives you access to the capabilities of a MySQL, MariaDB, PostgreSQL, Microsoft SQL Server, Oracle, Db2,
+ * or Amazon Aurora database server. These capabilities mean that the code, applications, and tools you already use
+ * today with your existing databases work with Amazon RDS without modification. Amazon RDS automatically backs up your
  * database and maintains the database software that powers your DB instance. Amazon RDS is flexible: you can scale your
  * DB instance's compute resources and storage capacity to meet your application's demand. As with all Amazon Web
  * Services, there are no up-front investments, and you pay only for the resources you use.
  * </p>
  * <p>
  * This interface reference for Amazon RDS contains documentation for a programming or command line interface you can
- * use to manage Amazon RDS. Note that Amazon RDS is asynchronous, which means that some interfaces might require
- * techniques such as polling or callback functions to determine when a command has been applied. In this reference, the
- * parameter descriptions indicate whether a command is applied immediately, on the next instance reboot, or during the
+ * use to manage Amazon RDS. Amazon RDS is asynchronous, which means that some interfaces might require techniques such
+ * as polling or callback functions to determine when a command has been applied. In this reference, the parameter
+ * descriptions indicate whether a command is applied immediately, on the next instance reboot, or during the
  * maintenance window. The reference structure is as follows, and we list following some related topics from the user
  * guide.
  * </p>
@@ -103,17 +102,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Associates an Identity and Access Management (IAM) role from an Amazon Aurora DB cluster. For more information,
-     * see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Integrating.Authorizing.html"
-     * >Authorizing Amazon Aurora MySQL to Access Other AWS Services on Your Behalf</a> in the <i>Amazon Aurora User
-     * Guide</i>.
+     * Associates an Identity and Access Management (IAM) role with a DB cluster.
      * </p>
-     * <note>
-     * <p>
-     * This action only applies to Aurora DB clusters.
-     * </p>
-     * </note>
      * 
      * @param addRoleToDBClusterRequest
      * @return A Java Future containing the result of the AddRoleToDBCluster operation returned by the service.
@@ -125,17 +115,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Associates an Identity and Access Management (IAM) role from an Amazon Aurora DB cluster. For more information,
-     * see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Integrating.Authorizing.html"
-     * >Authorizing Amazon Aurora MySQL to Access Other AWS Services on Your Behalf</a> in the <i>Amazon Aurora User
-     * Guide</i>.
+     * Associates an Identity and Access Management (IAM) role with a DB cluster.
      * </p>
-     * <note>
-     * <p>
-     * This action only applies to Aurora DB clusters.
-     * </p>
-     * </note>
      * 
      * @param addRoleToDBClusterRequest
      * @param asyncHandler
@@ -152,13 +133,16 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Associates an AWS Identity and Access Management (IAM) role with a DB instance.
+     * Associates an Amazon Web Services Identity and Access Management (IAM) role with a DB instance.
      * </p>
      * <note>
      * <p>
      * To add a role to a DB instance, the status of the DB instance must be <code>available</code>.
      * </p>
      * </note>
+     * <p>
+     * This command doesn't apply to RDS Custom.
+     * </p>
      * 
      * @param addRoleToDBInstanceRequest
      * @return A Java Future containing the result of the AddRoleToDBInstance operation returned by the service.
@@ -170,13 +154,16 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Associates an AWS Identity and Access Management (IAM) role with a DB instance.
+     * Associates an Amazon Web Services Identity and Access Management (IAM) role with a DB instance.
      * </p>
      * <note>
      * <p>
      * To add a role to a DB instance, the status of the DB instance must be <code>available</code>.
      * </p>
      * </note>
+     * <p>
+     * This command doesn't apply to RDS Custom.
+     * </p>
      * 
      * @param addRoleToDBInstanceRequest
      * @param asyncHandler
@@ -232,9 +219,10 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * cost associated with Amazon RDS resources, or used in a Condition statement in an IAM policy for Amazon RDS.
      * </p>
      * <p>
-     * For an overview on tagging Amazon RDS resources, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html">Tagging Amazon RDS
-     * Resources</a>.
+     * For an overview on tagging your relational database resources, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html">Tagging Amazon RDS Resources</a>
+     * or <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.html">Tagging Amazon Aurora
+     * and Amazon RDS Resources</a>.
      * </p>
      * 
      * @param addTagsToResourceRequest
@@ -251,9 +239,10 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * cost associated with Amazon RDS resources, or used in a Condition statement in an IAM policy for Amazon RDS.
      * </p>
      * <p>
-     * For an overview on tagging Amazon RDS resources, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html">Tagging Amazon RDS
-     * Resources</a>.
+     * For an overview on tagging your relational database resources, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html">Tagging Amazon RDS Resources</a>
+     * or <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.html">Tagging Amazon Aurora
+     * and Amazon RDS Resources</a>.
      * </p>
      * 
      * @param addTagsToResourceRequest
@@ -308,20 +297,31 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * Enables ingress to a DBSecurityGroup using one of two forms of authorization. First, EC2 or VPC security groups
      * can be added to the DBSecurityGroup if the application using the database is running on EC2 or VPC instances.
-     * Second, IP ranges are available if the application accessing your database is running on the Internet. Required
+     * Second, IP ranges are available if the application accessing your database is running on the internet. Required
      * parameters for this API are one of CIDR range, EC2SecurityGroupId for VPC, or (EC2SecurityGroupOwnerId and either
      * EC2SecurityGroupName or EC2SecurityGroupId for non-VPC).
      * </p>
-     * <note>
      * <p>
-     * You can't authorize ingress from an EC2 security group in one AWS Region to an Amazon RDS DB instance in another.
-     * You can't authorize ingress from a VPC security group in one VPC to an Amazon RDS DB instance in another.
+     * You can't authorize ingress from an EC2 security group in one Amazon Web Services Region to an Amazon RDS DB
+     * instance in another. You can't authorize ingress from a VPC security group in one VPC to an Amazon RDS DB
+     * instance in another.
      * </p>
-     * </note>
      * <p>
      * For an overview of CIDR ranges, go to the <a
      * href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">Wikipedia Tutorial</a>.
      * </p>
+     * <note>
+     * <p>
+     * EC2-Classic was retired on August 15, 2022. If you haven't migrated from EC2-Classic to a VPC, we recommend that
+     * you migrate as soon as possible. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from EC2-Classic to a VPC</a>
+     * in the <i>Amazon EC2 User Guide</i>, the blog <a
+     * href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic Networking is
+     * Retiring – Here’s How to Prepare</a>, and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Non-VPC2VPC.html">Moving a DB instance not
+     * in a VPC into a VPC</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param authorizeDBSecurityGroupIngressRequest
      * @return A Java Future containing the result of the AuthorizeDBSecurityGroupIngress operation returned by the
@@ -337,20 +337,31 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * Enables ingress to a DBSecurityGroup using one of two forms of authorization. First, EC2 or VPC security groups
      * can be added to the DBSecurityGroup if the application using the database is running on EC2 or VPC instances.
-     * Second, IP ranges are available if the application accessing your database is running on the Internet. Required
+     * Second, IP ranges are available if the application accessing your database is running on the internet. Required
      * parameters for this API are one of CIDR range, EC2SecurityGroupId for VPC, or (EC2SecurityGroupOwnerId and either
      * EC2SecurityGroupName or EC2SecurityGroupId for non-VPC).
      * </p>
-     * <note>
      * <p>
-     * You can't authorize ingress from an EC2 security group in one AWS Region to an Amazon RDS DB instance in another.
-     * You can't authorize ingress from a VPC security group in one VPC to an Amazon RDS DB instance in another.
+     * You can't authorize ingress from an EC2 security group in one Amazon Web Services Region to an Amazon RDS DB
+     * instance in another. You can't authorize ingress from a VPC security group in one VPC to an Amazon RDS DB
+     * instance in another.
      * </p>
-     * </note>
      * <p>
      * For an overview of CIDR ranges, go to the <a
      * href="http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">Wikipedia Tutorial</a>.
      * </p>
+     * <note>
+     * <p>
+     * EC2-Classic was retired on August 15, 2022. If you haven't migrated from EC2-Classic to a VPC, we recommend that
+     * you migrate as soon as possible. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from EC2-Classic to a VPC</a>
+     * in the <i>Amazon EC2 User Guide</i>, the blog <a
+     * href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic Networking is
+     * Retiring – Here’s How to Prepare</a>, and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Non-VPC2VPC.html">Moving a DB instance not
+     * in a VPC into a VPC</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param authorizeDBSecurityGroupIngressRequest
      * @param asyncHandler
@@ -374,11 +385,11 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * For more information on backtracking, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Managing.Backtrack.html">
-     * Backtracking an Aurora DB Cluster</a> in the <i>Amazon Aurora User Guide.</i>
+     * Backtracking an Aurora DB Cluster</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This action applies only to Aurora MySQL DB clusters.
      * </p>
      * </note>
      * 
@@ -397,11 +408,11 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * For more information on backtracking, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Managing.Backtrack.html">
-     * Backtracking an Aurora DB Cluster</a> in the <i>Amazon Aurora User Guide.</i>
+     * Backtracking an Aurora DB Cluster</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This action applies only to Aurora MySQL DB clusters.
      * </p>
      * </note>
      * 
@@ -420,11 +431,45 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * Cancels an export task in progress that is exporting a snapshot or cluster to Amazon S3. Any data that has
+     * already been written to the S3 bucket isn't removed.
+     * </p>
+     * 
+     * @param cancelExportTaskRequest
+     * @return A Java Future containing the result of the CancelExportTask operation returned by the service.
+     * @sample AmazonRDSAsync.CancelExportTask
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CancelExportTask" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CancelExportTaskResult> cancelExportTaskAsync(CancelExportTaskRequest cancelExportTaskRequest);
+
+    /**
+     * <p>
+     * Cancels an export task in progress that is exporting a snapshot or cluster to Amazon S3. Any data that has
+     * already been written to the S3 bucket isn't removed.
+     * </p>
+     * 
+     * @param cancelExportTaskRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CancelExportTask operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.CancelExportTask
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CancelExportTask" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CancelExportTaskResult> cancelExportTaskAsync(CancelExportTaskRequest cancelExportTaskRequest,
+            com.amazonaws.handlers.AsyncHandler<CancelExportTaskRequest, CancelExportTaskResult> asyncHandler);
+
+    /**
+     * <p>
      * Copies the specified DB cluster parameter group.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * You can't copy a default DB cluster parameter group. Instead, create a new custom DB cluster parameter group,
+     * which copies the default parameters and values for the specified DB cluster parameter group family.
      * </p>
      * </note>
      * 
@@ -442,7 +487,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * You can't copy a default DB cluster parameter group. Instead, create a new custom DB cluster parameter group,
+     * which copies the default parameters and values for the specified DB cluster parameter group family.
      * </p>
      * </note>
      * 
@@ -470,70 +516,29 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * snapshot.
      * </p>
      * <p>
-     * You can copy an encrypted DB cluster snapshot from another AWS Region. In that case, the AWS Region where you
-     * call the <code>CopyDBClusterSnapshot</code> action is the destination AWS Region for the encrypted DB cluster
-     * snapshot to be copied to. To copy an encrypted DB cluster snapshot from another AWS Region, you must provide the
-     * following values:
+     * You can copy an encrypted DB cluster snapshot from another Amazon Web Services Region. In that case, the Amazon
+     * Web Services Region where you call the <code>CopyDBClusterSnapshot</code> operation is the destination Amazon Web
+     * Services Region for the encrypted DB cluster snapshot to be copied to. To copy an encrypted DB cluster snapshot
+     * from another Amazon Web Services Region, you must provide the following values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>KmsKeyId</code> - The AWS Key Management System (AWS KMS) key identifier for the key to use to encrypt the
-     * copy of the DB cluster snapshot in the destination AWS Region.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>PreSignedUrl</code> - A URL that contains a Signature Version 4 signed request for the
-     * <code>CopyDBClusterSnapshot</code> action to be called in the source AWS Region where the DB cluster snapshot is
-     * copied from. The pre-signed URL must be a valid request for the <code>CopyDBClusterSnapshot</code> API action
-     * that can be executed in the source AWS Region that contains the encrypted DB cluster snapshot to be copied.
-     * </p>
-     * <p>
-     * The pre-signed URL request must contain the following parameter values:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>KmsKeyId</code> - The KMS key identifier for the key to use to encrypt the copy of the DB cluster snapshot
-     * in the destination AWS Region. This is the same identifier for both the <code>CopyDBClusterSnapshot</code> action
-     * that is called in the destination AWS Region, and the action contained in the pre-signed URL.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>DestinationRegion</code> - The name of the AWS Region that the DB cluster snapshot will be created in.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>SourceDBClusterSnapshotIdentifier</code> - The DB cluster snapshot identifier for the encrypted DB cluster
-     * snapshot to be copied. This identifier must be in the Amazon Resource Name (ARN) format for the source AWS
-     * Region. For example, if you are copying an encrypted DB cluster snapshot from the us-west-2 AWS Region, then your
-     * <code>SourceDBClusterSnapshotIdentifier</code> looks like the following example:
-     * <code>arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115</code>.
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * To learn how to generate a Signature Version 4 signed request, see <a
-     * href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html"> Authenticating Requests:
-     * Using Query Parameters (AWS Signature Version 4)</a> and <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"> Signature Version 4 Signing
-     * Process</a>.
+     * <code>KmsKeyId</code> - The Amazon Web Services Key Management System (Amazon Web Services KMS) key identifier
+     * for the key to use to encrypt the copy of the DB cluster snapshot in the destination Amazon Web Services Region.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>TargetDBClusterSnapshotIdentifier</code> - The identifier for the new copy of the DB cluster snapshot in
-     * the destination AWS Region.
+     * the destination Amazon Web Services Region.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>SourceDBClusterSnapshotIdentifier</code> - The DB cluster snapshot identifier for the encrypted DB cluster
-     * snapshot to be copied. This identifier must be in the ARN format for the source AWS Region and is the same value
-     * as the <code>SourceDBClusterSnapshotIdentifier</code> in the pre-signed URL.
+     * snapshot to be copied. This identifier must be in the ARN format for the source Amazon Web Services Region and is
+     * the same value as the <code>SourceDBClusterSnapshotIdentifier</code> in the presigned URL.
      * </p>
      * </li>
      * </ul>
@@ -542,20 +547,20 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <code>TargetDBClusterSnapshotIdentifier</code> while that DB cluster snapshot is in "copying" status.
      * </p>
      * <p>
-     * For more information on copying encrypted DB cluster snapshots from one AWS Region to another, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CopySnapshot.html"> Copying a
-     * Snapshot</a> in the <i>Amazon Aurora User Guide.</i>
+     * For more information on copying encrypted Amazon Aurora DB cluster snapshots from one Amazon Web Services Region
+     * to another, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CopySnapshot.html">
+     * Copying a Snapshot</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param copyDBClusterSnapshotRequest
      * @return A Java Future containing the result of the CopyDBClusterSnapshot operation returned by the service.
@@ -575,70 +580,29 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * snapshot.
      * </p>
      * <p>
-     * You can copy an encrypted DB cluster snapshot from another AWS Region. In that case, the AWS Region where you
-     * call the <code>CopyDBClusterSnapshot</code> action is the destination AWS Region for the encrypted DB cluster
-     * snapshot to be copied to. To copy an encrypted DB cluster snapshot from another AWS Region, you must provide the
-     * following values:
+     * You can copy an encrypted DB cluster snapshot from another Amazon Web Services Region. In that case, the Amazon
+     * Web Services Region where you call the <code>CopyDBClusterSnapshot</code> operation is the destination Amazon Web
+     * Services Region for the encrypted DB cluster snapshot to be copied to. To copy an encrypted DB cluster snapshot
+     * from another Amazon Web Services Region, you must provide the following values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>KmsKeyId</code> - The AWS Key Management System (AWS KMS) key identifier for the key to use to encrypt the
-     * copy of the DB cluster snapshot in the destination AWS Region.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>PreSignedUrl</code> - A URL that contains a Signature Version 4 signed request for the
-     * <code>CopyDBClusterSnapshot</code> action to be called in the source AWS Region where the DB cluster snapshot is
-     * copied from. The pre-signed URL must be a valid request for the <code>CopyDBClusterSnapshot</code> API action
-     * that can be executed in the source AWS Region that contains the encrypted DB cluster snapshot to be copied.
-     * </p>
-     * <p>
-     * The pre-signed URL request must contain the following parameter values:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>KmsKeyId</code> - The KMS key identifier for the key to use to encrypt the copy of the DB cluster snapshot
-     * in the destination AWS Region. This is the same identifier for both the <code>CopyDBClusterSnapshot</code> action
-     * that is called in the destination AWS Region, and the action contained in the pre-signed URL.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>DestinationRegion</code> - The name of the AWS Region that the DB cluster snapshot will be created in.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>SourceDBClusterSnapshotIdentifier</code> - The DB cluster snapshot identifier for the encrypted DB cluster
-     * snapshot to be copied. This identifier must be in the Amazon Resource Name (ARN) format for the source AWS
-     * Region. For example, if you are copying an encrypted DB cluster snapshot from the us-west-2 AWS Region, then your
-     * <code>SourceDBClusterSnapshotIdentifier</code> looks like the following example:
-     * <code>arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115</code>.
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * To learn how to generate a Signature Version 4 signed request, see <a
-     * href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html"> Authenticating Requests:
-     * Using Query Parameters (AWS Signature Version 4)</a> and <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"> Signature Version 4 Signing
-     * Process</a>.
+     * <code>KmsKeyId</code> - The Amazon Web Services Key Management System (Amazon Web Services KMS) key identifier
+     * for the key to use to encrypt the copy of the DB cluster snapshot in the destination Amazon Web Services Region.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>TargetDBClusterSnapshotIdentifier</code> - The identifier for the new copy of the DB cluster snapshot in
-     * the destination AWS Region.
+     * the destination Amazon Web Services Region.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>SourceDBClusterSnapshotIdentifier</code> - The DB cluster snapshot identifier for the encrypted DB cluster
-     * snapshot to be copied. This identifier must be in the ARN format for the source AWS Region and is the same value
-     * as the <code>SourceDBClusterSnapshotIdentifier</code> in the pre-signed URL.
+     * snapshot to be copied. This identifier must be in the ARN format for the source Amazon Web Services Region and is
+     * the same value as the <code>SourceDBClusterSnapshotIdentifier</code> in the presigned URL.
      * </p>
      * </li>
      * </ul>
@@ -647,20 +611,20 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <code>TargetDBClusterSnapshotIdentifier</code> while that DB cluster snapshot is in "copying" status.
      * </p>
      * <p>
-     * For more information on copying encrypted DB cluster snapshots from one AWS Region to another, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CopySnapshot.html"> Copying a
-     * Snapshot</a> in the <i>Amazon Aurora User Guide.</i>
+     * For more information on copying encrypted Amazon Aurora DB cluster snapshots from one Amazon Web Services Region
+     * to another, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CopySnapshot.html">
+     * Copying a Snapshot</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param copyDBClusterSnapshotRequest
      * @param asyncHandler
@@ -679,6 +643,12 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * Copies the specified DB parameter group.
      * </p>
+     * <note>
+     * <p>
+     * You can't copy a default DB parameter group. Instead, create a new custom DB parameter group, which copies the
+     * default parameters and values for the specified DB parameter group family.
+     * </p>
+     * </note>
      * 
      * @param copyDBParameterGroupRequest
      * @return A Java Future containing the result of the CopyDBParameterGroup operation returned by the service.
@@ -692,6 +662,12 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * Copies the specified DB parameter group.
      * </p>
+     * <note>
+     * <p>
+     * You can't copy a default DB parameter group. Instead, create a new custom DB parameter group, which copies the
+     * default parameters and values for the specified DB parameter group family.
+     * </p>
+     * </note>
      * 
      * @param copyDBParameterGroupRequest
      * @param asyncHandler
@@ -708,16 +684,20 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Copies the specified DB snapshot. The source DB snapshot must be in the "available" state.
+     * Copies the specified DB snapshot. The source DB snapshot must be in the <code>available</code> state.
      * </p>
      * <p>
-     * You can copy a snapshot from one AWS Region to another. In that case, the AWS Region where you call the
-     * <code>CopyDBSnapshot</code> action is the destination AWS Region for the DB snapshot copy.
+     * You can copy a snapshot from one Amazon Web Services Region to another. In that case, the Amazon Web Services
+     * Region where you call the <code>CopyDBSnapshot</code> operation is the destination Amazon Web Services Region for
+     * the DB snapshot copy.
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
      * </p>
      * <p>
      * For more information about copying snapshots, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CopyDBSnapshot.html">Copying a DB Snapshot</a>
-     * in the <i>Amazon RDS User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CopySnapshot.html#USER_CopyDBSnapshot">Copying
+     * a DB Snapshot</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * 
      * @param copyDBSnapshotRequest
@@ -730,16 +710,20 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Copies the specified DB snapshot. The source DB snapshot must be in the "available" state.
+     * Copies the specified DB snapshot. The source DB snapshot must be in the <code>available</code> state.
      * </p>
      * <p>
-     * You can copy a snapshot from one AWS Region to another. In that case, the AWS Region where you call the
-     * <code>CopyDBSnapshot</code> action is the destination AWS Region for the DB snapshot copy.
+     * You can copy a snapshot from one Amazon Web Services Region to another. In that case, the Amazon Web Services
+     * Region where you call the <code>CopyDBSnapshot</code> operation is the destination Amazon Web Services Region for
+     * the DB snapshot copy.
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
      * </p>
      * <p>
      * For more information about copying snapshots, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CopyDBSnapshot.html">Copying a DB Snapshot</a>
-     * in the <i>Amazon RDS User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CopySnapshot.html#USER_CopyDBSnapshot">Copying
+     * a DB Snapshot</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * 
      * @param copyDBSnapshotRequest
@@ -788,24 +772,135 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Creates a new Amazon Aurora DB cluster.
+     * Creates a blue/green deployment.
      * </p>
      * <p>
-     * You can use the <code>ReplicationSourceIdentifier</code> parameter to create the DB cluster as a Read Replica of
-     * another DB cluster or Amazon RDS MySQL DB instance. For cross-region replication where the DB cluster identified
-     * by <code>ReplicationSourceIdentifier</code> is encrypted, you must also specify the <code>PreSignedUrl</code>
-     * parameter.
+     * A blue/green deployment creates a staging environment that copies the production environment. In a blue/green
+     * deployment, the blue environment is the current production environment. The green environment is the staging
+     * environment. The staging environment stays in sync with the current production environment using logical
+     * replication.
      * </p>
      * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * You can make changes to the databases in the green environment without affecting production workloads. For
+     * example, you can upgrade the major or minor DB engine version, change database parameters, or make schema changes
+     * in the staging environment. You can thoroughly test changes in the green environment. When ready, you can switch
+     * over the environments to promote the green environment to be the new production environment. The switchover
+     * typically takes under a minute.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/blue-green-deployments.html">Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments.html"> Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * </note>
+     * 
+     * @param createBlueGreenDeploymentRequest
+     * @return A Java Future containing the result of the CreateBlueGreenDeployment operation returned by the service.
+     * @sample AmazonRDSAsync.CreateBlueGreenDeployment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateBlueGreenDeployment" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateBlueGreenDeploymentResult> createBlueGreenDeploymentAsync(
+            CreateBlueGreenDeploymentRequest createBlueGreenDeploymentRequest);
+
+    /**
+     * <p>
+     * Creates a blue/green deployment.
+     * </p>
+     * <p>
+     * A blue/green deployment creates a staging environment that copies the production environment. In a blue/green
+     * deployment, the blue environment is the current production environment. The green environment is the staging
+     * environment. The staging environment stays in sync with the current production environment using logical
+     * replication.
+     * </p>
+     * <p>
+     * You can make changes to the databases in the green environment without affecting production workloads. For
+     * example, you can upgrade the major or minor DB engine version, change database parameters, or make schema changes
+     * in the staging environment. You can thoroughly test changes in the green environment. When ready, you can switch
+     * over the environments to promote the green environment to be the new production environment. The switchover
+     * typically takes under a minute.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/blue-green-deployments.html">Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments.html"> Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param createBlueGreenDeploymentRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateBlueGreenDeployment operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.CreateBlueGreenDeployment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateBlueGreenDeployment" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateBlueGreenDeploymentResult> createBlueGreenDeploymentAsync(
+            CreateBlueGreenDeploymentRequest createBlueGreenDeploymentRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateBlueGreenDeploymentRequest, CreateBlueGreenDeploymentResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a custom DB engine version (CEV).
+     * </p>
+     * 
+     * @param createCustomDBEngineVersionRequest
+     * @return A Java Future containing the result of the CreateCustomDBEngineVersion operation returned by the service.
+     * @sample AmazonRDSAsync.CreateCustomDBEngineVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateCustomDBEngineVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateCustomDBEngineVersionResult> createCustomDBEngineVersionAsync(
+            CreateCustomDBEngineVersionRequest createCustomDBEngineVersionRequest);
+
+    /**
+     * <p>
+     * Creates a custom DB engine version (CEV).
+     * </p>
+     * 
+     * @param createCustomDBEngineVersionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateCustomDBEngineVersion operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.CreateCustomDBEngineVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateCustomDBEngineVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateCustomDBEngineVersionResult> createCustomDBEngineVersionAsync(
+            CreateCustomDBEngineVersionRequest createCustomDBEngineVersionRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateCustomDBEngineVersionRequest, CreateCustomDBEngineVersionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new Amazon Aurora DB cluster or Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * If you create an Aurora DB cluster, the request creates an empty cluster. You must explicitly create the writer
+     * instance for your DB cluster using the <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBInstance.html">CreateDBInstance</a>
+     * operation. If you create a Multi-AZ DB cluster, the request creates a writer and two reader DB instances for you,
+     * each in a different Availability Zone.
+     * </p>
+     * <p>
+     * You can use the <code>ReplicationSourceIdentifier</code> parameter to create an Amazon Aurora DB cluster as a
+     * read replica of another DB cluster or Amazon RDS for MySQL or PostgreSQL DB instance. For more information about
+     * Amazon Aurora, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html">What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * You can also use the <code>ReplicationSourceIdentifier</code> parameter to create a Multi-AZ DB cluster read
+     * replica with an RDS for MySQL or PostgreSQL DB instance as the source. For more information about Multi-AZ DB
+     * clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html">Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
      * 
      * @param createDBClusterRequest
      * @return A Java Future containing the result of the CreateDBCluster operation returned by the service.
@@ -817,24 +912,29 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Creates a new Amazon Aurora DB cluster.
+     * Creates a new Amazon Aurora DB cluster or Multi-AZ DB cluster.
      * </p>
      * <p>
-     * You can use the <code>ReplicationSourceIdentifier</code> parameter to create the DB cluster as a Read Replica of
-     * another DB cluster or Amazon RDS MySQL DB instance. For cross-region replication where the DB cluster identified
-     * by <code>ReplicationSourceIdentifier</code> is encrypted, you must also specify the <code>PreSignedUrl</code>
-     * parameter.
+     * If you create an Aurora DB cluster, the request creates an empty cluster. You must explicitly create the writer
+     * instance for your DB cluster using the <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBInstance.html">CreateDBInstance</a>
+     * operation. If you create a Multi-AZ DB cluster, the request creates a writer and two reader DB instances for you,
+     * each in a different Availability Zone.
      * </p>
      * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * You can use the <code>ReplicationSourceIdentifier</code> parameter to create an Amazon Aurora DB cluster as a
+     * read replica of another DB cluster or Amazon RDS for MySQL or PostgreSQL DB instance. For more information about
+     * Amazon Aurora, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html">What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * You can also use the <code>ReplicationSourceIdentifier</code> parameter to create a Multi-AZ DB cluster read
+     * replica with an RDS for MySQL or PostgreSQL DB instance as the source. For more information about Multi-AZ DB
+     * clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html">Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param createDBClusterRequest
      * @param asyncHandler
@@ -855,7 +955,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This action applies only to Aurora DB clusters.
      * </p>
      * </note>
      * 
@@ -873,7 +973,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This action applies only to Aurora DB clusters.
      * </p>
      * </note>
      * 
@@ -901,9 +1001,15 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * A DB cluster parameter group is initially created with the default parameters for the database engine used by
      * instances in the DB cluster. To provide custom values for any of the parameters, you must modify the group after
      * creating it using <code>ModifyDBClusterParameterGroup</code>. Once you've created a DB cluster parameter group,
-     * you need to associate it with your DB cluster using <code>ModifyDBCluster</code>. When you associate a new DB
-     * cluster parameter group with a running DB cluster, you need to reboot the DB instances in the DB cluster without
-     * failover for the new DB cluster parameter group and associated settings to take effect.
+     * you need to associate it with your DB cluster using <code>ModifyDBCluster</code>.
+     * </p>
+     * <p>
+     * When you associate a new DB cluster parameter group with a running Aurora DB cluster, reboot the DB instances in
+     * the DB cluster without failover for the new DB cluster parameter group and associated settings to take effect.
+     * </p>
+     * <p>
+     * When you associate a new DB cluster parameter group with a running Multi-AZ DB cluster, reboot the DB cluster
+     * without failover for the new DB cluster parameter group and associated settings to take effect.
      * </p>
      * <important>
      * <p>
@@ -914,19 +1020,19 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * cluster, such as the character set for the default database defined by the <code>character_set_database</code>
      * parameter. You can use the <i>Parameter Groups</i> option of the <a
      * href="https://console.aws.amazon.com/rds/">Amazon RDS console</a> or the <code>DescribeDBClusterParameters</code>
-     * action to verify that your DB cluster parameter group has been created or modified.
+     * operation to verify that your DB cluster parameter group has been created or modified.
      * </p>
      * </important>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param createDBClusterParameterGroupRequest
      * @return A Java Future containing the result of the CreateDBClusterParameterGroup operation returned by the
@@ -949,9 +1055,15 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * A DB cluster parameter group is initially created with the default parameters for the database engine used by
      * instances in the DB cluster. To provide custom values for any of the parameters, you must modify the group after
      * creating it using <code>ModifyDBClusterParameterGroup</code>. Once you've created a DB cluster parameter group,
-     * you need to associate it with your DB cluster using <code>ModifyDBCluster</code>. When you associate a new DB
-     * cluster parameter group with a running DB cluster, you need to reboot the DB instances in the DB cluster without
-     * failover for the new DB cluster parameter group and associated settings to take effect.
+     * you need to associate it with your DB cluster using <code>ModifyDBCluster</code>.
+     * </p>
+     * <p>
+     * When you associate a new DB cluster parameter group with a running Aurora DB cluster, reboot the DB instances in
+     * the DB cluster without failover for the new DB cluster parameter group and associated settings to take effect.
+     * </p>
+     * <p>
+     * When you associate a new DB cluster parameter group with a running Multi-AZ DB cluster, reboot the DB cluster
+     * without failover for the new DB cluster parameter group and associated settings to take effect.
      * </p>
      * <important>
      * <p>
@@ -962,19 +1074,19 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * cluster, such as the character set for the default database defined by the <code>character_set_database</code>
      * parameter. You can use the <i>Parameter Groups</i> option of the <a
      * href="https://console.aws.amazon.com/rds/">Amazon RDS console</a> or the <code>DescribeDBClusterParameters</code>
-     * action to verify that your DB cluster parameter group has been created or modified.
+     * operation to verify that your DB cluster parameter group has been created or modified.
      * </p>
      * </important>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param createDBClusterParameterGroupRequest
      * @param asyncHandler
@@ -993,15 +1105,18 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Creates a snapshot of a DB cluster. For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * Creates a snapshot of a DB cluster.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Amazon Aurora, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * </note>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
      * 
      * @param createDBClusterSnapshotRequest
      * @return A Java Future containing the result of the CreateDBClusterSnapshot operation returned by the service.
@@ -1013,15 +1128,18 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Creates a snapshot of a DB cluster. For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * Creates a snapshot of a DB cluster.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Amazon Aurora, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * </note>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
      * 
      * @param createDBClusterSnapshotRequest
      * @param asyncHandler
@@ -1040,6 +1158,20 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * Creates a new DB instance.
      * </p>
+     * <p>
+     * The new DB instance can be an RDS DB instance, or it can be a DB instance in an Aurora DB cluster. For an Aurora
+     * DB cluster, you can call this operation multiple times to add more than one DB instance to the cluster.
+     * </p>
+     * <p>
+     * For more information about creating an RDS DB instance, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreateDBInstance.html"> Creating an Amazon RDS
+     * DB instance</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about creating a DB instance in an Aurora DB cluster, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.CreateInstance.html"> Creating an
+     * Amazon Aurora DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
      * 
      * @param createDBInstanceRequest
      * @return A Java Future containing the result of the CreateDBInstance operation returned by the service.
@@ -1052,6 +1184,20 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Creates a new DB instance.
+     * </p>
+     * <p>
+     * The new DB instance can be an RDS DB instance, or it can be a DB instance in an Aurora DB cluster. For an Aurora
+     * DB cluster, you can call this operation multiple times to add more than one DB instance to the cluster.
+     * </p>
+     * <p>
+     * For more information about creating an RDS DB instance, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreateDBInstance.html"> Creating an Amazon RDS
+     * DB instance</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about creating a DB instance in an Aurora DB cluster, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.CreateInstance.html"> Creating an
+     * Amazon Aurora DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * 
      * @param createDBInstanceRequest
@@ -1069,23 +1215,26 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Creates a new DB instance that acts as a Read Replica for an existing source DB instance. You can create a Read
-     * Replica for a DB instance running MySQL, MariaDB, Oracle, or PostgreSQL. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html">Working with Read Replicas</a>
-     * in the <i>Amazon RDS User Guide</i>.
+     * Creates a new DB instance that acts as a read replica for an existing source DB instance or Multi-AZ DB cluster.
+     * You can create a read replica for a DB instance running Db2, MariaDB, MySQL, Oracle, PostgreSQL, or SQL Server.
+     * You can create a read replica for a Multi-AZ DB cluster running MySQL or PostgreSQL. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html">Working with read replicas</a>
+     * and <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html#multi-az-db-clusters-migrating-to-instance-with-read-replica"
+     * >Migrating from a Multi-AZ DB cluster to a DB instance using a read replica</a> in the <i>Amazon RDS User
+     * Guide</i>.
      * </p>
      * <p>
-     * Amazon Aurora doesn't support this action. You must call the <code>CreateDBInstance</code> action to create a DB
-     * instance for an Aurora DB cluster.
+     * Amazon Aurora doesn't support this operation. To create a DB instance for an Aurora DB cluster, use the
+     * <code>CreateDBInstance</code> operation.
      * </p>
      * <p>
-     * All Read Replica DB instances are created with backups disabled. All other DB instance attributes (including DB
-     * security groups and DB parameter groups) are inherited from the source DB instance, except as specified
-     * following.
+     * All read replica DB instances are created with backups disabled. All other attributes (including DB security
+     * groups and DB parameter groups) are inherited from the source DB instance or cluster, except as specified.
      * </p>
      * <important>
      * <p>
-     * Your source DB instance must have backup retention enabled.
+     * Your source DB instance or cluster must have backup retention enabled.
      * </p>
      * </important>
      * 
@@ -1099,23 +1248,26 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Creates a new DB instance that acts as a Read Replica for an existing source DB instance. You can create a Read
-     * Replica for a DB instance running MySQL, MariaDB, Oracle, or PostgreSQL. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html">Working with Read Replicas</a>
-     * in the <i>Amazon RDS User Guide</i>.
+     * Creates a new DB instance that acts as a read replica for an existing source DB instance or Multi-AZ DB cluster.
+     * You can create a read replica for a DB instance running Db2, MariaDB, MySQL, Oracle, PostgreSQL, or SQL Server.
+     * You can create a read replica for a Multi-AZ DB cluster running MySQL or PostgreSQL. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html">Working with read replicas</a>
+     * and <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html#multi-az-db-clusters-migrating-to-instance-with-read-replica"
+     * >Migrating from a Multi-AZ DB cluster to a DB instance using a read replica</a> in the <i>Amazon RDS User
+     * Guide</i>.
      * </p>
      * <p>
-     * Amazon Aurora doesn't support this action. You must call the <code>CreateDBInstance</code> action to create a DB
-     * instance for an Aurora DB cluster.
+     * Amazon Aurora doesn't support this operation. To create a DB instance for an Aurora DB cluster, use the
+     * <code>CreateDBInstance</code> operation.
      * </p>
      * <p>
-     * All Read Replica DB instances are created with backups disabled. All other DB instance attributes (including DB
-     * security groups and DB parameter groups) are inherited from the source DB instance, except as specified
-     * following.
+     * All read replica DB instances are created with backups disabled. All other attributes (including DB security
+     * groups and DB parameter groups) are inherited from the source DB instance or cluster, except as specified.
      * </p>
      * <important>
      * <p>
-     * Your source DB instance must have backup retention enabled.
+     * Your source DB instance or cluster must have backup retention enabled.
      * </p>
      * </important>
      * 
@@ -1139,10 +1291,13 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * A DB parameter group is initially created with the default parameters for the database engine used by the DB
      * instance. To provide custom values for any of the parameters, you must modify the group after creating it using
-     * <i>ModifyDBParameterGroup</i>. Once you've created a DB parameter group, you need to associate it with your DB
-     * instance using <i>ModifyDBInstance</i>. When you associate a new DB parameter group with a running DB instance,
-     * you need to reboot the DB instance without failover for the new DB parameter group and associated settings to
-     * take effect.
+     * <code>ModifyDBParameterGroup</code>. Once you've created a DB parameter group, you need to associate it with your
+     * DB instance using <code>ModifyDBInstance</code>. When you associate a new DB parameter group with a running DB
+     * instance, you need to reboot the DB instance without failover for the new DB parameter group and associated
+     * settings to take effect.
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
      * </p>
      * <important>
      * <p>
@@ -1171,10 +1326,13 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * A DB parameter group is initially created with the default parameters for the database engine used by the DB
      * instance. To provide custom values for any of the parameters, you must modify the group after creating it using
-     * <i>ModifyDBParameterGroup</i>. Once you've created a DB parameter group, you need to associate it with your DB
-     * instance using <i>ModifyDBInstance</i>. When you associate a new DB parameter group with a running DB instance,
-     * you need to reboot the DB instance without failover for the new DB parameter group and associated settings to
-     * take effect.
+     * <code>ModifyDBParameterGroup</code>. Once you've created a DB parameter group, you need to associate it with your
+     * DB instance using <code>ModifyDBInstance</code>. When you associate a new DB parameter group with a running DB
+     * instance, you need to reboot the DB instance without failover for the new DB parameter group and associated
+     * settings to take effect.
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
      * </p>
      * <important>
      * <p>
@@ -1203,11 +1361,87 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * Creates a new DB proxy.
+     * </p>
+     * 
+     * @param createDBProxyRequest
+     * @return A Java Future containing the result of the CreateDBProxy operation returned by the service.
+     * @sample AmazonRDSAsync.CreateDBProxy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBProxy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateDBProxyResult> createDBProxyAsync(CreateDBProxyRequest createDBProxyRequest);
+
+    /**
+     * <p>
+     * Creates a new DB proxy.
+     * </p>
+     * 
+     * @param createDBProxyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateDBProxy operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.CreateDBProxy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBProxy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateDBProxyResult> createDBProxyAsync(CreateDBProxyRequest createDBProxyRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateDBProxyRequest, CreateDBProxyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a <code>DBProxyEndpoint</code>. Only applies to proxies that are associated with Aurora DB clusters. You
+     * can use DB proxy endpoints to specify read/write or read-only access to the DB cluster. You can also use DB proxy
+     * endpoints to access a DB proxy through a different VPC than the proxy's default VPC.
+     * </p>
+     * 
+     * @param createDBProxyEndpointRequest
+     * @return A Java Future containing the result of the CreateDBProxyEndpoint operation returned by the service.
+     * @sample AmazonRDSAsync.CreateDBProxyEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBProxyEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateDBProxyEndpointResult> createDBProxyEndpointAsync(CreateDBProxyEndpointRequest createDBProxyEndpointRequest);
+
+    /**
+     * <p>
+     * Creates a <code>DBProxyEndpoint</code>. Only applies to proxies that are associated with Aurora DB clusters. You
+     * can use DB proxy endpoints to specify read/write or read-only access to the DB cluster. You can also use DB proxy
+     * endpoints to access a DB proxy through a different VPC than the proxy's default VPC.
+     * </p>
+     * 
+     * @param createDBProxyEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateDBProxyEndpoint operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.CreateDBProxyEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBProxyEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateDBProxyEndpointResult> createDBProxyEndpointAsync(CreateDBProxyEndpointRequest createDBProxyEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateDBProxyEndpointRequest, CreateDBProxyEndpointResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates a new DB security group. DB security groups control access to a DB instance.
+     * </p>
+     * <p>
+     * A DB security group controls access to EC2-Classic DB instances that are not in a VPC.
      * </p>
      * <note>
      * <p>
-     * A DB security group controls access to EC2-Classic DB instances that are not in a VPC.
+     * EC2-Classic was retired on August 15, 2022. If you haven't migrated from EC2-Classic to a VPC, we recommend that
+     * you migrate as soon as possible. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from EC2-Classic to a VPC</a>
+     * in the <i>Amazon EC2 User Guide</i>, the blog <a
+     * href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic Networking is
+     * Retiring – Here’s How to Prepare</a>, and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Non-VPC2VPC.html">Moving a DB instance not
+     * in a VPC into a VPC</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * </note>
      * 
@@ -1223,9 +1457,19 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * Creates a new DB security group. DB security groups control access to a DB instance.
      * </p>
-     * <note>
      * <p>
      * A DB security group controls access to EC2-Classic DB instances that are not in a VPC.
+     * </p>
+     * <note>
+     * <p>
+     * EC2-Classic was retired on August 15, 2022. If you haven't migrated from EC2-Classic to a VPC, we recommend that
+     * you migrate as soon as possible. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from EC2-Classic to a VPC</a>
+     * in the <i>Amazon EC2 User Guide</i>, the blog <a
+     * href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic Networking is
+     * Retiring – Here’s How to Prepare</a>, and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Non-VPC2VPC.html">Moving a DB instance not
+     * in a VPC into a VPC</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * </note>
      * 
@@ -1244,7 +1488,47 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Creates a DBSnapshot. The source DBInstance must be in "available" state.
+     * Creates a new DB shard group for Aurora Limitless Database. You must enable Aurora Limitless Database to create a
+     * DB shard group.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @param createDBShardGroupRequest
+     * @return A Java Future containing the result of the CreateDBShardGroup operation returned by the service.
+     * @sample AmazonRDSAsync.CreateDBShardGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBShardGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateDBShardGroupResult> createDBShardGroupAsync(CreateDBShardGroupRequest createDBShardGroupRequest);
+
+    /**
+     * <p>
+     * Creates a new DB shard group for Aurora Limitless Database. You must enable Aurora Limitless Database to create a
+     * DB shard group.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @param createDBShardGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateDBShardGroup operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.CreateDBShardGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBShardGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateDBShardGroupResult> createDBShardGroupAsync(CreateDBShardGroupRequest createDBShardGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateDBShardGroupRequest, CreateDBShardGroupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a snapshot of a DB instance. The source DB instance must be in the <code>available</code> or
+     * <code>storage-optimization</code> state.
      * </p>
      * 
      * @param createDBSnapshotRequest
@@ -1257,7 +1541,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Creates a DBSnapshot. The source DBInstance must be in "available" state.
+     * Creates a snapshot of a DB instance. The source DB instance must be in the <code>available</code> or
+     * <code>storage-optimization</code> state.
      * </p>
      * 
      * @param createDBSnapshotRequest
@@ -1275,8 +1560,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Creates a new DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in the AWS
-     * Region.
+     * Creates a new DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in the
+     * Amazon Web Services Region.
      * </p>
      * 
      * @param createDBSubnetGroupRequest
@@ -1289,8 +1574,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Creates a new DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in the AWS
-     * Region.
+     * Creates a new DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in the
+     * Amazon Web Services Region.
      * </p>
      * 
      * @param createDBSubnetGroupRequest
@@ -1308,22 +1593,34 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Creates an RDS event notification subscription. This action requires a topic ARN (Amazon Resource Name) created
-     * by either the RDS console, the SNS console, or the SNS API. To obtain an ARN with SNS, you must create a topic in
-     * Amazon SNS and subscribe to the topic. The ARN is displayed in the SNS console.
+     * Creates an RDS event notification subscription. This operation requires a topic Amazon Resource Name (ARN)
+     * created by either the RDS console, the SNS console, or the SNS API. To obtain an ARN with SNS, you must create a
+     * topic in Amazon SNS and subscribe to the topic. The ARN is displayed in the SNS console.
      * </p>
      * <p>
-     * You can specify the type of source (SourceType) you want to be notified of, provide a list of RDS sources
-     * (SourceIds) that triggers the events, and provide a list of event categories (EventCategories) for events you
-     * want to be notified of. For example, you can specify SourceType = db-instance, SourceIds = mydbinstance1,
-     * mydbinstance2 and EventCategories = Availability, Backup.
+     * You can specify the type of source (<code>SourceType</code>) that you want to be notified of and provide a list
+     * of RDS sources (<code>SourceIds</code>) that triggers the events. You can also provide a list of event categories
+     * (<code>EventCategories</code>) for events that you want to be notified of. For example, you can specify
+     * <code>SourceType</code> = <code>db-instance</code>, <code>SourceIds</code> = <code>mydbinstance1</code>,
+     * <code>mydbinstance2</code> and <code>EventCategories</code> = <code>Availability</code>, <code>Backup</code>.
      * </p>
      * <p>
-     * If you specify both the SourceType and SourceIds, such as SourceType = db-instance and SourceIdentifier =
-     * myDBInstance1, you are notified of all the db-instance events for the specified source. If you specify a
-     * SourceType but do not specify a SourceIdentifier, you receive notice of the events for that source type for all
-     * your RDS sources. If you do not specify either the SourceType nor the SourceIdentifier, you are notified of
-     * events generated from all RDS sources belonging to your customer account.
+     * If you specify both the <code>SourceType</code> and <code>SourceIds</code>, such as <code>SourceType</code> =
+     * <code>db-instance</code> and <code>SourceIds</code> = <code>myDBInstance1</code>, you are notified of all the
+     * <code>db-instance</code> events for the specified source. If you specify a <code>SourceType</code> but do not
+     * specify <code>SourceIds</code>, you receive notice of the events for that source type for all your RDS sources.
+     * If you don't specify either the SourceType or the <code>SourceIds</code>, you are notified of events generated
+     * from all RDS sources belonging to your customer account.
+     * </p>
+     * <p>
+     * For more information about subscribing to an event for RDS DB engines, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.Subscribing.html"> Subscribing to Amazon
+     * RDS event notification</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about subscribing to an event for Aurora DB engines, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Events.Subscribing.html"> Subscribing to
+     * Amazon RDS event notification</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * 
      * @param createEventSubscriptionRequest
@@ -1336,22 +1633,34 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Creates an RDS event notification subscription. This action requires a topic ARN (Amazon Resource Name) created
-     * by either the RDS console, the SNS console, or the SNS API. To obtain an ARN with SNS, you must create a topic in
-     * Amazon SNS and subscribe to the topic. The ARN is displayed in the SNS console.
+     * Creates an RDS event notification subscription. This operation requires a topic Amazon Resource Name (ARN)
+     * created by either the RDS console, the SNS console, or the SNS API. To obtain an ARN with SNS, you must create a
+     * topic in Amazon SNS and subscribe to the topic. The ARN is displayed in the SNS console.
      * </p>
      * <p>
-     * You can specify the type of source (SourceType) you want to be notified of, provide a list of RDS sources
-     * (SourceIds) that triggers the events, and provide a list of event categories (EventCategories) for events you
-     * want to be notified of. For example, you can specify SourceType = db-instance, SourceIds = mydbinstance1,
-     * mydbinstance2 and EventCategories = Availability, Backup.
+     * You can specify the type of source (<code>SourceType</code>) that you want to be notified of and provide a list
+     * of RDS sources (<code>SourceIds</code>) that triggers the events. You can also provide a list of event categories
+     * (<code>EventCategories</code>) for events that you want to be notified of. For example, you can specify
+     * <code>SourceType</code> = <code>db-instance</code>, <code>SourceIds</code> = <code>mydbinstance1</code>,
+     * <code>mydbinstance2</code> and <code>EventCategories</code> = <code>Availability</code>, <code>Backup</code>.
      * </p>
      * <p>
-     * If you specify both the SourceType and SourceIds, such as SourceType = db-instance and SourceIdentifier =
-     * myDBInstance1, you are notified of all the db-instance events for the specified source. If you specify a
-     * SourceType but do not specify a SourceIdentifier, you receive notice of the events for that source type for all
-     * your RDS sources. If you do not specify either the SourceType nor the SourceIdentifier, you are notified of
-     * events generated from all RDS sources belonging to your customer account.
+     * If you specify both the <code>SourceType</code> and <code>SourceIds</code>, such as <code>SourceType</code> =
+     * <code>db-instance</code> and <code>SourceIds</code> = <code>myDBInstance1</code>, you are notified of all the
+     * <code>db-instance</code> events for the specified source. If you specify a <code>SourceType</code> but do not
+     * specify <code>SourceIds</code>, you receive notice of the events for that source type for all your RDS sources.
+     * If you don't specify either the SourceType or the <code>SourceIds</code>, you are notified of events generated
+     * from all RDS sources belonging to your customer account.
+     * </p>
+     * <p>
+     * For more information about subscribing to an event for RDS DB engines, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.Subscribing.html"> Subscribing to Amazon
+     * RDS event notification</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about subscribing to an event for Aurora DB engines, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Events.Subscribing.html"> Subscribing to
+     * Amazon RDS event notification</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * 
      * @param createEventSubscriptionRequest
@@ -1369,20 +1678,18 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * Creates an Aurora global database spread across multiple Amazon Web Services Regions. The global database
+     * contains a single primary cluster with read-write capability, and a read-only secondary cluster that receives
+     * data from the primary cluster through high-speed replication performed by the Aurora storage subsystem.
      * </p>
      * <p>
-     * Creates an Aurora global database spread across multiple regions. The global database contains a single primary
-     * cluster with read-write capability, and a read-only secondary cluster that receives data from the primary cluster
-     * through high-speed replication performed by the Aurora storage subsystem.
-     * </p>
-     * <p>
-     * You can create a global database that is initially empty, and then add a primary cluster and a secondary cluster
-     * to it. Or you can specify an existing Aurora cluster during the create operation, and this cluster becomes the
-     * primary cluster of the global database.
+     * You can create a global database that is initially empty, and then create the primary and secondary DB clusters
+     * in the global database. Or you can specify an existing Aurora cluster during the create operation, and this
+     * cluster becomes the primary cluster of the global database.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation applies only to Aurora DB clusters.
      * </p>
      * </note>
      * 
@@ -1396,20 +1703,18 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * Creates an Aurora global database spread across multiple Amazon Web Services Regions. The global database
+     * contains a single primary cluster with read-write capability, and a read-only secondary cluster that receives
+     * data from the primary cluster through high-speed replication performed by the Aurora storage subsystem.
      * </p>
      * <p>
-     * Creates an Aurora global database spread across multiple regions. The global database contains a single primary
-     * cluster with read-write capability, and a read-only secondary cluster that receives data from the primary cluster
-     * through high-speed replication performed by the Aurora storage subsystem.
-     * </p>
-     * <p>
-     * You can create a global database that is initially empty, and then add a primary cluster and a secondary cluster
-     * to it. Or you can specify an existing Aurora cluster during the create operation, and this cluster becomes the
-     * primary cluster of the global database.
+     * You can create a global database that is initially empty, and then create the primary and secondary DB clusters
+     * in the global database. Or you can specify an existing Aurora cluster during the create operation, and this
+     * cluster becomes the primary cluster of the global database.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation applies only to Aurora DB clusters.
      * </p>
      * </note>
      * 
@@ -1428,7 +1733,41 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * Creates a zero-ETL integration with Amazon Redshift.
+     * </p>
+     * 
+     * @param createIntegrationRequest
+     * @return A Java Future containing the result of the CreateIntegration operation returned by the service.
+     * @sample AmazonRDSAsync.CreateIntegration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateIntegration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateIntegrationResult> createIntegrationAsync(CreateIntegrationRequest createIntegrationRequest);
+
+    /**
+     * <p>
+     * Creates a zero-ETL integration with Amazon Redshift.
+     * </p>
+     * 
+     * @param createIntegrationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateIntegration operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.CreateIntegration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateIntegration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateIntegrationResult> createIntegrationAsync(CreateIntegrationRequest createIntegrationRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateIntegrationRequest, CreateIntegrationResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates a new option group. You can create up to 20 option groups.
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
      * </p>
      * 
      * @param createOptionGroupRequest
@@ -1442,6 +1781,9 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Creates a new option group. You can create up to 20 option groups.
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
      * </p>
      * 
      * @param createOptionGroupRequest
@@ -1459,21 +1801,197 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * Creates a tenant database in a DB instance that uses the multi-tenant configuration. Only RDS for Oracle
+     * container database (CDB) instances are supported.
+     * </p>
+     * 
+     * @param createTenantDatabaseRequest
+     * @return A Java Future containing the result of the CreateTenantDatabase operation returned by the service.
+     * @sample AmazonRDSAsync.CreateTenantDatabase
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateTenantDatabase" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<TenantDatabase> createTenantDatabaseAsync(CreateTenantDatabaseRequest createTenantDatabaseRequest);
+
+    /**
+     * <p>
+     * Creates a tenant database in a DB instance that uses the multi-tenant configuration. Only RDS for Oracle
+     * container database (CDB) instances are supported.
+     * </p>
+     * 
+     * @param createTenantDatabaseRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateTenantDatabase operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.CreateTenantDatabase
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateTenantDatabase" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<TenantDatabase> createTenantDatabaseAsync(CreateTenantDatabaseRequest createTenantDatabaseRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateTenantDatabaseRequest, TenantDatabase> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a blue/green deployment.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/blue-green-deployments.html">Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments.html">Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param deleteBlueGreenDeploymentRequest
+     * @return A Java Future containing the result of the DeleteBlueGreenDeployment operation returned by the service.
+     * @sample AmazonRDSAsync.DeleteBlueGreenDeployment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteBlueGreenDeployment" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteBlueGreenDeploymentResult> deleteBlueGreenDeploymentAsync(
+            DeleteBlueGreenDeploymentRequest deleteBlueGreenDeploymentRequest);
+
+    /**
+     * <p>
+     * Deletes a blue/green deployment.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/blue-green-deployments.html">Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments.html">Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param deleteBlueGreenDeploymentRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteBlueGreenDeployment operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DeleteBlueGreenDeployment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteBlueGreenDeployment" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteBlueGreenDeploymentResult> deleteBlueGreenDeploymentAsync(
+            DeleteBlueGreenDeploymentRequest deleteBlueGreenDeploymentRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteBlueGreenDeploymentRequest, DeleteBlueGreenDeploymentResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a custom engine version. To run this command, make sure you meet the following prerequisites:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The CEV must not be the default for RDS Custom. If it is, change the default before running this command.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The CEV must not be associated with an RDS Custom DB instance, RDS Custom instance snapshot, or automated backup
+     * of your RDS Custom instance.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Typically, deletion takes a few minutes.
+     * </p>
+     * <note>
+     * <p>
+     * The MediaImport service that imports files from Amazon S3 to create CEVs isn't integrated with Amazon Web
+     * Services CloudTrail. If you turn on data logging for Amazon RDS in CloudTrail, calls to the
+     * <code>DeleteCustomDbEngineVersion</code> event aren't logged. However, you might see calls from the API gateway
+     * that accesses your Amazon S3 bucket. These calls originate from the MediaImport service for the
+     * <code>DeleteCustomDbEngineVersion</code> event.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/custom-cev.html#custom-cev.delete">Deleting a
+     * CEV</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * 
+     * @param deleteCustomDBEngineVersionRequest
+     * @return A Java Future containing the result of the DeleteCustomDBEngineVersion operation returned by the service.
+     * @sample AmazonRDSAsync.DeleteCustomDBEngineVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteCustomDBEngineVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteCustomDBEngineVersionResult> deleteCustomDBEngineVersionAsync(
+            DeleteCustomDBEngineVersionRequest deleteCustomDBEngineVersionRequest);
+
+    /**
+     * <p>
+     * Deletes a custom engine version. To run this command, make sure you meet the following prerequisites:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The CEV must not be the default for RDS Custom. If it is, change the default before running this command.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The CEV must not be associated with an RDS Custom DB instance, RDS Custom instance snapshot, or automated backup
+     * of your RDS Custom instance.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Typically, deletion takes a few minutes.
+     * </p>
+     * <note>
+     * <p>
+     * The MediaImport service that imports files from Amazon S3 to create CEVs isn't integrated with Amazon Web
+     * Services CloudTrail. If you turn on data logging for Amazon RDS in CloudTrail, calls to the
+     * <code>DeleteCustomDbEngineVersion</code> event aren't logged. However, you might see calls from the API gateway
+     * that accesses your Amazon S3 bucket. These calls originate from the MediaImport service for the
+     * <code>DeleteCustomDbEngineVersion</code> event.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/custom-cev.html#custom-cev.delete">Deleting a
+     * CEV</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * 
+     * @param deleteCustomDBEngineVersionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteCustomDBEngineVersion operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DeleteCustomDBEngineVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteCustomDBEngineVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteCustomDBEngineVersionResult> deleteCustomDBEngineVersionAsync(
+            DeleteCustomDBEngineVersionRequest deleteCustomDBEngineVersionRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteCustomDBEngineVersionRequest, DeleteCustomDBEngineVersionResult> asyncHandler);
+
+    /**
+     * <p>
      * The DeleteDBCluster action deletes a previously provisioned DB cluster. When you delete a DB cluster, all
      * automated backups for that DB cluster are deleted and can't be recovered. Manual DB cluster snapshots of the
      * specified DB cluster are not deleted.
      * </p>
-     * <p/>
+     * <p>
+     * If you're deleting a Multi-AZ DB cluster with read replicas, all cluster members are terminated and read replicas
+     * are promoted to standalone instances.
+     * </p>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param deleteDBClusterRequest
      * @return A Java Future containing the result of the DeleteDBCluster operation returned by the service.
@@ -1489,17 +2007,20 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * automated backups for that DB cluster are deleted and can't be recovered. Manual DB cluster snapshots of the
      * specified DB cluster are not deleted.
      * </p>
-     * <p/>
+     * <p>
+     * If you're deleting a Multi-AZ DB cluster with read replicas, all cluster members are terminated and read replicas
+     * are promoted to standalone instances.
+     * </p>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param deleteDBClusterRequest
      * @param asyncHandler
@@ -1513,6 +2034,43 @@ public interface AmazonRDSAsync extends AmazonRDS {
      */
     java.util.concurrent.Future<DBCluster> deleteDBClusterAsync(DeleteDBClusterRequest deleteDBClusterRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteDBClusterRequest, DBCluster> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes automated backups using the <code>DbClusterResourceId</code> value of the source DB cluster or the Amazon
+     * Resource Name (ARN) of the automated backups.
+     * </p>
+     * 
+     * @param deleteDBClusterAutomatedBackupRequest
+     * @return A Java Future containing the result of the DeleteDBClusterAutomatedBackup operation returned by the
+     *         service.
+     * @sample AmazonRDSAsync.DeleteDBClusterAutomatedBackup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBClusterAutomatedBackup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DBClusterAutomatedBackup> deleteDBClusterAutomatedBackupAsync(
+            DeleteDBClusterAutomatedBackupRequest deleteDBClusterAutomatedBackupRequest);
+
+    /**
+     * <p>
+     * Deletes automated backups using the <code>DbClusterResourceId</code> value of the source DB cluster or the Amazon
+     * Resource Name (ARN) of the automated backups.
+     * </p>
+     * 
+     * @param deleteDBClusterAutomatedBackupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteDBClusterAutomatedBackup operation returned by the
+     *         service.
+     * @sample AmazonRDSAsyncHandler.DeleteDBClusterAutomatedBackup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBClusterAutomatedBackup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DBClusterAutomatedBackup> deleteDBClusterAutomatedBackupAsync(
+            DeleteDBClusterAutomatedBackupRequest deleteDBClusterAutomatedBackupRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteDBClusterAutomatedBackupRequest, DBClusterAutomatedBackup> asyncHandler);
 
     /**
      * <p>
@@ -1562,14 +2120,14 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param deleteDBClusterParameterGroupRequest
      * @return A Java Future containing the result of the DeleteDBClusterParameterGroup operation returned by the
@@ -1588,14 +2146,14 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param deleteDBClusterParameterGroupRequest
      * @param asyncHandler
@@ -1623,14 +2181,14 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </note>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param deleteDBClusterSnapshotRequest
      * @return A Java Future containing the result of the DeleteDBClusterSnapshot operation returned by the service.
@@ -1651,14 +2209,14 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </note>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param deleteDBClusterSnapshotRequest
      * @param asyncHandler
@@ -1675,17 +2233,16 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * The DeleteDBInstance action deletes a previously provisioned DB instance. When you delete a DB instance, all
-     * automated backups for that instance are deleted and can't be recovered. Manual DB snapshots of the DB instance to
-     * be deleted by <code>DeleteDBInstance</code> are not deleted.
+     * Deletes a previously provisioned DB instance. When you delete a DB instance, all automated backups for that
+     * instance are deleted and can't be recovered. However, manual DB snapshots of the DB instance aren't deleted.
      * </p>
      * <p>
-     * If you request a final DB snapshot the status of the Amazon RDS DB instance is <code>deleting</code> until the DB
-     * snapshot is created. The API action <code>DescribeDBInstance</code> is used to monitor the status of this
-     * operation. The action can't be canceled or reverted once submitted.
+     * If you request a final DB snapshot, the status of the Amazon RDS DB instance is <code>deleting</code> until the
+     * DB snapshot is created. This operation can't be canceled or reverted after it begins. To monitor the status of
+     * this operation, use <code>DescribeDBInstance</code>.
      * </p>
      * <p>
-     * Note that when a DB instance is in a failure state and has a status of <code>failed</code>,
+     * When a DB instance is in a failure state and has a status of <code>failed</code>,
      * <code>incompatible-restore</code>, or <code>incompatible-network</code>, you can only delete it when you skip
      * creation of the final snapshot with the <code>SkipFinalSnapshot</code> parameter.
      * </p>
@@ -1696,7 +2253,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <ul>
      * <li>
      * <p>
-     * The DB cluster is a Read Replica of another Amazon Aurora DB cluster.
+     * The DB cluster is a read replica of another Amazon Aurora DB cluster.
      * </p>
      * </li>
      * <li>
@@ -1706,10 +2263,17 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </li>
      * </ul>
      * <p>
-     * To delete a DB instance in this case, first call the <code>PromoteReadReplicaDBCluster</code> API action to
-     * promote the DB cluster so it's no longer a Read Replica. After the promotion completes, then call the
-     * <code>DeleteDBInstance</code> API action to delete the final instance in the DB cluster.
+     * To delete a DB instance in this case, first use the <code>PromoteReadReplicaDBCluster</code> operation to promote
+     * the DB cluster so that it's no longer a read replica. After the promotion completes, use the
+     * <code>DeleteDBInstance</code> operation to delete the final instance in the DB cluster.
      * </p>
+     * <important>
+     * <p>
+     * For RDS Custom DB instances, deleting the DB instance permanently deletes the EC2 instance and the associated EBS
+     * volumes. Make sure that you don't terminate or delete these resources before you delete the DB instance.
+     * Otherwise, deleting the DB instance and creation of the final snapshot might fail.
+     * </p>
+     * </important>
      * 
      * @param deleteDBInstanceRequest
      * @return A Java Future containing the result of the DeleteDBInstance operation returned by the service.
@@ -1721,17 +2285,16 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * The DeleteDBInstance action deletes a previously provisioned DB instance. When you delete a DB instance, all
-     * automated backups for that instance are deleted and can't be recovered. Manual DB snapshots of the DB instance to
-     * be deleted by <code>DeleteDBInstance</code> are not deleted.
+     * Deletes a previously provisioned DB instance. When you delete a DB instance, all automated backups for that
+     * instance are deleted and can't be recovered. However, manual DB snapshots of the DB instance aren't deleted.
      * </p>
      * <p>
-     * If you request a final DB snapshot the status of the Amazon RDS DB instance is <code>deleting</code> until the DB
-     * snapshot is created. The API action <code>DescribeDBInstance</code> is used to monitor the status of this
-     * operation. The action can't be canceled or reverted once submitted.
+     * If you request a final DB snapshot, the status of the Amazon RDS DB instance is <code>deleting</code> until the
+     * DB snapshot is created. This operation can't be canceled or reverted after it begins. To monitor the status of
+     * this operation, use <code>DescribeDBInstance</code>.
      * </p>
      * <p>
-     * Note that when a DB instance is in a failure state and has a status of <code>failed</code>,
+     * When a DB instance is in a failure state and has a status of <code>failed</code>,
      * <code>incompatible-restore</code>, or <code>incompatible-network</code>, you can only delete it when you skip
      * creation of the final snapshot with the <code>SkipFinalSnapshot</code> parameter.
      * </p>
@@ -1742,7 +2305,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <ul>
      * <li>
      * <p>
-     * The DB cluster is a Read Replica of another Amazon Aurora DB cluster.
+     * The DB cluster is a read replica of another Amazon Aurora DB cluster.
      * </p>
      * </li>
      * <li>
@@ -1752,10 +2315,17 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </li>
      * </ul>
      * <p>
-     * To delete a DB instance in this case, first call the <code>PromoteReadReplicaDBCluster</code> API action to
-     * promote the DB cluster so it's no longer a Read Replica. After the promotion completes, then call the
-     * <code>DeleteDBInstance</code> API action to delete the final instance in the DB cluster.
+     * To delete a DB instance in this case, first use the <code>PromoteReadReplicaDBCluster</code> operation to promote
+     * the DB cluster so that it's no longer a read replica. After the promotion completes, use the
+     * <code>DeleteDBInstance</code> operation to delete the final instance in the DB cluster.
      * </p>
+     * <important>
+     * <p>
+     * For RDS Custom DB instances, deleting the DB instance permanently deletes the EC2 instance and the associated EBS
+     * volumes. Make sure that you don't terminate or delete these resources before you delete the DB instance.
+     * Otherwise, deleting the DB instance and creation of the final snapshot might fail.
+     * </p>
+     * </important>
      * 
      * @param deleteDBInstanceRequest
      * @param asyncHandler
@@ -1772,8 +2342,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Deletes automated backups based on the source instance's <code>DbiResourceId</code> value or the restorable
-     * instance's resource ID.
+     * Deletes automated backups using the <code>DbiResourceId</code> value of the source DB instance or the Amazon
+     * Resource Name (ARN) of the automated backups.
      * </p>
      * 
      * @param deleteDBInstanceAutomatedBackupRequest
@@ -1789,8 +2359,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Deletes automated backups based on the source instance's <code>DbiResourceId</code> value or the restorable
-     * instance's resource ID.
+     * Deletes automated backups using the <code>DbiResourceId</code> value of the source DB instance or the Amazon
+     * Resource Name (ARN) of the automated backups.
      * </p>
      * 
      * @param deleteDBInstanceAutomatedBackupRequest
@@ -1844,11 +2414,87 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * Deletes an existing DB proxy.
+     * </p>
+     * 
+     * @param deleteDBProxyRequest
+     * @return A Java Future containing the result of the DeleteDBProxy operation returned by the service.
+     * @sample AmazonRDSAsync.DeleteDBProxy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBProxy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteDBProxyResult> deleteDBProxyAsync(DeleteDBProxyRequest deleteDBProxyRequest);
+
+    /**
+     * <p>
+     * Deletes an existing DB proxy.
+     * </p>
+     * 
+     * @param deleteDBProxyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteDBProxy operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DeleteDBProxy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBProxy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteDBProxyResult> deleteDBProxyAsync(DeleteDBProxyRequest deleteDBProxyRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteDBProxyRequest, DeleteDBProxyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a <code>DBProxyEndpoint</code>. Doing so removes the ability to access the DB proxy using the endpoint
+     * that you defined. The endpoint that you delete might have provided capabilities such as read/write or read-only
+     * operations, or using a different VPC than the DB proxy's default VPC.
+     * </p>
+     * 
+     * @param deleteDBProxyEndpointRequest
+     * @return A Java Future containing the result of the DeleteDBProxyEndpoint operation returned by the service.
+     * @sample AmazonRDSAsync.DeleteDBProxyEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBProxyEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteDBProxyEndpointResult> deleteDBProxyEndpointAsync(DeleteDBProxyEndpointRequest deleteDBProxyEndpointRequest);
+
+    /**
+     * <p>
+     * Deletes a <code>DBProxyEndpoint</code>. Doing so removes the ability to access the DB proxy using the endpoint
+     * that you defined. The endpoint that you delete might have provided capabilities such as read/write or read-only
+     * operations, or using a different VPC than the DB proxy's default VPC.
+     * </p>
+     * 
+     * @param deleteDBProxyEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteDBProxyEndpoint operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DeleteDBProxyEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBProxyEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteDBProxyEndpointResult> deleteDBProxyEndpointAsync(DeleteDBProxyEndpointRequest deleteDBProxyEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteDBProxyEndpointRequest, DeleteDBProxyEndpointResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes a DB security group.
+     * </p>
+     * <p>
+     * The specified DB security group must not be associated with any DB instances.
      * </p>
      * <note>
      * <p>
-     * The specified DB security group must not be associated with any DB instances.
+     * EC2-Classic was retired on August 15, 2022. If you haven't migrated from EC2-Classic to a VPC, we recommend that
+     * you migrate as soon as possible. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from EC2-Classic to a VPC</a>
+     * in the <i>Amazon EC2 User Guide</i>, the blog <a
+     * href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic Networking is
+     * Retiring – Here’s How to Prepare</a>, and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Non-VPC2VPC.html">Moving a DB instance not
+     * in a VPC into a VPC</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * </note>
      * 
@@ -1864,9 +2510,19 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * Deletes a DB security group.
      * </p>
-     * <note>
      * <p>
      * The specified DB security group must not be associated with any DB instances.
+     * </p>
+     * <note>
+     * <p>
+     * EC2-Classic was retired on August 15, 2022. If you haven't migrated from EC2-Classic to a VPC, we recommend that
+     * you migrate as soon as possible. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from EC2-Classic to a VPC</a>
+     * in the <i>Amazon EC2 User Guide</i>, the blog <a
+     * href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic Networking is
+     * Retiring – Here’s How to Prepare</a>, and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Non-VPC2VPC.html">Moving a DB instance not
+     * in a VPC into a VPC</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * </note>
      * 
@@ -1882,6 +2538,37 @@ public interface AmazonRDSAsync extends AmazonRDS {
      */
     java.util.concurrent.Future<DeleteDBSecurityGroupResult> deleteDBSecurityGroupAsync(DeleteDBSecurityGroupRequest deleteDBSecurityGroupRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteDBSecurityGroupRequest, DeleteDBSecurityGroupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an Aurora Limitless Database DB shard group.
+     * </p>
+     * 
+     * @param deleteDBShardGroupRequest
+     * @return A Java Future containing the result of the DeleteDBShardGroup operation returned by the service.
+     * @sample AmazonRDSAsync.DeleteDBShardGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBShardGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteDBShardGroupResult> deleteDBShardGroupAsync(DeleteDBShardGroupRequest deleteDBShardGroupRequest);
+
+    /**
+     * <p>
+     * Deletes an Aurora Limitless Database DB shard group.
+     * </p>
+     * 
+     * @param deleteDBShardGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteDBShardGroup operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DeleteDBShardGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBShardGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteDBShardGroupResult> deleteDBShardGroupAsync(DeleteDBShardGroupRequest deleteDBShardGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteDBShardGroupRequest, DeleteDBShardGroupResult> asyncHandler);
 
     /**
      * <p>
@@ -2041,6 +2728,37 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * Deletes a zero-ETL integration with Amazon Redshift.
+     * </p>
+     * 
+     * @param deleteIntegrationRequest
+     * @return A Java Future containing the result of the DeleteIntegration operation returned by the service.
+     * @sample AmazonRDSAsync.DeleteIntegration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteIntegration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteIntegrationResult> deleteIntegrationAsync(DeleteIntegrationRequest deleteIntegrationRequest);
+
+    /**
+     * <p>
+     * Deletes a zero-ETL integration with Amazon Redshift.
+     * </p>
+     * 
+     * @param deleteIntegrationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteIntegration operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DeleteIntegration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteIntegration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteIntegrationResult> deleteIntegrationAsync(DeleteIntegrationRequest deleteIntegrationRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteIntegrationRequest, DeleteIntegrationResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes an existing option group.
      * </p>
      * 
@@ -2069,6 +2787,78 @@ public interface AmazonRDSAsync extends AmazonRDS {
      */
     java.util.concurrent.Future<DeleteOptionGroupResult> deleteOptionGroupAsync(DeleteOptionGroupRequest deleteOptionGroupRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteOptionGroupRequest, DeleteOptionGroupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a tenant database from your DB instance. This command only applies to RDS for Oracle container database
+     * (CDB) instances.
+     * </p>
+     * <p>
+     * You can't delete a tenant database when it is the only tenant in the DB instance.
+     * </p>
+     * 
+     * @param deleteTenantDatabaseRequest
+     * @return A Java Future containing the result of the DeleteTenantDatabase operation returned by the service.
+     * @sample AmazonRDSAsync.DeleteTenantDatabase
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteTenantDatabase" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<TenantDatabase> deleteTenantDatabaseAsync(DeleteTenantDatabaseRequest deleteTenantDatabaseRequest);
+
+    /**
+     * <p>
+     * Deletes a tenant database from your DB instance. This command only applies to RDS for Oracle container database
+     * (CDB) instances.
+     * </p>
+     * <p>
+     * You can't delete a tenant database when it is the only tenant in the DB instance.
+     * </p>
+     * 
+     * @param deleteTenantDatabaseRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteTenantDatabase operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DeleteTenantDatabase
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteTenantDatabase" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<TenantDatabase> deleteTenantDatabaseAsync(DeleteTenantDatabaseRequest deleteTenantDatabaseRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteTenantDatabaseRequest, TenantDatabase> asyncHandler);
+
+    /**
+     * <p>
+     * Remove the association between one or more <code>DBProxyTarget</code> data structures and a
+     * <code>DBProxyTargetGroup</code>.
+     * </p>
+     * 
+     * @param deregisterDBProxyTargetsRequest
+     * @return A Java Future containing the result of the DeregisterDBProxyTargets operation returned by the service.
+     * @sample AmazonRDSAsync.DeregisterDBProxyTargets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeregisterDBProxyTargets" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeregisterDBProxyTargetsResult> deregisterDBProxyTargetsAsync(DeregisterDBProxyTargetsRequest deregisterDBProxyTargetsRequest);
+
+    /**
+     * <p>
+     * Remove the association between one or more <code>DBProxyTarget</code> data structures and a
+     * <code>DBProxyTargetGroup</code>.
+     * </p>
+     * 
+     * @param deregisterDBProxyTargetsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeregisterDBProxyTargets operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DeregisterDBProxyTargets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeregisterDBProxyTargets" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeregisterDBProxyTargetsResult> deregisterDBProxyTargetsAsync(DeregisterDBProxyTargetsRequest deregisterDBProxyTargetsRequest,
+            com.amazonaws.handlers.AsyncHandler<DeregisterDBProxyTargetsRequest, DeregisterDBProxyTargetsResult> asyncHandler);
 
     /**
      * <p>
@@ -2130,7 +2920,64 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Lists the set of CA certificates provided by Amazon RDS for this AWS account.
+     * Describes one or more blue/green deployments.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/blue-green-deployments.html">Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments.html"> Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param describeBlueGreenDeploymentsRequest
+     * @return A Java Future containing the result of the DescribeBlueGreenDeployments operation returned by the
+     *         service.
+     * @sample AmazonRDSAsync.DescribeBlueGreenDeployments
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeBlueGreenDeployments"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeBlueGreenDeploymentsResult> describeBlueGreenDeploymentsAsync(
+            DescribeBlueGreenDeploymentsRequest describeBlueGreenDeploymentsRequest);
+
+    /**
+     * <p>
+     * Describes one or more blue/green deployments.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/blue-green-deployments.html">Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments.html"> Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param describeBlueGreenDeploymentsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeBlueGreenDeployments operation returned by the
+     *         service.
+     * @sample AmazonRDSAsyncHandler.DescribeBlueGreenDeployments
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeBlueGreenDeployments"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeBlueGreenDeploymentsResult> describeBlueGreenDeploymentsAsync(
+            DescribeBlueGreenDeploymentsRequest describeBlueGreenDeploymentsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeBlueGreenDeploymentsRequest, DescribeBlueGreenDeploymentsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists the set of certificate authority (CA) certificates provided by Amazon RDS for this Amazon Web Services
+     * account.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to
+     * encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * 
      * @param describeCertificatesRequest
@@ -2143,7 +2990,15 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Lists the set of CA certificates provided by Amazon RDS for this AWS account.
+     * Lists the set of certificate authority (CA) certificates provided by Amazon RDS for this Amazon Web Services
+     * account.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to
+     * encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * 
      * @param describeCertificatesRequest
@@ -2176,16 +3031,61 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * Displays backups for both current and deleted DB clusters. For example, use this operation to find details about
+     * automated backups for previously deleted clusters. Current clusters are returned for both the
+     * <code>DescribeDBClusterAutomatedBackups</code> and <code>DescribeDBClusters</code> operations.
+     * </p>
+     * <p>
+     * All parameters are optional.
+     * </p>
+     * 
+     * @param describeDBClusterAutomatedBackupsRequest
+     * @return A Java Future containing the result of the DescribeDBClusterAutomatedBackups operation returned by the
+     *         service.
+     * @sample AmazonRDSAsync.DescribeDBClusterAutomatedBackups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBClusterAutomatedBackups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBClusterAutomatedBackupsResult> describeDBClusterAutomatedBackupsAsync(
+            DescribeDBClusterAutomatedBackupsRequest describeDBClusterAutomatedBackupsRequest);
+
+    /**
+     * <p>
+     * Displays backups for both current and deleted DB clusters. For example, use this operation to find details about
+     * automated backups for previously deleted clusters. Current clusters are returned for both the
+     * <code>DescribeDBClusterAutomatedBackups</code> and <code>DescribeDBClusters</code> operations.
+     * </p>
+     * <p>
+     * All parameters are optional.
+     * </p>
+     * 
+     * @param describeDBClusterAutomatedBackupsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeDBClusterAutomatedBackups operation returned by the
+     *         service.
+     * @sample AmazonRDSAsyncHandler.DescribeDBClusterAutomatedBackups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBClusterAutomatedBackups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBClusterAutomatedBackupsResult> describeDBClusterAutomatedBackupsAsync(
+            DescribeDBClusterAutomatedBackupsRequest describeDBClusterAutomatedBackupsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeDBClusterAutomatedBackupsRequest, DescribeDBClusterAutomatedBackupsResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns information about backtracks for a DB cluster.
      * </p>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This action only applies to Aurora MySQL DB clusters.
      * </p>
      * </note>
      * 
@@ -2204,12 +3104,12 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This action only applies to Aurora MySQL DB clusters.
      * </p>
      * </note>
      * 
@@ -2278,14 +3178,14 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param describeDBClusterParameterGroupsRequest
      * @return A Java Future containing the result of the DescribeDBClusterParameterGroups operation returned by the
@@ -2305,14 +3205,14 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param describeDBClusterParameterGroupsRequest
      * @param asyncHandler
@@ -2351,14 +3251,14 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param describeDBClusterParametersRequest
      * @return A Java Future containing the result of the DescribeDBClusterParameters operation returned by the service.
@@ -2375,14 +3275,14 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param describeDBClusterParametersRequest
      * @param asyncHandler
@@ -2403,20 +3303,17 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * Returns a list of DB cluster snapshot attribute names and values for a manual DB cluster snapshot.
      * </p>
      * <p>
-     * When sharing snapshots with other AWS accounts, <code>DescribeDBClusterSnapshotAttributes</code> returns the
-     * <code>restore</code> attribute and a list of IDs for the AWS accounts that are authorized to copy or restore the
-     * manual DB cluster snapshot. If <code>all</code> is included in the list of values for the <code>restore</code>
-     * attribute, then the manual DB cluster snapshot is public and can be copied or restored by all AWS accounts.
+     * When sharing snapshots with other Amazon Web Services accounts, <code>DescribeDBClusterSnapshotAttributes</code>
+     * returns the <code>restore</code> attribute and a list of IDs for the Amazon Web Services accounts that are
+     * authorized to copy or restore the manual DB cluster snapshot. If <code>all</code> is included in the list of
+     * values for the <code>restore</code> attribute, then the manual DB cluster snapshot is public and can be copied or
+     * restored by all Amazon Web Services accounts.
      * </p>
      * <p>
-     * To add or remove access for an AWS account to copy or restore a manual DB cluster snapshot, or to make the manual
-     * DB cluster snapshot public or private, use the <code>ModifyDBClusterSnapshotAttribute</code> API action.
+     * To add or remove access for an Amazon Web Services account to copy or restore a manual DB cluster snapshot, or to
+     * make the manual DB cluster snapshot public or private, use the <code>ModifyDBClusterSnapshotAttribute</code> API
+     * action.
      * </p>
-     * <note>
-     * <p>
-     * This action only applies to Aurora DB clusters.
-     * </p>
-     * </note>
      * 
      * @param describeDBClusterSnapshotAttributesRequest
      * @return A Java Future containing the result of the DescribeDBClusterSnapshotAttributes operation returned by the
@@ -2433,20 +3330,17 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * Returns a list of DB cluster snapshot attribute names and values for a manual DB cluster snapshot.
      * </p>
      * <p>
-     * When sharing snapshots with other AWS accounts, <code>DescribeDBClusterSnapshotAttributes</code> returns the
-     * <code>restore</code> attribute and a list of IDs for the AWS accounts that are authorized to copy or restore the
-     * manual DB cluster snapshot. If <code>all</code> is included in the list of values for the <code>restore</code>
-     * attribute, then the manual DB cluster snapshot is public and can be copied or restored by all AWS accounts.
+     * When sharing snapshots with other Amazon Web Services accounts, <code>DescribeDBClusterSnapshotAttributes</code>
+     * returns the <code>restore</code> attribute and a list of IDs for the Amazon Web Services accounts that are
+     * authorized to copy or restore the manual DB cluster snapshot. If <code>all</code> is included in the list of
+     * values for the <code>restore</code> attribute, then the manual DB cluster snapshot is public and can be copied or
+     * restored by all Amazon Web Services accounts.
      * </p>
      * <p>
-     * To add or remove access for an AWS account to copy or restore a manual DB cluster snapshot, or to make the manual
-     * DB cluster snapshot public or private, use the <code>ModifyDBClusterSnapshotAttribute</code> API action.
+     * To add or remove access for an Amazon Web Services account to copy or restore a manual DB cluster snapshot, or to
+     * make the manual DB cluster snapshot public or private, use the <code>ModifyDBClusterSnapshotAttribute</code> API
+     * action.
      * </p>
-     * <note>
-     * <p>
-     * This action only applies to Aurora DB clusters.
-     * </p>
-     * </note>
      * 
      * @param describeDBClusterSnapshotAttributesRequest
      * @param asyncHandler
@@ -2468,15 +3362,15 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * Returns information about DB cluster snapshots. This API action supports pagination.
      * </p>
      * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param describeDBClusterSnapshotsRequest
      * @return A Java Future containing the result of the DescribeDBClusterSnapshots operation returned by the service.
@@ -2492,15 +3386,15 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * Returns information about DB cluster snapshots. This API action supports pagination.
      * </p>
      * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param describeDBClusterSnapshotsRequest
      * @param asyncHandler
@@ -2533,18 +3427,21 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Returns information about provisioned Aurora DB clusters. This API supports pagination.
+     * Describes existing Amazon Aurora DB clusters and Multi-AZ DB clusters. This API supports pagination.
      * </p>
      * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
+     * <p>
+     * This operation can also return information for Amazon Neptune DB instances and Amazon DocumentDB instances.
+     * </p>
      * 
      * @param describeDBClustersRequest
      * @return A Java Future containing the result of the DescribeDBClusters operation returned by the service.
@@ -2556,18 +3453,21 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Returns information about provisioned Aurora DB clusters. This API supports pagination.
+     * Describes existing Amazon Aurora DB clusters and Multi-AZ DB clusters. This API supports pagination.
      * </p>
      * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
-     * </note>
+     * <p>
+     * This operation can also return information for Amazon Neptune DB instances and Amazon DocumentDB instances.
+     * </p>
      * 
      * @param describeDBClustersRequest
      * @param asyncHandler
@@ -2599,7 +3499,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Returns a list of the available DB engines.
+     * Describes the properties of specific versions of DB engines.
      * </p>
      * 
      * @param describeDBEngineVersionsRequest
@@ -2612,7 +3512,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Returns a list of the available DB engines.
+     * Describes the properties of specific versions of DB engines.
      * </p>
      * 
      * @param describeDBEngineVersionsRequest
@@ -2694,8 +3594,13 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Returns information about provisioned RDS instances. This API supports pagination.
+     * Describes provisioned RDS instances. This API supports pagination.
      * </p>
+     * <note>
+     * <p>
+     * This operation can also return information for Amazon Neptune DB instances and Amazon DocumentDB instances.
+     * </p>
+     * </note>
      * 
      * @param describeDBInstancesRequest
      * @return A Java Future containing the result of the DescribeDBInstances operation returned by the service.
@@ -2707,8 +3612,13 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Returns information about provisioned RDS instances. This API supports pagination.
+     * Describes provisioned RDS instances. This API supports pagination.
      * </p>
+     * <note>
+     * <p>
+     * This operation can also return information for Amazon Neptune DB instances and Amazon DocumentDB instances.
+     * </p>
+     * </note>
      * 
      * @param describeDBInstancesRequest
      * @param asyncHandler
@@ -2742,6 +3652,9 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * Returns a list of DB log files for the DB instance.
      * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
+     * </p>
      * 
      * @param describeDBLogFilesRequest
      * @return A Java Future containing the result of the DescribeDBLogFiles operation returned by the service.
@@ -2754,6 +3667,9 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Returns a list of DB log files for the DB instance.
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
      * </p>
      * 
      * @param describeDBLogFilesRequest
@@ -2852,9 +3768,180 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * Returns information about DB proxies.
+     * </p>
+     * 
+     * @param describeDBProxiesRequest
+     * @return A Java Future containing the result of the DescribeDBProxies operation returned by the service.
+     * @sample AmazonRDSAsync.DescribeDBProxies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBProxies" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBProxiesResult> describeDBProxiesAsync(DescribeDBProxiesRequest describeDBProxiesRequest);
+
+    /**
+     * <p>
+     * Returns information about DB proxies.
+     * </p>
+     * 
+     * @param describeDBProxiesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeDBProxies operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DescribeDBProxies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBProxies" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBProxiesResult> describeDBProxiesAsync(DescribeDBProxiesRequest describeDBProxiesRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeDBProxiesRequest, DescribeDBProxiesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns information about DB proxy endpoints.
+     * </p>
+     * 
+     * @param describeDBProxyEndpointsRequest
+     * @return A Java Future containing the result of the DescribeDBProxyEndpoints operation returned by the service.
+     * @sample AmazonRDSAsync.DescribeDBProxyEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBProxyEndpoints" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBProxyEndpointsResult> describeDBProxyEndpointsAsync(DescribeDBProxyEndpointsRequest describeDBProxyEndpointsRequest);
+
+    /**
+     * <p>
+     * Returns information about DB proxy endpoints.
+     * </p>
+     * 
+     * @param describeDBProxyEndpointsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeDBProxyEndpoints operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DescribeDBProxyEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBProxyEndpoints" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBProxyEndpointsResult> describeDBProxyEndpointsAsync(DescribeDBProxyEndpointsRequest describeDBProxyEndpointsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeDBProxyEndpointsRequest, DescribeDBProxyEndpointsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns information about DB proxy target groups, represented by <code>DBProxyTargetGroup</code> data structures.
+     * </p>
+     * 
+     * @param describeDBProxyTargetGroupsRequest
+     * @return A Java Future containing the result of the DescribeDBProxyTargetGroups operation returned by the service.
+     * @sample AmazonRDSAsync.DescribeDBProxyTargetGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBProxyTargetGroups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBProxyTargetGroupsResult> describeDBProxyTargetGroupsAsync(
+            DescribeDBProxyTargetGroupsRequest describeDBProxyTargetGroupsRequest);
+
+    /**
+     * <p>
+     * Returns information about DB proxy target groups, represented by <code>DBProxyTargetGroup</code> data structures.
+     * </p>
+     * 
+     * @param describeDBProxyTargetGroupsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeDBProxyTargetGroups operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DescribeDBProxyTargetGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBProxyTargetGroups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBProxyTargetGroupsResult> describeDBProxyTargetGroupsAsync(
+            DescribeDBProxyTargetGroupsRequest describeDBProxyTargetGroupsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeDBProxyTargetGroupsRequest, DescribeDBProxyTargetGroupsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns information about <code>DBProxyTarget</code> objects. This API supports pagination.
+     * </p>
+     * 
+     * @param describeDBProxyTargetsRequest
+     * @return A Java Future containing the result of the DescribeDBProxyTargets operation returned by the service.
+     * @sample AmazonRDSAsync.DescribeDBProxyTargets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBProxyTargets" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBProxyTargetsResult> describeDBProxyTargetsAsync(DescribeDBProxyTargetsRequest describeDBProxyTargetsRequest);
+
+    /**
+     * <p>
+     * Returns information about <code>DBProxyTarget</code> objects. This API supports pagination.
+     * </p>
+     * 
+     * @param describeDBProxyTargetsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeDBProxyTargets operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DescribeDBProxyTargets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBProxyTargets" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBProxyTargetsResult> describeDBProxyTargetsAsync(DescribeDBProxyTargetsRequest describeDBProxyTargetsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeDBProxyTargetsRequest, DescribeDBProxyTargetsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes the recommendations to resolve the issues for your DB instances, DB clusters, and DB parameter groups.
+     * </p>
+     * 
+     * @param describeDBRecommendationsRequest
+     * @return A Java Future containing the result of the DescribeDBRecommendations operation returned by the service.
+     * @sample AmazonRDSAsync.DescribeDBRecommendations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBRecommendations" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBRecommendationsResult> describeDBRecommendationsAsync(
+            DescribeDBRecommendationsRequest describeDBRecommendationsRequest);
+
+    /**
+     * <p>
+     * Describes the recommendations to resolve the issues for your DB instances, DB clusters, and DB parameter groups.
+     * </p>
+     * 
+     * @param describeDBRecommendationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeDBRecommendations operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DescribeDBRecommendations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBRecommendations" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBRecommendationsResult> describeDBRecommendationsAsync(
+            DescribeDBRecommendationsRequest describeDBRecommendationsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeDBRecommendationsRequest, DescribeDBRecommendationsResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns a list of <code>DBSecurityGroup</code> descriptions. If a <code>DBSecurityGroupName</code> is specified,
      * the list will contain only the descriptions of the specified DB security group.
      * </p>
+     * <note>
+     * <p>
+     * EC2-Classic was retired on August 15, 2022. If you haven't migrated from EC2-Classic to a VPC, we recommend that
+     * you migrate as soon as possible. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from EC2-Classic to a VPC</a>
+     * in the <i>Amazon EC2 User Guide</i>, the blog <a
+     * href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic Networking is
+     * Retiring – Here’s How to Prepare</a>, and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Non-VPC2VPC.html">Moving a DB instance not
+     * in a VPC into a VPC</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param describeDBSecurityGroupsRequest
      * @return A Java Future containing the result of the DescribeDBSecurityGroups operation returned by the service.
@@ -2869,6 +3956,18 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * Returns a list of <code>DBSecurityGroup</code> descriptions. If a <code>DBSecurityGroupName</code> is specified,
      * the list will contain only the descriptions of the specified DB security group.
      * </p>
+     * <note>
+     * <p>
+     * EC2-Classic was retired on August 15, 2022. If you haven't migrated from EC2-Classic to a VPC, we recommend that
+     * you migrate as soon as possible. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from EC2-Classic to a VPC</a>
+     * in the <i>Amazon EC2 User Guide</i>, the blog <a
+     * href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic Networking is
+     * Retiring – Here’s How to Prepare</a>, and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Non-VPC2VPC.html">Moving a DB instance not
+     * in a VPC into a VPC</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param describeDBSecurityGroupsRequest
      * @param asyncHandler
@@ -2900,17 +3999,49 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * Describes existing Aurora Limitless Database DB shard groups.
+     * </p>
+     * 
+     * @param describeDBShardGroupsRequest
+     * @return A Java Future containing the result of the DescribeDBShardGroups operation returned by the service.
+     * @sample AmazonRDSAsync.DescribeDBShardGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBShardGroups" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBShardGroupsResult> describeDBShardGroupsAsync(DescribeDBShardGroupsRequest describeDBShardGroupsRequest);
+
+    /**
+     * <p>
+     * Describes existing Aurora Limitless Database DB shard groups.
+     * </p>
+     * 
+     * @param describeDBShardGroupsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeDBShardGroups operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DescribeDBShardGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBShardGroups" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBShardGroupsResult> describeDBShardGroupsAsync(DescribeDBShardGroupsRequest describeDBShardGroupsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeDBShardGroupsRequest, DescribeDBShardGroupsResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns a list of DB snapshot attribute names and values for a manual DB snapshot.
      * </p>
      * <p>
-     * When sharing snapshots with other AWS accounts, <code>DescribeDBSnapshotAttributes</code> returns the
-     * <code>restore</code> attribute and a list of IDs for the AWS accounts that are authorized to copy or restore the
-     * manual DB snapshot. If <code>all</code> is included in the list of values for the <code>restore</code> attribute,
-     * then the manual DB snapshot is public and can be copied or restored by all AWS accounts.
+     * When sharing snapshots with other Amazon Web Services accounts, <code>DescribeDBSnapshotAttributes</code> returns
+     * the <code>restore</code> attribute and a list of IDs for the Amazon Web Services accounts that are authorized to
+     * copy or restore the manual DB snapshot. If <code>all</code> is included in the list of values for the
+     * <code>restore</code> attribute, then the manual DB snapshot is public and can be copied or restored by all Amazon
+     * Web Services accounts.
      * </p>
      * <p>
-     * To add or remove access for an AWS account to copy or restore a manual DB snapshot, or to make the manual DB
-     * snapshot public or private, use the <code>ModifyDBSnapshotAttribute</code> API action.
+     * To add or remove access for an Amazon Web Services account to copy or restore a manual DB snapshot, or to make
+     * the manual DB snapshot public or private, use the <code>ModifyDBSnapshotAttribute</code> API action.
      * </p>
      * 
      * @param describeDBSnapshotAttributesRequest
@@ -2928,14 +4059,15 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * Returns a list of DB snapshot attribute names and values for a manual DB snapshot.
      * </p>
      * <p>
-     * When sharing snapshots with other AWS accounts, <code>DescribeDBSnapshotAttributes</code> returns the
-     * <code>restore</code> attribute and a list of IDs for the AWS accounts that are authorized to copy or restore the
-     * manual DB snapshot. If <code>all</code> is included in the list of values for the <code>restore</code> attribute,
-     * then the manual DB snapshot is public and can be copied or restored by all AWS accounts.
+     * When sharing snapshots with other Amazon Web Services accounts, <code>DescribeDBSnapshotAttributes</code> returns
+     * the <code>restore</code> attribute and a list of IDs for the Amazon Web Services accounts that are authorized to
+     * copy or restore the manual DB snapshot. If <code>all</code> is included in the list of values for the
+     * <code>restore</code> attribute, then the manual DB snapshot is public and can be copied or restored by all Amazon
+     * Web Services accounts.
      * </p>
      * <p>
-     * To add or remove access for an AWS account to copy or restore a manual DB snapshot, or to make the manual DB
-     * snapshot public or private, use the <code>ModifyDBSnapshotAttribute</code> API action.
+     * To add or remove access for an Amazon Web Services account to copy or restore a manual DB snapshot, or to make
+     * the manual DB snapshot public or private, use the <code>ModifyDBSnapshotAttribute</code> API action.
      * </p>
      * 
      * @param describeDBSnapshotAttributesRequest
@@ -2967,6 +4099,53 @@ public interface AmazonRDSAsync extends AmazonRDS {
      */
     java.util.concurrent.Future<DBSnapshotAttributesResult> describeDBSnapshotAttributesAsync(
             com.amazonaws.handlers.AsyncHandler<DescribeDBSnapshotAttributesRequest, DBSnapshotAttributesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes the tenant databases that exist in a DB snapshot. This command only applies to RDS for Oracle DB
+     * instances in the multi-tenant configuration.
+     * </p>
+     * <p>
+     * You can use this command to inspect the tenant databases within a snapshot before restoring it. You can't
+     * directly interact with the tenant databases in a DB snapshot. If you restore a snapshot that was taken from DB
+     * instance using the multi-tenant configuration, you restore all its tenant databases.
+     * </p>
+     * 
+     * @param describeDBSnapshotTenantDatabasesRequest
+     * @return A Java Future containing the result of the DescribeDBSnapshotTenantDatabases operation returned by the
+     *         service.
+     * @sample AmazonRDSAsync.DescribeDBSnapshotTenantDatabases
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBSnapshotTenantDatabases"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBSnapshotTenantDatabasesResult> describeDBSnapshotTenantDatabasesAsync(
+            DescribeDBSnapshotTenantDatabasesRequest describeDBSnapshotTenantDatabasesRequest);
+
+    /**
+     * <p>
+     * Describes the tenant databases that exist in a DB snapshot. This command only applies to RDS for Oracle DB
+     * instances in the multi-tenant configuration.
+     * </p>
+     * <p>
+     * You can use this command to inspect the tenant databases within a snapshot before restoring it. You can't
+     * directly interact with the tenant databases in a DB snapshot. If you restore a snapshot that was taken from DB
+     * instance using the multi-tenant configuration, you restore all its tenant databases.
+     * </p>
+     * 
+     * @param describeDBSnapshotTenantDatabasesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeDBSnapshotTenantDatabases operation returned by the
+     *         service.
+     * @sample AmazonRDSAsyncHandler.DescribeDBSnapshotTenantDatabases
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBSnapshotTenantDatabases"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDBSnapshotTenantDatabasesResult> describeDBSnapshotTenantDatabasesAsync(
+            DescribeDBSnapshotTenantDatabasesRequest describeDBSnapshotTenantDatabasesRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeDBSnapshotTenantDatabasesRequest, DescribeDBSnapshotTenantDatabasesResult> asyncHandler);
 
     /**
      * <p>
@@ -3076,8 +4255,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * 
      * @param describeEngineDefaultClusterParametersRequest
@@ -3096,8 +4275,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * 
      * @param describeEngineDefaultClusterParametersRequest
@@ -3153,9 +4332,11 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Displays a list of categories for all event source types, or, if specified, for a specified source type. You can
-     * see a list of the event categories and source types in the <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html"> Events</a> topic in the <i>Amazon
-     * RDS User Guide.</i>
+     * also see this list in the "Amazon RDS event categories and event messages" section of the <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.Messages.html"> <i>Amazon RDS User
+     * Guide</i> </a> or the <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Events.Messages.html"> <i>Amazon Aurora
+     * User Guide</i> </a>.
      * </p>
      * 
      * @param describeEventCategoriesRequest
@@ -3169,9 +4350,11 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Displays a list of categories for all event source types, or, if specified, for a specified source type. You can
-     * see a list of the event categories and source types in the <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html"> Events</a> topic in the <i>Amazon
-     * RDS User Guide.</i>
+     * also see this list in the "Amazon RDS event categories and event messages" section of the <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.Messages.html"> <i>Amazon RDS User
+     * Guide</i> </a> or the <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Events.Messages.html"> <i>Amazon Aurora
+     * User Guide</i> </a>.
      * </p>
      * 
      * @param describeEventCategoriesRequest
@@ -3205,10 +4388,11 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Lists all the subscription descriptions for a customer account. The description for a subscription includes
-     * SubscriptionName, SNSTopicARN, CustomerID, SourceType, SourceID, CreationTime, and Status.
+     * <code>SubscriptionName</code>, <code>SNSTopicARN</code>, <code>CustomerID</code>, <code>SourceType</code>,
+     * <code>SourceID</code>, <code>CreationTime</code>, and <code>Status</code>.
      * </p>
      * <p>
-     * If you specify a SubscriptionName, lists the description for that subscription.
+     * If you specify a <code>SubscriptionName</code>, lists the description for that subscription.
      * </p>
      * 
      * @param describeEventSubscriptionsRequest
@@ -3223,10 +4407,11 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Lists all the subscription descriptions for a customer account. The description for a subscription includes
-     * SubscriptionName, SNSTopicARN, CustomerID, SourceType, SourceID, CreationTime, and Status.
+     * <code>SubscriptionName</code>, <code>SNSTopicARN</code>, <code>CustomerID</code>, <code>SourceType</code>,
+     * <code>SourceID</code>, <code>CreationTime</code>, and <code>Status</code>.
      * </p>
      * <p>
-     * If you specify a SubscriptionName, lists the description for that subscription.
+     * If you specify a <code>SubscriptionName</code>, lists the description for that subscription.
      * </p>
      * 
      * @param describeEventSubscriptionsRequest
@@ -3260,10 +4445,23 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Returns events related to DB instances, DB security groups, DB snapshots, and DB parameter groups for the past 14
-     * days. Events specific to a particular DB instance, DB security group, database snapshot, or DB parameter group
-     * can be obtained by providing the name as a parameter. By default, the past hour of events are returned.
+     * Returns events related to DB instances, DB clusters, DB parameter groups, DB security groups, DB snapshots, DB
+     * cluster snapshots, and RDS Proxies for the past 14 days. Events specific to a particular DB instance, DB cluster,
+     * DB parameter group, DB security group, DB snapshot, DB cluster snapshot group, or RDS Proxy can be obtained by
+     * providing the name as a parameter.
      * </p>
+     * <p>
+     * For more information on working with events, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/working-with-events.html">Monitoring Amazon RDS
+     * events</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/working-with-events.html">Monitoring Amazon
+     * Aurora events</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * By default, RDS returns events that were generated in the past hour.
+     * </p>
+     * </note>
      * 
      * @param describeEventsRequest
      * @return A Java Future containing the result of the DescribeEvents operation returned by the service.
@@ -3275,10 +4473,23 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Returns events related to DB instances, DB security groups, DB snapshots, and DB parameter groups for the past 14
-     * days. Events specific to a particular DB instance, DB security group, database snapshot, or DB parameter group
-     * can be obtained by providing the name as a parameter. By default, the past hour of events are returned.
+     * Returns events related to DB instances, DB clusters, DB parameter groups, DB security groups, DB snapshots, DB
+     * cluster snapshots, and RDS Proxies for the past 14 days. Events specific to a particular DB instance, DB cluster,
+     * DB parameter group, DB security group, DB snapshot, DB cluster snapshot group, or RDS Proxy can be obtained by
+     * providing the name as a parameter.
      * </p>
+     * <p>
+     * For more information on working with events, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/working-with-events.html">Monitoring Amazon RDS
+     * events</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/working-with-events.html">Monitoring Amazon
+     * Aurora events</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * By default, RDS returns events that were generated in the past hour.
+     * </p>
+     * </note>
      * 
      * @param describeEventsRequest
      * @param asyncHandler
@@ -3310,12 +4521,43 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * Returns information about a snapshot or cluster export to Amazon S3. This API operation supports pagination.
+     * </p>
+     * 
+     * @param describeExportTasksRequest
+     * @return A Java Future containing the result of the DescribeExportTasks operation returned by the service.
+     * @sample AmazonRDSAsync.DescribeExportTasks
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeExportTasks" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeExportTasksResult> describeExportTasksAsync(DescribeExportTasksRequest describeExportTasksRequest);
+
+    /**
+     * <p>
+     * Returns information about a snapshot or cluster export to Amazon S3. This API operation supports pagination.
+     * </p>
+     * 
+     * @param describeExportTasksRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeExportTasks operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DescribeExportTasks
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeExportTasks" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeExportTasksResult> describeExportTasksAsync(DescribeExportTasksRequest describeExportTasksRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeExportTasksRequest, DescribeExportTasksResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns information about Aurora global database clusters. This API supports pagination.
      * </p>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <note>
      * <p>
@@ -3337,8 +4579,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <p>
      * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <note>
      * <p>
@@ -3361,7 +4603,38 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Describes all available options.
+     * Describe one or more zero-ETL integrations with Amazon Redshift.
+     * </p>
+     * 
+     * @param describeIntegrationsRequest
+     * @return A Java Future containing the result of the DescribeIntegrations operation returned by the service.
+     * @sample AmazonRDSAsync.DescribeIntegrations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeIntegrations" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeIntegrationsResult> describeIntegrationsAsync(DescribeIntegrationsRequest describeIntegrationsRequest);
+
+    /**
+     * <p>
+     * Describe one or more zero-ETL integrations with Amazon Redshift.
+     * </p>
+     * 
+     * @param describeIntegrationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeIntegrations operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DescribeIntegrations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeIntegrations" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeIntegrationsResult> describeIntegrationsAsync(DescribeIntegrationsRequest describeIntegrationsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeIntegrationsRequest, DescribeIntegrationsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes all available options for the specified engine.
      * </p>
      * 
      * @param describeOptionGroupOptionsRequest
@@ -3375,7 +4648,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Describes all available options.
+     * Describes all available options for the specified engine.
      * </p>
      * 
      * @param describeOptionGroupOptionsRequest
@@ -3440,7 +4713,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Returns a list of orderable DB instance options for the specified engine.
+     * Describes the orderable DB instance options for a specified DB engine.
      * </p>
      * 
      * @param describeOrderableDBInstanceOptionsRequest
@@ -3455,7 +4728,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Returns a list of orderable DB instance options for the specified engine.
+     * Describes the orderable DB instance options for a specified DB engine.
      * </p>
      * 
      * @param describeOrderableDBInstanceOptionsRequest
@@ -3477,6 +4750,12 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * Returns a list of resources (for example, DB instances) that have at least one pending maintenance action.
      * </p>
+     * <p>
+     * This API follows an eventual consistency model. This means that the result of the
+     * <code>DescribePendingMaintenanceActions</code> command might not be immediately visible to all subsequent RDS
+     * commands. Keep this in mind when you use <code>DescribePendingMaintenanceActions</code> immediately after using a
+     * previous API command such as <code>ApplyPendingMaintenanceActions</code>.
+     * </p>
      * 
      * @param describePendingMaintenanceActionsRequest
      * @return A Java Future containing the result of the DescribePendingMaintenanceActions operation returned by the
@@ -3491,6 +4770,12 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Returns a list of resources (for example, DB instances) that have at least one pending maintenance action.
+     * </p>
+     * <p>
+     * This API follows an eventual consistency model. This means that the result of the
+     * <code>DescribePendingMaintenanceActions</code> command might not be immediately visible to all subsequent RDS
+     * commands. Keep this in mind when you use <code>DescribePendingMaintenanceActions</code> immediately after using a
+     * previous API command such as <code>ApplyPendingMaintenanceActions</code>.
      * </p>
      * 
      * @param describePendingMaintenanceActionsRequest
@@ -3625,8 +4910,18 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Returns a list of the source AWS Regions where the current AWS Region can create a Read Replica or copy a DB
-     * snapshot from. This API action supports pagination.
+     * Returns a list of the source Amazon Web Services Regions where the current Amazon Web Services Region can create
+     * a read replica, copy a DB snapshot from, or replicate automated backups from.
+     * </p>
+     * <p>
+     * Use this operation to determine whether cross-Region features are supported between other Regions and your
+     * current Region. This operation supports pagination.
+     * </p>
+     * <p>
+     * To return information about the Regions that are enabled for your account, or all Regions, use the EC2 operation
+     * <code>DescribeRegions</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeRegions.html"> DescribeRegions</a> in
+     * the <i>Amazon EC2 API Reference</i>.
      * </p>
      * 
      * @param describeSourceRegionsRequest
@@ -3639,8 +4934,18 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Returns a list of the source AWS Regions where the current AWS Region can create a Read Replica or copy a DB
-     * snapshot from. This API action supports pagination.
+     * Returns a list of the source Amazon Web Services Regions where the current Amazon Web Services Region can create
+     * a read replica, copy a DB snapshot from, or replicate automated backups from.
+     * </p>
+     * <p>
+     * Use this operation to determine whether cross-Region features are supported between other Regions and your
+     * current Region. This operation supports pagination.
+     * </p>
+     * <p>
+     * To return information about the Regions that are enabled for your account, or all Regions, use the EC2 operation
+     * <code>DescribeRegions</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeRegions.html"> DescribeRegions</a> in
+     * the <i>Amazon EC2 API Reference</i>.
      * </p>
      * 
      * @param describeSourceRegionsRequest
@@ -3658,8 +4963,44 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * Describes the tenant databases in a DB instance that uses the multi-tenant configuration. Only RDS for Oracle CDB
+     * instances are supported.
+     * </p>
+     * 
+     * @param describeTenantDatabasesRequest
+     * @return A Java Future containing the result of the DescribeTenantDatabases operation returned by the service.
+     * @sample AmazonRDSAsync.DescribeTenantDatabases
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeTenantDatabases" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeTenantDatabasesResult> describeTenantDatabasesAsync(DescribeTenantDatabasesRequest describeTenantDatabasesRequest);
+
+    /**
+     * <p>
+     * Describes the tenant databases in a DB instance that uses the multi-tenant configuration. Only RDS for Oracle CDB
+     * instances are supported.
+     * </p>
+     * 
+     * @param describeTenantDatabasesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeTenantDatabases operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DescribeTenantDatabases
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeTenantDatabases" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeTenantDatabasesResult> describeTenantDatabasesAsync(DescribeTenantDatabasesRequest describeTenantDatabasesRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeTenantDatabasesRequest, DescribeTenantDatabasesResult> asyncHandler);
+
+    /**
+     * <p>
      * You can call <code>DescribeValidDBInstanceModifications</code> to learn what modifications you can make to your
      * DB instance. You can use this information when you call <code>ModifyDBInstance</code>.
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
      * </p>
      * 
      * @param describeValidDBInstanceModificationsRequest
@@ -3676,6 +5017,9 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * You can call <code>DescribeValidDBInstanceModifications</code> to learn what modifications you can make to your
      * DB instance. You can use this information when you call <code>ModifyDBInstance</code>.
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
      * </p>
      * 
      * @param describeValidDBInstanceModificationsRequest
@@ -3695,7 +5039,65 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * Disables the HTTP endpoint for the specified DB cluster. Disabling this endpoint disables RDS Data API.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a> in the
+     * <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This operation applies only to Aurora PostgreSQL Serverless v2 and provisioned DB clusters. To disable the HTTP
+     * endpoint for Aurora Serverless v1 DB clusters, use the <code>EnableHttpEndpoint</code> parameter of the
+     * <code>ModifyDBCluster</code> operation.
+     * </p>
+     * </note>
+     * 
+     * @param disableHttpEndpointRequest
+     * @return A Java Future containing the result of the DisableHttpEndpoint operation returned by the service.
+     * @sample AmazonRDSAsync.DisableHttpEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DisableHttpEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DisableHttpEndpointResult> disableHttpEndpointAsync(DisableHttpEndpointRequest disableHttpEndpointRequest);
+
+    /**
+     * <p>
+     * Disables the HTTP endpoint for the specified DB cluster. Disabling this endpoint disables RDS Data API.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a> in the
+     * <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This operation applies only to Aurora PostgreSQL Serverless v2 and provisioned DB clusters. To disable the HTTP
+     * endpoint for Aurora Serverless v1 DB clusters, use the <code>EnableHttpEndpoint</code> parameter of the
+     * <code>ModifyDBCluster</code> operation.
+     * </p>
+     * </note>
+     * 
+     * @param disableHttpEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DisableHttpEndpoint operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.DisableHttpEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DisableHttpEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DisableHttpEndpointResult> disableHttpEndpointAsync(DisableHttpEndpointRequest disableHttpEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<DisableHttpEndpointRequest, DisableHttpEndpointResult> asyncHandler);
+
+    /**
+     * <p>
      * Downloads all or a portion of the specified log file, up to 1 MB in size.
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
      * </p>
      * 
      * @param downloadDBLogFilePortionRequest
@@ -3709,6 +5111,9 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Downloads all or a portion of the specified log file, up to 1 MB in size.
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
      * </p>
      * 
      * @param downloadDBLogFilePortionRequest
@@ -3726,28 +5131,100 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Forces a failover for a DB cluster.
+     * Enables the HTTP endpoint for the DB cluster. By default, the HTTP endpoint isn't enabled.
      * </p>
      * <p>
-     * A failover for a DB cluster promotes one of the Aurora Replicas (read-only instances) in the DB cluster to be the
-     * primary instance (the cluster writer).
+     * When enabled, this endpoint provides a connectionless web service API (RDS Data API) for running SQL queries on
+     * the Aurora DB cluster. You can also query your database from inside the RDS console with the RDS query editor.
      * </p>
      * <p>
-     * Amazon Aurora will automatically fail over to an Aurora Replica, if one exists, when the primary instance fails.
-     * You can force a failover when you want to simulate a failure of a primary instance for testing. Because each
-     * instance in a DB cluster has its own endpoint address, you will need to clean up and re-establish any existing
-     * connections that use those endpoint addresses when the failover is complete.
-     * </p>
-     * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a> in the
+     * <i>Amazon Aurora User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation applies only to Aurora PostgreSQL Serverless v2 and provisioned DB clusters. To enable the HTTP
+     * endpoint for Aurora Serverless v1 DB clusters, use the <code>EnableHttpEndpoint</code> parameter of the
+     * <code>ModifyDBCluster</code> operation.
      * </p>
      * </note>
+     * 
+     * @param enableHttpEndpointRequest
+     * @return A Java Future containing the result of the EnableHttpEndpoint operation returned by the service.
+     * @sample AmazonRDSAsync.EnableHttpEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/EnableHttpEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<EnableHttpEndpointResult> enableHttpEndpointAsync(EnableHttpEndpointRequest enableHttpEndpointRequest);
+
+    /**
+     * <p>
+     * Enables the HTTP endpoint for the DB cluster. By default, the HTTP endpoint isn't enabled.
+     * </p>
+     * <p>
+     * When enabled, this endpoint provides a connectionless web service API (RDS Data API) for running SQL queries on
+     * the Aurora DB cluster. You can also query your database from inside the RDS console with the RDS query editor.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a> in the
+     * <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This operation applies only to Aurora PostgreSQL Serverless v2 and provisioned DB clusters. To enable the HTTP
+     * endpoint for Aurora Serverless v1 DB clusters, use the <code>EnableHttpEndpoint</code> parameter of the
+     * <code>ModifyDBCluster</code> operation.
+     * </p>
+     * </note>
+     * 
+     * @param enableHttpEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the EnableHttpEndpoint operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.EnableHttpEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/EnableHttpEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<EnableHttpEndpointResult> enableHttpEndpointAsync(EnableHttpEndpointRequest enableHttpEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<EnableHttpEndpointRequest, EnableHttpEndpointResult> asyncHandler);
+
+    /**
+     * <p>
+     * Forces a failover for a DB cluster.
+     * </p>
+     * <p>
+     * For an Aurora DB cluster, failover for a DB cluster promotes one of the Aurora Replicas (read-only instances) in
+     * the DB cluster to be the primary DB instance (the cluster writer).
+     * </p>
+     * <p>
+     * For a Multi-AZ DB cluster, after RDS terminates the primary DB instance, the internal monitoring system detects
+     * that the primary DB instance is unhealthy and promotes a readable standby (read-only instances) in the DB cluster
+     * to be the primary DB instance (the cluster writer). Failover times are typically less than 35 seconds.
+     * </p>
+     * <p>
+     * An Amazon Aurora DB cluster automatically fails over to an Aurora Replica, if one exists, when the primary DB
+     * instance fails. A Multi-AZ DB cluster automatically fails over to a readable standby DB instance when the primary
+     * DB instance fails.
+     * </p>
+     * <p>
+     * To simulate a failure of a primary instance for testing, you can force a failover. Because each instance in a DB
+     * cluster has its own endpoint address, make sure to clean up and re-establish any existing connections that use
+     * those endpoint addresses when the failover is complete.
+     * </p>
+     * <p>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
      * 
      * @param failoverDBClusterRequest
      * @return A Java Future containing the result of the FailoverDBCluster operation returned by the service.
@@ -3762,25 +5239,34 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * Forces a failover for a DB cluster.
      * </p>
      * <p>
-     * A failover for a DB cluster promotes one of the Aurora Replicas (read-only instances) in the DB cluster to be the
-     * primary instance (the cluster writer).
+     * For an Aurora DB cluster, failover for a DB cluster promotes one of the Aurora Replicas (read-only instances) in
+     * the DB cluster to be the primary DB instance (the cluster writer).
      * </p>
      * <p>
-     * Amazon Aurora will automatically fail over to an Aurora Replica, if one exists, when the primary instance fails.
-     * You can force a failover when you want to simulate a failure of a primary instance for testing. Because each
-     * instance in a DB cluster has its own endpoint address, you will need to clean up and re-establish any existing
-     * connections that use those endpoint addresses when the failover is complete.
+     * For a Multi-AZ DB cluster, after RDS terminates the primary DB instance, the internal monitoring system detects
+     * that the primary DB instance is unhealthy and promotes a readable standby (read-only instances) in the DB cluster
+     * to be the primary DB instance (the cluster writer). Failover times are typically less than 35 seconds.
      * </p>
      * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * An Amazon Aurora DB cluster automatically fails over to an Aurora Replica, if one exists, when the primary DB
+     * instance fails. A Multi-AZ DB cluster automatically fails over to a readable standby DB instance when the primary
+     * DB instance fails.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * To simulate a failure of a primary instance for testing, you can force a failover. Because each instance in a DB
+     * cluster has its own endpoint address, make sure to clean up and re-establish any existing connections that use
+     * those endpoint addresses when the failover is complete.
      * </p>
-     * </note>
+     * <p>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
      * 
      * @param failoverDBClusterRequest
      * @param asyncHandler
@@ -3808,6 +5294,159 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * @see #failoverDBClusterAsync(FailoverDBClusterRequest, com.amazonaws.handlers.AsyncHandler)
      */
     java.util.concurrent.Future<DBCluster> failoverDBClusterAsync(com.amazonaws.handlers.AsyncHandler<FailoverDBClusterRequest, DBCluster> asyncHandler);
+
+    /**
+     * <p>
+     * Promotes the specified secondary DB cluster to be the primary DB cluster in the global database cluster to fail
+     * over or switch over a global database. Switchover operations were previously called "managed planned failovers."
+     * </p>
+     * <note>
+     * <p>
+     * Although this operation can be used either to fail over or to switch over a global database cluster, its intended
+     * use is for global database failover. To switch over a global database cluster, we recommend that you use the
+     * <a>SwitchoverGlobalCluster</a> operation instead.
+     * </p>
+     * </note>
+     * <p>
+     * How you use this operation depends on whether you are failing over or switching over your global database
+     * cluster:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Failing over - Specify the <code>AllowDataLoss</code> parameter and don't specify the <code>Switchover</code>
+     * parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Switching over - Specify the <code>Switchover</code> parameter or omit it, but don't specify the
+     * <code>AllowDataLoss</code> parameter.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>About failing over and switching over</b>
+     * </p>
+     * <p>
+     * While failing over and switching over a global database cluster both change the primary DB cluster, you use these
+     * operations for different reasons:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <i>Failing over</i> - Use this operation to respond to an unplanned event, such as a Regional disaster in the
+     * primary Region. Failing over can result in a loss of write transaction data that wasn't replicated to the chosen
+     * secondary before the failover event occurred. However, the recovery process that promotes a DB instance on the
+     * chosen seconday DB cluster to be the primary writer DB instance guarantees that the data is in a transactionally
+     * consistent state.
+     * </p>
+     * <p>
+     * For more information about failing over an Amazon Aurora global database, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html#aurora-global-database-failover.managed-unplanned"
+     * >Performing managed failovers for Aurora global databases</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>Switching over</i> - Use this operation on a healthy global database cluster for planned events, such as
+     * Regional rotation or to fail back to the original primary DB cluster after a failover operation. With this
+     * operation, there is no data loss.
+     * </p>
+     * <p>
+     * For more information about switching over an Amazon Aurora global database, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html#aurora-global-database-disaster-recovery.managed-failover"
+     * >Performing switchovers for Aurora global databases</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param failoverGlobalClusterRequest
+     * @return A Java Future containing the result of the FailoverGlobalCluster operation returned by the service.
+     * @sample AmazonRDSAsync.FailoverGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/FailoverGlobalCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> failoverGlobalClusterAsync(FailoverGlobalClusterRequest failoverGlobalClusterRequest);
+
+    /**
+     * <p>
+     * Promotes the specified secondary DB cluster to be the primary DB cluster in the global database cluster to fail
+     * over or switch over a global database. Switchover operations were previously called "managed planned failovers."
+     * </p>
+     * <note>
+     * <p>
+     * Although this operation can be used either to fail over or to switch over a global database cluster, its intended
+     * use is for global database failover. To switch over a global database cluster, we recommend that you use the
+     * <a>SwitchoverGlobalCluster</a> operation instead.
+     * </p>
+     * </note>
+     * <p>
+     * How you use this operation depends on whether you are failing over or switching over your global database
+     * cluster:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Failing over - Specify the <code>AllowDataLoss</code> parameter and don't specify the <code>Switchover</code>
+     * parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Switching over - Specify the <code>Switchover</code> parameter or omit it, but don't specify the
+     * <code>AllowDataLoss</code> parameter.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>About failing over and switching over</b>
+     * </p>
+     * <p>
+     * While failing over and switching over a global database cluster both change the primary DB cluster, you use these
+     * operations for different reasons:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <i>Failing over</i> - Use this operation to respond to an unplanned event, such as a Regional disaster in the
+     * primary Region. Failing over can result in a loss of write transaction data that wasn't replicated to the chosen
+     * secondary before the failover event occurred. However, the recovery process that promotes a DB instance on the
+     * chosen seconday DB cluster to be the primary writer DB instance guarantees that the data is in a transactionally
+     * consistent state.
+     * </p>
+     * <p>
+     * For more information about failing over an Amazon Aurora global database, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html#aurora-global-database-failover.managed-unplanned"
+     * >Performing managed failovers for Aurora global databases</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>Switching over</i> - Use this operation on a healthy global database cluster for planned events, such as
+     * Regional rotation or to fail back to the original primary DB cluster after a failover operation. With this
+     * operation, there is no data loss.
+     * </p>
+     * <p>
+     * For more information about switching over an Amazon Aurora global database, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html#aurora-global-database-disaster-recovery.managed-failover"
+     * >Performing switchovers for Aurora global databases</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param failoverGlobalClusterRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the FailoverGlobalCluster operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.FailoverGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/FailoverGlobalCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> failoverGlobalClusterAsync(FailoverGlobalClusterRequest failoverGlobalClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<FailoverGlobalClusterRequest, GlobalCluster> asyncHandler);
 
     /**
      * <p>
@@ -3852,33 +5491,179 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Set the capacity of an Aurora Serverless DB cluster to a specific value.
+     * Changes the audit policy state of a database activity stream to either locked (default) or unlocked. A locked
+     * policy is read-only, whereas an unlocked policy is read/write. If your activity stream is started and locked, you
+     * can unlock it, customize your audit policy, and then lock your activity stream. Restarting the activity stream
+     * isn't required. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/DBActivityStreams.Modifying.html"> Modifying a
+     * database activity stream</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * <p>
-     * Aurora Serverless scales seamlessly based on the workload on the DB cluster. In some cases, the capacity might
+     * This operation is supported for RDS for Oracle and Microsoft SQL Server.
+     * </p>
+     * 
+     * @param modifyActivityStreamRequest
+     * @return A Java Future containing the result of the ModifyActivityStream operation returned by the service.
+     * @sample AmazonRDSAsync.ModifyActivityStream
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyActivityStream" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyActivityStreamResult> modifyActivityStreamAsync(ModifyActivityStreamRequest modifyActivityStreamRequest);
+
+    /**
+     * <p>
+     * Changes the audit policy state of a database activity stream to either locked (default) or unlocked. A locked
+     * policy is read-only, whereas an unlocked policy is read/write. If your activity stream is started and locked, you
+     * can unlock it, customize your audit policy, and then lock your activity stream. Restarting the activity stream
+     * isn't required. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/DBActivityStreams.Modifying.html"> Modifying a
+     * database activity stream</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This operation is supported for RDS for Oracle and Microsoft SQL Server.
+     * </p>
+     * 
+     * @param modifyActivityStreamRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyActivityStream operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.ModifyActivityStream
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyActivityStream" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyActivityStreamResult> modifyActivityStreamAsync(ModifyActivityStreamRequest modifyActivityStreamRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyActivityStreamRequest, ModifyActivityStreamResult> asyncHandler);
+
+    /**
+     * <p>
+     * Override the system-default Secure Sockets Layer/Transport Layer Security (SSL/TLS) certificate for Amazon RDS
+     * for new DB instances, or remove the override.
+     * </p>
+     * <p>
+     * By using this operation, you can specify an RDS-approved SSL/TLS certificate for new DB instances that is
+     * different from the default certificate provided by RDS. You can also use this operation to remove the override,
+     * so that new DB instances use the default certificate provided by RDS.
+     * </p>
+     * <p>
+     * You might need to override the default certificate in the following situations:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You already migrated your applications to support the latest certificate authority (CA) certificate, but the new
+     * CA certificate is not yet the RDS default CA certificate for the specified Amazon Web Services Region.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS has already moved to a new default CA certificate for the specified Amazon Web Services Region, but you are
+     * still in the process of supporting the new CA certificate. In this case, you temporarily need additional time to
+     * finish your application changes.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information about rotating your SSL/TLS certificate for RDS DB engines, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL-certificate-rotation.html">
+     * Rotating Your SSL/TLS Certificate</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about rotating your SSL/TLS certificate for Aurora DB engines, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL-certificate-rotation.html">
+     * Rotating Your SSL/TLS Certificate</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param modifyCertificatesRequest
+     * @return A Java Future containing the result of the ModifyCertificates operation returned by the service.
+     * @sample AmazonRDSAsync.ModifyCertificates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyCertificates" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<Certificate> modifyCertificatesAsync(ModifyCertificatesRequest modifyCertificatesRequest);
+
+    /**
+     * <p>
+     * Override the system-default Secure Sockets Layer/Transport Layer Security (SSL/TLS) certificate for Amazon RDS
+     * for new DB instances, or remove the override.
+     * </p>
+     * <p>
+     * By using this operation, you can specify an RDS-approved SSL/TLS certificate for new DB instances that is
+     * different from the default certificate provided by RDS. You can also use this operation to remove the override,
+     * so that new DB instances use the default certificate provided by RDS.
+     * </p>
+     * <p>
+     * You might need to override the default certificate in the following situations:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You already migrated your applications to support the latest certificate authority (CA) certificate, but the new
+     * CA certificate is not yet the RDS default CA certificate for the specified Amazon Web Services Region.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS has already moved to a new default CA certificate for the specified Amazon Web Services Region, but you are
+     * still in the process of supporting the new CA certificate. In this case, you temporarily need additional time to
+     * finish your application changes.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information about rotating your SSL/TLS certificate for RDS DB engines, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL-certificate-rotation.html">
+     * Rotating Your SSL/TLS Certificate</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about rotating your SSL/TLS certificate for Aurora DB engines, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL-certificate-rotation.html">
+     * Rotating Your SSL/TLS Certificate</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param modifyCertificatesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyCertificates operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.ModifyCertificates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyCertificates" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<Certificate> modifyCertificatesAsync(ModifyCertificatesRequest modifyCertificatesRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyCertificatesRequest, Certificate> asyncHandler);
+
+    /**
+     * <p>
+     * Set the capacity of an Aurora Serverless v1 DB cluster to a specific value.
+     * </p>
+     * <p>
+     * Aurora Serverless v1 scales seamlessly based on the workload on the DB cluster. In some cases, the capacity might
      * not scale fast enough to meet a sudden change in workload, such as a large number of new transactions. Call
      * <code>ModifyCurrentDBClusterCapacity</code> to set the capacity explicitly.
      * </p>
      * <p>
-     * After this call sets the DB cluster capacity, Aurora Serverless can automatically scale the DB cluster based on
-     * the cooldown period for scaling up and the cooldown period for scaling down.
+     * After this call sets the DB cluster capacity, Aurora Serverless v1 can automatically scale the DB cluster based
+     * on the cooldown period for scaling up and the cooldown period for scaling down.
      * </p>
      * <p>
-     * For more information about Aurora Serverless, see <a
+     * For more information about Aurora Serverless v1, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html">Using Amazon Aurora
-     * Serverless</a> in the <i>Amazon Aurora User Guide</i>.
+     * Serverless v1</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <important>
      * <p>
      * If you call <code>ModifyCurrentDBClusterCapacity</code> with the default <code>TimeoutAction</code>, connections
-     * that prevent Aurora Serverless from finding a scaling point might be dropped. For more information about scaling
-     * points, see <a href=
+     * that prevent Aurora Serverless v1 from finding a scaling point might be dropped. For more information about
+     * scaling points, see <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling"
-     * > Autoscaling for Aurora Serverless</a> in the <i>Amazon Aurora User Guide</i>.
+     * > Autoscaling for Aurora Serverless v1</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * </important> <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only applies to Aurora Serverless v1 DB clusters.
      * </p>
      * </note>
      * 
@@ -3894,33 +5679,33 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Set the capacity of an Aurora Serverless DB cluster to a specific value.
+     * Set the capacity of an Aurora Serverless v1 DB cluster to a specific value.
      * </p>
      * <p>
-     * Aurora Serverless scales seamlessly based on the workload on the DB cluster. In some cases, the capacity might
+     * Aurora Serverless v1 scales seamlessly based on the workload on the DB cluster. In some cases, the capacity might
      * not scale fast enough to meet a sudden change in workload, such as a large number of new transactions. Call
      * <code>ModifyCurrentDBClusterCapacity</code> to set the capacity explicitly.
      * </p>
      * <p>
-     * After this call sets the DB cluster capacity, Aurora Serverless can automatically scale the DB cluster based on
-     * the cooldown period for scaling up and the cooldown period for scaling down.
+     * After this call sets the DB cluster capacity, Aurora Serverless v1 can automatically scale the DB cluster based
+     * on the cooldown period for scaling up and the cooldown period for scaling down.
      * </p>
      * <p>
-     * For more information about Aurora Serverless, see <a
+     * For more information about Aurora Serverless v1, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html">Using Amazon Aurora
-     * Serverless</a> in the <i>Amazon Aurora User Guide</i>.
+     * Serverless v1</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <important>
      * <p>
      * If you call <code>ModifyCurrentDBClusterCapacity</code> with the default <code>TimeoutAction</code>, connections
-     * that prevent Aurora Serverless from finding a scaling point might be dropped. For more information about scaling
-     * points, see <a href=
+     * that prevent Aurora Serverless v1 from finding a scaling point might be dropped. For more information about
+     * scaling points, see <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling"
-     * > Autoscaling for Aurora Serverless</a> in the <i>Amazon Aurora User Guide</i>.
+     * > Autoscaling for Aurora Serverless v1</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * </important> <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only applies to Aurora Serverless v1 DB clusters.
      * </p>
      * </note>
      * 
@@ -3941,16 +5726,82 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Modify a setting for an Amazon Aurora DB cluster. You can change one or more database configuration parameters by
-     * specifying these parameters and the new values in the request. For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * Modifies the status of a custom engine version (CEV). You can find CEVs to modify by calling
+     * <code>DescribeDBEngineVersions</code>.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * The MediaImport service that imports files from Amazon S3 to create CEVs isn't integrated with Amazon Web
+     * Services CloudTrail. If you turn on data logging for Amazon RDS in CloudTrail, calls to the
+     * <code>ModifyCustomDbEngineVersion</code> event aren't logged. However, you might see calls from the API gateway
+     * that accesses your Amazon S3 bucket. These calls originate from the MediaImport service for the
+     * <code>ModifyCustomDbEngineVersion</code> event.
      * </p>
      * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/custom-cev.html#custom-cev.modify">Modifying CEV
+     * status</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * 
+     * @param modifyCustomDBEngineVersionRequest
+     * @return A Java Future containing the result of the ModifyCustomDBEngineVersion operation returned by the service.
+     * @sample AmazonRDSAsync.ModifyCustomDBEngineVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyCustomDBEngineVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyCustomDBEngineVersionResult> modifyCustomDBEngineVersionAsync(
+            ModifyCustomDBEngineVersionRequest modifyCustomDBEngineVersionRequest);
+
+    /**
+     * <p>
+     * Modifies the status of a custom engine version (CEV). You can find CEVs to modify by calling
+     * <code>DescribeDBEngineVersions</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The MediaImport service that imports files from Amazon S3 to create CEVs isn't integrated with Amazon Web
+     * Services CloudTrail. If you turn on data logging for Amazon RDS in CloudTrail, calls to the
+     * <code>ModifyCustomDbEngineVersion</code> event aren't logged. However, you might see calls from the API gateway
+     * that accesses your Amazon S3 bucket. These calls originate from the MediaImport service for the
+     * <code>ModifyCustomDbEngineVersion</code> event.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/custom-cev.html#custom-cev.modify">Modifying CEV
+     * status</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * 
+     * @param modifyCustomDBEngineVersionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyCustomDBEngineVersion operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.ModifyCustomDBEngineVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyCustomDBEngineVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyCustomDBEngineVersionResult> modifyCustomDBEngineVersionAsync(
+            ModifyCustomDBEngineVersionRequest modifyCustomDBEngineVersionRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyCustomDBEngineVersionRequest, ModifyCustomDBEngineVersionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Modifies the settings of an Amazon Aurora DB cluster or a Multi-AZ DB cluster. You can change one or more
+     * settings by specifying these parameters and the new values in the request.
+     * </p>
+     * <p>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
      * 
      * @param modifyDBClusterRequest
      * @return A Java Future containing the result of the ModifyDBCluster operation returned by the service.
@@ -3962,16 +5813,19 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Modify a setting for an Amazon Aurora DB cluster. You can change one or more database configuration parameters by
-     * specifying these parameters and the new values in the request. For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * Modifies the settings of an Amazon Aurora DB cluster or a Multi-AZ DB cluster. You can change one or more
+     * settings by specifying these parameters and the new values in the request.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * </note>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
      * 
      * @param modifyDBClusterRequest
      * @param asyncHandler
@@ -3992,7 +5846,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only applies to Aurora DB clusters.
      * </p>
      * </note>
      * 
@@ -4010,7 +5864,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only applies to Aurora DB clusters.
      * </p>
      * </note>
      * 
@@ -4033,32 +5887,33 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * following: <code>ParameterName</code>, <code>ParameterValue</code>, and <code>ApplyMethod</code>. A maximum of 20
      * parameters can be modified in a single request.
      * </p>
-     * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
-     * </p>
-     * <note>
-     * <p>
-     * Changes to dynamic parameters are applied immediately. Changes to static parameters require a reboot without
-     * failover to the DB cluster associated with the parameter group before the change can take effect.
-     * </p>
-     * </note> <important>
+     * <important>
      * <p>
      * After you create a DB cluster parameter group, you should wait at least 5 minutes before creating your first DB
      * cluster that uses that DB cluster parameter group as the default parameter group. This allows Amazon RDS to fully
-     * complete the create action before the parameter group is used as the default for a new DB cluster. This is
+     * complete the create operation before the parameter group is used as the default for a new DB cluster. This is
      * especially important for parameters that are critical when creating the default database for a DB cluster, such
      * as the character set for the default database defined by the <code>character_set_database</code> parameter. You
      * can use the <i>Parameter Groups</i> option of the <a href="https://console.aws.amazon.com/rds/">Amazon RDS
-     * console</a> or the <code>DescribeDBClusterParameters</code> action to verify that your DB cluster parameter group
-     * has been created or modified.
+     * console</a> or the <code>DescribeDBClusterParameters</code> operation to verify that your DB cluster parameter
+     * group has been created or modified.
      * </p>
-     * </important> <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * If the modified DB cluster parameter group is used by an Aurora Serverless v1 cluster, Aurora applies the update
+     * immediately. The cluster restart might interrupt your workload. In that case, your application must reopen any
+     * connections and retry any transactions that were active when the parameter changes took effect.
      * </p>
-     * </note>
+     * </important>
+     * <p>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
      * 
      * @param modifyDBClusterParameterGroupRequest
      * @return A Java Future containing the result of the ModifyDBClusterParameterGroup operation returned by the
@@ -4076,32 +5931,33 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * following: <code>ParameterName</code>, <code>ParameterValue</code>, and <code>ApplyMethod</code>. A maximum of 20
      * parameters can be modified in a single request.
      * </p>
-     * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
-     * </p>
-     * <note>
-     * <p>
-     * Changes to dynamic parameters are applied immediately. Changes to static parameters require a reboot without
-     * failover to the DB cluster associated with the parameter group before the change can take effect.
-     * </p>
-     * </note> <important>
+     * <important>
      * <p>
      * After you create a DB cluster parameter group, you should wait at least 5 minutes before creating your first DB
      * cluster that uses that DB cluster parameter group as the default parameter group. This allows Amazon RDS to fully
-     * complete the create action before the parameter group is used as the default for a new DB cluster. This is
+     * complete the create operation before the parameter group is used as the default for a new DB cluster. This is
      * especially important for parameters that are critical when creating the default database for a DB cluster, such
      * as the character set for the default database defined by the <code>character_set_database</code> parameter. You
      * can use the <i>Parameter Groups</i> option of the <a href="https://console.aws.amazon.com/rds/">Amazon RDS
-     * console</a> or the <code>DescribeDBClusterParameters</code> action to verify that your DB cluster parameter group
-     * has been created or modified.
+     * console</a> or the <code>DescribeDBClusterParameters</code> operation to verify that your DB cluster parameter
+     * group has been created or modified.
      * </p>
-     * </important> <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * If the modified DB cluster parameter group is used by an Aurora Serverless v1 cluster, Aurora applies the update
+     * immediately. The cluster restart might interrupt your workload. In that case, your application must reopen any
+     * connections and retry any transactions that were active when the parameter changes took effect.
      * </p>
-     * </note>
+     * </important>
+     * <p>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
      * 
      * @param modifyDBClusterParameterGroupRequest
      * @param asyncHandler
@@ -4123,24 +5979,28 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * Adds an attribute and values to, or removes an attribute and values from, a manual DB cluster snapshot.
      * </p>
      * <p>
-     * To share a manual DB cluster snapshot with other AWS accounts, specify <code>restore</code> as the
-     * <code>AttributeName</code> and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the AWS
-     * accounts that are authorized to restore the manual DB cluster snapshot. Use the value <code>all</code> to make
-     * the manual DB cluster snapshot public, which means that it can be copied or restored by all AWS accounts. Do not
-     * add the <code>all</code> value for any manual DB cluster snapshots that contain private information that you
-     * don't want available to all AWS accounts. If a manual DB cluster snapshot is encrypted, it can be shared, but
-     * only by specifying a list of authorized AWS account IDs for the <code>ValuesToAdd</code> parameter. You can't use
-     * <code>all</code> as a value for that parameter in this case.
-     * </p>
-     * <p>
-     * To view which AWS accounts have access to copy or restore a manual DB cluster snapshot, or whether a manual DB
-     * cluster snapshot public or private, use the <code>DescribeDBClusterSnapshotAttributes</code> API action.
+     * To share a manual DB cluster snapshot with other Amazon Web Services accounts, specify <code>restore</code> as
+     * the <code>AttributeName</code> and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the Amazon
+     * Web Services accounts that are authorized to restore the manual DB cluster snapshot. Use the value
+     * <code>all</code> to make the manual DB cluster snapshot public, which means that it can be copied or restored by
+     * all Amazon Web Services accounts.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * Don't add the <code>all</code> value for any manual DB cluster snapshots that contain private information that
+     * you don't want available to all Amazon Web Services accounts.
      * </p>
      * </note>
+     * <p>
+     * If a manual DB cluster snapshot is encrypted, it can be shared, but only by specifying a list of authorized
+     * Amazon Web Services account IDs for the <code>ValuesToAdd</code> parameter. You can't use <code>all</code> as a
+     * value for that parameter in this case.
+     * </p>
+     * <p>
+     * To view which Amazon Web Services accounts have access to copy or restore a manual DB cluster snapshot, or
+     * whether a manual DB cluster snapshot is public or private, use the <a>DescribeDBClusterSnapshotAttributes</a> API
+     * operation. The accounts are returned as values for the <code>restore</code> attribute.
+     * </p>
      * 
      * @param modifyDBClusterSnapshotAttributeRequest
      * @return A Java Future containing the result of the ModifyDBClusterSnapshotAttribute operation returned by the
@@ -4157,24 +6017,28 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * Adds an attribute and values to, or removes an attribute and values from, a manual DB cluster snapshot.
      * </p>
      * <p>
-     * To share a manual DB cluster snapshot with other AWS accounts, specify <code>restore</code> as the
-     * <code>AttributeName</code> and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the AWS
-     * accounts that are authorized to restore the manual DB cluster snapshot. Use the value <code>all</code> to make
-     * the manual DB cluster snapshot public, which means that it can be copied or restored by all AWS accounts. Do not
-     * add the <code>all</code> value for any manual DB cluster snapshots that contain private information that you
-     * don't want available to all AWS accounts. If a manual DB cluster snapshot is encrypted, it can be shared, but
-     * only by specifying a list of authorized AWS account IDs for the <code>ValuesToAdd</code> parameter. You can't use
-     * <code>all</code> as a value for that parameter in this case.
-     * </p>
-     * <p>
-     * To view which AWS accounts have access to copy or restore a manual DB cluster snapshot, or whether a manual DB
-     * cluster snapshot public or private, use the <code>DescribeDBClusterSnapshotAttributes</code> API action.
+     * To share a manual DB cluster snapshot with other Amazon Web Services accounts, specify <code>restore</code> as
+     * the <code>AttributeName</code> and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the Amazon
+     * Web Services accounts that are authorized to restore the manual DB cluster snapshot. Use the value
+     * <code>all</code> to make the manual DB cluster snapshot public, which means that it can be copied or restored by
+     * all Amazon Web Services accounts.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * Don't add the <code>all</code> value for any manual DB cluster snapshots that contain private information that
+     * you don't want available to all Amazon Web Services accounts.
      * </p>
      * </note>
+     * <p>
+     * If a manual DB cluster snapshot is encrypted, it can be shared, but only by specifying a list of authorized
+     * Amazon Web Services account IDs for the <code>ValuesToAdd</code> parameter. You can't use <code>all</code> as a
+     * value for that parameter in this case.
+     * </p>
+     * <p>
+     * To view which Amazon Web Services accounts have access to copy or restore a manual DB cluster snapshot, or
+     * whether a manual DB cluster snapshot is public or private, use the <a>DescribeDBClusterSnapshotAttributes</a> API
+     * operation. The accounts are returned as values for the <code>restore</code> attribute.
+     * </p>
      * 
      * @param modifyDBClusterSnapshotAttributeRequest
      * @param asyncHandler
@@ -4232,16 +6096,11 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * following: <code>ParameterName</code>, <code>ParameterValue</code>, and <code>ApplyMethod</code>. A maximum of 20
      * parameters can be modified in a single request.
      * </p>
-     * <note>
-     * <p>
-     * Changes to dynamic parameters are applied immediately. Changes to static parameters require a reboot without
-     * failover to the DB instance associated with the parameter group before the change can take effect.
-     * </p>
-     * </note> <important>
+     * <important>
      * <p>
      * After you modify a DB parameter group, you should wait at least 5 minutes before creating your first DB instance
      * that uses that DB parameter group as the default parameter group. This allows Amazon RDS to fully complete the
-     * modify action before the parameter group is used as the default for a new DB instance. This is especially
+     * modify operation before the parameter group is used as the default for a new DB instance. This is especially
      * important for parameters that are critical when creating the default database for a DB instance, such as the
      * character set for the default database defined by the <code>character_set_database</code> parameter. You can use
      * the <i>Parameter Groups</i> option of the <a href="https://console.aws.amazon.com/rds/">Amazon RDS console</a> or
@@ -4263,16 +6122,11 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * following: <code>ParameterName</code>, <code>ParameterValue</code>, and <code>ApplyMethod</code>. A maximum of 20
      * parameters can be modified in a single request.
      * </p>
-     * <note>
-     * <p>
-     * Changes to dynamic parameters are applied immediately. Changes to static parameters require a reboot without
-     * failover to the DB instance associated with the parameter group before the change can take effect.
-     * </p>
-     * </note> <important>
+     * <important>
      * <p>
      * After you modify a DB parameter group, you should wait at least 5 minutes before creating your first DB instance
      * that uses that DB parameter group as the default parameter group. This allows Amazon RDS to fully complete the
-     * modify action before the parameter group is used as the default for a new DB instance. This is especially
+     * modify operation before the parameter group is used as the default for a new DB instance. This is especially
      * important for parameters that are critical when creating the default database for a DB instance, such as the
      * character set for the default database defined by the <code>character_set_database</code> parameter. You can use
      * the <i>Parameter Groups</i> option of the <a href="https://console.aws.amazon.com/rds/">Amazon RDS console</a> or
@@ -4295,10 +6149,169 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Updates a manual DB snapshot, which can be encrypted or not encrypted, with a new engine version.
+     * Changes the settings for an existing DB proxy.
+     * </p>
+     * 
+     * @param modifyDBProxyRequest
+     * @return A Java Future containing the result of the ModifyDBProxy operation returned by the service.
+     * @sample AmazonRDSAsync.ModifyDBProxy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBProxy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyDBProxyResult> modifyDBProxyAsync(ModifyDBProxyRequest modifyDBProxyRequest);
+
+    /**
+     * <p>
+     * Changes the settings for an existing DB proxy.
+     * </p>
+     * 
+     * @param modifyDBProxyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyDBProxy operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.ModifyDBProxy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBProxy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyDBProxyResult> modifyDBProxyAsync(ModifyDBProxyRequest modifyDBProxyRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyDBProxyRequest, ModifyDBProxyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Changes the settings for an existing DB proxy endpoint.
+     * </p>
+     * 
+     * @param modifyDBProxyEndpointRequest
+     * @return A Java Future containing the result of the ModifyDBProxyEndpoint operation returned by the service.
+     * @sample AmazonRDSAsync.ModifyDBProxyEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBProxyEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyDBProxyEndpointResult> modifyDBProxyEndpointAsync(ModifyDBProxyEndpointRequest modifyDBProxyEndpointRequest);
+
+    /**
+     * <p>
+     * Changes the settings for an existing DB proxy endpoint.
+     * </p>
+     * 
+     * @param modifyDBProxyEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyDBProxyEndpoint operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.ModifyDBProxyEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBProxyEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyDBProxyEndpointResult> modifyDBProxyEndpointAsync(ModifyDBProxyEndpointRequest modifyDBProxyEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyDBProxyEndpointRequest, ModifyDBProxyEndpointResult> asyncHandler);
+
+    /**
+     * <p>
+     * Modifies the properties of a <code>DBProxyTargetGroup</code>.
+     * </p>
+     * 
+     * @param modifyDBProxyTargetGroupRequest
+     * @return A Java Future containing the result of the ModifyDBProxyTargetGroup operation returned by the service.
+     * @sample AmazonRDSAsync.ModifyDBProxyTargetGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBProxyTargetGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyDBProxyTargetGroupResult> modifyDBProxyTargetGroupAsync(ModifyDBProxyTargetGroupRequest modifyDBProxyTargetGroupRequest);
+
+    /**
+     * <p>
+     * Modifies the properties of a <code>DBProxyTargetGroup</code>.
+     * </p>
+     * 
+     * @param modifyDBProxyTargetGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyDBProxyTargetGroup operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.ModifyDBProxyTargetGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBProxyTargetGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyDBProxyTargetGroupResult> modifyDBProxyTargetGroupAsync(ModifyDBProxyTargetGroupRequest modifyDBProxyTargetGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyDBProxyTargetGroupRequest, ModifyDBProxyTargetGroupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the recommendation status and recommended action status for the specified recommendation.
+     * </p>
+     * 
+     * @param modifyDBRecommendationRequest
+     * @return A Java Future containing the result of the ModifyDBRecommendation operation returned by the service.
+     * @sample AmazonRDSAsync.ModifyDBRecommendation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBRecommendation" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyDBRecommendationResult> modifyDBRecommendationAsync(ModifyDBRecommendationRequest modifyDBRecommendationRequest);
+
+    /**
+     * <p>
+     * Updates the recommendation status and recommended action status for the specified recommendation.
+     * </p>
+     * 
+     * @param modifyDBRecommendationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyDBRecommendation operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.ModifyDBRecommendation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBRecommendation" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyDBRecommendationResult> modifyDBRecommendationAsync(ModifyDBRecommendationRequest modifyDBRecommendationRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyDBRecommendationRequest, ModifyDBRecommendationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Modifies the settings of an Aurora Limitless Database DB shard group. You can change one or more settings by
+     * specifying these parameters and the new values in the request.
+     * </p>
+     * 
+     * @param modifyDBShardGroupRequest
+     * @return A Java Future containing the result of the ModifyDBShardGroup operation returned by the service.
+     * @sample AmazonRDSAsync.ModifyDBShardGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBShardGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyDBShardGroupResult> modifyDBShardGroupAsync(ModifyDBShardGroupRequest modifyDBShardGroupRequest);
+
+    /**
+     * <p>
+     * Modifies the settings of an Aurora Limitless Database DB shard group. You can change one or more settings by
+     * specifying these parameters and the new values in the request.
+     * </p>
+     * 
+     * @param modifyDBShardGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyDBShardGroup operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.ModifyDBShardGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBShardGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyDBShardGroupResult> modifyDBShardGroupAsync(ModifyDBShardGroupRequest modifyDBShardGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyDBShardGroupRequest, ModifyDBShardGroupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates a manual DB snapshot with a new engine version. The snapshot can be encrypted or unencrypted, but not
+     * shared or public.
      * </p>
      * <p>
-     * Amazon RDS supports upgrading DB snapshots for MySQL and Oracle.
+     * Amazon RDS supports upgrading DB snapshots for MySQL, PostgreSQL, and Oracle. This operation doesn't apply to RDS
+     * Custom or RDS for Db2.
      * </p>
      * 
      * @param modifyDBSnapshotRequest
@@ -4311,10 +6324,12 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Updates a manual DB snapshot, which can be encrypted or not encrypted, with a new engine version.
+     * Updates a manual DB snapshot with a new engine version. The snapshot can be encrypted or unencrypted, but not
+     * shared or public.
      * </p>
      * <p>
-     * Amazon RDS supports upgrading DB snapshots for MySQL and Oracle.
+     * Amazon RDS supports upgrading DB snapshots for MySQL, PostgreSQL, and Oracle. This operation doesn't apply to RDS
+     * Custom or RDS for Db2.
      * </p>
      * 
      * @param modifyDBSnapshotRequest
@@ -4335,18 +6350,26 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * Adds an attribute and values to, or removes an attribute and values from, a manual DB snapshot.
      * </p>
      * <p>
-     * To share a manual DB snapshot with other AWS accounts, specify <code>restore</code> as the
-     * <code>AttributeName</code> and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the AWS
-     * accounts that are authorized to restore the manual DB snapshot. Uses the value <code>all</code> to make the
-     * manual DB snapshot public, which means it can be copied or restored by all AWS accounts. Do not add the
-     * <code>all</code> value for any manual DB snapshots that contain private information that you don't want available
-     * to all AWS accounts. If the manual DB snapshot is encrypted, it can be shared, but only by specifying a list of
-     * authorized AWS account IDs for the <code>ValuesToAdd</code> parameter. You can't use <code>all</code> as a value
-     * for that parameter in this case.
+     * To share a manual DB snapshot with other Amazon Web Services accounts, specify <code>restore</code> as the
+     * <code>AttributeName</code> and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the Amazon Web
+     * Services accounts that are authorized to restore the manual DB snapshot. Uses the value <code>all</code> to make
+     * the manual DB snapshot public, which means it can be copied or restored by all Amazon Web Services accounts.
+     * </p>
+     * <note>
+     * <p>
+     * Don't add the <code>all</code> value for any manual DB snapshots that contain private information that you don't
+     * want available to all Amazon Web Services accounts.
+     * </p>
+     * </note>
+     * <p>
+     * If the manual DB snapshot is encrypted, it can be shared, but only by specifying a list of authorized Amazon Web
+     * Services account IDs for the <code>ValuesToAdd</code> parameter. You can't use <code>all</code> as a value for
+     * that parameter in this case.
      * </p>
      * <p>
-     * To view which AWS accounts have access to copy or restore a manual DB snapshot, or whether a manual DB snapshot
-     * public or private, use the <code>DescribeDBSnapshotAttributes</code> API action.
+     * To view which Amazon Web Services accounts have access to copy or restore a manual DB snapshot, or whether a
+     * manual DB snapshot public or private, use the <a>DescribeDBSnapshotAttributes</a> API operation. The accounts are
+     * returned as values for the <code>restore</code> attribute.
      * </p>
      * 
      * @param modifyDBSnapshotAttributeRequest
@@ -4362,18 +6385,26 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * Adds an attribute and values to, or removes an attribute and values from, a manual DB snapshot.
      * </p>
      * <p>
-     * To share a manual DB snapshot with other AWS accounts, specify <code>restore</code> as the
-     * <code>AttributeName</code> and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the AWS
-     * accounts that are authorized to restore the manual DB snapshot. Uses the value <code>all</code> to make the
-     * manual DB snapshot public, which means it can be copied or restored by all AWS accounts. Do not add the
-     * <code>all</code> value for any manual DB snapshots that contain private information that you don't want available
-     * to all AWS accounts. If the manual DB snapshot is encrypted, it can be shared, but only by specifying a list of
-     * authorized AWS account IDs for the <code>ValuesToAdd</code> parameter. You can't use <code>all</code> as a value
-     * for that parameter in this case.
+     * To share a manual DB snapshot with other Amazon Web Services accounts, specify <code>restore</code> as the
+     * <code>AttributeName</code> and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the Amazon Web
+     * Services accounts that are authorized to restore the manual DB snapshot. Uses the value <code>all</code> to make
+     * the manual DB snapshot public, which means it can be copied or restored by all Amazon Web Services accounts.
+     * </p>
+     * <note>
+     * <p>
+     * Don't add the <code>all</code> value for any manual DB snapshots that contain private information that you don't
+     * want available to all Amazon Web Services accounts.
+     * </p>
+     * </note>
+     * <p>
+     * If the manual DB snapshot is encrypted, it can be shared, but only by specifying a list of authorized Amazon Web
+     * Services account IDs for the <code>ValuesToAdd</code> parameter. You can't use <code>all</code> as a value for
+     * that parameter in this case.
      * </p>
      * <p>
-     * To view which AWS accounts have access to copy or restore a manual DB snapshot, or whether a manual DB snapshot
-     * public or private, use the <code>DescribeDBSnapshotAttributes</code> API action.
+     * To view which Amazon Web Services accounts have access to copy or restore a manual DB snapshot, or whether a
+     * manual DB snapshot public or private, use the <a>DescribeDBSnapshotAttributes</a> API operation. The accounts are
+     * returned as values for the <code>restore</code> attribute.
      * </p>
      * 
      * @param modifyDBSnapshotAttributeRequest
@@ -4392,7 +6423,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Modifies an existing DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in
-     * the AWS Region.
+     * the Amazon Web Services Region.
      * </p>
      * 
      * @param modifyDBSubnetGroupRequest
@@ -4406,7 +6437,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Modifies an existing DB subnet group. DB subnet groups must contain at least one subnet in at least two AZs in
-     * the AWS Region.
+     * the Amazon Web Services Region.
      * </p>
      * 
      * @param modifyDBSubnetGroupRequest
@@ -4424,14 +6455,14 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Modifies an existing RDS event notification subscription. Note that you can't modify the source identifiers using
-     * this call; to change source identifiers for a subscription, use the
-     * <code>AddSourceIdentifierToSubscription</code> and <code>RemoveSourceIdentifierFromSubscription</code> calls.
+     * Modifies an existing RDS event notification subscription. You can't modify the source identifiers using this
+     * call. To change source identifiers for a subscription, use the <code>AddSourceIdentifierToSubscription</code> and
+     * <code>RemoveSourceIdentifierFromSubscription</code> calls.
      * </p>
      * <p>
-     * You can see a list of the event categories for a given SourceType in the <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html">Events</a> topic in the <i>Amazon
-     * RDS User Guide</i> or by using the <b>DescribeEventCategories</b> action.
+     * You can see a list of the event categories for a given source type (<code>SourceType</code>) in <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html">Events</a> in the <i>Amazon RDS
+     * User Guide</i> or by using the <code>DescribeEventCategories</code> operation.
      * </p>
      * 
      * @param modifyEventSubscriptionRequest
@@ -4444,14 +6475,14 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Modifies an existing RDS event notification subscription. Note that you can't modify the source identifiers using
-     * this call; to change source identifiers for a subscription, use the
-     * <code>AddSourceIdentifierToSubscription</code> and <code>RemoveSourceIdentifierFromSubscription</code> calls.
+     * Modifies an existing RDS event notification subscription. You can't modify the source identifiers using this
+     * call. To change source identifiers for a subscription, use the <code>AddSourceIdentifierToSubscription</code> and
+     * <code>RemoveSourceIdentifierFromSubscription</code> calls.
      * </p>
      * <p>
-     * You can see a list of the event categories for a given SourceType in the <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html">Events</a> topic in the <i>Amazon
-     * RDS User Guide</i> or by using the <b>DescribeEventCategories</b> action.
+     * You can see a list of the event categories for a given source type (<code>SourceType</code>) in <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html">Events</a> in the <i>Amazon RDS
+     * User Guide</i> or by using the <code>DescribeEventCategories</code> operation.
      * </p>
      * 
      * @param modifyEventSubscriptionRequest
@@ -4469,14 +6500,15 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Modify a setting for an Amazon Aurora global cluster. You can change one or more database configuration
-     * parameters by specifying these parameters and the new values in the request. For more information on Amazon
-     * Aurora, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What
-     * Is Amazon Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * Modifies a setting for an Amazon Aurora global database cluster. You can change one or more database
+     * configuration parameters by specifying these parameters and the new values in the request. For more information
+     * on Amazon Aurora, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only applies to Aurora global database clusters.
      * </p>
      * </note>
      * 
@@ -4490,14 +6522,15 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Modify a setting for an Amazon Aurora global cluster. You can change one or more database configuration
-     * parameters by specifying these parameters and the new values in the request. For more information on Amazon
-     * Aurora, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What
-     * Is Amazon Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * Modifies a setting for an Amazon Aurora global database cluster. You can change one or more database
+     * configuration parameters by specifying these parameters and the new values in the request. For more information
+     * on Amazon Aurora, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only applies to Aurora global database clusters.
      * </p>
      * </note>
      * 
@@ -4513,6 +6546,49 @@ public interface AmazonRDSAsync extends AmazonRDS {
      */
     java.util.concurrent.Future<GlobalCluster> modifyGlobalClusterAsync(ModifyGlobalClusterRequest modifyGlobalClusterRequest,
             com.amazonaws.handlers.AsyncHandler<ModifyGlobalClusterRequest, GlobalCluster> asyncHandler);
+
+    /**
+     * <p>
+     * Modifies a zero-ETL integration with Amazon Redshift.
+     * </p>
+     * <note>
+     * <p>
+     * Currently, you can only modify integrations that have Aurora MySQL source DB clusters. Integrations with Aurora
+     * PostgreSQL and RDS sources currently don't support modifying the integration.
+     * </p>
+     * </note>
+     * 
+     * @param modifyIntegrationRequest
+     * @return A Java Future containing the result of the ModifyIntegration operation returned by the service.
+     * @sample AmazonRDSAsync.ModifyIntegration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyIntegration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyIntegrationResult> modifyIntegrationAsync(ModifyIntegrationRequest modifyIntegrationRequest);
+
+    /**
+     * <p>
+     * Modifies a zero-ETL integration with Amazon Redshift.
+     * </p>
+     * <note>
+     * <p>
+     * Currently, you can only modify integrations that have Aurora MySQL source DB clusters. Integrations with Aurora
+     * PostgreSQL and RDS sources currently don't support modifying the integration.
+     * </p>
+     * </note>
+     * 
+     * @param modifyIntegrationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyIntegration operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.ModifyIntegration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyIntegration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyIntegrationResult> modifyIntegrationAsync(ModifyIntegrationRequest modifyIntegrationRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyIntegrationRequest, ModifyIntegrationResult> asyncHandler);
 
     /**
      * <p>
@@ -4547,22 +6623,55 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Promotes a Read Replica DB instance to a standalone DB instance.
+     * Modifies an existing tenant database in a DB instance. You can change the tenant database name or the master user
+     * password. This operation is supported only for RDS for Oracle CDB instances using the multi-tenant configuration.
+     * </p>
+     * 
+     * @param modifyTenantDatabaseRequest
+     * @return A Java Future containing the result of the ModifyTenantDatabase operation returned by the service.
+     * @sample AmazonRDSAsync.ModifyTenantDatabase
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyTenantDatabase" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<TenantDatabase> modifyTenantDatabaseAsync(ModifyTenantDatabaseRequest modifyTenantDatabaseRequest);
+
+    /**
+     * <p>
+     * Modifies an existing tenant database in a DB instance. You can change the tenant database name or the master user
+     * password. This operation is supported only for RDS for Oracle CDB instances using the multi-tenant configuration.
+     * </p>
+     * 
+     * @param modifyTenantDatabaseRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyTenantDatabase operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.ModifyTenantDatabase
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyTenantDatabase" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<TenantDatabase> modifyTenantDatabaseAsync(ModifyTenantDatabaseRequest modifyTenantDatabaseRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyTenantDatabaseRequest, TenantDatabase> asyncHandler);
+
+    /**
+     * <p>
+     * Promotes a read replica DB instance to a standalone DB instance.
      * </p>
      * <note>
      * <ul>
      * <li>
      * <p>
      * Backup duration is a function of the amount of changes to the database since the previous backup. If you plan to
-     * promote a Read Replica to a standalone instance, we recommend that you enable backups and complete at least one
-     * backup prior to promotion. In addition, a Read Replica cannot be promoted to a standalone instance when it is in
-     * the <code>backing-up</code> status. If you have enabled backups on your Read Replica, configure the automated
-     * backup window so that daily backups do not interfere with Read Replica promotion.
+     * promote a read replica to a standalone instance, we recommend that you enable backups and complete at least one
+     * backup prior to promotion. In addition, a read replica cannot be promoted to a standalone instance when it is in
+     * the <code>backing-up</code> status. If you have enabled backups on your read replica, configure the automated
+     * backup window so that daily backups do not interfere with read replica promotion.
      * </p>
      * </li>
      * <li>
      * <p>
-     * This command doesn't apply to Aurora MySQL and Aurora PostgreSQL.
+     * This command doesn't apply to Aurora MySQL, Aurora PostgreSQL, or RDS Custom.
      * </p>
      * </li>
      * </ul>
@@ -4578,22 +6687,22 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Promotes a Read Replica DB instance to a standalone DB instance.
+     * Promotes a read replica DB instance to a standalone DB instance.
      * </p>
      * <note>
      * <ul>
      * <li>
      * <p>
      * Backup duration is a function of the amount of changes to the database since the previous backup. If you plan to
-     * promote a Read Replica to a standalone instance, we recommend that you enable backups and complete at least one
-     * backup prior to promotion. In addition, a Read Replica cannot be promoted to a standalone instance when it is in
-     * the <code>backing-up</code> status. If you have enabled backups on your Read Replica, configure the automated
-     * backup window so that daily backups do not interfere with Read Replica promotion.
+     * promote a read replica to a standalone instance, we recommend that you enable backups and complete at least one
+     * backup prior to promotion. In addition, a read replica cannot be promoted to a standalone instance when it is in
+     * the <code>backing-up</code> status. If you have enabled backups on your read replica, configure the automated
+     * backup window so that daily backups do not interfere with read replica promotion.
      * </p>
      * </li>
      * <li>
      * <p>
-     * This command doesn't apply to Aurora MySQL and Aurora PostgreSQL.
+     * This command doesn't apply to Aurora MySQL, Aurora PostgreSQL, or RDS Custom.
      * </p>
      * </li>
      * </ul>
@@ -4614,13 +6723,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Promotes a Read Replica DB cluster to a standalone DB cluster.
+     * Promotes a read replica DB cluster to a standalone DB cluster.
      * </p>
-     * <note>
-     * <p>
-     * This action only applies to Aurora DB clusters.
-     * </p>
-     * </note>
      * 
      * @param promoteReadReplicaDBClusterRequest
      * @return A Java Future containing the result of the PromoteReadReplicaDBCluster operation returned by the service.
@@ -4632,13 +6736,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Promotes a Read Replica DB cluster to a standalone DB cluster.
+     * Promotes a read replica DB cluster to a standalone DB cluster.
      * </p>
-     * <note>
-     * <p>
-     * This action only applies to Aurora DB clusters.
-     * </p>
-     * </note>
      * 
      * @param promoteReadReplicaDBClusterRequest
      * @param asyncHandler
@@ -4690,6 +6789,65 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * You might need to reboot your DB cluster, usually for maintenance reasons. For example, if you make certain
+     * modifications, or if you change the DB cluster parameter group associated with the DB cluster, reboot the DB
+     * cluster for the changes to take effect.
+     * </p>
+     * <p>
+     * Rebooting a DB cluster restarts the database engine service. Rebooting a DB cluster results in a momentary
+     * outage, during which the DB cluster status is set to rebooting.
+     * </p>
+     * <p>
+     * Use this operation only for a non-Aurora Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param rebootDBClusterRequest
+     * @return A Java Future containing the result of the RebootDBCluster operation returned by the service.
+     * @sample AmazonRDSAsync.RebootDBCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RebootDBCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DBCluster> rebootDBClusterAsync(RebootDBClusterRequest rebootDBClusterRequest);
+
+    /**
+     * <p>
+     * You might need to reboot your DB cluster, usually for maintenance reasons. For example, if you make certain
+     * modifications, or if you change the DB cluster parameter group associated with the DB cluster, reboot the DB
+     * cluster for the changes to take effect.
+     * </p>
+     * <p>
+     * Rebooting a DB cluster restarts the database engine service. Rebooting a DB cluster results in a momentary
+     * outage, during which the DB cluster status is set to rebooting.
+     * </p>
+     * <p>
+     * Use this operation only for a non-Aurora Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param rebootDBClusterRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RebootDBCluster operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.RebootDBCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RebootDBCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DBCluster> rebootDBClusterAsync(RebootDBClusterRequest rebootDBClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<RebootDBClusterRequest, DBCluster> asyncHandler);
+
+    /**
+     * <p>
      * You might need to reboot your DB instance, usually for maintenance reasons. For example, if you make certain
      * modifications, or if you change the DB parameter group associated with the DB instance, you must reboot the
      * instance for the changes to take effect.
@@ -4702,6 +6860,13 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * For more information about rebooting, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_RebootInstance.html">Rebooting a DB
      * Instance</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
+     * </p>
+     * <p>
+     * If your DB instance is part of a Multi-AZ DB cluster, you can reboot the DB cluster with the
+     * <code>RebootDBCluster</code> operation.
      * </p>
      * 
      * @param rebootDBInstanceRequest
@@ -4727,6 +6892,13 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_RebootInstance.html">Rebooting a DB
      * Instance</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
+     * </p>
+     * <p>
+     * If your DB instance is part of a Multi-AZ DB cluster, you can reboot the DB cluster with the
+     * <code>RebootDBCluster</code> operation.
+     * </p>
      * 
      * @param rebootDBInstanceRequest
      * @param asyncHandler
@@ -4743,13 +6915,83 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
+     * You might need to reboot your DB shard group, usually for maintenance reasons. For example, if you make certain
+     * modifications, reboot the DB shard group for the changes to take effect.
+     * </p>
+     * <p>
+     * This operation applies only to Aurora Limitless Database DBb shard groups.
+     * </p>
+     * 
+     * @param rebootDBShardGroupRequest
+     * @return A Java Future containing the result of the RebootDBShardGroup operation returned by the service.
+     * @sample AmazonRDSAsync.RebootDBShardGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RebootDBShardGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RebootDBShardGroupResult> rebootDBShardGroupAsync(RebootDBShardGroupRequest rebootDBShardGroupRequest);
+
+    /**
+     * <p>
+     * You might need to reboot your DB shard group, usually for maintenance reasons. For example, if you make certain
+     * modifications, reboot the DB shard group for the changes to take effect.
+     * </p>
+     * <p>
+     * This operation applies only to Aurora Limitless Database DBb shard groups.
+     * </p>
+     * 
+     * @param rebootDBShardGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RebootDBShardGroup operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.RebootDBShardGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RebootDBShardGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RebootDBShardGroupResult> rebootDBShardGroupAsync(RebootDBShardGroupRequest rebootDBShardGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<RebootDBShardGroupRequest, RebootDBShardGroupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Associate one or more <code>DBProxyTarget</code> data structures with a <code>DBProxyTargetGroup</code>.
+     * </p>
+     * 
+     * @param registerDBProxyTargetsRequest
+     * @return A Java Future containing the result of the RegisterDBProxyTargets operation returned by the service.
+     * @sample AmazonRDSAsync.RegisterDBProxyTargets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RegisterDBProxyTargets" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RegisterDBProxyTargetsResult> registerDBProxyTargetsAsync(RegisterDBProxyTargetsRequest registerDBProxyTargetsRequest);
+
+    /**
+     * <p>
+     * Associate one or more <code>DBProxyTarget</code> data structures with a <code>DBProxyTargetGroup</code>.
+     * </p>
+     * 
+     * @param registerDBProxyTargetsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RegisterDBProxyTargets operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.RegisterDBProxyTargets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RegisterDBProxyTargets" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RegisterDBProxyTargetsResult> registerDBProxyTargetsAsync(RegisterDBProxyTargetsRequest registerDBProxyTargetsRequest,
+            com.amazonaws.handlers.AsyncHandler<RegisterDBProxyTargetsRequest, RegisterDBProxyTargetsResult> asyncHandler);
+
+    /**
+     * <p>
      * Detaches an Aurora secondary cluster from an Aurora global database cluster. The cluster becomes a standalone
      * cluster with read-write capability instead of being read-only and receiving data from a primary cluster in a
-     * different region.
+     * different Region.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only applies to Aurora DB clusters.
      * </p>
      * </note>
      * 
@@ -4765,11 +7007,11 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * Detaches an Aurora secondary cluster from an Aurora global database cluster. The cluster becomes a standalone
      * cluster with read-write capability instead of being read-only and receiving data from a primary cluster in a
-     * different region.
+     * different Region.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only applies to Aurora DB clusters.
      * </p>
      * </note>
      * 
@@ -4788,17 +7030,18 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Disassociates an AWS Identity and Access Management (IAM) role from an Amazon Aurora DB cluster. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Integrating.Authorizing.html"
-     * >Authorizing Amazon Aurora MySQL to Access Other AWS Services on Your Behalf </a> in the <i>Amazon Aurora User
-     * Guide</i>.
+     * Removes the asssociation of an Amazon Web Services Identity and Access Management (IAM) role from a DB cluster.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * </note>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
      * 
      * @param removeRoleFromDBClusterRequest
      * @return A Java Future containing the result of the RemoveRoleFromDBCluster operation returned by the service.
@@ -4810,17 +7053,18 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Disassociates an AWS Identity and Access Management (IAM) role from an Amazon Aurora DB cluster. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Integrating.Authorizing.html"
-     * >Authorizing Amazon Aurora MySQL to Access Other AWS Services on Your Behalf </a> in the <i>Amazon Aurora User
-     * Guide</i>.
+     * Removes the asssociation of an Amazon Web Services Identity and Access Management (IAM) role from a DB cluster.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * </note>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
      * 
      * @param removeRoleFromDBClusterRequest
      * @param asyncHandler
@@ -4837,7 +7081,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Disassociates an AWS Identity and Access Management (IAM) role from a DB instance.
+     * Disassociates an Amazon Web Services Identity and Access Management (IAM) role from a DB instance.
      * </p>
      * 
      * @param removeRoleFromDBInstanceRequest
@@ -4850,7 +7094,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Disassociates an AWS Identity and Access Management (IAM) role from a DB instance.
+     * Disassociates an Amazon Web Services Identity and Access Management (IAM) role from a DB instance.
      * </p>
      * 
      * @param removeRoleFromDBInstanceRequest
@@ -4956,15 +7200,15 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * updated static parameter to apply to.
      * </p>
      * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
-     * </note>
      * 
      * @param resetDBClusterParameterGroupRequest
      * @return A Java Future containing the result of the ResetDBClusterParameterGroup operation returned by the
@@ -4990,15 +7234,15 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * updated static parameter to apply to.
      * </p>
      * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
-     * </note>
      * 
      * @param resetDBClusterParameterGroupRequest
      * @param asyncHandler
@@ -5058,14 +7302,28 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Creates an Amazon Aurora DB cluster from data stored in an Amazon S3 bucket. Amazon RDS must be authorized to
-     * access the Amazon S3 bucket and the data must be created using the Percona XtraBackup utility as described in <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Migrating.html"> Migrating Data to
-     * an Amazon Aurora MySQL DB Cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     * Creates an Amazon Aurora DB cluster from MySQL data stored in an Amazon S3 bucket. Amazon RDS must be authorized
+     * to access the Amazon S3 bucket and the data must be created using the Percona XtraBackup utility as described in
+     * <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Migrating.ExtMySQL.html#AuroraMySQL.Migrating.ExtMySQL.S3"
+     * > Migrating Data from MySQL by Using an Amazon S3 Bucket</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only restores the DB cluster, not the DB instances for that DB cluster. You must invoke the
+     * <code>CreateDBInstance</code> operation to create DB instances for the restored DB cluster, specifying the
+     * identifier of the restored DB cluster in <code>DBClusterIdentifier</code>. You can create DB instances only after
+     * the <code>RestoreDBClusterFromS3</code> operation has completed and the DB cluster is available.
+     * </p>
+     * </note>
+     * <p>
+     * For more information on Amazon Aurora, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This operation only applies to Aurora DB clusters. The source DB engine must be MySQL.
      * </p>
      * </note>
      * 
@@ -5079,14 +7337,28 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Creates an Amazon Aurora DB cluster from data stored in an Amazon S3 bucket. Amazon RDS must be authorized to
-     * access the Amazon S3 bucket and the data must be created using the Percona XtraBackup utility as described in <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Migrating.html"> Migrating Data to
-     * an Amazon Aurora MySQL DB Cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     * Creates an Amazon Aurora DB cluster from MySQL data stored in an Amazon S3 bucket. Amazon RDS must be authorized
+     * to access the Amazon S3 bucket and the data must be created using the Percona XtraBackup utility as described in
+     * <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Migrating.ExtMySQL.html#AuroraMySQL.Migrating.ExtMySQL.S3"
+     * > Migrating Data from MySQL by Using an Amazon S3 Bucket</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only restores the DB cluster, not the DB instances for that DB cluster. You must invoke the
+     * <code>CreateDBInstance</code> operation to create DB instances for the restored DB cluster, specifying the
+     * identifier of the restored DB cluster in <code>DBClusterIdentifier</code>. You can create DB instances only after
+     * the <code>RestoreDBClusterFromS3</code> operation has completed and the DB cluster is available.
+     * </p>
+     * </note>
+     * <p>
+     * For more information on Amazon Aurora, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This operation only applies to Aurora DB clusters. The source DB engine must be MySQL.
      * </p>
      * </note>
      * 
@@ -5108,24 +7380,27 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * Creates a new DB cluster from a DB snapshot or DB cluster snapshot.
      * </p>
      * <p>
-     * If a DB snapshot is specified, the target DB cluster is created from the source DB snapshot with a default
-     * configuration and default security group.
-     * </p>
-     * <p>
-     * If a DB cluster snapshot is specified, the target DB cluster is created from the source DB cluster restore point
-     * with the same configuration as the original source DB cluster, except that the new DB cluster is created with the
-     * default security group.
-     * </p>
-     * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * The target DB cluster is created from the source snapshot with a default configuration. If you don't specify a
+     * security group, the new DB cluster is associated with the default security group.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only restores the DB cluster, not the DB instances for that DB cluster. You must invoke the
+     * <code>CreateDBInstance</code> operation to create DB instances for the restored DB cluster, specifying the
+     * identifier of the restored DB cluster in <code>DBClusterIdentifier</code>. You can create DB instances only after
+     * the <code>RestoreDBClusterFromSnapshot</code> operation has completed and the DB cluster is available.
      * </p>
      * </note>
+     * <p>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
      * 
      * @param restoreDBClusterFromSnapshotRequest
      * @return A Java Future containing the result of the RestoreDBClusterFromSnapshot operation returned by the
@@ -5141,24 +7416,27 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * Creates a new DB cluster from a DB snapshot or DB cluster snapshot.
      * </p>
      * <p>
-     * If a DB snapshot is specified, the target DB cluster is created from the source DB snapshot with a default
-     * configuration and default security group.
-     * </p>
-     * <p>
-     * If a DB cluster snapshot is specified, the target DB cluster is created from the source DB cluster restore point
-     * with the same configuration as the original source DB cluster, except that the new DB cluster is created with the
-     * default security group.
-     * </p>
-     * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * The target DB cluster is created from the source snapshot with a default configuration. If you don't specify a
+     * security group, the new DB cluster is associated with the default security group.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only restores the DB cluster, not the DB instances for that DB cluster. You must invoke the
+     * <code>CreateDBInstance</code> operation to create DB instances for the restored DB cluster, specifying the
+     * identifier of the restored DB cluster in <code>DBClusterIdentifier</code>. You can create DB instances only after
+     * the <code>RestoreDBClusterFromSnapshot</code> operation has completed and the DB cluster is available.
      * </p>
      * </note>
+     * <p>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
      * 
      * @param restoreDBClusterFromSnapshotRequest
      * @param asyncHandler
@@ -5183,22 +7461,22 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <note>
      * <p>
-     * This action only restores the DB cluster, not the DB instances for that DB cluster. You must invoke the
-     * <code>CreateDBInstance</code> action to create DB instances for the restored DB cluster, specifying the
-     * identifier of the restored DB cluster in <code>DBClusterIdentifier</code>. You can create DB instances only after
-     * the <code>RestoreDBClusterToPointInTime</code> action has completed and the DB cluster is available.
+     * For Aurora, this operation only restores the DB cluster, not the DB instances for that DB cluster. You must
+     * invoke the <code>CreateDBInstance</code> operation to create DB instances for the restored DB cluster, specifying
+     * the identifier of the restored DB cluster in <code>DBClusterIdentifier</code>. You can create DB instances only
+     * after the <code>RestoreDBClusterToPointInTime</code> operation has completed and the DB cluster is available.
      * </p>
      * </note>
      * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
-     * </note>
      * 
      * @param restoreDBClusterToPointInTimeRequest
      * @return A Java Future containing the result of the RestoreDBClusterToPointInTime operation returned by the
@@ -5218,22 +7496,22 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <note>
      * <p>
-     * This action only restores the DB cluster, not the DB instances for that DB cluster. You must invoke the
-     * <code>CreateDBInstance</code> action to create DB instances for the restored DB cluster, specifying the
-     * identifier of the restored DB cluster in <code>DBClusterIdentifier</code>. You can create DB instances only after
-     * the <code>RestoreDBClusterToPointInTime</code> action has completed and the DB cluster is available.
+     * For Aurora, this operation only restores the DB cluster, not the DB instances for that DB cluster. You must
+     * invoke the <code>CreateDBInstance</code> operation to create DB instances for the restored DB cluster, specifying
+     * the identifier of the restored DB cluster in <code>DBClusterIdentifier</code>. You can create DB instances only
+     * after the <code>RestoreDBClusterToPointInTime</code> operation has completed and the DB cluster is available.
      * </p>
      * </note>
      * <p>
-     * For more information on Amazon Aurora, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What Is Amazon
-     * Aurora?</a> in the <i>Amazon Aurora User Guide.</i>
+     * For more information on Amazon Aurora DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"> What is Amazon
+     * Aurora?</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
-     * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ DB
+     * cluster deployments</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
-     * </note>
      * 
      * @param restoreDBClusterToPointInTimeRequest
      * @param asyncHandler
@@ -5252,18 +7530,18 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Creates a new DB instance from a DB snapshot. The target database is created from the source database restore
-     * point with the most of original configuration with the default security group and the default DB parameter group.
-     * By default, the new DB instance is created as a single-AZ deployment except when the instance is a SQL Server
-     * instance that has an option group that is associated with mirroring; in this case, the instance becomes a
-     * mirrored AZ deployment and not a single-AZ deployment.
+     * point with most of the source's original configuration, including the default security group and DB parameter
+     * group. By default, the new DB instance is created as a Single-AZ deployment, except when the instance is a SQL
+     * Server instance that has an option group associated with mirroring. In this case, the instance becomes a Multi-AZ
+     * deployment, not a Single-AZ deployment.
      * </p>
      * <p>
-     * If your intent is to replace your original DB instance with the new, restored DB instance, then rename your
-     * original DB instance before you call the RestoreDBInstanceFromDBSnapshot action. RDS doesn't allow two DB
-     * instances with the same name. Once you have renamed your original DB instance with a different identifier, then
-     * you can pass the original name of the DB instance as the DBInstanceIdentifier in the call to the
-     * RestoreDBInstanceFromDBSnapshot action. The result is that you will replace the original DB instance with the DB
-     * instance created from the snapshot.
+     * If you want to replace your original DB instance with the new, restored DB instance, then rename your original DB
+     * instance before you call the <code>RestoreDBInstanceFromDBSnapshot</code> operation. RDS doesn't allow two DB
+     * instances with the same name. After you have renamed your original DB instance with a different identifier, then
+     * you can pass the original name of the DB instance as the <code>DBInstanceIdentifier</code> in the call to the
+     * <code>RestoreDBInstanceFromDBSnapshot</code> operation. The result is that you replace the original DB instance
+     * with the DB instance created from the snapshot.
      * </p>
      * <p>
      * If you are restoring from a shared manual DB snapshot, the <code>DBSnapshotIdentifier</code> must be the ARN of
@@ -5288,18 +7566,18 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Creates a new DB instance from a DB snapshot. The target database is created from the source database restore
-     * point with the most of original configuration with the default security group and the default DB parameter group.
-     * By default, the new DB instance is created as a single-AZ deployment except when the instance is a SQL Server
-     * instance that has an option group that is associated with mirroring; in this case, the instance becomes a
-     * mirrored AZ deployment and not a single-AZ deployment.
+     * point with most of the source's original configuration, including the default security group and DB parameter
+     * group. By default, the new DB instance is created as a Single-AZ deployment, except when the instance is a SQL
+     * Server instance that has an option group associated with mirroring. In this case, the instance becomes a Multi-AZ
+     * deployment, not a Single-AZ deployment.
      * </p>
      * <p>
-     * If your intent is to replace your original DB instance with the new, restored DB instance, then rename your
-     * original DB instance before you call the RestoreDBInstanceFromDBSnapshot action. RDS doesn't allow two DB
-     * instances with the same name. Once you have renamed your original DB instance with a different identifier, then
-     * you can pass the original name of the DB instance as the DBInstanceIdentifier in the call to the
-     * RestoreDBInstanceFromDBSnapshot action. The result is that you will replace the original DB instance with the DB
-     * instance created from the snapshot.
+     * If you want to replace your original DB instance with the new, restored DB instance, then rename your original DB
+     * instance before you call the <code>RestoreDBInstanceFromDBSnapshot</code> operation. RDS doesn't allow two DB
+     * instances with the same name. After you have renamed your original DB instance with a different identifier, then
+     * you can pass the original name of the DB instance as the <code>DBInstanceIdentifier</code> in the call to the
+     * <code>RestoreDBInstanceFromDBSnapshot</code> operation. The result is that you replace the original DB instance
+     * with the DB instance created from the snapshot.
      * </p>
      * <p>
      * If you are restoring from a shared manual DB snapshot, the <code>DBSnapshotIdentifier</code> must be the ARN of
@@ -5334,6 +7612,9 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.html">Importing Data into
      * an Amazon RDS MySQL DB Instance</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
+     * <p>
+     * This operation doesn't apply to RDS Custom.
+     * </p>
      * 
      * @param restoreDBInstanceFromS3Request
      * @return A Java Future containing the result of the RestoreDBInstanceFromS3 operation returned by the service.
@@ -5350,6 +7631,9 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * restore the backup file onto a new Amazon RDS DB instance running MySQL. For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.html">Importing Data into
      * an Amazon RDS MySQL DB Instance</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * This operation doesn't apply to RDS Custom.
      * </p>
      * 
      * @param restoreDBInstanceFromS3Request
@@ -5368,8 +7652,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Restores a DB instance to an arbitrary point in time. You can restore to any point in time before the time
-     * identified by the LatestRestorableTime property. You can restore to a point up to the number of days specified by
-     * the BackupRetentionPeriod property.
+     * identified by the <code>LatestRestorableTime</code> property. You can restore to a point up to the number of days
+     * specified by the <code>BackupRetentionPeriod</code> property.
      * </p>
      * <p>
      * The target database is created with most of the original configuration, but in a system-selected Availability
@@ -5380,7 +7664,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <note>
      * <p>
-     * This command doesn't apply to Aurora MySQL and Aurora PostgreSQL. For Aurora, use
+     * This operation doesn't apply to Aurora MySQL and Aurora PostgreSQL. For Aurora, use
      * <code>RestoreDBClusterToPointInTime</code>.
      * </p>
      * </note>
@@ -5397,8 +7681,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Restores a DB instance to an arbitrary point in time. You can restore to any point in time before the time
-     * identified by the LatestRestorableTime property. You can restore to a point up to the number of days specified by
-     * the BackupRetentionPeriod property.
+     * identified by the <code>LatestRestorableTime</code> property. You can restore to a point up to the number of days
+     * specified by the <code>BackupRetentionPeriod</code> property.
      * </p>
      * <p>
      * The target database is created with most of the original configuration, but in a system-selected Availability
@@ -5409,7 +7693,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <note>
      * <p>
-     * This command doesn't apply to Aurora MySQL and Aurora PostgreSQL. For Aurora, use
+     * This operation doesn't apply to Aurora MySQL and Aurora PostgreSQL. For Aurora, use
      * <code>RestoreDBClusterToPointInTime</code>.
      * </p>
      * </note>
@@ -5430,10 +7714,22 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Revokes ingress from a DBSecurityGroup for previously authorized IP ranges or EC2 or VPC Security Groups.
+     * Revokes ingress from a DBSecurityGroup for previously authorized IP ranges or EC2 or VPC security groups.
      * Required parameters for this API are one of CIDRIP, EC2SecurityGroupId for VPC, or (EC2SecurityGroupOwnerId and
      * either EC2SecurityGroupName or EC2SecurityGroupId).
      * </p>
+     * <note>
+     * <p>
+     * EC2-Classic was retired on August 15, 2022. If you haven't migrated from EC2-Classic to a VPC, we recommend that
+     * you migrate as soon as possible. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from EC2-Classic to a VPC</a>
+     * in the <i>Amazon EC2 User Guide</i>, the blog <a
+     * href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic Networking is
+     * Retiring – Here’s How to Prepare</a>, and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Non-VPC2VPC.html">Moving a DB instance not
+     * in a VPC into a VPC</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param revokeDBSecurityGroupIngressRequest
      * @return A Java Future containing the result of the RevokeDBSecurityGroupIngress operation returned by the
@@ -5446,10 +7742,22 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Revokes ingress from a DBSecurityGroup for previously authorized IP ranges or EC2 or VPC Security Groups.
+     * Revokes ingress from a DBSecurityGroup for previously authorized IP ranges or EC2 or VPC security groups.
      * Required parameters for this API are one of CIDRIP, EC2SecurityGroupId for VPC, or (EC2SecurityGroupOwnerId and
      * either EC2SecurityGroupName or EC2SecurityGroupId).
      * </p>
+     * <note>
+     * <p>
+     * EC2-Classic was retired on August 15, 2022. If you haven't migrated from EC2-Classic to a VPC, we recommend that
+     * you migrate as soon as possible. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Migrate from EC2-Classic to a VPC</a>
+     * in the <i>Amazon EC2 User Guide</i>, the blog <a
+     * href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/">EC2-Classic Networking is
+     * Retiring – Here’s How to Prepare</a>, and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Non-VPC2VPC.html">Moving a DB instance not
+     * in a VPC into a VPC</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param revokeDBSecurityGroupIngressRequest
      * @param asyncHandler
@@ -5468,8 +7776,10 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Starts a database activity stream to monitor activity on the database. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html">Database Activity
-     * Streams</a> in the <i>Amazon Aurora User Guide</i>.
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html"> Monitoring Amazon
+     * Aurora with Database Activity Streams</a> in the <i>Amazon Aurora User Guide</i> or <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/DBActivityStreams.html"> Monitoring Amazon RDS with
+     * Database Activity Streams</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * 
      * @param startActivityStreamRequest
@@ -5483,8 +7793,10 @@ public interface AmazonRDSAsync extends AmazonRDS {
     /**
      * <p>
      * Starts a database activity stream to monitor activity on the database. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html">Database Activity
-     * Streams</a> in the <i>Amazon Aurora User Guide</i>.
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html"> Monitoring Amazon
+     * Aurora with Database Activity Streams</a> in the <i>Amazon Aurora User Guide</i> or <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/DBActivityStreams.html"> Monitoring Amazon RDS with
+     * Database Activity Streams</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * 
      * @param startActivityStreamRequest
@@ -5502,17 +7814,17 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Starts an Amazon Aurora DB cluster that was stopped using the AWS console, the stop-db-cluster AWS CLI command,
-     * or the StopDBCluster action.
+     * Starts an Amazon Aurora DB cluster that was stopped using the Amazon Web Services console, the stop-db-cluster
+     * CLI command, or the <code>StopDBCluster</code> operation.
      * </p>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-cluster-stop-start.html"> Stopping and
-     * Starting an Aurora Cluster</a> in the <i>Amazon Aurora User Guide.</i>
+     * Starting an Aurora Cluster</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only applies to Aurora DB clusters.
      * </p>
      * </note>
      * 
@@ -5526,17 +7838,17 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Starts an Amazon Aurora DB cluster that was stopped using the AWS console, the stop-db-cluster AWS CLI command,
-     * or the StopDBCluster action.
+     * Starts an Amazon Aurora DB cluster that was stopped using the Amazon Web Services console, the stop-db-cluster
+     * CLI command, or the <code>StopDBCluster</code> operation.
      * </p>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-cluster-stop-start.html"> Stopping and
-     * Starting an Aurora Cluster</a> in the <i>Amazon Aurora User Guide.</i>
+     * Starting an Aurora Cluster</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only applies to Aurora DB clusters.
      * </p>
      * </note>
      * 
@@ -5555,8 +7867,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Starts an Amazon RDS DB instance that was stopped using the AWS console, the stop-db-instance AWS CLI command, or
-     * the StopDBInstance action.
+     * Starts an Amazon RDS DB instance that was stopped using the Amazon Web Services console, the stop-db-instance CLI
+     * command, or the <code>StopDBInstance</code> operation.
      * </p>
      * <p>
      * For more information, see <a
@@ -5565,7 +7877,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <note>
      * <p>
-     * This command doesn't apply to Aurora MySQL and Aurora PostgreSQL. For Aurora DB clusters, use
+     * This command doesn't apply to RDS Custom, Aurora MySQL, and Aurora PostgreSQL. For Aurora DB clusters, use
      * <code>StartDBCluster</code> instead.
      * </p>
      * </note>
@@ -5580,8 +7892,8 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Starts an Amazon RDS DB instance that was stopped using the AWS console, the stop-db-instance AWS CLI command, or
-     * the StopDBInstance action.
+     * Starts an Amazon RDS DB instance that was stopped using the Amazon Web Services console, the stop-db-instance CLI
+     * command, or the <code>StopDBInstance</code> operation.
      * </p>
      * <p>
      * For more information, see <a
@@ -5590,7 +7902,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <note>
      * <p>
-     * This command doesn't apply to Aurora MySQL and Aurora PostgreSQL. For Aurora DB clusters, use
+     * This command doesn't apply to RDS Custom, Aurora MySQL, and Aurora PostgreSQL. For Aurora DB clusters, use
      * <code>StartDBCluster</code> instead.
      * </p>
      * </note>
@@ -5610,13 +7922,129 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Stops a database activity stream that was started using the AWS console, the <code>start-activity-stream</code>
-     * AWS CLI command, or the <code>StartActivityStream</code> action.
+     * Enables replication of automated backups to a different Amazon Web Services Region.
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
      * </p>
      * <p>
      * For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html">Database Activity
-     * Streams</a> in the <i>Amazon Aurora User Guide</i>.
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReplicateBackups.html"> Replicating Automated
+     * Backups to Another Amazon Web Services Region</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param startDBInstanceAutomatedBackupsReplicationRequest
+     * @return A Java Future containing the result of the StartDBInstanceAutomatedBackupsReplication operation returned
+     *         by the service.
+     * @sample AmazonRDSAsync.StartDBInstanceAutomatedBackupsReplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/StartDBInstanceAutomatedBackupsReplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DBInstanceAutomatedBackup> startDBInstanceAutomatedBackupsReplicationAsync(
+            StartDBInstanceAutomatedBackupsReplicationRequest startDBInstanceAutomatedBackupsReplicationRequest);
+
+    /**
+     * <p>
+     * Enables replication of automated backups to a different Amazon Web Services Region.
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReplicateBackups.html"> Replicating Automated
+     * Backups to Another Amazon Web Services Region</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param startDBInstanceAutomatedBackupsReplicationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartDBInstanceAutomatedBackupsReplication operation returned
+     *         by the service.
+     * @sample AmazonRDSAsyncHandler.StartDBInstanceAutomatedBackupsReplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/StartDBInstanceAutomatedBackupsReplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DBInstanceAutomatedBackup> startDBInstanceAutomatedBackupsReplicationAsync(
+            StartDBInstanceAutomatedBackupsReplicationRequest startDBInstanceAutomatedBackupsReplicationRequest,
+            com.amazonaws.handlers.AsyncHandler<StartDBInstanceAutomatedBackupsReplicationRequest, DBInstanceAutomatedBackup> asyncHandler);
+
+    /**
+     * <p>
+     * Starts an export of DB snapshot or DB cluster data to Amazon S3. The provided IAM role must have access to the S3
+     * bucket.
+     * </p>
+     * <p>
+     * You can't export snapshot data from Db2 or RDS Custom DB instances.
+     * </p>
+     * <p>
+     * For more information on exporting DB snapshot data, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ExportSnapshot.html">Exporting DB snapshot data
+     * to Amazon S3</a> in the <i>Amazon RDS User Guide</i> or <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-export-snapshot.html">Exporting DB
+     * cluster snapshot data to Amazon S3</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * For more information on exporting DB cluster data, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/export-cluster-data.html">Exporting DB cluster
+     * data to Amazon S3</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param startExportTaskRequest
+     * @return A Java Future containing the result of the StartExportTask operation returned by the service.
+     * @sample AmazonRDSAsync.StartExportTask
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/StartExportTask" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartExportTaskResult> startExportTaskAsync(StartExportTaskRequest startExportTaskRequest);
+
+    /**
+     * <p>
+     * Starts an export of DB snapshot or DB cluster data to Amazon S3. The provided IAM role must have access to the S3
+     * bucket.
+     * </p>
+     * <p>
+     * You can't export snapshot data from Db2 or RDS Custom DB instances.
+     * </p>
+     * <p>
+     * For more information on exporting DB snapshot data, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ExportSnapshot.html">Exporting DB snapshot data
+     * to Amazon S3</a> in the <i>Amazon RDS User Guide</i> or <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-export-snapshot.html">Exporting DB
+     * cluster snapshot data to Amazon S3</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * For more information on exporting DB cluster data, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/export-cluster-data.html">Exporting DB cluster
+     * data to Amazon S3</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param startExportTaskRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartExportTask operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.StartExportTask
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/StartExportTask" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartExportTaskResult> startExportTaskAsync(StartExportTaskRequest startExportTaskRequest,
+            com.amazonaws.handlers.AsyncHandler<StartExportTaskRequest, StartExportTaskResult> asyncHandler);
+
+    /**
+     * <p>
+     * Stops a database activity stream that was started using the Amazon Web Services console, the
+     * <code>start-activity-stream</code> CLI command, or the <code>StartActivityStream</code> operation.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html"> Monitoring Amazon
+     * Aurora with Database Activity Streams</a> in the <i>Amazon Aurora User Guide</i> or <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/DBActivityStreams.html"> Monitoring Amazon RDS with
+     * Database Activity Streams</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * 
      * @param stopActivityStreamRequest
@@ -5629,13 +8057,15 @@ public interface AmazonRDSAsync extends AmazonRDS {
 
     /**
      * <p>
-     * Stops a database activity stream that was started using the AWS console, the <code>start-activity-stream</code>
-     * AWS CLI command, or the <code>StartActivityStream</code> action.
+     * Stops a database activity stream that was started using the Amazon Web Services console, the
+     * <code>start-activity-stream</code> CLI command, or the <code>StartActivityStream</code> operation.
      * </p>
      * <p>
      * For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html">Database Activity
-     * Streams</a> in the <i>Amazon Aurora User Guide</i>.
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html"> Monitoring Amazon
+     * Aurora with Database Activity Streams</a> in the <i>Amazon Aurora User Guide</i> or <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/DBActivityStreams.html"> Monitoring Amazon RDS with
+     * Database Activity Streams</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * 
      * @param stopActivityStreamRequest
@@ -5660,11 +8090,11 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-cluster-stop-start.html"> Stopping and
-     * Starting an Aurora Cluster</a> in the <i>Amazon Aurora User Guide.</i>
+     * Starting an Aurora Cluster</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only applies to Aurora DB clusters.
      * </p>
      * </note>
      * 
@@ -5685,11 +8115,11 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-cluster-stop-start.html"> Stopping and
-     * Starting an Aurora Cluster</a> in the <i>Amazon Aurora User Guide.</i>
+     * Starting an Aurora Cluster</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This action only applies to Aurora DB clusters.
+     * This operation only applies to Aurora DB clusters.
      * </p>
      * </note>
      * 
@@ -5719,7 +8149,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <note>
      * <p>
-     * This command doesn't apply to Aurora MySQL and Aurora PostgreSQL. For Aurora clusters, use
+     * This command doesn't apply to RDS Custom, Aurora MySQL, and Aurora PostgreSQL. For Aurora clusters, use
      * <code>StopDBCluster</code> instead.
      * </p>
      * </note>
@@ -5745,7 +8175,7 @@ public interface AmazonRDSAsync extends AmazonRDS {
      * </p>
      * <note>
      * <p>
-     * This command doesn't apply to Aurora MySQL and Aurora PostgreSQL. For Aurora clusters, use
+     * This command doesn't apply to RDS Custom, Aurora MySQL, and Aurora PostgreSQL. For Aurora clusters, use
      * <code>StopDBCluster</code> instead.
      * </p>
      * </note>
@@ -5762,5 +8192,211 @@ public interface AmazonRDSAsync extends AmazonRDS {
      */
     java.util.concurrent.Future<DBInstance> stopDBInstanceAsync(StopDBInstanceRequest stopDBInstanceRequest,
             com.amazonaws.handlers.AsyncHandler<StopDBInstanceRequest, DBInstance> asyncHandler);
+
+    /**
+     * <p>
+     * Stops automated backup replication for a DB instance.
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom, Aurora MySQL, and Aurora PostgreSQL.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReplicateBackups.html"> Replicating Automated
+     * Backups to Another Amazon Web Services Region</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param stopDBInstanceAutomatedBackupsReplicationRequest
+     * @return A Java Future containing the result of the StopDBInstanceAutomatedBackupsReplication operation returned
+     *         by the service.
+     * @sample AmazonRDSAsync.StopDBInstanceAutomatedBackupsReplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/StopDBInstanceAutomatedBackupsReplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DBInstanceAutomatedBackup> stopDBInstanceAutomatedBackupsReplicationAsync(
+            StopDBInstanceAutomatedBackupsReplicationRequest stopDBInstanceAutomatedBackupsReplicationRequest);
+
+    /**
+     * <p>
+     * Stops automated backup replication for a DB instance.
+     * </p>
+     * <p>
+     * This command doesn't apply to RDS Custom, Aurora MySQL, and Aurora PostgreSQL.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReplicateBackups.html"> Replicating Automated
+     * Backups to Another Amazon Web Services Region</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param stopDBInstanceAutomatedBackupsReplicationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StopDBInstanceAutomatedBackupsReplication operation returned
+     *         by the service.
+     * @sample AmazonRDSAsyncHandler.StopDBInstanceAutomatedBackupsReplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/StopDBInstanceAutomatedBackupsReplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DBInstanceAutomatedBackup> stopDBInstanceAutomatedBackupsReplicationAsync(
+            StopDBInstanceAutomatedBackupsReplicationRequest stopDBInstanceAutomatedBackupsReplicationRequest,
+            com.amazonaws.handlers.AsyncHandler<StopDBInstanceAutomatedBackupsReplicationRequest, DBInstanceAutomatedBackup> asyncHandler);
+
+    /**
+     * <p>
+     * Switches over a blue/green deployment.
+     * </p>
+     * <p>
+     * Before you switch over, production traffic is routed to the databases in the blue environment. After you switch
+     * over, production traffic is routed to the databases in the green environment.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/blue-green-deployments.html">Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments.html">Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param switchoverBlueGreenDeploymentRequest
+     * @return A Java Future containing the result of the SwitchoverBlueGreenDeployment operation returned by the
+     *         service.
+     * @sample AmazonRDSAsync.SwitchoverBlueGreenDeployment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/SwitchoverBlueGreenDeployment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<SwitchoverBlueGreenDeploymentResult> switchoverBlueGreenDeploymentAsync(
+            SwitchoverBlueGreenDeploymentRequest switchoverBlueGreenDeploymentRequest);
+
+    /**
+     * <p>
+     * Switches over a blue/green deployment.
+     * </p>
+     * <p>
+     * Before you switch over, production traffic is routed to the databases in the blue environment. After you switch
+     * over, production traffic is routed to the databases in the green environment.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/blue-green-deployments.html">Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/blue-green-deployments.html">Using Amazon RDS
+     * Blue/Green Deployments for database updates</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param switchoverBlueGreenDeploymentRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the SwitchoverBlueGreenDeployment operation returned by the
+     *         service.
+     * @sample AmazonRDSAsyncHandler.SwitchoverBlueGreenDeployment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/SwitchoverBlueGreenDeployment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<SwitchoverBlueGreenDeploymentResult> switchoverBlueGreenDeploymentAsync(
+            SwitchoverBlueGreenDeploymentRequest switchoverBlueGreenDeploymentRequest,
+            com.amazonaws.handlers.AsyncHandler<SwitchoverBlueGreenDeploymentRequest, SwitchoverBlueGreenDeploymentResult> asyncHandler);
+
+    /**
+     * <p>
+     * Switches over the specified secondary DB cluster to be the new primary DB cluster in the global database cluster.
+     * Switchover operations were previously called "managed planned failovers."
+     * </p>
+     * <p>
+     * Aurora promotes the specified secondary cluster to assume full read/write capabilities and demotes the current
+     * primary cluster to a secondary (read-only) cluster, maintaining the orginal replication topology. All secondary
+     * clusters are synchronized with the primary at the beginning of the process so the new primary continues
+     * operations for the Aurora global database without losing any data. Your database is unavailable for a short time
+     * while the primary and selected secondary clusters are assuming their new roles. For more information about
+     * switching over an Aurora global database, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html#aurora-global-database-disaster-recovery.managed-failover"
+     * >Performing switchovers for Amazon Aurora global databases</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This operation is intended for controlled environments, for operations such as "regional rotation" or to fall
+     * back to the original primary after a global database failover.
+     * </p>
+     * </note>
+     * 
+     * @param switchoverGlobalClusterRequest
+     * @return A Java Future containing the result of the SwitchoverGlobalCluster operation returned by the service.
+     * @sample AmazonRDSAsync.SwitchoverGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/SwitchoverGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> switchoverGlobalClusterAsync(SwitchoverGlobalClusterRequest switchoverGlobalClusterRequest);
+
+    /**
+     * <p>
+     * Switches over the specified secondary DB cluster to be the new primary DB cluster in the global database cluster.
+     * Switchover operations were previously called "managed planned failovers."
+     * </p>
+     * <p>
+     * Aurora promotes the specified secondary cluster to assume full read/write capabilities and demotes the current
+     * primary cluster to a secondary (read-only) cluster, maintaining the orginal replication topology. All secondary
+     * clusters are synchronized with the primary at the beginning of the process so the new primary continues
+     * operations for the Aurora global database without losing any data. Your database is unavailable for a short time
+     * while the primary and selected secondary clusters are assuming their new roles. For more information about
+     * switching over an Aurora global database, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html#aurora-global-database-disaster-recovery.managed-failover"
+     * >Performing switchovers for Amazon Aurora global databases</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This operation is intended for controlled environments, for operations such as "regional rotation" or to fall
+     * back to the original primary after a global database failover.
+     * </p>
+     * </note>
+     * 
+     * @param switchoverGlobalClusterRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the SwitchoverGlobalCluster operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.SwitchoverGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/SwitchoverGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> switchoverGlobalClusterAsync(SwitchoverGlobalClusterRequest switchoverGlobalClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<SwitchoverGlobalClusterRequest, GlobalCluster> asyncHandler);
+
+    /**
+     * <p>
+     * Switches over an Oracle standby database in an Oracle Data Guard environment, making it the new primary database.
+     * Issue this command in the Region that hosts the current standby database.
+     * </p>
+     * 
+     * @param switchoverReadReplicaRequest
+     * @return A Java Future containing the result of the SwitchoverReadReplica operation returned by the service.
+     * @sample AmazonRDSAsync.SwitchoverReadReplica
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/SwitchoverReadReplica" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DBInstance> switchoverReadReplicaAsync(SwitchoverReadReplicaRequest switchoverReadReplicaRequest);
+
+    /**
+     * <p>
+     * Switches over an Oracle standby database in an Oracle Data Guard environment, making it the new primary database.
+     * Issue this command in the Region that hosts the current standby database.
+     * </p>
+     * 
+     * @param switchoverReadReplicaRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the SwitchoverReadReplica operation returned by the service.
+     * @sample AmazonRDSAsyncHandler.SwitchoverReadReplica
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/SwitchoverReadReplica" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DBInstance> switchoverReadReplicaAsync(SwitchoverReadReplicaRequest switchoverReadReplicaRequest,
+            com.amazonaws.handlers.AsyncHandler<SwitchoverReadReplicaRequest, DBInstance> asyncHandler);
 
 }

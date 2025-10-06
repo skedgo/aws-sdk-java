@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,6 +60,14 @@ public class AwsApiCallActionJsonUnmarshaller implements Unmarshaller<AwsApiCall
                     context.nextToken();
                     awsApiCallAction.setDomainDetails(DomainDetailsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("errorCode", targetDepth)) {
+                    context.nextToken();
+                    awsApiCallAction.setErrorCode(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("userAgent", targetDepth)) {
+                    context.nextToken();
+                    awsApiCallAction.setUserAgent(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("remoteIpDetails", targetDepth)) {
                     context.nextToken();
                     awsApiCallAction.setRemoteIpDetails(RemoteIpDetailsJsonUnmarshaller.getInstance().unmarshall(context));
@@ -67,6 +75,15 @@ public class AwsApiCallActionJsonUnmarshaller implements Unmarshaller<AwsApiCall
                 if (context.testExpression("serviceName", targetDepth)) {
                     context.nextToken();
                     awsApiCallAction.setServiceName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("remoteAccountDetails", targetDepth)) {
+                    context.nextToken();
+                    awsApiCallAction.setRemoteAccountDetails(RemoteAccountDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("affectedResources", targetDepth)) {
+                    context.nextToken();
+                    awsApiCallAction.setAffectedResources(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
+                            .getUnmarshaller(String.class)).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Represents the input for a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/UpdateFleetAttributes" target="_top">AWS API
  *      Documentation</a>
@@ -30,26 +27,28 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Unique identifier for a fleet to update attribute metadata for.
+     * A unique identifier for the fleet to update attribute metadata for. You can use either the fleet ID or ARN value.
      * </p>
      */
     private String fleetId;
     /**
      * <p>
-     * Descriptive label that is associated with a fleet. Fleet names do not need to be unique.
+     * A descriptive label that is associated with a fleet. Fleet names do not need to be unique.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * Human-readable description of a fleet.
+     * A human-readable description of a fleet.
      * </p>
      */
     private String description;
     /**
      * <p>
-     * Game session protection policy to apply to all new instances created in this fleet. Instances that already exist
-     * are not affected. You can set protection for individual instances using <a>UpdateGameSession</a>.
+     * The game session protection policy to apply to all new game sessions created in this fleet. Game sessions that
+     * already exist are not affected. You can set protection for individual game sessions using <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateGameSession.html">UpdateGameSession</a>
+     * .
      * </p>
      * <ul>
      * <li>
@@ -68,26 +67,33 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
     private String newGameSessionProtectionPolicy;
     /**
      * <p>
-     * Policy that limits the number of game sessions an individual player can create over a span of time.
+     * Policy settings that limit the number of game sessions an individual player can create over a span of time.
      * </p>
      */
     private ResourceCreationLimitPolicy resourceCreationLimitPolicy;
     /**
      * <p>
-     * Names of metric groups to include this fleet in. Amazon CloudWatch uses a fleet metric group is to aggregate
-     * metrics from multiple fleets. Use an existing metric group name to add this fleet to the group. Or use a new name
-     * to create a new metric group. A fleet can only be included in one metric group at a time.
+     * The name of a metric group to add this fleet to. Use a metric group in Amazon CloudWatch to aggregate the metrics
+     * from multiple fleets. Provide an existing metric group name, or create a new metric group by providing a new
+     * name. A fleet can only be in one metric group at a time.
      * </p>
      */
     private java.util.List<String> metricGroups;
+    /**
+     * <p>
+     * Amazon GameLift Anywhere configuration options.
+     * </p>
+     */
+    private AnywhereConfiguration anywhereConfiguration;
 
     /**
      * <p>
-     * Unique identifier for a fleet to update attribute metadata for.
+     * A unique identifier for the fleet to update attribute metadata for. You can use either the fleet ID or ARN value.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet to update attribute metadata for.
+     *        A unique identifier for the fleet to update attribute metadata for. You can use either the fleet ID or ARN
+     *        value.
      */
 
     public void setFleetId(String fleetId) {
@@ -96,10 +102,11 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Unique identifier for a fleet to update attribute metadata for.
+     * A unique identifier for the fleet to update attribute metadata for. You can use either the fleet ID or ARN value.
      * </p>
      * 
-     * @return Unique identifier for a fleet to update attribute metadata for.
+     * @return A unique identifier for the fleet to update attribute metadata for. You can use either the fleet ID or
+     *         ARN value.
      */
 
     public String getFleetId() {
@@ -108,11 +115,12 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Unique identifier for a fleet to update attribute metadata for.
+     * A unique identifier for the fleet to update attribute metadata for. You can use either the fleet ID or ARN value.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet to update attribute metadata for.
+     *        A unique identifier for the fleet to update attribute metadata for. You can use either the fleet ID or ARN
+     *        value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -123,11 +131,11 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Descriptive label that is associated with a fleet. Fleet names do not need to be unique.
+     * A descriptive label that is associated with a fleet. Fleet names do not need to be unique.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with a fleet. Fleet names do not need to be unique.
+     *        A descriptive label that is associated with a fleet. Fleet names do not need to be unique.
      */
 
     public void setName(String name) {
@@ -136,10 +144,10 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Descriptive label that is associated with a fleet. Fleet names do not need to be unique.
+     * A descriptive label that is associated with a fleet. Fleet names do not need to be unique.
      * </p>
      * 
-     * @return Descriptive label that is associated with a fleet. Fleet names do not need to be unique.
+     * @return A descriptive label that is associated with a fleet. Fleet names do not need to be unique.
      */
 
     public String getName() {
@@ -148,11 +156,11 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Descriptive label that is associated with a fleet. Fleet names do not need to be unique.
+     * A descriptive label that is associated with a fleet. Fleet names do not need to be unique.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with a fleet. Fleet names do not need to be unique.
+     *        A descriptive label that is associated with a fleet. Fleet names do not need to be unique.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -163,11 +171,11 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Human-readable description of a fleet.
+     * A human-readable description of a fleet.
      * </p>
      * 
      * @param description
-     *        Human-readable description of a fleet.
+     *        A human-readable description of a fleet.
      */
 
     public void setDescription(String description) {
@@ -176,10 +184,10 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Human-readable description of a fleet.
+     * A human-readable description of a fleet.
      * </p>
      * 
-     * @return Human-readable description of a fleet.
+     * @return A human-readable description of a fleet.
      */
 
     public String getDescription() {
@@ -188,11 +196,11 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Human-readable description of a fleet.
+     * A human-readable description of a fleet.
      * </p>
      * 
      * @param description
-     *        Human-readable description of a fleet.
+     *        A human-readable description of a fleet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -203,8 +211,10 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Game session protection policy to apply to all new instances created in this fleet. Instances that already exist
-     * are not affected. You can set protection for individual instances using <a>UpdateGameSession</a>.
+     * The game session protection policy to apply to all new game sessions created in this fleet. Game sessions that
+     * already exist are not affected. You can set protection for individual game sessions using <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateGameSession.html">UpdateGameSession</a>
+     * .
      * </p>
      * <ul>
      * <li>
@@ -221,9 +231,10 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      * </ul>
      * 
      * @param newGameSessionProtectionPolicy
-     *        Game session protection policy to apply to all new instances created in this fleet. Instances that already
-     *        exist are not affected. You can set protection for individual instances using
-     *        <a>UpdateGameSession</a>.</p>
+     *        The game session protection policy to apply to all new game sessions created in this fleet. Game sessions
+     *        that already exist are not affected. You can set protection for individual game sessions using <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateGameSession.html"
+     *        >UpdateGameSession</a> .</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -245,8 +256,10 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Game session protection policy to apply to all new instances created in this fleet. Instances that already exist
-     * are not affected. You can set protection for individual instances using <a>UpdateGameSession</a>.
+     * The game session protection policy to apply to all new game sessions created in this fleet. Game sessions that
+     * already exist are not affected. You can set protection for individual game sessions using <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateGameSession.html">UpdateGameSession</a>
+     * .
      * </p>
      * <ul>
      * <li>
@@ -262,9 +275,10 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      * </li>
      * </ul>
      * 
-     * @return Game session protection policy to apply to all new instances created in this fleet. Instances that
-     *         already exist are not affected. You can set protection for individual instances using
-     *         <a>UpdateGameSession</a>.</p>
+     * @return The game session protection policy to apply to all new game sessions created in this fleet. Game sessions
+     *         that already exist are not affected. You can set protection for individual game sessions using <a
+     *         href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateGameSession.html"
+     *         >UpdateGameSession</a> .</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -286,8 +300,10 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Game session protection policy to apply to all new instances created in this fleet. Instances that already exist
-     * are not affected. You can set protection for individual instances using <a>UpdateGameSession</a>.
+     * The game session protection policy to apply to all new game sessions created in this fleet. Game sessions that
+     * already exist are not affected. You can set protection for individual game sessions using <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateGameSession.html">UpdateGameSession</a>
+     * .
      * </p>
      * <ul>
      * <li>
@@ -304,9 +320,10 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      * </ul>
      * 
      * @param newGameSessionProtectionPolicy
-     *        Game session protection policy to apply to all new instances created in this fleet. Instances that already
-     *        exist are not affected. You can set protection for individual instances using
-     *        <a>UpdateGameSession</a>.</p>
+     *        The game session protection policy to apply to all new game sessions created in this fleet. Game sessions
+     *        that already exist are not affected. You can set protection for individual game sessions using <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateGameSession.html"
+     *        >UpdateGameSession</a> .</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -330,8 +347,10 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Game session protection policy to apply to all new instances created in this fleet. Instances that already exist
-     * are not affected. You can set protection for individual instances using <a>UpdateGameSession</a>.
+     * The game session protection policy to apply to all new game sessions created in this fleet. Game sessions that
+     * already exist are not affected. You can set protection for individual game sessions using <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateGameSession.html">UpdateGameSession</a>
+     * .
      * </p>
      * <ul>
      * <li>
@@ -348,9 +367,10 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      * </ul>
      * 
      * @param newGameSessionProtectionPolicy
-     *        Game session protection policy to apply to all new instances created in this fleet. Instances that already
-     *        exist are not affected. You can set protection for individual instances using
-     *        <a>UpdateGameSession</a>.</p>
+     *        The game session protection policy to apply to all new game sessions created in this fleet. Game sessions
+     *        that already exist are not affected. You can set protection for individual game sessions using <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateGameSession.html"
+     *        >UpdateGameSession</a> .</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -372,8 +392,10 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Game session protection policy to apply to all new instances created in this fleet. Instances that already exist
-     * are not affected. You can set protection for individual instances using <a>UpdateGameSession</a>.
+     * The game session protection policy to apply to all new game sessions created in this fleet. Game sessions that
+     * already exist are not affected. You can set protection for individual game sessions using <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateGameSession.html">UpdateGameSession</a>
+     * .
      * </p>
      * <ul>
      * <li>
@@ -390,9 +412,10 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      * </ul>
      * 
      * @param newGameSessionProtectionPolicy
-     *        Game session protection policy to apply to all new instances created in this fleet. Instances that already
-     *        exist are not affected. You can set protection for individual instances using
-     *        <a>UpdateGameSession</a>.</p>
+     *        The game session protection policy to apply to all new game sessions created in this fleet. Game sessions
+     *        that already exist are not affected. You can set protection for individual game sessions using <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateGameSession.html"
+     *        >UpdateGameSession</a> .</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -416,11 +439,12 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Policy that limits the number of game sessions an individual player can create over a span of time.
+     * Policy settings that limit the number of game sessions an individual player can create over a span of time.
      * </p>
      * 
      * @param resourceCreationLimitPolicy
-     *        Policy that limits the number of game sessions an individual player can create over a span of time.
+     *        Policy settings that limit the number of game sessions an individual player can create over a span of
+     *        time.
      */
 
     public void setResourceCreationLimitPolicy(ResourceCreationLimitPolicy resourceCreationLimitPolicy) {
@@ -429,10 +453,11 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Policy that limits the number of game sessions an individual player can create over a span of time.
+     * Policy settings that limit the number of game sessions an individual player can create over a span of time.
      * </p>
      * 
-     * @return Policy that limits the number of game sessions an individual player can create over a span of time.
+     * @return Policy settings that limit the number of game sessions an individual player can create over a span of
+     *         time.
      */
 
     public ResourceCreationLimitPolicy getResourceCreationLimitPolicy() {
@@ -441,11 +466,12 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Policy that limits the number of game sessions an individual player can create over a span of time.
+     * Policy settings that limit the number of game sessions an individual player can create over a span of time.
      * </p>
      * 
      * @param resourceCreationLimitPolicy
-     *        Policy that limits the number of game sessions an individual player can create over a span of time.
+     *        Policy settings that limit the number of game sessions an individual player can create over a span of
+     *        time.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -456,15 +482,14 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Names of metric groups to include this fleet in. Amazon CloudWatch uses a fleet metric group is to aggregate
-     * metrics from multiple fleets. Use an existing metric group name to add this fleet to the group. Or use a new name
-     * to create a new metric group. A fleet can only be included in one metric group at a time.
+     * The name of a metric group to add this fleet to. Use a metric group in Amazon CloudWatch to aggregate the metrics
+     * from multiple fleets. Provide an existing metric group name, or create a new metric group by providing a new
+     * name. A fleet can only be in one metric group at a time.
      * </p>
      * 
-     * @return Names of metric groups to include this fleet in. Amazon CloudWatch uses a fleet metric group is to
-     *         aggregate metrics from multiple fleets. Use an existing metric group name to add this fleet to the group.
-     *         Or use a new name to create a new metric group. A fleet can only be included in one metric group at a
-     *         time.
+     * @return The name of a metric group to add this fleet to. Use a metric group in Amazon CloudWatch to aggregate the
+     *         metrics from multiple fleets. Provide an existing metric group name, or create a new metric group by
+     *         providing a new name. A fleet can only be in one metric group at a time.
      */
 
     public java.util.List<String> getMetricGroups() {
@@ -473,16 +498,15 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Names of metric groups to include this fleet in. Amazon CloudWatch uses a fleet metric group is to aggregate
-     * metrics from multiple fleets. Use an existing metric group name to add this fleet to the group. Or use a new name
-     * to create a new metric group. A fleet can only be included in one metric group at a time.
+     * The name of a metric group to add this fleet to. Use a metric group in Amazon CloudWatch to aggregate the metrics
+     * from multiple fleets. Provide an existing metric group name, or create a new metric group by providing a new
+     * name. A fleet can only be in one metric group at a time.
      * </p>
      * 
      * @param metricGroups
-     *        Names of metric groups to include this fleet in. Amazon CloudWatch uses a fleet metric group is to
-     *        aggregate metrics from multiple fleets. Use an existing metric group name to add this fleet to the group.
-     *        Or use a new name to create a new metric group. A fleet can only be included in one metric group at a
-     *        time.
+     *        The name of a metric group to add this fleet to. Use a metric group in Amazon CloudWatch to aggregate the
+     *        metrics from multiple fleets. Provide an existing metric group name, or create a new metric group by
+     *        providing a new name. A fleet can only be in one metric group at a time.
      */
 
     public void setMetricGroups(java.util.Collection<String> metricGroups) {
@@ -496,9 +520,9 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Names of metric groups to include this fleet in. Amazon CloudWatch uses a fleet metric group is to aggregate
-     * metrics from multiple fleets. Use an existing metric group name to add this fleet to the group. Or use a new name
-     * to create a new metric group. A fleet can only be included in one metric group at a time.
+     * The name of a metric group to add this fleet to. Use a metric group in Amazon CloudWatch to aggregate the metrics
+     * from multiple fleets. Provide an existing metric group name, or create a new metric group by providing a new
+     * name. A fleet can only be in one metric group at a time.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -507,10 +531,9 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @param metricGroups
-     *        Names of metric groups to include this fleet in. Amazon CloudWatch uses a fleet metric group is to
-     *        aggregate metrics from multiple fleets. Use an existing metric group name to add this fleet to the group.
-     *        Or use a new name to create a new metric group. A fleet can only be included in one metric group at a
-     *        time.
+     *        The name of a metric group to add this fleet to. Use a metric group in Amazon CloudWatch to aggregate the
+     *        metrics from multiple fleets. Provide an existing metric group name, or create a new metric group by
+     *        providing a new name. A fleet can only be in one metric group at a time.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -526,21 +549,60 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Names of metric groups to include this fleet in. Amazon CloudWatch uses a fleet metric group is to aggregate
-     * metrics from multiple fleets. Use an existing metric group name to add this fleet to the group. Or use a new name
-     * to create a new metric group. A fleet can only be included in one metric group at a time.
+     * The name of a metric group to add this fleet to. Use a metric group in Amazon CloudWatch to aggregate the metrics
+     * from multiple fleets. Provide an existing metric group name, or create a new metric group by providing a new
+     * name. A fleet can only be in one metric group at a time.
      * </p>
      * 
      * @param metricGroups
-     *        Names of metric groups to include this fleet in. Amazon CloudWatch uses a fleet metric group is to
-     *        aggregate metrics from multiple fleets. Use an existing metric group name to add this fleet to the group.
-     *        Or use a new name to create a new metric group. A fleet can only be included in one metric group at a
-     *        time.
+     *        The name of a metric group to add this fleet to. Use a metric group in Amazon CloudWatch to aggregate the
+     *        metrics from multiple fleets. Provide an existing metric group name, or create a new metric group by
+     *        providing a new name. A fleet can only be in one metric group at a time.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateFleetAttributesRequest withMetricGroups(java.util.Collection<String> metricGroups) {
         setMetricGroups(metricGroups);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Amazon GameLift Anywhere configuration options.
+     * </p>
+     * 
+     * @param anywhereConfiguration
+     *        Amazon GameLift Anywhere configuration options.
+     */
+
+    public void setAnywhereConfiguration(AnywhereConfiguration anywhereConfiguration) {
+        this.anywhereConfiguration = anywhereConfiguration;
+    }
+
+    /**
+     * <p>
+     * Amazon GameLift Anywhere configuration options.
+     * </p>
+     * 
+     * @return Amazon GameLift Anywhere configuration options.
+     */
+
+    public AnywhereConfiguration getAnywhereConfiguration() {
+        return this.anywhereConfiguration;
+    }
+
+    /**
+     * <p>
+     * Amazon GameLift Anywhere configuration options.
+     * </p>
+     * 
+     * @param anywhereConfiguration
+     *        Amazon GameLift Anywhere configuration options.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFleetAttributesRequest withAnywhereConfiguration(AnywhereConfiguration anywhereConfiguration) {
+        setAnywhereConfiguration(anywhereConfiguration);
         return this;
     }
 
@@ -567,7 +629,9 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
         if (getResourceCreationLimitPolicy() != null)
             sb.append("ResourceCreationLimitPolicy: ").append(getResourceCreationLimitPolicy()).append(",");
         if (getMetricGroups() != null)
-            sb.append("MetricGroups: ").append(getMetricGroups());
+            sb.append("MetricGroups: ").append(getMetricGroups()).append(",");
+        if (getAnywhereConfiguration() != null)
+            sb.append("AnywhereConfiguration: ").append(getAnywhereConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -607,6 +671,10 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
             return false;
         if (other.getMetricGroups() != null && other.getMetricGroups().equals(this.getMetricGroups()) == false)
             return false;
+        if (other.getAnywhereConfiguration() == null ^ this.getAnywhereConfiguration() == null)
+            return false;
+        if (other.getAnywhereConfiguration() != null && other.getAnywhereConfiguration().equals(this.getAnywhereConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -621,6 +689,7 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
         hashCode = prime * hashCode + ((getNewGameSessionProtectionPolicy() == null) ? 0 : getNewGameSessionProtectionPolicy().hashCode());
         hashCode = prime * hashCode + ((getResourceCreationLimitPolicy() == null) ? 0 : getResourceCreationLimitPolicy().hashCode());
         hashCode = prime * hashCode + ((getMetricGroups() == null) ? 0 : getMetricGroups().hashCode());
+        hashCode = prime * hashCode + ((getAnywhereConfiguration() == null) ? 0 : getAnywhereConfiguration().hashCode());
         return hashCode;
     }
 

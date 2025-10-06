@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Detailed information about a DB instance.
+ * Detailed information about an instance.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DBInstance" target="_top">AWS API
@@ -28,19 +28,19 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains a user-provided database identifier. This identifier is the unique key that identifies a DB instance.
+     * Contains a user-provided database identifier. This identifier is the unique key that identifies an instance.
      * </p>
      */
     private String dBInstanceIdentifier;
     /**
      * <p>
-     * Contains the name of the compute and memory capacity class of the DB instance.
+     * Contains the name of the compute and memory capacity class of the instance.
      * </p>
      */
     private String dBInstanceClass;
     /**
      * <p>
-     * Provides the name of the database engine to be used for this DB instance.
+     * Provides the name of the database engine to be used for this instance.
      * </p>
      */
     private String engine;
@@ -58,7 +58,7 @@ public class DBInstance implements Serializable, Cloneable {
     private Endpoint endpoint;
     /**
      * <p>
-     * Provides the date and time that the DB instance was created.
+     * Provides the date and time that the instance was created.
      * </p>
      */
     private java.util.Date instanceCreateTime;
@@ -71,26 +71,26 @@ public class DBInstance implements Serializable, Cloneable {
     private String preferredBackupWindow;
     /**
      * <p>
-     * Specifies the number of days for which automatic DB snapshots are retained.
+     * Specifies the number of days for which automatic snapshots are retained.
      * </p>
      */
     private Integer backupRetentionPeriod;
     /**
      * <p>
-     * Provides a list of VPC security group elements that the DB instance belongs to.
+     * Provides a list of VPC security group elements that the instance belongs to.
      * </p>
      */
     private java.util.List<VpcSecurityGroupMembership> vpcSecurityGroups;
     /**
      * <p>
-     * Specifies the name of the Availability Zone that the DB instance is located in.
+     * Specifies the name of the Availability Zone that the instance is located in.
      * </p>
      */
     private String availabilityZone;
     /**
      * <p>
-     * Specifies information on the subnet group that is associated with the DB instance, including the name,
-     * description, and subnets in the subnet group.
+     * Specifies information on the subnet group that is associated with the instance, including the name, description,
+     * and subnets in the subnet group.
      * </p>
      */
     private DBSubnetGroup dBSubnetGroup;
@@ -102,7 +102,7 @@ public class DBInstance implements Serializable, Cloneable {
     private String preferredMaintenanceWindow;
     /**
      * <p>
-     * Specifies that changes to the DB instance are pending. This element is included only when changes are pending.
+     * Specifies that changes to the instance are pending. This element is included only when changes are pending.
      * Specific changes are identified by subelements.
      * </p>
      */
@@ -121,15 +121,15 @@ public class DBInstance implements Serializable, Cloneable {
     private String engineVersion;
     /**
      * <p>
-     * Indicates that minor version patches are applied automatically.
+     * Does not apply. This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor
+     * version upgrades regardless of the value set.
      * </p>
      */
     private Boolean autoMinorVersionUpgrade;
     /**
      * <p>
-     * Specifies the availability options for the DB instance. A value of <code>true</code> specifies an internet-facing
-     * instance with a publicly resolvable DNS name, which resolves to a public IP address. A value of
-     * <code>false</code> specifies an internal instance with a DNS name that resolves to a private IP address.
+     * Not supported. Amazon DocumentDB does not currently support public endpoints. The value of
+     * <code>PubliclyAccessible</code> is always <code>false</code>.
      * </p>
      */
     private Boolean publiclyAccessible;
@@ -141,30 +141,42 @@ public class DBInstance implements Serializable, Cloneable {
     private java.util.List<DBInstanceStatusInfo> statusInfos;
     /**
      * <p>
-     * Contains the name of the DB cluster that the DB instance is a member of if the DB instance is a member of a DB
-     * cluster.
+     * Contains the name of the cluster that the instance is a member of if the instance is a member of a cluster.
      * </p>
      */
     private String dBClusterIdentifier;
     /**
      * <p>
-     * Specifies whether the DB instance is encrypted.
+     * Specifies whether or not the instance is encrypted.
      * </p>
      */
     private Boolean storageEncrypted;
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is <code>true</code>, the AWS KMS key identifier for the encrypted DB instance.
+     * If <code>StorageEncrypted</code> is <code>true</code>, the KMS key identifier for the encrypted instance.
      * </p>
      */
     private String kmsKeyId;
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the DB instance. This identifier is found in AWS CloudTrail log
-     * entries whenever the AWS KMS key for the DB instance is accessed.
+     * The Amazon Web Services Region-unique, immutable identifier for the instance. This identifier is found in
+     * CloudTrail log entries whenever the KMS key for the instance is accessed.
      * </p>
      */
     private String dbiResourceId;
+    /**
+     * <p>
+     * The identifier of the CA certificate for this DB instance.
+     * </p>
+     */
+    private String cACertificateIdentifier;
+    /**
+     * <p>
+     * A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
+     * </p>
+     */
+    private Boolean copyTagsToSnapshot;
     /**
      * <p>
      * A value that specifies the order in which an Amazon DocumentDB replica is promoted to the primary instance after
@@ -174,24 +186,44 @@ public class DBInstance implements Serializable, Cloneable {
     private Integer promotionTier;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the DB instance.
+     * The Amazon Resource Name (ARN) for the instance.
      * </p>
      */
     private String dBInstanceArn;
     /**
      * <p>
-     * A list of log types that this DB instance is configured to export to Amazon CloudWatch Logs.
+     * A list of log types that this instance is configured to export to CloudWatch Logs.
      * </p>
      */
     private java.util.List<String> enabledCloudwatchLogsExports;
+    /**
+     * <p>
+     * The details of the DB instance's server certificate.
+     * </p>
+     */
+    private CertificateDetails certificateDetails;
+    /**
+     * <p>
+     * Set to <code>true</code> if Amazon RDS Performance Insights is enabled for the DB instance, and otherwise
+     * <code>false</code>.
+     * </p>
+     */
+    private Boolean performanceInsightsEnabled;
+    /**
+     * <p>
+     * The KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon Resource Name
+     * (ARN), KMS key identifier, or the KMS key alias for the KMS encryption key.
+     * </p>
+     */
+    private String performanceInsightsKMSKeyId;
 
     /**
      * <p>
-     * Contains a user-provided database identifier. This identifier is the unique key that identifies a DB instance.
+     * Contains a user-provided database identifier. This identifier is the unique key that identifies an instance.
      * </p>
      * 
      * @param dBInstanceIdentifier
-     *        Contains a user-provided database identifier. This identifier is the unique key that identifies a DB
+     *        Contains a user-provided database identifier. This identifier is the unique key that identifies an
      *        instance.
      */
 
@@ -201,10 +233,10 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains a user-provided database identifier. This identifier is the unique key that identifies a DB instance.
+     * Contains a user-provided database identifier. This identifier is the unique key that identifies an instance.
      * </p>
      * 
-     * @return Contains a user-provided database identifier. This identifier is the unique key that identifies a DB
+     * @return Contains a user-provided database identifier. This identifier is the unique key that identifies an
      *         instance.
      */
 
@@ -214,11 +246,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains a user-provided database identifier. This identifier is the unique key that identifies a DB instance.
+     * Contains a user-provided database identifier. This identifier is the unique key that identifies an instance.
      * </p>
      * 
      * @param dBInstanceIdentifier
-     *        Contains a user-provided database identifier. This identifier is the unique key that identifies a DB
+     *        Contains a user-provided database identifier. This identifier is the unique key that identifies an
      *        instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -230,11 +262,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the name of the compute and memory capacity class of the DB instance.
+     * Contains the name of the compute and memory capacity class of the instance.
      * </p>
      * 
      * @param dBInstanceClass
-     *        Contains the name of the compute and memory capacity class of the DB instance.
+     *        Contains the name of the compute and memory capacity class of the instance.
      */
 
     public void setDBInstanceClass(String dBInstanceClass) {
@@ -243,10 +275,10 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the name of the compute and memory capacity class of the DB instance.
+     * Contains the name of the compute and memory capacity class of the instance.
      * </p>
      * 
-     * @return Contains the name of the compute and memory capacity class of the DB instance.
+     * @return Contains the name of the compute and memory capacity class of the instance.
      */
 
     public String getDBInstanceClass() {
@@ -255,11 +287,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the name of the compute and memory capacity class of the DB instance.
+     * Contains the name of the compute and memory capacity class of the instance.
      * </p>
      * 
      * @param dBInstanceClass
-     *        Contains the name of the compute and memory capacity class of the DB instance.
+     *        Contains the name of the compute and memory capacity class of the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -270,11 +302,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the name of the database engine to be used for this DB instance.
+     * Provides the name of the database engine to be used for this instance.
      * </p>
      * 
      * @param engine
-     *        Provides the name of the database engine to be used for this DB instance.
+     *        Provides the name of the database engine to be used for this instance.
      */
 
     public void setEngine(String engine) {
@@ -283,10 +315,10 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the name of the database engine to be used for this DB instance.
+     * Provides the name of the database engine to be used for this instance.
      * </p>
      * 
-     * @return Provides the name of the database engine to be used for this DB instance.
+     * @return Provides the name of the database engine to be used for this instance.
      */
 
     public String getEngine() {
@@ -295,11 +327,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the name of the database engine to be used for this DB instance.
+     * Provides the name of the database engine to be used for this instance.
      * </p>
      * 
      * @param engine
-     *        Provides the name of the database engine to be used for this DB instance.
+     *        Provides the name of the database engine to be used for this instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -390,11 +422,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the date and time that the DB instance was created.
+     * Provides the date and time that the instance was created.
      * </p>
      * 
      * @param instanceCreateTime
-     *        Provides the date and time that the DB instance was created.
+     *        Provides the date and time that the instance was created.
      */
 
     public void setInstanceCreateTime(java.util.Date instanceCreateTime) {
@@ -403,10 +435,10 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the date and time that the DB instance was created.
+     * Provides the date and time that the instance was created.
      * </p>
      * 
-     * @return Provides the date and time that the DB instance was created.
+     * @return Provides the date and time that the instance was created.
      */
 
     public java.util.Date getInstanceCreateTime() {
@@ -415,11 +447,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the date and time that the DB instance was created.
+     * Provides the date and time that the instance was created.
      * </p>
      * 
      * @param instanceCreateTime
-     *        Provides the date and time that the DB instance was created.
+     *        Provides the date and time that the instance was created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -476,11 +508,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the number of days for which automatic DB snapshots are retained.
+     * Specifies the number of days for which automatic snapshots are retained.
      * </p>
      * 
      * @param backupRetentionPeriod
-     *        Specifies the number of days for which automatic DB snapshots are retained.
+     *        Specifies the number of days for which automatic snapshots are retained.
      */
 
     public void setBackupRetentionPeriod(Integer backupRetentionPeriod) {
@@ -489,10 +521,10 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the number of days for which automatic DB snapshots are retained.
+     * Specifies the number of days for which automatic snapshots are retained.
      * </p>
      * 
-     * @return Specifies the number of days for which automatic DB snapshots are retained.
+     * @return Specifies the number of days for which automatic snapshots are retained.
      */
 
     public Integer getBackupRetentionPeriod() {
@@ -501,11 +533,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the number of days for which automatic DB snapshots are retained.
+     * Specifies the number of days for which automatic snapshots are retained.
      * </p>
      * 
      * @param backupRetentionPeriod
-     *        Specifies the number of days for which automatic DB snapshots are retained.
+     *        Specifies the number of days for which automatic snapshots are retained.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -516,10 +548,10 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of VPC security group elements that the DB instance belongs to.
+     * Provides a list of VPC security group elements that the instance belongs to.
      * </p>
      * 
-     * @return Provides a list of VPC security group elements that the DB instance belongs to.
+     * @return Provides a list of VPC security group elements that the instance belongs to.
      */
 
     public java.util.List<VpcSecurityGroupMembership> getVpcSecurityGroups() {
@@ -528,11 +560,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of VPC security group elements that the DB instance belongs to.
+     * Provides a list of VPC security group elements that the instance belongs to.
      * </p>
      * 
      * @param vpcSecurityGroups
-     *        Provides a list of VPC security group elements that the DB instance belongs to.
+     *        Provides a list of VPC security group elements that the instance belongs to.
      */
 
     public void setVpcSecurityGroups(java.util.Collection<VpcSecurityGroupMembership> vpcSecurityGroups) {
@@ -546,7 +578,7 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of VPC security group elements that the DB instance belongs to.
+     * Provides a list of VPC security group elements that the instance belongs to.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -555,7 +587,7 @@ public class DBInstance implements Serializable, Cloneable {
      * </p>
      * 
      * @param vpcSecurityGroups
-     *        Provides a list of VPC security group elements that the DB instance belongs to.
+     *        Provides a list of VPC security group elements that the instance belongs to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -571,11 +603,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of VPC security group elements that the DB instance belongs to.
+     * Provides a list of VPC security group elements that the instance belongs to.
      * </p>
      * 
      * @param vpcSecurityGroups
-     *        Provides a list of VPC security group elements that the DB instance belongs to.
+     *        Provides a list of VPC security group elements that the instance belongs to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -586,11 +618,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the name of the Availability Zone that the DB instance is located in.
+     * Specifies the name of the Availability Zone that the instance is located in.
      * </p>
      * 
      * @param availabilityZone
-     *        Specifies the name of the Availability Zone that the DB instance is located in.
+     *        Specifies the name of the Availability Zone that the instance is located in.
      */
 
     public void setAvailabilityZone(String availabilityZone) {
@@ -599,10 +631,10 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the name of the Availability Zone that the DB instance is located in.
+     * Specifies the name of the Availability Zone that the instance is located in.
      * </p>
      * 
-     * @return Specifies the name of the Availability Zone that the DB instance is located in.
+     * @return Specifies the name of the Availability Zone that the instance is located in.
      */
 
     public String getAvailabilityZone() {
@@ -611,11 +643,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the name of the Availability Zone that the DB instance is located in.
+     * Specifies the name of the Availability Zone that the instance is located in.
      * </p>
      * 
      * @param availabilityZone
-     *        Specifies the name of the Availability Zone that the DB instance is located in.
+     *        Specifies the name of the Availability Zone that the instance is located in.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -626,12 +658,12 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies information on the subnet group that is associated with the DB instance, including the name,
-     * description, and subnets in the subnet group.
+     * Specifies information on the subnet group that is associated with the instance, including the name, description,
+     * and subnets in the subnet group.
      * </p>
      * 
      * @param dBSubnetGroup
-     *        Specifies information on the subnet group that is associated with the DB instance, including the name,
+     *        Specifies information on the subnet group that is associated with the instance, including the name,
      *        description, and subnets in the subnet group.
      */
 
@@ -641,11 +673,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies information on the subnet group that is associated with the DB instance, including the name,
-     * description, and subnets in the subnet group.
+     * Specifies information on the subnet group that is associated with the instance, including the name, description,
+     * and subnets in the subnet group.
      * </p>
      * 
-     * @return Specifies information on the subnet group that is associated with the DB instance, including the name,
+     * @return Specifies information on the subnet group that is associated with the instance, including the name,
      *         description, and subnets in the subnet group.
      */
 
@@ -655,12 +687,12 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies information on the subnet group that is associated with the DB instance, including the name,
-     * description, and subnets in the subnet group.
+     * Specifies information on the subnet group that is associated with the instance, including the name, description,
+     * and subnets in the subnet group.
      * </p>
      * 
      * @param dBSubnetGroup
-     *        Specifies information on the subnet group that is associated with the DB instance, including the name,
+     *        Specifies information on the subnet group that is associated with the instance, including the name,
      *        description, and subnets in the subnet group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -715,12 +747,12 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies that changes to the DB instance are pending. This element is included only when changes are pending.
+     * Specifies that changes to the instance are pending. This element is included only when changes are pending.
      * Specific changes are identified by subelements.
      * </p>
      * 
      * @param pendingModifiedValues
-     *        Specifies that changes to the DB instance are pending. This element is included only when changes are
+     *        Specifies that changes to the instance are pending. This element is included only when changes are
      *        pending. Specific changes are identified by subelements.
      */
 
@@ -730,11 +762,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies that changes to the DB instance are pending. This element is included only when changes are pending.
+     * Specifies that changes to the instance are pending. This element is included only when changes are pending.
      * Specific changes are identified by subelements.
      * </p>
      * 
-     * @return Specifies that changes to the DB instance are pending. This element is included only when changes are
+     * @return Specifies that changes to the instance are pending. This element is included only when changes are
      *         pending. Specific changes are identified by subelements.
      */
 
@@ -744,12 +776,12 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies that changes to the DB instance are pending. This element is included only when changes are pending.
+     * Specifies that changes to the instance are pending. This element is included only when changes are pending.
      * Specific changes are identified by subelements.
      * </p>
      * 
      * @param pendingModifiedValues
-     *        Specifies that changes to the DB instance are pending. This element is included only when changes are
+     *        Specifies that changes to the instance are pending. This element is included only when changes are
      *        pending. Specific changes are identified by subelements.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -841,11 +873,13 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates that minor version patches are applied automatically.
+     * Does not apply. This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor
+     * version upgrades regardless of the value set.
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        Indicates that minor version patches are applied automatically.
+     *        Does not apply. This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform
+     *        minor version upgrades regardless of the value set.
      */
 
     public void setAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
@@ -854,10 +888,12 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates that minor version patches are applied automatically.
+     * Does not apply. This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor
+     * version upgrades regardless of the value set.
      * </p>
      * 
-     * @return Indicates that minor version patches are applied automatically.
+     * @return Does not apply. This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform
+     *         minor version upgrades regardless of the value set.
      */
 
     public Boolean getAutoMinorVersionUpgrade() {
@@ -866,11 +902,13 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates that minor version patches are applied automatically.
+     * Does not apply. This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor
+     * version upgrades regardless of the value set.
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        Indicates that minor version patches are applied automatically.
+     *        Does not apply. This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform
+     *        minor version upgrades regardless of the value set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -881,10 +919,12 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates that minor version patches are applied automatically.
+     * Does not apply. This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor
+     * version upgrades regardless of the value set.
      * </p>
      * 
-     * @return Indicates that minor version patches are applied automatically.
+     * @return Does not apply. This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform
+     *         minor version upgrades regardless of the value set.
      */
 
     public Boolean isAutoMinorVersionUpgrade() {
@@ -893,16 +933,13 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the availability options for the DB instance. A value of <code>true</code> specifies an internet-facing
-     * instance with a publicly resolvable DNS name, which resolves to a public IP address. A value of
-     * <code>false</code> specifies an internal instance with a DNS name that resolves to a private IP address.
+     * Not supported. Amazon DocumentDB does not currently support public endpoints. The value of
+     * <code>PubliclyAccessible</code> is always <code>false</code>.
      * </p>
      * 
      * @param publiclyAccessible
-     *        Specifies the availability options for the DB instance. A value of <code>true</code> specifies an
-     *        internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP address. A
-     *        value of <code>false</code> specifies an internal instance with a DNS name that resolves to a private IP
-     *        address.
+     *        Not supported. Amazon DocumentDB does not currently support public endpoints. The value of
+     *        <code>PubliclyAccessible</code> is always <code>false</code>.
      */
 
     public void setPubliclyAccessible(Boolean publiclyAccessible) {
@@ -911,15 +948,12 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the availability options for the DB instance. A value of <code>true</code> specifies an internet-facing
-     * instance with a publicly resolvable DNS name, which resolves to a public IP address. A value of
-     * <code>false</code> specifies an internal instance with a DNS name that resolves to a private IP address.
+     * Not supported. Amazon DocumentDB does not currently support public endpoints. The value of
+     * <code>PubliclyAccessible</code> is always <code>false</code>.
      * </p>
      * 
-     * @return Specifies the availability options for the DB instance. A value of <code>true</code> specifies an
-     *         internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP address. A
-     *         value of <code>false</code> specifies an internal instance with a DNS name that resolves to a private IP
-     *         address.
+     * @return Not supported. Amazon DocumentDB does not currently support public endpoints. The value of
+     *         <code>PubliclyAccessible</code> is always <code>false</code>.
      */
 
     public Boolean getPubliclyAccessible() {
@@ -928,16 +962,13 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the availability options for the DB instance. A value of <code>true</code> specifies an internet-facing
-     * instance with a publicly resolvable DNS name, which resolves to a public IP address. A value of
-     * <code>false</code> specifies an internal instance with a DNS name that resolves to a private IP address.
+     * Not supported. Amazon DocumentDB does not currently support public endpoints. The value of
+     * <code>PubliclyAccessible</code> is always <code>false</code>.
      * </p>
      * 
      * @param publiclyAccessible
-     *        Specifies the availability options for the DB instance. A value of <code>true</code> specifies an
-     *        internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP address. A
-     *        value of <code>false</code> specifies an internal instance with a DNS name that resolves to a private IP
-     *        address.
+     *        Not supported. Amazon DocumentDB does not currently support public endpoints. The value of
+     *        <code>PubliclyAccessible</code> is always <code>false</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -948,15 +979,12 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the availability options for the DB instance. A value of <code>true</code> specifies an internet-facing
-     * instance with a publicly resolvable DNS name, which resolves to a public IP address. A value of
-     * <code>false</code> specifies an internal instance with a DNS name that resolves to a private IP address.
+     * Not supported. Amazon DocumentDB does not currently support public endpoints. The value of
+     * <code>PubliclyAccessible</code> is always <code>false</code>.
      * </p>
      * 
-     * @return Specifies the availability options for the DB instance. A value of <code>true</code> specifies an
-     *         internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP address. A
-     *         value of <code>false</code> specifies an internal instance with a DNS name that resolves to a private IP
-     *         address.
+     * @return Not supported. Amazon DocumentDB does not currently support public endpoints. The value of
+     *         <code>PubliclyAccessible</code> is always <code>false</code>.
      */
 
     public Boolean isPubliclyAccessible() {
@@ -1035,13 +1063,12 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the name of the DB cluster that the DB instance is a member of if the DB instance is a member of a DB
-     * cluster.
+     * Contains the name of the cluster that the instance is a member of if the instance is a member of a cluster.
      * </p>
      * 
      * @param dBClusterIdentifier
-     *        Contains the name of the DB cluster that the DB instance is a member of if the DB instance is a member of
-     *        a DB cluster.
+     *        Contains the name of the cluster that the instance is a member of if the instance is a member of a
+     *        cluster.
      */
 
     public void setDBClusterIdentifier(String dBClusterIdentifier) {
@@ -1050,12 +1077,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the name of the DB cluster that the DB instance is a member of if the DB instance is a member of a DB
-     * cluster.
+     * Contains the name of the cluster that the instance is a member of if the instance is a member of a cluster.
      * </p>
      * 
-     * @return Contains the name of the DB cluster that the DB instance is a member of if the DB instance is a member of
-     *         a DB cluster.
+     * @return Contains the name of the cluster that the instance is a member of if the instance is a member of a
+     *         cluster.
      */
 
     public String getDBClusterIdentifier() {
@@ -1064,13 +1090,12 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the name of the DB cluster that the DB instance is a member of if the DB instance is a member of a DB
-     * cluster.
+     * Contains the name of the cluster that the instance is a member of if the instance is a member of a cluster.
      * </p>
      * 
      * @param dBClusterIdentifier
-     *        Contains the name of the DB cluster that the DB instance is a member of if the DB instance is a member of
-     *        a DB cluster.
+     *        Contains the name of the cluster that the instance is a member of if the instance is a member of a
+     *        cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1081,11 +1106,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB instance is encrypted.
+     * Specifies whether or not the instance is encrypted.
      * </p>
      * 
      * @param storageEncrypted
-     *        Specifies whether the DB instance is encrypted.
+     *        Specifies whether or not the instance is encrypted.
      */
 
     public void setStorageEncrypted(Boolean storageEncrypted) {
@@ -1094,10 +1119,10 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB instance is encrypted.
+     * Specifies whether or not the instance is encrypted.
      * </p>
      * 
-     * @return Specifies whether the DB instance is encrypted.
+     * @return Specifies whether or not the instance is encrypted.
      */
 
     public Boolean getStorageEncrypted() {
@@ -1106,11 +1131,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB instance is encrypted.
+     * Specifies whether or not the instance is encrypted.
      * </p>
      * 
      * @param storageEncrypted
-     *        Specifies whether the DB instance is encrypted.
+     *        Specifies whether or not the instance is encrypted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1121,10 +1146,10 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB instance is encrypted.
+     * Specifies whether or not the instance is encrypted.
      * </p>
      * 
-     * @return Specifies whether the DB instance is encrypted.
+     * @return Specifies whether or not the instance is encrypted.
      */
 
     public Boolean isStorageEncrypted() {
@@ -1133,12 +1158,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is <code>true</code>, the AWS KMS key identifier for the encrypted DB instance.
+     * If <code>StorageEncrypted</code> is <code>true</code>, the KMS key identifier for the encrypted instance.
      * </p>
      * 
      * @param kmsKeyId
-     *        If <code>StorageEncrypted</code> is <code>true</code>, the AWS KMS key identifier for the encrypted DB
-     *        instance.
+     *        If <code>StorageEncrypted</code> is <code>true</code>, the KMS key identifier for the encrypted instance.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -1147,11 +1171,10 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is <code>true</code>, the AWS KMS key identifier for the encrypted DB instance.
+     * If <code>StorageEncrypted</code> is <code>true</code>, the KMS key identifier for the encrypted instance.
      * </p>
      * 
-     * @return If <code>StorageEncrypted</code> is <code>true</code>, the AWS KMS key identifier for the encrypted DB
-     *         instance.
+     * @return If <code>StorageEncrypted</code> is <code>true</code>, the KMS key identifier for the encrypted instance.
      */
 
     public String getKmsKeyId() {
@@ -1160,12 +1183,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is <code>true</code>, the AWS KMS key identifier for the encrypted DB instance.
+     * If <code>StorageEncrypted</code> is <code>true</code>, the KMS key identifier for the encrypted instance.
      * </p>
      * 
      * @param kmsKeyId
-     *        If <code>StorageEncrypted</code> is <code>true</code>, the AWS KMS key identifier for the encrypted DB
-     *        instance.
+     *        If <code>StorageEncrypted</code> is <code>true</code>, the KMS key identifier for the encrypted instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1176,13 +1198,13 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the DB instance. This identifier is found in AWS CloudTrail log
-     * entries whenever the AWS KMS key for the DB instance is accessed.
+     * The Amazon Web Services Region-unique, immutable identifier for the instance. This identifier is found in
+     * CloudTrail log entries whenever the KMS key for the instance is accessed.
      * </p>
      * 
      * @param dbiResourceId
-     *        The AWS Region-unique, immutable identifier for the DB instance. This identifier is found in AWS
-     *        CloudTrail log entries whenever the AWS KMS key for the DB instance is accessed.
+     *        The Amazon Web Services Region-unique, immutable identifier for the instance. This identifier is found in
+     *        CloudTrail log entries whenever the KMS key for the instance is accessed.
      */
 
     public void setDbiResourceId(String dbiResourceId) {
@@ -1191,12 +1213,12 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the DB instance. This identifier is found in AWS CloudTrail log
-     * entries whenever the AWS KMS key for the DB instance is accessed.
+     * The Amazon Web Services Region-unique, immutable identifier for the instance. This identifier is found in
+     * CloudTrail log entries whenever the KMS key for the instance is accessed.
      * </p>
      * 
-     * @return The AWS Region-unique, immutable identifier for the DB instance. This identifier is found in AWS
-     *         CloudTrail log entries whenever the AWS KMS key for the DB instance is accessed.
+     * @return The Amazon Web Services Region-unique, immutable identifier for the instance. This identifier is found in
+     *         CloudTrail log entries whenever the KMS key for the instance is accessed.
      */
 
     public String getDbiResourceId() {
@@ -1205,19 +1227,119 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the DB instance. This identifier is found in AWS CloudTrail log
-     * entries whenever the AWS KMS key for the DB instance is accessed.
+     * The Amazon Web Services Region-unique, immutable identifier for the instance. This identifier is found in
+     * CloudTrail log entries whenever the KMS key for the instance is accessed.
      * </p>
      * 
      * @param dbiResourceId
-     *        The AWS Region-unique, immutable identifier for the DB instance. This identifier is found in AWS
-     *        CloudTrail log entries whenever the AWS KMS key for the DB instance is accessed.
+     *        The Amazon Web Services Region-unique, immutable identifier for the instance. This identifier is found in
+     *        CloudTrail log entries whenever the KMS key for the instance is accessed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DBInstance withDbiResourceId(String dbiResourceId) {
         setDbiResourceId(dbiResourceId);
         return this;
+    }
+
+    /**
+     * <p>
+     * The identifier of the CA certificate for this DB instance.
+     * </p>
+     * 
+     * @param cACertificateIdentifier
+     *        The identifier of the CA certificate for this DB instance.
+     */
+
+    public void setCACertificateIdentifier(String cACertificateIdentifier) {
+        this.cACertificateIdentifier = cACertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * The identifier of the CA certificate for this DB instance.
+     * </p>
+     * 
+     * @return The identifier of the CA certificate for this DB instance.
+     */
+
+    public String getCACertificateIdentifier() {
+        return this.cACertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * The identifier of the CA certificate for this DB instance.
+     * </p>
+     * 
+     * @param cACertificateIdentifier
+     *        The identifier of the CA certificate for this DB instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBInstance withCACertificateIdentifier(String cACertificateIdentifier) {
+        setCACertificateIdentifier(cACertificateIdentifier);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
+     * </p>
+     * 
+     * @param copyTagsToSnapshot
+     *        A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By
+     *        default, tags are not copied.
+     */
+
+    public void setCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        this.copyTagsToSnapshot = copyTagsToSnapshot;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
+     * </p>
+     * 
+     * @return A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By
+     *         default, tags are not copied.
+     */
+
+    public Boolean getCopyTagsToSnapshot() {
+        return this.copyTagsToSnapshot;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
+     * </p>
+     * 
+     * @param copyTagsToSnapshot
+     *        A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By
+     *        default, tags are not copied.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBInstance withCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        setCopyTagsToSnapshot(copyTagsToSnapshot);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
+     * </p>
+     * 
+     * @return A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By
+     *         default, tags are not copied.
+     */
+
+    public Boolean isCopyTagsToSnapshot() {
+        return this.copyTagsToSnapshot;
     }
 
     /**
@@ -1268,11 +1390,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the DB instance.
+     * The Amazon Resource Name (ARN) for the instance.
      * </p>
      * 
      * @param dBInstanceArn
-     *        The Amazon Resource Name (ARN) for the DB instance.
+     *        The Amazon Resource Name (ARN) for the instance.
      */
 
     public void setDBInstanceArn(String dBInstanceArn) {
@@ -1281,10 +1403,10 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the DB instance.
+     * The Amazon Resource Name (ARN) for the instance.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) for the DB instance.
+     * @return The Amazon Resource Name (ARN) for the instance.
      */
 
     public String getDBInstanceArn() {
@@ -1293,11 +1415,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the DB instance.
+     * The Amazon Resource Name (ARN) for the instance.
      * </p>
      * 
      * @param dBInstanceArn
-     *        The Amazon Resource Name (ARN) for the DB instance.
+     *        The Amazon Resource Name (ARN) for the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1308,10 +1430,10 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of log types that this DB instance is configured to export to Amazon CloudWatch Logs.
+     * A list of log types that this instance is configured to export to CloudWatch Logs.
      * </p>
      * 
-     * @return A list of log types that this DB instance is configured to export to Amazon CloudWatch Logs.
+     * @return A list of log types that this instance is configured to export to CloudWatch Logs.
      */
 
     public java.util.List<String> getEnabledCloudwatchLogsExports() {
@@ -1320,11 +1442,11 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of log types that this DB instance is configured to export to Amazon CloudWatch Logs.
+     * A list of log types that this instance is configured to export to CloudWatch Logs.
      * </p>
      * 
      * @param enabledCloudwatchLogsExports
-     *        A list of log types that this DB instance is configured to export to Amazon CloudWatch Logs.
+     *        A list of log types that this instance is configured to export to CloudWatch Logs.
      */
 
     public void setEnabledCloudwatchLogsExports(java.util.Collection<String> enabledCloudwatchLogsExports) {
@@ -1338,7 +1460,7 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of log types that this DB instance is configured to export to Amazon CloudWatch Logs.
+     * A list of log types that this instance is configured to export to CloudWatch Logs.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1347,7 +1469,7 @@ public class DBInstance implements Serializable, Cloneable {
      * </p>
      * 
      * @param enabledCloudwatchLogsExports
-     *        A list of log types that this DB instance is configured to export to Amazon CloudWatch Logs.
+     *        A list of log types that this instance is configured to export to CloudWatch Logs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1363,16 +1485,162 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of log types that this DB instance is configured to export to Amazon CloudWatch Logs.
+     * A list of log types that this instance is configured to export to CloudWatch Logs.
      * </p>
      * 
      * @param enabledCloudwatchLogsExports
-     *        A list of log types that this DB instance is configured to export to Amazon CloudWatch Logs.
+     *        A list of log types that this instance is configured to export to CloudWatch Logs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DBInstance withEnabledCloudwatchLogsExports(java.util.Collection<String> enabledCloudwatchLogsExports) {
         setEnabledCloudwatchLogsExports(enabledCloudwatchLogsExports);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The details of the DB instance's server certificate.
+     * </p>
+     * 
+     * @param certificateDetails
+     *        The details of the DB instance's server certificate.
+     */
+
+    public void setCertificateDetails(CertificateDetails certificateDetails) {
+        this.certificateDetails = certificateDetails;
+    }
+
+    /**
+     * <p>
+     * The details of the DB instance's server certificate.
+     * </p>
+     * 
+     * @return The details of the DB instance's server certificate.
+     */
+
+    public CertificateDetails getCertificateDetails() {
+        return this.certificateDetails;
+    }
+
+    /**
+     * <p>
+     * The details of the DB instance's server certificate.
+     * </p>
+     * 
+     * @param certificateDetails
+     *        The details of the DB instance's server certificate.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBInstance withCertificateDetails(CertificateDetails certificateDetails) {
+        setCertificateDetails(certificateDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Set to <code>true</code> if Amazon RDS Performance Insights is enabled for the DB instance, and otherwise
+     * <code>false</code>.
+     * </p>
+     * 
+     * @param performanceInsightsEnabled
+     *        Set to <code>true</code> if Amazon RDS Performance Insights is enabled for the DB instance, and otherwise
+     *        <code>false</code>.
+     */
+
+    public void setPerformanceInsightsEnabled(Boolean performanceInsightsEnabled) {
+        this.performanceInsightsEnabled = performanceInsightsEnabled;
+    }
+
+    /**
+     * <p>
+     * Set to <code>true</code> if Amazon RDS Performance Insights is enabled for the DB instance, and otherwise
+     * <code>false</code>.
+     * </p>
+     * 
+     * @return Set to <code>true</code> if Amazon RDS Performance Insights is enabled for the DB instance, and otherwise
+     *         <code>false</code>.
+     */
+
+    public Boolean getPerformanceInsightsEnabled() {
+        return this.performanceInsightsEnabled;
+    }
+
+    /**
+     * <p>
+     * Set to <code>true</code> if Amazon RDS Performance Insights is enabled for the DB instance, and otherwise
+     * <code>false</code>.
+     * </p>
+     * 
+     * @param performanceInsightsEnabled
+     *        Set to <code>true</code> if Amazon RDS Performance Insights is enabled for the DB instance, and otherwise
+     *        <code>false</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBInstance withPerformanceInsightsEnabled(Boolean performanceInsightsEnabled) {
+        setPerformanceInsightsEnabled(performanceInsightsEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Set to <code>true</code> if Amazon RDS Performance Insights is enabled for the DB instance, and otherwise
+     * <code>false</code>.
+     * </p>
+     * 
+     * @return Set to <code>true</code> if Amazon RDS Performance Insights is enabled for the DB instance, and otherwise
+     *         <code>false</code>.
+     */
+
+    public Boolean isPerformanceInsightsEnabled() {
+        return this.performanceInsightsEnabled;
+    }
+
+    /**
+     * <p>
+     * The KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon Resource Name
+     * (ARN), KMS key identifier, or the KMS key alias for the KMS encryption key.
+     * </p>
+     * 
+     * @param performanceInsightsKMSKeyId
+     *        The KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon Resource
+     *        Name (ARN), KMS key identifier, or the KMS key alias for the KMS encryption key.
+     */
+
+    public void setPerformanceInsightsKMSKeyId(String performanceInsightsKMSKeyId) {
+        this.performanceInsightsKMSKeyId = performanceInsightsKMSKeyId;
+    }
+
+    /**
+     * <p>
+     * The KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon Resource Name
+     * (ARN), KMS key identifier, or the KMS key alias for the KMS encryption key.
+     * </p>
+     * 
+     * @return The KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon Resource
+     *         Name (ARN), KMS key identifier, or the KMS key alias for the KMS encryption key.
+     */
+
+    public String getPerformanceInsightsKMSKeyId() {
+        return this.performanceInsightsKMSKeyId;
+    }
+
+    /**
+     * <p>
+     * The KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon Resource Name
+     * (ARN), KMS key identifier, or the KMS key alias for the KMS encryption key.
+     * </p>
+     * 
+     * @param performanceInsightsKMSKeyId
+     *        The KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon Resource
+     *        Name (ARN), KMS key identifier, or the KMS key alias for the KMS encryption key.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBInstance withPerformanceInsightsKMSKeyId(String performanceInsightsKMSKeyId) {
+        setPerformanceInsightsKMSKeyId(performanceInsightsKMSKeyId);
         return this;
     }
 
@@ -1432,12 +1700,22 @@ public class DBInstance implements Serializable, Cloneable {
             sb.append("KmsKeyId: ").append(getKmsKeyId()).append(",");
         if (getDbiResourceId() != null)
             sb.append("DbiResourceId: ").append(getDbiResourceId()).append(",");
+        if (getCACertificateIdentifier() != null)
+            sb.append("CACertificateIdentifier: ").append(getCACertificateIdentifier()).append(",");
+        if (getCopyTagsToSnapshot() != null)
+            sb.append("CopyTagsToSnapshot: ").append(getCopyTagsToSnapshot()).append(",");
         if (getPromotionTier() != null)
             sb.append("PromotionTier: ").append(getPromotionTier()).append(",");
         if (getDBInstanceArn() != null)
             sb.append("DBInstanceArn: ").append(getDBInstanceArn()).append(",");
         if (getEnabledCloudwatchLogsExports() != null)
-            sb.append("EnabledCloudwatchLogsExports: ").append(getEnabledCloudwatchLogsExports());
+            sb.append("EnabledCloudwatchLogsExports: ").append(getEnabledCloudwatchLogsExports()).append(",");
+        if (getCertificateDetails() != null)
+            sb.append("CertificateDetails: ").append(getCertificateDetails()).append(",");
+        if (getPerformanceInsightsEnabled() != null)
+            sb.append("PerformanceInsightsEnabled: ").append(getPerformanceInsightsEnabled()).append(",");
+        if (getPerformanceInsightsKMSKeyId() != null)
+            sb.append("PerformanceInsightsKMSKeyId: ").append(getPerformanceInsightsKMSKeyId());
         sb.append("}");
         return sb.toString();
     }
@@ -1540,6 +1818,14 @@ public class DBInstance implements Serializable, Cloneable {
             return false;
         if (other.getDbiResourceId() != null && other.getDbiResourceId().equals(this.getDbiResourceId()) == false)
             return false;
+        if (other.getCACertificateIdentifier() == null ^ this.getCACertificateIdentifier() == null)
+            return false;
+        if (other.getCACertificateIdentifier() != null && other.getCACertificateIdentifier().equals(this.getCACertificateIdentifier()) == false)
+            return false;
+        if (other.getCopyTagsToSnapshot() == null ^ this.getCopyTagsToSnapshot() == null)
+            return false;
+        if (other.getCopyTagsToSnapshot() != null && other.getCopyTagsToSnapshot().equals(this.getCopyTagsToSnapshot()) == false)
+            return false;
         if (other.getPromotionTier() == null ^ this.getPromotionTier() == null)
             return false;
         if (other.getPromotionTier() != null && other.getPromotionTier().equals(this.getPromotionTier()) == false)
@@ -1551,6 +1837,18 @@ public class DBInstance implements Serializable, Cloneable {
         if (other.getEnabledCloudwatchLogsExports() == null ^ this.getEnabledCloudwatchLogsExports() == null)
             return false;
         if (other.getEnabledCloudwatchLogsExports() != null && other.getEnabledCloudwatchLogsExports().equals(this.getEnabledCloudwatchLogsExports()) == false)
+            return false;
+        if (other.getCertificateDetails() == null ^ this.getCertificateDetails() == null)
+            return false;
+        if (other.getCertificateDetails() != null && other.getCertificateDetails().equals(this.getCertificateDetails()) == false)
+            return false;
+        if (other.getPerformanceInsightsEnabled() == null ^ this.getPerformanceInsightsEnabled() == null)
+            return false;
+        if (other.getPerformanceInsightsEnabled() != null && other.getPerformanceInsightsEnabled().equals(this.getPerformanceInsightsEnabled()) == false)
+            return false;
+        if (other.getPerformanceInsightsKMSKeyId() == null ^ this.getPerformanceInsightsKMSKeyId() == null)
+            return false;
+        if (other.getPerformanceInsightsKMSKeyId() != null && other.getPerformanceInsightsKMSKeyId().equals(this.getPerformanceInsightsKMSKeyId()) == false)
             return false;
         return true;
     }
@@ -1582,9 +1880,14 @@ public class DBInstance implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getStorageEncrypted() == null) ? 0 : getStorageEncrypted().hashCode());
         hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
         hashCode = prime * hashCode + ((getDbiResourceId() == null) ? 0 : getDbiResourceId().hashCode());
+        hashCode = prime * hashCode + ((getCACertificateIdentifier() == null) ? 0 : getCACertificateIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getCopyTagsToSnapshot() == null) ? 0 : getCopyTagsToSnapshot().hashCode());
         hashCode = prime * hashCode + ((getPromotionTier() == null) ? 0 : getPromotionTier().hashCode());
         hashCode = prime * hashCode + ((getDBInstanceArn() == null) ? 0 : getDBInstanceArn().hashCode());
         hashCode = prime * hashCode + ((getEnabledCloudwatchLogsExports() == null) ? 0 : getEnabledCloudwatchLogsExports().hashCode());
+        hashCode = prime * hashCode + ((getCertificateDetails() == null) ? 0 : getCertificateDetails().hashCode());
+        hashCode = prime * hashCode + ((getPerformanceInsightsEnabled() == null) ? 0 : getPerformanceInsightsEnabled().hashCode());
+        hashCode = prime * hashCode + ((getPerformanceInsightsKMSKeyId() == null) ? 0 : getPerformanceInsightsKMSKeyId().hashCode());
         return hashCode;
     }
 

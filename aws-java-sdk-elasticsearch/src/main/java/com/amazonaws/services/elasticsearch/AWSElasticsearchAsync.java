@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,14 @@ import com.amazonaws.services.elasticsearch.model.*;
  * <p>
  * <fullname>Amazon Elasticsearch Configuration Service</fullname>
  * <p>
- * Use the Amazon Elasticsearch configuration API to create, configure, and manage Elasticsearch domains.
+ * Use the Amazon Elasticsearch Configuration API to create, configure, and manage Elasticsearch domains.
+ * </p>
+ * <p>
+ * For sample code that uses the Configuration API, see the <a
+ * href="https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-configuration-samples.html">Amazon
+ * Elasticsearch Service Developer Guide</a>. The guide also contains <a
+ * href="https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-request-signing.html">sample code
+ * for sending signed HTTP requests to the Elasticsearch APIs</a>.
  * </p>
  * <p>
  * The endpoint for configuration service requests is region-specific: es.<i>region</i>.amazonaws.com. For example,
@@ -38,6 +45,41 @@ import com.amazonaws.services.elasticsearch.model.*;
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public interface AWSElasticsearchAsync extends AWSElasticsearch {
+
+    /**
+     * <p>
+     * Allows the destination domain owner to accept an inbound cross-cluster search connection request.
+     * </p>
+     * 
+     * @param acceptInboundCrossClusterSearchConnectionRequest
+     *        Container for the parameters to the <code><a>AcceptInboundCrossClusterSearchConnection</a></code>
+     *        operation.
+     * @return A Java Future containing the result of the AcceptInboundCrossClusterSearchConnection operation returned
+     *         by the service.
+     * @sample AWSElasticsearchAsync.AcceptInboundCrossClusterSearchConnection
+     */
+    java.util.concurrent.Future<AcceptInboundCrossClusterSearchConnectionResult> acceptInboundCrossClusterSearchConnectionAsync(
+            AcceptInboundCrossClusterSearchConnectionRequest acceptInboundCrossClusterSearchConnectionRequest);
+
+    /**
+     * <p>
+     * Allows the destination domain owner to accept an inbound cross-cluster search connection request.
+     * </p>
+     * 
+     * @param acceptInboundCrossClusterSearchConnectionRequest
+     *        Container for the parameters to the <code><a>AcceptInboundCrossClusterSearchConnection</a></code>
+     *        operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AcceptInboundCrossClusterSearchConnection operation returned
+     *         by the service.
+     * @sample AWSElasticsearchAsyncHandler.AcceptInboundCrossClusterSearchConnection
+     */
+    java.util.concurrent.Future<AcceptInboundCrossClusterSearchConnectionResult> acceptInboundCrossClusterSearchConnectionAsync(
+            AcceptInboundCrossClusterSearchConnectionRequest acceptInboundCrossClusterSearchConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<AcceptInboundCrossClusterSearchConnectionRequest, AcceptInboundCrossClusterSearchConnectionResult> asyncHandler);
 
     /**
      * <p>
@@ -75,6 +117,97 @@ public interface AWSElasticsearchAsync extends AWSElasticsearch {
      */
     java.util.concurrent.Future<AddTagsResult> addTagsAsync(AddTagsRequest addTagsRequest,
             com.amazonaws.handlers.AsyncHandler<AddTagsRequest, AddTagsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Associates a package with an Amazon ES domain.
+     * </p>
+     * 
+     * @param associatePackageRequest
+     *        Container for request parameters to <code> <a>AssociatePackage</a> </code> operation.
+     * @return A Java Future containing the result of the AssociatePackage operation returned by the service.
+     * @sample AWSElasticsearchAsync.AssociatePackage
+     */
+    java.util.concurrent.Future<AssociatePackageResult> associatePackageAsync(AssociatePackageRequest associatePackageRequest);
+
+    /**
+     * <p>
+     * Associates a package with an Amazon ES domain.
+     * </p>
+     * 
+     * @param associatePackageRequest
+     *        Container for request parameters to <code> <a>AssociatePackage</a> </code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AssociatePackage operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.AssociatePackage
+     */
+    java.util.concurrent.Future<AssociatePackageResult> associatePackageAsync(AssociatePackageRequest associatePackageRequest,
+            com.amazonaws.handlers.AsyncHandler<AssociatePackageRequest, AssociatePackageResult> asyncHandler);
+
+    /**
+     * <p>
+     * Provides access to an Amazon OpenSearch Service domain through the use of an interface VPC endpoint.
+     * </p>
+     * 
+     * @param authorizeVpcEndpointAccessRequest
+     *        Container for request parameters to the <code><a>AuthorizeVpcEndpointAccess</a></code> operation.
+     *        Specifies the account to be permitted to manage VPC endpoints against the domain.
+     * @return A Java Future containing the result of the AuthorizeVpcEndpointAccess operation returned by the service.
+     * @sample AWSElasticsearchAsync.AuthorizeVpcEndpointAccess
+     */
+    java.util.concurrent.Future<AuthorizeVpcEndpointAccessResult> authorizeVpcEndpointAccessAsync(
+            AuthorizeVpcEndpointAccessRequest authorizeVpcEndpointAccessRequest);
+
+    /**
+     * <p>
+     * Provides access to an Amazon OpenSearch Service domain through the use of an interface VPC endpoint.
+     * </p>
+     * 
+     * @param authorizeVpcEndpointAccessRequest
+     *        Container for request parameters to the <code><a>AuthorizeVpcEndpointAccess</a></code> operation.
+     *        Specifies the account to be permitted to manage VPC endpoints against the domain.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AuthorizeVpcEndpointAccess operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.AuthorizeVpcEndpointAccess
+     */
+    java.util.concurrent.Future<AuthorizeVpcEndpointAccessResult> authorizeVpcEndpointAccessAsync(
+            AuthorizeVpcEndpointAccessRequest authorizeVpcEndpointAccessRequest,
+            com.amazonaws.handlers.AsyncHandler<AuthorizeVpcEndpointAccessRequest, AuthorizeVpcEndpointAccessResult> asyncHandler);
+
+    /**
+     * <p>
+     * Cancels a pending configuration change on an Amazon OpenSearch Service domain.
+     * </p>
+     * 
+     * @param cancelDomainConfigChangeRequest
+     *        Container for parameters of the <code>CancelDomainConfigChange</code> operation.
+     * @return A Java Future containing the result of the CancelDomainConfigChange operation returned by the service.
+     * @sample AWSElasticsearchAsync.CancelDomainConfigChange
+     */
+    java.util.concurrent.Future<CancelDomainConfigChangeResult> cancelDomainConfigChangeAsync(CancelDomainConfigChangeRequest cancelDomainConfigChangeRequest);
+
+    /**
+     * <p>
+     * Cancels a pending configuration change on an Amazon OpenSearch Service domain.
+     * </p>
+     * 
+     * @param cancelDomainConfigChangeRequest
+     *        Container for parameters of the <code>CancelDomainConfigChange</code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CancelDomainConfigChange operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.CancelDomainConfigChange
+     */
+    java.util.concurrent.Future<CancelDomainConfigChangeResult> cancelDomainConfigChangeAsync(CancelDomainConfigChangeRequest cancelDomainConfigChangeRequest,
+            com.amazonaws.handlers.AsyncHandler<CancelDomainConfigChangeRequest, CancelDomainConfigChangeResult> asyncHandler);
 
     /**
      * <p>
@@ -152,6 +285,99 @@ public interface AWSElasticsearchAsync extends AWSElasticsearch {
 
     /**
      * <p>
+     * Creates a new cross-cluster search connection from a source domain to a destination domain.
+     * </p>
+     * 
+     * @param createOutboundCrossClusterSearchConnectionRequest
+     *        Container for the parameters to the <code><a>CreateOutboundCrossClusterSearchConnection</a></code>
+     *        operation.
+     * @return A Java Future containing the result of the CreateOutboundCrossClusterSearchConnection operation returned
+     *         by the service.
+     * @sample AWSElasticsearchAsync.CreateOutboundCrossClusterSearchConnection
+     */
+    java.util.concurrent.Future<CreateOutboundCrossClusterSearchConnectionResult> createOutboundCrossClusterSearchConnectionAsync(
+            CreateOutboundCrossClusterSearchConnectionRequest createOutboundCrossClusterSearchConnectionRequest);
+
+    /**
+     * <p>
+     * Creates a new cross-cluster search connection from a source domain to a destination domain.
+     * </p>
+     * 
+     * @param createOutboundCrossClusterSearchConnectionRequest
+     *        Container for the parameters to the <code><a>CreateOutboundCrossClusterSearchConnection</a></code>
+     *        operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateOutboundCrossClusterSearchConnection operation returned
+     *         by the service.
+     * @sample AWSElasticsearchAsyncHandler.CreateOutboundCrossClusterSearchConnection
+     */
+    java.util.concurrent.Future<CreateOutboundCrossClusterSearchConnectionResult> createOutboundCrossClusterSearchConnectionAsync(
+            CreateOutboundCrossClusterSearchConnectionRequest createOutboundCrossClusterSearchConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateOutboundCrossClusterSearchConnectionRequest, CreateOutboundCrossClusterSearchConnectionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Create a package for use with Amazon ES domains.
+     * </p>
+     * 
+     * @param createPackageRequest
+     *        Container for request parameters to <code> <a>CreatePackage</a> </code> operation.
+     * @return A Java Future containing the result of the CreatePackage operation returned by the service.
+     * @sample AWSElasticsearchAsync.CreatePackage
+     */
+    java.util.concurrent.Future<CreatePackageResult> createPackageAsync(CreatePackageRequest createPackageRequest);
+
+    /**
+     * <p>
+     * Create a package for use with Amazon ES domains.
+     * </p>
+     * 
+     * @param createPackageRequest
+     *        Container for request parameters to <code> <a>CreatePackage</a> </code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreatePackage operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.CreatePackage
+     */
+    java.util.concurrent.Future<CreatePackageResult> createPackageAsync(CreatePackageRequest createPackageRequest,
+            com.amazonaws.handlers.AsyncHandler<CreatePackageRequest, CreatePackageResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates an Amazon OpenSearch Service-managed VPC endpoint.
+     * </p>
+     * 
+     * @param createVpcEndpointRequest
+     *        Container for the parameters to the <code><a>CreateVpcEndpointRequest</a></code> operation.
+     * @return A Java Future containing the result of the CreateVpcEndpoint operation returned by the service.
+     * @sample AWSElasticsearchAsync.CreateVpcEndpoint
+     */
+    java.util.concurrent.Future<CreateVpcEndpointResult> createVpcEndpointAsync(CreateVpcEndpointRequest createVpcEndpointRequest);
+
+    /**
+     * <p>
+     * Creates an Amazon OpenSearch Service-managed VPC endpoint.
+     * </p>
+     * 
+     * @param createVpcEndpointRequest
+     *        Container for the parameters to the <code><a>CreateVpcEndpointRequest</a></code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateVpcEndpoint operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.CreateVpcEndpoint
+     */
+    java.util.concurrent.Future<CreateVpcEndpointResult> createVpcEndpointAsync(CreateVpcEndpointRequest createVpcEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateVpcEndpointRequest, CreateVpcEndpointResult> asyncHandler);
+
+    /**
+     * <p>
      * Permanently deletes the specified Elasticsearch domain and all of its data. Once a domain is deleted, it cannot
      * be recovered.
      * </p>
@@ -225,6 +451,202 @@ public interface AWSElasticsearchAsync extends AWSElasticsearch {
     java.util.concurrent.Future<DeleteElasticsearchServiceRoleResult> deleteElasticsearchServiceRoleAsync(
             DeleteElasticsearchServiceRoleRequest deleteElasticsearchServiceRoleRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteElasticsearchServiceRoleRequest, DeleteElasticsearchServiceRoleResult> asyncHandler);
+
+    /**
+     * <p>
+     * Allows the destination domain owner to delete an existing inbound cross-cluster search connection.
+     * </p>
+     * 
+     * @param deleteInboundCrossClusterSearchConnectionRequest
+     *        Container for the parameters to the <code><a>DeleteInboundCrossClusterSearchConnection</a></code>
+     *        operation.
+     * @return A Java Future containing the result of the DeleteInboundCrossClusterSearchConnection operation returned
+     *         by the service.
+     * @sample AWSElasticsearchAsync.DeleteInboundCrossClusterSearchConnection
+     */
+    java.util.concurrent.Future<DeleteInboundCrossClusterSearchConnectionResult> deleteInboundCrossClusterSearchConnectionAsync(
+            DeleteInboundCrossClusterSearchConnectionRequest deleteInboundCrossClusterSearchConnectionRequest);
+
+    /**
+     * <p>
+     * Allows the destination domain owner to delete an existing inbound cross-cluster search connection.
+     * </p>
+     * 
+     * @param deleteInboundCrossClusterSearchConnectionRequest
+     *        Container for the parameters to the <code><a>DeleteInboundCrossClusterSearchConnection</a></code>
+     *        operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteInboundCrossClusterSearchConnection operation returned
+     *         by the service.
+     * @sample AWSElasticsearchAsyncHandler.DeleteInboundCrossClusterSearchConnection
+     */
+    java.util.concurrent.Future<DeleteInboundCrossClusterSearchConnectionResult> deleteInboundCrossClusterSearchConnectionAsync(
+            DeleteInboundCrossClusterSearchConnectionRequest deleteInboundCrossClusterSearchConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteInboundCrossClusterSearchConnectionRequest, DeleteInboundCrossClusterSearchConnectionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Allows the source domain owner to delete an existing outbound cross-cluster search connection.
+     * </p>
+     * 
+     * @param deleteOutboundCrossClusterSearchConnectionRequest
+     *        Container for the parameters to the <code><a>DeleteOutboundCrossClusterSearchConnection</a></code>
+     *        operation.
+     * @return A Java Future containing the result of the DeleteOutboundCrossClusterSearchConnection operation returned
+     *         by the service.
+     * @sample AWSElasticsearchAsync.DeleteOutboundCrossClusterSearchConnection
+     */
+    java.util.concurrent.Future<DeleteOutboundCrossClusterSearchConnectionResult> deleteOutboundCrossClusterSearchConnectionAsync(
+            DeleteOutboundCrossClusterSearchConnectionRequest deleteOutboundCrossClusterSearchConnectionRequest);
+
+    /**
+     * <p>
+     * Allows the source domain owner to delete an existing outbound cross-cluster search connection.
+     * </p>
+     * 
+     * @param deleteOutboundCrossClusterSearchConnectionRequest
+     *        Container for the parameters to the <code><a>DeleteOutboundCrossClusterSearchConnection</a></code>
+     *        operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteOutboundCrossClusterSearchConnection operation returned
+     *         by the service.
+     * @sample AWSElasticsearchAsyncHandler.DeleteOutboundCrossClusterSearchConnection
+     */
+    java.util.concurrent.Future<DeleteOutboundCrossClusterSearchConnectionResult> deleteOutboundCrossClusterSearchConnectionAsync(
+            DeleteOutboundCrossClusterSearchConnectionRequest deleteOutboundCrossClusterSearchConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteOutboundCrossClusterSearchConnectionRequest, DeleteOutboundCrossClusterSearchConnectionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Delete the package.
+     * </p>
+     * 
+     * @param deletePackageRequest
+     *        Container for request parameters to <code> <a>DeletePackage</a> </code> operation.
+     * @return A Java Future containing the result of the DeletePackage operation returned by the service.
+     * @sample AWSElasticsearchAsync.DeletePackage
+     */
+    java.util.concurrent.Future<DeletePackageResult> deletePackageAsync(DeletePackageRequest deletePackageRequest);
+
+    /**
+     * <p>
+     * Delete the package.
+     * </p>
+     * 
+     * @param deletePackageRequest
+     *        Container for request parameters to <code> <a>DeletePackage</a> </code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeletePackage operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.DeletePackage
+     */
+    java.util.concurrent.Future<DeletePackageResult> deletePackageAsync(DeletePackageRequest deletePackageRequest,
+            com.amazonaws.handlers.AsyncHandler<DeletePackageRequest, DeletePackageResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an Amazon OpenSearch Service-managed interface VPC endpoint.
+     * </p>
+     * 
+     * @param deleteVpcEndpointRequest
+     *        Deletes an Amazon OpenSearch Service-managed interface VPC endpoint.
+     * @return A Java Future containing the result of the DeleteVpcEndpoint operation returned by the service.
+     * @sample AWSElasticsearchAsync.DeleteVpcEndpoint
+     */
+    java.util.concurrent.Future<DeleteVpcEndpointResult> deleteVpcEndpointAsync(DeleteVpcEndpointRequest deleteVpcEndpointRequest);
+
+    /**
+     * <p>
+     * Deletes an Amazon OpenSearch Service-managed interface VPC endpoint.
+     * </p>
+     * 
+     * @param deleteVpcEndpointRequest
+     *        Deletes an Amazon OpenSearch Service-managed interface VPC endpoint.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteVpcEndpoint operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.DeleteVpcEndpoint
+     */
+    java.util.concurrent.Future<DeleteVpcEndpointResult> deleteVpcEndpointAsync(DeleteVpcEndpointRequest deleteVpcEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteVpcEndpointRequest, DeleteVpcEndpointResult> asyncHandler);
+
+    /**
+     * <p>
+     * Provides scheduled Auto-Tune action details for the Elasticsearch domain, such as Auto-Tune action type,
+     * description, severity, and scheduled date.
+     * </p>
+     * 
+     * @param describeDomainAutoTunesRequest
+     *        Container for the parameters to the <code>DescribeDomainAutoTunes</code> operation.
+     * @return A Java Future containing the result of the DescribeDomainAutoTunes operation returned by the service.
+     * @sample AWSElasticsearchAsync.DescribeDomainAutoTunes
+     */
+    java.util.concurrent.Future<DescribeDomainAutoTunesResult> describeDomainAutoTunesAsync(DescribeDomainAutoTunesRequest describeDomainAutoTunesRequest);
+
+    /**
+     * <p>
+     * Provides scheduled Auto-Tune action details for the Elasticsearch domain, such as Auto-Tune action type,
+     * description, severity, and scheduled date.
+     * </p>
+     * 
+     * @param describeDomainAutoTunesRequest
+     *        Container for the parameters to the <code>DescribeDomainAutoTunes</code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeDomainAutoTunes operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.DescribeDomainAutoTunes
+     */
+    java.util.concurrent.Future<DescribeDomainAutoTunesResult> describeDomainAutoTunesAsync(DescribeDomainAutoTunesRequest describeDomainAutoTunesRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeDomainAutoTunesRequest, DescribeDomainAutoTunesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns information about the current blue/green deployment happening on a domain, including a change ID, status,
+     * and progress stages.
+     * </p>
+     * 
+     * @param describeDomainChangeProgressRequest
+     *        Container for the parameters to the <code>DescribeDomainChangeProgress</code> operation. Specifies the
+     *        domain name and optional change specific identity for which you want progress information.
+     * @return A Java Future containing the result of the DescribeDomainChangeProgress operation returned by the
+     *         service.
+     * @sample AWSElasticsearchAsync.DescribeDomainChangeProgress
+     */
+    java.util.concurrent.Future<DescribeDomainChangeProgressResult> describeDomainChangeProgressAsync(
+            DescribeDomainChangeProgressRequest describeDomainChangeProgressRequest);
+
+    /**
+     * <p>
+     * Returns information about the current blue/green deployment happening on a domain, including a change ID, status,
+     * and progress stages.
+     * </p>
+     * 
+     * @param describeDomainChangeProgressRequest
+     *        Container for the parameters to the <code>DescribeDomainChangeProgress</code> operation. Specifies the
+     *        domain name and optional change specific identity for which you want progress information.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeDomainChangeProgress operation returned by the
+     *         service.
+     * @sample AWSElasticsearchAsyncHandler.DescribeDomainChangeProgress
+     */
+    java.util.concurrent.Future<DescribeDomainChangeProgressResult> describeDomainChangeProgressAsync(
+            DescribeDomainChangeProgressRequest describeDomainChangeProgressRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeDomainChangeProgressRequest, DescribeDomainChangeProgressResult> asyncHandler);
 
     /**
      * <p>
@@ -370,6 +792,107 @@ public interface AWSElasticsearchAsync extends AWSElasticsearch {
 
     /**
      * <p>
+     * Lists all the inbound cross-cluster search connections for a destination domain.
+     * </p>
+     * 
+     * @param describeInboundCrossClusterSearchConnectionsRequest
+     *        Container for the parameters to the <code><a>DescribeInboundCrossClusterSearchConnections</a></code>
+     *        operation.
+     * @return A Java Future containing the result of the DescribeInboundCrossClusterSearchConnections operation
+     *         returned by the service.
+     * @sample AWSElasticsearchAsync.DescribeInboundCrossClusterSearchConnections
+     */
+    java.util.concurrent.Future<DescribeInboundCrossClusterSearchConnectionsResult> describeInboundCrossClusterSearchConnectionsAsync(
+            DescribeInboundCrossClusterSearchConnectionsRequest describeInboundCrossClusterSearchConnectionsRequest);
+
+    /**
+     * <p>
+     * Lists all the inbound cross-cluster search connections for a destination domain.
+     * </p>
+     * 
+     * @param describeInboundCrossClusterSearchConnectionsRequest
+     *        Container for the parameters to the <code><a>DescribeInboundCrossClusterSearchConnections</a></code>
+     *        operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeInboundCrossClusterSearchConnections operation
+     *         returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.DescribeInboundCrossClusterSearchConnections
+     */
+    java.util.concurrent.Future<DescribeInboundCrossClusterSearchConnectionsResult> describeInboundCrossClusterSearchConnectionsAsync(
+            DescribeInboundCrossClusterSearchConnectionsRequest describeInboundCrossClusterSearchConnectionsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeInboundCrossClusterSearchConnectionsRequest, DescribeInboundCrossClusterSearchConnectionsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists all the outbound cross-cluster search connections for a source domain.
+     * </p>
+     * 
+     * @param describeOutboundCrossClusterSearchConnectionsRequest
+     *        Container for the parameters to the <code><a>DescribeOutboundCrossClusterSearchConnections</a></code>
+     *        operation.
+     * @return A Java Future containing the result of the DescribeOutboundCrossClusterSearchConnections operation
+     *         returned by the service.
+     * @sample AWSElasticsearchAsync.DescribeOutboundCrossClusterSearchConnections
+     */
+    java.util.concurrent.Future<DescribeOutboundCrossClusterSearchConnectionsResult> describeOutboundCrossClusterSearchConnectionsAsync(
+            DescribeOutboundCrossClusterSearchConnectionsRequest describeOutboundCrossClusterSearchConnectionsRequest);
+
+    /**
+     * <p>
+     * Lists all the outbound cross-cluster search connections for a source domain.
+     * </p>
+     * 
+     * @param describeOutboundCrossClusterSearchConnectionsRequest
+     *        Container for the parameters to the <code><a>DescribeOutboundCrossClusterSearchConnections</a></code>
+     *        operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeOutboundCrossClusterSearchConnections operation
+     *         returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.DescribeOutboundCrossClusterSearchConnections
+     */
+    java.util.concurrent.Future<DescribeOutboundCrossClusterSearchConnectionsResult> describeOutboundCrossClusterSearchConnectionsAsync(
+            DescribeOutboundCrossClusterSearchConnectionsRequest describeOutboundCrossClusterSearchConnectionsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeOutboundCrossClusterSearchConnectionsRequest, DescribeOutboundCrossClusterSearchConnectionsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes all packages available to Amazon ES. Includes options for filtering, limiting the number of results,
+     * and pagination.
+     * </p>
+     * 
+     * @param describePackagesRequest
+     *        Container for request parameters to <code> <a>DescribePackage</a> </code> operation.
+     * @return A Java Future containing the result of the DescribePackages operation returned by the service.
+     * @sample AWSElasticsearchAsync.DescribePackages
+     */
+    java.util.concurrent.Future<DescribePackagesResult> describePackagesAsync(DescribePackagesRequest describePackagesRequest);
+
+    /**
+     * <p>
+     * Describes all packages available to Amazon ES. Includes options for filtering, limiting the number of results,
+     * and pagination.
+     * </p>
+     * 
+     * @param describePackagesRequest
+     *        Container for request parameters to <code> <a>DescribePackage</a> </code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribePackages operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.DescribePackages
+     */
+    java.util.concurrent.Future<DescribePackagesResult> describePackagesAsync(DescribePackagesRequest describePackagesRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribePackagesRequest, DescribePackagesResult> asyncHandler);
+
+    /**
+     * <p>
      * Lists available reserved Elasticsearch instance offerings.
      * </p>
      * 
@@ -436,6 +959,66 @@ public interface AWSElasticsearchAsync extends AWSElasticsearch {
 
     /**
      * <p>
+     * Describes one or more Amazon OpenSearch Service-managed VPC endpoints.
+     * </p>
+     * 
+     * @param describeVpcEndpointsRequest
+     *        Container for request parameters to the <code><a>DescribeVpcEndpoints</a></code> operation. Specifies the
+     *        list of VPC endpoints to be described.
+     * @return A Java Future containing the result of the DescribeVpcEndpoints operation returned by the service.
+     * @sample AWSElasticsearchAsync.DescribeVpcEndpoints
+     */
+    java.util.concurrent.Future<DescribeVpcEndpointsResult> describeVpcEndpointsAsync(DescribeVpcEndpointsRequest describeVpcEndpointsRequest);
+
+    /**
+     * <p>
+     * Describes one or more Amazon OpenSearch Service-managed VPC endpoints.
+     * </p>
+     * 
+     * @param describeVpcEndpointsRequest
+     *        Container for request parameters to the <code><a>DescribeVpcEndpoints</a></code> operation. Specifies the
+     *        list of VPC endpoints to be described.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeVpcEndpoints operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.DescribeVpcEndpoints
+     */
+    java.util.concurrent.Future<DescribeVpcEndpointsResult> describeVpcEndpointsAsync(DescribeVpcEndpointsRequest describeVpcEndpointsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeVpcEndpointsRequest, DescribeVpcEndpointsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Dissociates a package from the Amazon ES domain.
+     * </p>
+     * 
+     * @param dissociatePackageRequest
+     *        Container for request parameters to <code> <a>DissociatePackage</a> </code> operation.
+     * @return A Java Future containing the result of the DissociatePackage operation returned by the service.
+     * @sample AWSElasticsearchAsync.DissociatePackage
+     */
+    java.util.concurrent.Future<DissociatePackageResult> dissociatePackageAsync(DissociatePackageRequest dissociatePackageRequest);
+
+    /**
+     * <p>
+     * Dissociates a package from the Amazon ES domain.
+     * </p>
+     * 
+     * @param dissociatePackageRequest
+     *        Container for request parameters to <code> <a>DissociatePackage</a> </code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DissociatePackage operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.DissociatePackage
+     */
+    java.util.concurrent.Future<DissociatePackageResult> dissociatePackageAsync(DissociatePackageRequest dissociatePackageRequest,
+            com.amazonaws.handlers.AsyncHandler<DissociatePackageRequest, DissociatePackageResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns a list of upgrade compatible Elastisearch versions. You can optionally pass a
      * <code> <a>DomainName</a> </code> to get all upgrade compatible Elasticsearch versions for that specific domain.
      * </p>
@@ -468,6 +1051,35 @@ public interface AWSElasticsearchAsync extends AWSElasticsearch {
     java.util.concurrent.Future<GetCompatibleElasticsearchVersionsResult> getCompatibleElasticsearchVersionsAsync(
             GetCompatibleElasticsearchVersionsRequest getCompatibleElasticsearchVersionsRequest,
             com.amazonaws.handlers.AsyncHandler<GetCompatibleElasticsearchVersionsRequest, GetCompatibleElasticsearchVersionsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of versions of the package, along with their creation time and commit message.
+     * </p>
+     * 
+     * @param getPackageVersionHistoryRequest
+     *        Container for request parameters to <code> <a>GetPackageVersionHistory</a> </code> operation.
+     * @return A Java Future containing the result of the GetPackageVersionHistory operation returned by the service.
+     * @sample AWSElasticsearchAsync.GetPackageVersionHistory
+     */
+    java.util.concurrent.Future<GetPackageVersionHistoryResult> getPackageVersionHistoryAsync(GetPackageVersionHistoryRequest getPackageVersionHistoryRequest);
+
+    /**
+     * <p>
+     * Returns a list of versions of the package, along with their creation time and commit message.
+     * </p>
+     * 
+     * @param getPackageVersionHistoryRequest
+     *        Container for request parameters to <code> <a>GetPackageVersionHistory</a> </code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetPackageVersionHistory operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.GetPackageVersionHistory
+     */
+    java.util.concurrent.Future<GetPackageVersionHistoryResult> getPackageVersionHistoryAsync(GetPackageVersionHistoryRequest getPackageVersionHistoryRequest,
+            com.amazonaws.handlers.AsyncHandler<GetPackageVersionHistoryRequest, GetPackageVersionHistoryResult> asyncHandler);
 
     /**
      * <p>
@@ -533,6 +1145,7 @@ public interface AWSElasticsearchAsync extends AWSElasticsearch {
      * </p>
      * 
      * @param listDomainNamesRequest
+     *        Container for the parameters to the <code><a>ListDomainNames</a></code> operation.
      * @return A Java Future containing the result of the ListDomainNames operation returned by the service.
      * @sample AWSElasticsearchAsync.ListDomainNames
      */
@@ -544,6 +1157,7 @@ public interface AWSElasticsearchAsync extends AWSElasticsearch {
      * </p>
      * 
      * @param listDomainNamesRequest
+     *        Container for the parameters to the <code><a>ListDomainNames</a></code> operation.
      * @param asyncHandler
      *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
      *        implementation of the callback methods in this interface to receive notification of successful or
@@ -553,6 +1167,35 @@ public interface AWSElasticsearchAsync extends AWSElasticsearch {
      */
     java.util.concurrent.Future<ListDomainNamesResult> listDomainNamesAsync(ListDomainNamesRequest listDomainNamesRequest,
             com.amazonaws.handlers.AsyncHandler<ListDomainNamesRequest, ListDomainNamesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists all Amazon ES domains associated with the package.
+     * </p>
+     * 
+     * @param listDomainsForPackageRequest
+     *        Container for request parameters to <code> <a>ListDomainsForPackage</a> </code> operation.
+     * @return A Java Future containing the result of the ListDomainsForPackage operation returned by the service.
+     * @sample AWSElasticsearchAsync.ListDomainsForPackage
+     */
+    java.util.concurrent.Future<ListDomainsForPackageResult> listDomainsForPackageAsync(ListDomainsForPackageRequest listDomainsForPackageRequest);
+
+    /**
+     * <p>
+     * Lists all Amazon ES domains associated with the package.
+     * </p>
+     * 
+     * @param listDomainsForPackageRequest
+     *        Container for request parameters to <code> <a>ListDomainsForPackage</a> </code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListDomainsForPackage operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.ListDomainsForPackage
+     */
+    java.util.concurrent.Future<ListDomainsForPackageResult> listDomainsForPackageAsync(ListDomainsForPackageRequest listDomainsForPackageRequest,
+            com.amazonaws.handlers.AsyncHandler<ListDomainsForPackageRequest, ListDomainsForPackageResult> asyncHandler);
 
     /**
      * <p>
@@ -636,6 +1279,35 @@ public interface AWSElasticsearchAsync extends AWSElasticsearch {
 
     /**
      * <p>
+     * Lists all packages associated with the Amazon ES domain.
+     * </p>
+     * 
+     * @param listPackagesForDomainRequest
+     *        Container for request parameters to <code> <a>ListPackagesForDomain</a> </code> operation.
+     * @return A Java Future containing the result of the ListPackagesForDomain operation returned by the service.
+     * @sample AWSElasticsearchAsync.ListPackagesForDomain
+     */
+    java.util.concurrent.Future<ListPackagesForDomainResult> listPackagesForDomainAsync(ListPackagesForDomainRequest listPackagesForDomainRequest);
+
+    /**
+     * <p>
+     * Lists all packages associated with the Amazon ES domain.
+     * </p>
+     * 
+     * @param listPackagesForDomainRequest
+     *        Container for request parameters to <code> <a>ListPackagesForDomain</a> </code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListPackagesForDomain operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.ListPackagesForDomain
+     */
+    java.util.concurrent.Future<ListPackagesForDomainResult> listPackagesForDomainAsync(ListPackagesForDomainRequest listPackagesForDomainRequest,
+            com.amazonaws.handlers.AsyncHandler<ListPackagesForDomainRequest, ListPackagesForDomainResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns all tags for the given Elasticsearch domain.
      * </p>
      * 
@@ -664,6 +1336,101 @@ public interface AWSElasticsearchAsync extends AWSElasticsearch {
      */
     java.util.concurrent.Future<ListTagsResult> listTagsAsync(ListTagsRequest listTagsRequest,
             com.amazonaws.handlers.AsyncHandler<ListTagsRequest, ListTagsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves information about each principal that is allowed to access a given Amazon OpenSearch Service domain
+     * through the use of an interface VPC endpoint.
+     * </p>
+     * 
+     * @param listVpcEndpointAccessRequest
+     *        Retrieves information about each principal that is allowed to access a given Amazon OpenSearch Service
+     *        domain through the use of an interface VPC endpoint
+     * @return A Java Future containing the result of the ListVpcEndpointAccess operation returned by the service.
+     * @sample AWSElasticsearchAsync.ListVpcEndpointAccess
+     */
+    java.util.concurrent.Future<ListVpcEndpointAccessResult> listVpcEndpointAccessAsync(ListVpcEndpointAccessRequest listVpcEndpointAccessRequest);
+
+    /**
+     * <p>
+     * Retrieves information about each principal that is allowed to access a given Amazon OpenSearch Service domain
+     * through the use of an interface VPC endpoint.
+     * </p>
+     * 
+     * @param listVpcEndpointAccessRequest
+     *        Retrieves information about each principal that is allowed to access a given Amazon OpenSearch Service
+     *        domain through the use of an interface VPC endpoint
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListVpcEndpointAccess operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.ListVpcEndpointAccess
+     */
+    java.util.concurrent.Future<ListVpcEndpointAccessResult> listVpcEndpointAccessAsync(ListVpcEndpointAccessRequest listVpcEndpointAccessRequest,
+            com.amazonaws.handlers.AsyncHandler<ListVpcEndpointAccessRequest, ListVpcEndpointAccessResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves all Amazon OpenSearch Service-managed VPC endpoints in the current account and Region.
+     * </p>
+     * 
+     * @param listVpcEndpointsRequest
+     *        Container for request parameters to the <code><a>ListVpcEndpoints</a></code> operation.
+     * @return A Java Future containing the result of the ListVpcEndpoints operation returned by the service.
+     * @sample AWSElasticsearchAsync.ListVpcEndpoints
+     */
+    java.util.concurrent.Future<ListVpcEndpointsResult> listVpcEndpointsAsync(ListVpcEndpointsRequest listVpcEndpointsRequest);
+
+    /**
+     * <p>
+     * Retrieves all Amazon OpenSearch Service-managed VPC endpoints in the current account and Region.
+     * </p>
+     * 
+     * @param listVpcEndpointsRequest
+     *        Container for request parameters to the <code><a>ListVpcEndpoints</a></code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListVpcEndpoints operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.ListVpcEndpoints
+     */
+    java.util.concurrent.Future<ListVpcEndpointsResult> listVpcEndpointsAsync(ListVpcEndpointsRequest listVpcEndpointsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListVpcEndpointsRequest, ListVpcEndpointsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves all Amazon OpenSearch Service-managed VPC endpoints associated with a particular domain.
+     * </p>
+     * 
+     * @param listVpcEndpointsForDomainRequest
+     *        Container for request parameters to the <code><a>ListVpcEndpointsForDomain</a></code> operation. Specifies
+     *        the domain whose VPC endpoints will be listed.
+     * @return A Java Future containing the result of the ListVpcEndpointsForDomain operation returned by the service.
+     * @sample AWSElasticsearchAsync.ListVpcEndpointsForDomain
+     */
+    java.util.concurrent.Future<ListVpcEndpointsForDomainResult> listVpcEndpointsForDomainAsync(
+            ListVpcEndpointsForDomainRequest listVpcEndpointsForDomainRequest);
+
+    /**
+     * <p>
+     * Retrieves all Amazon OpenSearch Service-managed VPC endpoints associated with a particular domain.
+     * </p>
+     * 
+     * @param listVpcEndpointsForDomainRequest
+     *        Container for request parameters to the <code><a>ListVpcEndpointsForDomain</a></code> operation. Specifies
+     *        the domain whose VPC endpoints will be listed.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListVpcEndpointsForDomain operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.ListVpcEndpointsForDomain
+     */
+    java.util.concurrent.Future<ListVpcEndpointsForDomainResult> listVpcEndpointsForDomainAsync(
+            ListVpcEndpointsForDomainRequest listVpcEndpointsForDomainRequest,
+            com.amazonaws.handlers.AsyncHandler<ListVpcEndpointsForDomainRequest, ListVpcEndpointsForDomainResult> asyncHandler);
 
     /**
      * <p>
@@ -700,6 +1467,41 @@ public interface AWSElasticsearchAsync extends AWSElasticsearch {
 
     /**
      * <p>
+     * Allows the destination domain owner to reject an inbound cross-cluster search connection request.
+     * </p>
+     * 
+     * @param rejectInboundCrossClusterSearchConnectionRequest
+     *        Container for the parameters to the <code><a>RejectInboundCrossClusterSearchConnection</a></code>
+     *        operation.
+     * @return A Java Future containing the result of the RejectInboundCrossClusterSearchConnection operation returned
+     *         by the service.
+     * @sample AWSElasticsearchAsync.RejectInboundCrossClusterSearchConnection
+     */
+    java.util.concurrent.Future<RejectInboundCrossClusterSearchConnectionResult> rejectInboundCrossClusterSearchConnectionAsync(
+            RejectInboundCrossClusterSearchConnectionRequest rejectInboundCrossClusterSearchConnectionRequest);
+
+    /**
+     * <p>
+     * Allows the destination domain owner to reject an inbound cross-cluster search connection request.
+     * </p>
+     * 
+     * @param rejectInboundCrossClusterSearchConnectionRequest
+     *        Container for the parameters to the <code><a>RejectInboundCrossClusterSearchConnection</a></code>
+     *        operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RejectInboundCrossClusterSearchConnection operation returned
+     *         by the service.
+     * @sample AWSElasticsearchAsyncHandler.RejectInboundCrossClusterSearchConnection
+     */
+    java.util.concurrent.Future<RejectInboundCrossClusterSearchConnectionResult> rejectInboundCrossClusterSearchConnectionAsync(
+            RejectInboundCrossClusterSearchConnectionRequest rejectInboundCrossClusterSearchConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<RejectInboundCrossClusterSearchConnectionRequest, RejectInboundCrossClusterSearchConnectionResult> asyncHandler);
+
+    /**
+     * <p>
      * Removes the specified set of tags from the specified Elasticsearch domain.
      * </p>
      * 
@@ -728,6 +1530,35 @@ public interface AWSElasticsearchAsync extends AWSElasticsearch {
      */
     java.util.concurrent.Future<RemoveTagsResult> removeTagsAsync(RemoveTagsRequest removeTagsRequest,
             com.amazonaws.handlers.AsyncHandler<RemoveTagsRequest, RemoveTagsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Revokes access to an Amazon OpenSearch Service domain that was provided through an interface VPC endpoint.
+     * </p>
+     * 
+     * @param revokeVpcEndpointAccessRequest
+     *        Revokes access to an Amazon OpenSearch Service domain that was provided through an interface VPC endpoint.
+     * @return A Java Future containing the result of the RevokeVpcEndpointAccess operation returned by the service.
+     * @sample AWSElasticsearchAsync.RevokeVpcEndpointAccess
+     */
+    java.util.concurrent.Future<RevokeVpcEndpointAccessResult> revokeVpcEndpointAccessAsync(RevokeVpcEndpointAccessRequest revokeVpcEndpointAccessRequest);
+
+    /**
+     * <p>
+     * Revokes access to an Amazon OpenSearch Service domain that was provided through an interface VPC endpoint.
+     * </p>
+     * 
+     * @param revokeVpcEndpointAccessRequest
+     *        Revokes access to an Amazon OpenSearch Service domain that was provided through an interface VPC endpoint.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RevokeVpcEndpointAccess operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.RevokeVpcEndpointAccess
+     */
+    java.util.concurrent.Future<RevokeVpcEndpointAccessResult> revokeVpcEndpointAccessAsync(RevokeVpcEndpointAccessRequest revokeVpcEndpointAccessRequest,
+            com.amazonaws.handlers.AsyncHandler<RevokeVpcEndpointAccessRequest, RevokeVpcEndpointAccessResult> asyncHandler);
 
     /**
      * <p>
@@ -800,6 +1631,64 @@ public interface AWSElasticsearchAsync extends AWSElasticsearch {
     java.util.concurrent.Future<UpdateElasticsearchDomainConfigResult> updateElasticsearchDomainConfigAsync(
             UpdateElasticsearchDomainConfigRequest updateElasticsearchDomainConfigRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateElasticsearchDomainConfigRequest, UpdateElasticsearchDomainConfigResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates a package for use with Amazon ES domains.
+     * </p>
+     * 
+     * @param updatePackageRequest
+     *        Container for request parameters to <code> <a>UpdatePackage</a> </code> operation.
+     * @return A Java Future containing the result of the UpdatePackage operation returned by the service.
+     * @sample AWSElasticsearchAsync.UpdatePackage
+     */
+    java.util.concurrent.Future<UpdatePackageResult> updatePackageAsync(UpdatePackageRequest updatePackageRequest);
+
+    /**
+     * <p>
+     * Updates a package for use with Amazon ES domains.
+     * </p>
+     * 
+     * @param updatePackageRequest
+     *        Container for request parameters to <code> <a>UpdatePackage</a> </code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdatePackage operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.UpdatePackage
+     */
+    java.util.concurrent.Future<UpdatePackageResult> updatePackageAsync(UpdatePackageRequest updatePackageRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdatePackageRequest, UpdatePackageResult> asyncHandler);
+
+    /**
+     * <p>
+     * Modifies an Amazon OpenSearch Service-managed interface VPC endpoint.
+     * </p>
+     * 
+     * @param updateVpcEndpointRequest
+     *        Modifies an Amazon OpenSearch Service-managed interface VPC endpoint.
+     * @return A Java Future containing the result of the UpdateVpcEndpoint operation returned by the service.
+     * @sample AWSElasticsearchAsync.UpdateVpcEndpoint
+     */
+    java.util.concurrent.Future<UpdateVpcEndpointResult> updateVpcEndpointAsync(UpdateVpcEndpointRequest updateVpcEndpointRequest);
+
+    /**
+     * <p>
+     * Modifies an Amazon OpenSearch Service-managed interface VPC endpoint.
+     * </p>
+     * 
+     * @param updateVpcEndpointRequest
+     *        Modifies an Amazon OpenSearch Service-managed interface VPC endpoint.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateVpcEndpoint operation returned by the service.
+     * @sample AWSElasticsearchAsyncHandler.UpdateVpcEndpoint
+     */
+    java.util.concurrent.Future<UpdateVpcEndpointResult> updateVpcEndpointAsync(UpdateVpcEndpointRequest updateVpcEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateVpcEndpointRequest, UpdateVpcEndpointResult> asyncHandler);
 
     /**
      * <p>

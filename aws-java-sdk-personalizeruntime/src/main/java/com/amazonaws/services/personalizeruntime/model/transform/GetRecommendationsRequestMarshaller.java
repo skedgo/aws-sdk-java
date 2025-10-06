@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,8 @@
  */
 package com.amazonaws.services.personalizeruntime.model.transform;
 
+import java.util.Map;
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -35,6 +37,18 @@ public class GetRecommendationsRequestMarshaller {
             .marshallLocationName("userId").build();
     private static final MarshallingInfo<Integer> NUMRESULTS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("numResults").build();
+    private static final MarshallingInfo<Map> CONTEXT_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("context").build();
+    private static final MarshallingInfo<String> FILTERARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("filterArn").build();
+    private static final MarshallingInfo<Map> FILTERVALUES_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("filterValues").build();
+    private static final MarshallingInfo<String> RECOMMENDERARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("recommenderArn").build();
+    private static final MarshallingInfo<List> PROMOTIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("promotions").build();
+    private static final MarshallingInfo<Map> METADATACOLUMNS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("metadataColumns").build();
 
     private static final GetRecommendationsRequestMarshaller instance = new GetRecommendationsRequestMarshaller();
 
@@ -56,6 +70,12 @@ public class GetRecommendationsRequestMarshaller {
             protocolMarshaller.marshall(getRecommendationsRequest.getItemId(), ITEMID_BINDING);
             protocolMarshaller.marshall(getRecommendationsRequest.getUserId(), USERID_BINDING);
             protocolMarshaller.marshall(getRecommendationsRequest.getNumResults(), NUMRESULTS_BINDING);
+            protocolMarshaller.marshall(getRecommendationsRequest.getContext(), CONTEXT_BINDING);
+            protocolMarshaller.marshall(getRecommendationsRequest.getFilterArn(), FILTERARN_BINDING);
+            protocolMarshaller.marshall(getRecommendationsRequest.getFilterValues(), FILTERVALUES_BINDING);
+            protocolMarshaller.marshall(getRecommendationsRequest.getRecommenderArn(), RECOMMENDERARN_BINDING);
+            protocolMarshaller.marshall(getRecommendationsRequest.getPromotions(), PROMOTIONS_BINDING);
+            protocolMarshaller.marshall(getRecommendationsRequest.getMetadataColumns(), METADATACOLUMNS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

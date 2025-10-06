@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.polly.AmazonPollyClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.polly.model.*;
+
 import com.amazonaws.services.polly.model.transform.*;
 
 /**
@@ -81,70 +82,70 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidS3BucketException").withModeledClass(
-                                    com.amazonaws.services.polly.model.InvalidS3BucketException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidS3BucketException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.InvalidS3BucketExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidSampleRateException").withModeledClass(
-                                    com.amazonaws.services.polly.model.InvalidSampleRateException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidSampleRateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.InvalidSampleRateExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("SynthesisTaskNotFoundException").withModeledClass(
-                                    com.amazonaws.services.polly.model.SynthesisTaskNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("SynthesisTaskNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.SynthesisTaskNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MaxLexiconsNumberExceededException").withModeledClass(
-                                    com.amazonaws.services.polly.model.MaxLexiconsNumberExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MaxLexiconsNumberExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.MaxLexiconsNumberExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MaxLexemeLengthExceededException").withModeledClass(
-                                    com.amazonaws.services.polly.model.MaxLexemeLengthExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MaxLexemeLengthExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.MaxLexemeLengthExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedPlsAlphabetException").withModeledClass(
-                                    com.amazonaws.services.polly.model.UnsupportedPlsAlphabetException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedPlsAlphabetException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.UnsupportedPlsAlphabetExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LanguageNotSupportedException").withModeledClass(
-                                    com.amazonaws.services.polly.model.LanguageNotSupportedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LanguageNotSupportedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.LanguageNotSupportedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TextLengthExceededException").withModeledClass(
-                                    com.amazonaws.services.polly.model.TextLengthExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TextLengthExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.TextLengthExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidLexiconException").withModeledClass(
-                                    com.amazonaws.services.polly.model.InvalidLexiconException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidLexiconException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.InvalidLexiconExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("SsmlMarksNotSupportedForTextTypeException").withModeledClass(
-                                    com.amazonaws.services.polly.model.SsmlMarksNotSupportedForTextTypeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("SsmlMarksNotSupportedForTextTypeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.SsmlMarksNotSupportedForTextTypeExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidS3KeyException").withModeledClass(
-                                    com.amazonaws.services.polly.model.InvalidS3KeyException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidS3KeyException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.InvalidS3KeyExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidSnsTopicArnException").withModeledClass(
-                                    com.amazonaws.services.polly.model.InvalidSnsTopicArnException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidSnsTopicArnException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.InvalidSnsTopicArnExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MarksNotSupportedForFormatException").withModeledClass(
-                                    com.amazonaws.services.polly.model.MarksNotSupportedForFormatException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MarksNotSupportedForFormatException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.MarksNotSupportedForFormatExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTaskIdException").withModeledClass(
-                                    com.amazonaws.services.polly.model.InvalidTaskIdException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTaskIdException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.InvalidTaskIdExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedPlsLanguageException").withModeledClass(
-                                    com.amazonaws.services.polly.model.UnsupportedPlsLanguageException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedPlsLanguageException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.UnsupportedPlsLanguageExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LexiconNotFoundException").withModeledClass(
-                                    com.amazonaws.services.polly.model.LexiconNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LexiconNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.LexiconNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LexiconSizeExceededException").withModeledClass(
-                                    com.amazonaws.services.polly.model.LexiconSizeExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LexiconSizeExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.LexiconSizeExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidSsmlException").withModeledClass(
-                                    com.amazonaws.services.polly.model.InvalidSsmlException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidSsmlException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.InvalidSsmlExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withModeledClass(
-                                    com.amazonaws.services.polly.model.InvalidNextTokenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.InvalidNextTokenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("EngineNotSupportedException").withModeledClass(
-                                    com.amazonaws.services.polly.model.EngineNotSupportedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("EngineNotSupportedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.EngineNotSupportedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceFailureException").withModeledClass(
-                                    com.amazonaws.services.polly.model.ServiceFailureException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceFailureException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.polly.model.transform.ServiceFailureExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.polly.model.AmazonPollyException.class));
 
     /**
@@ -348,9 +349,9 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
 
     /**
      * <p>
-     * Deletes the specified pronunciation lexicon stored in an AWS Region. A lexicon which has been deleted is not
-     * available for speech synthesis, nor is it possible to retrieve it using either the <code>GetLexicon</code> or
-     * <code>ListLexicon</code> APIs.
+     * Deletes the specified pronunciation lexicon stored in an Amazon Web Services Region. A lexicon which has been
+     * deleted is not available for speech synthesis, nor is it possible to retrieve it using either the
+     * <code>GetLexicon</code> or <code>ListLexicon</code> APIs.
      * </p>
      * <p>
      * For more information, see <a href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
@@ -392,6 +393,8 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
                 request = new DeleteLexiconRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteLexiconRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Polly");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteLexicon");
@@ -467,6 +470,8 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
                 request = new DescribeVoicesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeVoicesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Polly");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeVoices");
@@ -490,8 +495,9 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
 
     /**
      * <p>
-     * Returns the content of the specified pronunciation lexicon stored in an AWS Region. For more information, see <a
-     * href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing Lexicons</a>.
+     * Returns the content of the specified pronunciation lexicon stored in an Amazon Web Services Region. For more
+     * information, see <a href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
+     * Lexicons</a>.
      * </p>
      * 
      * @param getLexiconRequest
@@ -529,6 +535,8 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
                 request = new GetLexiconRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getLexiconRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Polly");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetLexicon");
@@ -590,6 +598,8 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
                 request = new GetSpeechSynthesisTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSpeechSynthesisTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Polly");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSpeechSynthesisTask");
@@ -614,7 +624,7 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
 
     /**
      * <p>
-     * Returns a list of pronunciation lexicons stored in an AWS Region. For more information, see <a
+     * Returns a list of pronunciation lexicons stored in an Amazon Web Services Region. For more information, see <a
      * href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing Lexicons</a>.
      * </p>
      * 
@@ -649,6 +659,8 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
                 request = new ListLexiconsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listLexiconsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Polly");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListLexicons");
@@ -708,6 +720,8 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
                         .beforeMarshalling(listSpeechSynthesisTasksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Polly");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSpeechSynthesisTasks");
@@ -732,9 +746,9 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
 
     /**
      * <p>
-     * Stores a pronunciation lexicon in an AWS Region. If a lexicon with the same name already exists in the region, it
-     * is overwritten by the new lexicon. Lexicon operations have eventual consistency, therefore, it might take some
-     * time before the lexicon is available to the SynthesizeSpeech operation.
+     * Stores a pronunciation lexicon in an Amazon Web Services Region. If a lexicon with the same name already exists
+     * in the region, it is overwritten by the new lexicon. Lexicon operations have eventual consistency, therefore, it
+     * might take some time before the lexicon is available to the SynthesizeSpeech operation.
      * </p>
      * <p>
      * For more information, see <a href="https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html">Managing
@@ -785,6 +799,8 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
                 request = new PutLexiconRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putLexiconRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Polly");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutLexicon");
@@ -810,9 +826,11 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
      * <p>
      * Allows the creation of an asynchronous synthesis task, by starting a new <code>SpeechSynthesisTask</code>. This
      * operation requires all the standard information needed for speech synthesis, plus the name of an Amazon S3 bucket
-     * for the service to store the output of the synthesis task and two optional parameters (OutputS3KeyPrefix and
-     * SnsTopicArn). Once the synthesis task is created, this operation will return a SpeechSynthesisTask object, which
-     * will include an identifier of this task as well as the current status.
+     * for the service to store the output of the synthesis task and two optional parameters (
+     * <code>OutputS3KeyPrefix</code> and <code>SnsTopicArn</code>). Once the synthesis task is created, this operation
+     * will return a <code>SpeechSynthesisTask</code> object, which will include an identifier of this task as well as
+     * the current status. The <code>SpeechSynthesisTask</code> object is available for 72 hours after starting the
+     * asynchronous synthesis task.
      * </p>
      * 
      * @param startSpeechSynthesisTaskRequest
@@ -879,6 +897,8 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
                         .beforeMarshalling(startSpeechSynthesisTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Polly");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartSpeechSynthesisTask");
@@ -965,6 +985,8 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
                 request = new SynthesizeSpeechRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(synthesizeSpeechRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Polly");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SynthesizeSpeech");
@@ -977,6 +999,8 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
             HttpResponseHandler<AmazonWebServiceResponse<SynthesizeSpeechResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(false).withHasStreamingSuccessResponse(true), new SynthesizeSpeechResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
+
+            request.addHandlerContext(HandlerContextKey.HAS_STREAMING_OUTPUT, Boolean.TRUE);
 
             return response.getAwsResponse();
 
@@ -1060,6 +1084,11 @@ public class AmazonPollyClient extends AmazonWebServiceClient implements AmazonP
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
     @Override

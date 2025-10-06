@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.medialive.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -27,6 +28,8 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class RtmpGroupSettingsMarshaller {
 
+    private static final MarshallingInfo<List> ADMARKERS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("adMarkers").build();
     private static final MarshallingInfo<String> AUTHENTICATIONSCHEME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("authenticationScheme").build();
     private static final MarshallingInfo<String> CACHEFULLBEHAVIOR_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -39,6 +42,8 @@ public class RtmpGroupSettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("inputLossAction").build();
     private static final MarshallingInfo<Integer> RESTARTDELAY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("restartDelay").build();
+    private static final MarshallingInfo<String> INCLUDEFILLERNALUNITS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("includeFillerNalUnits").build();
 
     private static final RtmpGroupSettingsMarshaller instance = new RtmpGroupSettingsMarshaller();
 
@@ -56,12 +61,14 @@ public class RtmpGroupSettingsMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(rtmpGroupSettings.getAdMarkers(), ADMARKERS_BINDING);
             protocolMarshaller.marshall(rtmpGroupSettings.getAuthenticationScheme(), AUTHENTICATIONSCHEME_BINDING);
             protocolMarshaller.marshall(rtmpGroupSettings.getCacheFullBehavior(), CACHEFULLBEHAVIOR_BINDING);
             protocolMarshaller.marshall(rtmpGroupSettings.getCacheLength(), CACHELENGTH_BINDING);
             protocolMarshaller.marshall(rtmpGroupSettings.getCaptionData(), CAPTIONDATA_BINDING);
             protocolMarshaller.marshall(rtmpGroupSettings.getInputLossAction(), INPUTLOSSACTION_BINDING);
             protocolMarshaller.marshall(rtmpGroupSettings.getRestartDelay(), RESTARTDELAY_BINDING);
+            protocolMarshaller.marshall(rtmpGroupSettings.getIncludeFillerNalUnits(), INCLUDEFILLERNALUNITS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

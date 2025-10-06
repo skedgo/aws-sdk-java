@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,6 +56,10 @@ public class GameSessionConnectionInfoJsonUnmarshaller implements Unmarshaller<G
                     context.nextToken();
                     gameSessionConnectionInfo.setIpAddress(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("DnsName", targetDepth)) {
+                    context.nextToken();
+                    gameSessionConnectionInfo.setDnsName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("Port", targetDepth)) {
                     context.nextToken();
                     gameSessionConnectionInfo.setPort(context.getUnmarshaller(Integer.class).unmarshall(context));
@@ -63,7 +67,9 @@ public class GameSessionConnectionInfoJsonUnmarshaller implements Unmarshaller<G
                 if (context.testExpression("MatchedPlayerSessions", targetDepth)) {
                     context.nextToken();
                     gameSessionConnectionInfo.setMatchedPlayerSessions(new ListUnmarshaller<MatchedPlayerSession>(MatchedPlayerSessionJsonUnmarshaller
-                            .getInstance()).unmarshall(context));
+                            .getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

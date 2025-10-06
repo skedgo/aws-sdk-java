@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,8 @@ public class DeleteTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by default.
+     * The ID of the Data Catalog where the table resides. If none is provided, the Amazon Web Services account ID is
+     * used by default.
      * </p>
      */
     private String catalogId;
@@ -44,15 +45,22 @@ public class DeleteTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      */
     private String name;
+    /**
+     * <p>
+     * The transaction ID at which to delete the table contents.
+     * </p>
+     */
+    private String transactionId;
 
     /**
      * <p>
-     * The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by default.
+     * The ID of the Data Catalog where the table resides. If none is provided, the Amazon Web Services account ID is
+     * used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by
-     *        default.
+     *        The ID of the Data Catalog where the table resides. If none is provided, the Amazon Web Services account
+     *        ID is used by default.
      */
 
     public void setCatalogId(String catalogId) {
@@ -61,11 +69,12 @@ public class DeleteTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by default.
+     * The ID of the Data Catalog where the table resides. If none is provided, the Amazon Web Services account ID is
+     * used by default.
      * </p>
      * 
-     * @return The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by
-     *         default.
+     * @return The ID of the Data Catalog where the table resides. If none is provided, the Amazon Web Services account
+     *         ID is used by default.
      */
 
     public String getCatalogId() {
@@ -74,12 +83,13 @@ public class DeleteTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by default.
+     * The ID of the Data Catalog where the table resides. If none is provided, the Amazon Web Services account ID is
+     * used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by
-     *        default.
+     *        The ID of the Data Catalog where the table resides. If none is provided, the Amazon Web Services account
+     *        ID is used by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -175,6 +185,46 @@ public class DeleteTableRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
+     * The transaction ID at which to delete the table contents.
+     * </p>
+     * 
+     * @param transactionId
+     *        The transaction ID at which to delete the table contents.
+     */
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    /**
+     * <p>
+     * The transaction ID at which to delete the table contents.
+     * </p>
+     * 
+     * @return The transaction ID at which to delete the table contents.
+     */
+
+    public String getTransactionId() {
+        return this.transactionId;
+    }
+
+    /**
+     * <p>
+     * The transaction ID at which to delete the table contents.
+     * </p>
+     * 
+     * @param transactionId
+     *        The transaction ID at which to delete the table contents.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DeleteTableRequest withTransactionId(String transactionId) {
+        setTransactionId(transactionId);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -191,7 +241,9 @@ public class DeleteTableRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getDatabaseName() != null)
             sb.append("DatabaseName: ").append(getDatabaseName()).append(",");
         if (getName() != null)
-            sb.append("Name: ").append(getName());
+            sb.append("Name: ").append(getName()).append(",");
+        if (getTransactionId() != null)
+            sb.append("TransactionId: ").append(getTransactionId());
         sb.append("}");
         return sb.toString();
     }
@@ -218,6 +270,10 @@ public class DeleteTableRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
             return false;
+        if (other.getTransactionId() == null ^ this.getTransactionId() == null)
+            return false;
+        if (other.getTransactionId() != null && other.getTransactionId().equals(this.getTransactionId()) == false)
+            return false;
         return true;
     }
 
@@ -229,6 +285,7 @@ public class DeleteTableRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getCatalogId() == null) ? 0 : getCatalogId().hashCode());
         hashCode = prime * hashCode + ((getDatabaseName() == null) ? 0 : getDatabaseName().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getTransactionId() == null) ? 0 : getTransactionId().hashCode());
         return hashCode;
     }
 

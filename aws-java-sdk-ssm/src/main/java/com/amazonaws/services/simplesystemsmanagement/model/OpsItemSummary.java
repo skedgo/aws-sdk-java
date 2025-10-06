@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,7 +60,7 @@ public class OpsItemSummary implements Serializable, Cloneable, StructuredPojo {
     private Integer priority;
     /**
      * <p>
-     * The impacted AWS resource.
+     * The impacted Amazon Web Services resource.
      * </p>
      */
     private String source;
@@ -88,6 +88,77 @@ public class OpsItemSummary implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private java.util.Map<String, OpsItemDataValue> operationalData;
+    /**
+     * <p>
+     * A list of OpsItems by category.
+     * </p>
+     */
+    private String category;
+    /**
+     * <p>
+     * A list of OpsItems by severity.
+     * </p>
+     */
+    private String severity;
+    /**
+     * <p>
+     * The type of OpsItem. Systems Manager supports the following types of OpsItems:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>/aws/issue</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used for default OpsItems created by OpsCenter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/changerequest</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by Change Manager for reviewing and approving or rejecting change requests.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/insight</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by OpsCenter for aggregating and reporting on duplicate OpsItems.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String opsItemType;
+    /**
+     * <p>
+     * The time a runbook workflow started. Currently reported only for the OpsItem type <code>/aws/changerequest</code>
+     * .
+     * </p>
+     */
+    private java.util.Date actualStartTime;
+    /**
+     * <p>
+     * The time a runbook workflow ended. Currently reported only for the OpsItem type <code>/aws/changerequest</code>.
+     * </p>
+     */
+    private java.util.Date actualEndTime;
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to start. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     */
+    private java.util.Date plannedStartTime;
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to end. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     */
+    private java.util.Date plannedEndTime;
 
     /**
      * <p>
@@ -291,11 +362,11 @@ public class OpsItemSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The impacted AWS resource.
+     * The impacted Amazon Web Services resource.
      * </p>
      * 
      * @param source
-     *        The impacted AWS resource.
+     *        The impacted Amazon Web Services resource.
      */
 
     public void setSource(String source) {
@@ -304,10 +375,10 @@ public class OpsItemSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The impacted AWS resource.
+     * The impacted Amazon Web Services resource.
      * </p>
      * 
-     * @return The impacted AWS resource.
+     * @return The impacted Amazon Web Services resource.
      */
 
     public String getSource() {
@@ -316,11 +387,11 @@ public class OpsItemSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The impacted AWS resource.
+     * The impacted Amazon Web Services resource.
      * </p>
      * 
      * @param source
-     *        The impacted AWS resource.
+     *        The impacted Amazon Web Services resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -508,6 +579,13 @@ public class OpsItemSummary implements Serializable, Cloneable, StructuredPojo {
         return this;
     }
 
+    /**
+     * Add a single OperationalData entry
+     *
+     * @see OpsItemSummary#withOperationalData
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public OpsItemSummary addOperationalDataEntry(String key, OpsItemDataValue value) {
         if (null == this.operationalData) {
             this.operationalData = new java.util.HashMap<String, OpsItemDataValue>();
@@ -526,6 +604,460 @@ public class OpsItemSummary implements Serializable, Cloneable, StructuredPojo {
 
     public OpsItemSummary clearOperationalDataEntries() {
         this.operationalData = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of OpsItems by category.
+     * </p>
+     * 
+     * @param category
+     *        A list of OpsItems by category.
+     */
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    /**
+     * <p>
+     * A list of OpsItems by category.
+     * </p>
+     * 
+     * @return A list of OpsItems by category.
+     */
+
+    public String getCategory() {
+        return this.category;
+    }
+
+    /**
+     * <p>
+     * A list of OpsItems by category.
+     * </p>
+     * 
+     * @param category
+     *        A list of OpsItems by category.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OpsItemSummary withCategory(String category) {
+        setCategory(category);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of OpsItems by severity.
+     * </p>
+     * 
+     * @param severity
+     *        A list of OpsItems by severity.
+     */
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    /**
+     * <p>
+     * A list of OpsItems by severity.
+     * </p>
+     * 
+     * @return A list of OpsItems by severity.
+     */
+
+    public String getSeverity() {
+        return this.severity;
+    }
+
+    /**
+     * <p>
+     * A list of OpsItems by severity.
+     * </p>
+     * 
+     * @param severity
+     *        A list of OpsItems by severity.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OpsItemSummary withSeverity(String severity) {
+        setSeverity(severity);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of OpsItem. Systems Manager supports the following types of OpsItems:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>/aws/issue</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used for default OpsItems created by OpsCenter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/changerequest</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by Change Manager for reviewing and approving or rejecting change requests.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/insight</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by OpsCenter for aggregating and reporting on duplicate OpsItems.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param opsItemType
+     *        The type of OpsItem. Systems Manager supports the following types of OpsItems:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>/aws/issue</code>
+     *        </p>
+     *        <p>
+     *        This type of OpsItem is used for default OpsItems created by OpsCenter.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/aws/changerequest</code>
+     *        </p>
+     *        <p>
+     *        This type of OpsItem is used by Change Manager for reviewing and approving or rejecting change requests.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/aws/insight</code>
+     *        </p>
+     *        <p>
+     *        This type of OpsItem is used by OpsCenter for aggregating and reporting on duplicate OpsItems.
+     *        </p>
+     *        </li>
+     */
+
+    public void setOpsItemType(String opsItemType) {
+        this.opsItemType = opsItemType;
+    }
+
+    /**
+     * <p>
+     * The type of OpsItem. Systems Manager supports the following types of OpsItems:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>/aws/issue</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used for default OpsItems created by OpsCenter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/changerequest</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by Change Manager for reviewing and approving or rejecting change requests.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/insight</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by OpsCenter for aggregating and reporting on duplicate OpsItems.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The type of OpsItem. Systems Manager supports the following types of OpsItems:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>/aws/issue</code>
+     *         </p>
+     *         <p>
+     *         This type of OpsItem is used for default OpsItems created by OpsCenter.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>/aws/changerequest</code>
+     *         </p>
+     *         <p>
+     *         This type of OpsItem is used by Change Manager for reviewing and approving or rejecting change requests.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>/aws/insight</code>
+     *         </p>
+     *         <p>
+     *         This type of OpsItem is used by OpsCenter for aggregating and reporting on duplicate OpsItems.
+     *         </p>
+     *         </li>
+     */
+
+    public String getOpsItemType() {
+        return this.opsItemType;
+    }
+
+    /**
+     * <p>
+     * The type of OpsItem. Systems Manager supports the following types of OpsItems:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>/aws/issue</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used for default OpsItems created by OpsCenter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/changerequest</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by Change Manager for reviewing and approving or rejecting change requests.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/insight</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by OpsCenter for aggregating and reporting on duplicate OpsItems.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param opsItemType
+     *        The type of OpsItem. Systems Manager supports the following types of OpsItems:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>/aws/issue</code>
+     *        </p>
+     *        <p>
+     *        This type of OpsItem is used for default OpsItems created by OpsCenter.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/aws/changerequest</code>
+     *        </p>
+     *        <p>
+     *        This type of OpsItem is used by Change Manager for reviewing and approving or rejecting change requests.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/aws/insight</code>
+     *        </p>
+     *        <p>
+     *        This type of OpsItem is used by OpsCenter for aggregating and reporting on duplicate OpsItems.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OpsItemSummary withOpsItemType(String opsItemType) {
+        setOpsItemType(opsItemType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time a runbook workflow started. Currently reported only for the OpsItem type <code>/aws/changerequest</code>
+     * .
+     * </p>
+     * 
+     * @param actualStartTime
+     *        The time a runbook workflow started. Currently reported only for the OpsItem type
+     *        <code>/aws/changerequest</code>.
+     */
+
+    public void setActualStartTime(java.util.Date actualStartTime) {
+        this.actualStartTime = actualStartTime;
+    }
+
+    /**
+     * <p>
+     * The time a runbook workflow started. Currently reported only for the OpsItem type <code>/aws/changerequest</code>
+     * .
+     * </p>
+     * 
+     * @return The time a runbook workflow started. Currently reported only for the OpsItem type
+     *         <code>/aws/changerequest</code>.
+     */
+
+    public java.util.Date getActualStartTime() {
+        return this.actualStartTime;
+    }
+
+    /**
+     * <p>
+     * The time a runbook workflow started. Currently reported only for the OpsItem type <code>/aws/changerequest</code>
+     * .
+     * </p>
+     * 
+     * @param actualStartTime
+     *        The time a runbook workflow started. Currently reported only for the OpsItem type
+     *        <code>/aws/changerequest</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OpsItemSummary withActualStartTime(java.util.Date actualStartTime) {
+        setActualStartTime(actualStartTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time a runbook workflow ended. Currently reported only for the OpsItem type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @param actualEndTime
+     *        The time a runbook workflow ended. Currently reported only for the OpsItem type
+     *        <code>/aws/changerequest</code>.
+     */
+
+    public void setActualEndTime(java.util.Date actualEndTime) {
+        this.actualEndTime = actualEndTime;
+    }
+
+    /**
+     * <p>
+     * The time a runbook workflow ended. Currently reported only for the OpsItem type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @return The time a runbook workflow ended. Currently reported only for the OpsItem type
+     *         <code>/aws/changerequest</code>.
+     */
+
+    public java.util.Date getActualEndTime() {
+        return this.actualEndTime;
+    }
+
+    /**
+     * <p>
+     * The time a runbook workflow ended. Currently reported only for the OpsItem type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @param actualEndTime
+     *        The time a runbook workflow ended. Currently reported only for the OpsItem type
+     *        <code>/aws/changerequest</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OpsItemSummary withActualEndTime(java.util.Date actualEndTime) {
+        setActualEndTime(actualEndTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to start. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @param plannedStartTime
+     *        The time specified in a change request for a runbook workflow to start. Currently supported only for the
+     *        OpsItem type <code>/aws/changerequest</code>.
+     */
+
+    public void setPlannedStartTime(java.util.Date plannedStartTime) {
+        this.plannedStartTime = plannedStartTime;
+    }
+
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to start. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @return The time specified in a change request for a runbook workflow to start. Currently supported only for the
+     *         OpsItem type <code>/aws/changerequest</code>.
+     */
+
+    public java.util.Date getPlannedStartTime() {
+        return this.plannedStartTime;
+    }
+
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to start. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @param plannedStartTime
+     *        The time specified in a change request for a runbook workflow to start. Currently supported only for the
+     *        OpsItem type <code>/aws/changerequest</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OpsItemSummary withPlannedStartTime(java.util.Date plannedStartTime) {
+        setPlannedStartTime(plannedStartTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to end. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @param plannedEndTime
+     *        The time specified in a change request for a runbook workflow to end. Currently supported only for the
+     *        OpsItem type <code>/aws/changerequest</code>.
+     */
+
+    public void setPlannedEndTime(java.util.Date plannedEndTime) {
+        this.plannedEndTime = plannedEndTime;
+    }
+
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to end. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @return The time specified in a change request for a runbook workflow to end. Currently supported only for the
+     *         OpsItem type <code>/aws/changerequest</code>.
+     */
+
+    public java.util.Date getPlannedEndTime() {
+        return this.plannedEndTime;
+    }
+
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to end. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @param plannedEndTime
+     *        The time specified in a change request for a runbook workflow to end. Currently supported only for the
+     *        OpsItem type <code>/aws/changerequest</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OpsItemSummary withPlannedEndTime(java.util.Date plannedEndTime) {
+        setPlannedEndTime(plannedEndTime);
         return this;
     }
 
@@ -560,7 +1092,21 @@ public class OpsItemSummary implements Serializable, Cloneable, StructuredPojo {
         if (getTitle() != null)
             sb.append("Title: ").append(getTitle()).append(",");
         if (getOperationalData() != null)
-            sb.append("OperationalData: ").append(getOperationalData());
+            sb.append("OperationalData: ").append(getOperationalData()).append(",");
+        if (getCategory() != null)
+            sb.append("Category: ").append(getCategory()).append(",");
+        if (getSeverity() != null)
+            sb.append("Severity: ").append(getSeverity()).append(",");
+        if (getOpsItemType() != null)
+            sb.append("OpsItemType: ").append(getOpsItemType()).append(",");
+        if (getActualStartTime() != null)
+            sb.append("ActualStartTime: ").append(getActualStartTime()).append(",");
+        if (getActualEndTime() != null)
+            sb.append("ActualEndTime: ").append(getActualEndTime()).append(",");
+        if (getPlannedStartTime() != null)
+            sb.append("PlannedStartTime: ").append(getPlannedStartTime()).append(",");
+        if (getPlannedEndTime() != null)
+            sb.append("PlannedEndTime: ").append(getPlannedEndTime());
         sb.append("}");
         return sb.toString();
     }
@@ -615,6 +1161,34 @@ public class OpsItemSummary implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getOperationalData() != null && other.getOperationalData().equals(this.getOperationalData()) == false)
             return false;
+        if (other.getCategory() == null ^ this.getCategory() == null)
+            return false;
+        if (other.getCategory() != null && other.getCategory().equals(this.getCategory()) == false)
+            return false;
+        if (other.getSeverity() == null ^ this.getSeverity() == null)
+            return false;
+        if (other.getSeverity() != null && other.getSeverity().equals(this.getSeverity()) == false)
+            return false;
+        if (other.getOpsItemType() == null ^ this.getOpsItemType() == null)
+            return false;
+        if (other.getOpsItemType() != null && other.getOpsItemType().equals(this.getOpsItemType()) == false)
+            return false;
+        if (other.getActualStartTime() == null ^ this.getActualStartTime() == null)
+            return false;
+        if (other.getActualStartTime() != null && other.getActualStartTime().equals(this.getActualStartTime()) == false)
+            return false;
+        if (other.getActualEndTime() == null ^ this.getActualEndTime() == null)
+            return false;
+        if (other.getActualEndTime() != null && other.getActualEndTime().equals(this.getActualEndTime()) == false)
+            return false;
+        if (other.getPlannedStartTime() == null ^ this.getPlannedStartTime() == null)
+            return false;
+        if (other.getPlannedStartTime() != null && other.getPlannedStartTime().equals(this.getPlannedStartTime()) == false)
+            return false;
+        if (other.getPlannedEndTime() == null ^ this.getPlannedEndTime() == null)
+            return false;
+        if (other.getPlannedEndTime() != null && other.getPlannedEndTime().equals(this.getPlannedEndTime()) == false)
+            return false;
         return true;
     }
 
@@ -633,6 +1207,13 @@ public class OpsItemSummary implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getOpsItemId() == null) ? 0 : getOpsItemId().hashCode());
         hashCode = prime * hashCode + ((getTitle() == null) ? 0 : getTitle().hashCode());
         hashCode = prime * hashCode + ((getOperationalData() == null) ? 0 : getOperationalData().hashCode());
+        hashCode = prime * hashCode + ((getCategory() == null) ? 0 : getCategory().hashCode());
+        hashCode = prime * hashCode + ((getSeverity() == null) ? 0 : getSeverity().hashCode());
+        hashCode = prime * hashCode + ((getOpsItemType() == null) ? 0 : getOpsItemType().hashCode());
+        hashCode = prime * hashCode + ((getActualStartTime() == null) ? 0 : getActualStartTime().hashCode());
+        hashCode = prime * hashCode + ((getActualEndTime() == null) ? 0 : getActualEndTime().hashCode());
+        hashCode = prime * hashCode + ((getPlannedStartTime() == null) ? 0 : getPlannedStartTime().hashCode());
+        hashCode = prime * hashCode + ((getPlannedEndTime() == null) ? 0 : getPlannedEndTime().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,18 +30,18 @@ public class BackupFailureDetails implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * A message describing the backup creation failure.
+     * A message describing the backup-creation failure.
      * </p>
      */
     private String message;
 
     /**
      * <p>
-     * A message describing the backup creation failure.
+     * A message describing the backup-creation failure.
      * </p>
      * 
      * @param message
-     *        A message describing the backup creation failure.
+     *        A message describing the backup-creation failure.
      */
 
     public void setMessage(String message) {
@@ -50,10 +50,10 @@ public class BackupFailureDetails implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * A message describing the backup creation failure.
+     * A message describing the backup-creation failure.
      * </p>
      * 
-     * @return A message describing the backup creation failure.
+     * @return A message describing the backup-creation failure.
      */
 
     public String getMessage() {
@@ -62,11 +62,11 @@ public class BackupFailureDetails implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * A message describing the backup creation failure.
+     * A message describing the backup-creation failure.
      * </p>
      * 
      * @param message
-     *        A message describing the backup creation failure.
+     *        A message describing the backup-creation failure.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

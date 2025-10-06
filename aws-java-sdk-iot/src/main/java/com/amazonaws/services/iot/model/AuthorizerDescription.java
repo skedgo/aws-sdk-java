@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -73,6 +73,19 @@ public class AuthorizerDescription implements Serializable, Cloneable, Structure
      * </p>
      */
     private java.util.Date lastModifiedDate;
+    /**
+     * <p>
+     * Specifies whether IoT validates the token signature in an authorization request.
+     * </p>
+     */
+    private Boolean signingDisabled;
+    /**
+     * <p>
+     * When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified in
+     * <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP connection.
+     * </p>
+     */
+    private Boolean enableCachingForHttp;
 
     /**
      * <p>
@@ -274,6 +287,13 @@ public class AuthorizerDescription implements Serializable, Cloneable, Structure
         return this;
     }
 
+    /**
+     * Add a single TokenSigningPublicKeys entry
+     *
+     * @see AuthorizerDescription#withTokenSigningPublicKeys
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public AuthorizerDescription addTokenSigningPublicKeysEntry(String key, String value) {
         if (null == this.tokenSigningPublicKeys) {
             this.tokenSigningPublicKeys = new java.util.HashMap<String, String>();
@@ -435,6 +455,122 @@ public class AuthorizerDescription implements Serializable, Cloneable, Structure
     }
 
     /**
+     * <p>
+     * Specifies whether IoT validates the token signature in an authorization request.
+     * </p>
+     * 
+     * @param signingDisabled
+     *        Specifies whether IoT validates the token signature in an authorization request.
+     */
+
+    public void setSigningDisabled(Boolean signingDisabled) {
+        this.signingDisabled = signingDisabled;
+    }
+
+    /**
+     * <p>
+     * Specifies whether IoT validates the token signature in an authorization request.
+     * </p>
+     * 
+     * @return Specifies whether IoT validates the token signature in an authorization request.
+     */
+
+    public Boolean getSigningDisabled() {
+        return this.signingDisabled;
+    }
+
+    /**
+     * <p>
+     * Specifies whether IoT validates the token signature in an authorization request.
+     * </p>
+     * 
+     * @param signingDisabled
+     *        Specifies whether IoT validates the token signature in an authorization request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AuthorizerDescription withSigningDisabled(Boolean signingDisabled) {
+        setSigningDisabled(signingDisabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether IoT validates the token signature in an authorization request.
+     * </p>
+     * 
+     * @return Specifies whether IoT validates the token signature in an authorization request.
+     */
+
+    public Boolean isSigningDisabled() {
+        return this.signingDisabled;
+    }
+
+    /**
+     * <p>
+     * When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified in
+     * <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP connection.
+     * </p>
+     * 
+     * @param enableCachingForHttp
+     *        When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified
+     *        in <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP
+     *        connection.
+     */
+
+    public void setEnableCachingForHttp(Boolean enableCachingForHttp) {
+        this.enableCachingForHttp = enableCachingForHttp;
+    }
+
+    /**
+     * <p>
+     * When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified in
+     * <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP connection.
+     * </p>
+     * 
+     * @return When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified
+     *         in <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP
+     *         connection.
+     */
+
+    public Boolean getEnableCachingForHttp() {
+        return this.enableCachingForHttp;
+    }
+
+    /**
+     * <p>
+     * When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified in
+     * <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP connection.
+     * </p>
+     * 
+     * @param enableCachingForHttp
+     *        When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified
+     *        in <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP
+     *        connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AuthorizerDescription withEnableCachingForHttp(Boolean enableCachingForHttp) {
+        setEnableCachingForHttp(enableCachingForHttp);
+        return this;
+    }
+
+    /**
+     * <p>
+     * When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified in
+     * <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP connection.
+     * </p>
+     * 
+     * @return When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified
+     *         in <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP
+     *         connection.
+     */
+
+    public Boolean isEnableCachingForHttp() {
+        return this.enableCachingForHttp;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -461,7 +597,11 @@ public class AuthorizerDescription implements Serializable, Cloneable, Structure
         if (getCreationDate() != null)
             sb.append("CreationDate: ").append(getCreationDate()).append(",");
         if (getLastModifiedDate() != null)
-            sb.append("LastModifiedDate: ").append(getLastModifiedDate());
+            sb.append("LastModifiedDate: ").append(getLastModifiedDate()).append(",");
+        if (getSigningDisabled() != null)
+            sb.append("SigningDisabled: ").append(getSigningDisabled()).append(",");
+        if (getEnableCachingForHttp() != null)
+            sb.append("EnableCachingForHttp: ").append(getEnableCachingForHttp());
         sb.append("}");
         return sb.toString();
     }
@@ -508,6 +648,14 @@ public class AuthorizerDescription implements Serializable, Cloneable, Structure
             return false;
         if (other.getLastModifiedDate() != null && other.getLastModifiedDate().equals(this.getLastModifiedDate()) == false)
             return false;
+        if (other.getSigningDisabled() == null ^ this.getSigningDisabled() == null)
+            return false;
+        if (other.getSigningDisabled() != null && other.getSigningDisabled().equals(this.getSigningDisabled()) == false)
+            return false;
+        if (other.getEnableCachingForHttp() == null ^ this.getEnableCachingForHttp() == null)
+            return false;
+        if (other.getEnableCachingForHttp() != null && other.getEnableCachingForHttp().equals(this.getEnableCachingForHttp()) == false)
+            return false;
         return true;
     }
 
@@ -524,6 +672,8 @@ public class AuthorizerDescription implements Serializable, Cloneable, Structure
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getCreationDate() == null) ? 0 : getCreationDate().hashCode());
         hashCode = prime * hashCode + ((getLastModifiedDate() == null) ? 0 : getLastModifiedDate().hashCode());
+        hashCode = prime * hashCode + ((getSigningDisabled() == null) ? 0 : getSigningDisabled().hashCode());
+        hashCode = prime * hashCode + ((getEnableCachingForHttp() == null) ? 0 : getEnableCachingForHttp().hashCode());
         return hashCode;
     }
 

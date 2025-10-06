@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,10 +35,14 @@ public class Eac3AtmosSettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("codingMode").build();
     private static final MarshallingInfo<String> DIALOGUEINTELLIGENCE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dialogueIntelligence").build();
+    private static final MarshallingInfo<String> DOWNMIXCONTROL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("downmixControl").build();
     private static final MarshallingInfo<String> DYNAMICRANGECOMPRESSIONLINE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dynamicRangeCompressionLine").build();
     private static final MarshallingInfo<String> DYNAMICRANGECOMPRESSIONRF_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dynamicRangeCompressionRf").build();
+    private static final MarshallingInfo<String> DYNAMICRANGECONTROL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dynamicRangeControl").build();
     private static final MarshallingInfo<Double> LOROCENTERMIXLEVEL_BINDING = MarshallingInfo.builder(MarshallingType.DOUBLE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("loRoCenterMixLevel").build();
     private static final MarshallingInfo<Double> LOROSURROUNDMIXLEVEL_BINDING = MarshallingInfo.builder(MarshallingType.DOUBLE)
@@ -78,8 +82,10 @@ public class Eac3AtmosSettingsMarshaller {
             protocolMarshaller.marshall(eac3AtmosSettings.getBitstreamMode(), BITSTREAMMODE_BINDING);
             protocolMarshaller.marshall(eac3AtmosSettings.getCodingMode(), CODINGMODE_BINDING);
             protocolMarshaller.marshall(eac3AtmosSettings.getDialogueIntelligence(), DIALOGUEINTELLIGENCE_BINDING);
+            protocolMarshaller.marshall(eac3AtmosSettings.getDownmixControl(), DOWNMIXCONTROL_BINDING);
             protocolMarshaller.marshall(eac3AtmosSettings.getDynamicRangeCompressionLine(), DYNAMICRANGECOMPRESSIONLINE_BINDING);
             protocolMarshaller.marshall(eac3AtmosSettings.getDynamicRangeCompressionRf(), DYNAMICRANGECOMPRESSIONRF_BINDING);
+            protocolMarshaller.marshall(eac3AtmosSettings.getDynamicRangeControl(), DYNAMICRANGECONTROL_BINDING);
             protocolMarshaller.marshall(eac3AtmosSettings.getLoRoCenterMixLevel(), LOROCENTERMIXLEVEL_BINDING);
             protocolMarshaller.marshall(eac3AtmosSettings.getLoRoSurroundMixLevel(), LOROSURROUNDMIXLEVEL_BINDING);
             protocolMarshaller.marshall(eac3AtmosSettings.getLtRtCenterMixLevel(), LTRTCENTERMIXLEVEL_BINDING);

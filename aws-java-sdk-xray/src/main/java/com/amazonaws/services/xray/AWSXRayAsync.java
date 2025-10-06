@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,8 +26,8 @@ import com.amazonaws.services.xray.model.*;
  * </p>
  * <p>
  * <p>
- * AWS X-Ray provides APIs for managing debug traces and retrieving service maps and other data created by processing
- * those traces.
+ * Amazon Web Services X-Ray provides APIs for managing debug traces and retrieving service maps and other data created
+ * by processing those traces.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -99,11 +99,13 @@ public interface AWSXRayAsync extends AWSXRay {
 
     /**
      * <p>
-     * Creates a rule to control sampling behavior for instrumented applications. Services retrieve rules with
-     * <a>GetSamplingRules</a>, and evaluate each rule in ascending order of <i>priority</i> for each request. If a rule
-     * matches, the service records a trace, borrowing it from the reservoir size. After 10 seconds, the service reports
-     * back to X-Ray with <a>GetSamplingTargets</a> to get updated versions of each in-use rule. The updated rule
-     * contains a trace quota that the service can use instead of borrowing from the reservoir.
+     * Creates a rule to control sampling behavior for instrumented applications. Services retrieve rules with <a
+     * href="https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingRules.html">GetSamplingRules</a>, and evaluate
+     * each rule in ascending order of <i>priority</i> for each request. If a rule matches, the service records a trace,
+     * borrowing it from the reservoir size. After 10 seconds, the service reports back to X-Ray with <a
+     * href="https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingTargets.html">GetSamplingTargets</a> to get
+     * updated versions of each in-use rule. The updated rule contains a trace quota that the service can use instead of
+     * borrowing from the reservoir.
      * </p>
      * 
      * @param createSamplingRuleRequest
@@ -116,11 +118,13 @@ public interface AWSXRayAsync extends AWSXRay {
 
     /**
      * <p>
-     * Creates a rule to control sampling behavior for instrumented applications. Services retrieve rules with
-     * <a>GetSamplingRules</a>, and evaluate each rule in ascending order of <i>priority</i> for each request. If a rule
-     * matches, the service records a trace, borrowing it from the reservoir size. After 10 seconds, the service reports
-     * back to X-Ray with <a>GetSamplingTargets</a> to get updated versions of each in-use rule. The updated rule
-     * contains a trace quota that the service can use instead of borrowing from the reservoir.
+     * Creates a rule to control sampling behavior for instrumented applications. Services retrieve rules with <a
+     * href="https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingRules.html">GetSamplingRules</a>, and evaluate
+     * each rule in ascending order of <i>priority</i> for each request. If a rule matches, the service records a trace,
+     * borrowing it from the reservoir size. After 10 seconds, the service reports back to X-Ray with <a
+     * href="https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingTargets.html">GetSamplingTargets</a> to get
+     * updated versions of each in-use rule. The updated rule contains a trace quota that the service can use instead of
+     * borrowing from the reservoir.
      * </p>
      * 
      * @param createSamplingRuleRequest
@@ -166,6 +170,37 @@ public interface AWSXRayAsync extends AWSXRay {
      */
     java.util.concurrent.Future<DeleteGroupResult> deleteGroupAsync(DeleteGroupRequest deleteGroupRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteGroupRequest, DeleteGroupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a resource policy from the target Amazon Web Services account.
+     * </p>
+     * 
+     * @param deleteResourcePolicyRequest
+     * @return A Java Future containing the result of the DeleteResourcePolicy operation returned by the service.
+     * @sample AWSXRayAsync.DeleteResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/DeleteResourcePolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest deleteResourcePolicyRequest);
+
+    /**
+     * <p>
+     * Deletes a resource policy from the target Amazon Web Services account.
+     * </p>
+     * 
+     * @param deleteResourcePolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteResourcePolicy operation returned by the service.
+     * @sample AWSXRayAsyncHandler.DeleteResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/DeleteResourcePolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest deleteResourcePolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteResourcePolicyRequest, DeleteResourcePolicyResult> asyncHandler);
 
     /**
      * <p>
@@ -293,6 +328,136 @@ public interface AWSXRayAsync extends AWSXRay {
 
     /**
      * <p>
+     * Retrieves the summary information of an insight. This includes impact to clients and root cause services, the top
+     * anomalous services, the category, the state of the insight, and the start and end time of the insight.
+     * </p>
+     * 
+     * @param getInsightRequest
+     * @return A Java Future containing the result of the GetInsight operation returned by the service.
+     * @sample AWSXRayAsync.GetInsight
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetInsight" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetInsightResult> getInsightAsync(GetInsightRequest getInsightRequest);
+
+    /**
+     * <p>
+     * Retrieves the summary information of an insight. This includes impact to clients and root cause services, the top
+     * anomalous services, the category, the state of the insight, and the start and end time of the insight.
+     * </p>
+     * 
+     * @param getInsightRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetInsight operation returned by the service.
+     * @sample AWSXRayAsyncHandler.GetInsight
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetInsight" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetInsightResult> getInsightAsync(GetInsightRequest getInsightRequest,
+            com.amazonaws.handlers.AsyncHandler<GetInsightRequest, GetInsightResult> asyncHandler);
+
+    /**
+     * <p>
+     * X-Ray reevaluates insights periodically until they're resolved, and records each intermediate state as an event.
+     * You can review an insight's events in the Impact Timeline on the Inspect page in the X-Ray console.
+     * </p>
+     * 
+     * @param getInsightEventsRequest
+     * @return A Java Future containing the result of the GetInsightEvents operation returned by the service.
+     * @sample AWSXRayAsync.GetInsightEvents
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetInsightEvents" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetInsightEventsResult> getInsightEventsAsync(GetInsightEventsRequest getInsightEventsRequest);
+
+    /**
+     * <p>
+     * X-Ray reevaluates insights periodically until they're resolved, and records each intermediate state as an event.
+     * You can review an insight's events in the Impact Timeline on the Inspect page in the X-Ray console.
+     * </p>
+     * 
+     * @param getInsightEventsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetInsightEvents operation returned by the service.
+     * @sample AWSXRayAsyncHandler.GetInsightEvents
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetInsightEvents" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetInsightEventsResult> getInsightEventsAsync(GetInsightEventsRequest getInsightEventsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetInsightEventsRequest, GetInsightEventsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves a service graph structure filtered by the specified insight. The service graph is limited to only
+     * structural information. For a complete service graph, use this API with the GetServiceGraph API.
+     * </p>
+     * 
+     * @param getInsightImpactGraphRequest
+     * @return A Java Future containing the result of the GetInsightImpactGraph operation returned by the service.
+     * @sample AWSXRayAsync.GetInsightImpactGraph
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetInsightImpactGraph" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetInsightImpactGraphResult> getInsightImpactGraphAsync(GetInsightImpactGraphRequest getInsightImpactGraphRequest);
+
+    /**
+     * <p>
+     * Retrieves a service graph structure filtered by the specified insight. The service graph is limited to only
+     * structural information. For a complete service graph, use this API with the GetServiceGraph API.
+     * </p>
+     * 
+     * @param getInsightImpactGraphRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetInsightImpactGraph operation returned by the service.
+     * @sample AWSXRayAsyncHandler.GetInsightImpactGraph
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetInsightImpactGraph" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetInsightImpactGraphResult> getInsightImpactGraphAsync(GetInsightImpactGraphRequest getInsightImpactGraphRequest,
+            com.amazonaws.handlers.AsyncHandler<GetInsightImpactGraphRequest, GetInsightImpactGraphResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the summaries of all insights in the specified group matching the provided filter values.
+     * </p>
+     * 
+     * @param getInsightSummariesRequest
+     * @return A Java Future containing the result of the GetInsightSummaries operation returned by the service.
+     * @sample AWSXRayAsync.GetInsightSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetInsightSummaries" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetInsightSummariesResult> getInsightSummariesAsync(GetInsightSummariesRequest getInsightSummariesRequest);
+
+    /**
+     * <p>
+     * Retrieves the summaries of all insights in the specified group matching the provided filter values.
+     * </p>
+     * 
+     * @param getInsightSummariesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetInsightSummaries operation returned by the service.
+     * @sample AWSXRayAsyncHandler.GetInsightSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetInsightSummaries" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetInsightSummariesResult> getInsightSummariesAsync(GetInsightSummariesRequest getInsightSummariesRequest,
+            com.amazonaws.handlers.AsyncHandler<GetInsightSummariesRequest, GetInsightSummariesResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves all sampling rules.
      * </p>
      * 
@@ -392,8 +557,9 @@ public interface AWSXRayAsync extends AWSXRay {
      * <p>
      * Retrieves a document that describes services that process incoming requests, and downstream services that they
      * call as a result. Root services process incoming requests and make calls to downstream services. Root services
-     * are applications that use the AWS X-Ray SDK. Downstream services can be other applications, AWS resources, HTTP
-     * web APIs, or SQL databases.
+     * are applications that use the <a href="https://docs.aws.amazon.com/xray/index.html">Amazon Web Services X-Ray
+     * SDK</a>. Downstream services can be other applications, Amazon Web Services resources, HTTP web APIs, or SQL
+     * databases.
      * </p>
      * 
      * @param getServiceGraphRequest
@@ -408,8 +574,9 @@ public interface AWSXRayAsync extends AWSXRay {
      * <p>
      * Retrieves a document that describes services that process incoming requests, and downstream services that they
      * call as a result. Root services process incoming requests and make calls to downstream services. Root services
-     * are applications that use the AWS X-Ray SDK. Downstream services can be other applications, AWS resources, HTTP
-     * web APIs, or SQL databases.
+     * are applications that use the <a href="https://docs.aws.amazon.com/xray/index.html">Amazon Web Services X-Ray
+     * SDK</a>. Downstream services can be other applications, Amazon Web Services resources, HTTP web APIs, or SQL
+     * databases.
      * </p>
      * 
      * @param getServiceGraphRequest
@@ -493,8 +660,8 @@ public interface AWSXRayAsync extends AWSXRay {
 
     /**
      * <p>
-     * Retrieves IDs and metadata for traces available for a specified time frame using an optional filter. To get the
-     * full traces, pass the trace IDs to <code>BatchGetTraces</code>.
+     * Retrieves IDs and annotations for traces available for a specified time frame using an optional filter. To get
+     * the full traces, pass the trace IDs to <code>BatchGetTraces</code>.
      * </p>
      * <p>
      * A filter expression can target traced requests that hit specific service nodes or edges, have errors, or come
@@ -514,7 +681,7 @@ public interface AWSXRayAsync extends AWSXRay {
      * <p>
      * For a full list of indexed fields and keywords that you can use in filter expressions, see <a
      * href="https://docs.aws.amazon.com/xray/latest/devguide/xray-console-filters.html">Using Filter Expressions</a> in
-     * the <i>AWS X-Ray Developer Guide</i>.
+     * the <i>Amazon Web Services X-Ray Developer Guide</i>.
      * </p>
      * 
      * @param getTraceSummariesRequest
@@ -527,8 +694,8 @@ public interface AWSXRayAsync extends AWSXRay {
 
     /**
      * <p>
-     * Retrieves IDs and metadata for traces available for a specified time frame using an optional filter. To get the
-     * full traces, pass the trace IDs to <code>BatchGetTraces</code>.
+     * Retrieves IDs and annotations for traces available for a specified time frame using an optional filter. To get
+     * the full traces, pass the trace IDs to <code>BatchGetTraces</code>.
      * </p>
      * <p>
      * A filter expression can target traced requests that hit specific service nodes or edges, have errors, or come
@@ -548,7 +715,7 @@ public interface AWSXRayAsync extends AWSXRay {
      * <p>
      * For a full list of indexed fields and keywords that you can use in filter expressions, see <a
      * href="https://docs.aws.amazon.com/xray/latest/devguide/xray-console-filters.html">Using Filter Expressions</a> in
-     * the <i>AWS X-Ray Developer Guide</i>.
+     * the <i>Amazon Web Services X-Ray Developer Guide</i>.
      * </p>
      * 
      * @param getTraceSummariesRequest
@@ -563,6 +730,68 @@ public interface AWSXRayAsync extends AWSXRay {
      */
     java.util.concurrent.Future<GetTraceSummariesResult> getTraceSummariesAsync(GetTraceSummariesRequest getTraceSummariesRequest,
             com.amazonaws.handlers.AsyncHandler<GetTraceSummariesRequest, GetTraceSummariesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the list of resource policies in the target Amazon Web Services account.
+     * </p>
+     * 
+     * @param listResourcePoliciesRequest
+     * @return A Java Future containing the result of the ListResourcePolicies operation returned by the service.
+     * @sample AWSXRayAsync.ListResourcePolicies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/ListResourcePolicies" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListResourcePoliciesResult> listResourcePoliciesAsync(ListResourcePoliciesRequest listResourcePoliciesRequest);
+
+    /**
+     * <p>
+     * Returns the list of resource policies in the target Amazon Web Services account.
+     * </p>
+     * 
+     * @param listResourcePoliciesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListResourcePolicies operation returned by the service.
+     * @sample AWSXRayAsyncHandler.ListResourcePolicies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/ListResourcePolicies" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListResourcePoliciesResult> listResourcePoliciesAsync(ListResourcePoliciesRequest listResourcePoliciesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListResourcePoliciesRequest, ListResourcePoliciesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of tags that are applied to the specified Amazon Web Services X-Ray group or sampling rule.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return A Java Future containing the result of the ListTagsForResource operation returned by the service.
+     * @sample AWSXRayAsync.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/ListTagsForResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest listTagsForResourceRequest);
+
+    /**
+     * <p>
+     * Returns a list of tags that are applied to the specified Amazon Web Services X-Ray group or sampling rule.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListTagsForResource operation returned by the service.
+     * @sample AWSXRayAsyncHandler.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/ListTagsForResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest listTagsForResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler);
 
     /**
      * <p>
@@ -597,7 +826,44 @@ public interface AWSXRayAsync extends AWSXRay {
 
     /**
      * <p>
-     * Used by the AWS X-Ray daemon to upload telemetry.
+     * Sets the resource policy to grant one or more Amazon Web Services services and accounts permissions to access
+     * X-Ray. Each resource policy will be associated with a specific Amazon Web Services account. Each Amazon Web
+     * Services account can have a maximum of 5 resource policies, and each policy name must be unique within that
+     * account. The maximum size of each resource policy is 5KB.
+     * </p>
+     * 
+     * @param putResourcePolicyRequest
+     * @return A Java Future containing the result of the PutResourcePolicy operation returned by the service.
+     * @sample AWSXRayAsync.PutResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/PutResourcePolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest putResourcePolicyRequest);
+
+    /**
+     * <p>
+     * Sets the resource policy to grant one or more Amazon Web Services services and accounts permissions to access
+     * X-Ray. Each resource policy will be associated with a specific Amazon Web Services account. Each Amazon Web
+     * Services account can have a maximum of 5 resource policies, and each policy name must be unique within that
+     * account. The maximum size of each resource policy is 5KB.
+     * </p>
+     * 
+     * @param putResourcePolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutResourcePolicy operation returned by the service.
+     * @sample AWSXRayAsyncHandler.PutResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/PutResourcePolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest putResourcePolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<PutResourcePolicyRequest, PutResourcePolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Used by the Amazon Web Services X-Ray daemon to upload telemetry.
      * </p>
      * 
      * @param putTelemetryRecordsRequest
@@ -610,7 +876,7 @@ public interface AWSXRayAsync extends AWSXRay {
 
     /**
      * <p>
-     * Used by the AWS X-Ray daemon to upload telemetry.
+     * Used by the Amazon Web Services X-Ray daemon to upload telemetry.
      * </p>
      * 
      * @param putTelemetryRecordsRequest
@@ -628,17 +894,18 @@ public interface AWSXRayAsync extends AWSXRay {
 
     /**
      * <p>
-     * Uploads segment documents to AWS X-Ray. The X-Ray SDK generates segment documents and sends them to the X-Ray
-     * daemon, which uploads them in batches. A segment document can be a completed segment, an in-progress segment, or
-     * an array of subsegments.
+     * Uploads segment documents to Amazon Web Services X-Ray. The <a
+     * href="https://docs.aws.amazon.com/xray/index.html">X-Ray SDK</a> generates segment documents and sends them to
+     * the X-Ray daemon, which uploads them in batches. A segment document can be a completed segment, an in-progress
+     * segment, or an array of subsegments.
      * </p>
      * <p>
      * Segments must include the following fields. For the full segment document schema, see <a
-     * href="https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html">AWS X-Ray Segment
-     * Documents</a> in the <i>AWS X-Ray Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html">Amazon Web Services X-Ray
+     * Segment Documents</a> in the <i>Amazon Web Services X-Ray Developer Guide</i>.
      * </p>
      * <p class="title">
-     * <b>Required Segment Document Fields</b>
+     * <b>Required segment document fields</b>
      * </p>
      * <ul>
      * <li>
@@ -673,9 +940,9 @@ public interface AWSXRayAsync extends AWSXRay {
      * <li>
      * <p>
      * <code>in_progress</code> - Set to <code>true</code> instead of specifying an <code>end_time</code> to record that
-     * a segment has been started, but is not complete. Send an in progress segment when your application receives a
-     * request that will take a long time to serve, to trace the fact that the request was received. When the response
-     * is sent, send the complete segment to overwrite the in-progress segment.
+     * a segment has been started, but is not complete. Send an in-progress segment when your application receives a
+     * request that will take a long time to serve, to trace that the request was received. When the response is sent,
+     * send the complete segment to overwrite the in-progress segment.
      * </p>
      * </li>
      * </ul>
@@ -689,7 +956,7 @@ public interface AWSXRayAsync extends AWSXRay {
      * <ul>
      * <li>
      * <p>
-     * The version number, i.e. <code>1</code>.
+     * The version number, for instance, <code>1</code>.
      * </p>
      * </li>
      * <li>
@@ -715,17 +982,18 @@ public interface AWSXRayAsync extends AWSXRay {
 
     /**
      * <p>
-     * Uploads segment documents to AWS X-Ray. The X-Ray SDK generates segment documents and sends them to the X-Ray
-     * daemon, which uploads them in batches. A segment document can be a completed segment, an in-progress segment, or
-     * an array of subsegments.
+     * Uploads segment documents to Amazon Web Services X-Ray. The <a
+     * href="https://docs.aws.amazon.com/xray/index.html">X-Ray SDK</a> generates segment documents and sends them to
+     * the X-Ray daemon, which uploads them in batches. A segment document can be a completed segment, an in-progress
+     * segment, or an array of subsegments.
      * </p>
      * <p>
      * Segments must include the following fields. For the full segment document schema, see <a
-     * href="https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html">AWS X-Ray Segment
-     * Documents</a> in the <i>AWS X-Ray Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html">Amazon Web Services X-Ray
+     * Segment Documents</a> in the <i>Amazon Web Services X-Ray Developer Guide</i>.
      * </p>
      * <p class="title">
-     * <b>Required Segment Document Fields</b>
+     * <b>Required segment document fields</b>
      * </p>
      * <ul>
      * <li>
@@ -760,9 +1028,9 @@ public interface AWSXRayAsync extends AWSXRay {
      * <li>
      * <p>
      * <code>in_progress</code> - Set to <code>true</code> instead of specifying an <code>end_time</code> to record that
-     * a segment has been started, but is not complete. Send an in progress segment when your application receives a
-     * request that will take a long time to serve, to trace the fact that the request was received. When the response
-     * is sent, send the complete segment to overwrite the in-progress segment.
+     * a segment has been started, but is not complete. Send an in-progress segment when your application receives a
+     * request that will take a long time to serve, to trace that the request was received. When the response is sent,
+     * send the complete segment to overwrite the in-progress segment.
      * </p>
      * </li>
      * </ul>
@@ -776,7 +1044,7 @@ public interface AWSXRayAsync extends AWSXRay {
      * <ul>
      * <li>
      * <p>
-     * The version number, i.e. <code>1</code>.
+     * The version number, for instance, <code>1</code>.
      * </p>
      * </li>
      * <li>
@@ -804,6 +1072,70 @@ public interface AWSXRayAsync extends AWSXRay {
      */
     java.util.concurrent.Future<PutTraceSegmentsResult> putTraceSegmentsAsync(PutTraceSegmentsRequest putTraceSegmentsRequest,
             com.amazonaws.handlers.AsyncHandler<PutTraceSegmentsRequest, PutTraceSegmentsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Applies tags to an existing Amazon Web Services X-Ray group or sampling rule.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return A Java Future containing the result of the TagResource operation returned by the service.
+     * @sample AWSXRayAsync.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest tagResourceRequest);
+
+    /**
+     * <p>
+     * Applies tags to an existing Amazon Web Services X-Ray group or sampling rule.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the TagResource operation returned by the service.
+     * @sample AWSXRayAsyncHandler.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest tagResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Removes tags from an Amazon Web Services X-Ray group or sampling rule. You cannot edit or delete system tags
+     * (those with an <code>aws:</code> prefix).
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return A Java Future containing the result of the UntagResource operation returned by the service.
+     * @sample AWSXRayAsync.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * <p>
+     * Removes tags from an Amazon Web Services X-Ray group or sampling rule. You cannot edit or delete system tags
+     * (those with an <code>aws:</code> prefix).
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UntagResource operation returned by the service.
+     * @sample AWSXRayAsyncHandler.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest untagResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler);
 
     /**
      * <p>

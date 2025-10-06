@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.guardduty.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -29,10 +30,28 @@ public class ResourceMarshaller {
 
     private static final MarshallingInfo<StructuredPojo> ACCESSKEYDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("accessKeyDetails").build();
+    private static final MarshallingInfo<List> S3BUCKETDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("s3BucketDetails").build();
     private static final MarshallingInfo<StructuredPojo> INSTANCEDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("instanceDetails").build();
+    private static final MarshallingInfo<StructuredPojo> EKSCLUSTERDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("eksClusterDetails").build();
+    private static final MarshallingInfo<StructuredPojo> KUBERNETESDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("kubernetesDetails").build();
     private static final MarshallingInfo<String> RESOURCETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("resourceType").build();
+    private static final MarshallingInfo<StructuredPojo> EBSVOLUMEDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ebsVolumeDetails").build();
+    private static final MarshallingInfo<StructuredPojo> ECSCLUSTERDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ecsClusterDetails").build();
+    private static final MarshallingInfo<StructuredPojo> CONTAINERDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("containerDetails").build();
+    private static final MarshallingInfo<StructuredPojo> RDSDBINSTANCEDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("rdsDbInstanceDetails").build();
+    private static final MarshallingInfo<StructuredPojo> RDSDBUSERDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("rdsDbUserDetails").build();
+    private static final MarshallingInfo<StructuredPojo> LAMBDADETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("lambdaDetails").build();
 
     private static final ResourceMarshaller instance = new ResourceMarshaller();
 
@@ -51,8 +70,17 @@ public class ResourceMarshaller {
 
         try {
             protocolMarshaller.marshall(resource.getAccessKeyDetails(), ACCESSKEYDETAILS_BINDING);
+            protocolMarshaller.marshall(resource.getS3BucketDetails(), S3BUCKETDETAILS_BINDING);
             protocolMarshaller.marshall(resource.getInstanceDetails(), INSTANCEDETAILS_BINDING);
+            protocolMarshaller.marshall(resource.getEksClusterDetails(), EKSCLUSTERDETAILS_BINDING);
+            protocolMarshaller.marshall(resource.getKubernetesDetails(), KUBERNETESDETAILS_BINDING);
             protocolMarshaller.marshall(resource.getResourceType(), RESOURCETYPE_BINDING);
+            protocolMarshaller.marshall(resource.getEbsVolumeDetails(), EBSVOLUMEDETAILS_BINDING);
+            protocolMarshaller.marshall(resource.getEcsClusterDetails(), ECSCLUSTERDETAILS_BINDING);
+            protocolMarshaller.marshall(resource.getContainerDetails(), CONTAINERDETAILS_BINDING);
+            protocolMarshaller.marshall(resource.getRdsDbInstanceDetails(), RDSDBINSTANCEDETAILS_BINDING);
+            protocolMarshaller.marshall(resource.getRdsDbUserDetails(), RDSDBUSERDETAILS_BINDING);
+            protocolMarshaller.marshall(resource.getLambdaDetails(), LAMBDADETAILS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

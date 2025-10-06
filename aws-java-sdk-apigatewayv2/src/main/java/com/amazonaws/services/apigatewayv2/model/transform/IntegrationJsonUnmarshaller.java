@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.apigatewayv2.model.transform;
 
+import java.util.Map;
 import java.math.*;
 
 import javax.annotation.Generated;
@@ -48,6 +49,10 @@ public class IntegrationJsonUnmarshaller implements Unmarshaller<Integration, Js
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("apiGatewayManaged", targetDepth)) {
+                    context.nextToken();
+                    integration.setApiGatewayManaged(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
                 if (context.testExpression("connectionId", targetDepth)) {
                     context.nextToken();
                     integration.setConnectionId(context.getUnmarshaller(String.class).unmarshall(context));
@@ -80,6 +85,10 @@ public class IntegrationJsonUnmarshaller implements Unmarshaller<Integration, Js
                     context.nextToken();
                     integration.setIntegrationResponseSelectionExpression(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("integrationSubtype", targetDepth)) {
+                    context.nextToken();
+                    integration.setIntegrationSubtype(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("integrationType", targetDepth)) {
                     context.nextToken();
                     integration.setIntegrationType(context.getUnmarshaller(String.class).unmarshall(context));
@@ -92,6 +101,10 @@ public class IntegrationJsonUnmarshaller implements Unmarshaller<Integration, Js
                     context.nextToken();
                     integration.setPassthroughBehavior(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("payloadFormatVersion", targetDepth)) {
+                    context.nextToken();
+                    integration.setPayloadFormatVersion(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("requestParameters", targetDepth)) {
                     context.nextToken();
                     integration.setRequestParameters(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
@@ -102,6 +115,12 @@ public class IntegrationJsonUnmarshaller implements Unmarshaller<Integration, Js
                     integration.setRequestTemplates(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
                             .getUnmarshaller(String.class)).unmarshall(context));
                 }
+                if (context.testExpression("responseParameters", targetDepth)) {
+                    context.nextToken();
+                    integration.setResponseParameters(new MapUnmarshaller<String, java.util.Map<String, String>>(context.getUnmarshaller(String.class),
+                            new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class)))
+                            .unmarshall(context));
+                }
                 if (context.testExpression("templateSelectionExpression", targetDepth)) {
                     context.nextToken();
                     integration.setTemplateSelectionExpression(context.getUnmarshaller(String.class).unmarshall(context));
@@ -109,6 +128,10 @@ public class IntegrationJsonUnmarshaller implements Unmarshaller<Integration, Js
                 if (context.testExpression("timeoutInMillis", targetDepth)) {
                     context.nextToken();
                     integration.setTimeoutInMillis(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("tlsConfig", targetDepth)) {
+                    context.nextToken();
+                    integration.setTlsConfig(TlsConfigJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

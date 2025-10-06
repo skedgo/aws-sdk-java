@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,11 +34,11 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * <note>
      * <p>
-     * The repository name must be unique across the calling AWS account. In addition, repository names are limited to
-     * 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For a full description
-     * of the limits on repository names, see <a
-     * href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Limits</a> in the AWS CodeCommit User
-     * Guide. The suffix ".git" is prohibited.
+     * The repository name must be unique across the calling Amazon Web Services account. Repository names are limited
+     * to 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For more information
+     * about the limits on repository names, see <a
+     * href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User
+     * Guide</i>. The suffix .git is prohibited.
      * </p>
      * </note>
      */
@@ -50,9 +50,9 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
      * <note>
      * <p>
      * The description field for a repository accepts all HTML characters and all valid Unicode characters. Applications
-     * that do not HTML-encode the description and display it in a web page could expose users to potentially malicious
+     * that do not HTML-encode the description and display it in a webpage can expose users to potentially malicious
      * code. Make sure that you HTML-encode the description field in any application that uses this API to display the
-     * repository description on a web page.
+     * repository description on a webpage.
      * </p>
      * </note>
      */
@@ -63,6 +63,18 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      */
     private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * The ID of the encryption key. You can view the ID of an encryption key in the KMS console, or use the KMS APIs to
+     * programmatically retrieve a key ID. For more information about acceptable values for kmsKeyID, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId">KeyId</a>
+     * in the Decrypt API description in the <i>Key Management Service API Reference</i>.
+     * </p>
+     * <p>
+     * If no key is specified, the default <code>aws/codecommit</code> Amazon Web Services managed key is used.
+     * </p>
+     */
+    private String kmsKeyId;
 
     /**
      * <p>
@@ -70,22 +82,22 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * <note>
      * <p>
-     * The repository name must be unique across the calling AWS account. In addition, repository names are limited to
-     * 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For a full description
-     * of the limits on repository names, see <a
-     * href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Limits</a> in the AWS CodeCommit User
-     * Guide. The suffix ".git" is prohibited.
+     * The repository name must be unique across the calling Amazon Web Services account. Repository names are limited
+     * to 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For more information
+     * about the limits on repository names, see <a
+     * href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User
+     * Guide</i>. The suffix .git is prohibited.
      * </p>
      * </note>
      * 
      * @param repositoryName
      *        The name of the new repository to be created.</p> <note>
      *        <p>
-     *        The repository name must be unique across the calling AWS account. In addition, repository names are
-     *        limited to 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For a
-     *        full description of the limits on repository names, see <a
-     *        href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Limits</a> in the AWS
-     *        CodeCommit User Guide. The suffix ".git" is prohibited.
+     *        The repository name must be unique across the calling Amazon Web Services account. Repository names are
+     *        limited to 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For
+     *        more information about the limits on repository names, see <a
+     *        href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit
+     *        User Guide</i>. The suffix .git is prohibited.
      *        </p>
      */
 
@@ -99,21 +111,21 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * <note>
      * <p>
-     * The repository name must be unique across the calling AWS account. In addition, repository names are limited to
-     * 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For a full description
-     * of the limits on repository names, see <a
-     * href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Limits</a> in the AWS CodeCommit User
-     * Guide. The suffix ".git" is prohibited.
+     * The repository name must be unique across the calling Amazon Web Services account. Repository names are limited
+     * to 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For more information
+     * about the limits on repository names, see <a
+     * href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User
+     * Guide</i>. The suffix .git is prohibited.
      * </p>
      * </note>
      * 
      * @return The name of the new repository to be created.</p> <note>
      *         <p>
-     *         The repository name must be unique across the calling AWS account. In addition, repository names are
+     *         The repository name must be unique across the calling Amazon Web Services account. Repository names are
      *         limited to 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For
-     *         a full description of the limits on repository names, see <a
-     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Limits</a> in the AWS
-     *         CodeCommit User Guide. The suffix ".git" is prohibited.
+     *         more information about the limits on repository names, see <a
+     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the
+     *         <i>CodeCommit User Guide</i>. The suffix .git is prohibited.
      *         </p>
      */
 
@@ -127,22 +139,22 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * <note>
      * <p>
-     * The repository name must be unique across the calling AWS account. In addition, repository names are limited to
-     * 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For a full description
-     * of the limits on repository names, see <a
-     * href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Limits</a> in the AWS CodeCommit User
-     * Guide. The suffix ".git" is prohibited.
+     * The repository name must be unique across the calling Amazon Web Services account. Repository names are limited
+     * to 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For more information
+     * about the limits on repository names, see <a
+     * href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit User
+     * Guide</i>. The suffix .git is prohibited.
      * </p>
      * </note>
      * 
      * @param repositoryName
      *        The name of the new repository to be created.</p> <note>
      *        <p>
-     *        The repository name must be unique across the calling AWS account. In addition, repository names are
-     *        limited to 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For a
-     *        full description of the limits on repository names, see <a
-     *        href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Limits</a> in the AWS
-     *        CodeCommit User Guide. The suffix ".git" is prohibited.
+     *        The repository name must be unique across the calling Amazon Web Services account. Repository names are
+     *        limited to 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. For
+     *        more information about the limits on repository names, see <a
+     *        href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the <i>CodeCommit
+     *        User Guide</i>. The suffix .git is prohibited.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -159,9 +171,9 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
      * <note>
      * <p>
      * The description field for a repository accepts all HTML characters and all valid Unicode characters. Applications
-     * that do not HTML-encode the description and display it in a web page could expose users to potentially malicious
+     * that do not HTML-encode the description and display it in a webpage can expose users to potentially malicious
      * code. Make sure that you HTML-encode the description field in any application that uses this API to display the
-     * repository description on a web page.
+     * repository description on a webpage.
      * </p>
      * </note>
      * 
@@ -169,9 +181,9 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
      *        A comment or description about the new repository.</p> <note>
      *        <p>
      *        The description field for a repository accepts all HTML characters and all valid Unicode characters.
-     *        Applications that do not HTML-encode the description and display it in a web page could expose users to
+     *        Applications that do not HTML-encode the description and display it in a webpage can expose users to
      *        potentially malicious code. Make sure that you HTML-encode the description field in any application that
-     *        uses this API to display the repository description on a web page.
+     *        uses this API to display the repository description on a webpage.
      *        </p>
      */
 
@@ -186,18 +198,18 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
      * <note>
      * <p>
      * The description field for a repository accepts all HTML characters and all valid Unicode characters. Applications
-     * that do not HTML-encode the description and display it in a web page could expose users to potentially malicious
+     * that do not HTML-encode the description and display it in a webpage can expose users to potentially malicious
      * code. Make sure that you HTML-encode the description field in any application that uses this API to display the
-     * repository description on a web page.
+     * repository description on a webpage.
      * </p>
      * </note>
      * 
      * @return A comment or description about the new repository.</p> <note>
      *         <p>
      *         The description field for a repository accepts all HTML characters and all valid Unicode characters.
-     *         Applications that do not HTML-encode the description and display it in a web page could expose users to
+     *         Applications that do not HTML-encode the description and display it in a webpage can expose users to
      *         potentially malicious code. Make sure that you HTML-encode the description field in any application that
-     *         uses this API to display the repository description on a web page.
+     *         uses this API to display the repository description on a webpage.
      *         </p>
      */
 
@@ -212,9 +224,9 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
      * <note>
      * <p>
      * The description field for a repository accepts all HTML characters and all valid Unicode characters. Applications
-     * that do not HTML-encode the description and display it in a web page could expose users to potentially malicious
+     * that do not HTML-encode the description and display it in a webpage can expose users to potentially malicious
      * code. Make sure that you HTML-encode the description field in any application that uses this API to display the
-     * repository description on a web page.
+     * repository description on a webpage.
      * </p>
      * </note>
      * 
@@ -222,9 +234,9 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
      *        A comment or description about the new repository.</p> <note>
      *        <p>
      *        The description field for a repository accepts all HTML characters and all valid Unicode characters.
-     *        Applications that do not HTML-encode the description and display it in a web page could expose users to
+     *        Applications that do not HTML-encode the description and display it in a webpage can expose users to
      *        potentially malicious code. Make sure that you HTML-encode the description field in any application that
-     *        uses this API to display the repository description on a web page.
+     *        uses this API to display the repository description on a webpage.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -274,6 +286,13 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
         return this;
     }
 
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateRepositoryRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public CreateRepositoryRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {
             this.tags = new java.util.HashMap<String, String>();
@@ -296,6 +315,80 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
+     * <p>
+     * The ID of the encryption key. You can view the ID of an encryption key in the KMS console, or use the KMS APIs to
+     * programmatically retrieve a key ID. For more information about acceptable values for kmsKeyID, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId">KeyId</a>
+     * in the Decrypt API description in the <i>Key Management Service API Reference</i>.
+     * </p>
+     * <p>
+     * If no key is specified, the default <code>aws/codecommit</code> Amazon Web Services managed key is used.
+     * </p>
+     * 
+     * @param kmsKeyId
+     *        The ID of the encryption key. You can view the ID of an encryption key in the KMS console, or use the KMS
+     *        APIs to programmatically retrieve a key ID. For more information about acceptable values for kmsKeyID, see
+     *        <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId">
+     *        KeyId</a> in the Decrypt API description in the <i>Key Management Service API Reference</i>.</p>
+     *        <p>
+     *        If no key is specified, the default <code>aws/codecommit</code> Amazon Web Services managed key is used.
+     */
+
+    public void setKmsKeyId(String kmsKeyId) {
+        this.kmsKeyId = kmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The ID of the encryption key. You can view the ID of an encryption key in the KMS console, or use the KMS APIs to
+     * programmatically retrieve a key ID. For more information about acceptable values for kmsKeyID, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId">KeyId</a>
+     * in the Decrypt API description in the <i>Key Management Service API Reference</i>.
+     * </p>
+     * <p>
+     * If no key is specified, the default <code>aws/codecommit</code> Amazon Web Services managed key is used.
+     * </p>
+     * 
+     * @return The ID of the encryption key. You can view the ID of an encryption key in the KMS console, or use the KMS
+     *         APIs to programmatically retrieve a key ID. For more information about acceptable values for kmsKeyID,
+     *         see <a
+     *         href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId"
+     *         >KeyId</a> in the Decrypt API description in the <i>Key Management Service API Reference</i>.</p>
+     *         <p>
+     *         If no key is specified, the default <code>aws/codecommit</code> Amazon Web Services managed key is used.
+     */
+
+    public String getKmsKeyId() {
+        return this.kmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The ID of the encryption key. You can view the ID of an encryption key in the KMS console, or use the KMS APIs to
+     * programmatically retrieve a key ID. For more information about acceptable values for kmsKeyID, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId">KeyId</a>
+     * in the Decrypt API description in the <i>Key Management Service API Reference</i>.
+     * </p>
+     * <p>
+     * If no key is specified, the default <code>aws/codecommit</code> Amazon Web Services managed key is used.
+     * </p>
+     * 
+     * @param kmsKeyId
+     *        The ID of the encryption key. You can view the ID of an encryption key in the KMS console, or use the KMS
+     *        APIs to programmatically retrieve a key ID. For more information about acceptable values for kmsKeyID, see
+     *        <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html#KMS-Decrypt-request-KeyId">
+     *        KeyId</a> in the Decrypt API description in the <i>Key Management Service API Reference</i>.</p>
+     *        <p>
+     *        If no key is specified, the default <code>aws/codecommit</code> Amazon Web Services managed key is used.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateRepositoryRequest withKmsKeyId(String kmsKeyId) {
+        setKmsKeyId(kmsKeyId);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -312,7 +405,9 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
         if (getRepositoryDescription() != null)
             sb.append("RepositoryDescription: ").append(getRepositoryDescription()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getKmsKeyId() != null)
+            sb.append("KmsKeyId: ").append(getKmsKeyId());
         sb.append("}");
         return sb.toString();
     }
@@ -339,6 +434,10 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getKmsKeyId() == null ^ this.getKmsKeyId() == null)
+            return false;
+        if (other.getKmsKeyId() != null && other.getKmsKeyId().equals(this.getKmsKeyId()) == false)
+            return false;
         return true;
     }
 
@@ -350,6 +449,7 @@ public class CreateRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
         hashCode = prime * hashCode + ((getRepositoryName() == null) ? 0 : getRepositoryName().hashCode());
         hashCode = prime * hashCode + ((getRepositoryDescription() == null) ? 0 : getRepositoryDescription().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
         return hashCode;
     }
 

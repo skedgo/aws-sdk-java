@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter can't be used in conjunction
-     * with <code>DBSnapshotIdentifier</code>. This parameter is not case-sensitive.
+     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter isn't case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -45,8 +44,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
     private String dBInstanceIdentifier;
     /**
      * <p>
-     * A specific DB snapshot identifier to describe. This parameter can't be used in conjunction with
-     * <code>DBInstanceIdentifier</code>. This value is stored as a lowercase string.
+     * A specific DB snapshot identifier to describe. This value is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -72,18 +70,18 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * <code>automated</code> - Return all DB snapshots that have been automatically taken by Amazon RDS for my AWS
-     * account.
+     * <code>automated</code> - Return all DB snapshots that have been automatically taken by Amazon RDS for my Amazon
+     * Web Services account.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>manual</code> - Return all DB snapshots that have been taken by my AWS account.
+     * <code>manual</code> - Return all DB snapshots that have been taken by my Amazon Web Services account.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>shared</code> - Return all manual DB snapshots that have been shared to my AWS account.
+     * <code>shared</code> - Return all manual DB snapshots that have been shared to my Amazon Web Services account.
      * </p>
      * </li>
      * <li>
@@ -93,12 +91,12 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * <code>awsbackup</code> - Return the DB snapshots managed by the AWS Backup service.
+     * <code>awsbackup</code> - Return the DB snapshots managed by the Amazon Web Services Backup service.
      * </p>
      * <p>
-     * For information about AWS Backup, see the <a
-     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"> <i>AWS Backup Developer
-     * Guide.</i> </a>
+     * For information about Amazon Web Services Backup, see the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"> <i>Amazon Web Services Backup
+     * Developer Guide.</i> </a>
      * </p>
      * <p>
      * The <code>awsbackup</code> type does not apply to Aurora.
@@ -121,15 +119,45 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
     private String snapshotType;
     /**
      * <p>
-     * This parameter is not currently supported.
+     * A filter that specifies one or more DB snapshots to describe.
      * </p>
+     * <p>
+     * Supported filters:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names (ARNs).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db-snapshot-id</code> - Accepts DB snapshot identifiers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>dbi-resource-id</code> - Accepts identifiers of source DB instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>snapshot-type</code> - Accepts types of DB snapshots.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine</code> - Accepts names of database engines.
+     * </p>
+     * </li>
+     * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -149,22 +177,29 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
     private String marker;
     /**
      * <p>
-     * A value that indicates whether to include shared manual DB cluster snapshots from other AWS accounts that this
-     * AWS account has been given permission to copy or restore. By default, these snapshots are not included.
+     * Specifies whether to include shared manual DB cluster snapshots from other Amazon Web Services accounts that this
+     * Amazon Web Services account has been given permission to copy or restore. By default, these snapshots are not
+     * included.
      * </p>
      * <p>
-     * You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using the
-     * <code>ModifyDBSnapshotAttribute</code> API action.
+     * You can give an Amazon Web Services account permission to restore a manual DB snapshot from another Amazon Web
+     * Services account by using the <code>ModifyDBSnapshotAttribute</code> API action.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      */
     private Boolean includeShared;
     /**
      * <p>
-     * A value that indicates whether to include manual DB cluster snapshots that are public and can be copied or
-     * restored by any AWS account. By default, the public snapshots are not included.
+     * Specifies whether to include manual DB cluster snapshots that are public and can be copied or restored by any
+     * Amazon Web Services account. By default, the public snapshots are not included.
      * </p>
      * <p>
      * You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      */
     private Boolean includePublic;
@@ -177,8 +212,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter can't be used in conjunction
-     * with <code>DBSnapshotIdentifier</code>. This parameter is not case-sensitive.
+     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter isn't case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -192,8 +226,8 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </ul>
      * 
      * @param dBInstanceIdentifier
-     *        The ID of the DB instance to retrieve the list of DB snapshots for. This parameter can't be used in
-     *        conjunction with <code>DBSnapshotIdentifier</code>. This parameter is not case-sensitive. </p>
+     *        The ID of the DB instance to retrieve the list of DB snapshots for. This parameter isn't
+     *        case-sensitive.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -211,8 +245,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter can't be used in conjunction
-     * with <code>DBSnapshotIdentifier</code>. This parameter is not case-sensitive.
+     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter isn't case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -225,8 +258,8 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * </ul>
      * 
-     * @return The ID of the DB instance to retrieve the list of DB snapshots for. This parameter can't be used in
-     *         conjunction with <code>DBSnapshotIdentifier</code>. This parameter is not case-sensitive. </p>
+     * @return The ID of the DB instance to retrieve the list of DB snapshots for. This parameter isn't
+     *         case-sensitive.</p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -244,8 +277,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter can't be used in conjunction
-     * with <code>DBSnapshotIdentifier</code>. This parameter is not case-sensitive.
+     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter isn't case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -259,8 +291,8 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </ul>
      * 
      * @param dBInstanceIdentifier
-     *        The ID of the DB instance to retrieve the list of DB snapshots for. This parameter can't be used in
-     *        conjunction with <code>DBSnapshotIdentifier</code>. This parameter is not case-sensitive. </p>
+     *        The ID of the DB instance to retrieve the list of DB snapshots for. This parameter isn't
+     *        case-sensitive.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -280,8 +312,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A specific DB snapshot identifier to describe. This parameter can't be used in conjunction with
-     * <code>DBInstanceIdentifier</code>. This value is stored as a lowercase string.
+     * A specific DB snapshot identifier to describe. This value is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -300,8 +331,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </ul>
      * 
      * @param dBSnapshotIdentifier
-     *        A specific DB snapshot identifier to describe. This parameter can't be used in conjunction with
-     *        <code>DBInstanceIdentifier</code>. This value is stored as a lowercase string. </p>
+     *        A specific DB snapshot identifier to describe. This value is stored as a lowercase string.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -325,8 +355,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A specific DB snapshot identifier to describe. This parameter can't be used in conjunction with
-     * <code>DBInstanceIdentifier</code>. This value is stored as a lowercase string.
+     * A specific DB snapshot identifier to describe. This value is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -344,8 +373,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * </ul>
      * 
-     * @return A specific DB snapshot identifier to describe. This parameter can't be used in conjunction with
-     *         <code>DBInstanceIdentifier</code>. This value is stored as a lowercase string. </p>
+     * @return A specific DB snapshot identifier to describe. This value is stored as a lowercase string.</p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -369,8 +397,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A specific DB snapshot identifier to describe. This parameter can't be used in conjunction with
-     * <code>DBInstanceIdentifier</code>. This value is stored as a lowercase string.
+     * A specific DB snapshot identifier to describe. This value is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -389,8 +416,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </ul>
      * 
      * @param dBSnapshotIdentifier
-     *        A specific DB snapshot identifier to describe. This parameter can't be used in conjunction with
-     *        <code>DBInstanceIdentifier</code>. This value is stored as a lowercase string. </p>
+     *        A specific DB snapshot identifier to describe. This value is stored as a lowercase string.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -421,18 +447,18 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * <code>automated</code> - Return all DB snapshots that have been automatically taken by Amazon RDS for my AWS
-     * account.
+     * <code>automated</code> - Return all DB snapshots that have been automatically taken by Amazon RDS for my Amazon
+     * Web Services account.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>manual</code> - Return all DB snapshots that have been taken by my AWS account.
+     * <code>manual</code> - Return all DB snapshots that have been taken by my Amazon Web Services account.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>shared</code> - Return all manual DB snapshots that have been shared to my AWS account.
+     * <code>shared</code> - Return all manual DB snapshots that have been shared to my Amazon Web Services account.
      * </p>
      * </li>
      * <li>
@@ -442,12 +468,12 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * <code>awsbackup</code> - Return the DB snapshots managed by the AWS Backup service.
+     * <code>awsbackup</code> - Return the DB snapshots managed by the Amazon Web Services Backup service.
      * </p>
      * <p>
-     * For information about AWS Backup, see the <a
-     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"> <i>AWS Backup Developer
-     * Guide.</i> </a>
+     * For information about Amazon Web Services Backup, see the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"> <i>Amazon Web Services Backup
+     * Developer Guide.</i> </a>
      * </p>
      * <p>
      * The <code>awsbackup</code> type does not apply to Aurora.
@@ -473,17 +499,18 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      *        <li>
      *        <p>
      *        <code>automated</code> - Return all DB snapshots that have been automatically taken by Amazon RDS for my
-     *        AWS account.
+     *        Amazon Web Services account.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>manual</code> - Return all DB snapshots that have been taken by my AWS account.
+     *        <code>manual</code> - Return all DB snapshots that have been taken by my Amazon Web Services account.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>shared</code> - Return all manual DB snapshots that have been shared to my AWS account.
+     *        <code>shared</code> - Return all manual DB snapshots that have been shared to my Amazon Web Services
+     *        account.
      *        </p>
      *        </li>
      *        <li>
@@ -493,12 +520,12 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      *        </li>
      *        <li>
      *        <p>
-     *        <code>awsbackup</code> - Return the DB snapshots managed by the AWS Backup service.
+     *        <code>awsbackup</code> - Return the DB snapshots managed by the Amazon Web Services Backup service.
      *        </p>
      *        <p>
-     *        For information about AWS Backup, see the <a
-     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"> <i>AWS Backup Developer
-     *        Guide.</i> </a>
+     *        For information about Amazon Web Services Backup, see the <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"> <i>Amazon Web Services
+     *        Backup Developer Guide.</i> </a>
      *        </p>
      *        <p>
      *        The <code>awsbackup</code> type does not apply to Aurora.
@@ -530,18 +557,18 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * <code>automated</code> - Return all DB snapshots that have been automatically taken by Amazon RDS for my AWS
-     * account.
+     * <code>automated</code> - Return all DB snapshots that have been automatically taken by Amazon RDS for my Amazon
+     * Web Services account.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>manual</code> - Return all DB snapshots that have been taken by my AWS account.
+     * <code>manual</code> - Return all DB snapshots that have been taken by my Amazon Web Services account.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>shared</code> - Return all manual DB snapshots that have been shared to my AWS account.
+     * <code>shared</code> - Return all manual DB snapshots that have been shared to my Amazon Web Services account.
      * </p>
      * </li>
      * <li>
@@ -551,12 +578,12 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * <code>awsbackup</code> - Return the DB snapshots managed by the AWS Backup service.
+     * <code>awsbackup</code> - Return the DB snapshots managed by the Amazon Web Services Backup service.
      * </p>
      * <p>
-     * For information about AWS Backup, see the <a
-     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"> <i>AWS Backup Developer
-     * Guide.</i> </a>
+     * For information about Amazon Web Services Backup, see the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"> <i>Amazon Web Services Backup
+     * Developer Guide.</i> </a>
      * </p>
      * <p>
      * The <code>awsbackup</code> type does not apply to Aurora.
@@ -581,17 +608,18 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      *         <li>
      *         <p>
      *         <code>automated</code> - Return all DB snapshots that have been automatically taken by Amazon RDS for my
-     *         AWS account.
+     *         Amazon Web Services account.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>manual</code> - Return all DB snapshots that have been taken by my AWS account.
+     *         <code>manual</code> - Return all DB snapshots that have been taken by my Amazon Web Services account.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>shared</code> - Return all manual DB snapshots that have been shared to my AWS account.
+     *         <code>shared</code> - Return all manual DB snapshots that have been shared to my Amazon Web Services
+     *         account.
      *         </p>
      *         </li>
      *         <li>
@@ -601,12 +629,12 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      *         </li>
      *         <li>
      *         <p>
-     *         <code>awsbackup</code> - Return the DB snapshots managed by the AWS Backup service.
+     *         <code>awsbackup</code> - Return the DB snapshots managed by the Amazon Web Services Backup service.
      *         </p>
      *         <p>
-     *         For information about AWS Backup, see the <a
-     *         href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"> <i>AWS Backup Developer
-     *         Guide.</i> </a>
+     *         For information about Amazon Web Services Backup, see the <a
+     *         href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"> <i>Amazon Web Services
+     *         Backup Developer Guide.</i> </a>
      *         </p>
      *         <p>
      *         The <code>awsbackup</code> type does not apply to Aurora.
@@ -638,18 +666,18 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * <code>automated</code> - Return all DB snapshots that have been automatically taken by Amazon RDS for my AWS
-     * account.
+     * <code>automated</code> - Return all DB snapshots that have been automatically taken by Amazon RDS for my Amazon
+     * Web Services account.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>manual</code> - Return all DB snapshots that have been taken by my AWS account.
+     * <code>manual</code> - Return all DB snapshots that have been taken by my Amazon Web Services account.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>shared</code> - Return all manual DB snapshots that have been shared to my AWS account.
+     * <code>shared</code> - Return all manual DB snapshots that have been shared to my Amazon Web Services account.
      * </p>
      * </li>
      * <li>
@@ -659,12 +687,12 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * <code>awsbackup</code> - Return the DB snapshots managed by the AWS Backup service.
+     * <code>awsbackup</code> - Return the DB snapshots managed by the Amazon Web Services Backup service.
      * </p>
      * <p>
-     * For information about AWS Backup, see the <a
-     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"> <i>AWS Backup Developer
-     * Guide.</i> </a>
+     * For information about Amazon Web Services Backup, see the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"> <i>Amazon Web Services Backup
+     * Developer Guide.</i> </a>
      * </p>
      * <p>
      * The <code>awsbackup</code> type does not apply to Aurora.
@@ -690,17 +718,18 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      *        <li>
      *        <p>
      *        <code>automated</code> - Return all DB snapshots that have been automatically taken by Amazon RDS for my
-     *        AWS account.
+     *        Amazon Web Services account.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>manual</code> - Return all DB snapshots that have been taken by my AWS account.
+     *        <code>manual</code> - Return all DB snapshots that have been taken by my Amazon Web Services account.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>shared</code> - Return all manual DB snapshots that have been shared to my AWS account.
+     *        <code>shared</code> - Return all manual DB snapshots that have been shared to my Amazon Web Services
+     *        account.
      *        </p>
      *        </li>
      *        <li>
@@ -710,12 +739,12 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      *        </li>
      *        <li>
      *        <p>
-     *        <code>awsbackup</code> - Return the DB snapshots managed by the AWS Backup service.
+     *        <code>awsbackup</code> - Return the DB snapshots managed by the Amazon Web Services Backup service.
      *        </p>
      *        <p>
-     *        For information about AWS Backup, see the <a
-     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"> <i>AWS Backup Developer
-     *        Guide.</i> </a>
+     *        For information about Amazon Web Services Backup, see the <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"> <i>Amazon Web Services
+     *        Backup Developer Guide.</i> </a>
      *        </p>
      *        <p>
      *        The <code>awsbackup</code> type does not apply to Aurora.
@@ -744,10 +773,70 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * A filter that specifies one or more DB snapshots to describe.
      * </p>
+     * <p>
+     * Supported filters:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names (ARNs).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db-snapshot-id</code> - Accepts DB snapshot identifiers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>dbi-resource-id</code> - Accepts identifiers of source DB instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>snapshot-type</code> - Accepts types of DB snapshots.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine</code> - Accepts names of database engines.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return This parameter is not currently supported.
+     * @return A filter that specifies one or more DB snapshots to describe.</p>
+     *         <p>
+     *         Supported filters:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names
+     *         (ARNs).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>db-snapshot-id</code> - Accepts DB snapshot identifiers.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>dbi-resource-id</code> - Accepts identifiers of source DB instances.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>snapshot-type</code> - Accepts types of DB snapshots.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>engine</code> - Accepts names of database engines.
+     *         </p>
+     *         </li>
      */
 
     public java.util.List<Filter> getFilters() {
@@ -759,11 +848,71 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * A filter that specifies one or more DB snapshots to describe.
      * </p>
+     * <p>
+     * Supported filters:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names (ARNs).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db-snapshot-id</code> - Accepts DB snapshot identifiers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>dbi-resource-id</code> - Accepts identifiers of source DB instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>snapshot-type</code> - Accepts types of DB snapshots.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine</code> - Accepts names of database engines.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param filters
-     *        This parameter is not currently supported.
+     *        A filter that specifies one or more DB snapshots to describe.</p>
+     *        <p>
+     *        Supported filters:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names
+     *        (ARNs).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>db-snapshot-id</code> - Accepts DB snapshot identifiers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>dbi-resource-id</code> - Accepts identifiers of source DB instances.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>snapshot-type</code> - Accepts types of DB snapshots.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>engine</code> - Accepts names of database engines.
+     *        </p>
+     *        </li>
      */
 
     public void setFilters(java.util.Collection<Filter> filters) {
@@ -777,8 +926,38 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * A filter that specifies one or more DB snapshots to describe.
      * </p>
+     * <p>
+     * Supported filters:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names (ARNs).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db-snapshot-id</code> - Accepts DB snapshot identifiers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>dbi-resource-id</code> - Accepts identifiers of source DB instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>snapshot-type</code> - Accepts types of DB snapshots.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine</code> - Accepts names of database engines.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setFilters(java.util.Collection)} or {@link #withFilters(java.util.Collection)} if you want to override
@@ -786,7 +965,37 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param filters
-     *        This parameter is not currently supported.
+     *        A filter that specifies one or more DB snapshots to describe.</p>
+     *        <p>
+     *        Supported filters:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names
+     *        (ARNs).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>db-snapshot-id</code> - Accepts DB snapshot identifiers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>dbi-resource-id</code> - Accepts identifiers of source DB instances.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>snapshot-type</code> - Accepts types of DB snapshots.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>engine</code> - Accepts names of database engines.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -802,11 +1011,71 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * A filter that specifies one or more DB snapshots to describe.
      * </p>
+     * <p>
+     * Supported filters:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names (ARNs).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db-snapshot-id</code> - Accepts DB snapshot identifiers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>dbi-resource-id</code> - Accepts identifiers of source DB instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>snapshot-type</code> - Accepts types of DB snapshots.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine</code> - Accepts names of database engines.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param filters
-     *        This parameter is not currently supported.
+     *        A filter that specifies one or more DB snapshots to describe.</p>
+     *        <p>
+     *        Supported filters:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names
+     *        (ARNs).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>db-snapshot-id</code> - Accepts DB snapshot identifiers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>dbi-resource-id</code> - Accepts identifiers of source DB instances.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>snapshot-type</code> - Accepts types of DB snapshots.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>engine</code> - Accepts names of database engines.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -818,8 +1087,8 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -830,8 +1099,8 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more records exist than the specified
-     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *        remaining results can be retrieved. </p>
+     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you
+     *        can retrieve the remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>
@@ -846,8 +1115,8 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -857,8 +1126,8 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @return The maximum number of records to include in the response. If more records exist than the specified
-     *         <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *         remaining results can be retrieved. </p>
+     *         <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you
+     *         can retrieve the remaining results.</p>
      *         <p>
      *         Default: 100
      *         </p>
@@ -873,8 +1142,8 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -885,8 +1154,8 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more records exist than the specified
-     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *        remaining results can be retrieved. </p>
+     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you
+     *        can retrieve the remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>
@@ -954,21 +1223,28 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A value that indicates whether to include shared manual DB cluster snapshots from other AWS accounts that this
-     * AWS account has been given permission to copy or restore. By default, these snapshots are not included.
+     * Specifies whether to include shared manual DB cluster snapshots from other Amazon Web Services accounts that this
+     * Amazon Web Services account has been given permission to copy or restore. By default, these snapshots are not
+     * included.
      * </p>
      * <p>
-     * You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using the
-     * <code>ModifyDBSnapshotAttribute</code> API action.
+     * You can give an Amazon Web Services account permission to restore a manual DB snapshot from another Amazon Web
+     * Services account by using the <code>ModifyDBSnapshotAttribute</code> API action.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * 
      * @param includeShared
-     *        A value that indicates whether to include shared manual DB cluster snapshots from other AWS accounts that
-     *        this AWS account has been given permission to copy or restore. By default, these snapshots are not
-     *        included.</p>
+     *        Specifies whether to include shared manual DB cluster snapshots from other Amazon Web Services accounts
+     *        that this Amazon Web Services account has been given permission to copy or restore. By default, these
+     *        snapshots are not included.</p>
      *        <p>
-     *        You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using
-     *        the <code>ModifyDBSnapshotAttribute</code> API action.
+     *        You can give an Amazon Web Services account permission to restore a manual DB snapshot from another Amazon
+     *        Web Services account by using the <code>ModifyDBSnapshotAttribute</code> API action.
+     *        </p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      */
 
     public void setIncludeShared(Boolean includeShared) {
@@ -977,20 +1253,27 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A value that indicates whether to include shared manual DB cluster snapshots from other AWS accounts that this
-     * AWS account has been given permission to copy or restore. By default, these snapshots are not included.
+     * Specifies whether to include shared manual DB cluster snapshots from other Amazon Web Services accounts that this
+     * Amazon Web Services account has been given permission to copy or restore. By default, these snapshots are not
+     * included.
      * </p>
      * <p>
-     * You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using the
-     * <code>ModifyDBSnapshotAttribute</code> API action.
+     * You can give an Amazon Web Services account permission to restore a manual DB snapshot from another Amazon Web
+     * Services account by using the <code>ModifyDBSnapshotAttribute</code> API action.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * 
-     * @return A value that indicates whether to include shared manual DB cluster snapshots from other AWS accounts that
-     *         this AWS account has been given permission to copy or restore. By default, these snapshots are not
-     *         included.</p>
+     * @return Specifies whether to include shared manual DB cluster snapshots from other Amazon Web Services accounts
+     *         that this Amazon Web Services account has been given permission to copy or restore. By default, these
+     *         snapshots are not included.</p>
      *         <p>
-     *         You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using
-     *         the <code>ModifyDBSnapshotAttribute</code> API action.
+     *         You can give an Amazon Web Services account permission to restore a manual DB snapshot from another
+     *         Amazon Web Services account by using the <code>ModifyDBSnapshotAttribute</code> API action.
+     *         </p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
      */
 
     public Boolean getIncludeShared() {
@@ -999,21 +1282,28 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A value that indicates whether to include shared manual DB cluster snapshots from other AWS accounts that this
-     * AWS account has been given permission to copy or restore. By default, these snapshots are not included.
+     * Specifies whether to include shared manual DB cluster snapshots from other Amazon Web Services accounts that this
+     * Amazon Web Services account has been given permission to copy or restore. By default, these snapshots are not
+     * included.
      * </p>
      * <p>
-     * You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using the
-     * <code>ModifyDBSnapshotAttribute</code> API action.
+     * You can give an Amazon Web Services account permission to restore a manual DB snapshot from another Amazon Web
+     * Services account by using the <code>ModifyDBSnapshotAttribute</code> API action.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * 
      * @param includeShared
-     *        A value that indicates whether to include shared manual DB cluster snapshots from other AWS accounts that
-     *        this AWS account has been given permission to copy or restore. By default, these snapshots are not
-     *        included.</p>
+     *        Specifies whether to include shared manual DB cluster snapshots from other Amazon Web Services accounts
+     *        that this Amazon Web Services account has been given permission to copy or restore. By default, these
+     *        snapshots are not included.</p>
      *        <p>
-     *        You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using
-     *        the <code>ModifyDBSnapshotAttribute</code> API action.
+     *        You can give an Amazon Web Services account permission to restore a manual DB snapshot from another Amazon
+     *        Web Services account by using the <code>ModifyDBSnapshotAttribute</code> API action.
+     *        </p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1024,20 +1314,27 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A value that indicates whether to include shared manual DB cluster snapshots from other AWS accounts that this
-     * AWS account has been given permission to copy or restore. By default, these snapshots are not included.
+     * Specifies whether to include shared manual DB cluster snapshots from other Amazon Web Services accounts that this
+     * Amazon Web Services account has been given permission to copy or restore. By default, these snapshots are not
+     * included.
      * </p>
      * <p>
-     * You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using the
-     * <code>ModifyDBSnapshotAttribute</code> API action.
+     * You can give an Amazon Web Services account permission to restore a manual DB snapshot from another Amazon Web
+     * Services account by using the <code>ModifyDBSnapshotAttribute</code> API action.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * 
-     * @return A value that indicates whether to include shared manual DB cluster snapshots from other AWS accounts that
-     *         this AWS account has been given permission to copy or restore. By default, these snapshots are not
-     *         included.</p>
+     * @return Specifies whether to include shared manual DB cluster snapshots from other Amazon Web Services accounts
+     *         that this Amazon Web Services account has been given permission to copy or restore. By default, these
+     *         snapshots are not included.</p>
      *         <p>
-     *         You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using
-     *         the <code>ModifyDBSnapshotAttribute</code> API action.
+     *         You can give an Amazon Web Services account permission to restore a manual DB snapshot from another
+     *         Amazon Web Services account by using the <code>ModifyDBSnapshotAttribute</code> API action.
+     *         </p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
      */
 
     public Boolean isIncludeShared() {
@@ -1046,18 +1343,24 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A value that indicates whether to include manual DB cluster snapshots that are public and can be copied or
-     * restored by any AWS account. By default, the public snapshots are not included.
+     * Specifies whether to include manual DB cluster snapshots that are public and can be copied or restored by any
+     * Amazon Web Services account. By default, the public snapshots are not included.
      * </p>
      * <p>
      * You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
      * @param includePublic
-     *        A value that indicates whether to include manual DB cluster snapshots that are public and can be copied or
-     *        restored by any AWS account. By default, the public snapshots are not included.</p>
+     *        Specifies whether to include manual DB cluster snapshots that are public and can be copied or restored by
+     *        any Amazon Web Services account. By default, the public snapshots are not included.</p>
      *        <p>
      *        You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
+     *        </p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      */
 
     public void setIncludePublic(Boolean includePublic) {
@@ -1066,17 +1369,23 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A value that indicates whether to include manual DB cluster snapshots that are public and can be copied or
-     * restored by any AWS account. By default, the public snapshots are not included.
+     * Specifies whether to include manual DB cluster snapshots that are public and can be copied or restored by any
+     * Amazon Web Services account. By default, the public snapshots are not included.
      * </p>
      * <p>
      * You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
-     * @return A value that indicates whether to include manual DB cluster snapshots that are public and can be copied
-     *         or restored by any AWS account. By default, the public snapshots are not included.</p>
+     * @return Specifies whether to include manual DB cluster snapshots that are public and can be copied or restored by
+     *         any Amazon Web Services account. By default, the public snapshots are not included.</p>
      *         <p>
      *         You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
+     *         </p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
      */
 
     public Boolean getIncludePublic() {
@@ -1085,18 +1394,24 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A value that indicates whether to include manual DB cluster snapshots that are public and can be copied or
-     * restored by any AWS account. By default, the public snapshots are not included.
+     * Specifies whether to include manual DB cluster snapshots that are public and can be copied or restored by any
+     * Amazon Web Services account. By default, the public snapshots are not included.
      * </p>
      * <p>
      * You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
      * @param includePublic
-     *        A value that indicates whether to include manual DB cluster snapshots that are public and can be copied or
-     *        restored by any AWS account. By default, the public snapshots are not included.</p>
+     *        Specifies whether to include manual DB cluster snapshots that are public and can be copied or restored by
+     *        any Amazon Web Services account. By default, the public snapshots are not included.</p>
      *        <p>
      *        You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
+     *        </p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1107,17 +1422,23 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A value that indicates whether to include manual DB cluster snapshots that are public and can be copied or
-     * restored by any AWS account. By default, the public snapshots are not included.
+     * Specifies whether to include manual DB cluster snapshots that are public and can be copied or restored by any
+     * Amazon Web Services account. By default, the public snapshots are not included.
      * </p>
      * <p>
      * You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
-     * @return A value that indicates whether to include manual DB cluster snapshots that are public and can be copied
-     *         or restored by any AWS account. By default, the public snapshots are not included.</p>
+     * @return Specifies whether to include manual DB cluster snapshots that are public and can be copied or restored by
+     *         any Amazon Web Services account. By default, the public snapshots are not included.</p>
      *         <p>
      *         You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
+     *         </p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
      */
 
     public Boolean isIncludePublic() {

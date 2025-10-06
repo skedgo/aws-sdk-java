@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,18 +25,18 @@ public class GetFindingsStatisticsResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Finding statistics object.
+     * The finding statistics object.
      * </p>
      */
     private FindingStatistics findingStatistics;
 
     /**
      * <p>
-     * Finding statistics object.
+     * The finding statistics object.
      * </p>
      * 
      * @param findingStatistics
-     *        Finding statistics object.
+     *        The finding statistics object.
      */
 
     public void setFindingStatistics(FindingStatistics findingStatistics) {
@@ -45,10 +45,10 @@ public class GetFindingsStatisticsResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Finding statistics object.
+     * The finding statistics object.
      * </p>
      * 
-     * @return Finding statistics object.
+     * @return The finding statistics object.
      */
 
     public FindingStatistics getFindingStatistics() {
@@ -57,11 +57,11 @@ public class GetFindingsStatisticsResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Finding statistics object.
+     * The finding statistics object.
      * </p>
      * 
      * @param findingStatistics
-     *        Finding statistics object.
+     *        The finding statistics object.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

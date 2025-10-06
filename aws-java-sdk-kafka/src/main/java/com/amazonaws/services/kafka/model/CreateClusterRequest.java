@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -57,17 +57,25 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     private EncryptionInfo encryptionInfo;
     /**
      * <p>
-     * Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER, and
-     * PER_TOPIC_PER_BROKER.
+     * Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER,
+     * PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION.
      * </p>
      */
     private String enhancedMonitoring;
+    /**
+     * <p>
+     * The settings for open monitoring.
+     * </p>
+     */
+    private OpenMonitoringInfo openMonitoring;
     /**
      * <p>
      * The version of Apache Kafka.
      * </p>
      */
     private String kafkaVersion;
+
+    private LoggingInfo loggingInfo;
     /**
      * <p>
      * The number of broker nodes in the cluster.
@@ -80,6 +88,12 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      */
     private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * This controls storage mode for supported storage tiers.
+     * </p>
+     */
+    private String storageMode;
 
     /**
      * <p>
@@ -313,14 +327,14 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER, and
-     * PER_TOPIC_PER_BROKER.
+     * Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER,
+     * PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION.
      * </p>
      * 
      * @param enhancedMonitoring
      *        <p>
-     *        Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER, and
-     *        PER_TOPIC_PER_BROKER.
+     *        Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER,
+     *        PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION.
      *        </p>
      * @see EnhancedMonitoring
      */
@@ -331,13 +345,13 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER, and
-     * PER_TOPIC_PER_BROKER.
+     * Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER,
+     * PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION.
      * </p>
      * 
      * @return <p>
-     *         Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER, and
-     *         PER_TOPIC_PER_BROKER.
+     *         Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER,
+     *         PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION.
      *         </p>
      * @see EnhancedMonitoring
      */
@@ -348,14 +362,14 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER, and
-     * PER_TOPIC_PER_BROKER.
+     * Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER,
+     * PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION.
      * </p>
      * 
      * @param enhancedMonitoring
      *        <p>
-     *        Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER, and
-     *        PER_TOPIC_PER_BROKER.
+     *        Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER,
+     *        PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EnhancedMonitoring
@@ -368,14 +382,14 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER, and
-     * PER_TOPIC_PER_BROKER.
+     * Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER,
+     * PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION.
      * </p>
      * 
      * @param enhancedMonitoring
      *        <p>
-     *        Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER, and
-     *        PER_TOPIC_PER_BROKER.
+     *        Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER,
+     *        PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EnhancedMonitoring
@@ -383,6 +397,52 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     public CreateClusterRequest withEnhancedMonitoring(EnhancedMonitoring enhancedMonitoring) {
         this.enhancedMonitoring = enhancedMonitoring.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The settings for open monitoring.
+     * </p>
+     * 
+     * @param openMonitoring
+     *        <p>
+     *        The settings for open monitoring.
+     *        </p>
+     */
+
+    public void setOpenMonitoring(OpenMonitoringInfo openMonitoring) {
+        this.openMonitoring = openMonitoring;
+    }
+
+    /**
+     * <p>
+     * The settings for open monitoring.
+     * </p>
+     * 
+     * @return <p>
+     *         The settings for open monitoring.
+     *         </p>
+     */
+
+    public OpenMonitoringInfo getOpenMonitoring() {
+        return this.openMonitoring;
+    }
+
+    /**
+     * <p>
+     * The settings for open monitoring.
+     * </p>
+     * 
+     * @param openMonitoring
+     *        <p>
+     *        The settings for open monitoring.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withOpenMonitoring(OpenMonitoringInfo openMonitoring) {
+        setOpenMonitoring(openMonitoring);
         return this;
     }
 
@@ -429,6 +489,32 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     public CreateClusterRequest withKafkaVersion(String kafkaVersion) {
         setKafkaVersion(kafkaVersion);
+        return this;
+    }
+
+    /**
+     * @param loggingInfo
+     */
+
+    public void setLoggingInfo(LoggingInfo loggingInfo) {
+        this.loggingInfo = loggingInfo;
+    }
+
+    /**
+     * @return
+     */
+
+    public LoggingInfo getLoggingInfo() {
+        return this.loggingInfo;
+    }
+
+    /**
+     * @param loggingInfo
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withLoggingInfo(LoggingInfo loggingInfo) {
+        setLoggingInfo(loggingInfo);
         return this;
     }
 
@@ -524,6 +610,13 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         return this;
     }
 
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateClusterRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public CreateClusterRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {
             this.tags = new java.util.HashMap<String, String>();
@@ -542,6 +635,73 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     public CreateClusterRequest clearTagsEntries() {
         this.tags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * This controls storage mode for supported storage tiers.
+     * </p>
+     * 
+     * @param storageMode
+     *        <p>
+     *        This controls storage mode for supported storage tiers.
+     *        </p>
+     * @see StorageMode
+     */
+
+    public void setStorageMode(String storageMode) {
+        this.storageMode = storageMode;
+    }
+
+    /**
+     * <p>
+     * This controls storage mode for supported storage tiers.
+     * </p>
+     * 
+     * @return <p>
+     *         This controls storage mode for supported storage tiers.
+     *         </p>
+     * @see StorageMode
+     */
+
+    public String getStorageMode() {
+        return this.storageMode;
+    }
+
+    /**
+     * <p>
+     * This controls storage mode for supported storage tiers.
+     * </p>
+     * 
+     * @param storageMode
+     *        <p>
+     *        This controls storage mode for supported storage tiers.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StorageMode
+     */
+
+    public CreateClusterRequest withStorageMode(String storageMode) {
+        setStorageMode(storageMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This controls storage mode for supported storage tiers.
+     * </p>
+     * 
+     * @param storageMode
+     *        <p>
+     *        This controls storage mode for supported storage tiers.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StorageMode
+     */
+
+    public CreateClusterRequest withStorageMode(StorageMode storageMode) {
+        this.storageMode = storageMode.toString();
         return this;
     }
 
@@ -569,12 +729,18 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
             sb.append("EncryptionInfo: ").append(getEncryptionInfo()).append(",");
         if (getEnhancedMonitoring() != null)
             sb.append("EnhancedMonitoring: ").append(getEnhancedMonitoring()).append(",");
+        if (getOpenMonitoring() != null)
+            sb.append("OpenMonitoring: ").append(getOpenMonitoring()).append(",");
         if (getKafkaVersion() != null)
             sb.append("KafkaVersion: ").append(getKafkaVersion()).append(",");
+        if (getLoggingInfo() != null)
+            sb.append("LoggingInfo: ").append(getLoggingInfo()).append(",");
         if (getNumberOfBrokerNodes() != null)
             sb.append("NumberOfBrokerNodes: ").append(getNumberOfBrokerNodes()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getStorageMode() != null)
+            sb.append("StorageMode: ").append(getStorageMode());
         sb.append("}");
         return sb.toString();
     }
@@ -613,9 +779,17 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getEnhancedMonitoring() != null && other.getEnhancedMonitoring().equals(this.getEnhancedMonitoring()) == false)
             return false;
+        if (other.getOpenMonitoring() == null ^ this.getOpenMonitoring() == null)
+            return false;
+        if (other.getOpenMonitoring() != null && other.getOpenMonitoring().equals(this.getOpenMonitoring()) == false)
+            return false;
         if (other.getKafkaVersion() == null ^ this.getKafkaVersion() == null)
             return false;
         if (other.getKafkaVersion() != null && other.getKafkaVersion().equals(this.getKafkaVersion()) == false)
+            return false;
+        if (other.getLoggingInfo() == null ^ this.getLoggingInfo() == null)
+            return false;
+        if (other.getLoggingInfo() != null && other.getLoggingInfo().equals(this.getLoggingInfo()) == false)
             return false;
         if (other.getNumberOfBrokerNodes() == null ^ this.getNumberOfBrokerNodes() == null)
             return false;
@@ -624,6 +798,10 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getStorageMode() == null ^ this.getStorageMode() == null)
+            return false;
+        if (other.getStorageMode() != null && other.getStorageMode().equals(this.getStorageMode()) == false)
             return false;
         return true;
     }
@@ -639,9 +817,12 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getConfigurationInfo() == null) ? 0 : getConfigurationInfo().hashCode());
         hashCode = prime * hashCode + ((getEncryptionInfo() == null) ? 0 : getEncryptionInfo().hashCode());
         hashCode = prime * hashCode + ((getEnhancedMonitoring() == null) ? 0 : getEnhancedMonitoring().hashCode());
+        hashCode = prime * hashCode + ((getOpenMonitoring() == null) ? 0 : getOpenMonitoring().hashCode());
         hashCode = prime * hashCode + ((getKafkaVersion() == null) ? 0 : getKafkaVersion().hashCode());
+        hashCode = prime * hashCode + ((getLoggingInfo() == null) ? 0 : getLoggingInfo().hashCode());
         hashCode = prime * hashCode + ((getNumberOfBrokerNodes() == null) ? 0 : getNumberOfBrokerNodes().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getStorageMode() == null) ? 0 : getStorageMode().hashCode());
         return hashCode;
     }
 

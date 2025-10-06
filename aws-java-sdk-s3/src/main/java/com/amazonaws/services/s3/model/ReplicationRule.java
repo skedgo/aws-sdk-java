@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2015-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -56,6 +56,12 @@ public class ReplicationRule implements Serializable {
     private Integer priority;
 
     /**
+     * The status of the replication of existing objects in this replication rule. Valid values are Enabled, Disabled.
+     * The rule will be applied only if the status is Enabled, and is only valid for Replication configuration V2.
+     */
+    private ExistingObjectReplication existingObjectReplication;
+
+    /**
      * The status of the replication of delete markers in this replication rule. Valid values are Enabled, Disabled.
      * The rule will be applied only if the status is Enabled, and is only valid for Replication configuration V2.
      */
@@ -63,6 +69,26 @@ public class ReplicationRule implements Serializable {
 
     /**
      * Returns the priority of current rule.
+     * <p>
+     * The priority indicates which rule has precedence whenever two or more replication rules conflict. Amazon S3 will
+     * attempt to replicate objects according to all replication rules. However, if there are two or more rules with the
+     * same destination bucket, then objects will be replicated according to the rule with the highest priority. The
+     * higher the number, the higher the priority.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html">Replication</a> in the <i>Amazon Simple
+     * Storage Service Developer Guide</i>.
+     * </p>
+     *
+     * @return The priority indicates which rule has precedence whenever two or more replication rules conflict. Amazon
+     *         S3 will attempt to replicate objects according to all replication rules. However, if there are two or
+     *         more rules with the same destination bucket, then objects will be replicated according to the rule with
+     *         the highest priority. The higher the number, the higher the priority. </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html">Replication</a> in the <i>Amazon
+     *         Simple Storage Service Developer Guide</i>.
      */
     public Integer getPriority() {
         return priority;
@@ -70,8 +96,17 @@ public class ReplicationRule implements Serializable {
 
     /**
      * Set the priority of current rule.
-     * Priority must be unique in a configuration (you cannot have two different rules with the same priority).
-     *
+     * <p>
+     * The priority indicates which rule has precedence whenever two or more replication rules conflict. Amazon S3 will
+     * attempt to replicate objects according to all replication rules. However, if there are two or more rules with the
+     * same destination bucket, then objects will be replicated according to the rule with the highest priority. The
+     * higher the number, the higher the priority.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html">Replication</a> in the <i>Amazon Simple
+     * Storage Service Developer Guide</i>.
+     * </p>
      * @param priority int
      */
     public void setPriority(Integer priority) {
@@ -82,9 +117,18 @@ public class ReplicationRule implements Serializable {
     }
 
     /**
-     * Fluent method to set the priority of current rule.
-     * Priority must be unique in a configuration (you cannot have two different rules with the same priority).
-     *
+     * Set the priority of current rule.
+     * <p>
+     * The priority indicates which rule has precedence whenever two or more replication rules conflict. Amazon S3 will
+     * attempt to replicate objects according to all replication rules. However, if there are two or more rules with the
+     * same destination bucket, then objects will be replicated according to the rule with the highest priority. The
+     * higher the number, the higher the priority.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html">Replication</a> in the <i>Amazon Simple
+     * Storage Service Developer Guide</i>.
+     * </p>
      * @param priority int
      * @return This object for method chaining.
      */
@@ -94,13 +138,47 @@ public class ReplicationRule implements Serializable {
     }
 
     /**
+     * Returns the status of existing object replication of current rule.
+     * <p>
+     * Optional configuration to replicate existing source bucket objects. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-what-is-isnot-replicated.html#existing-object-replication"
+     * >Replicating Existing Objects</a> in the <i>Amazon S3 User Guide</i>.
+     * </p>
+     */
+    public ExistingObjectReplication getExistingObjectReplication() {
+        return existingObjectReplication;
+    }
+
+    /**
+     * Sets the status of existing object replication of current rule.
+     *
+     * @param existingObjectReplication Status of existing object replication.
+     */
+    public void setExistingObjectReplication(ExistingObjectReplication existingObjectReplication) {
+        this.existingObjectReplication = existingObjectReplication;
+    }
+
+    /**
+     * Fluent method to set the ExistingObjectReplication that is indicate if existing
+     * objects are replicated in Replication configuration V2.
+     *
+     * @param existingObjectReplication Status of existing object replication.
+     * @return This object for method chaining.
+     */
+    public ReplicationRule withExistingObjectReplication(ExistingObjectReplication existingObjectReplication) {
+        setExistingObjectReplication(existingObjectReplication);
+        return this;
+    }
+
+    /**
      * Returns the status of delete marker replication of current rule.
      */
     public DeleteMarkerReplication getDeleteMarkerReplication() {
         return deleteMarkerReplication;
     }
+
     /**
-     * Sets the Amazon S3 Object prefix for the replication rule.
+     * Sets the status of delete marker replication of the current rule.
      *
      * @param deleteMarkerReplication Status of delete markers replication.
      */

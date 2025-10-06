@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The endpoint configuration to indicate the types of endpoints an API (<a>RestApi</a>) or its custom domain name
- * (<a>DomainName</a>) has.
+ * The endpoint configuration to indicate the types of endpoints an API (RestApi) or its custom domain name (DomainName)
+ * has.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -28,23 +28,28 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * A list of endpoint types of an API (<a>RestApi</a>) or its custom domain name (<a>DomainName</a>). For an
-     * edge-optimized API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and
-     * its custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is
-     * <code>PRIVATE</code>.
+     * A list of endpoint types of an API (RestApi) or its custom domain name (DomainName). For an edge-optimized API
+     * and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and its custom domain
+     * name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is <code>PRIVATE</code>.
      * </p>
      */
     private java.util.List<String> types;
+    /**
+     * <p>
+     * A list of VpcEndpointIds of an API (RestApi) against which to create Route53 ALIASes. It is only supported for
+     * <code>PRIVATE</code> endpoint type.
+     * </p>
+     */
+    private java.util.List<String> vpcEndpointIds;
 
     /**
      * <p>
-     * A list of endpoint types of an API (<a>RestApi</a>) or its custom domain name (<a>DomainName</a>). For an
-     * edge-optimized API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and
-     * its custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is
-     * <code>PRIVATE</code>.
+     * A list of endpoint types of an API (RestApi) or its custom domain name (DomainName). For an edge-optimized API
+     * and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and its custom domain
+     * name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is <code>PRIVATE</code>.
      * </p>
      * 
-     * @return A list of endpoint types of an API (<a>RestApi</a>) or its custom domain name (<a>DomainName</a>). For an
+     * @return A list of endpoint types of an API (RestApi) or its custom domain name (DomainName). For an
      *         edge-optimized API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional
      *         API and its custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the
      *         endpoint type is <code>PRIVATE</code>.
@@ -57,17 +62,16 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * A list of endpoint types of an API (<a>RestApi</a>) or its custom domain name (<a>DomainName</a>). For an
-     * edge-optimized API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and
-     * its custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is
-     * <code>PRIVATE</code>.
+     * A list of endpoint types of an API (RestApi) or its custom domain name (DomainName). For an edge-optimized API
+     * and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and its custom domain
+     * name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is <code>PRIVATE</code>.
      * </p>
      * 
      * @param types
-     *        A list of endpoint types of an API (<a>RestApi</a>) or its custom domain name (<a>DomainName</a>). For an
-     *        edge-optimized API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional
-     *        API and its custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the
-     *        endpoint type is <code>PRIVATE</code>.
+     *        A list of endpoint types of an API (RestApi) or its custom domain name (DomainName). For an edge-optimized
+     *        API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and its
+     *        custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is
+     *        <code>PRIVATE</code>.
      * @see EndpointType
      */
 
@@ -82,10 +86,9 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * A list of endpoint types of an API (<a>RestApi</a>) or its custom domain name (<a>DomainName</a>). For an
-     * edge-optimized API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and
-     * its custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is
-     * <code>PRIVATE</code>.
+     * A list of endpoint types of an API (RestApi) or its custom domain name (DomainName). For an edge-optimized API
+     * and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and its custom domain
+     * name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is <code>PRIVATE</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -94,10 +97,10 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
      * </p>
      * 
      * @param types
-     *        A list of endpoint types of an API (<a>RestApi</a>) or its custom domain name (<a>DomainName</a>). For an
-     *        edge-optimized API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional
-     *        API and its custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the
-     *        endpoint type is <code>PRIVATE</code>.
+     *        A list of endpoint types of an API (RestApi) or its custom domain name (DomainName). For an edge-optimized
+     *        API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and its
+     *        custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is
+     *        <code>PRIVATE</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EndpointType
      */
@@ -114,17 +117,16 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * A list of endpoint types of an API (<a>RestApi</a>) or its custom domain name (<a>DomainName</a>). For an
-     * edge-optimized API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and
-     * its custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is
-     * <code>PRIVATE</code>.
+     * A list of endpoint types of an API (RestApi) or its custom domain name (DomainName). For an edge-optimized API
+     * and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and its custom domain
+     * name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is <code>PRIVATE</code>.
      * </p>
      * 
      * @param types
-     *        A list of endpoint types of an API (<a>RestApi</a>) or its custom domain name (<a>DomainName</a>). For an
-     *        edge-optimized API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional
-     *        API and its custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the
-     *        endpoint type is <code>PRIVATE</code>.
+     *        A list of endpoint types of an API (RestApi) or its custom domain name (DomainName). For an edge-optimized
+     *        API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and its
+     *        custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is
+     *        <code>PRIVATE</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EndpointType
      */
@@ -136,17 +138,16 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * A list of endpoint types of an API (<a>RestApi</a>) or its custom domain name (<a>DomainName</a>). For an
-     * edge-optimized API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and
-     * its custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is
-     * <code>PRIVATE</code>.
+     * A list of endpoint types of an API (RestApi) or its custom domain name (DomainName). For an edge-optimized API
+     * and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and its custom domain
+     * name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is <code>PRIVATE</code>.
      * </p>
      * 
      * @param types
-     *        A list of endpoint types of an API (<a>RestApi</a>) or its custom domain name (<a>DomainName</a>). For an
-     *        edge-optimized API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional
-     *        API and its custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the
-     *        endpoint type is <code>PRIVATE</code>.
+     *        A list of endpoint types of an API (RestApi) or its custom domain name (DomainName). For an edge-optimized
+     *        API and its custom domain name, the endpoint type is <code>"EDGE"</code>. For a regional API and its
+     *        custom domain name, the endpoint type is <code>REGIONAL</code>. For a private API, the endpoint type is
+     *        <code>PRIVATE</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EndpointType
      */
@@ -165,6 +166,84 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
     }
 
     /**
+     * <p>
+     * A list of VpcEndpointIds of an API (RestApi) against which to create Route53 ALIASes. It is only supported for
+     * <code>PRIVATE</code> endpoint type.
+     * </p>
+     * 
+     * @return A list of VpcEndpointIds of an API (RestApi) against which to create Route53 ALIASes. It is only
+     *         supported for <code>PRIVATE</code> endpoint type.
+     */
+
+    public java.util.List<String> getVpcEndpointIds() {
+        return vpcEndpointIds;
+    }
+
+    /**
+     * <p>
+     * A list of VpcEndpointIds of an API (RestApi) against which to create Route53 ALIASes. It is only supported for
+     * <code>PRIVATE</code> endpoint type.
+     * </p>
+     * 
+     * @param vpcEndpointIds
+     *        A list of VpcEndpointIds of an API (RestApi) against which to create Route53 ALIASes. It is only supported
+     *        for <code>PRIVATE</code> endpoint type.
+     */
+
+    public void setVpcEndpointIds(java.util.Collection<String> vpcEndpointIds) {
+        if (vpcEndpointIds == null) {
+            this.vpcEndpointIds = null;
+            return;
+        }
+
+        this.vpcEndpointIds = new java.util.ArrayList<String>(vpcEndpointIds);
+    }
+
+    /**
+     * <p>
+     * A list of VpcEndpointIds of an API (RestApi) against which to create Route53 ALIASes. It is only supported for
+     * <code>PRIVATE</code> endpoint type.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setVpcEndpointIds(java.util.Collection)} or {@link #withVpcEndpointIds(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param vpcEndpointIds
+     *        A list of VpcEndpointIds of an API (RestApi) against which to create Route53 ALIASes. It is only supported
+     *        for <code>PRIVATE</code> endpoint type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EndpointConfiguration withVpcEndpointIds(String... vpcEndpointIds) {
+        if (this.vpcEndpointIds == null) {
+            setVpcEndpointIds(new java.util.ArrayList<String>(vpcEndpointIds.length));
+        }
+        for (String ele : vpcEndpointIds) {
+            this.vpcEndpointIds.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of VpcEndpointIds of an API (RestApi) against which to create Route53 ALIASes. It is only supported for
+     * <code>PRIVATE</code> endpoint type.
+     * </p>
+     * 
+     * @param vpcEndpointIds
+     *        A list of VpcEndpointIds of an API (RestApi) against which to create Route53 ALIASes. It is only supported
+     *        for <code>PRIVATE</code> endpoint type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EndpointConfiguration withVpcEndpointIds(java.util.Collection<String> vpcEndpointIds) {
+        setVpcEndpointIds(vpcEndpointIds);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -177,7 +256,9 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getTypes() != null)
-            sb.append("Types: ").append(getTypes());
+            sb.append("Types: ").append(getTypes()).append(",");
+        if (getVpcEndpointIds() != null)
+            sb.append("VpcEndpointIds: ").append(getVpcEndpointIds());
         sb.append("}");
         return sb.toString();
     }
@@ -196,6 +277,10 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
             return false;
         if (other.getTypes() != null && other.getTypes().equals(this.getTypes()) == false)
             return false;
+        if (other.getVpcEndpointIds() == null ^ this.getVpcEndpointIds() == null)
+            return false;
+        if (other.getVpcEndpointIds() != null && other.getVpcEndpointIds().equals(this.getVpcEndpointIds()) == false)
+            return false;
         return true;
     }
 
@@ -205,6 +290,7 @@ public class EndpointConfiguration implements Serializable, Cloneable, Structure
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getTypes() == null) ? 0 : getTypes().hashCode());
+        hashCode = prime * hashCode + ((getVpcEndpointIds() == null) ? 0 : getVpcEndpointIds().hashCode());
         return hashCode;
     }
 

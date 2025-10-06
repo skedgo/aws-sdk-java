@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes the credit option for CPU usage of a T2 or T3 instance.
+ * Describes the credit option for CPU usage of a burstable performance instance.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceCreditSpecificationRequest"
@@ -34,8 +34,13 @@ public class InstanceCreditSpecificationRequest implements Serializable, Cloneab
     private String instanceId;
     /**
      * <p>
-     * The credit option for CPU usage of the instance. Valid values are <code>standard</code> and
-     * <code>unlimited</code>.
+     * The credit option for CPU usage of the instance.
+     * </p>
+     * <p>
+     * Valid values: <code>standard</code> | <code>unlimited</code>
+     * </p>
+     * <p>
+     * T3 instances with <code>host</code> tenancy do not support the <code>unlimited</code> CPU credit option.
      * </p>
      */
     private String cpuCredits;
@@ -82,13 +87,22 @@ public class InstanceCreditSpecificationRequest implements Serializable, Cloneab
 
     /**
      * <p>
-     * The credit option for CPU usage of the instance. Valid values are <code>standard</code> and
-     * <code>unlimited</code>.
+     * The credit option for CPU usage of the instance.
+     * </p>
+     * <p>
+     * Valid values: <code>standard</code> | <code>unlimited</code>
+     * </p>
+     * <p>
+     * T3 instances with <code>host</code> tenancy do not support the <code>unlimited</code> CPU credit option.
      * </p>
      * 
      * @param cpuCredits
-     *        The credit option for CPU usage of the instance. Valid values are <code>standard</code> and
-     *        <code>unlimited</code>.
+     *        The credit option for CPU usage of the instance.</p>
+     *        <p>
+     *        Valid values: <code>standard</code> | <code>unlimited</code>
+     *        </p>
+     *        <p>
+     *        T3 instances with <code>host</code> tenancy do not support the <code>unlimited</code> CPU credit option.
      */
 
     public void setCpuCredits(String cpuCredits) {
@@ -97,12 +111,21 @@ public class InstanceCreditSpecificationRequest implements Serializable, Cloneab
 
     /**
      * <p>
-     * The credit option for CPU usage of the instance. Valid values are <code>standard</code> and
-     * <code>unlimited</code>.
+     * The credit option for CPU usage of the instance.
+     * </p>
+     * <p>
+     * Valid values: <code>standard</code> | <code>unlimited</code>
+     * </p>
+     * <p>
+     * T3 instances with <code>host</code> tenancy do not support the <code>unlimited</code> CPU credit option.
      * </p>
      * 
-     * @return The credit option for CPU usage of the instance. Valid values are <code>standard</code> and
-     *         <code>unlimited</code>.
+     * @return The credit option for CPU usage of the instance.</p>
+     *         <p>
+     *         Valid values: <code>standard</code> | <code>unlimited</code>
+     *         </p>
+     *         <p>
+     *         T3 instances with <code>host</code> tenancy do not support the <code>unlimited</code> CPU credit option.
      */
 
     public String getCpuCredits() {
@@ -111,13 +134,22 @@ public class InstanceCreditSpecificationRequest implements Serializable, Cloneab
 
     /**
      * <p>
-     * The credit option for CPU usage of the instance. Valid values are <code>standard</code> and
-     * <code>unlimited</code>.
+     * The credit option for CPU usage of the instance.
+     * </p>
+     * <p>
+     * Valid values: <code>standard</code> | <code>unlimited</code>
+     * </p>
+     * <p>
+     * T3 instances with <code>host</code> tenancy do not support the <code>unlimited</code> CPU credit option.
      * </p>
      * 
      * @param cpuCredits
-     *        The credit option for CPU usage of the instance. Valid values are <code>standard</code> and
-     *        <code>unlimited</code>.
+     *        The credit option for CPU usage of the instance.</p>
+     *        <p>
+     *        Valid values: <code>standard</code> | <code>unlimited</code>
+     *        </p>
+     *        <p>
+     *        T3 instances with <code>host</code> tenancy do not support the <code>unlimited</code> CPU credit option.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

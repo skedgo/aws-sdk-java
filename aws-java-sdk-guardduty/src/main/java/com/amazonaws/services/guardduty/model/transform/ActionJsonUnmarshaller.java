@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -67,6 +67,26 @@ public class ActionJsonUnmarshaller implements Unmarshaller<Action, JsonUnmarsha
                 if (context.testExpression("portProbeAction", targetDepth)) {
                     context.nextToken();
                     action.setPortProbeAction(PortProbeActionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("kubernetesApiCallAction", targetDepth)) {
+                    context.nextToken();
+                    action.setKubernetesApiCallAction(KubernetesApiCallActionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("rdsLoginAttemptAction", targetDepth)) {
+                    context.nextToken();
+                    action.setRdsLoginAttemptAction(RdsLoginAttemptActionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("kubernetesPermissionCheckedDetails", targetDepth)) {
+                    context.nextToken();
+                    action.setKubernetesPermissionCheckedDetails(KubernetesPermissionCheckedDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("kubernetesRoleBindingDetails", targetDepth)) {
+                    context.nextToken();
+                    action.setKubernetesRoleBindingDetails(KubernetesRoleBindingDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("kubernetesRoleDetails", targetDepth)) {
+                    context.nextToken();
+                    action.setKubernetesRoleDetails(KubernetesRoleDetailsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

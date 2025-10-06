@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,7 +51,13 @@ public class WriteCampaignRequestJsonUnmarshaller implements Unmarshaller<WriteC
                 if (context.testExpression("AdditionalTreatments", targetDepth)) {
                     context.nextToken();
                     writeCampaignRequest.setAdditionalTreatments(new ListUnmarshaller<WriteTreatmentResource>(WriteTreatmentResourceJsonUnmarshaller
-                            .getInstance()).unmarshall(context));
+                            .getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("CustomDeliveryConfiguration", targetDepth)) {
+                    context.nextToken();
+                    writeCampaignRequest.setCustomDeliveryConfiguration(CustomDeliveryConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("Description", targetDepth)) {
                     context.nextToken();
@@ -98,6 +104,10 @@ public class WriteCampaignRequestJsonUnmarshaller implements Unmarshaller<WriteC
                     writeCampaignRequest.setTags(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
                             .getUnmarshaller(String.class)).unmarshall(context));
                 }
+                if (context.testExpression("TemplateConfiguration", targetDepth)) {
+                    context.nextToken();
+                    writeCampaignRequest.setTemplateConfiguration(TemplateConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("TreatmentDescription", targetDepth)) {
                     context.nextToken();
                     writeCampaignRequest.setTreatmentDescription(context.getUnmarshaller(String.class).unmarshall(context));
@@ -105,6 +115,10 @@ public class WriteCampaignRequestJsonUnmarshaller implements Unmarshaller<WriteC
                 if (context.testExpression("TreatmentName", targetDepth)) {
                     context.nextToken();
                     writeCampaignRequest.setTreatmentName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Priority", targetDepth)) {
+                    context.nextToken();
+                    writeCampaignRequest.setPriority(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

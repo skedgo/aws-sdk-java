@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.kafka.AWSKafkaClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.kafka.model.*;
+
 import com.amazonaws.services.kafka.model.transform.*;
 
 /**
@@ -77,31 +78,31 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withModeledClass(
-                                    com.amazonaws.services.kafka.model.ConflictException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ForbiddenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.kafka.model.transform.ForbiddenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withModeledClass(
-                                    com.amazonaws.services.kafka.model.NotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.kafka.model.transform.NotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withModeledClass(
-                                    com.amazonaws.services.kafka.model.ServiceUnavailableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnauthorizedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.kafka.model.transform.UnauthorizedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnauthorizedException").withModeledClass(
-                                    com.amazonaws.services.kafka.model.UnauthorizedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.kafka.model.transform.ConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ForbiddenException").withModeledClass(
-                                    com.amazonaws.services.kafka.model.ForbiddenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.kafka.model.transform.ServiceUnavailableExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withModeledClass(
-                                    com.amazonaws.services.kafka.model.TooManyRequestsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.kafka.model.transform.TooManyRequestsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withModeledClass(
-                                    com.amazonaws.services.kafka.model.BadRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.kafka.model.transform.BadRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withModeledClass(
-                                    com.amazonaws.services.kafka.model.InternalServerErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.kafka.model.transform.InternalServerErrorExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.kafka.model.AWSKafkaException.class));
 
     public static AWSKafkaClientBuilder builder() {
@@ -148,6 +149,182 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
         requestHandler2s.addAll(chainFactory.newRequestHandlerChain("/com/amazonaws/services/kafka/request.handlers"));
         requestHandler2s.addAll(chainFactory.newRequestHandler2Chain("/com/amazonaws/services/kafka/request.handler2s"));
         requestHandler2s.addAll(chainFactory.getGlobalHandlers());
+    }
+
+    /**
+     * <p>
+     * Associates one or more Scram Secrets with an Amazon MSK cluster.
+     * </p>
+     * 
+     * @param batchAssociateScramSecretRequest
+     *        <p>
+     *        Associates sasl scram secrets to cluster.
+     *        </p>
+     * @return Result of the BatchAssociateScramSecret operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @throws NotFoundException
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @throws TooManyRequestsException
+     *         <p>
+     *         429 response
+     *         </p>
+     * @sample AWSKafka.BatchAssociateScramSecret
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/BatchAssociateScramSecret"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public BatchAssociateScramSecretResult batchAssociateScramSecret(BatchAssociateScramSecretRequest request) {
+        request = beforeClientExecution(request);
+        return executeBatchAssociateScramSecret(request);
+    }
+
+    @SdkInternalApi
+    final BatchAssociateScramSecretResult executeBatchAssociateScramSecret(BatchAssociateScramSecretRequest batchAssociateScramSecretRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(batchAssociateScramSecretRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<BatchAssociateScramSecretRequest> request = null;
+        Response<BatchAssociateScramSecretResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new BatchAssociateScramSecretRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(batchAssociateScramSecretRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchAssociateScramSecret");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<BatchAssociateScramSecretResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new BatchAssociateScramSecretResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Disassociates one or more Scram Secrets from an Amazon MSK cluster.
+     * </p>
+     * 
+     * @param batchDisassociateScramSecretRequest
+     *        <p>
+     *        Disassociates sasl scram secrets to cluster.
+     *        </p>
+     * @return Result of the BatchDisassociateScramSecret operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @throws NotFoundException
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @throws TooManyRequestsException
+     *         <p>
+     *         429 response
+     *         </p>
+     * @sample AWSKafka.BatchDisassociateScramSecret
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/BatchDisassociateScramSecret"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public BatchDisassociateScramSecretResult batchDisassociateScramSecret(BatchDisassociateScramSecretRequest request) {
+        request = beforeClientExecution(request);
+        return executeBatchDisassociateScramSecret(request);
+    }
+
+    @SdkInternalApi
+    final BatchDisassociateScramSecretResult executeBatchDisassociateScramSecret(BatchDisassociateScramSecretRequest batchDisassociateScramSecretRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(batchDisassociateScramSecretRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<BatchDisassociateScramSecretRequest> request = null;
+        Response<BatchDisassociateScramSecretResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new BatchDisassociateScramSecretRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(batchDisassociateScramSecretRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchDisassociateScramSecret");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<BatchDisassociateScramSecretResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new BatchDisassociateScramSecretResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
     }
 
     /**
@@ -210,6 +387,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                 request = new CreateClusterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCluster");
@@ -221,6 +400,89 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
 
             HttpResponseHandler<AmazonWebServiceResponse<CreateClusterResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateClusterResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a new MSK cluster.
+     * </p>
+     * 
+     * @param createClusterV2Request
+     * @return Result of the CreateClusterV2 operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @throws TooManyRequestsException
+     *         <p>
+     *         429 response
+     *         </p>
+     * @throws ConflictException
+     *         <p>
+     *         This cluster name already exists. Retry your request using another name.
+     *         </p>
+     * @sample AWSKafka.CreateClusterV2
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/CreateClusterV2" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateClusterV2Result createClusterV2(CreateClusterV2Request request) {
+        request = beforeClientExecution(request);
+        return executeCreateClusterV2(request);
+    }
+
+    @SdkInternalApi
+    final CreateClusterV2Result executeCreateClusterV2(CreateClusterV2Request createClusterV2Request) {
+
+        ExecutionContext executionContext = createExecutionContext(createClusterV2Request);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateClusterV2Request> request = null;
+        Response<CreateClusterV2Result> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateClusterV2RequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createClusterV2Request));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateClusterV2");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateClusterV2Result>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateClusterV2ResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -291,6 +553,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                 request = new CreateConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateConfiguration");
@@ -302,6 +566,158 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
 
             HttpResponseHandler<AmazonWebServiceResponse<CreateConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates the replicator.
+     * </p>
+     * 
+     * @param createReplicatorRequest
+     *        Creates a replicator using the specified configuration.
+     * @return Result of the CreateReplicator operation returned by the service.
+     * @throws BadRequestException
+     *         HTTP Status Code 400: Bad request due to incorrect input. Correct your request and then retry it.
+     * @throws UnauthorizedException
+     *         HTTP Status Code 401: Unauthorized request. The provided credentials couldn't be validated.
+     * @throws InternalServerErrorException
+     *         HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.
+     * @throws ForbiddenException
+     *         HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.
+     * @throws NotFoundException
+     *         HTTP Status Code 404: Resource not found due to incorrect input. Correct your request and then retry it.
+     * @throws ServiceUnavailableException
+     *         HTTP Status Code 503: Service Unavailable. Retrying your request in some time might resolve the issue.
+     * @throws TooManyRequestsException
+     *         HTTP Status Code 429: Limit exceeded. Resource limit reached.
+     * @throws ConflictException
+     *         HTTP Status Code 409: Conflict. This replicator name already exists. Retry your request with another
+     *         name.
+     * @sample AWSKafka.CreateReplicator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/CreateReplicator" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateReplicatorResult createReplicator(CreateReplicatorRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateReplicator(request);
+    }
+
+    @SdkInternalApi
+    final CreateReplicatorResult executeCreateReplicator(CreateReplicatorRequest createReplicatorRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createReplicatorRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateReplicatorRequest> request = null;
+        Response<CreateReplicatorResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateReplicatorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createReplicatorRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateReplicator");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateReplicatorResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateReplicatorResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a new MSK VPC connection.
+     * </p>
+     * 
+     * @param createVpcConnectionRequest
+     * @return Result of the CreateVpcConnection operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @throws TooManyRequestsException
+     *         <p>
+     *         429 response
+     *         </p>
+     * @sample AWSKafka.CreateVpcConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/CreateVpcConnection" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateVpcConnectionResult createVpcConnection(CreateVpcConnectionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateVpcConnection(request);
+    }
+
+    @SdkInternalApi
+    final CreateVpcConnectionResult executeCreateVpcConnection(CreateVpcConnectionRequest createVpcConnectionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createVpcConnectionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateVpcConnectionRequest> request = null;
+        Response<CreateVpcConnectionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateVpcConnectionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createVpcConnectionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateVpcConnection");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateVpcConnectionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateVpcConnectionResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -360,6 +776,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                 request = new DeleteClusterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCluster");
@@ -371,6 +789,288 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
 
             HttpResponseHandler<AmazonWebServiceResponse<DeleteClusterResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteClusterResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the MSK cluster policy specified by the Amazon Resource Name (ARN) in the request.
+     * </p>
+     * 
+     * @param deleteClusterPolicyRequest
+     * @return Result of the DeleteClusterPolicy operation returned by the service.
+     * @throws NotFoundException
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @sample AWSKafka.DeleteClusterPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DeleteClusterPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteClusterPolicyResult deleteClusterPolicy(DeleteClusterPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteClusterPolicy(request);
+    }
+
+    @SdkInternalApi
+    final DeleteClusterPolicyResult executeDeleteClusterPolicy(DeleteClusterPolicyRequest deleteClusterPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteClusterPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteClusterPolicyRequest> request = null;
+        Response<DeleteClusterPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteClusterPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteClusterPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteClusterPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteClusterPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteClusterPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes an MSK Configuration.
+     * </p>
+     * 
+     * @param deleteConfigurationRequest
+     * @return Result of the DeleteConfiguration operation returned by the service.
+     * @throws NotFoundException
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @sample AWSKafka.DeleteConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DeleteConfiguration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteConfigurationResult deleteConfiguration(DeleteConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final DeleteConfigurationResult executeDeleteConfiguration(DeleteConfigurationRequest deleteConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteConfigurationRequest> request = null;
+        Response<DeleteConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a replicator.
+     * </p>
+     * 
+     * @param deleteReplicatorRequest
+     * @return Result of the DeleteReplicator operation returned by the service.
+     * @throws BadRequestException
+     *         HTTP Status Code 400: Bad request due to incorrect input. Correct your request and then retry it.
+     * @throws UnauthorizedException
+     *         HTTP Status Code 401: Unauthorized request. The provided credentials couldn't be validated.
+     * @throws InternalServerErrorException
+     *         HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.
+     * @throws ForbiddenException
+     *         HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.
+     * @throws NotFoundException
+     *         HTTP Status Code 404: Resource not found due to incorrect input. Correct your request and then retry it.
+     * @throws ServiceUnavailableException
+     *         HTTP Status Code 503: Service Unavailable. Retrying your request in some time might resolve the issue.
+     * @throws TooManyRequestsException
+     *         HTTP Status Code 429: Limit exceeded. Resource limit reached.
+     * @sample AWSKafka.DeleteReplicator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DeleteReplicator" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteReplicatorResult deleteReplicator(DeleteReplicatorRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteReplicator(request);
+    }
+
+    @SdkInternalApi
+    final DeleteReplicatorResult executeDeleteReplicator(DeleteReplicatorRequest deleteReplicatorRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteReplicatorRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteReplicatorRequest> request = null;
+        Response<DeleteReplicatorResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteReplicatorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteReplicatorRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteReplicator");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteReplicatorResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteReplicatorResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a MSK VPC connection.
+     * </p>
+     * 
+     * @param deleteVpcConnectionRequest
+     * @return Result of the DeleteVpcConnection operation returned by the service.
+     * @throws NotFoundException
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @sample AWSKafka.DeleteVpcConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DeleteVpcConnection" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteVpcConnectionResult deleteVpcConnection(DeleteVpcConnectionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteVpcConnection(request);
+    }
+
+    @SdkInternalApi
+    final DeleteVpcConnectionResult executeDeleteVpcConnection(DeleteVpcConnectionRequest deleteVpcConnectionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteVpcConnectionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteVpcConnectionRequest> request = null;
+        Response<DeleteVpcConnectionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteVpcConnectionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteVpcConnectionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteVpcConnection");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteVpcConnectionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteVpcConnectionResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -433,6 +1133,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                 request = new DescribeClusterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCluster");
@@ -507,6 +1209,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                         .beforeMarshalling(describeClusterOperationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeClusterOperation");
@@ -519,6 +1223,166 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
             HttpResponseHandler<AmazonWebServiceResponse<DescribeClusterOperationResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeClusterOperationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a description of the cluster operation specified by the ARN.
+     * </p>
+     * 
+     * @param describeClusterOperationV2Request
+     * @return Result of the DescribeClusterOperationV2 operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         HTTP Status Code 400: Bad request due to incorrect input. Correct your request and then retry it.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         HTTP Status Code 401: Unauthorized request. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.
+     *         </p>
+     * @throws NotFoundException
+     *         <p>
+     *         HTTP Status Code 404: Resource not found due to incorrect input. Correct your request and then retry it.
+     *         </p>
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         HTTP Status Code 503: Service Unavailable. Retrying your request in some time might resolve the issue.
+     *         </p>
+     * @throws TooManyRequestsException
+     *         <p>
+     *         HTTP Status Code 429: Limit exceeded. Resource limit reached.
+     *         </p>
+     * @sample AWSKafka.DescribeClusterOperationV2
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DescribeClusterOperationV2"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeClusterOperationV2Result describeClusterOperationV2(DescribeClusterOperationV2Request request) {
+        request = beforeClientExecution(request);
+        return executeDescribeClusterOperationV2(request);
+    }
+
+    @SdkInternalApi
+    final DescribeClusterOperationV2Result executeDescribeClusterOperationV2(DescribeClusterOperationV2Request describeClusterOperationV2Request) {
+
+        ExecutionContext executionContext = createExecutionContext(describeClusterOperationV2Request);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeClusterOperationV2Request> request = null;
+        Response<DescribeClusterOperationV2Result> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeClusterOperationV2RequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeClusterOperationV2Request));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeClusterOperationV2");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeClusterOperationV2Result>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeClusterOperationV2ResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a description of the MSK cluster whose Amazon Resource Name (ARN) is specified in the request.
+     * </p>
+     * 
+     * @param describeClusterV2Request
+     * @return Result of the DescribeClusterV2 operation returned by the service.
+     * @throws NotFoundException
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @sample AWSKafka.DescribeClusterV2
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DescribeClusterV2" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DescribeClusterV2Result describeClusterV2(DescribeClusterV2Request request) {
+        request = beforeClientExecution(request);
+        return executeDescribeClusterV2(request);
+    }
+
+    @SdkInternalApi
+    final DescribeClusterV2Result executeDescribeClusterV2(DescribeClusterV2Request describeClusterV2Request) {
+
+        ExecutionContext executionContext = createExecutionContext(describeClusterV2Request);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeClusterV2Request> request = null;
+        Response<DescribeClusterV2Result> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeClusterV2RequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeClusterV2Request));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeClusterV2");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeClusterV2Result>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeClusterV2ResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -585,6 +1449,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                 request = new DescribeConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConfiguration");
@@ -664,6 +1530,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                         .beforeMarshalling(describeConfigurationRevisionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConfigurationRevision");
@@ -676,6 +1544,155 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
             HttpResponseHandler<AmazonWebServiceResponse<DescribeConfigurationRevisionResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeConfigurationRevisionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes a replicator.
+     * </p>
+     * 
+     * @param describeReplicatorRequest
+     * @return Result of the DescribeReplicator operation returned by the service.
+     * @throws BadRequestException
+     *         HTTP Status Code 400: Bad request due to incorrect input. Correct your request and then retry it.
+     * @throws UnauthorizedException
+     *         HTTP Status Code 401: Unauthorized request. The provided credentials couldn't be validated.
+     * @throws InternalServerErrorException
+     *         HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.
+     * @throws ForbiddenException
+     *         HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.
+     * @throws NotFoundException
+     *         HTTP Status Code 404: Resource not found due to incorrect input. Correct your request and then retry it.
+     * @throws ServiceUnavailableException
+     *         HTTP Status Code 503: Service Unavailable. Retrying your request in some time might resolve the issue.
+     * @throws TooManyRequestsException
+     *         HTTP Status Code 429: Limit exceeded. Resource limit reached.
+     * @sample AWSKafka.DescribeReplicator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DescribeReplicator" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DescribeReplicatorResult describeReplicator(DescribeReplicatorRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeReplicator(request);
+    }
+
+    @SdkInternalApi
+    final DescribeReplicatorResult executeDescribeReplicator(DescribeReplicatorRequest describeReplicatorRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeReplicatorRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeReplicatorRequest> request = null;
+        Response<DescribeReplicatorResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeReplicatorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeReplicatorRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReplicator");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeReplicatorResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeReplicatorResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a description of this MSK VPC connection.
+     * </p>
+     * 
+     * @param describeVpcConnectionRequest
+     * @return Result of the DescribeVpcConnection operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @throws NotFoundException
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @sample AWSKafka.DescribeVpcConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DescribeVpcConnection" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeVpcConnectionResult describeVpcConnection(DescribeVpcConnectionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeVpcConnection(request);
+    }
+
+    @SdkInternalApi
+    final DescribeVpcConnectionResult executeDescribeVpcConnection(DescribeVpcConnectionRequest describeVpcConnectionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeVpcConnectionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeVpcConnectionRequest> request = null;
+        Response<DescribeVpcConnectionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeVpcConnectionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeVpcConnectionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeVpcConnection");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeVpcConnectionResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DescribeVpcConnectionResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -738,6 +1755,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                 request = new GetBootstrapBrokersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getBootstrapBrokersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBootstrapBrokers");
@@ -749,6 +1768,253 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
 
             HttpResponseHandler<AmazonWebServiceResponse<GetBootstrapBrokersResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetBootstrapBrokersResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Get the MSK cluster policy specified by the Amazon Resource Name (ARN) in the request.
+     * </p>
+     * 
+     * @param getClusterPolicyRequest
+     * @return Result of the GetClusterPolicy operation returned by the service.
+     * @throws NotFoundException
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @sample AWSKafka.GetClusterPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/GetClusterPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetClusterPolicyResult getClusterPolicy(GetClusterPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetClusterPolicy(request);
+    }
+
+    @SdkInternalApi
+    final GetClusterPolicyResult executeGetClusterPolicy(GetClusterPolicyRequest getClusterPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getClusterPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetClusterPolicyRequest> request = null;
+        Response<GetClusterPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetClusterPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getClusterPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetClusterPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetClusterPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetClusterPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets the Apache Kafka versions to which you can update the MSK cluster.
+     * </p>
+     * 
+     * @param getCompatibleKafkaVersionsRequest
+     * @return Result of the GetCompatibleKafkaVersions operation returned by the service.
+     * @throws BadRequestException
+     *         n
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     *         n
+     * @throws UnauthorizedException
+     *         n
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     *         n
+     * @throws InternalServerErrorException
+     *         n
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     *         n
+     * @throws ForbiddenException
+     *         n
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     *         n
+     * @throws NotFoundException
+     *         n
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     *         n
+     * @throws ServiceUnavailableException
+     *         n
+     *         <p>
+     *         503 response
+     *         </p>
+     *         n
+     * @throws TooManyRequestsException
+     *         n
+     *         <p>
+     *         429 response
+     *         </p>
+     *         n
+     * @sample AWSKafka.GetCompatibleKafkaVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/GetCompatibleKafkaVersions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetCompatibleKafkaVersionsResult getCompatibleKafkaVersions(GetCompatibleKafkaVersionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetCompatibleKafkaVersions(request);
+    }
+
+    @SdkInternalApi
+    final GetCompatibleKafkaVersionsResult executeGetCompatibleKafkaVersions(GetCompatibleKafkaVersionsRequest getCompatibleKafkaVersionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getCompatibleKafkaVersionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetCompatibleKafkaVersionsRequest> request = null;
+        Response<GetCompatibleKafkaVersionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetCompatibleKafkaVersionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getCompatibleKafkaVersionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCompatibleKafkaVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetCompatibleKafkaVersionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetCompatibleKafkaVersionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of all the VPC connections in this Region.
+     * </p>
+     * 
+     * @param listClientVpcConnectionsRequest
+     * @return Result of the ListClientVpcConnections operation returned by the service.
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @sample AWSKafka.ListClientVpcConnections
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListClientVpcConnections" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListClientVpcConnectionsResult listClientVpcConnections(ListClientVpcConnectionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListClientVpcConnections(request);
+    }
+
+    @SdkInternalApi
+    final ListClientVpcConnectionsResult executeListClientVpcConnections(ListClientVpcConnectionsRequest listClientVpcConnectionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listClientVpcConnectionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListClientVpcConnectionsRequest> request = null;
+        Response<ListClientVpcConnectionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListClientVpcConnectionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listClientVpcConnectionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListClientVpcConnections");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListClientVpcConnectionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListClientVpcConnectionsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -807,6 +2073,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                 request = new ListClusterOperationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listClusterOperationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListClusterOperations");
@@ -819,6 +2087,91 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
             HttpResponseHandler<AmazonWebServiceResponse<ListClusterOperationsResult>> responseHandler = protocolFactory
                     .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                             new ListClusterOperationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of all the operations that have been performed on the specified MSK cluster.
+     * </p>
+     * 
+     * @param listClusterOperationsV2Request
+     * @return Result of the ListClusterOperationsV2 operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         HTTP Status Code 400: Bad request due to incorrect input. Correct your request and then retry it.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         HTTP Status Code 401: Unauthorized request. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.
+     *         </p>
+     * @throws NotFoundException
+     *         <p>
+     *         HTTP Status Code 404: Resource not found due to incorrect input. Correct your request and then retry it.
+     *         </p>
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         HTTP Status Code 503: Service Unavailable. Retrying your request in some time might resolve the issue.
+     *         </p>
+     * @throws TooManyRequestsException
+     *         <p>
+     *         HTTP Status Code 429: Limit exceeded. Resource limit reached.
+     *         </p>
+     * @sample AWSKafka.ListClusterOperationsV2
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListClusterOperationsV2" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListClusterOperationsV2Result listClusterOperationsV2(ListClusterOperationsV2Request request) {
+        request = beforeClientExecution(request);
+        return executeListClusterOperationsV2(request);
+    }
+
+    @SdkInternalApi
+    final ListClusterOperationsV2Result executeListClusterOperationsV2(ListClusterOperationsV2Request listClusterOperationsV2Request) {
+
+        ExecutionContext executionContext = createExecutionContext(listClusterOperationsV2Request);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListClusterOperationsV2Request> request = null;
+        Response<ListClusterOperationsV2Result> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListClusterOperationsV2RequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listClusterOperationsV2Request));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListClusterOperationsV2");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListClusterOperationsV2Result>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListClusterOperationsV2ResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -877,6 +2230,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                 request = new ListClustersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listClustersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListClusters");
@@ -888,6 +2243,77 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
 
             HttpResponseHandler<AmazonWebServiceResponse<ListClustersResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListClustersResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of all the MSK clusters in the current Region.
+     * </p>
+     * 
+     * @param listClustersV2Request
+     * @return Result of the ListClustersV2 operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @sample AWSKafka.ListClustersV2
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListClustersV2" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListClustersV2Result listClustersV2(ListClustersV2Request request) {
+        request = beforeClientExecution(request);
+        return executeListClustersV2(request);
+    }
+
+    @SdkInternalApi
+    final ListClustersV2Result executeListClustersV2(ListClustersV2Request listClustersV2Request) {
+
+        ExecutionContext executionContext = createExecutionContext(listClustersV2Request);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListClustersV2Request> request = null;
+        Response<ListClustersV2Result> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListClustersV2RequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listClustersV2Request));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListClustersV2");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListClustersV2Result>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListClustersV2ResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -955,6 +2381,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                         .beforeMarshalling(listConfigurationRevisionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListConfigurationRevisions");
@@ -1029,6 +2457,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                 request = new ListConfigurationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listConfigurationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListConfigurations");
@@ -1040,6 +2470,77 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
 
             HttpResponseHandler<AmazonWebServiceResponse<ListConfigurationsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListConfigurationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of Apache Kafka versions.
+     * </p>
+     * 
+     * @param listKafkaVersionsRequest
+     * @return Result of the ListKafkaVersions operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @sample AWSKafka.ListKafkaVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListKafkaVersions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListKafkaVersionsResult listKafkaVersions(ListKafkaVersionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListKafkaVersions(request);
+    }
+
+    @SdkInternalApi
+    final ListKafkaVersionsResult executeListKafkaVersions(ListKafkaVersionsRequest listKafkaVersionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listKafkaVersionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListKafkaVersionsRequest> request = null;
+        Response<ListKafkaVersionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListKafkaVersionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listKafkaVersionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListKafkaVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListKafkaVersionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListKafkaVersionsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1098,6 +2599,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                 request = new ListNodesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listNodesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListNodes");
@@ -1109,6 +2612,158 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
 
             HttpResponseHandler<AmazonWebServiceResponse<ListNodesResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
                     .withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListNodesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the replicators.
+     * </p>
+     * 
+     * @param listReplicatorsRequest
+     * @return Result of the ListReplicators operation returned by the service.
+     * @throws BadRequestException
+     *         HTTP Status Code 400: Bad request due to incorrect input. Correct your request and then retry it.
+     * @throws UnauthorizedException
+     *         HTTP Status Code 401: Unauthorized request. The provided credentials couldn't be validated.
+     * @throws InternalServerErrorException
+     *         HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.
+     * @throws ForbiddenException
+     *         HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.
+     * @throws NotFoundException
+     *         HTTP Status Code 404: Resource not found due to incorrect input. Correct your request and then retry it.
+     * @throws ServiceUnavailableException
+     *         HTTP Status Code 503: Service Unavailable. Retrying your request in some time might resolve the issue.
+     * @throws TooManyRequestsException
+     *         HTTP Status Code 429: Limit exceeded. Resource limit reached.
+     * @sample AWSKafka.ListReplicators
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListReplicators" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListReplicatorsResult listReplicators(ListReplicatorsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListReplicators(request);
+    }
+
+    @SdkInternalApi
+    final ListReplicatorsResult executeListReplicators(ListReplicatorsRequest listReplicatorsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listReplicatorsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListReplicatorsRequest> request = null;
+        Response<ListReplicatorsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListReplicatorsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listReplicatorsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListReplicators");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListReplicatorsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListReplicatorsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of the Scram Secrets associated with an Amazon MSK cluster.
+     * </p>
+     * 
+     * @param listScramSecretsRequest
+     * @return Result of the ListScramSecrets operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @throws NotFoundException
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @throws TooManyRequestsException
+     *         <p>
+     *         429 response
+     *         </p>
+     * @sample AWSKafka.ListScramSecrets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListScramSecrets" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListScramSecretsResult listScramSecrets(ListScramSecretsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListScramSecrets(request);
+    }
+
+    @SdkInternalApi
+    final ListScramSecretsResult executeListScramSecrets(ListScramSecretsRequest listScramSecretsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listScramSecretsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListScramSecretsRequest> request = null;
+        Response<ListScramSecretsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListScramSecretsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listScramSecretsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListScramSecrets");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListScramSecretsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListScramSecretsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1163,6 +2818,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -1174,6 +2831,307 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
 
             HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of all the VPC connections in this Region.
+     * </p>
+     * 
+     * @param listVpcConnectionsRequest
+     * @return Result of the ListVpcConnections operation returned by the service.
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @sample AWSKafka.ListVpcConnections
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListVpcConnections" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListVpcConnectionsResult listVpcConnections(ListVpcConnectionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListVpcConnections(request);
+    }
+
+    @SdkInternalApi
+    final ListVpcConnectionsResult executeListVpcConnections(ListVpcConnectionsRequest listVpcConnectionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listVpcConnectionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListVpcConnectionsRequest> request = null;
+        Response<ListVpcConnectionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListVpcConnectionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listVpcConnectionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListVpcConnections");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListVpcConnectionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListVpcConnectionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates or updates the MSK cluster policy specified by the cluster Amazon Resource Name (ARN) in the request.
+     * </p>
+     * 
+     * @param putClusterPolicyRequest
+     * @return Result of the PutClusterPolicy operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @sample AWSKafka.PutClusterPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/PutClusterPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public PutClusterPolicyResult putClusterPolicy(PutClusterPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executePutClusterPolicy(request);
+    }
+
+    @SdkInternalApi
+    final PutClusterPolicyResult executePutClusterPolicy(PutClusterPolicyRequest putClusterPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putClusterPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutClusterPolicyRequest> request = null;
+        Response<PutClusterPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutClusterPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putClusterPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutClusterPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutClusterPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new PutClusterPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Reboots brokers.
+     * 
+     * @param rebootBrokerRequest
+     *        Reboots a node.
+     * @return Result of the RebootBroker operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @throws NotFoundException
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @throws TooManyRequestsException
+     *         <p>
+     *         429 response
+     *         </p>
+     * @sample AWSKafka.RebootBroker
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/RebootBroker" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public RebootBrokerResult rebootBroker(RebootBrokerRequest request) {
+        request = beforeClientExecution(request);
+        return executeRebootBroker(request);
+    }
+
+    @SdkInternalApi
+    final RebootBrokerResult executeRebootBroker(RebootBrokerRequest rebootBrokerRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(rebootBrokerRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RebootBrokerRequest> request = null;
+        Response<RebootBrokerResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RebootBrokerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(rebootBrokerRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RebootBroker");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RebootBrokerResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new RebootBrokerResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns empty response.
+     * </p>
+     * 
+     * @param rejectClientVpcConnectionRequest
+     * @return Result of the RejectClientVpcConnection operation returned by the service.
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @sample AWSKafka.RejectClientVpcConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/RejectClientVpcConnection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public RejectClientVpcConnectionResult rejectClientVpcConnection(RejectClientVpcConnectionRequest request) {
+        request = beforeClientExecution(request);
+        return executeRejectClientVpcConnection(request);
+    }
+
+    @SdkInternalApi
+    final RejectClientVpcConnectionResult executeRejectClientVpcConnection(RejectClientVpcConnectionRequest rejectClientVpcConnectionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(rejectClientVpcConnectionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RejectClientVpcConnectionRequest> request = null;
+        Response<RejectClientVpcConnectionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RejectClientVpcConnectionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(rejectClientVpcConnectionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RejectClientVpcConnection");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RejectClientVpcConnectionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new RejectClientVpcConnectionResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1228,6 +3186,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -1293,6 +3253,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -1304,6 +3266,81 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
 
             HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the number of broker nodes in the cluster.
+     * </p>
+     * 
+     * @param updateBrokerCountRequest
+     * @return Result of the UpdateBrokerCount operation returned by the service.
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @sample AWSKafka.UpdateBrokerCount
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateBrokerCount" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UpdateBrokerCountResult updateBrokerCount(UpdateBrokerCountRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateBrokerCount(request);
+    }
+
+    @SdkInternalApi
+    final UpdateBrokerCountResult executeUpdateBrokerCount(UpdateBrokerCountRequest updateBrokerCountRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateBrokerCountRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateBrokerCountRequest> request = null;
+        Response<UpdateBrokerCountResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateBrokerCountRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateBrokerCountRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateBrokerCount");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateBrokerCountResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateBrokerCountResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1366,6 +3403,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                 request = new UpdateBrokerStorageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateBrokerStorageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateBrokerStorage");
@@ -1377,6 +3416,89 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
 
             HttpResponseHandler<AmazonWebServiceResponse<UpdateBrokerStorageResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateBrokerStorageResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates EC2 instance type.
+     * </p>
+     * 
+     * @param updateBrokerTypeRequest
+     * @return Result of the UpdateBrokerType operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @throws NotFoundException
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @throws TooManyRequestsException
+     *         <p>
+     *         429 response
+     *         </p>
+     * @sample AWSKafka.UpdateBrokerType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateBrokerType" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UpdateBrokerTypeResult updateBrokerType(UpdateBrokerTypeRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateBrokerType(request);
+    }
+
+    @SdkInternalApi
+    final UpdateBrokerTypeResult executeUpdateBrokerType(UpdateBrokerTypeRequest updateBrokerTypeRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateBrokerTypeRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateBrokerTypeRequest> request = null;
+        Response<UpdateBrokerTypeResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateBrokerTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateBrokerTypeRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateBrokerType");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateBrokerTypeResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateBrokerTypeResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1444,6 +3566,8 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
                         .beforeMarshalling(updateClusterConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateClusterConfiguration");
@@ -1456,6 +3580,553 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
             HttpResponseHandler<AmazonWebServiceResponse<UpdateClusterConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new UpdateClusterConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the Apache Kafka version for the cluster.
+     * </p>
+     * 
+     * @param updateClusterKafkaVersionRequest
+     * @return Result of the UpdateClusterKafkaVersion operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @throws NotFoundException
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @throws TooManyRequestsException
+     *         <p>
+     *         429 response
+     *         </p>
+     * @sample AWSKafka.UpdateClusterKafkaVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateClusterKafkaVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateClusterKafkaVersionResult updateClusterKafkaVersion(UpdateClusterKafkaVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateClusterKafkaVersion(request);
+    }
+
+    @SdkInternalApi
+    final UpdateClusterKafkaVersionResult executeUpdateClusterKafkaVersion(UpdateClusterKafkaVersionRequest updateClusterKafkaVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateClusterKafkaVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateClusterKafkaVersionRequest> request = null;
+        Response<UpdateClusterKafkaVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateClusterKafkaVersionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateClusterKafkaVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateClusterKafkaVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateClusterKafkaVersionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateClusterKafkaVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates an MSK configuration.
+     * </p>
+     * 
+     * @param updateConfigurationRequest
+     * @return Result of the UpdateConfiguration operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @throws NotFoundException
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @sample AWSKafka.UpdateConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateConfiguration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UpdateConfigurationResult updateConfiguration(UpdateConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final UpdateConfigurationResult executeUpdateConfiguration(UpdateConfigurationRequest updateConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateConfigurationRequest> request = null;
+        Response<UpdateConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the cluster's connectivity configuration.
+     * </p>
+     * 
+     * @param updateConnectivityRequest
+     *        Request body for UpdateConnectivity.
+     * @return Result of the UpdateConnectivity operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @throws NotFoundException
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @sample AWSKafka.UpdateConnectivity
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateConnectivity" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UpdateConnectivityResult updateConnectivity(UpdateConnectivityRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateConnectivity(request);
+    }
+
+    @SdkInternalApi
+    final UpdateConnectivityResult executeUpdateConnectivity(UpdateConnectivityRequest updateConnectivityRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateConnectivityRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateConnectivityRequest> request = null;
+        Response<UpdateConnectivityResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateConnectivityRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateConnectivityRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateConnectivity");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateConnectivityResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateConnectivityResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the monitoring settings for the cluster. You can use this operation to specify which Apache Kafka metrics
+     * you want Amazon MSK to send to Amazon CloudWatch. You can also specify settings for open monitoring with
+     * Prometheus.
+     * </p>
+     * 
+     * @param updateMonitoringRequest
+     *        Request body for UpdateMonitoring.
+     * @return Result of the UpdateMonitoring operation returned by the service.
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         503 response
+     *         </p>
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @sample AWSKafka.UpdateMonitoring
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateMonitoring" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UpdateMonitoringResult updateMonitoring(UpdateMonitoringRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateMonitoring(request);
+    }
+
+    @SdkInternalApi
+    final UpdateMonitoringResult executeUpdateMonitoring(UpdateMonitoringRequest updateMonitoringRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateMonitoringRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateMonitoringRequest> request = null;
+        Response<UpdateMonitoringResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateMonitoringRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateMonitoringRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateMonitoring");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateMonitoringResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateMonitoringResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates replication info of a replicator.
+     * </p>
+     * 
+     * @param updateReplicationInfoRequest
+     *        Update information relating to replication between a given source and target Kafka cluster.
+     * @return Result of the UpdateReplicationInfo operation returned by the service.
+     * @throws BadRequestException
+     *         HTTP Status Code 400: Bad request due to incorrect input. Correct your request and then retry it.
+     * @throws UnauthorizedException
+     *         HTTP Status Code 401: Unauthorized request. The provided credentials couldn't be validated.
+     * @throws InternalServerErrorException
+     *         HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.
+     * @throws ForbiddenException
+     *         HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.
+     * @throws NotFoundException
+     *         HTTP Status Code 404: Resource not found due to incorrect input. Correct your request and then retry it.
+     * @throws ServiceUnavailableException
+     *         HTTP Status Code 503: Service Unavailable. Retrying your request in some time might resolve the issue.
+     * @throws TooManyRequestsException
+     *         HTTP Status Code 429: Limit exceeded. Resource limit reached.
+     * @sample AWSKafka.UpdateReplicationInfo
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateReplicationInfo" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdateReplicationInfoResult updateReplicationInfo(UpdateReplicationInfoRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateReplicationInfo(request);
+    }
+
+    @SdkInternalApi
+    final UpdateReplicationInfoResult executeUpdateReplicationInfo(UpdateReplicationInfoRequest updateReplicationInfoRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateReplicationInfoRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateReplicationInfoRequest> request = null;
+        Response<UpdateReplicationInfoResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateReplicationInfoRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateReplicationInfoRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateReplicationInfo");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateReplicationInfoResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new UpdateReplicationInfoResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the security settings for the cluster. You can use this operation to specify encryption and
+     * authentication on existing clusters.
+     * </p>
+     * 
+     * @param updateSecurityRequest
+     * @return Result of the UpdateSecurity operation returned by the service.
+     * @throws BadRequestException
+     *         <p>
+     *         The request isn't valid because the input is incorrect. Correct your input and then submit it again.
+     *         </p>
+     * @throws UnauthorizedException
+     *         <p>
+     *         The request is not authorized. The provided credentials couldn't be validated.
+     *         </p>
+     * @throws InternalServerErrorException
+     *         <p>
+     *         There was an unexpected internal server error. Retrying your request might resolve the issue.
+     *         </p>
+     * @throws ForbiddenException
+     *         <p>
+     *         Access forbidden. Check your credentials and then retry your request.
+     *         </p>
+     * @throws NotFoundException
+     *         <p>
+     *         The resource could not be found due to incorrect input. Correct the input, then retry the request.
+     *         </p>
+     * @throws ServiceUnavailableException
+     *         <p>
+     *         The service cannot complete the request.
+     *         </p>
+     * @throws TooManyRequestsException
+     *         <p>
+     *         The request throughput limit was exceeded.
+     *         </p>
+     * @sample AWSKafka.UpdateSecurity
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateSecurity" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UpdateSecurityResult updateSecurity(UpdateSecurityRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateSecurity(request);
+    }
+
+    @SdkInternalApi
+    final UpdateSecurityResult executeUpdateSecurity(UpdateSecurityRequest updateSecurityRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateSecurityRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateSecurityRequest> request = null;
+        Response<UpdateSecurityResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateSecurityRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateSecurityRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSecurity");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateSecurityResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateSecurityResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Updates cluster broker volume size (or) sets cluster storage mode to TIERED.
+     * 
+     * @param updateStorageRequest
+     *        <p>
+     *        Request object for UpdateStorage api. Its used to update the storage attributes for the cluster.
+     *        </p>
+     * @return Result of the UpdateStorage operation returned by the service.
+     * @throws BadRequestException
+     *         HTTP Status Code 400: Bad request due to incorrect input. Correct your request and then retry it.
+     * @throws UnauthorizedException
+     *         HTTP Status Code 401: Unauthorized request. The provided credentials couldn't be validated.
+     * @throws InternalServerErrorException
+     *         HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.
+     * @throws ForbiddenException
+     *         HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.
+     * @throws NotFoundException
+     *         HTTP Status Code 404: Resource not found due to incorrect input. Correct your request and then retry it.
+     * @throws ServiceUnavailableException
+     *         HTTP Status Code 503: Service Unavailable. Retrying your request in some time might resolve the issue.
+     * @throws TooManyRequestsException
+     *         HTTP Status Code 429: Limit exceeded. Resource limit reached.
+     * @sample AWSKafka.UpdateStorage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateStorage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UpdateStorageResult updateStorage(UpdateStorageRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateStorage(request);
+    }
+
+    @SdkInternalApi
+    final UpdateStorageResult executeUpdateStorage(UpdateStorageRequest updateStorageRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateStorageRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateStorageRequest> request = null;
+        Response<UpdateStorageResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateStorageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateStorageRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kafka");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateStorage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateStorageResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateStorageResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1540,6 +4211,11 @@ public class AWSKafkaClient extends AmazonWebServiceClient implements AWSKafka {
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

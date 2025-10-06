@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,6 +25,19 @@ import com.amazonaws.services.datasync.model.*;
 public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWSDataSyncAsync {
 
     protected AbstractAWSDataSyncAsync() {
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddStorageSystemResult> addStorageSystemAsync(AddStorageSystemRequest request) {
+
+        return addStorageSystemAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddStorageSystemResult> addStorageSystemAsync(AddStorageSystemRequest request,
+            com.amazonaws.handlers.AsyncHandler<AddStorageSystemRequest, AddStorageSystemResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -54,6 +67,19 @@ public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<CreateLocationAzureBlobResult> createLocationAzureBlobAsync(CreateLocationAzureBlobRequest request) {
+
+        return createLocationAzureBlobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationAzureBlobResult> createLocationAzureBlobAsync(CreateLocationAzureBlobRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateLocationAzureBlobRequest, CreateLocationAzureBlobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateLocationEfsResult> createLocationEfsAsync(CreateLocationEfsRequest request) {
 
         return createLocationEfsAsync(request, null);
@@ -62,6 +88,71 @@ public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWS
     @Override
     public java.util.concurrent.Future<CreateLocationEfsResult> createLocationEfsAsync(CreateLocationEfsRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateLocationEfsRequest, CreateLocationEfsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationFsxLustreResult> createLocationFsxLustreAsync(CreateLocationFsxLustreRequest request) {
+
+        return createLocationFsxLustreAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationFsxLustreResult> createLocationFsxLustreAsync(CreateLocationFsxLustreRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateLocationFsxLustreRequest, CreateLocationFsxLustreResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationFsxOntapResult> createLocationFsxOntapAsync(CreateLocationFsxOntapRequest request) {
+
+        return createLocationFsxOntapAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationFsxOntapResult> createLocationFsxOntapAsync(CreateLocationFsxOntapRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateLocationFsxOntapRequest, CreateLocationFsxOntapResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationFsxOpenZfsResult> createLocationFsxOpenZfsAsync(CreateLocationFsxOpenZfsRequest request) {
+
+        return createLocationFsxOpenZfsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationFsxOpenZfsResult> createLocationFsxOpenZfsAsync(CreateLocationFsxOpenZfsRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateLocationFsxOpenZfsRequest, CreateLocationFsxOpenZfsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationFsxWindowsResult> createLocationFsxWindowsAsync(CreateLocationFsxWindowsRequest request) {
+
+        return createLocationFsxWindowsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationFsxWindowsResult> createLocationFsxWindowsAsync(CreateLocationFsxWindowsRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateLocationFsxWindowsRequest, CreateLocationFsxWindowsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationHdfsResult> createLocationHdfsAsync(CreateLocationHdfsRequest request) {
+
+        return createLocationHdfsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationHdfsResult> createLocationHdfsAsync(CreateLocationHdfsRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateLocationHdfsRequest, CreateLocationHdfsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -80,6 +171,19 @@ public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<CreateLocationObjectStorageResult> createLocationObjectStorageAsync(CreateLocationObjectStorageRequest request) {
+
+        return createLocationObjectStorageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationObjectStorageResult> createLocationObjectStorageAsync(CreateLocationObjectStorageRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateLocationObjectStorageRequest, CreateLocationObjectStorageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateLocationS3Result> createLocationS3Async(CreateLocationS3Request request) {
 
         return createLocationS3Async(request, null);
@@ -88,6 +192,19 @@ public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWS
     @Override
     public java.util.concurrent.Future<CreateLocationS3Result> createLocationS3Async(CreateLocationS3Request request,
             com.amazonaws.handlers.AsyncHandler<CreateLocationS3Request, CreateLocationS3Result> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationSmbResult> createLocationSmbAsync(CreateLocationSmbRequest request) {
+
+        return createLocationSmbAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationSmbResult> createLocationSmbAsync(CreateLocationSmbRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateLocationSmbRequest, CreateLocationSmbResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -158,6 +275,32 @@ public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeDiscoveryJobResult> describeDiscoveryJobAsync(DescribeDiscoveryJobRequest request) {
+
+        return describeDiscoveryJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDiscoveryJobResult> describeDiscoveryJobAsync(DescribeDiscoveryJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeDiscoveryJobRequest, DescribeDiscoveryJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLocationAzureBlobResult> describeLocationAzureBlobAsync(DescribeLocationAzureBlobRequest request) {
+
+        return describeLocationAzureBlobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLocationAzureBlobResult> describeLocationAzureBlobAsync(DescribeLocationAzureBlobRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeLocationAzureBlobRequest, DescribeLocationAzureBlobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeLocationEfsResult> describeLocationEfsAsync(DescribeLocationEfsRequest request) {
 
         return describeLocationEfsAsync(request, null);
@@ -166,6 +309,71 @@ public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWS
     @Override
     public java.util.concurrent.Future<DescribeLocationEfsResult> describeLocationEfsAsync(DescribeLocationEfsRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeLocationEfsRequest, DescribeLocationEfsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLocationFsxLustreResult> describeLocationFsxLustreAsync(DescribeLocationFsxLustreRequest request) {
+
+        return describeLocationFsxLustreAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLocationFsxLustreResult> describeLocationFsxLustreAsync(DescribeLocationFsxLustreRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeLocationFsxLustreRequest, DescribeLocationFsxLustreResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLocationFsxOntapResult> describeLocationFsxOntapAsync(DescribeLocationFsxOntapRequest request) {
+
+        return describeLocationFsxOntapAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLocationFsxOntapResult> describeLocationFsxOntapAsync(DescribeLocationFsxOntapRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeLocationFsxOntapRequest, DescribeLocationFsxOntapResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLocationFsxOpenZfsResult> describeLocationFsxOpenZfsAsync(DescribeLocationFsxOpenZfsRequest request) {
+
+        return describeLocationFsxOpenZfsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLocationFsxOpenZfsResult> describeLocationFsxOpenZfsAsync(DescribeLocationFsxOpenZfsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeLocationFsxOpenZfsRequest, DescribeLocationFsxOpenZfsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLocationFsxWindowsResult> describeLocationFsxWindowsAsync(DescribeLocationFsxWindowsRequest request) {
+
+        return describeLocationFsxWindowsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLocationFsxWindowsResult> describeLocationFsxWindowsAsync(DescribeLocationFsxWindowsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeLocationFsxWindowsRequest, DescribeLocationFsxWindowsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLocationHdfsResult> describeLocationHdfsAsync(DescribeLocationHdfsRequest request) {
+
+        return describeLocationHdfsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLocationHdfsResult> describeLocationHdfsAsync(DescribeLocationHdfsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeLocationHdfsRequest, DescribeLocationHdfsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -184,6 +392,19 @@ public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeLocationObjectStorageResult> describeLocationObjectStorageAsync(DescribeLocationObjectStorageRequest request) {
+
+        return describeLocationObjectStorageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLocationObjectStorageResult> describeLocationObjectStorageAsync(DescribeLocationObjectStorageRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeLocationObjectStorageRequest, DescribeLocationObjectStorageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeLocationS3Result> describeLocationS3Async(DescribeLocationS3Request request) {
 
         return describeLocationS3Async(request, null);
@@ -192,6 +413,60 @@ public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWS
     @Override
     public java.util.concurrent.Future<DescribeLocationS3Result> describeLocationS3Async(DescribeLocationS3Request request,
             com.amazonaws.handlers.AsyncHandler<DescribeLocationS3Request, DescribeLocationS3Result> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLocationSmbResult> describeLocationSmbAsync(DescribeLocationSmbRequest request) {
+
+        return describeLocationSmbAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLocationSmbResult> describeLocationSmbAsync(DescribeLocationSmbRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeLocationSmbRequest, DescribeLocationSmbResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeStorageSystemResult> describeStorageSystemAsync(DescribeStorageSystemRequest request) {
+
+        return describeStorageSystemAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeStorageSystemResult> describeStorageSystemAsync(DescribeStorageSystemRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeStorageSystemRequest, DescribeStorageSystemResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeStorageSystemResourceMetricsResult> describeStorageSystemResourceMetricsAsync(
+            DescribeStorageSystemResourceMetricsRequest request) {
+
+        return describeStorageSystemResourceMetricsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeStorageSystemResourceMetricsResult> describeStorageSystemResourceMetricsAsync(
+            DescribeStorageSystemResourceMetricsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeStorageSystemResourceMetricsRequest, DescribeStorageSystemResourceMetricsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeStorageSystemResourcesResult> describeStorageSystemResourcesAsync(DescribeStorageSystemResourcesRequest request) {
+
+        return describeStorageSystemResourcesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeStorageSystemResourcesResult> describeStorageSystemResourcesAsync(DescribeStorageSystemResourcesRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeStorageSystemResourcesRequest, DescribeStorageSystemResourcesResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -223,6 +498,19 @@ public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<GenerateRecommendationsResult> generateRecommendationsAsync(GenerateRecommendationsRequest request) {
+
+        return generateRecommendationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GenerateRecommendationsResult> generateRecommendationsAsync(GenerateRecommendationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<GenerateRecommendationsRequest, GenerateRecommendationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListAgentsResult> listAgentsAsync(ListAgentsRequest request) {
 
         return listAgentsAsync(request, null);
@@ -236,6 +524,19 @@ public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<ListDiscoveryJobsResult> listDiscoveryJobsAsync(ListDiscoveryJobsRequest request) {
+
+        return listDiscoveryJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDiscoveryJobsResult> listDiscoveryJobsAsync(ListDiscoveryJobsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListDiscoveryJobsRequest, ListDiscoveryJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListLocationsResult> listLocationsAsync(ListLocationsRequest request) {
 
         return listLocationsAsync(request, null);
@@ -244,6 +545,19 @@ public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWS
     @Override
     public java.util.concurrent.Future<ListLocationsResult> listLocationsAsync(ListLocationsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListLocationsRequest, ListLocationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListStorageSystemsResult> listStorageSystemsAsync(ListStorageSystemsRequest request) {
+
+        return listStorageSystemsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListStorageSystemsResult> listStorageSystemsAsync(ListStorageSystemsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListStorageSystemsRequest, ListStorageSystemsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -288,6 +602,32 @@ public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<RemoveStorageSystemResult> removeStorageSystemAsync(RemoveStorageSystemRequest request) {
+
+        return removeStorageSystemAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveStorageSystemResult> removeStorageSystemAsync(RemoveStorageSystemRequest request,
+            com.amazonaws.handlers.AsyncHandler<RemoveStorageSystemRequest, RemoveStorageSystemResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartDiscoveryJobResult> startDiscoveryJobAsync(StartDiscoveryJobRequest request) {
+
+        return startDiscoveryJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartDiscoveryJobResult> startDiscoveryJobAsync(StartDiscoveryJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartDiscoveryJobRequest, StartDiscoveryJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StartTaskExecutionResult> startTaskExecutionAsync(StartTaskExecutionRequest request) {
 
         return startTaskExecutionAsync(request, null);
@@ -296,6 +636,19 @@ public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWS
     @Override
     public java.util.concurrent.Future<StartTaskExecutionResult> startTaskExecutionAsync(StartTaskExecutionRequest request,
             com.amazonaws.handlers.AsyncHandler<StartTaskExecutionRequest, StartTaskExecutionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopDiscoveryJobResult> stopDiscoveryJobAsync(StopDiscoveryJobRequest request) {
+
+        return stopDiscoveryJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopDiscoveryJobResult> stopDiscoveryJobAsync(StopDiscoveryJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<StopDiscoveryJobRequest, StopDiscoveryJobResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -340,6 +693,97 @@ public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateDiscoveryJobResult> updateDiscoveryJobAsync(UpdateDiscoveryJobRequest request) {
+
+        return updateDiscoveryJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDiscoveryJobResult> updateDiscoveryJobAsync(UpdateDiscoveryJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateDiscoveryJobRequest, UpdateDiscoveryJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLocationAzureBlobResult> updateLocationAzureBlobAsync(UpdateLocationAzureBlobRequest request) {
+
+        return updateLocationAzureBlobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLocationAzureBlobResult> updateLocationAzureBlobAsync(UpdateLocationAzureBlobRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateLocationAzureBlobRequest, UpdateLocationAzureBlobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLocationHdfsResult> updateLocationHdfsAsync(UpdateLocationHdfsRequest request) {
+
+        return updateLocationHdfsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLocationHdfsResult> updateLocationHdfsAsync(UpdateLocationHdfsRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateLocationHdfsRequest, UpdateLocationHdfsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLocationNfsResult> updateLocationNfsAsync(UpdateLocationNfsRequest request) {
+
+        return updateLocationNfsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLocationNfsResult> updateLocationNfsAsync(UpdateLocationNfsRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateLocationNfsRequest, UpdateLocationNfsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLocationObjectStorageResult> updateLocationObjectStorageAsync(UpdateLocationObjectStorageRequest request) {
+
+        return updateLocationObjectStorageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLocationObjectStorageResult> updateLocationObjectStorageAsync(UpdateLocationObjectStorageRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateLocationObjectStorageRequest, UpdateLocationObjectStorageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLocationSmbResult> updateLocationSmbAsync(UpdateLocationSmbRequest request) {
+
+        return updateLocationSmbAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLocationSmbResult> updateLocationSmbAsync(UpdateLocationSmbRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateLocationSmbRequest, UpdateLocationSmbResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateStorageSystemResult> updateStorageSystemAsync(UpdateStorageSystemRequest request) {
+
+        return updateStorageSystemAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateStorageSystemResult> updateStorageSystemAsync(UpdateStorageSystemRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateStorageSystemRequest, UpdateStorageSystemResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateTaskResult> updateTaskAsync(UpdateTaskRequest request) {
 
         return updateTaskAsync(request, null);
@@ -348,6 +792,19 @@ public class AbstractAWSDataSyncAsync extends AbstractAWSDataSync implements AWS
     @Override
     public java.util.concurrent.Future<UpdateTaskResult> updateTaskAsync(UpdateTaskRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateTaskRequest, UpdateTaskResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateTaskExecutionResult> updateTaskExecutionAsync(UpdateTaskExecutionRequest request) {
+
+        return updateTaskExecutionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateTaskExecutionResult> updateTaskExecutionAsync(UpdateTaskExecutionRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateTaskExecutionRequest, UpdateTaskExecutionResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

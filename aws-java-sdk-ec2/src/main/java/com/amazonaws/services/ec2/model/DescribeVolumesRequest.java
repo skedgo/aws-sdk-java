@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -74,6 +74,18 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
+     * <code>multi-attach-enabled</code> - Indicates whether the volume is enabled for Multi-Attach (<code>true</code> |
+     * <code>false</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>fast-restored</code> - Indicates whether the volume was created from a snapshot that is enabled for fast
+     * snapshot restore (<code>true</code> | <code>false</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>size</code> - The size of the volume, in GiB.
      * </p>
      * </li>
@@ -84,7 +96,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>status</code> - The status of the volume (<code>creating</code> | <code>available</code> |
+     * <code>status</code> - The state of the volume (<code>creating</code> | <code>available</code> |
      * <code>in-use</code> | <code>deleting</code> | <code>deleted</code> | <code>error</code>).
      * </p>
      * </li>
@@ -109,9 +121,8 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>volume-type</code> - The Amazon EBS volume type. This can be <code>gp2</code> for General Purpose SSD,
-     * <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for
-     * Cold HDD, or <code>standard</code> for Magnetic volumes.
+     * <code>volume-type</code> - The Amazon EBS volume type (<code>gp2</code> | <code>gp3</code> | <code>io1</code> |
+     * <code>io2</code> | <code>st1</code> | <code>sc1</code>| <code>standard</code>)
      * </p>
      * </li>
      * </ul>
@@ -119,28 +130,22 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
     /**
      * <p>
-     * The volume IDs.
+     * The volume IDs. If not specified, then all volumes are included in the response.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> volumeIds;
     /**
      * <p>
-     * The maximum number of volume results returned by <code>DescribeVolumes</code> in paginated output. When this
-     * parameter is used, <code>DescribeVolumes</code> only returns <code>MaxResults</code> results in a single page
-     * along with a <code>NextToken</code> response element. The remaining results of the initial request can be seen by
-     * sending another <code>DescribeVolumes</code> request with the returned <code>NextToken</code> value. This value
-     * can be between 5 and 500; if <code>MaxResults</code> is given a value larger than 500, only 500 results are
-     * returned. If this parameter is not used, then <code>DescribeVolumes</code> returns all results. You cannot
-     * specify this parameter and the volume IDs parameter in the same request.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      */
     private Integer maxResults;
     /**
      * <p>
-     * The <code>NextToken</code> value returned from a previous paginated <code>DescribeVolumes</code> request where
-     * <code>MaxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from
-     * the end of the previous results that returned the <code>NextToken</code> value. This value is <code>null</code>
-     * when there are no more results to return.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      */
     private String nextToken;
@@ -157,7 +162,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * to initialize any additional object members.
      * 
      * @param volumeIds
-     *        The volume IDs.
+     *        The volume IDs. If not specified, then all volumes are included in the response.
      */
     public DescribeVolumesRequest(java.util.List<String> volumeIds) {
         setVolumeIds(volumeIds);
@@ -212,6 +217,18 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
+     * <code>multi-attach-enabled</code> - Indicates whether the volume is enabled for Multi-Attach (<code>true</code> |
+     * <code>false</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>fast-restored</code> - Indicates whether the volume was created from a snapshot that is enabled for fast
+     * snapshot restore (<code>true</code> | <code>false</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>size</code> - The size of the volume, in GiB.
      * </p>
      * </li>
@@ -222,7 +239,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>status</code> - The status of the volume (<code>creating</code> | <code>available</code> |
+     * <code>status</code> - The state of the volume (<code>creating</code> | <code>available</code> |
      * <code>in-use</code> | <code>deleting</code> | <code>deleted</code> | <code>error</code>).
      * </p>
      * </li>
@@ -247,9 +264,8 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>volume-type</code> - The Amazon EBS volume type. This can be <code>gp2</code> for General Purpose SSD,
-     * <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for
-     * Cold HDD, or <code>standard</code> for Magnetic volumes.
+     * <code>volume-type</code> - The Amazon EBS volume type (<code>gp2</code> | <code>gp3</code> | <code>io1</code> |
+     * <code>io2</code> | <code>st1</code> | <code>sc1</code>| <code>standard</code>)
      * </p>
      * </li>
      * </ul>
@@ -301,6 +317,18 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *         </li>
      *         <li>
      *         <p>
+     *         <code>multi-attach-enabled</code> - Indicates whether the volume is enabled for Multi-Attach (
+     *         <code>true</code> | <code>false</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>fast-restored</code> - Indicates whether the volume was created from a snapshot that is enabled for
+     *         fast snapshot restore (<code>true</code> | <code>false</code>).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         <code>size</code> - The size of the volume, in GiB.
      *         </p>
      *         </li>
@@ -311,7 +339,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *         </li>
      *         <li>
      *         <p>
-     *         <code>status</code> - The status of the volume (<code>creating</code> | <code>available</code> |
+     *         <code>status</code> - The state of the volume (<code>creating</code> | <code>available</code> |
      *         <code>in-use</code> | <code>deleting</code> | <code>deleted</code> | <code>error</code>).
      *         </p>
      *         </li>
@@ -336,9 +364,8 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *         </li>
      *         <li>
      *         <p>
-     *         <code>volume-type</code> - The Amazon EBS volume type. This can be <code>gp2</code> for General Purpose
-     *         SSD, <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized HDD,
-     *         <code>sc1</code> for Cold HDD, or <code>standard</code> for Magnetic volumes.
+     *         <code>volume-type</code> - The Amazon EBS volume type (<code>gp2</code> | <code>gp3</code> |
+     *         <code>io1</code> | <code>io2</code> | <code>st1</code> | <code>sc1</code>| <code>standard</code>)
      *         </p>
      *         </li>
      */
@@ -399,6 +426,18 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
+     * <code>multi-attach-enabled</code> - Indicates whether the volume is enabled for Multi-Attach (<code>true</code> |
+     * <code>false</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>fast-restored</code> - Indicates whether the volume was created from a snapshot that is enabled for fast
+     * snapshot restore (<code>true</code> | <code>false</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>size</code> - The size of the volume, in GiB.
      * </p>
      * </li>
@@ -409,7 +448,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>status</code> - The status of the volume (<code>creating</code> | <code>available</code> |
+     * <code>status</code> - The state of the volume (<code>creating</code> | <code>available</code> |
      * <code>in-use</code> | <code>deleting</code> | <code>deleted</code> | <code>error</code>).
      * </p>
      * </li>
@@ -434,9 +473,8 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>volume-type</code> - The Amazon EBS volume type. This can be <code>gp2</code> for General Purpose SSD,
-     * <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for
-     * Cold HDD, or <code>standard</code> for Magnetic volumes.
+     * <code>volume-type</code> - The Amazon EBS volume type (<code>gp2</code> | <code>gp3</code> | <code>io1</code> |
+     * <code>io2</code> | <code>st1</code> | <code>sc1</code>| <code>standard</code>)
      * </p>
      * </li>
      * </ul>
@@ -489,6 +527,18 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *        </li>
      *        <li>
      *        <p>
+     *        <code>multi-attach-enabled</code> - Indicates whether the volume is enabled for Multi-Attach (
+     *        <code>true</code> | <code>false</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>fast-restored</code> - Indicates whether the volume was created from a snapshot that is enabled for
+     *        fast snapshot restore (<code>true</code> | <code>false</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>size</code> - The size of the volume, in GiB.
      *        </p>
      *        </li>
@@ -499,7 +549,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *        </li>
      *        <li>
      *        <p>
-     *        <code>status</code> - The status of the volume (<code>creating</code> | <code>available</code> |
+     *        <code>status</code> - The state of the volume (<code>creating</code> | <code>available</code> |
      *        <code>in-use</code> | <code>deleting</code> | <code>deleted</code> | <code>error</code>).
      *        </p>
      *        </li>
@@ -524,9 +574,8 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *        </li>
      *        <li>
      *        <p>
-     *        <code>volume-type</code> - The Amazon EBS volume type. This can be <code>gp2</code> for General Purpose
-     *        SSD, <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized HDD,
-     *        <code>sc1</code> for Cold HDD, or <code>standard</code> for Magnetic volumes.
+     *        <code>volume-type</code> - The Amazon EBS volume type (<code>gp2</code> | <code>gp3</code> |
+     *        <code>io1</code> | <code>io2</code> | <code>st1</code> | <code>sc1</code>| <code>standard</code>)
      *        </p>
      *        </li>
      */
@@ -589,6 +638,18 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
+     * <code>multi-attach-enabled</code> - Indicates whether the volume is enabled for Multi-Attach (<code>true</code> |
+     * <code>false</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>fast-restored</code> - Indicates whether the volume was created from a snapshot that is enabled for fast
+     * snapshot restore (<code>true</code> | <code>false</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>size</code> - The size of the volume, in GiB.
      * </p>
      * </li>
@@ -599,7 +660,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>status</code> - The status of the volume (<code>creating</code> | <code>available</code> |
+     * <code>status</code> - The state of the volume (<code>creating</code> | <code>available</code> |
      * <code>in-use</code> | <code>deleting</code> | <code>deleted</code> | <code>error</code>).
      * </p>
      * </li>
@@ -624,9 +685,8 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>volume-type</code> - The Amazon EBS volume type. This can be <code>gp2</code> for General Purpose SSD,
-     * <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for
-     * Cold HDD, or <code>standard</code> for Magnetic volumes.
+     * <code>volume-type</code> - The Amazon EBS volume type (<code>gp2</code> | <code>gp3</code> | <code>io1</code> |
+     * <code>io2</code> | <code>st1</code> | <code>sc1</code>| <code>standard</code>)
      * </p>
      * </li>
      * </ul>
@@ -684,6 +744,18 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *        </li>
      *        <li>
      *        <p>
+     *        <code>multi-attach-enabled</code> - Indicates whether the volume is enabled for Multi-Attach (
+     *        <code>true</code> | <code>false</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>fast-restored</code> - Indicates whether the volume was created from a snapshot that is enabled for
+     *        fast snapshot restore (<code>true</code> | <code>false</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>size</code> - The size of the volume, in GiB.
      *        </p>
      *        </li>
@@ -694,7 +766,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *        </li>
      *        <li>
      *        <p>
-     *        <code>status</code> - The status of the volume (<code>creating</code> | <code>available</code> |
+     *        <code>status</code> - The state of the volume (<code>creating</code> | <code>available</code> |
      *        <code>in-use</code> | <code>deleting</code> | <code>deleted</code> | <code>error</code>).
      *        </p>
      *        </li>
@@ -719,9 +791,8 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *        </li>
      *        <li>
      *        <p>
-     *        <code>volume-type</code> - The Amazon EBS volume type. This can be <code>gp2</code> for General Purpose
-     *        SSD, <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized HDD,
-     *        <code>sc1</code> for Cold HDD, or <code>standard</code> for Magnetic volumes.
+     *        <code>volume-type</code> - The Amazon EBS volume type (<code>gp2</code> | <code>gp3</code> |
+     *        <code>io1</code> | <code>io2</code> | <code>st1</code> | <code>sc1</code>| <code>standard</code>)
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -786,6 +857,18 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
+     * <code>multi-attach-enabled</code> - Indicates whether the volume is enabled for Multi-Attach (<code>true</code> |
+     * <code>false</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>fast-restored</code> - Indicates whether the volume was created from a snapshot that is enabled for fast
+     * snapshot restore (<code>true</code> | <code>false</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>size</code> - The size of the volume, in GiB.
      * </p>
      * </li>
@@ -796,7 +879,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>status</code> - The status of the volume (<code>creating</code> | <code>available</code> |
+     * <code>status</code> - The state of the volume (<code>creating</code> | <code>available</code> |
      * <code>in-use</code> | <code>deleting</code> | <code>deleted</code> | <code>error</code>).
      * </p>
      * </li>
@@ -821,9 +904,8 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>volume-type</code> - The Amazon EBS volume type. This can be <code>gp2</code> for General Purpose SSD,
-     * <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for
-     * Cold HDD, or <code>standard</code> for Magnetic volumes.
+     * <code>volume-type</code> - The Amazon EBS volume type (<code>gp2</code> | <code>gp3</code> | <code>io1</code> |
+     * <code>io2</code> | <code>st1</code> | <code>sc1</code>| <code>standard</code>)
      * </p>
      * </li>
      * </ul>
@@ -876,6 +958,18 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *        </li>
      *        <li>
      *        <p>
+     *        <code>multi-attach-enabled</code> - Indicates whether the volume is enabled for Multi-Attach (
+     *        <code>true</code> | <code>false</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>fast-restored</code> - Indicates whether the volume was created from a snapshot that is enabled for
+     *        fast snapshot restore (<code>true</code> | <code>false</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>size</code> - The size of the volume, in GiB.
      *        </p>
      *        </li>
@@ -886,7 +980,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *        </li>
      *        <li>
      *        <p>
-     *        <code>status</code> - The status of the volume (<code>creating</code> | <code>available</code> |
+     *        <code>status</code> - The state of the volume (<code>creating</code> | <code>available</code> |
      *        <code>in-use</code> | <code>deleting</code> | <code>deleted</code> | <code>error</code>).
      *        </p>
      *        </li>
@@ -911,9 +1005,8 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      *        </li>
      *        <li>
      *        <p>
-     *        <code>volume-type</code> - The Amazon EBS volume type. This can be <code>gp2</code> for General Purpose
-     *        SSD, <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized HDD,
-     *        <code>sc1</code> for Cold HDD, or <code>standard</code> for Magnetic volumes.
+     *        <code>volume-type</code> - The Amazon EBS volume type (<code>gp2</code> | <code>gp3</code> |
+     *        <code>io1</code> | <code>io2</code> | <code>st1</code> | <code>sc1</code>| <code>standard</code>)
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -926,10 +1019,10 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The volume IDs.
+     * The volume IDs. If not specified, then all volumes are included in the response.
      * </p>
      * 
-     * @return The volume IDs.
+     * @return The volume IDs. If not specified, then all volumes are included in the response.
      */
 
     public java.util.List<String> getVolumeIds() {
@@ -941,11 +1034,11 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The volume IDs.
+     * The volume IDs. If not specified, then all volumes are included in the response.
      * </p>
      * 
      * @param volumeIds
-     *        The volume IDs.
+     *        The volume IDs. If not specified, then all volumes are included in the response.
      */
 
     public void setVolumeIds(java.util.Collection<String> volumeIds) {
@@ -959,7 +1052,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The volume IDs.
+     * The volume IDs. If not specified, then all volumes are included in the response.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -968,7 +1061,7 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
      * </p>
      * 
      * @param volumeIds
-     *        The volume IDs.
+     *        The volume IDs. If not specified, then all volumes are included in the response.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -984,11 +1077,11 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The volume IDs.
+     * The volume IDs. If not specified, then all volumes are included in the response.
      * </p>
      * 
      * @param volumeIds
-     *        The volume IDs.
+     *        The volume IDs. If not specified, then all volumes are included in the response.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -999,24 +1092,16 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The maximum number of volume results returned by <code>DescribeVolumes</code> in paginated output. When this
-     * parameter is used, <code>DescribeVolumes</code> only returns <code>MaxResults</code> results in a single page
-     * along with a <code>NextToken</code> response element. The remaining results of the initial request can be seen by
-     * sending another <code>DescribeVolumes</code> request with the returned <code>NextToken</code> value. This value
-     * can be between 5 and 500; if <code>MaxResults</code> is given a value larger than 500, only 500 results are
-     * returned. If this parameter is not used, then <code>DescribeVolumes</code> returns all results. You cannot
-     * specify this parameter and the volume IDs parameter in the same request.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of volume results returned by <code>DescribeVolumes</code> in paginated output. When
-     *        this parameter is used, <code>DescribeVolumes</code> only returns <code>MaxResults</code> results in a
-     *        single page along with a <code>NextToken</code> response element. The remaining results of the initial
-     *        request can be seen by sending another <code>DescribeVolumes</code> request with the returned
-     *        <code>NextToken</code> value. This value can be between 5 and 500; if <code>MaxResults</code> is given a
-     *        value larger than 500, only 500 results are returned. If this parameter is not used, then
-     *        <code>DescribeVolumes</code> returns all results. You cannot specify this parameter and the volume IDs
-     *        parameter in the same request.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -1025,23 +1110,15 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The maximum number of volume results returned by <code>DescribeVolumes</code> in paginated output. When this
-     * parameter is used, <code>DescribeVolumes</code> only returns <code>MaxResults</code> results in a single page
-     * along with a <code>NextToken</code> response element. The remaining results of the initial request can be seen by
-     * sending another <code>DescribeVolumes</code> request with the returned <code>NextToken</code> value. This value
-     * can be between 5 and 500; if <code>MaxResults</code> is given a value larger than 500, only 500 results are
-     * returned. If this parameter is not used, then <code>DescribeVolumes</code> returns all results. You cannot
-     * specify this parameter and the volume IDs parameter in the same request.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
-     * @return The maximum number of volume results returned by <code>DescribeVolumes</code> in paginated output. When
-     *         this parameter is used, <code>DescribeVolumes</code> only returns <code>MaxResults</code> results in a
-     *         single page along with a <code>NextToken</code> response element. The remaining results of the initial
-     *         request can be seen by sending another <code>DescribeVolumes</code> request with the returned
-     *         <code>NextToken</code> value. This value can be between 5 and 500; if <code>MaxResults</code> is given a
-     *         value larger than 500, only 500 results are returned. If this parameter is not used, then
-     *         <code>DescribeVolumes</code> returns all results. You cannot specify this parameter and the volume IDs
-     *         parameter in the same request.
+     * @return The maximum number of items to return for this request. To get the next page of items, make another
+     *         request with the token returned in the output. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *         >Pagination</a>.
      */
 
     public Integer getMaxResults() {
@@ -1050,24 +1127,16 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The maximum number of volume results returned by <code>DescribeVolumes</code> in paginated output. When this
-     * parameter is used, <code>DescribeVolumes</code> only returns <code>MaxResults</code> results in a single page
-     * along with a <code>NextToken</code> response element. The remaining results of the initial request can be seen by
-     * sending another <code>DescribeVolumes</code> request with the returned <code>NextToken</code> value. This value
-     * can be between 5 and 500; if <code>MaxResults</code> is given a value larger than 500, only 500 results are
-     * returned. If this parameter is not used, then <code>DescribeVolumes</code> returns all results. You cannot
-     * specify this parameter and the volume IDs parameter in the same request.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of volume results returned by <code>DescribeVolumes</code> in paginated output. When
-     *        this parameter is used, <code>DescribeVolumes</code> only returns <code>MaxResults</code> results in a
-     *        single page along with a <code>NextToken</code> response element. The remaining results of the initial
-     *        request can be seen by sending another <code>DescribeVolumes</code> request with the returned
-     *        <code>NextToken</code> value. This value can be between 5 and 500; if <code>MaxResults</code> is given a
-     *        value larger than 500, only 500 results are returned. If this parameter is not used, then
-     *        <code>DescribeVolumes</code> returns all results. You cannot specify this parameter and the volume IDs
-     *        parameter in the same request.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1078,17 +1147,13 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The <code>NextToken</code> value returned from a previous paginated <code>DescribeVolumes</code> request where
-     * <code>MaxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from
-     * the end of the previous results that returned the <code>NextToken</code> value. This value is <code>null</code>
-     * when there are no more results to return.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The <code>NextToken</code> value returned from a previous paginated <code>DescribeVolumes</code> request
-     *        where <code>MaxResults</code> was used and the results exceeded the value of that parameter. Pagination
-     *        continues from the end of the previous results that returned the <code>NextToken</code> value. This value
-     *        is <code>null</code> when there are no more results to return.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      */
 
     public void setNextToken(String nextToken) {
@@ -1097,16 +1162,12 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The <code>NextToken</code> value returned from a previous paginated <code>DescribeVolumes</code> request where
-     * <code>MaxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from
-     * the end of the previous results that returned the <code>NextToken</code> value. This value is <code>null</code>
-     * when there are no more results to return.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
-     * @return The <code>NextToken</code> value returned from a previous paginated <code>DescribeVolumes</code> request
-     *         where <code>MaxResults</code> was used and the results exceeded the value of that parameter. Pagination
-     *         continues from the end of the previous results that returned the <code>NextToken</code> value. This value
-     *         is <code>null</code> when there are no more results to return.
+     * @return The token returned from a previous paginated request. Pagination continues from the end of the items
+     *         returned by the previous request.
      */
 
     public String getNextToken() {
@@ -1115,17 +1176,13 @@ public class DescribeVolumesRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The <code>NextToken</code> value returned from a previous paginated <code>DescribeVolumes</code> request where
-     * <code>MaxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from
-     * the end of the previous results that returned the <code>NextToken</code> value. This value is <code>null</code>
-     * when there are no more results to return.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The <code>NextToken</code> value returned from a previous paginated <code>DescribeVolumes</code> request
-     *        where <code>MaxResults</code> was used and the results exceeded the value of that parameter. Pagination
-     *        continues from the end of the previous results that returned the <code>NextToken</code> value. This value
-     *        is <code>null</code> when there are no more results to return.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

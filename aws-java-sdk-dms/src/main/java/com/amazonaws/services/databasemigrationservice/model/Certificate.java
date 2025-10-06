@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,8 +30,8 @@ public class Certificate implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A customer-assigned name for the certificate. Identifiers must begin with a letter; must contain only ASCII
-     * letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+     * A customer-assigned name for the certificate. Identifiers must begin with a letter and must contain only ASCII
+     * letters, digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      */
     private String certificateIdentifier;
@@ -49,7 +49,8 @@ public class Certificate implements Serializable, Cloneable, StructuredPojo {
     private String certificatePem;
     /**
      * <p>
-     * The location of an imported Oracle Wallet certificate for use with SSL.
+     * The location of an imported Oracle Wallet certificate for use with SSL. Example:
+     * <code>filebase64("${path.root}/rds-ca-2019-root.sso")</code>
      * </p>
      */
     private java.nio.ByteBuffer certificateWallet;
@@ -92,13 +93,13 @@ public class Certificate implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A customer-assigned name for the certificate. Identifiers must begin with a letter; must contain only ASCII
-     * letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+     * A customer-assigned name for the certificate. Identifiers must begin with a letter and must contain only ASCII
+     * letters, digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * 
      * @param certificateIdentifier
-     *        A customer-assigned name for the certificate. Identifiers must begin with a letter; must contain only
-     *        ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+     *        A customer-assigned name for the certificate. Identifiers must begin with a letter and must contain only
+     *        ASCII letters, digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
      */
 
     public void setCertificateIdentifier(String certificateIdentifier) {
@@ -107,12 +108,12 @@ public class Certificate implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A customer-assigned name for the certificate. Identifiers must begin with a letter; must contain only ASCII
-     * letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+     * A customer-assigned name for the certificate. Identifiers must begin with a letter and must contain only ASCII
+     * letters, digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * 
-     * @return A customer-assigned name for the certificate. Identifiers must begin with a letter; must contain only
-     *         ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+     * @return A customer-assigned name for the certificate. Identifiers must begin with a letter and must contain only
+     *         ASCII letters, digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
      */
 
     public String getCertificateIdentifier() {
@@ -121,13 +122,13 @@ public class Certificate implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A customer-assigned name for the certificate. Identifiers must begin with a letter; must contain only ASCII
-     * letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+     * A customer-assigned name for the certificate. Identifiers must begin with a letter and must contain only ASCII
+     * letters, digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * 
      * @param certificateIdentifier
-     *        A customer-assigned name for the certificate. Identifiers must begin with a letter; must contain only
-     *        ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+     *        A customer-assigned name for the certificate. Identifiers must begin with a letter and must contain only
+     *        ASCII letters, digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -218,7 +219,8 @@ public class Certificate implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The location of an imported Oracle Wallet certificate for use with SSL.
+     * The location of an imported Oracle Wallet certificate for use with SSL. Example:
+     * <code>filebase64("${path.root}/rds-ca-2019-root.sso")</code>
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -232,7 +234,8 @@ public class Certificate implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param certificateWallet
-     *        The location of an imported Oracle Wallet certificate for use with SSL.
+     *        The location of an imported Oracle Wallet certificate for use with SSL. Example:
+     *        <code>filebase64("${path.root}/rds-ca-2019-root.sso")</code>
      */
 
     public void setCertificateWallet(java.nio.ByteBuffer certificateWallet) {
@@ -241,7 +244,8 @@ public class Certificate implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The location of an imported Oracle Wallet certificate for use with SSL.
+     * The location of an imported Oracle Wallet certificate for use with SSL. Example:
+     * <code>filebase64("${path.root}/rds-ca-2019-root.sso")</code>
      * </p>
      * <p>
      * {@code ByteBuffer}s are stateful. Calling their {@code get} methods changes their {@code position}. We recommend
@@ -251,7 +255,8 @@ public class Certificate implements Serializable, Cloneable, StructuredPojo {
      * {@code position}.
      * </p>
      * 
-     * @return The location of an imported Oracle Wallet certificate for use with SSL.
+     * @return The location of an imported Oracle Wallet certificate for use with SSL. Example:
+     *         <code>filebase64("${path.root}/rds-ca-2019-root.sso")</code>
      */
 
     public java.nio.ByteBuffer getCertificateWallet() {
@@ -260,7 +265,8 @@ public class Certificate implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The location of an imported Oracle Wallet certificate for use with SSL.
+     * The location of an imported Oracle Wallet certificate for use with SSL. Example:
+     * <code>filebase64("${path.root}/rds-ca-2019-root.sso")</code>
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -274,7 +280,8 @@ public class Certificate implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param certificateWallet
-     *        The location of an imported Oracle Wallet certificate for use with SSL.
+     *        The location of an imported Oracle Wallet certificate for use with SSL. Example:
+     *        <code>filebase64("${path.root}/rds-ca-2019-root.sso")</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

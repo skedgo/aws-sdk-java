@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,15 +41,15 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
     /**
      * <p>
      * Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file
-     * delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding Your
-     * CloudTrail Log Files</a>.
+     * delivery. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     * >Finding Your CloudTrail Log Files</a>.
      * </p>
      */
     private String s3KeyPrefix;
     /**
      * <p>
-     * This field is deprecated. Use SnsTopicARN.
+     * This field is no longer in use. Use <code>SnsTopicARN</code>.
      * </p>
      */
     @Deprecated
@@ -72,7 +72,7 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
     private Boolean includeGlobalServiceEvents;
     /**
      * <p>
-     * Specifies whether the trail exists in one region or in all regions.
+     * Specifies whether the trail exists in one Region or in all Regions.
      * </p>
      */
     private Boolean isMultiRegionTrail;
@@ -105,8 +105,8 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
     private String cloudWatchLogsRoleArn;
     /**
      * <p>
-     * Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified ARN to a
-     * KMS key in the format:
+     * Specifies the KMS key ID that encrypts the events delivered by CloudTrail. The value is a fully specified ARN to
+     * a KMS key in the following format.
      * </p>
      * <p>
      * <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
@@ -203,16 +203,16 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
     /**
      * <p>
      * Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file
-     * delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding Your
-     * CloudTrail Log Files</a>.
+     * delivery. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     * >Finding Your CloudTrail Log Files</a>.
      * </p>
      * 
      * @param s3KeyPrefix
      *        Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log
-     *        file delivery. For more information, see <a
-     *        href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
-     *        Your CloudTrail Log Files</a>.
+     *        file delivery. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     *        >Finding Your CloudTrail Log Files</a>.
      */
 
     public void setS3KeyPrefix(String s3KeyPrefix) {
@@ -222,15 +222,15 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
     /**
      * <p>
      * Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file
-     * delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding Your
-     * CloudTrail Log Files</a>.
+     * delivery. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     * >Finding Your CloudTrail Log Files</a>.
      * </p>
      * 
      * @return Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log
-     *         file delivery. For more information, see <a
-     *         href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
-     *         Your CloudTrail Log Files</a>.
+     *         file delivery. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     *         >Finding Your CloudTrail Log Files</a>.
      */
 
     public String getS3KeyPrefix() {
@@ -240,16 +240,16 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
     /**
      * <p>
      * Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file
-     * delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding Your
-     * CloudTrail Log Files</a>.
+     * delivery. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     * >Finding Your CloudTrail Log Files</a>.
      * </p>
      * 
      * @param s3KeyPrefix
      *        Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log
-     *        file delivery. For more information, see <a
-     *        href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
-     *        Your CloudTrail Log Files</a>.
+     *        file delivery. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     *        >Finding Your CloudTrail Log Files</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -260,11 +260,11 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * This field is deprecated. Use SnsTopicARN.
+     * This field is no longer in use. Use <code>SnsTopicARN</code>.
      * </p>
      * 
      * @param snsTopicName
-     *        This field is deprecated. Use SnsTopicARN.
+     *        This field is no longer in use. Use <code>SnsTopicARN</code>.
      */
     @Deprecated
     public void setSnsTopicName(String snsTopicName) {
@@ -273,10 +273,10 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * This field is deprecated. Use SnsTopicARN.
+     * This field is no longer in use. Use <code>SnsTopicARN</code>.
      * </p>
      * 
-     * @return This field is deprecated. Use SnsTopicARN.
+     * @return This field is no longer in use. Use <code>SnsTopicARN</code>.
      */
     @Deprecated
     public String getSnsTopicName() {
@@ -285,11 +285,11 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * This field is deprecated. Use SnsTopicARN.
+     * This field is no longer in use. Use <code>SnsTopicARN</code>.
      * </p>
      * 
      * @param snsTopicName
-     *        This field is deprecated. Use SnsTopicARN.
+     *        This field is no longer in use. Use <code>SnsTopicARN</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
     @Deprecated
@@ -413,11 +413,11 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Specifies whether the trail exists in one region or in all regions.
+     * Specifies whether the trail exists in one Region or in all Regions.
      * </p>
      * 
      * @param isMultiRegionTrail
-     *        Specifies whether the trail exists in one region or in all regions.
+     *        Specifies whether the trail exists in one Region or in all Regions.
      */
 
     public void setIsMultiRegionTrail(Boolean isMultiRegionTrail) {
@@ -426,10 +426,10 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Specifies whether the trail exists in one region or in all regions.
+     * Specifies whether the trail exists in one Region or in all Regions.
      * </p>
      * 
-     * @return Specifies whether the trail exists in one region or in all regions.
+     * @return Specifies whether the trail exists in one Region or in all Regions.
      */
 
     public Boolean getIsMultiRegionTrail() {
@@ -438,11 +438,11 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Specifies whether the trail exists in one region or in all regions.
+     * Specifies whether the trail exists in one Region or in all Regions.
      * </p>
      * 
      * @param isMultiRegionTrail
-     *        Specifies whether the trail exists in one region or in all regions.
+     *        Specifies whether the trail exists in one Region or in all Regions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -453,10 +453,10 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Specifies whether the trail exists in one region or in all regions.
+     * Specifies whether the trail exists in one Region or in all Regions.
      * </p>
      * 
-     * @return Specifies whether the trail exists in one region or in all regions.
+     * @return Specifies whether the trail exists in one Region or in all Regions.
      */
 
     public Boolean isMultiRegionTrail() {
@@ -652,16 +652,16 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified ARN to a
-     * KMS key in the format:
+     * Specifies the KMS key ID that encrypts the events delivered by CloudTrail. The value is a fully specified ARN to
+     * a KMS key in the following format.
      * </p>
      * <p>
      * <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      * </p>
      * 
      * @param kmsKeyId
-     *        Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified
-     *        ARN to a KMS key in the format:</p>
+     *        Specifies the KMS key ID that encrypts the events delivered by CloudTrail. The value is a fully specified
+     *        ARN to a KMS key in the following format.</p>
      *        <p>
      *        <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      */
@@ -672,15 +672,15 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified ARN to a
-     * KMS key in the format:
+     * Specifies the KMS key ID that encrypts the events delivered by CloudTrail. The value is a fully specified ARN to
+     * a KMS key in the following format.
      * </p>
      * <p>
      * <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      * </p>
      * 
-     * @return Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified
-     *         ARN to a KMS key in the format:</p>
+     * @return Specifies the KMS key ID that encrypts the events delivered by CloudTrail. The value is a fully specified
+     *         ARN to a KMS key in the following format.</p>
      *         <p>
      *         <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      */
@@ -691,16 +691,16 @@ public class CreateTrailResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified ARN to a
-     * KMS key in the format:
+     * Specifies the KMS key ID that encrypts the events delivered by CloudTrail. The value is a fully specified ARN to
+     * a KMS key in the following format.
      * </p>
      * <p>
      * <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      * </p>
      * 
      * @param kmsKeyId
-     *        Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified
-     *        ARN to a KMS key in the format:</p>
+     *        Specifies the KMS key ID that encrypts the events delivered by CloudTrail. The value is a fully specified
+     *        ARN to a KMS key in the following format.</p>
      *        <p>
      *        <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      * @return Returns a reference to this object so that method calls can be chained together.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,6 +60,32 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
     private String jobName;
     /**
      * <p>
+     * A mode that describes how a job was created. Valid values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>SCRIPT</code> - The job was created using the Glue Studio script editor.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>VISUAL</code> - The job was created using the Glue Studio visual editor.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NOTEBOOK</code> - The job was created using an interactive sessions notebook.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When the <code>JobMode</code> field is missing or null, <code>SCRIPT</code> is assigned as the default value.
+     * </p>
+     */
+    private String jobMode;
+    /**
+     * <p>
      * The date and time at which this job run was started.
      * </p>
      */
@@ -78,7 +104,9 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
     private java.util.Date completedOn;
     /**
      * <p>
-     * The current state of the job run.
+     * The current state of the job run. For more information about the statuses of jobs that have terminated
+     * abnormally, see <a href="https://docs.aws.amazon.com/glue/latest/dg/job-run-statuses.html">Glue Job Run
+     * Statuses</a>.
      * </p>
      */
     private String jobRunState;
@@ -88,18 +116,27 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * definition itself.
      * </p>
      * <p>
-     * You can specify arguments here that your own job-execution script consumes, as well as arguments that AWS Glue
-     * itself consumes.
+     * You can specify arguments here that your own job-execution script consumes, as well as arguments that Glue itself
+     * consumes.
      * </p>
      * <p>
-     * For information about how to specify and consume your own job arguments, see the <a
-     * href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html">Calling AWS Glue APIs
-     * in Python</a> topic in the developer guide.
+     * Job arguments may be logged. Do not pass plaintext secrets as arguments. Retrieve secrets from a Glue Connection,
+     * Secrets Manager or other secret management mechanism if you intend to keep them within the Job.
      * </p>
      * <p>
-     * For information about the key-value pairs that AWS Glue consumes to set up your job, see the <a
+     * For information about how to specify and consume your own Job arguments, see the <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html">Calling Glue APIs in
+     * Python</a> topic in the developer guide.
+     * </p>
+     * <p>
+     * For information about the arguments you can provide to this field when configuring Spark jobs, see the <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html">Special Parameters
-     * Used by AWS Glue</a> topic in the developer guide.
+     * Used by Glue</a> topic in the developer guide.
+     * </p>
+     * <p>
+     * For information about the arguments you can provide to this field when configuring Ray jobs, see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/author-job-ray-job-parameters.html">Using job parameters in Ray
+     * jobs</a> in the developer guide.
      * </p>
      */
     private java.util.Map<String, String> arguments;
@@ -120,10 +157,10 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * This field is deprecated. Use <code>MaxCapacity</code> instead.
      * </p>
      * <p>
-     * The number of AWS Glue data processing units (DPUs) allocated to this JobRun. From 2 to 100 DPUs can be
-     * allocated; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute
-     * capacity and 16 GB of memory. For more information, see the <a href="https://aws.amazon.com/glue/pricing/">AWS
-     * Glue pricing page</a>.
+     * The number of Glue data processing units (DPUs) allocated to this JobRun. From 2 to 100 DPUs can be allocated;
+     * the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity
+     * and 16 GB of memory. For more information, see the <a href="https://aws.amazon.com/glue/pricing/">Glue pricing
+     * page</a>.
      * </p>
      */
     @Deprecated
@@ -137,24 +174,33 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The <code>JobRun</code> timeout in minutes. This is the maximum time that a job run can consume resources before
-     * it is terminated and enters <code>TIMEOUT</code> status. The default is 2,880 minutes (48 hours). This overrides
-     * the timeout value set in the parent job.
+     * it is terminated and enters <code>TIMEOUT</code> status. This value overrides the timeout value set in the parent
+     * job.
+     * </p>
+     * <p>
+     * Streaming jobs must have timeout values less than 7 days or 10080 minutes. When the value is left blank, the job
+     * will be restarted after 7 days based if you have not setup a maintenance window. If you have setup maintenance
+     * window, it will be restarted during the maintenance window after 7 days.
      * </p>
      */
     private Integer timeout;
     /**
      * <p>
-     * The number of AWS Glue data processing units (DPUs) that can be allocated when this job runs. A DPU is a relative
-     * measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more
-     * information, see the <a href="https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/">AWS Glue pricing
-     * page</a>.
+     * For Glue version 1.0 or earlier jobs, using the standard worker type, the number of Glue data processing units
+     * (DPUs) that can be allocated when this job runs. A DPU is a relative measure of processing power that consists of
+     * 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <a
+     * href="https://aws.amazon.com/glue/pricing/"> Glue pricing page</a>.
      * </p>
      * <p>
-     * Do not set <code>Max Capacity</code> if using <code>WorkerType</code> and <code>NumberOfWorkers</code>.
+     * For Glue version 2.0+ jobs, you cannot specify a <code>Maximum capacity</code>. Instead, you should specify a
+     * <code>Worker type</code> and the <code>Number of workers</code>.
+     * </p>
+     * <p>
+     * Do not set <code>MaxCapacity</code> if using <code>WorkerType</code> and <code>NumberOfWorkers</code>.
      * </p>
      * <p>
      * The value that can be allocated for <code>MaxCapacity</code> depends on whether you are running a Python shell
-     * job or an Apache Spark ETL job:
+     * job, an Apache Spark ETL job, or an Apache Spark streaming ETL job:
      * </p>
      * <ul>
      * <li>
@@ -165,8 +211,9 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * When you specify an Apache Spark ETL job (<code>JobCommand.Name</code>="glueetl"), you can allocate from 2 to 100
-     * DPUs. The default is 10 DPUs. This job type cannot have a fractional DPU allocation.
+     * When you specify an Apache Spark ETL job (<code>JobCommand.Name</code>="glueetl") or Apache Spark streaming ETL
+     * job (<code>JobCommand.Name</code>="gluestreaming"), you can allocate from 2 to 100 DPUs. The default is 10 DPUs.
+     * This job type cannot have a fractional DPU allocation.
      * </p>
      * </li>
      * </ul>
@@ -174,25 +221,54 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
     private Double maxCapacity;
     /**
      * <p>
-     * The type of predefined worker that is allocated when a job runs. Accepts a value of Standard, G.1X, or G.2X.
+     * The type of predefined worker that is allocated when a job runs. Accepts a value of G.1X, G.2X, G.4X, G.8X or
+     * G.025X for Spark jobs. Accepts the value Z.2X for Ray jobs.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * For the <code>Standard</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk, and 2
-     * executors per worker.
+     * For the <code>G.1X</code> worker type, each worker maps to 1 DPU (4 vCPUs, 16 GB of memory) with 84GB disk
+     * (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for workloads such
+     * as data transforms, joins, and queries, to offers a scalable and cost effective way to run most jobs.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>G.1X</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 64GB disk, and 1
-     * executor per worker.
+     * For the <code>G.2X</code> worker type, each worker maps to 2 DPU (8 vCPUs, 32 GB of memory) with 128GB disk
+     * (approximately 77GB free), and provides 1 executor per worker. We recommend this worker type for workloads such
+     * as data transforms, joins, and queries, to offers a scalable and cost effective way to run most jobs.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>G.2X</code> worker type, each worker provides 8 vCPU, 32 GB of memory and a 128GB disk, and 1
-     * executor per worker.
+     * For the <code>G.4X</code> worker type, each worker maps to 4 DPU (16 vCPUs, 64 GB of memory) with 256GB disk
+     * (approximately 235GB free), and provides 1 executor per worker. We recommend this worker type for jobs whose
+     * workloads contain your most demanding transforms, aggregations, joins, and queries. This worker type is available
+     * only for Glue version 3.0 or later Spark ETL jobs in the following Amazon Web Services Regions: US East (Ohio),
+     * US East (N. Virginia), US West (Oregon), Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo),
+     * Canada (Central), Europe (Frankfurt), Europe (Ireland), and Europe (Stockholm).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>G.8X</code> worker type, each worker maps to 8 DPU (32 vCPUs, 128 GB of memory) with 512GB disk
+     * (approximately 487GB free), and provides 1 executor per worker. We recommend this worker type for jobs whose
+     * workloads contain your most demanding transforms, aggregations, joins, and queries. This worker type is available
+     * only for Glue version 3.0 or later Spark ETL jobs, in the same Amazon Web Services Regions as supported for the
+     * <code>G.4X</code> worker type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>G.025X</code> worker type, each worker maps to 0.25 DPU (2 vCPUs, 4 GB of memory) with 84GB disk
+     * (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for low volume
+     * streaming jobs. This worker type is only available for Glue version 3.0 streaming jobs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>Z.2X</code> worker type, each worker maps to 2 M-DPU (8vCPUs, 64 GB of memory) with 128 GB disk
+     * (approximately 120GB free), and provides up to 8 Ray workers based on the autoscaler.
      * </p>
      * </li>
      * </ul>
@@ -201,9 +277,6 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The number of workers of a defined <code>workerType</code> that are allocated when a job runs.
-     * </p>
-     * <p>
-     * The maximum number of workers you can define are 299 for <code>G.1X</code>, and 149 for <code>G.2X</code>.
      * </p>
      */
     private Integer numberOfWorkers;
@@ -215,9 +288,9 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
     private String securityConfiguration;
     /**
      * <p>
-     * The name of the log group for secure logging that can be server-side encrypted in Amazon CloudWatch using AWS
-     * KMS. This name can be <code>/aws-glue/jobs/</code>, in which case the default encryption is <code>NONE</code>. If
-     * you add a role name and <code>SecurityConfiguration</code> name (in other words,
+     * The name of the log group for secure logging that can be server-side encrypted in Amazon CloudWatch using KMS.
+     * This name can be <code>/aws-glue/jobs/</code>, in which case the default encryption is <code>NONE</code>. If you
+     * add a role name and <code>SecurityConfiguration</code> name (in other words,
      * <code>/aws-glue/jobs-yourRoleName-yourSecurityConfigurationName/</code>), then that security configuration is
      * used to encrypt the log group.
      * </p>
@@ -231,11 +304,16 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
     private NotificationProperty notificationProperty;
     /**
      * <p>
-     * Glue version determines the versions of Apache Spark and Python that AWS Glue supports. The Python version
-     * indicates the version supported for jobs of type Spark.
+     * In Spark jobs, <code>GlueVersion</code> determines the versions of Apache Spark and Python that Glue available in
+     * a job. The Python version indicates the version supported for jobs of type Spark.
      * </p>
      * <p>
-     * For more information about the available AWS Glue versions and corresponding Spark and Python versions, see <a
+     * Ray jobs should set <code>GlueVersion</code> to <code>4.0</code> or greater. However, the versions of Ray, Python
+     * and additional libraries available in your Ray job are determined by the <code>Runtime</code> parameter of the
+     * Job command.
+     * </p>
+     * <p>
+     * For more information about the available Glue versions and corresponding Spark and Python versions, see <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
      * </p>
      * <p>
@@ -243,6 +321,49 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String glueVersion;
+    /**
+     * <p>
+     * This field can be set for either job runs with execution class <code>FLEX</code> or when Auto Scaling is enabled,
+     * and represents the total time each executor ran during the lifecycle of a job run in seconds, multiplied by a DPU
+     * factor (1 for <code>G.1X</code>, 2 for <code>G.2X</code>, or 0.25 for <code>G.025X</code> workers). This value
+     * may be different than the <code>executionEngineRuntime</code> * <code>MaxCapacity</code> as in the case of Auto
+     * Scaling jobs, as the number of executors running at a given time may be less than the <code>MaxCapacity</code>.
+     * Therefore, it is possible that the value of <code>DPUSeconds</code> is less than
+     * <code>executionEngineRuntime</code> * <code>MaxCapacity</code>.
+     * </p>
+     */
+    private Double dPUSeconds;
+    /**
+     * <p>
+     * Indicates whether the job is run with a standard or flexible execution class. The standard execution-class is
+     * ideal for time-sensitive workloads that require fast job startup and dedicated resources.
+     * </p>
+     * <p>
+     * The flexible execution class is appropriate for time-insensitive jobs whose start and completion times may vary.
+     * </p>
+     * <p>
+     * Only jobs with Glue version 3.0 and above and command type <code>glueetl</code> will be allowed to set
+     * <code>ExecutionClass</code> to <code>FLEX</code>. The flexible execution class is available for Spark jobs.
+     * </p>
+     */
+    private String executionClass;
+    /**
+     * <p>
+     * This field specifies a day of the week and hour for a maintenance window for streaming jobs. Glue periodically
+     * performs maintenance activities. During these maintenance windows, Glue will need to restart your streaming jobs.
+     * </p>
+     * <p>
+     * Glue will restart the job within 3 hours of the specified maintenance window. For instance, if you set up the
+     * maintenance window for Monday at 10:00AM GMT, your jobs will be restarted between 10:00AM GMT to 1:00PM GMT.
+     * </p>
+     */
+    private String maintenanceWindow;
+    /**
+     * <p>
+     * The name of an Glue usage profile associated with the job run.
+     * </p>
+     */
+    private String profileName;
 
     /**
      * <p>
@@ -452,6 +573,225 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
+     * A mode that describes how a job was created. Valid values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>SCRIPT</code> - The job was created using the Glue Studio script editor.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>VISUAL</code> - The job was created using the Glue Studio visual editor.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NOTEBOOK</code> - The job was created using an interactive sessions notebook.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When the <code>JobMode</code> field is missing or null, <code>SCRIPT</code> is assigned as the default value.
+     * </p>
+     * 
+     * @param jobMode
+     *        A mode that describes how a job was created. Valid values are:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>SCRIPT</code> - The job was created using the Glue Studio script editor.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>VISUAL</code> - The job was created using the Glue Studio visual editor.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NOTEBOOK</code> - The job was created using an interactive sessions notebook.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        When the <code>JobMode</code> field is missing or null, <code>SCRIPT</code> is assigned as the default
+     *        value.
+     * @see JobMode
+     */
+
+    public void setJobMode(String jobMode) {
+        this.jobMode = jobMode;
+    }
+
+    /**
+     * <p>
+     * A mode that describes how a job was created. Valid values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>SCRIPT</code> - The job was created using the Glue Studio script editor.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>VISUAL</code> - The job was created using the Glue Studio visual editor.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NOTEBOOK</code> - The job was created using an interactive sessions notebook.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When the <code>JobMode</code> field is missing or null, <code>SCRIPT</code> is assigned as the default value.
+     * </p>
+     * 
+     * @return A mode that describes how a job was created. Valid values are:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>SCRIPT</code> - The job was created using the Glue Studio script editor.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>VISUAL</code> - The job was created using the Glue Studio visual editor.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>NOTEBOOK</code> - The job was created using an interactive sessions notebook.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         When the <code>JobMode</code> field is missing or null, <code>SCRIPT</code> is assigned as the default
+     *         value.
+     * @see JobMode
+     */
+
+    public String getJobMode() {
+        return this.jobMode;
+    }
+
+    /**
+     * <p>
+     * A mode that describes how a job was created. Valid values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>SCRIPT</code> - The job was created using the Glue Studio script editor.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>VISUAL</code> - The job was created using the Glue Studio visual editor.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NOTEBOOK</code> - The job was created using an interactive sessions notebook.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When the <code>JobMode</code> field is missing or null, <code>SCRIPT</code> is assigned as the default value.
+     * </p>
+     * 
+     * @param jobMode
+     *        A mode that describes how a job was created. Valid values are:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>SCRIPT</code> - The job was created using the Glue Studio script editor.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>VISUAL</code> - The job was created using the Glue Studio visual editor.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NOTEBOOK</code> - The job was created using an interactive sessions notebook.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        When the <code>JobMode</code> field is missing or null, <code>SCRIPT</code> is assigned as the default
+     *        value.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see JobMode
+     */
+
+    public JobRun withJobMode(String jobMode) {
+        setJobMode(jobMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A mode that describes how a job was created. Valid values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>SCRIPT</code> - The job was created using the Glue Studio script editor.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>VISUAL</code> - The job was created using the Glue Studio visual editor.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NOTEBOOK</code> - The job was created using an interactive sessions notebook.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When the <code>JobMode</code> field is missing or null, <code>SCRIPT</code> is assigned as the default value.
+     * </p>
+     * 
+     * @param jobMode
+     *        A mode that describes how a job was created. Valid values are:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>SCRIPT</code> - The job was created using the Glue Studio script editor.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>VISUAL</code> - The job was created using the Glue Studio visual editor.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NOTEBOOK</code> - The job was created using an interactive sessions notebook.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        When the <code>JobMode</code> field is missing or null, <code>SCRIPT</code> is assigned as the default
+     *        value.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see JobMode
+     */
+
+    public JobRun withJobMode(JobMode jobMode) {
+        this.jobMode = jobMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
      * The date and time at which this job run was started.
      * </p>
      * 
@@ -572,11 +912,15 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The current state of the job run.
+     * The current state of the job run. For more information about the statuses of jobs that have terminated
+     * abnormally, see <a href="https://docs.aws.amazon.com/glue/latest/dg/job-run-statuses.html">Glue Job Run
+     * Statuses</a>.
      * </p>
      * 
      * @param jobRunState
-     *        The current state of the job run.
+     *        The current state of the job run. For more information about the statuses of jobs that have terminated
+     *        abnormally, see <a href="https://docs.aws.amazon.com/glue/latest/dg/job-run-statuses.html">Glue Job Run
+     *        Statuses</a>.
      * @see JobRunState
      */
 
@@ -586,10 +930,14 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The current state of the job run.
+     * The current state of the job run. For more information about the statuses of jobs that have terminated
+     * abnormally, see <a href="https://docs.aws.amazon.com/glue/latest/dg/job-run-statuses.html">Glue Job Run
+     * Statuses</a>.
      * </p>
      * 
-     * @return The current state of the job run.
+     * @return The current state of the job run. For more information about the statuses of jobs that have terminated
+     *         abnormally, see <a href="https://docs.aws.amazon.com/glue/latest/dg/job-run-statuses.html">Glue Job Run
+     *         Statuses</a>.
      * @see JobRunState
      */
 
@@ -599,11 +947,15 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The current state of the job run.
+     * The current state of the job run. For more information about the statuses of jobs that have terminated
+     * abnormally, see <a href="https://docs.aws.amazon.com/glue/latest/dg/job-run-statuses.html">Glue Job Run
+     * Statuses</a>.
      * </p>
      * 
      * @param jobRunState
-     *        The current state of the job run.
+     *        The current state of the job run. For more information about the statuses of jobs that have terminated
+     *        abnormally, see <a href="https://docs.aws.amazon.com/glue/latest/dg/job-run-statuses.html">Glue Job Run
+     *        Statuses</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see JobRunState
      */
@@ -615,11 +967,15 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The current state of the job run.
+     * The current state of the job run. For more information about the statuses of jobs that have terminated
+     * abnormally, see <a href="https://docs.aws.amazon.com/glue/latest/dg/job-run-statuses.html">Glue Job Run
+     * Statuses</a>.
      * </p>
      * 
      * @param jobRunState
-     *        The current state of the job run.
+     *        The current state of the job run. For more information about the statuses of jobs that have terminated
+     *        abnormally, see <a href="https://docs.aws.amazon.com/glue/latest/dg/job-run-statuses.html">Glue Job Run
+     *        Statuses</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see JobRunState
      */
@@ -635,35 +991,54 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * definition itself.
      * </p>
      * <p>
-     * You can specify arguments here that your own job-execution script consumes, as well as arguments that AWS Glue
-     * itself consumes.
+     * You can specify arguments here that your own job-execution script consumes, as well as arguments that Glue itself
+     * consumes.
      * </p>
      * <p>
-     * For information about how to specify and consume your own job arguments, see the <a
-     * href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html">Calling AWS Glue APIs
-     * in Python</a> topic in the developer guide.
+     * Job arguments may be logged. Do not pass plaintext secrets as arguments. Retrieve secrets from a Glue Connection,
+     * Secrets Manager or other secret management mechanism if you intend to keep them within the Job.
      * </p>
      * <p>
-     * For information about the key-value pairs that AWS Glue consumes to set up your job, see the <a
+     * For information about how to specify and consume your own Job arguments, see the <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html">Calling Glue APIs in
+     * Python</a> topic in the developer guide.
+     * </p>
+     * <p>
+     * For information about the arguments you can provide to this field when configuring Spark jobs, see the <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html">Special Parameters
-     * Used by AWS Glue</a> topic in the developer guide.
+     * Used by Glue</a> topic in the developer guide.
+     * </p>
+     * <p>
+     * For information about the arguments you can provide to this field when configuring Ray jobs, see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/author-job-ray-job-parameters.html">Using job parameters in Ray
+     * jobs</a> in the developer guide.
      * </p>
      * 
      * @return The job arguments associated with this run. For this job run, they replace the default arguments set in
      *         the job definition itself.</p>
      *         <p>
-     *         You can specify arguments here that your own job-execution script consumes, as well as arguments that AWS
+     *         You can specify arguments here that your own job-execution script consumes, as well as arguments that
      *         Glue itself consumes.
      *         </p>
      *         <p>
-     *         For information about how to specify and consume your own job arguments, see the <a
-     *         href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html">Calling AWS
-     *         Glue APIs in Python</a> topic in the developer guide.
+     *         Job arguments may be logged. Do not pass plaintext secrets as arguments. Retrieve secrets from a Glue
+     *         Connection, Secrets Manager or other secret management mechanism if you intend to keep them within the
+     *         Job.
      *         </p>
      *         <p>
-     *         For information about the key-value pairs that AWS Glue consumes to set up your job, see the <a
+     *         For information about how to specify and consume your own Job arguments, see the <a
+     *         href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html">Calling Glue
+     *         APIs in Python</a> topic in the developer guide.
+     *         </p>
+     *         <p>
+     *         For information about the arguments you can provide to this field when configuring Spark jobs, see the <a
      *         href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html">Special
-     *         Parameters Used by AWS Glue</a> topic in the developer guide.
+     *         Parameters Used by Glue</a> topic in the developer guide.
+     *         </p>
+     *         <p>
+     *         For information about the arguments you can provide to this field when configuring Ray jobs, see <a
+     *         href="https://docs.aws.amazon.com/glue/latest/dg/author-job-ray-job-parameters.html">Using job parameters
+     *         in Ray jobs</a> in the developer guide.
      */
 
     public java.util.Map<String, String> getArguments() {
@@ -676,36 +1051,55 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * definition itself.
      * </p>
      * <p>
-     * You can specify arguments here that your own job-execution script consumes, as well as arguments that AWS Glue
-     * itself consumes.
+     * You can specify arguments here that your own job-execution script consumes, as well as arguments that Glue itself
+     * consumes.
      * </p>
      * <p>
-     * For information about how to specify and consume your own job arguments, see the <a
-     * href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html">Calling AWS Glue APIs
-     * in Python</a> topic in the developer guide.
+     * Job arguments may be logged. Do not pass plaintext secrets as arguments. Retrieve secrets from a Glue Connection,
+     * Secrets Manager or other secret management mechanism if you intend to keep them within the Job.
      * </p>
      * <p>
-     * For information about the key-value pairs that AWS Glue consumes to set up your job, see the <a
+     * For information about how to specify and consume your own Job arguments, see the <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html">Calling Glue APIs in
+     * Python</a> topic in the developer guide.
+     * </p>
+     * <p>
+     * For information about the arguments you can provide to this field when configuring Spark jobs, see the <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html">Special Parameters
-     * Used by AWS Glue</a> topic in the developer guide.
+     * Used by Glue</a> topic in the developer guide.
+     * </p>
+     * <p>
+     * For information about the arguments you can provide to this field when configuring Ray jobs, see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/author-job-ray-job-parameters.html">Using job parameters in Ray
+     * jobs</a> in the developer guide.
      * </p>
      * 
      * @param arguments
      *        The job arguments associated with this run. For this job run, they replace the default arguments set in
      *        the job definition itself.</p>
      *        <p>
-     *        You can specify arguments here that your own job-execution script consumes, as well as arguments that AWS
-     *        Glue itself consumes.
+     *        You can specify arguments here that your own job-execution script consumes, as well as arguments that Glue
+     *        itself consumes.
      *        </p>
      *        <p>
-     *        For information about how to specify and consume your own job arguments, see the <a
-     *        href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html">Calling AWS
-     *        Glue APIs in Python</a> topic in the developer guide.
+     *        Job arguments may be logged. Do not pass plaintext secrets as arguments. Retrieve secrets from a Glue
+     *        Connection, Secrets Manager or other secret management mechanism if you intend to keep them within the
+     *        Job.
      *        </p>
      *        <p>
-     *        For information about the key-value pairs that AWS Glue consumes to set up your job, see the <a
+     *        For information about how to specify and consume your own Job arguments, see the <a
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html">Calling Glue
+     *        APIs in Python</a> topic in the developer guide.
+     *        </p>
+     *        <p>
+     *        For information about the arguments you can provide to this field when configuring Spark jobs, see the <a
      *        href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html">Special
-     *        Parameters Used by AWS Glue</a> topic in the developer guide.
+     *        Parameters Used by Glue</a> topic in the developer guide.
+     *        </p>
+     *        <p>
+     *        For information about the arguments you can provide to this field when configuring Ray jobs, see <a
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/author-job-ray-job-parameters.html">Using job parameters
+     *        in Ray jobs</a> in the developer guide.
      */
 
     public void setArguments(java.util.Map<String, String> arguments) {
@@ -718,36 +1112,55 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * definition itself.
      * </p>
      * <p>
-     * You can specify arguments here that your own job-execution script consumes, as well as arguments that AWS Glue
-     * itself consumes.
+     * You can specify arguments here that your own job-execution script consumes, as well as arguments that Glue itself
+     * consumes.
      * </p>
      * <p>
-     * For information about how to specify and consume your own job arguments, see the <a
-     * href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html">Calling AWS Glue APIs
-     * in Python</a> topic in the developer guide.
+     * Job arguments may be logged. Do not pass plaintext secrets as arguments. Retrieve secrets from a Glue Connection,
+     * Secrets Manager or other secret management mechanism if you intend to keep them within the Job.
      * </p>
      * <p>
-     * For information about the key-value pairs that AWS Glue consumes to set up your job, see the <a
+     * For information about how to specify and consume your own Job arguments, see the <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html">Calling Glue APIs in
+     * Python</a> topic in the developer guide.
+     * </p>
+     * <p>
+     * For information about the arguments you can provide to this field when configuring Spark jobs, see the <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html">Special Parameters
-     * Used by AWS Glue</a> topic in the developer guide.
+     * Used by Glue</a> topic in the developer guide.
+     * </p>
+     * <p>
+     * For information about the arguments you can provide to this field when configuring Ray jobs, see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/author-job-ray-job-parameters.html">Using job parameters in Ray
+     * jobs</a> in the developer guide.
      * </p>
      * 
      * @param arguments
      *        The job arguments associated with this run. For this job run, they replace the default arguments set in
      *        the job definition itself.</p>
      *        <p>
-     *        You can specify arguments here that your own job-execution script consumes, as well as arguments that AWS
-     *        Glue itself consumes.
+     *        You can specify arguments here that your own job-execution script consumes, as well as arguments that Glue
+     *        itself consumes.
      *        </p>
      *        <p>
-     *        For information about how to specify and consume your own job arguments, see the <a
-     *        href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html">Calling AWS
-     *        Glue APIs in Python</a> topic in the developer guide.
+     *        Job arguments may be logged. Do not pass plaintext secrets as arguments. Retrieve secrets from a Glue
+     *        Connection, Secrets Manager or other secret management mechanism if you intend to keep them within the
+     *        Job.
      *        </p>
      *        <p>
-     *        For information about the key-value pairs that AWS Glue consumes to set up your job, see the <a
+     *        For information about how to specify and consume your own Job arguments, see the <a
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html">Calling Glue
+     *        APIs in Python</a> topic in the developer guide.
+     *        </p>
+     *        <p>
+     *        For information about the arguments you can provide to this field when configuring Spark jobs, see the <a
      *        href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html">Special
-     *        Parameters Used by AWS Glue</a> topic in the developer guide.
+     *        Parameters Used by Glue</a> topic in the developer guide.
+     *        </p>
+     *        <p>
+     *        For information about the arguments you can provide to this field when configuring Ray jobs, see <a
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/author-job-ray-job-parameters.html">Using job parameters
+     *        in Ray jobs</a> in the developer guide.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -755,6 +1168,13 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
         setArguments(arguments);
         return this;
     }
+
+    /**
+     * Add a single Arguments entry
+     *
+     * @see JobRun#withArguments
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public JobRun addArgumentsEntry(String key, String value) {
         if (null == this.arguments) {
@@ -892,19 +1312,19 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * This field is deprecated. Use <code>MaxCapacity</code> instead.
      * </p>
      * <p>
-     * The number of AWS Glue data processing units (DPUs) allocated to this JobRun. From 2 to 100 DPUs can be
-     * allocated; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute
-     * capacity and 16 GB of memory. For more information, see the <a href="https://aws.amazon.com/glue/pricing/">AWS
-     * Glue pricing page</a>.
+     * The number of Glue data processing units (DPUs) allocated to this JobRun. From 2 to 100 DPUs can be allocated;
+     * the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity
+     * and 16 GB of memory. For more information, see the <a href="https://aws.amazon.com/glue/pricing/">Glue pricing
+     * page</a>.
      * </p>
      * 
      * @param allocatedCapacity
      *        This field is deprecated. Use <code>MaxCapacity</code> instead.</p>
      *        <p>
-     *        The number of AWS Glue data processing units (DPUs) allocated to this JobRun. From 2 to 100 DPUs can be
+     *        The number of Glue data processing units (DPUs) allocated to this JobRun. From 2 to 100 DPUs can be
      *        allocated; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of
      *        compute capacity and 16 GB of memory. For more information, see the <a
-     *        href="https://aws.amazon.com/glue/pricing/">AWS Glue pricing page</a>.
+     *        href="https://aws.amazon.com/glue/pricing/">Glue pricing page</a>.
      */
     @Deprecated
     public void setAllocatedCapacity(Integer allocatedCapacity) {
@@ -916,18 +1336,18 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * This field is deprecated. Use <code>MaxCapacity</code> instead.
      * </p>
      * <p>
-     * The number of AWS Glue data processing units (DPUs) allocated to this JobRun. From 2 to 100 DPUs can be
-     * allocated; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute
-     * capacity and 16 GB of memory. For more information, see the <a href="https://aws.amazon.com/glue/pricing/">AWS
-     * Glue pricing page</a>.
+     * The number of Glue data processing units (DPUs) allocated to this JobRun. From 2 to 100 DPUs can be allocated;
+     * the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity
+     * and 16 GB of memory. For more information, see the <a href="https://aws.amazon.com/glue/pricing/">Glue pricing
+     * page</a>.
      * </p>
      * 
      * @return This field is deprecated. Use <code>MaxCapacity</code> instead.</p>
      *         <p>
-     *         The number of AWS Glue data processing units (DPUs) allocated to this JobRun. From 2 to 100 DPUs can be
+     *         The number of Glue data processing units (DPUs) allocated to this JobRun. From 2 to 100 DPUs can be
      *         allocated; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of
      *         compute capacity and 16 GB of memory. For more information, see the <a
-     *         href="https://aws.amazon.com/glue/pricing/">AWS Glue pricing page</a>.
+     *         href="https://aws.amazon.com/glue/pricing/">Glue pricing page</a>.
      */
     @Deprecated
     public Integer getAllocatedCapacity() {
@@ -939,19 +1359,19 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * This field is deprecated. Use <code>MaxCapacity</code> instead.
      * </p>
      * <p>
-     * The number of AWS Glue data processing units (DPUs) allocated to this JobRun. From 2 to 100 DPUs can be
-     * allocated; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute
-     * capacity and 16 GB of memory. For more information, see the <a href="https://aws.amazon.com/glue/pricing/">AWS
-     * Glue pricing page</a>.
+     * The number of Glue data processing units (DPUs) allocated to this JobRun. From 2 to 100 DPUs can be allocated;
+     * the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity
+     * and 16 GB of memory. For more information, see the <a href="https://aws.amazon.com/glue/pricing/">Glue pricing
+     * page</a>.
      * </p>
      * 
      * @param allocatedCapacity
      *        This field is deprecated. Use <code>MaxCapacity</code> instead.</p>
      *        <p>
-     *        The number of AWS Glue data processing units (DPUs) allocated to this JobRun. From 2 to 100 DPUs can be
+     *        The number of Glue data processing units (DPUs) allocated to this JobRun. From 2 to 100 DPUs can be
      *        allocated; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of
      *        compute capacity and 16 GB of memory. For more information, see the <a
-     *        href="https://aws.amazon.com/glue/pricing/">AWS Glue pricing page</a>.
+     *        href="https://aws.amazon.com/glue/pricing/">Glue pricing page</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
     @Deprecated
@@ -1003,14 +1423,23 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The <code>JobRun</code> timeout in minutes. This is the maximum time that a job run can consume resources before
-     * it is terminated and enters <code>TIMEOUT</code> status. The default is 2,880 minutes (48 hours). This overrides
-     * the timeout value set in the parent job.
+     * it is terminated and enters <code>TIMEOUT</code> status. This value overrides the timeout value set in the parent
+     * job.
+     * </p>
+     * <p>
+     * Streaming jobs must have timeout values less than 7 days or 10080 minutes. When the value is left blank, the job
+     * will be restarted after 7 days based if you have not setup a maintenance window. If you have setup maintenance
+     * window, it will be restarted during the maintenance window after 7 days.
      * </p>
      * 
      * @param timeout
      *        The <code>JobRun</code> timeout in minutes. This is the maximum time that a job run can consume resources
-     *        before it is terminated and enters <code>TIMEOUT</code> status. The default is 2,880 minutes (48 hours).
-     *        This overrides the timeout value set in the parent job.
+     *        before it is terminated and enters <code>TIMEOUT</code> status. This value overrides the timeout value set
+     *        in the parent job.</p>
+     *        <p>
+     *        Streaming jobs must have timeout values less than 7 days or 10080 minutes. When the value is left blank,
+     *        the job will be restarted after 7 days based if you have not setup a maintenance window. If you have setup
+     *        maintenance window, it will be restarted during the maintenance window after 7 days.
      */
 
     public void setTimeout(Integer timeout) {
@@ -1020,13 +1449,22 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The <code>JobRun</code> timeout in minutes. This is the maximum time that a job run can consume resources before
-     * it is terminated and enters <code>TIMEOUT</code> status. The default is 2,880 minutes (48 hours). This overrides
-     * the timeout value set in the parent job.
+     * it is terminated and enters <code>TIMEOUT</code> status. This value overrides the timeout value set in the parent
+     * job.
+     * </p>
+     * <p>
+     * Streaming jobs must have timeout values less than 7 days or 10080 minutes. When the value is left blank, the job
+     * will be restarted after 7 days based if you have not setup a maintenance window. If you have setup maintenance
+     * window, it will be restarted during the maintenance window after 7 days.
      * </p>
      * 
      * @return The <code>JobRun</code> timeout in minutes. This is the maximum time that a job run can consume resources
-     *         before it is terminated and enters <code>TIMEOUT</code> status. The default is 2,880 minutes (48 hours).
-     *         This overrides the timeout value set in the parent job.
+     *         before it is terminated and enters <code>TIMEOUT</code> status. This value overrides the timeout value
+     *         set in the parent job.</p>
+     *         <p>
+     *         Streaming jobs must have timeout values less than 7 days or 10080 minutes. When the value is left blank,
+     *         the job will be restarted after 7 days based if you have not setup a maintenance window. If you have
+     *         setup maintenance window, it will be restarted during the maintenance window after 7 days.
      */
 
     public Integer getTimeout() {
@@ -1036,14 +1474,23 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The <code>JobRun</code> timeout in minutes. This is the maximum time that a job run can consume resources before
-     * it is terminated and enters <code>TIMEOUT</code> status. The default is 2,880 minutes (48 hours). This overrides
-     * the timeout value set in the parent job.
+     * it is terminated and enters <code>TIMEOUT</code> status. This value overrides the timeout value set in the parent
+     * job.
+     * </p>
+     * <p>
+     * Streaming jobs must have timeout values less than 7 days or 10080 minutes. When the value is left blank, the job
+     * will be restarted after 7 days based if you have not setup a maintenance window. If you have setup maintenance
+     * window, it will be restarted during the maintenance window after 7 days.
      * </p>
      * 
      * @param timeout
      *        The <code>JobRun</code> timeout in minutes. This is the maximum time that a job run can consume resources
-     *        before it is terminated and enters <code>TIMEOUT</code> status. The default is 2,880 minutes (48 hours).
-     *        This overrides the timeout value set in the parent job.
+     *        before it is terminated and enters <code>TIMEOUT</code> status. This value overrides the timeout value set
+     *        in the parent job.</p>
+     *        <p>
+     *        Streaming jobs must have timeout values less than 7 days or 10080 minutes. When the value is left blank,
+     *        the job will be restarted after 7 days based if you have not setup a maintenance window. If you have setup
+     *        maintenance window, it will be restarted during the maintenance window after 7 days.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1054,17 +1501,21 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The number of AWS Glue data processing units (DPUs) that can be allocated when this job runs. A DPU is a relative
-     * measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more
-     * information, see the <a href="https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/">AWS Glue pricing
-     * page</a>.
+     * For Glue version 1.0 or earlier jobs, using the standard worker type, the number of Glue data processing units
+     * (DPUs) that can be allocated when this job runs. A DPU is a relative measure of processing power that consists of
+     * 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <a
+     * href="https://aws.amazon.com/glue/pricing/"> Glue pricing page</a>.
      * </p>
      * <p>
-     * Do not set <code>Max Capacity</code> if using <code>WorkerType</code> and <code>NumberOfWorkers</code>.
+     * For Glue version 2.0+ jobs, you cannot specify a <code>Maximum capacity</code>. Instead, you should specify a
+     * <code>Worker type</code> and the <code>Number of workers</code>.
+     * </p>
+     * <p>
+     * Do not set <code>MaxCapacity</code> if using <code>WorkerType</code> and <code>NumberOfWorkers</code>.
      * </p>
      * <p>
      * The value that can be allocated for <code>MaxCapacity</code> depends on whether you are running a Python shell
-     * job or an Apache Spark ETL job:
+     * job, an Apache Spark ETL job, or an Apache Spark streaming ETL job:
      * </p>
      * <ul>
      * <li>
@@ -1075,23 +1526,28 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * When you specify an Apache Spark ETL job (<code>JobCommand.Name</code>="glueetl"), you can allocate from 2 to 100
-     * DPUs. The default is 10 DPUs. This job type cannot have a fractional DPU allocation.
+     * When you specify an Apache Spark ETL job (<code>JobCommand.Name</code>="glueetl") or Apache Spark streaming ETL
+     * job (<code>JobCommand.Name</code>="gluestreaming"), you can allocate from 2 to 100 DPUs. The default is 10 DPUs.
+     * This job type cannot have a fractional DPU allocation.
      * </p>
      * </li>
      * </ul>
      * 
      * @param maxCapacity
-     *        The number of AWS Glue data processing units (DPUs) that can be allocated when this job runs. A DPU is a
-     *        relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For
-     *        more information, see the <a href="https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/">AWS
-     *        Glue pricing page</a>.</p>
+     *        For Glue version 1.0 or earlier jobs, using the standard worker type, the number of Glue data processing
+     *        units (DPUs) that can be allocated when this job runs. A DPU is a relative measure of processing power
+     *        that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <a
+     *        href="https://aws.amazon.com/glue/pricing/"> Glue pricing page</a>.</p>
      *        <p>
-     *        Do not set <code>Max Capacity</code> if using <code>WorkerType</code> and <code>NumberOfWorkers</code>.
+     *        For Glue version 2.0+ jobs, you cannot specify a <code>Maximum capacity</code>. Instead, you should
+     *        specify a <code>Worker type</code> and the <code>Number of workers</code>.
+     *        </p>
+     *        <p>
+     *        Do not set <code>MaxCapacity</code> if using <code>WorkerType</code> and <code>NumberOfWorkers</code>.
      *        </p>
      *        <p>
      *        The value that can be allocated for <code>MaxCapacity</code> depends on whether you are running a Python
-     *        shell job or an Apache Spark ETL job:
+     *        shell job, an Apache Spark ETL job, or an Apache Spark streaming ETL job:
      *        </p>
      *        <ul>
      *        <li>
@@ -1102,8 +1558,9 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        When you specify an Apache Spark ETL job (<code>JobCommand.Name</code>="glueetl"), you can allocate from 2
-     *        to 100 DPUs. The default is 10 DPUs. This job type cannot have a fractional DPU allocation.
+     *        When you specify an Apache Spark ETL job (<code>JobCommand.Name</code>="glueetl") or Apache Spark
+     *        streaming ETL job (<code>JobCommand.Name</code>="gluestreaming"), you can allocate from 2 to 100 DPUs. The
+     *        default is 10 DPUs. This job type cannot have a fractional DPU allocation.
      *        </p>
      *        </li>
      */
@@ -1114,17 +1571,21 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The number of AWS Glue data processing units (DPUs) that can be allocated when this job runs. A DPU is a relative
-     * measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more
-     * information, see the <a href="https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/">AWS Glue pricing
-     * page</a>.
+     * For Glue version 1.0 or earlier jobs, using the standard worker type, the number of Glue data processing units
+     * (DPUs) that can be allocated when this job runs. A DPU is a relative measure of processing power that consists of
+     * 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <a
+     * href="https://aws.amazon.com/glue/pricing/"> Glue pricing page</a>.
      * </p>
      * <p>
-     * Do not set <code>Max Capacity</code> if using <code>WorkerType</code> and <code>NumberOfWorkers</code>.
+     * For Glue version 2.0+ jobs, you cannot specify a <code>Maximum capacity</code>. Instead, you should specify a
+     * <code>Worker type</code> and the <code>Number of workers</code>.
+     * </p>
+     * <p>
+     * Do not set <code>MaxCapacity</code> if using <code>WorkerType</code> and <code>NumberOfWorkers</code>.
      * </p>
      * <p>
      * The value that can be allocated for <code>MaxCapacity</code> depends on whether you are running a Python shell
-     * job or an Apache Spark ETL job:
+     * job, an Apache Spark ETL job, or an Apache Spark streaming ETL job:
      * </p>
      * <ul>
      * <li>
@@ -1135,22 +1596,27 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * When you specify an Apache Spark ETL job (<code>JobCommand.Name</code>="glueetl"), you can allocate from 2 to 100
-     * DPUs. The default is 10 DPUs. This job type cannot have a fractional DPU allocation.
+     * When you specify an Apache Spark ETL job (<code>JobCommand.Name</code>="glueetl") or Apache Spark streaming ETL
+     * job (<code>JobCommand.Name</code>="gluestreaming"), you can allocate from 2 to 100 DPUs. The default is 10 DPUs.
+     * This job type cannot have a fractional DPU allocation.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The number of AWS Glue data processing units (DPUs) that can be allocated when this job runs. A DPU is a
-     *         relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory.
-     *         For more information, see the <a
-     *         href="https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/">AWS Glue pricing page</a>.</p>
+     * @return For Glue version 1.0 or earlier jobs, using the standard worker type, the number of Glue data processing
+     *         units (DPUs) that can be allocated when this job runs. A DPU is a relative measure of processing power
+     *         that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <a
+     *         href="https://aws.amazon.com/glue/pricing/"> Glue pricing page</a>.</p>
      *         <p>
-     *         Do not set <code>Max Capacity</code> if using <code>WorkerType</code> and <code>NumberOfWorkers</code>.
+     *         For Glue version 2.0+ jobs, you cannot specify a <code>Maximum capacity</code>. Instead, you should
+     *         specify a <code>Worker type</code> and the <code>Number of workers</code>.
+     *         </p>
+     *         <p>
+     *         Do not set <code>MaxCapacity</code> if using <code>WorkerType</code> and <code>NumberOfWorkers</code>.
      *         </p>
      *         <p>
      *         The value that can be allocated for <code>MaxCapacity</code> depends on whether you are running a Python
-     *         shell job or an Apache Spark ETL job:
+     *         shell job, an Apache Spark ETL job, or an Apache Spark streaming ETL job:
      *         </p>
      *         <ul>
      *         <li>
@@ -1161,8 +1627,9 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
-     *         When you specify an Apache Spark ETL job (<code>JobCommand.Name</code>="glueetl"), you can allocate from
-     *         2 to 100 DPUs. The default is 10 DPUs. This job type cannot have a fractional DPU allocation.
+     *         When you specify an Apache Spark ETL job (<code>JobCommand.Name</code>="glueetl") or Apache Spark
+     *         streaming ETL job (<code>JobCommand.Name</code>="gluestreaming"), you can allocate from 2 to 100 DPUs.
+     *         The default is 10 DPUs. This job type cannot have a fractional DPU allocation.
      *         </p>
      *         </li>
      */
@@ -1173,17 +1640,21 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The number of AWS Glue data processing units (DPUs) that can be allocated when this job runs. A DPU is a relative
-     * measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more
-     * information, see the <a href="https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/">AWS Glue pricing
-     * page</a>.
+     * For Glue version 1.0 or earlier jobs, using the standard worker type, the number of Glue data processing units
+     * (DPUs) that can be allocated when this job runs. A DPU is a relative measure of processing power that consists of
+     * 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <a
+     * href="https://aws.amazon.com/glue/pricing/"> Glue pricing page</a>.
      * </p>
      * <p>
-     * Do not set <code>Max Capacity</code> if using <code>WorkerType</code> and <code>NumberOfWorkers</code>.
+     * For Glue version 2.0+ jobs, you cannot specify a <code>Maximum capacity</code>. Instead, you should specify a
+     * <code>Worker type</code> and the <code>Number of workers</code>.
+     * </p>
+     * <p>
+     * Do not set <code>MaxCapacity</code> if using <code>WorkerType</code> and <code>NumberOfWorkers</code>.
      * </p>
      * <p>
      * The value that can be allocated for <code>MaxCapacity</code> depends on whether you are running a Python shell
-     * job or an Apache Spark ETL job:
+     * job, an Apache Spark ETL job, or an Apache Spark streaming ETL job:
      * </p>
      * <ul>
      * <li>
@@ -1194,23 +1665,28 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * When you specify an Apache Spark ETL job (<code>JobCommand.Name</code>="glueetl"), you can allocate from 2 to 100
-     * DPUs. The default is 10 DPUs. This job type cannot have a fractional DPU allocation.
+     * When you specify an Apache Spark ETL job (<code>JobCommand.Name</code>="glueetl") or Apache Spark streaming ETL
+     * job (<code>JobCommand.Name</code>="gluestreaming"), you can allocate from 2 to 100 DPUs. The default is 10 DPUs.
+     * This job type cannot have a fractional DPU allocation.
      * </p>
      * </li>
      * </ul>
      * 
      * @param maxCapacity
-     *        The number of AWS Glue data processing units (DPUs) that can be allocated when this job runs. A DPU is a
-     *        relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For
-     *        more information, see the <a href="https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/">AWS
-     *        Glue pricing page</a>.</p>
+     *        For Glue version 1.0 or earlier jobs, using the standard worker type, the number of Glue data processing
+     *        units (DPUs) that can be allocated when this job runs. A DPU is a relative measure of processing power
+     *        that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <a
+     *        href="https://aws.amazon.com/glue/pricing/"> Glue pricing page</a>.</p>
      *        <p>
-     *        Do not set <code>Max Capacity</code> if using <code>WorkerType</code> and <code>NumberOfWorkers</code>.
+     *        For Glue version 2.0+ jobs, you cannot specify a <code>Maximum capacity</code>. Instead, you should
+     *        specify a <code>Worker type</code> and the <code>Number of workers</code>.
+     *        </p>
+     *        <p>
+     *        Do not set <code>MaxCapacity</code> if using <code>WorkerType</code> and <code>NumberOfWorkers</code>.
      *        </p>
      *        <p>
      *        The value that can be allocated for <code>MaxCapacity</code> depends on whether you are running a Python
-     *        shell job or an Apache Spark ETL job:
+     *        shell job, an Apache Spark ETL job, or an Apache Spark streaming ETL job:
      *        </p>
      *        <ul>
      *        <li>
@@ -1221,8 +1697,9 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        When you specify an Apache Spark ETL job (<code>JobCommand.Name</code>="glueetl"), you can allocate from 2
-     *        to 100 DPUs. The default is 10 DPUs. This job type cannot have a fractional DPU allocation.
+     *        When you specify an Apache Spark ETL job (<code>JobCommand.Name</code>="glueetl") or Apache Spark
+     *        streaming ETL job (<code>JobCommand.Name</code>="gluestreaming"), you can allocate from 2 to 100 DPUs. The
+     *        default is 10 DPUs. This job type cannot have a fractional DPU allocation.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1235,49 +1712,108 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of predefined worker that is allocated when a job runs. Accepts a value of Standard, G.1X, or G.2X.
+     * The type of predefined worker that is allocated when a job runs. Accepts a value of G.1X, G.2X, G.4X, G.8X or
+     * G.025X for Spark jobs. Accepts the value Z.2X for Ray jobs.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * For the <code>Standard</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk, and 2
-     * executors per worker.
+     * For the <code>G.1X</code> worker type, each worker maps to 1 DPU (4 vCPUs, 16 GB of memory) with 84GB disk
+     * (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for workloads such
+     * as data transforms, joins, and queries, to offers a scalable and cost effective way to run most jobs.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>G.1X</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 64GB disk, and 1
-     * executor per worker.
+     * For the <code>G.2X</code> worker type, each worker maps to 2 DPU (8 vCPUs, 32 GB of memory) with 128GB disk
+     * (approximately 77GB free), and provides 1 executor per worker. We recommend this worker type for workloads such
+     * as data transforms, joins, and queries, to offers a scalable and cost effective way to run most jobs.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>G.2X</code> worker type, each worker provides 8 vCPU, 32 GB of memory and a 128GB disk, and 1
-     * executor per worker.
+     * For the <code>G.4X</code> worker type, each worker maps to 4 DPU (16 vCPUs, 64 GB of memory) with 256GB disk
+     * (approximately 235GB free), and provides 1 executor per worker. We recommend this worker type for jobs whose
+     * workloads contain your most demanding transforms, aggregations, joins, and queries. This worker type is available
+     * only for Glue version 3.0 or later Spark ETL jobs in the following Amazon Web Services Regions: US East (Ohio),
+     * US East (N. Virginia), US West (Oregon), Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo),
+     * Canada (Central), Europe (Frankfurt), Europe (Ireland), and Europe (Stockholm).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>G.8X</code> worker type, each worker maps to 8 DPU (32 vCPUs, 128 GB of memory) with 512GB disk
+     * (approximately 487GB free), and provides 1 executor per worker. We recommend this worker type for jobs whose
+     * workloads contain your most demanding transforms, aggregations, joins, and queries. This worker type is available
+     * only for Glue version 3.0 or later Spark ETL jobs, in the same Amazon Web Services Regions as supported for the
+     * <code>G.4X</code> worker type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>G.025X</code> worker type, each worker maps to 0.25 DPU (2 vCPUs, 4 GB of memory) with 84GB disk
+     * (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for low volume
+     * streaming jobs. This worker type is only available for Glue version 3.0 streaming jobs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>Z.2X</code> worker type, each worker maps to 2 M-DPU (8vCPUs, 64 GB of memory) with 128 GB disk
+     * (approximately 120GB free), and provides up to 8 Ray workers based on the autoscaler.
      * </p>
      * </li>
      * </ul>
      * 
      * @param workerType
-     *        The type of predefined worker that is allocated when a job runs. Accepts a value of Standard, G.1X, or
-     *        G.2X.</p>
+     *        The type of predefined worker that is allocated when a job runs. Accepts a value of G.1X, G.2X, G.4X, G.8X
+     *        or G.025X for Spark jobs. Accepts the value Z.2X for Ray jobs.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        For the <code>Standard</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk,
-     *        and 2 executors per worker.
+     *        For the <code>G.1X</code> worker type, each worker maps to 1 DPU (4 vCPUs, 16 GB of memory) with 84GB disk
+     *        (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for workloads
+     *        such as data transforms, joins, and queries, to offers a scalable and cost effective way to run most jobs.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>G.1X</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 64GB disk, and 1
-     *        executor per worker.
+     *        For the <code>G.2X</code> worker type, each worker maps to 2 DPU (8 vCPUs, 32 GB of memory) with 128GB
+     *        disk (approximately 77GB free), and provides 1 executor per worker. We recommend this worker type for
+     *        workloads such as data transforms, joins, and queries, to offers a scalable and cost effective way to run
+     *        most jobs.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>G.2X</code> worker type, each worker provides 8 vCPU, 32 GB of memory and a 128GB disk, and
-     *        1 executor per worker.
+     *        For the <code>G.4X</code> worker type, each worker maps to 4 DPU (16 vCPUs, 64 GB of memory) with 256GB
+     *        disk (approximately 235GB free), and provides 1 executor per worker. We recommend this worker type for
+     *        jobs whose workloads contain your most demanding transforms, aggregations, joins, and queries. This worker
+     *        type is available only for Glue version 3.0 or later Spark ETL jobs in the following Amazon Web Services
+     *        Regions: US East (Ohio), US East (N. Virginia), US West (Oregon), Asia Pacific (Singapore), Asia Pacific
+     *        (Sydney), Asia Pacific (Tokyo), Canada (Central), Europe (Frankfurt), Europe (Ireland), and Europe
+     *        (Stockholm).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For the <code>G.8X</code> worker type, each worker maps to 8 DPU (32 vCPUs, 128 GB of memory) with 512GB
+     *        disk (approximately 487GB free), and provides 1 executor per worker. We recommend this worker type for
+     *        jobs whose workloads contain your most demanding transforms, aggregations, joins, and queries. This worker
+     *        type is available only for Glue version 3.0 or later Spark ETL jobs, in the same Amazon Web Services
+     *        Regions as supported for the <code>G.4X</code> worker type.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For the <code>G.025X</code> worker type, each worker maps to 0.25 DPU (2 vCPUs, 4 GB of memory) with 84GB
+     *        disk (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for low
+     *        volume streaming jobs. This worker type is only available for Glue version 3.0 streaming jobs.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For the <code>Z.2X</code> worker type, each worker maps to 2 M-DPU (8vCPUs, 64 GB of memory) with 128 GB
+     *        disk (approximately 120GB free), and provides up to 8 Ray workers based on the autoscaler.
      *        </p>
      *        </li>
      * @see WorkerType
@@ -1289,48 +1825,108 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of predefined worker that is allocated when a job runs. Accepts a value of Standard, G.1X, or G.2X.
+     * The type of predefined worker that is allocated when a job runs. Accepts a value of G.1X, G.2X, G.4X, G.8X or
+     * G.025X for Spark jobs. Accepts the value Z.2X for Ray jobs.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * For the <code>Standard</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk, and 2
-     * executors per worker.
+     * For the <code>G.1X</code> worker type, each worker maps to 1 DPU (4 vCPUs, 16 GB of memory) with 84GB disk
+     * (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for workloads such
+     * as data transforms, joins, and queries, to offers a scalable and cost effective way to run most jobs.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>G.1X</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 64GB disk, and 1
-     * executor per worker.
+     * For the <code>G.2X</code> worker type, each worker maps to 2 DPU (8 vCPUs, 32 GB of memory) with 128GB disk
+     * (approximately 77GB free), and provides 1 executor per worker. We recommend this worker type for workloads such
+     * as data transforms, joins, and queries, to offers a scalable and cost effective way to run most jobs.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>G.2X</code> worker type, each worker provides 8 vCPU, 32 GB of memory and a 128GB disk, and 1
-     * executor per worker.
+     * For the <code>G.4X</code> worker type, each worker maps to 4 DPU (16 vCPUs, 64 GB of memory) with 256GB disk
+     * (approximately 235GB free), and provides 1 executor per worker. We recommend this worker type for jobs whose
+     * workloads contain your most demanding transforms, aggregations, joins, and queries. This worker type is available
+     * only for Glue version 3.0 or later Spark ETL jobs in the following Amazon Web Services Regions: US East (Ohio),
+     * US East (N. Virginia), US West (Oregon), Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo),
+     * Canada (Central), Europe (Frankfurt), Europe (Ireland), and Europe (Stockholm).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>G.8X</code> worker type, each worker maps to 8 DPU (32 vCPUs, 128 GB of memory) with 512GB disk
+     * (approximately 487GB free), and provides 1 executor per worker. We recommend this worker type for jobs whose
+     * workloads contain your most demanding transforms, aggregations, joins, and queries. This worker type is available
+     * only for Glue version 3.0 or later Spark ETL jobs, in the same Amazon Web Services Regions as supported for the
+     * <code>G.4X</code> worker type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>G.025X</code> worker type, each worker maps to 0.25 DPU (2 vCPUs, 4 GB of memory) with 84GB disk
+     * (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for low volume
+     * streaming jobs. This worker type is only available for Glue version 3.0 streaming jobs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>Z.2X</code> worker type, each worker maps to 2 M-DPU (8vCPUs, 64 GB of memory) with 128 GB disk
+     * (approximately 120GB free), and provides up to 8 Ray workers based on the autoscaler.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The type of predefined worker that is allocated when a job runs. Accepts a value of Standard, G.1X, or
-     *         G.2X.</p>
+     * @return The type of predefined worker that is allocated when a job runs. Accepts a value of G.1X, G.2X, G.4X,
+     *         G.8X or G.025X for Spark jobs. Accepts the value Z.2X for Ray jobs.</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         For the <code>Standard</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk,
-     *         and 2 executors per worker.
+     *         For the <code>G.1X</code> worker type, each worker maps to 1 DPU (4 vCPUs, 16 GB of memory) with 84GB
+     *         disk (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for
+     *         workloads such as data transforms, joins, and queries, to offers a scalable and cost effective way to run
+     *         most jobs.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         For the <code>G.1X</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 64GB disk, and
-     *         1 executor per worker.
+     *         For the <code>G.2X</code> worker type, each worker maps to 2 DPU (8 vCPUs, 32 GB of memory) with 128GB
+     *         disk (approximately 77GB free), and provides 1 executor per worker. We recommend this worker type for
+     *         workloads such as data transforms, joins, and queries, to offers a scalable and cost effective way to run
+     *         most jobs.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         For the <code>G.2X</code> worker type, each worker provides 8 vCPU, 32 GB of memory and a 128GB disk, and
-     *         1 executor per worker.
+     *         For the <code>G.4X</code> worker type, each worker maps to 4 DPU (16 vCPUs, 64 GB of memory) with 256GB
+     *         disk (approximately 235GB free), and provides 1 executor per worker. We recommend this worker type for
+     *         jobs whose workloads contain your most demanding transforms, aggregations, joins, and queries. This
+     *         worker type is available only for Glue version 3.0 or later Spark ETL jobs in the following Amazon Web
+     *         Services Regions: US East (Ohio), US East (N. Virginia), US West (Oregon), Asia Pacific (Singapore), Asia
+     *         Pacific (Sydney), Asia Pacific (Tokyo), Canada (Central), Europe (Frankfurt), Europe (Ireland), and
+     *         Europe (Stockholm).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For the <code>G.8X</code> worker type, each worker maps to 8 DPU (32 vCPUs, 128 GB of memory) with 512GB
+     *         disk (approximately 487GB free), and provides 1 executor per worker. We recommend this worker type for
+     *         jobs whose workloads contain your most demanding transforms, aggregations, joins, and queries. This
+     *         worker type is available only for Glue version 3.0 or later Spark ETL jobs, in the same Amazon Web
+     *         Services Regions as supported for the <code>G.4X</code> worker type.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For the <code>G.025X</code> worker type, each worker maps to 0.25 DPU (2 vCPUs, 4 GB of memory) with 84GB
+     *         disk (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for low
+     *         volume streaming jobs. This worker type is only available for Glue version 3.0 streaming jobs.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For the <code>Z.2X</code> worker type, each worker maps to 2 M-DPU (8vCPUs, 64 GB of memory) with 128 GB
+     *         disk (approximately 120GB free), and provides up to 8 Ray workers based on the autoscaler.
      *         </p>
      *         </li>
      * @see WorkerType
@@ -1342,49 +1938,108 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of predefined worker that is allocated when a job runs. Accepts a value of Standard, G.1X, or G.2X.
+     * The type of predefined worker that is allocated when a job runs. Accepts a value of G.1X, G.2X, G.4X, G.8X or
+     * G.025X for Spark jobs. Accepts the value Z.2X for Ray jobs.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * For the <code>Standard</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk, and 2
-     * executors per worker.
+     * For the <code>G.1X</code> worker type, each worker maps to 1 DPU (4 vCPUs, 16 GB of memory) with 84GB disk
+     * (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for workloads such
+     * as data transforms, joins, and queries, to offers a scalable and cost effective way to run most jobs.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>G.1X</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 64GB disk, and 1
-     * executor per worker.
+     * For the <code>G.2X</code> worker type, each worker maps to 2 DPU (8 vCPUs, 32 GB of memory) with 128GB disk
+     * (approximately 77GB free), and provides 1 executor per worker. We recommend this worker type for workloads such
+     * as data transforms, joins, and queries, to offers a scalable and cost effective way to run most jobs.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>G.2X</code> worker type, each worker provides 8 vCPU, 32 GB of memory and a 128GB disk, and 1
-     * executor per worker.
+     * For the <code>G.4X</code> worker type, each worker maps to 4 DPU (16 vCPUs, 64 GB of memory) with 256GB disk
+     * (approximately 235GB free), and provides 1 executor per worker. We recommend this worker type for jobs whose
+     * workloads contain your most demanding transforms, aggregations, joins, and queries. This worker type is available
+     * only for Glue version 3.0 or later Spark ETL jobs in the following Amazon Web Services Regions: US East (Ohio),
+     * US East (N. Virginia), US West (Oregon), Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo),
+     * Canada (Central), Europe (Frankfurt), Europe (Ireland), and Europe (Stockholm).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>G.8X</code> worker type, each worker maps to 8 DPU (32 vCPUs, 128 GB of memory) with 512GB disk
+     * (approximately 487GB free), and provides 1 executor per worker. We recommend this worker type for jobs whose
+     * workloads contain your most demanding transforms, aggregations, joins, and queries. This worker type is available
+     * only for Glue version 3.0 or later Spark ETL jobs, in the same Amazon Web Services Regions as supported for the
+     * <code>G.4X</code> worker type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>G.025X</code> worker type, each worker maps to 0.25 DPU (2 vCPUs, 4 GB of memory) with 84GB disk
+     * (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for low volume
+     * streaming jobs. This worker type is only available for Glue version 3.0 streaming jobs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>Z.2X</code> worker type, each worker maps to 2 M-DPU (8vCPUs, 64 GB of memory) with 128 GB disk
+     * (approximately 120GB free), and provides up to 8 Ray workers based on the autoscaler.
      * </p>
      * </li>
      * </ul>
      * 
      * @param workerType
-     *        The type of predefined worker that is allocated when a job runs. Accepts a value of Standard, G.1X, or
-     *        G.2X.</p>
+     *        The type of predefined worker that is allocated when a job runs. Accepts a value of G.1X, G.2X, G.4X, G.8X
+     *        or G.025X for Spark jobs. Accepts the value Z.2X for Ray jobs.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        For the <code>Standard</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk,
-     *        and 2 executors per worker.
+     *        For the <code>G.1X</code> worker type, each worker maps to 1 DPU (4 vCPUs, 16 GB of memory) with 84GB disk
+     *        (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for workloads
+     *        such as data transforms, joins, and queries, to offers a scalable and cost effective way to run most jobs.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>G.1X</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 64GB disk, and 1
-     *        executor per worker.
+     *        For the <code>G.2X</code> worker type, each worker maps to 2 DPU (8 vCPUs, 32 GB of memory) with 128GB
+     *        disk (approximately 77GB free), and provides 1 executor per worker. We recommend this worker type for
+     *        workloads such as data transforms, joins, and queries, to offers a scalable and cost effective way to run
+     *        most jobs.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>G.2X</code> worker type, each worker provides 8 vCPU, 32 GB of memory and a 128GB disk, and
-     *        1 executor per worker.
+     *        For the <code>G.4X</code> worker type, each worker maps to 4 DPU (16 vCPUs, 64 GB of memory) with 256GB
+     *        disk (approximately 235GB free), and provides 1 executor per worker. We recommend this worker type for
+     *        jobs whose workloads contain your most demanding transforms, aggregations, joins, and queries. This worker
+     *        type is available only for Glue version 3.0 or later Spark ETL jobs in the following Amazon Web Services
+     *        Regions: US East (Ohio), US East (N. Virginia), US West (Oregon), Asia Pacific (Singapore), Asia Pacific
+     *        (Sydney), Asia Pacific (Tokyo), Canada (Central), Europe (Frankfurt), Europe (Ireland), and Europe
+     *        (Stockholm).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For the <code>G.8X</code> worker type, each worker maps to 8 DPU (32 vCPUs, 128 GB of memory) with 512GB
+     *        disk (approximately 487GB free), and provides 1 executor per worker. We recommend this worker type for
+     *        jobs whose workloads contain your most demanding transforms, aggregations, joins, and queries. This worker
+     *        type is available only for Glue version 3.0 or later Spark ETL jobs, in the same Amazon Web Services
+     *        Regions as supported for the <code>G.4X</code> worker type.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For the <code>G.025X</code> worker type, each worker maps to 0.25 DPU (2 vCPUs, 4 GB of memory) with 84GB
+     *        disk (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for low
+     *        volume streaming jobs. This worker type is only available for Glue version 3.0 streaming jobs.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For the <code>Z.2X</code> worker type, each worker maps to 2 M-DPU (8vCPUs, 64 GB of memory) with 128 GB
+     *        disk (approximately 120GB free), and provides up to 8 Ray workers based on the autoscaler.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1398,49 +2053,108 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of predefined worker that is allocated when a job runs. Accepts a value of Standard, G.1X, or G.2X.
+     * The type of predefined worker that is allocated when a job runs. Accepts a value of G.1X, G.2X, G.4X, G.8X or
+     * G.025X for Spark jobs. Accepts the value Z.2X for Ray jobs.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * For the <code>Standard</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk, and 2
-     * executors per worker.
+     * For the <code>G.1X</code> worker type, each worker maps to 1 DPU (4 vCPUs, 16 GB of memory) with 84GB disk
+     * (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for workloads such
+     * as data transforms, joins, and queries, to offers a scalable and cost effective way to run most jobs.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>G.1X</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 64GB disk, and 1
-     * executor per worker.
+     * For the <code>G.2X</code> worker type, each worker maps to 2 DPU (8 vCPUs, 32 GB of memory) with 128GB disk
+     * (approximately 77GB free), and provides 1 executor per worker. We recommend this worker type for workloads such
+     * as data transforms, joins, and queries, to offers a scalable and cost effective way to run most jobs.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>G.2X</code> worker type, each worker provides 8 vCPU, 32 GB of memory and a 128GB disk, and 1
-     * executor per worker.
+     * For the <code>G.4X</code> worker type, each worker maps to 4 DPU (16 vCPUs, 64 GB of memory) with 256GB disk
+     * (approximately 235GB free), and provides 1 executor per worker. We recommend this worker type for jobs whose
+     * workloads contain your most demanding transforms, aggregations, joins, and queries. This worker type is available
+     * only for Glue version 3.0 or later Spark ETL jobs in the following Amazon Web Services Regions: US East (Ohio),
+     * US East (N. Virginia), US West (Oregon), Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo),
+     * Canada (Central), Europe (Frankfurt), Europe (Ireland), and Europe (Stockholm).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>G.8X</code> worker type, each worker maps to 8 DPU (32 vCPUs, 128 GB of memory) with 512GB disk
+     * (approximately 487GB free), and provides 1 executor per worker. We recommend this worker type for jobs whose
+     * workloads contain your most demanding transforms, aggregations, joins, and queries. This worker type is available
+     * only for Glue version 3.0 or later Spark ETL jobs, in the same Amazon Web Services Regions as supported for the
+     * <code>G.4X</code> worker type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>G.025X</code> worker type, each worker maps to 0.25 DPU (2 vCPUs, 4 GB of memory) with 84GB disk
+     * (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for low volume
+     * streaming jobs. This worker type is only available for Glue version 3.0 streaming jobs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>Z.2X</code> worker type, each worker maps to 2 M-DPU (8vCPUs, 64 GB of memory) with 128 GB disk
+     * (approximately 120GB free), and provides up to 8 Ray workers based on the autoscaler.
      * </p>
      * </li>
      * </ul>
      * 
      * @param workerType
-     *        The type of predefined worker that is allocated when a job runs. Accepts a value of Standard, G.1X, or
-     *        G.2X.</p>
+     *        The type of predefined worker that is allocated when a job runs. Accepts a value of G.1X, G.2X, G.4X, G.8X
+     *        or G.025X for Spark jobs. Accepts the value Z.2X for Ray jobs.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        For the <code>Standard</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk,
-     *        and 2 executors per worker.
+     *        For the <code>G.1X</code> worker type, each worker maps to 1 DPU (4 vCPUs, 16 GB of memory) with 84GB disk
+     *        (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for workloads
+     *        such as data transforms, joins, and queries, to offers a scalable and cost effective way to run most jobs.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>G.1X</code> worker type, each worker provides 4 vCPU, 16 GB of memory and a 64GB disk, and 1
-     *        executor per worker.
+     *        For the <code>G.2X</code> worker type, each worker maps to 2 DPU (8 vCPUs, 32 GB of memory) with 128GB
+     *        disk (approximately 77GB free), and provides 1 executor per worker. We recommend this worker type for
+     *        workloads such as data transforms, joins, and queries, to offers a scalable and cost effective way to run
+     *        most jobs.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>G.2X</code> worker type, each worker provides 8 vCPU, 32 GB of memory and a 128GB disk, and
-     *        1 executor per worker.
+     *        For the <code>G.4X</code> worker type, each worker maps to 4 DPU (16 vCPUs, 64 GB of memory) with 256GB
+     *        disk (approximately 235GB free), and provides 1 executor per worker. We recommend this worker type for
+     *        jobs whose workloads contain your most demanding transforms, aggregations, joins, and queries. This worker
+     *        type is available only for Glue version 3.0 or later Spark ETL jobs in the following Amazon Web Services
+     *        Regions: US East (Ohio), US East (N. Virginia), US West (Oregon), Asia Pacific (Singapore), Asia Pacific
+     *        (Sydney), Asia Pacific (Tokyo), Canada (Central), Europe (Frankfurt), Europe (Ireland), and Europe
+     *        (Stockholm).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For the <code>G.8X</code> worker type, each worker maps to 8 DPU (32 vCPUs, 128 GB of memory) with 512GB
+     *        disk (approximately 487GB free), and provides 1 executor per worker. We recommend this worker type for
+     *        jobs whose workloads contain your most demanding transforms, aggregations, joins, and queries. This worker
+     *        type is available only for Glue version 3.0 or later Spark ETL jobs, in the same Amazon Web Services
+     *        Regions as supported for the <code>G.4X</code> worker type.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For the <code>G.025X</code> worker type, each worker maps to 0.25 DPU (2 vCPUs, 4 GB of memory) with 84GB
+     *        disk (approximately 34GB free), and provides 1 executor per worker. We recommend this worker type for low
+     *        volume streaming jobs. This worker type is only available for Glue version 3.0 streaming jobs.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For the <code>Z.2X</code> worker type, each worker maps to 2 M-DPU (8vCPUs, 64 GB of memory) with 128 GB
+     *        disk (approximately 120GB free), and provides up to 8 Ray workers based on the autoscaler.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1456,14 +2170,9 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The number of workers of a defined <code>workerType</code> that are allocated when a job runs.
      * </p>
-     * <p>
-     * The maximum number of workers you can define are 299 for <code>G.1X</code>, and 149 for <code>G.2X</code>.
-     * </p>
      * 
      * @param numberOfWorkers
-     *        The number of workers of a defined <code>workerType</code> that are allocated when a job runs.</p>
-     *        <p>
-     *        The maximum number of workers you can define are 299 for <code>G.1X</code>, and 149 for <code>G.2X</code>.
+     *        The number of workers of a defined <code>workerType</code> that are allocated when a job runs.
      */
 
     public void setNumberOfWorkers(Integer numberOfWorkers) {
@@ -1474,13 +2183,8 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The number of workers of a defined <code>workerType</code> that are allocated when a job runs.
      * </p>
-     * <p>
-     * The maximum number of workers you can define are 299 for <code>G.1X</code>, and 149 for <code>G.2X</code>.
-     * </p>
      * 
-     * @return The number of workers of a defined <code>workerType</code> that are allocated when a job runs.</p>
-     *         <p>
-     *         The maximum number of workers you can define are 299 for <code>G.1X</code>, and 149 for <code>G.2X</code>.
+     * @return The number of workers of a defined <code>workerType</code> that are allocated when a job runs.
      */
 
     public Integer getNumberOfWorkers() {
@@ -1491,14 +2195,9 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The number of workers of a defined <code>workerType</code> that are allocated when a job runs.
      * </p>
-     * <p>
-     * The maximum number of workers you can define are 299 for <code>G.1X</code>, and 149 for <code>G.2X</code>.
-     * </p>
      * 
      * @param numberOfWorkers
-     *        The number of workers of a defined <code>workerType</code> that are allocated when a job runs.</p>
-     *        <p>
-     *        The maximum number of workers you can define are 299 for <code>G.1X</code>, and 149 for <code>G.2X</code>.
+     *        The number of workers of a defined <code>workerType</code> that are allocated when a job runs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1549,16 +2248,16 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the log group for secure logging that can be server-side encrypted in Amazon CloudWatch using AWS
-     * KMS. This name can be <code>/aws-glue/jobs/</code>, in which case the default encryption is <code>NONE</code>. If
-     * you add a role name and <code>SecurityConfiguration</code> name (in other words,
+     * The name of the log group for secure logging that can be server-side encrypted in Amazon CloudWatch using KMS.
+     * This name can be <code>/aws-glue/jobs/</code>, in which case the default encryption is <code>NONE</code>. If you
+     * add a role name and <code>SecurityConfiguration</code> name (in other words,
      * <code>/aws-glue/jobs-yourRoleName-yourSecurityConfigurationName/</code>), then that security configuration is
      * used to encrypt the log group.
      * </p>
      * 
      * @param logGroupName
      *        The name of the log group for secure logging that can be server-side encrypted in Amazon CloudWatch using
-     *        AWS KMS. This name can be <code>/aws-glue/jobs/</code>, in which case the default encryption is
+     *        KMS. This name can be <code>/aws-glue/jobs/</code>, in which case the default encryption is
      *        <code>NONE</code>. If you add a role name and <code>SecurityConfiguration</code> name (in other words,
      *        <code>/aws-glue/jobs-yourRoleName-yourSecurityConfigurationName/</code>), then that security configuration
      *        is used to encrypt the log group.
@@ -1570,15 +2269,15 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the log group for secure logging that can be server-side encrypted in Amazon CloudWatch using AWS
-     * KMS. This name can be <code>/aws-glue/jobs/</code>, in which case the default encryption is <code>NONE</code>. If
-     * you add a role name and <code>SecurityConfiguration</code> name (in other words,
+     * The name of the log group for secure logging that can be server-side encrypted in Amazon CloudWatch using KMS.
+     * This name can be <code>/aws-glue/jobs/</code>, in which case the default encryption is <code>NONE</code>. If you
+     * add a role name and <code>SecurityConfiguration</code> name (in other words,
      * <code>/aws-glue/jobs-yourRoleName-yourSecurityConfigurationName/</code>), then that security configuration is
      * used to encrypt the log group.
      * </p>
      * 
      * @return The name of the log group for secure logging that can be server-side encrypted in Amazon CloudWatch using
-     *         AWS KMS. This name can be <code>/aws-glue/jobs/</code>, in which case the default encryption is
+     *         KMS. This name can be <code>/aws-glue/jobs/</code>, in which case the default encryption is
      *         <code>NONE</code>. If you add a role name and <code>SecurityConfiguration</code> name (in other words,
      *         <code>/aws-glue/jobs-yourRoleName-yourSecurityConfigurationName/</code>), then that security
      *         configuration is used to encrypt the log group.
@@ -1590,16 +2289,16 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the log group for secure logging that can be server-side encrypted in Amazon CloudWatch using AWS
-     * KMS. This name can be <code>/aws-glue/jobs/</code>, in which case the default encryption is <code>NONE</code>. If
-     * you add a role name and <code>SecurityConfiguration</code> name (in other words,
+     * The name of the log group for secure logging that can be server-side encrypted in Amazon CloudWatch using KMS.
+     * This name can be <code>/aws-glue/jobs/</code>, in which case the default encryption is <code>NONE</code>. If you
+     * add a role name and <code>SecurityConfiguration</code> name (in other words,
      * <code>/aws-glue/jobs-yourRoleName-yourSecurityConfigurationName/</code>), then that security configuration is
      * used to encrypt the log group.
      * </p>
      * 
      * @param logGroupName
      *        The name of the log group for secure logging that can be server-side encrypted in Amazon CloudWatch using
-     *        AWS KMS. This name can be <code>/aws-glue/jobs/</code>, in which case the default encryption is
+     *        KMS. This name can be <code>/aws-glue/jobs/</code>, in which case the default encryption is
      *        <code>NONE</code>. If you add a role name and <code>SecurityConfiguration</code> name (in other words,
      *        <code>/aws-glue/jobs-yourRoleName-yourSecurityConfigurationName/</code>), then that security configuration
      *        is used to encrypt the log group.
@@ -1653,11 +2352,16 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Glue version determines the versions of Apache Spark and Python that AWS Glue supports. The Python version
-     * indicates the version supported for jobs of type Spark.
+     * In Spark jobs, <code>GlueVersion</code> determines the versions of Apache Spark and Python that Glue available in
+     * a job. The Python version indicates the version supported for jobs of type Spark.
      * </p>
      * <p>
-     * For more information about the available AWS Glue versions and corresponding Spark and Python versions, see <a
+     * Ray jobs should set <code>GlueVersion</code> to <code>4.0</code> or greater. However, the versions of Ray, Python
+     * and additional libraries available in your Ray job are determined by the <code>Runtime</code> parameter of the
+     * Job command.
+     * </p>
+     * <p>
+     * For more information about the available Glue versions and corresponding Spark and Python versions, see <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
      * </p>
      * <p>
@@ -1665,12 +2369,16 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param glueVersion
-     *        Glue version determines the versions of Apache Spark and Python that AWS Glue supports. The Python version
-     *        indicates the version supported for jobs of type Spark. </p>
+     *        In Spark jobs, <code>GlueVersion</code> determines the versions of Apache Spark and Python that Glue
+     *        available in a job. The Python version indicates the version supported for jobs of type Spark. </p>
      *        <p>
-     *        For more information about the available AWS Glue versions and corresponding Spark and Python versions,
-     *        see <a href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer
-     *        guide.
+     *        Ray jobs should set <code>GlueVersion</code> to <code>4.0</code> or greater. However, the versions of Ray,
+     *        Python and additional libraries available in your Ray job are determined by the <code>Runtime</code>
+     *        parameter of the Job command.
+     *        </p>
+     *        <p>
+     *        For more information about the available Glue versions and corresponding Spark and Python versions, see <a
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
      *        </p>
      *        <p>
      *        Jobs that are created without specifying a Glue version default to Glue 0.9.
@@ -1682,22 +2390,32 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Glue version determines the versions of Apache Spark and Python that AWS Glue supports. The Python version
-     * indicates the version supported for jobs of type Spark.
+     * In Spark jobs, <code>GlueVersion</code> determines the versions of Apache Spark and Python that Glue available in
+     * a job. The Python version indicates the version supported for jobs of type Spark.
      * </p>
      * <p>
-     * For more information about the available AWS Glue versions and corresponding Spark and Python versions, see <a
+     * Ray jobs should set <code>GlueVersion</code> to <code>4.0</code> or greater. However, the versions of Ray, Python
+     * and additional libraries available in your Ray job are determined by the <code>Runtime</code> parameter of the
+     * Job command.
+     * </p>
+     * <p>
+     * For more information about the available Glue versions and corresponding Spark and Python versions, see <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
      * </p>
      * <p>
      * Jobs that are created without specifying a Glue version default to Glue 0.9.
      * </p>
      * 
-     * @return Glue version determines the versions of Apache Spark and Python that AWS Glue supports. The Python
-     *         version indicates the version supported for jobs of type Spark. </p>
+     * @return In Spark jobs, <code>GlueVersion</code> determines the versions of Apache Spark and Python that Glue
+     *         available in a job. The Python version indicates the version supported for jobs of type Spark. </p>
      *         <p>
-     *         For more information about the available AWS Glue versions and corresponding Spark and Python versions,
-     *         see <a href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer
+     *         Ray jobs should set <code>GlueVersion</code> to <code>4.0</code> or greater. However, the versions of
+     *         Ray, Python and additional libraries available in your Ray job are determined by the <code>Runtime</code>
+     *         parameter of the Job command.
+     *         </p>
+     *         <p>
+     *         For more information about the available Glue versions and corresponding Spark and Python versions, see
+     *         <a href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer
      *         guide.
      *         </p>
      *         <p>
@@ -1710,11 +2428,16 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Glue version determines the versions of Apache Spark and Python that AWS Glue supports. The Python version
-     * indicates the version supported for jobs of type Spark.
+     * In Spark jobs, <code>GlueVersion</code> determines the versions of Apache Spark and Python that Glue available in
+     * a job. The Python version indicates the version supported for jobs of type Spark.
      * </p>
      * <p>
-     * For more information about the available AWS Glue versions and corresponding Spark and Python versions, see <a
+     * Ray jobs should set <code>GlueVersion</code> to <code>4.0</code> or greater. However, the versions of Ray, Python
+     * and additional libraries available in your Ray job are determined by the <code>Runtime</code> parameter of the
+     * Job command.
+     * </p>
+     * <p>
+     * For more information about the available Glue versions and corresponding Spark and Python versions, see <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
      * </p>
      * <p>
@@ -1722,12 +2445,16 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param glueVersion
-     *        Glue version determines the versions of Apache Spark and Python that AWS Glue supports. The Python version
-     *        indicates the version supported for jobs of type Spark. </p>
+     *        In Spark jobs, <code>GlueVersion</code> determines the versions of Apache Spark and Python that Glue
+     *        available in a job. The Python version indicates the version supported for jobs of type Spark. </p>
      *        <p>
-     *        For more information about the available AWS Glue versions and corresponding Spark and Python versions,
-     *        see <a href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer
-     *        guide.
+     *        Ray jobs should set <code>GlueVersion</code> to <code>4.0</code> or greater. However, the versions of Ray,
+     *        Python and additional libraries available in your Ray job are determined by the <code>Runtime</code>
+     *        parameter of the Job command.
+     *        </p>
+     *        <p>
+     *        For more information about the available Glue versions and corresponding Spark and Python versions, see <a
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
      *        </p>
      *        <p>
      *        Jobs that are created without specifying a Glue version default to Glue 0.9.
@@ -1736,6 +2463,323 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
 
     public JobRun withGlueVersion(String glueVersion) {
         setGlueVersion(glueVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This field can be set for either job runs with execution class <code>FLEX</code> or when Auto Scaling is enabled,
+     * and represents the total time each executor ran during the lifecycle of a job run in seconds, multiplied by a DPU
+     * factor (1 for <code>G.1X</code>, 2 for <code>G.2X</code>, or 0.25 for <code>G.025X</code> workers). This value
+     * may be different than the <code>executionEngineRuntime</code> * <code>MaxCapacity</code> as in the case of Auto
+     * Scaling jobs, as the number of executors running at a given time may be less than the <code>MaxCapacity</code>.
+     * Therefore, it is possible that the value of <code>DPUSeconds</code> is less than
+     * <code>executionEngineRuntime</code> * <code>MaxCapacity</code>.
+     * </p>
+     * 
+     * @param dPUSeconds
+     *        This field can be set for either job runs with execution class <code>FLEX</code> or when Auto Scaling is
+     *        enabled, and represents the total time each executor ran during the lifecycle of a job run in seconds,
+     *        multiplied by a DPU factor (1 for <code>G.1X</code>, 2 for <code>G.2X</code>, or 0.25 for
+     *        <code>G.025X</code> workers). This value may be different than the <code>executionEngineRuntime</code> *
+     *        <code>MaxCapacity</code> as in the case of Auto Scaling jobs, as the number of executors running at a
+     *        given time may be less than the <code>MaxCapacity</code>. Therefore, it is possible that the value of
+     *        <code>DPUSeconds</code> is less than <code>executionEngineRuntime</code> <code>MaxCapacity</code>.
+     */
+
+    public void setDPUSeconds(Double dPUSeconds) {
+        this.dPUSeconds = dPUSeconds;
+    }
+
+    /**
+     * <p>
+     * This field can be set for either job runs with execution class <code>FLEX</code> or when Auto Scaling is enabled,
+     * and represents the total time each executor ran during the lifecycle of a job run in seconds, multiplied by a DPU
+     * factor (1 for <code>G.1X</code>, 2 for <code>G.2X</code>, or 0.25 for <code>G.025X</code> workers). This value
+     * may be different than the <code>executionEngineRuntime</code> * <code>MaxCapacity</code> as in the case of Auto
+     * Scaling jobs, as the number of executors running at a given time may be less than the <code>MaxCapacity</code>.
+     * Therefore, it is possible that the value of <code>DPUSeconds</code> is less than
+     * <code>executionEngineRuntime</code> * <code>MaxCapacity</code>.
+     * </p>
+     * 
+     * @return This field can be set for either job runs with execution class <code>FLEX</code> or when Auto Scaling is
+     *         enabled, and represents the total time each executor ran during the lifecycle of a job run in seconds,
+     *         multiplied by a DPU factor (1 for <code>G.1X</code>, 2 for <code>G.2X</code>, or 0.25 for
+     *         <code>G.025X</code> workers). This value may be different than the <code>executionEngineRuntime</code> *
+     *         <code>MaxCapacity</code> as in the case of Auto Scaling jobs, as the number of executors running at a
+     *         given time may be less than the <code>MaxCapacity</code>. Therefore, it is possible that the value of
+     *         <code>DPUSeconds</code> is less than <code>executionEngineRuntime</code> <code>MaxCapacity</code>.
+     */
+
+    public Double getDPUSeconds() {
+        return this.dPUSeconds;
+    }
+
+    /**
+     * <p>
+     * This field can be set for either job runs with execution class <code>FLEX</code> or when Auto Scaling is enabled,
+     * and represents the total time each executor ran during the lifecycle of a job run in seconds, multiplied by a DPU
+     * factor (1 for <code>G.1X</code>, 2 for <code>G.2X</code>, or 0.25 for <code>G.025X</code> workers). This value
+     * may be different than the <code>executionEngineRuntime</code> * <code>MaxCapacity</code> as in the case of Auto
+     * Scaling jobs, as the number of executors running at a given time may be less than the <code>MaxCapacity</code>.
+     * Therefore, it is possible that the value of <code>DPUSeconds</code> is less than
+     * <code>executionEngineRuntime</code> * <code>MaxCapacity</code>.
+     * </p>
+     * 
+     * @param dPUSeconds
+     *        This field can be set for either job runs with execution class <code>FLEX</code> or when Auto Scaling is
+     *        enabled, and represents the total time each executor ran during the lifecycle of a job run in seconds,
+     *        multiplied by a DPU factor (1 for <code>G.1X</code>, 2 for <code>G.2X</code>, or 0.25 for
+     *        <code>G.025X</code> workers). This value may be different than the <code>executionEngineRuntime</code> *
+     *        <code>MaxCapacity</code> as in the case of Auto Scaling jobs, as the number of executors running at a
+     *        given time may be less than the <code>MaxCapacity</code>. Therefore, it is possible that the value of
+     *        <code>DPUSeconds</code> is less than <code>executionEngineRuntime</code> <code>MaxCapacity</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withDPUSeconds(Double dPUSeconds) {
+        setDPUSeconds(dPUSeconds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the job is run with a standard or flexible execution class. The standard execution-class is
+     * ideal for time-sensitive workloads that require fast job startup and dedicated resources.
+     * </p>
+     * <p>
+     * The flexible execution class is appropriate for time-insensitive jobs whose start and completion times may vary.
+     * </p>
+     * <p>
+     * Only jobs with Glue version 3.0 and above and command type <code>glueetl</code> will be allowed to set
+     * <code>ExecutionClass</code> to <code>FLEX</code>. The flexible execution class is available for Spark jobs.
+     * </p>
+     * 
+     * @param executionClass
+     *        Indicates whether the job is run with a standard or flexible execution class. The standard execution-class
+     *        is ideal for time-sensitive workloads that require fast job startup and dedicated resources.</p>
+     *        <p>
+     *        The flexible execution class is appropriate for time-insensitive jobs whose start and completion times may
+     *        vary.
+     *        </p>
+     *        <p>
+     *        Only jobs with Glue version 3.0 and above and command type <code>glueetl</code> will be allowed to set
+     *        <code>ExecutionClass</code> to <code>FLEX</code>. The flexible execution class is available for Spark
+     *        jobs.
+     * @see ExecutionClass
+     */
+
+    public void setExecutionClass(String executionClass) {
+        this.executionClass = executionClass;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the job is run with a standard or flexible execution class. The standard execution-class is
+     * ideal for time-sensitive workloads that require fast job startup and dedicated resources.
+     * </p>
+     * <p>
+     * The flexible execution class is appropriate for time-insensitive jobs whose start and completion times may vary.
+     * </p>
+     * <p>
+     * Only jobs with Glue version 3.0 and above and command type <code>glueetl</code> will be allowed to set
+     * <code>ExecutionClass</code> to <code>FLEX</code>. The flexible execution class is available for Spark jobs.
+     * </p>
+     * 
+     * @return Indicates whether the job is run with a standard or flexible execution class. The standard
+     *         execution-class is ideal for time-sensitive workloads that require fast job startup and dedicated
+     *         resources.</p>
+     *         <p>
+     *         The flexible execution class is appropriate for time-insensitive jobs whose start and completion times
+     *         may vary.
+     *         </p>
+     *         <p>
+     *         Only jobs with Glue version 3.0 and above and command type <code>glueetl</code> will be allowed to set
+     *         <code>ExecutionClass</code> to <code>FLEX</code>. The flexible execution class is available for Spark
+     *         jobs.
+     * @see ExecutionClass
+     */
+
+    public String getExecutionClass() {
+        return this.executionClass;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the job is run with a standard or flexible execution class. The standard execution-class is
+     * ideal for time-sensitive workloads that require fast job startup and dedicated resources.
+     * </p>
+     * <p>
+     * The flexible execution class is appropriate for time-insensitive jobs whose start and completion times may vary.
+     * </p>
+     * <p>
+     * Only jobs with Glue version 3.0 and above and command type <code>glueetl</code> will be allowed to set
+     * <code>ExecutionClass</code> to <code>FLEX</code>. The flexible execution class is available for Spark jobs.
+     * </p>
+     * 
+     * @param executionClass
+     *        Indicates whether the job is run with a standard or flexible execution class. The standard execution-class
+     *        is ideal for time-sensitive workloads that require fast job startup and dedicated resources.</p>
+     *        <p>
+     *        The flexible execution class is appropriate for time-insensitive jobs whose start and completion times may
+     *        vary.
+     *        </p>
+     *        <p>
+     *        Only jobs with Glue version 3.0 and above and command type <code>glueetl</code> will be allowed to set
+     *        <code>ExecutionClass</code> to <code>FLEX</code>. The flexible execution class is available for Spark
+     *        jobs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ExecutionClass
+     */
+
+    public JobRun withExecutionClass(String executionClass) {
+        setExecutionClass(executionClass);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the job is run with a standard or flexible execution class. The standard execution-class is
+     * ideal for time-sensitive workloads that require fast job startup and dedicated resources.
+     * </p>
+     * <p>
+     * The flexible execution class is appropriate for time-insensitive jobs whose start and completion times may vary.
+     * </p>
+     * <p>
+     * Only jobs with Glue version 3.0 and above and command type <code>glueetl</code> will be allowed to set
+     * <code>ExecutionClass</code> to <code>FLEX</code>. The flexible execution class is available for Spark jobs.
+     * </p>
+     * 
+     * @param executionClass
+     *        Indicates whether the job is run with a standard or flexible execution class. The standard execution-class
+     *        is ideal for time-sensitive workloads that require fast job startup and dedicated resources.</p>
+     *        <p>
+     *        The flexible execution class is appropriate for time-insensitive jobs whose start and completion times may
+     *        vary.
+     *        </p>
+     *        <p>
+     *        Only jobs with Glue version 3.0 and above and command type <code>glueetl</code> will be allowed to set
+     *        <code>ExecutionClass</code> to <code>FLEX</code>. The flexible execution class is available for Spark
+     *        jobs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ExecutionClass
+     */
+
+    public JobRun withExecutionClass(ExecutionClass executionClass) {
+        this.executionClass = executionClass.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * This field specifies a day of the week and hour for a maintenance window for streaming jobs. Glue periodically
+     * performs maintenance activities. During these maintenance windows, Glue will need to restart your streaming jobs.
+     * </p>
+     * <p>
+     * Glue will restart the job within 3 hours of the specified maintenance window. For instance, if you set up the
+     * maintenance window for Monday at 10:00AM GMT, your jobs will be restarted between 10:00AM GMT to 1:00PM GMT.
+     * </p>
+     * 
+     * @param maintenanceWindow
+     *        This field specifies a day of the week and hour for a maintenance window for streaming jobs. Glue
+     *        periodically performs maintenance activities. During these maintenance windows, Glue will need to restart
+     *        your streaming jobs.</p>
+     *        <p>
+     *        Glue will restart the job within 3 hours of the specified maintenance window. For instance, if you set up
+     *        the maintenance window for Monday at 10:00AM GMT, your jobs will be restarted between 10:00AM GMT to
+     *        1:00PM GMT.
+     */
+
+    public void setMaintenanceWindow(String maintenanceWindow) {
+        this.maintenanceWindow = maintenanceWindow;
+    }
+
+    /**
+     * <p>
+     * This field specifies a day of the week and hour for a maintenance window for streaming jobs. Glue periodically
+     * performs maintenance activities. During these maintenance windows, Glue will need to restart your streaming jobs.
+     * </p>
+     * <p>
+     * Glue will restart the job within 3 hours of the specified maintenance window. For instance, if you set up the
+     * maintenance window for Monday at 10:00AM GMT, your jobs will be restarted between 10:00AM GMT to 1:00PM GMT.
+     * </p>
+     * 
+     * @return This field specifies a day of the week and hour for a maintenance window for streaming jobs. Glue
+     *         periodically performs maintenance activities. During these maintenance windows, Glue will need to restart
+     *         your streaming jobs.</p>
+     *         <p>
+     *         Glue will restart the job within 3 hours of the specified maintenance window. For instance, if you set up
+     *         the maintenance window for Monday at 10:00AM GMT, your jobs will be restarted between 10:00AM GMT to
+     *         1:00PM GMT.
+     */
+
+    public String getMaintenanceWindow() {
+        return this.maintenanceWindow;
+    }
+
+    /**
+     * <p>
+     * This field specifies a day of the week and hour for a maintenance window for streaming jobs. Glue periodically
+     * performs maintenance activities. During these maintenance windows, Glue will need to restart your streaming jobs.
+     * </p>
+     * <p>
+     * Glue will restart the job within 3 hours of the specified maintenance window. For instance, if you set up the
+     * maintenance window for Monday at 10:00AM GMT, your jobs will be restarted between 10:00AM GMT to 1:00PM GMT.
+     * </p>
+     * 
+     * @param maintenanceWindow
+     *        This field specifies a day of the week and hour for a maintenance window for streaming jobs. Glue
+     *        periodically performs maintenance activities. During these maintenance windows, Glue will need to restart
+     *        your streaming jobs.</p>
+     *        <p>
+     *        Glue will restart the job within 3 hours of the specified maintenance window. For instance, if you set up
+     *        the maintenance window for Monday at 10:00AM GMT, your jobs will be restarted between 10:00AM GMT to
+     *        1:00PM GMT.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withMaintenanceWindow(String maintenanceWindow) {
+        setMaintenanceWindow(maintenanceWindow);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of an Glue usage profile associated with the job run.
+     * </p>
+     * 
+     * @param profileName
+     *        The name of an Glue usage profile associated with the job run.
+     */
+
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
+    }
+
+    /**
+     * <p>
+     * The name of an Glue usage profile associated with the job run.
+     * </p>
+     * 
+     * @return The name of an Glue usage profile associated with the job run.
+     */
+
+    public String getProfileName() {
+        return this.profileName;
+    }
+
+    /**
+     * <p>
+     * The name of an Glue usage profile associated with the job run.
+     * </p>
+     * 
+     * @param profileName
+     *        The name of an Glue usage profile associated with the job run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withProfileName(String profileName) {
+        setProfileName(profileName);
         return this;
     }
 
@@ -1761,6 +2805,8 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
             sb.append("TriggerName: ").append(getTriggerName()).append(",");
         if (getJobName() != null)
             sb.append("JobName: ").append(getJobName()).append(",");
+        if (getJobMode() != null)
+            sb.append("JobMode: ").append(getJobMode()).append(",");
         if (getStartedOn() != null)
             sb.append("StartedOn: ").append(getStartedOn()).append(",");
         if (getLastModifiedOn() != null)
@@ -1794,7 +2840,15 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
         if (getNotificationProperty() != null)
             sb.append("NotificationProperty: ").append(getNotificationProperty()).append(",");
         if (getGlueVersion() != null)
-            sb.append("GlueVersion: ").append(getGlueVersion());
+            sb.append("GlueVersion: ").append(getGlueVersion()).append(",");
+        if (getDPUSeconds() != null)
+            sb.append("DPUSeconds: ").append(getDPUSeconds()).append(",");
+        if (getExecutionClass() != null)
+            sb.append("ExecutionClass: ").append(getExecutionClass()).append(",");
+        if (getMaintenanceWindow() != null)
+            sb.append("MaintenanceWindow: ").append(getMaintenanceWindow()).append(",");
+        if (getProfileName() != null)
+            sb.append("ProfileName: ").append(getProfileName());
         sb.append("}");
         return sb.toString();
     }
@@ -1828,6 +2882,10 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
         if (other.getJobName() == null ^ this.getJobName() == null)
             return false;
         if (other.getJobName() != null && other.getJobName().equals(this.getJobName()) == false)
+            return false;
+        if (other.getJobMode() == null ^ this.getJobMode() == null)
+            return false;
+        if (other.getJobMode() != null && other.getJobMode().equals(this.getJobMode()) == false)
             return false;
         if (other.getStartedOn() == null ^ this.getStartedOn() == null)
             return false;
@@ -1897,6 +2955,22 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getGlueVersion() != null && other.getGlueVersion().equals(this.getGlueVersion()) == false)
             return false;
+        if (other.getDPUSeconds() == null ^ this.getDPUSeconds() == null)
+            return false;
+        if (other.getDPUSeconds() != null && other.getDPUSeconds().equals(this.getDPUSeconds()) == false)
+            return false;
+        if (other.getExecutionClass() == null ^ this.getExecutionClass() == null)
+            return false;
+        if (other.getExecutionClass() != null && other.getExecutionClass().equals(this.getExecutionClass()) == false)
+            return false;
+        if (other.getMaintenanceWindow() == null ^ this.getMaintenanceWindow() == null)
+            return false;
+        if (other.getMaintenanceWindow() != null && other.getMaintenanceWindow().equals(this.getMaintenanceWindow()) == false)
+            return false;
+        if (other.getProfileName() == null ^ this.getProfileName() == null)
+            return false;
+        if (other.getProfileName() != null && other.getProfileName().equals(this.getProfileName()) == false)
+            return false;
         return true;
     }
 
@@ -1910,6 +2984,7 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getPreviousRunId() == null) ? 0 : getPreviousRunId().hashCode());
         hashCode = prime * hashCode + ((getTriggerName() == null) ? 0 : getTriggerName().hashCode());
         hashCode = prime * hashCode + ((getJobName() == null) ? 0 : getJobName().hashCode());
+        hashCode = prime * hashCode + ((getJobMode() == null) ? 0 : getJobMode().hashCode());
         hashCode = prime * hashCode + ((getStartedOn() == null) ? 0 : getStartedOn().hashCode());
         hashCode = prime * hashCode + ((getLastModifiedOn() == null) ? 0 : getLastModifiedOn().hashCode());
         hashCode = prime * hashCode + ((getCompletedOn() == null) ? 0 : getCompletedOn().hashCode());
@@ -1927,6 +3002,10 @@ public class JobRun implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getLogGroupName() == null) ? 0 : getLogGroupName().hashCode());
         hashCode = prime * hashCode + ((getNotificationProperty() == null) ? 0 : getNotificationProperty().hashCode());
         hashCode = prime * hashCode + ((getGlueVersion() == null) ? 0 : getGlueVersion().hashCode());
+        hashCode = prime * hashCode + ((getDPUSeconds() == null) ? 0 : getDPUSeconds().hashCode());
+        hashCode = prime * hashCode + ((getExecutionClass() == null) ? 0 : getExecutionClass().hashCode());
+        hashCode = prime * hashCode + ((getMaintenanceWindow() == null) ? 0 : getMaintenanceWindow().hashCode());
+        hashCode = prime * hashCode + ((getProfileName() == null) ? 0 : getProfileName().hashCode());
         return hashCode;
     }
 

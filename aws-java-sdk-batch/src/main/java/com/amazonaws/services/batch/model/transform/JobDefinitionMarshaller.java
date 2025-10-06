@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -13,7 +13,7 @@
 package com.amazonaws.services.batch.model.transform;
 
 import java.util.Map;
-
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -39,6 +39,8 @@ public class JobDefinitionMarshaller {
             .marshallLocationName("status").build();
     private static final MarshallingInfo<String> TYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("type").build();
+    private static final MarshallingInfo<Integer> SCHEDULINGPRIORITY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("schedulingPriority").build();
     private static final MarshallingInfo<Map> PARAMETERS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("parameters").build();
     private static final MarshallingInfo<StructuredPojo> RETRYSTRATEGY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -49,6 +51,18 @@ public class JobDefinitionMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("timeout").build();
     private static final MarshallingInfo<StructuredPojo> NODEPROPERTIES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("nodeProperties").build();
+    private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("tags").build();
+    private static final MarshallingInfo<Boolean> PROPAGATETAGS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("propagateTags").build();
+    private static final MarshallingInfo<List> PLATFORMCAPABILITIES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("platformCapabilities").build();
+    private static final MarshallingInfo<StructuredPojo> ECSPROPERTIES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ecsProperties").build();
+    private static final MarshallingInfo<StructuredPojo> EKSPROPERTIES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("eksProperties").build();
+    private static final MarshallingInfo<String> CONTAINERORCHESTRATIONTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("containerOrchestrationType").build();
 
     private static final JobDefinitionMarshaller instance = new JobDefinitionMarshaller();
 
@@ -71,11 +85,18 @@ public class JobDefinitionMarshaller {
             protocolMarshaller.marshall(jobDefinition.getRevision(), REVISION_BINDING);
             protocolMarshaller.marshall(jobDefinition.getStatus(), STATUS_BINDING);
             protocolMarshaller.marshall(jobDefinition.getType(), TYPE_BINDING);
+            protocolMarshaller.marshall(jobDefinition.getSchedulingPriority(), SCHEDULINGPRIORITY_BINDING);
             protocolMarshaller.marshall(jobDefinition.getParameters(), PARAMETERS_BINDING);
             protocolMarshaller.marshall(jobDefinition.getRetryStrategy(), RETRYSTRATEGY_BINDING);
             protocolMarshaller.marshall(jobDefinition.getContainerProperties(), CONTAINERPROPERTIES_BINDING);
             protocolMarshaller.marshall(jobDefinition.getTimeout(), TIMEOUT_BINDING);
             protocolMarshaller.marshall(jobDefinition.getNodeProperties(), NODEPROPERTIES_BINDING);
+            protocolMarshaller.marshall(jobDefinition.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(jobDefinition.getPropagateTags(), PROPAGATETAGS_BINDING);
+            protocolMarshaller.marshall(jobDefinition.getPlatformCapabilities(), PLATFORMCAPABILITIES_BINDING);
+            protocolMarshaller.marshall(jobDefinition.getEcsProperties(), ECSPROPERTIES_BINDING);
+            protocolMarshaller.marshall(jobDefinition.getEksProperties(), EKSPROPERTIES_BINDING);
+            protocolMarshaller.marshall(jobDefinition.getContainerOrchestrationType(), CONTAINERORCHESTRATIONTYPE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

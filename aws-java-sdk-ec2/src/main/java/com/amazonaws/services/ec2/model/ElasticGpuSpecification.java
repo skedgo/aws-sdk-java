@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,6 +16,12 @@ import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
+ * <note>
+ * <p>
+ * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration, we
+ * recommend that you use Amazon EC2 G4, G5, or G6 instances.
+ * </p>
+ * </note>
  * <p>
  * A specification for an Elastic Graphics accelerator.
  * </p>

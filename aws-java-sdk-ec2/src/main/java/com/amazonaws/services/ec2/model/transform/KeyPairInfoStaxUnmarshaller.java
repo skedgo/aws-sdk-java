@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -11,6 +11,8 @@
  * and limitations under the License.
  */
 package com.amazonaws.services.ec2.model.transform;
+
+import java.util.ArrayList;
 
 import javax.xml.stream.events.XMLEvent;
 import javax.annotation.Generated;
@@ -43,6 +45,11 @@ public class KeyPairInfoStaxUnmarshaller implements Unmarshaller<KeyPairInfo, St
 
             if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
 
+                if (context.testExpression("keyPairId", targetDepth)) {
+                    keyPairInfo.setKeyPairId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("keyFingerprint", targetDepth)) {
                     keyPairInfo.setKeyFingerprint(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -50,6 +57,31 @@ public class KeyPairInfoStaxUnmarshaller implements Unmarshaller<KeyPairInfo, St
 
                 if (context.testExpression("keyName", targetDepth)) {
                     keyPairInfo.setKeyName(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("keyType", targetDepth)) {
+                    keyPairInfo.setKeyType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("tagSet", targetDepth)) {
+                    keyPairInfo.withTags(new ArrayList<Tag>());
+                    continue;
+                }
+
+                if (context.testExpression("tagSet/item", targetDepth)) {
+                    keyPairInfo.withTags(TagStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("publicKey", targetDepth)) {
+                    keyPairInfo.setPublicKey(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("createTime", targetDepth)) {
+                    keyPairInfo.setCreateTime(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

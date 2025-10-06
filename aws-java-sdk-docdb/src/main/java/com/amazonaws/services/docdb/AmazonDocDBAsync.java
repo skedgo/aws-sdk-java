@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,7 +26,9 @@ import com.amazonaws.services.docdb.model.*;
  * </p>
  * <p>
  * <p>
- * Amazon DocumentDB API documentation
+ * Amazon DocumentDB is a fast, reliable, and fully managed database service. Amazon DocumentDB makes it easy to set up,
+ * operate, and scale MongoDB-compatible databases in the cloud. With Amazon DocumentDB, you can run the same
+ * application code and use the same drivers and tools that you use with MongoDB.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -34,9 +36,46 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
+     * Adds a source identifier to an existing event notification subscription.
+     * </p>
+     * 
+     * @param addSourceIdentifierToSubscriptionRequest
+     *        Represents the input to <a>AddSourceIdentifierToSubscription</a>.
+     * @return A Java Future containing the result of the AddSourceIdentifierToSubscription operation returned by the
+     *         service.
+     * @sample AmazonDocDBAsync.AddSourceIdentifierToSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/AddSourceIdentifierToSubscription"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<EventSubscription> addSourceIdentifierToSubscriptionAsync(
+            AddSourceIdentifierToSubscriptionRequest addSourceIdentifierToSubscriptionRequest);
+
+    /**
+     * <p>
+     * Adds a source identifier to an existing event notification subscription.
+     * </p>
+     * 
+     * @param addSourceIdentifierToSubscriptionRequest
+     *        Represents the input to <a>AddSourceIdentifierToSubscription</a>.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AddSourceIdentifierToSubscription operation returned by the
+     *         service.
+     * @sample AmazonDocDBAsyncHandler.AddSourceIdentifierToSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/AddSourceIdentifierToSubscription"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<EventSubscription> addSourceIdentifierToSubscriptionAsync(
+            AddSourceIdentifierToSubscriptionRequest addSourceIdentifierToSubscriptionRequest,
+            com.amazonaws.handlers.AsyncHandler<AddSourceIdentifierToSubscriptionRequest, EventSubscription> asyncHandler);
+
+    /**
+     * <p>
      * Adds metadata tags to an Amazon DocumentDB resource. You can use these tags with cost allocation reporting to
-     * track costs that are associated with Amazon DocumentDB resources. or in a <code>Condition</code> statement in an
-     * AWS Identity and Access Management (IAM) policy for Amazon DocumentDB.
+     * track costs that are associated with Amazon DocumentDB resources or in a <code>Condition</code> statement in an
+     * Identity and Access Management (IAM) policy for Amazon DocumentDB.
      * </p>
      * 
      * @param addTagsToResourceRequest
@@ -51,8 +90,8 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
     /**
      * <p>
      * Adds metadata tags to an Amazon DocumentDB resource. You can use these tags with cost allocation reporting to
-     * track costs that are associated with Amazon DocumentDB resources. or in a <code>Condition</code> statement in an
-     * AWS Identity and Access Management (IAM) policy for Amazon DocumentDB.
+     * track costs that are associated with Amazon DocumentDB resources or in a <code>Condition</code> statement in an
+     * Identity and Access Management (IAM) policy for Amazon DocumentDB.
      * </p>
      * 
      * @param addTagsToResourceRequest
@@ -71,7 +110,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Applies a pending maintenance action to a resource (for example, to a DB instance).
+     * Applies a pending maintenance action to a resource (for example, to an Amazon DocumentDB instance).
      * </p>
      * 
      * @param applyPendingMaintenanceActionRequest
@@ -87,7 +126,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Applies a pending maintenance action to a resource (for example, to a DB instance).
+     * Applies a pending maintenance action to a resource (for example, to an Amazon DocumentDB instance).
      * </p>
      * 
      * @param applyPendingMaintenanceActionRequest
@@ -108,7 +147,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Copies the specified DB cluster parameter group.
+     * Copies the specified cluster parameter group.
      * </p>
      * 
      * @param copyDBClusterParameterGroupRequest
@@ -122,7 +161,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Copies the specified DB cluster parameter group.
+     * Copies the specified cluster parameter group.
      * </p>
      * 
      * @param copyDBClusterParameterGroupRequest
@@ -142,16 +181,16 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Copies a snapshot of a DB cluster.
+     * Copies a snapshot of a cluster.
      * </p>
      * <p>
-     * To copy a DB cluster snapshot from a shared manual DB cluster snapshot,
-     * <code>SourceDBClusterSnapshotIdentifier</code> must be the Amazon Resource Name (ARN) of the shared DB cluster
-     * snapshot.
+     * To copy a cluster snapshot from a shared manual cluster snapshot, <code>SourceDBClusterSnapshotIdentifier</code>
+     * must be the Amazon Resource Name (ARN) of the shared cluster snapshot. You can only copy a shared DB cluster
+     * snapshot, whether encrypted or not, in the same Amazon Web Services Region.
      * </p>
      * <p>
-     * To cancel the copy operation after it is in progress, delete the target DB cluster snapshot identified by
-     * <code>TargetDBClusterSnapshotIdentifier</code> while that DB cluster snapshot is in the <i>copying</i> status.
+     * To cancel the copy operation after it is in progress, delete the target cluster snapshot identified by
+     * <code>TargetDBClusterSnapshotIdentifier</code> while that cluster snapshot is in the <i>copying</i> status.
      * </p>
      * 
      * @param copyDBClusterSnapshotRequest
@@ -165,16 +204,16 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Copies a snapshot of a DB cluster.
+     * Copies a snapshot of a cluster.
      * </p>
      * <p>
-     * To copy a DB cluster snapshot from a shared manual DB cluster snapshot,
-     * <code>SourceDBClusterSnapshotIdentifier</code> must be the Amazon Resource Name (ARN) of the shared DB cluster
-     * snapshot.
+     * To copy a cluster snapshot from a shared manual cluster snapshot, <code>SourceDBClusterSnapshotIdentifier</code>
+     * must be the Amazon Resource Name (ARN) of the shared cluster snapshot. You can only copy a shared DB cluster
+     * snapshot, whether encrypted or not, in the same Amazon Web Services Region.
      * </p>
      * <p>
-     * To cancel the copy operation after it is in progress, delete the target DB cluster snapshot identified by
-     * <code>TargetDBClusterSnapshotIdentifier</code> while that DB cluster snapshot is in the <i>copying</i> status.
+     * To cancel the copy operation after it is in progress, delete the target cluster snapshot identified by
+     * <code>TargetDBClusterSnapshotIdentifier</code> while that cluster snapshot is in the <i>copying</i> status.
      * </p>
      * 
      * @param copyDBClusterSnapshotRequest
@@ -193,7 +232,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Creates a new Amazon DocumentDB DB cluster.
+     * Creates a new Amazon DocumentDB cluster.
      * </p>
      * 
      * @param createDBClusterRequest
@@ -207,7 +246,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Creates a new Amazon DocumentDB DB cluster.
+     * Creates a new Amazon DocumentDB cluster.
      * </p>
      * 
      * @param createDBClusterRequest
@@ -226,28 +265,25 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Creates a new DB cluster parameter group.
+     * Creates a new cluster parameter group.
      * </p>
      * <p>
-     * Parameters in a DB cluster parameter group apply to all of the instances in a DB cluster.
+     * Parameters in a cluster parameter group apply to all of the instances in a cluster.
      * </p>
      * <p>
-     * A DB cluster parameter group is initially created with the default parameters for the database engine used by
-     * instances in the DB cluster. To provide custom values for any of the parameters, you must modify the group after
-     * you create it. After you create a DB cluster parameter group, you must associate it with your DB cluster. For the
-     * new DB cluster parameter group and associated settings to take effect, you must then reboot the DB instances in
-     * the DB cluster without failover.
+     * A cluster parameter group is initially created with the default parameters for the database engine used by
+     * instances in the cluster. In Amazon DocumentDB, you cannot make modifications directly to the
+     * <code>default.docdb3.6</code> cluster parameter group. If your Amazon DocumentDB cluster is using the default
+     * cluster parameter group and you want to modify a value in it, you must first <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/cluster_parameter_group-create.html"> create a
+     * new parameter group</a> or <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/cluster_parameter_group-copy.html"> copy an
+     * existing parameter group</a>, modify it, and then apply the modified parameter group to your cluster. For the new
+     * cluster parameter group and associated settings to take effect, you must then reboot the instances in the cluster
+     * without failover. For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/cluster_parameter_group-modify.html">
+     * Modifying Amazon DocumentDB Cluster Parameter Groups</a>.
      * </p>
-     * <important>
-     * <p>
-     * After you create a DB cluster parameter group, you should wait at least 5 minutes before creating your first DB
-     * cluster that uses that DB cluster parameter group as the default parameter group. This allows Amazon DocumentDB
-     * to fully complete the create action before the DB cluster parameter group is used as the default for a new DB
-     * cluster. This step is especially important for parameters that are critical when creating the default database
-     * for a DB cluster, such as the character set for the default database defined by the
-     * <code>character_set_database</code> parameter.
-     * </p>
-     * </important>
      * 
      * @param createDBClusterParameterGroupRequest
      *        Represents the input of <a>CreateDBClusterParameterGroup</a>.
@@ -262,28 +298,25 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Creates a new DB cluster parameter group.
+     * Creates a new cluster parameter group.
      * </p>
      * <p>
-     * Parameters in a DB cluster parameter group apply to all of the instances in a DB cluster.
+     * Parameters in a cluster parameter group apply to all of the instances in a cluster.
      * </p>
      * <p>
-     * A DB cluster parameter group is initially created with the default parameters for the database engine used by
-     * instances in the DB cluster. To provide custom values for any of the parameters, you must modify the group after
-     * you create it. After you create a DB cluster parameter group, you must associate it with your DB cluster. For the
-     * new DB cluster parameter group and associated settings to take effect, you must then reboot the DB instances in
-     * the DB cluster without failover.
+     * A cluster parameter group is initially created with the default parameters for the database engine used by
+     * instances in the cluster. In Amazon DocumentDB, you cannot make modifications directly to the
+     * <code>default.docdb3.6</code> cluster parameter group. If your Amazon DocumentDB cluster is using the default
+     * cluster parameter group and you want to modify a value in it, you must first <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/cluster_parameter_group-create.html"> create a
+     * new parameter group</a> or <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/cluster_parameter_group-copy.html"> copy an
+     * existing parameter group</a>, modify it, and then apply the modified parameter group to your cluster. For the new
+     * cluster parameter group and associated settings to take effect, you must then reboot the instances in the cluster
+     * without failover. For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/cluster_parameter_group-modify.html">
+     * Modifying Amazon DocumentDB Cluster Parameter Groups</a>.
      * </p>
-     * <important>
-     * <p>
-     * After you create a DB cluster parameter group, you should wait at least 5 minutes before creating your first DB
-     * cluster that uses that DB cluster parameter group as the default parameter group. This allows Amazon DocumentDB
-     * to fully complete the create action before the DB cluster parameter group is used as the default for a new DB
-     * cluster. This step is especially important for parameters that are critical when creating the default database
-     * for a DB cluster, such as the character set for the default database defined by the
-     * <code>character_set_database</code> parameter.
-     * </p>
-     * </important>
      * 
      * @param createDBClusterParameterGroupRequest
      *        Represents the input of <a>CreateDBClusterParameterGroup</a>.
@@ -303,7 +336,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Creates a snapshot of a DB cluster.
+     * Creates a snapshot of a cluster.
      * </p>
      * 
      * @param createDBClusterSnapshotRequest
@@ -317,7 +350,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Creates a snapshot of a DB cluster.
+     * Creates a snapshot of a cluster.
      * </p>
      * 
      * @param createDBClusterSnapshotRequest
@@ -336,7 +369,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Creates a new DB instance.
+     * Creates a new instance.
      * </p>
      * 
      * @param createDBInstanceRequest
@@ -350,7 +383,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Creates a new DB instance.
+     * Creates a new instance.
      * </p>
      * 
      * @param createDBInstanceRequest
@@ -369,8 +402,8 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Creates a new DB subnet group. DB subnet groups must contain at least one subnet in at least two Availability
-     * Zones in the AWS Region.
+     * Creates a new subnet group. subnet groups must contain at least one subnet in at least two Availability Zones in
+     * the Amazon Web Services Region.
      * </p>
      * 
      * @param createDBSubnetGroupRequest
@@ -384,8 +417,8 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Creates a new DB subnet group. DB subnet groups must contain at least one subnet in at least two Availability
-     * Zones in the AWS Region.
+     * Creates a new subnet group. subnet groups must contain at least one subnet in at least two Availability Zones in
+     * the Amazon Web Services Region.
      * </p>
      * 
      * @param createDBSubnetGroupRequest
@@ -404,9 +437,140 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Deletes a previously provisioned DB cluster. When you delete a DB cluster, all automated backups for that DB
-     * cluster are deleted and can't be recovered. Manual DB cluster snapshots of the specified DB cluster are not
-     * deleted.
+     * Creates an Amazon DocumentDB event notification subscription. This action requires a topic Amazon Resource Name
+     * (ARN) created by using the Amazon DocumentDB console, the Amazon SNS console, or the Amazon SNS API. To obtain an
+     * ARN with Amazon SNS, you must create a topic in Amazon SNS and subscribe to the topic. The ARN is displayed in
+     * the Amazon SNS console.
+     * </p>
+     * <p>
+     * You can specify the type of source (<code>SourceType</code>) that you want to be notified of. You can also
+     * provide a list of Amazon DocumentDB sources (<code>SourceIds</code>) that trigger the events, and you can provide
+     * a list of event categories (<code>EventCategories</code>) for events that you want to be notified of. For
+     * example, you can specify <code>SourceType = db-instance</code>,
+     * <code>SourceIds = mydbinstance1, mydbinstance2</code> and <code>EventCategories = Availability, Backup</code>.
+     * </p>
+     * <p>
+     * If you specify both the <code>SourceType</code> and <code>SourceIds</code> (such as
+     * <code>SourceType = db-instance</code> and <code>SourceIdentifier = myDBInstance1</code>), you are notified of all
+     * the <code>db-instance</code> events for the specified source. If you specify a <code>SourceType</code> but do not
+     * specify a <code>SourceIdentifier</code>, you receive notice of the events for that source type for all your
+     * Amazon DocumentDB sources. If you do not specify either the <code>SourceType</code> or the
+     * <code>SourceIdentifier</code>, you are notified of events generated from all Amazon DocumentDB sources belonging
+     * to your customer account.
+     * </p>
+     * 
+     * @param createEventSubscriptionRequest
+     *        Represents the input to <a>CreateEventSubscription</a>.
+     * @return A Java Future containing the result of the CreateEventSubscription operation returned by the service.
+     * @sample AmazonDocDBAsync.CreateEventSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/CreateEventSubscription" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<EventSubscription> createEventSubscriptionAsync(CreateEventSubscriptionRequest createEventSubscriptionRequest);
+
+    /**
+     * <p>
+     * Creates an Amazon DocumentDB event notification subscription. This action requires a topic Amazon Resource Name
+     * (ARN) created by using the Amazon DocumentDB console, the Amazon SNS console, or the Amazon SNS API. To obtain an
+     * ARN with Amazon SNS, you must create a topic in Amazon SNS and subscribe to the topic. The ARN is displayed in
+     * the Amazon SNS console.
+     * </p>
+     * <p>
+     * You can specify the type of source (<code>SourceType</code>) that you want to be notified of. You can also
+     * provide a list of Amazon DocumentDB sources (<code>SourceIds</code>) that trigger the events, and you can provide
+     * a list of event categories (<code>EventCategories</code>) for events that you want to be notified of. For
+     * example, you can specify <code>SourceType = db-instance</code>,
+     * <code>SourceIds = mydbinstance1, mydbinstance2</code> and <code>EventCategories = Availability, Backup</code>.
+     * </p>
+     * <p>
+     * If you specify both the <code>SourceType</code> and <code>SourceIds</code> (such as
+     * <code>SourceType = db-instance</code> and <code>SourceIdentifier = myDBInstance1</code>), you are notified of all
+     * the <code>db-instance</code> events for the specified source. If you specify a <code>SourceType</code> but do not
+     * specify a <code>SourceIdentifier</code>, you receive notice of the events for that source type for all your
+     * Amazon DocumentDB sources. If you do not specify either the <code>SourceType</code> or the
+     * <code>SourceIdentifier</code>, you are notified of events generated from all Amazon DocumentDB sources belonging
+     * to your customer account.
+     * </p>
+     * 
+     * @param createEventSubscriptionRequest
+     *        Represents the input to <a>CreateEventSubscription</a>.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateEventSubscription operation returned by the service.
+     * @sample AmazonDocDBAsyncHandler.CreateEventSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/CreateEventSubscription" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<EventSubscription> createEventSubscriptionAsync(CreateEventSubscriptionRequest createEventSubscriptionRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateEventSubscriptionRequest, EventSubscription> asyncHandler);
+
+    /**
+     * <p>
+     * Creates an Amazon DocumentDB global cluster that can span multiple multiple Amazon Web Services Regions. The
+     * global cluster contains one primary cluster with read-write capability, and up-to give read-only secondary
+     * clusters. Global clusters uses storage-based fast replication across regions with latencies less than one second,
+     * using dedicated infrastructure with no impact to your workload’s performance.
+     * </p>
+     * <p/>
+     * <p>
+     * You can create a global cluster that is initially empty, and then add a primary and a secondary to it. Or you can
+     * specify an existing cluster during the create operation, and this cluster becomes the primary of the global
+     * cluster.
+     * </p>
+     * <note>
+     * <p>
+     * This action only applies to Amazon DocumentDB clusters.
+     * </p>
+     * </note>
+     * 
+     * @param createGlobalClusterRequest
+     *        Represents the input to <a>CreateGlobalCluster</a>.
+     * @return A Java Future containing the result of the CreateGlobalCluster operation returned by the service.
+     * @sample AmazonDocDBAsync.CreateGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/CreateGlobalCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> createGlobalClusterAsync(CreateGlobalClusterRequest createGlobalClusterRequest);
+
+    /**
+     * <p>
+     * Creates an Amazon DocumentDB global cluster that can span multiple multiple Amazon Web Services Regions. The
+     * global cluster contains one primary cluster with read-write capability, and up-to give read-only secondary
+     * clusters. Global clusters uses storage-based fast replication across regions with latencies less than one second,
+     * using dedicated infrastructure with no impact to your workload’s performance.
+     * </p>
+     * <p/>
+     * <p>
+     * You can create a global cluster that is initially empty, and then add a primary and a secondary to it. Or you can
+     * specify an existing cluster during the create operation, and this cluster becomes the primary of the global
+     * cluster.
+     * </p>
+     * <note>
+     * <p>
+     * This action only applies to Amazon DocumentDB clusters.
+     * </p>
+     * </note>
+     * 
+     * @param createGlobalClusterRequest
+     *        Represents the input to <a>CreateGlobalCluster</a>.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateGlobalCluster operation returned by the service.
+     * @sample AmazonDocDBAsyncHandler.CreateGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/CreateGlobalCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> createGlobalClusterAsync(CreateGlobalClusterRequest createGlobalClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateGlobalClusterRequest, GlobalCluster> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a previously provisioned cluster. When you delete a cluster, all automated backups for that cluster are
+     * deleted and can't be recovered. Manual DB cluster snapshots of the specified cluster are not deleted.
      * </p>
      * <p/>
      * 
@@ -421,9 +585,8 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Deletes a previously provisioned DB cluster. When you delete a DB cluster, all automated backups for that DB
-     * cluster are deleted and can't be recovered. Manual DB cluster snapshots of the specified DB cluster are not
-     * deleted.
+     * Deletes a previously provisioned cluster. When you delete a cluster, all automated backups for that cluster are
+     * deleted and can't be recovered. Manual DB cluster snapshots of the specified cluster are not deleted.
      * </p>
      * <p/>
      * 
@@ -443,8 +606,8 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Deletes a specified DB cluster parameter group. The DB cluster parameter group to be deleted can't be associated
-     * with any DB clusters.
+     * Deletes a specified cluster parameter group. The cluster parameter group to be deleted can't be associated with
+     * any clusters.
      * </p>
      * 
      * @param deleteDBClusterParameterGroupRequest
@@ -460,8 +623,8 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Deletes a specified DB cluster parameter group. The DB cluster parameter group to be deleted can't be associated
-     * with any DB clusters.
+     * Deletes a specified cluster parameter group. The cluster parameter group to be deleted can't be associated with
+     * any clusters.
      * </p>
      * 
      * @param deleteDBClusterParameterGroupRequest
@@ -482,11 +645,11 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Deletes a DB cluster snapshot. If the snapshot is being copied, the copy operation is terminated.
+     * Deletes a cluster snapshot. If the snapshot is being copied, the copy operation is terminated.
      * </p>
      * <note>
      * <p>
-     * The DB cluster snapshot must be in the <code>available</code> state to be deleted.
+     * The cluster snapshot must be in the <code>available</code> state to be deleted.
      * </p>
      * </note>
      * 
@@ -501,11 +664,11 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Deletes a DB cluster snapshot. If the snapshot is being copied, the copy operation is terminated.
+     * Deletes a cluster snapshot. If the snapshot is being copied, the copy operation is terminated.
      * </p>
      * <note>
      * <p>
-     * The DB cluster snapshot must be in the <code>available</code> state to be deleted.
+     * The cluster snapshot must be in the <code>available</code> state to be deleted.
      * </p>
      * </note>
      * 
@@ -525,7 +688,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Deletes a previously provisioned DB instance.
+     * Deletes a previously provisioned instance.
      * </p>
      * 
      * @param deleteDBInstanceRequest
@@ -539,7 +702,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Deletes a previously provisioned DB instance.
+     * Deletes a previously provisioned instance.
      * </p>
      * 
      * @param deleteDBInstanceRequest
@@ -558,7 +721,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Deletes a DB subnet group.
+     * Deletes a subnet group.
      * </p>
      * <note>
      * <p>
@@ -577,7 +740,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Deletes a DB subnet group.
+     * Deletes a subnet group.
      * </p>
      * <note>
      * <p>
@@ -601,9 +764,120 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
+     * Deletes an Amazon DocumentDB event notification subscription.
+     * </p>
+     * 
+     * @param deleteEventSubscriptionRequest
+     *        Represents the input to <a>DeleteEventSubscription</a>.
+     * @return A Java Future containing the result of the DeleteEventSubscription operation returned by the service.
+     * @sample AmazonDocDBAsync.DeleteEventSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DeleteEventSubscription" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<EventSubscription> deleteEventSubscriptionAsync(DeleteEventSubscriptionRequest deleteEventSubscriptionRequest);
+
+    /**
+     * <p>
+     * Deletes an Amazon DocumentDB event notification subscription.
+     * </p>
+     * 
+     * @param deleteEventSubscriptionRequest
+     *        Represents the input to <a>DeleteEventSubscription</a>.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteEventSubscription operation returned by the service.
+     * @sample AmazonDocDBAsyncHandler.DeleteEventSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DeleteEventSubscription" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<EventSubscription> deleteEventSubscriptionAsync(DeleteEventSubscriptionRequest deleteEventSubscriptionRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteEventSubscriptionRequest, EventSubscription> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a global cluster. The primary and secondary clusters must already be detached or deleted before
+     * attempting to delete a global cluster.
+     * </p>
+     * <note>
+     * <p>
+     * This action only applies to Amazon DocumentDB clusters.
+     * </p>
+     * </note>
+     * 
+     * @param deleteGlobalClusterRequest
+     *        Represents the input to <a>DeleteGlobalCluster</a>.
+     * @return A Java Future containing the result of the DeleteGlobalCluster operation returned by the service.
+     * @sample AmazonDocDBAsync.DeleteGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DeleteGlobalCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> deleteGlobalClusterAsync(DeleteGlobalClusterRequest deleteGlobalClusterRequest);
+
+    /**
+     * <p>
+     * Deletes a global cluster. The primary and secondary clusters must already be detached or deleted before
+     * attempting to delete a global cluster.
+     * </p>
+     * <note>
+     * <p>
+     * This action only applies to Amazon DocumentDB clusters.
+     * </p>
+     * </note>
+     * 
+     * @param deleteGlobalClusterRequest
+     *        Represents the input to <a>DeleteGlobalCluster</a>.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteGlobalCluster operation returned by the service.
+     * @sample AmazonDocDBAsyncHandler.DeleteGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DeleteGlobalCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> deleteGlobalClusterAsync(DeleteGlobalClusterRequest deleteGlobalClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteGlobalClusterRequest, GlobalCluster> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of certificate authority (CA) certificates provided by Amazon DocumentDB for this Amazon Web
+     * Services account.
+     * </p>
+     * 
+     * @param describeCertificatesRequest
+     * @return A Java Future containing the result of the DescribeCertificates operation returned by the service.
+     * @sample AmazonDocDBAsync.DescribeCertificates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DescribeCertificates" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeCertificatesResult> describeCertificatesAsync(DescribeCertificatesRequest describeCertificatesRequest);
+
+    /**
+     * <p>
+     * Returns a list of certificate authority (CA) certificates provided by Amazon DocumentDB for this Amazon Web
+     * Services account.
+     * </p>
+     * 
+     * @param describeCertificatesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeCertificates operation returned by the service.
+     * @sample AmazonDocDBAsyncHandler.DescribeCertificates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DescribeCertificates" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeCertificatesResult> describeCertificatesAsync(DescribeCertificatesRequest describeCertificatesRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeCertificatesRequest, DescribeCertificatesResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns a list of <code>DBClusterParameterGroup</code> descriptions. If a
      * <code>DBClusterParameterGroupName</code> parameter is specified, the list contains only the description of the
-     * specified DB cluster parameter group.
+     * specified cluster parameter group.
      * </p>
      * 
      * @param describeDBClusterParameterGroupsRequest
@@ -621,7 +895,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
      * <p>
      * Returns a list of <code>DBClusterParameterGroup</code> descriptions. If a
      * <code>DBClusterParameterGroupName</code> parameter is specified, the list contains only the description of the
-     * specified DB cluster parameter group.
+     * specified cluster parameter group.
      * </p>
      * 
      * @param describeDBClusterParameterGroupsRequest
@@ -642,7 +916,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns the detailed parameter list for a particular DB cluster parameter group.
+     * Returns the detailed parameter list for a particular cluster parameter group.
      * </p>
      * 
      * @param describeDBClusterParametersRequest
@@ -657,7 +931,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns the detailed parameter list for a particular DB cluster parameter group.
+     * Returns the detailed parameter list for a particular cluster parameter group.
      * </p>
      * 
      * @param describeDBClusterParametersRequest
@@ -677,13 +951,14 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns a list of DB cluster snapshot attribute names and values for a manual DB cluster snapshot.
+     * Returns a list of cluster snapshot attribute names and values for a manual DB cluster snapshot.
      * </p>
      * <p>
-     * When you share snapshots with other AWS accounts, <code>DescribeDBClusterSnapshotAttributes</code> returns the
-     * <code>restore</code> attribute and a list of IDs for the AWS accounts that are authorized to copy or restore the
-     * manual DB cluster snapshot. If <code>all</code> is included in the list of values for the <code>restore</code>
-     * attribute, then the manual DB cluster snapshot is public and can be copied or restored by all AWS accounts.
+     * When you share snapshots with other Amazon Web Services accounts,
+     * <code>DescribeDBClusterSnapshotAttributes</code> returns the <code>restore</code> attribute and a list of IDs for
+     * the Amazon Web Services accounts that are authorized to copy or restore the manual cluster snapshot. If
+     * <code>all</code> is included in the list of values for the <code>restore</code> attribute, then the manual
+     * cluster snapshot is public and can be copied or restored by all Amazon Web Services accounts.
      * </p>
      * 
      * @param describeDBClusterSnapshotAttributesRequest
@@ -699,13 +974,14 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns a list of DB cluster snapshot attribute names and values for a manual DB cluster snapshot.
+     * Returns a list of cluster snapshot attribute names and values for a manual DB cluster snapshot.
      * </p>
      * <p>
-     * When you share snapshots with other AWS accounts, <code>DescribeDBClusterSnapshotAttributes</code> returns the
-     * <code>restore</code> attribute and a list of IDs for the AWS accounts that are authorized to copy or restore the
-     * manual DB cluster snapshot. If <code>all</code> is included in the list of values for the <code>restore</code>
-     * attribute, then the manual DB cluster snapshot is public and can be copied or restored by all AWS accounts.
+     * When you share snapshots with other Amazon Web Services accounts,
+     * <code>DescribeDBClusterSnapshotAttributes</code> returns the <code>restore</code> attribute and a list of IDs for
+     * the Amazon Web Services accounts that are authorized to copy or restore the manual cluster snapshot. If
+     * <code>all</code> is included in the list of values for the <code>restore</code> attribute, then the manual
+     * cluster snapshot is public and can be copied or restored by all Amazon Web Services accounts.
      * </p>
      * 
      * @param describeDBClusterSnapshotAttributesRequest
@@ -726,7 +1002,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns information about DB cluster snapshots. This API operation supports pagination.
+     * Returns information about cluster snapshots. This API operation supports pagination.
      * </p>
      * 
      * @param describeDBClusterSnapshotsRequest
@@ -741,7 +1017,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns information about DB cluster snapshots. This API operation supports pagination.
+     * Returns information about cluster snapshots. This API operation supports pagination.
      * </p>
      * 
      * @param describeDBClusterSnapshotsRequest
@@ -761,7 +1037,10 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns information about provisioned Amazon DocumentDB DB clusters. This API operation supports pagination.
+     * Returns information about provisioned Amazon DocumentDB clusters. This API operation supports pagination. For
+     * certain management features such as cluster and instance lifecycle management, Amazon DocumentDB leverages
+     * operational technology that is shared with Amazon RDS and Amazon Neptune. Use the
+     * <code>filterName=engine,Values=docdb</code> filter parameter to return only Amazon DocumentDB clusters.
      * </p>
      * 
      * @param describeDBClustersRequest
@@ -775,7 +1054,10 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns information about provisioned Amazon DocumentDB DB clusters. This API operation supports pagination.
+     * Returns information about provisioned Amazon DocumentDB clusters. This API operation supports pagination. For
+     * certain management features such as cluster and instance lifecycle management, Amazon DocumentDB leverages
+     * operational technology that is shared with Amazon RDS and Amazon Neptune. Use the
+     * <code>filterName=engine,Values=docdb</code> filter parameter to return only Amazon DocumentDB clusters.
      * </p>
      * 
      * @param describeDBClustersRequest
@@ -794,7 +1076,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns a list of the available DB engines.
+     * Returns a list of the available engines.
      * </p>
      * 
      * @param describeDBEngineVersionsRequest
@@ -808,7 +1090,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns a list of the available DB engines.
+     * Returns a list of the available engines.
      * </p>
      * 
      * @param describeDBEngineVersionsRequest
@@ -965,9 +1247,54 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns events related to DB instances, DB security groups, DB snapshots, and DB parameter groups for the past 14
-     * days. You can obtain events specific to a particular DB instance, DB security group, DB snapshot, or DB parameter
-     * group by providing the name as a parameter. By default, the events of the past hour are returned.
+     * Lists all the subscription descriptions for a customer account. The description for a subscription includes
+     * <code>SubscriptionName</code>, <code>SNSTopicARN</code>, <code>CustomerID</code>, <code>SourceType</code>,
+     * <code>SourceID</code>, <code>CreationTime</code>, and <code>Status</code>.
+     * </p>
+     * <p>
+     * If you specify a <code>SubscriptionName</code>, lists the description for that subscription.
+     * </p>
+     * 
+     * @param describeEventSubscriptionsRequest
+     *        Represents the input to <a>DescribeEventSubscriptions</a>.
+     * @return A Java Future containing the result of the DescribeEventSubscriptions operation returned by the service.
+     * @sample AmazonDocDBAsync.DescribeEventSubscriptions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DescribeEventSubscriptions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeEventSubscriptionsResult> describeEventSubscriptionsAsync(
+            DescribeEventSubscriptionsRequest describeEventSubscriptionsRequest);
+
+    /**
+     * <p>
+     * Lists all the subscription descriptions for a customer account. The description for a subscription includes
+     * <code>SubscriptionName</code>, <code>SNSTopicARN</code>, <code>CustomerID</code>, <code>SourceType</code>,
+     * <code>SourceID</code>, <code>CreationTime</code>, and <code>Status</code>.
+     * </p>
+     * <p>
+     * If you specify a <code>SubscriptionName</code>, lists the description for that subscription.
+     * </p>
+     * 
+     * @param describeEventSubscriptionsRequest
+     *        Represents the input to <a>DescribeEventSubscriptions</a>.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeEventSubscriptions operation returned by the service.
+     * @sample AmazonDocDBAsyncHandler.DescribeEventSubscriptions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DescribeEventSubscriptions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeEventSubscriptionsResult> describeEventSubscriptionsAsync(
+            DescribeEventSubscriptionsRequest describeEventSubscriptionsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeEventSubscriptionsRequest, DescribeEventSubscriptionsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns events related to instances, security groups, snapshots, and DB parameter groups for the past 14 days.
+     * You can obtain events specific to a particular DB instance, security group, snapshot, or parameter group by
+     * providing the name as a parameter. By default, the events of the past hour are returned.
      * </p>
      * 
      * @param describeEventsRequest
@@ -981,9 +1308,9 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns events related to DB instances, DB security groups, DB snapshots, and DB parameter groups for the past 14
-     * days. You can obtain events specific to a particular DB instance, DB security group, DB snapshot, or DB parameter
-     * group by providing the name as a parameter. By default, the events of the past hour are returned.
+     * Returns events related to instances, security groups, snapshots, and DB parameter groups for the past 14 days.
+     * You can obtain events specific to a particular DB instance, security group, snapshot, or parameter group by
+     * providing the name as a parameter. By default, the events of the past hour are returned.
      * </p>
      * 
      * @param describeEventsRequest
@@ -1002,7 +1329,48 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns a list of orderable DB instance options for the specified engine.
+     * Returns information about Amazon DocumentDB global clusters. This API supports pagination.
+     * </p>
+     * <note>
+     * <p>
+     * This action only applies to Amazon DocumentDB clusters.
+     * </p>
+     * </note>
+     * 
+     * @param describeGlobalClustersRequest
+     * @return A Java Future containing the result of the DescribeGlobalClusters operation returned by the service.
+     * @sample AmazonDocDBAsync.DescribeGlobalClusters
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DescribeGlobalClusters" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeGlobalClustersResult> describeGlobalClustersAsync(DescribeGlobalClustersRequest describeGlobalClustersRequest);
+
+    /**
+     * <p>
+     * Returns information about Amazon DocumentDB global clusters. This API supports pagination.
+     * </p>
+     * <note>
+     * <p>
+     * This action only applies to Amazon DocumentDB clusters.
+     * </p>
+     * </note>
+     * 
+     * @param describeGlobalClustersRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeGlobalClusters operation returned by the service.
+     * @sample AmazonDocDBAsyncHandler.DescribeGlobalClusters
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DescribeGlobalClusters" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeGlobalClustersResult> describeGlobalClustersAsync(DescribeGlobalClustersRequest describeGlobalClustersRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeGlobalClustersRequest, DescribeGlobalClustersResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of orderable instance options for the specified engine.
      * </p>
      * 
      * @param describeOrderableDBInstanceOptionsRequest
@@ -1018,7 +1386,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns a list of orderable DB instance options for the specified engine.
+     * Returns a list of orderable instance options for the specified engine.
      * </p>
      * 
      * @param describeOrderableDBInstanceOptionsRequest
@@ -1039,7 +1407,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns a list of resources (for example, DB instances) that have at least one pending maintenance action.
+     * Returns a list of resources (for example, instances) that have at least one pending maintenance action.
      * </p>
      * 
      * @param describePendingMaintenanceActionsRequest
@@ -1055,7 +1423,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Returns a list of resources (for example, DB instances) that have at least one pending maintenance action.
+     * Returns a list of resources (for example, instances) that have at least one pending maintenance action.
      * </p>
      * 
      * @param describePendingMaintenanceActionsRequest
@@ -1076,11 +1444,11 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Forces a failover for a DB cluster.
+     * Forces a failover for a cluster.
      * </p>
      * <p>
-     * A failover for a DB cluster promotes one of the Amazon DocumentDB replicas (read-only instances) in the DB
-     * cluster to be the primary instance (the cluster writer).
+     * A failover for a cluster promotes one of the Amazon DocumentDB replicas (read-only instances) in the cluster to
+     * be the primary instance (the cluster writer).
      * </p>
      * <p>
      * If the primary instance fails, Amazon DocumentDB automatically fails over to an Amazon DocumentDB replica, if one
@@ -1098,11 +1466,11 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Forces a failover for a DB cluster.
+     * Forces a failover for a cluster.
      * </p>
      * <p>
-     * A failover for a DB cluster promotes one of the Amazon DocumentDB replicas (read-only instances) in the DB
-     * cluster to be the primary instance (the cluster writer).
+     * A failover for a cluster promotes one of the Amazon DocumentDB replicas (read-only instances) in the cluster to
+     * be the primary instance (the cluster writer).
      * </p>
      * <p>
      * If the primary instance fails, Amazon DocumentDB automatically fails over to an Amazon DocumentDB replica, if one
@@ -1158,8 +1526,8 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Modifies a setting for an Amazon DocumentDB DB cluster. You can change one or more database configuration
-     * parameters by specifying these parameters and the new values in the request.
+     * Modifies a setting for an Amazon DocumentDB cluster. You can change one or more database configuration parameters
+     * by specifying these parameters and the new values in the request.
      * </p>
      * 
      * @param modifyDBClusterRequest
@@ -1173,8 +1541,8 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Modifies a setting for an Amazon DocumentDB DB cluster. You can change one or more database configuration
-     * parameters by specifying these parameters and the new values in the request.
+     * Modifies a setting for an Amazon DocumentDB cluster. You can change one or more database configuration parameters
+     * by specifying these parameters and the new values in the request.
      * </p>
      * 
      * @param modifyDBClusterRequest
@@ -1193,7 +1561,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Modifies the parameters of a DB cluster parameter group. To modify more than one parameter, submit a list of the
+     * Modifies the parameters of a cluster parameter group. To modify more than one parameter, submit a list of the
      * following: <code>ParameterName</code>, <code>ParameterValue</code>, and <code>ApplyMethod</code>. A maximum of 20
      * parameters can be modified in a single request.
      * </p>
@@ -1204,12 +1572,11 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
      * </p>
      * </note> <important>
      * <p>
-     * After you create a DB cluster parameter group, you should wait at least 5 minutes before creating your first DB
-     * cluster that uses that DB cluster parameter group as the default parameter group. This allows Amazon DocumentDB
-     * to fully complete the create action before the parameter group is used as the default for a new DB cluster. This
-     * step is especially important for parameters that are critical when creating the default database for a DB
-     * cluster, such as the character set for the default database defined by the <code>character_set_database</code>
-     * parameter.
+     * After you create a cluster parameter group, you should wait at least 5 minutes before creating your first cluster
+     * that uses that cluster parameter group as the default parameter group. This allows Amazon DocumentDB to fully
+     * complete the create action before the parameter group is used as the default for a new cluster. This step is
+     * especially important for parameters that are critical when creating the default database for a cluster, such as
+     * the character set for the default database defined by the <code>character_set_database</code> parameter.
      * </p>
      * </important>
      * 
@@ -1226,7 +1593,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Modifies the parameters of a DB cluster parameter group. To modify more than one parameter, submit a list of the
+     * Modifies the parameters of a cluster parameter group. To modify more than one parameter, submit a list of the
      * following: <code>ParameterName</code>, <code>ParameterValue</code>, and <code>ApplyMethod</code>. A maximum of 20
      * parameters can be modified in a single request.
      * </p>
@@ -1237,12 +1604,11 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
      * </p>
      * </note> <important>
      * <p>
-     * After you create a DB cluster parameter group, you should wait at least 5 minutes before creating your first DB
-     * cluster that uses that DB cluster parameter group as the default parameter group. This allows Amazon DocumentDB
-     * to fully complete the create action before the parameter group is used as the default for a new DB cluster. This
-     * step is especially important for parameters that are critical when creating the default database for a DB
-     * cluster, such as the character set for the default database defined by the <code>character_set_database</code>
-     * parameter.
+     * After you create a cluster parameter group, you should wait at least 5 minutes before creating your first cluster
+     * that uses that cluster parameter group as the default parameter group. This allows Amazon DocumentDB to fully
+     * complete the create action before the parameter group is used as the default for a new cluster. This step is
+     * especially important for parameters that are critical when creating the default database for a cluster, such as
+     * the character set for the default database defined by the <code>character_set_database</code> parameter.
      * </p>
      * </important>
      * 
@@ -1264,17 +1630,17 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Adds an attribute and values to, or removes an attribute and values from, a manual DB cluster snapshot.
+     * Adds an attribute and values to, or removes an attribute and values from, a manual cluster snapshot.
      * </p>
      * <p>
-     * To share a manual DB cluster snapshot with other AWS accounts, specify <code>restore</code> as the
-     * <code>AttributeName</code>, and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the AWS
-     * accounts that are authorized to restore the manual DB cluster snapshot. Use the value <code>all</code> to make
-     * the manual DB cluster snapshot public, which means that it can be copied or restored by all AWS accounts. Do not
-     * add the <code>all</code> value for any manual DB cluster snapshots that contain private information that you
-     * don't want available to all AWS accounts. If a manual DB cluster snapshot is encrypted, it can be shared, but
-     * only by specifying a list of authorized AWS account IDs for the <code>ValuesToAdd</code> parameter. You can't use
-     * <code>all</code> as a value for that parameter in this case.
+     * To share a manual cluster snapshot with other Amazon Web Services accounts, specify <code>restore</code> as the
+     * <code>AttributeName</code>, and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the Amazon Web
+     * Services accounts that are authorized to restore the manual cluster snapshot. Use the value <code>all</code> to
+     * make the manual cluster snapshot public, which means that it can be copied or restored by all Amazon Web Services
+     * accounts. Do not add the <code>all</code> value for any manual cluster snapshots that contain private information
+     * that you don't want available to all Amazon Web Services accounts. If a manual cluster snapshot is encrypted, it
+     * can be shared, but only by specifying a list of authorized Amazon Web Services account IDs for the
+     * <code>ValuesToAdd</code> parameter. You can't use <code>all</code> as a value for that parameter in this case.
      * </p>
      * 
      * @param modifyDBClusterSnapshotAttributeRequest
@@ -1290,17 +1656,17 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Adds an attribute and values to, or removes an attribute and values from, a manual DB cluster snapshot.
+     * Adds an attribute and values to, or removes an attribute and values from, a manual cluster snapshot.
      * </p>
      * <p>
-     * To share a manual DB cluster snapshot with other AWS accounts, specify <code>restore</code> as the
-     * <code>AttributeName</code>, and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the AWS
-     * accounts that are authorized to restore the manual DB cluster snapshot. Use the value <code>all</code> to make
-     * the manual DB cluster snapshot public, which means that it can be copied or restored by all AWS accounts. Do not
-     * add the <code>all</code> value for any manual DB cluster snapshots that contain private information that you
-     * don't want available to all AWS accounts. If a manual DB cluster snapshot is encrypted, it can be shared, but
-     * only by specifying a list of authorized AWS account IDs for the <code>ValuesToAdd</code> parameter. You can't use
-     * <code>all</code> as a value for that parameter in this case.
+     * To share a manual cluster snapshot with other Amazon Web Services accounts, specify <code>restore</code> as the
+     * <code>AttributeName</code>, and use the <code>ValuesToAdd</code> parameter to add a list of IDs of the Amazon Web
+     * Services accounts that are authorized to restore the manual cluster snapshot. Use the value <code>all</code> to
+     * make the manual cluster snapshot public, which means that it can be copied or restored by all Amazon Web Services
+     * accounts. Do not add the <code>all</code> value for any manual cluster snapshots that contain private information
+     * that you don't want available to all Amazon Web Services accounts. If a manual cluster snapshot is encrypted, it
+     * can be shared, but only by specifying a list of authorized Amazon Web Services account IDs for the
+     * <code>ValuesToAdd</code> parameter. You can't use <code>all</code> as a value for that parameter in this case.
      * </p>
      * 
      * @param modifyDBClusterSnapshotAttributeRequest
@@ -1321,7 +1687,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Modifies settings for a DB instance. You can change one or more database configuration parameters by specifying
+     * Modifies settings for an instance. You can change one or more database configuration parameters by specifying
      * these parameters and the new values in the request.
      * </p>
      * 
@@ -1336,7 +1702,7 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Modifies settings for a DB instance. You can change one or more database configuration parameters by specifying
+     * Modifies settings for an instance. You can change one or more database configuration parameters by specifying
      * these parameters and the new values in the request.
      * </p>
      * 
@@ -1356,8 +1722,8 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Modifies an existing DB subnet group. DB subnet groups must contain at least one subnet in at least two
-     * Availability Zones in the AWS Region.
+     * Modifies an existing subnet group. subnet groups must contain at least one subnet in at least two Availability
+     * Zones in the Amazon Web Services Region.
      * </p>
      * 
      * @param modifyDBSubnetGroupRequest
@@ -1371,8 +1737,8 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Modifies an existing DB subnet group. DB subnet groups must contain at least one subnet in at least two
-     * Availability Zones in the AWS Region.
+     * Modifies an existing subnet group. subnet groups must contain at least one subnet in at least two Availability
+     * Zones in the Amazon Web Services Region.
      * </p>
      * 
      * @param modifyDBSubnetGroupRequest
@@ -1391,13 +1757,93 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * You might need to reboot your DB instance, usually for maintenance reasons. For example, if you make certain
-     * changes, or if you change the DB cluster parameter group that is associated with the DB instance, you must reboot
-     * the instance for the changes to take effect.
+     * Modifies an existing Amazon DocumentDB event notification subscription.
+     * </p>
+     * 
+     * @param modifyEventSubscriptionRequest
+     *        Represents the input to <a>ModifyEventSubscription</a>.
+     * @return A Java Future containing the result of the ModifyEventSubscription operation returned by the service.
+     * @sample AmazonDocDBAsync.ModifyEventSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/ModifyEventSubscription" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<EventSubscription> modifyEventSubscriptionAsync(ModifyEventSubscriptionRequest modifyEventSubscriptionRequest);
+
+    /**
+     * <p>
+     * Modifies an existing Amazon DocumentDB event notification subscription.
+     * </p>
+     * 
+     * @param modifyEventSubscriptionRequest
+     *        Represents the input to <a>ModifyEventSubscription</a>.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyEventSubscription operation returned by the service.
+     * @sample AmazonDocDBAsyncHandler.ModifyEventSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/ModifyEventSubscription" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<EventSubscription> modifyEventSubscriptionAsync(ModifyEventSubscriptionRequest modifyEventSubscriptionRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyEventSubscriptionRequest, EventSubscription> asyncHandler);
+
+    /**
+     * <p>
+     * Modify a setting for an Amazon DocumentDB global cluster. You can change one or more configuration parameters
+     * (for example: deletion protection), or the global cluster identifier by specifying these parameters and the new
+     * values in the request.
+     * </p>
+     * <note>
+     * <p>
+     * This action only applies to Amazon DocumentDB clusters.
+     * </p>
+     * </note>
+     * 
+     * @param modifyGlobalClusterRequest
+     *        Represents the input to <a>ModifyGlobalCluster</a>.
+     * @return A Java Future containing the result of the ModifyGlobalCluster operation returned by the service.
+     * @sample AmazonDocDBAsync.ModifyGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/ModifyGlobalCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> modifyGlobalClusterAsync(ModifyGlobalClusterRequest modifyGlobalClusterRequest);
+
+    /**
+     * <p>
+     * Modify a setting for an Amazon DocumentDB global cluster. You can change one or more configuration parameters
+     * (for example: deletion protection), or the global cluster identifier by specifying these parameters and the new
+     * values in the request.
+     * </p>
+     * <note>
+     * <p>
+     * This action only applies to Amazon DocumentDB clusters.
+     * </p>
+     * </note>
+     * 
+     * @param modifyGlobalClusterRequest
+     *        Represents the input to <a>ModifyGlobalCluster</a>.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyGlobalCluster operation returned by the service.
+     * @sample AmazonDocDBAsyncHandler.ModifyGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/ModifyGlobalCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> modifyGlobalClusterAsync(ModifyGlobalClusterRequest modifyGlobalClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyGlobalClusterRequest, GlobalCluster> asyncHandler);
+
+    /**
+     * <p>
+     * You might need to reboot your instance, usually for maintenance reasons. For example, if you make certain
+     * changes, or if you change the cluster parameter group that is associated with the instance, you must reboot the
+     * instance for the changes to take effect.
      * </p>
      * <p>
-     * Rebooting a DB instance restarts the database engine service. Rebooting a DB instance results in a momentary
-     * outage, during which the DB instance status is set to <i>rebooting</i>.
+     * Rebooting an instance restarts the database engine service. Rebooting an instance results in a momentary outage,
+     * during which the instance status is set to <i>rebooting</i>.
      * </p>
      * 
      * @param rebootDBInstanceRequest
@@ -1411,13 +1857,13 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * You might need to reboot your DB instance, usually for maintenance reasons. For example, if you make certain
-     * changes, or if you change the DB cluster parameter group that is associated with the DB instance, you must reboot
-     * the instance for the changes to take effect.
+     * You might need to reboot your instance, usually for maintenance reasons. For example, if you make certain
+     * changes, or if you change the cluster parameter group that is associated with the instance, you must reboot the
+     * instance for the changes to take effect.
      * </p>
      * <p>
-     * Rebooting a DB instance restarts the database engine service. Rebooting a DB instance results in a momentary
-     * outage, during which the DB instance status is set to <i>rebooting</i>.
+     * Rebooting an instance restarts the database engine service. Rebooting an instance results in a momentary outage,
+     * during which the instance status is set to <i>rebooting</i>.
      * </p>
      * 
      * @param rebootDBInstanceRequest
@@ -1433,6 +1879,88 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
      */
     java.util.concurrent.Future<DBInstance> rebootDBInstanceAsync(RebootDBInstanceRequest rebootDBInstanceRequest,
             com.amazonaws.handlers.AsyncHandler<RebootDBInstanceRequest, DBInstance> asyncHandler);
+
+    /**
+     * <p>
+     * Detaches an Amazon DocumentDB secondary cluster from a global cluster. The cluster becomes a standalone cluster
+     * with read-write capability instead of being read-only and receiving data from a primary in a different region.
+     * </p>
+     * <note>
+     * <p>
+     * This action only applies to Amazon DocumentDB clusters.
+     * </p>
+     * </note>
+     * 
+     * @param removeFromGlobalClusterRequest
+     *        Represents the input to <a>RemoveFromGlobalCluster</a>.
+     * @return A Java Future containing the result of the RemoveFromGlobalCluster operation returned by the service.
+     * @sample AmazonDocDBAsync.RemoveFromGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/RemoveFromGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> removeFromGlobalClusterAsync(RemoveFromGlobalClusterRequest removeFromGlobalClusterRequest);
+
+    /**
+     * <p>
+     * Detaches an Amazon DocumentDB secondary cluster from a global cluster. The cluster becomes a standalone cluster
+     * with read-write capability instead of being read-only and receiving data from a primary in a different region.
+     * </p>
+     * <note>
+     * <p>
+     * This action only applies to Amazon DocumentDB clusters.
+     * </p>
+     * </note>
+     * 
+     * @param removeFromGlobalClusterRequest
+     *        Represents the input to <a>RemoveFromGlobalCluster</a>.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RemoveFromGlobalCluster operation returned by the service.
+     * @sample AmazonDocDBAsyncHandler.RemoveFromGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/RemoveFromGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> removeFromGlobalClusterAsync(RemoveFromGlobalClusterRequest removeFromGlobalClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<RemoveFromGlobalClusterRequest, GlobalCluster> asyncHandler);
+
+    /**
+     * <p>
+     * Removes a source identifier from an existing Amazon DocumentDB event notification subscription.
+     * </p>
+     * 
+     * @param removeSourceIdentifierFromSubscriptionRequest
+     *        Represents the input to <a>RemoveSourceIdentifierFromSubscription</a>.
+     * @return A Java Future containing the result of the RemoveSourceIdentifierFromSubscription operation returned by
+     *         the service.
+     * @sample AmazonDocDBAsync.RemoveSourceIdentifierFromSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/RemoveSourceIdentifierFromSubscription"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<EventSubscription> removeSourceIdentifierFromSubscriptionAsync(
+            RemoveSourceIdentifierFromSubscriptionRequest removeSourceIdentifierFromSubscriptionRequest);
+
+    /**
+     * <p>
+     * Removes a source identifier from an existing Amazon DocumentDB event notification subscription.
+     * </p>
+     * 
+     * @param removeSourceIdentifierFromSubscriptionRequest
+     *        Represents the input to <a>RemoveSourceIdentifierFromSubscription</a>.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RemoveSourceIdentifierFromSubscription operation returned by
+     *         the service.
+     * @sample AmazonDocDBAsyncHandler.RemoveSourceIdentifierFromSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/RemoveSourceIdentifierFromSubscription"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<EventSubscription> removeSourceIdentifierFromSubscriptionAsync(
+            RemoveSourceIdentifierFromSubscriptionRequest removeSourceIdentifierFromSubscriptionRequest,
+            com.amazonaws.handlers.AsyncHandler<RemoveSourceIdentifierFromSubscriptionRequest, EventSubscription> asyncHandler);
 
     /**
      * <p>
@@ -1469,9 +1997,9 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Modifies the parameters of a DB cluster parameter group to the default value. To reset specific parameters,
-     * submit a list of the following: <code>ParameterName</code> and <code>ApplyMethod</code>. To reset the entire DB
-     * cluster parameter group, specify the <code>DBClusterParameterGroupName</code> and <code>ResetAllParameters</code>
+     * Modifies the parameters of a cluster parameter group to the default value. To reset specific parameters, submit a
+     * list of the following: <code>ParameterName</code> and <code>ApplyMethod</code>. To reset the entire cluster
+     * parameter group, specify the <code>DBClusterParameterGroupName</code> and <code>ResetAllParameters</code>
      * parameters.
      * </p>
      * <p>
@@ -1492,9 +2020,9 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Modifies the parameters of a DB cluster parameter group to the default value. To reset specific parameters,
-     * submit a list of the following: <code>ParameterName</code> and <code>ApplyMethod</code>. To reset the entire DB
-     * cluster parameter group, specify the <code>DBClusterParameterGroupName</code> and <code>ResetAllParameters</code>
+     * Modifies the parameters of a cluster parameter group to the default value. To reset specific parameters, submit a
+     * list of the following: <code>ParameterName</code> and <code>ApplyMethod</code>. To reset the entire cluster
+     * parameter group, specify the <code>DBClusterParameterGroupName</code> and <code>ResetAllParameters</code>
      * parameters.
      * </p>
      * <p>
@@ -1520,16 +2048,16 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Creates a new DB cluster from a DB snapshot or DB cluster snapshot.
+     * Creates a new cluster from a snapshot or cluster snapshot.
      * </p>
      * <p>
-     * If a DB snapshot is specified, the target DB cluster is created from the source DB snapshot with a default
+     * If a snapshot is specified, the target cluster is created from the source DB snapshot with a default
      * configuration and default security group.
      * </p>
      * <p>
-     * If a DB cluster snapshot is specified, the target DB cluster is created from the source DB cluster restore point
-     * with the same configuration as the original source DB cluster, except that the new DB cluster is created with the
-     * default security group.
+     * If a cluster snapshot is specified, the target cluster is created from the source cluster restore point with the
+     * same configuration as the original source DB cluster, except that the new cluster is created with the default
+     * security group.
      * </p>
      * 
      * @param restoreDBClusterFromSnapshotRequest
@@ -1544,16 +2072,16 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Creates a new DB cluster from a DB snapshot or DB cluster snapshot.
+     * Creates a new cluster from a snapshot or cluster snapshot.
      * </p>
      * <p>
-     * If a DB snapshot is specified, the target DB cluster is created from the source DB snapshot with a default
+     * If a snapshot is specified, the target cluster is created from the source DB snapshot with a default
      * configuration and default security group.
      * </p>
      * <p>
-     * If a DB cluster snapshot is specified, the target DB cluster is created from the source DB cluster restore point
-     * with the same configuration as the original source DB cluster, except that the new DB cluster is created with the
-     * default security group.
+     * If a cluster snapshot is specified, the target cluster is created from the source cluster restore point with the
+     * same configuration as the original source DB cluster, except that the new cluster is created with the default
+     * security group.
      * </p>
      * 
      * @param restoreDBClusterFromSnapshotRequest
@@ -1573,10 +2101,10 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Restores a DB cluster to an arbitrary point in time. Users can restore to any point in time before
-     * <code>LatestRestorableTime</code> for up to <code>BackupRetentionPeriod</code> days. The target DB cluster is
-     * created from the source DB cluster with the same configuration as the original DB cluster, except that the new DB
-     * cluster is created with the default DB security group.
+     * Restores a cluster to an arbitrary point in time. Users can restore to any point in time before
+     * <code>LatestRestorableTime</code> for up to <code>BackupRetentionPeriod</code> days. The target cluster is
+     * created from the source cluster with the same configuration as the original cluster, except that the new cluster
+     * is created with the default security group.
      * </p>
      * 
      * @param restoreDBClusterToPointInTimeRequest
@@ -1591,10 +2119,10 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
 
     /**
      * <p>
-     * Restores a DB cluster to an arbitrary point in time. Users can restore to any point in time before
-     * <code>LatestRestorableTime</code> for up to <code>BackupRetentionPeriod</code> days. The target DB cluster is
-     * created from the source DB cluster with the same configuration as the original DB cluster, except that the new DB
-     * cluster is created with the default DB security group.
+     * Restores a cluster to an arbitrary point in time. Users can restore to any point in time before
+     * <code>LatestRestorableTime</code> for up to <code>BackupRetentionPeriod</code> days. The target cluster is
+     * created from the source cluster with the same configuration as the original cluster, except that the new cluster
+     * is created with the default security group.
      * </p>
      * 
      * @param restoreDBClusterToPointInTimeRequest
@@ -1683,5 +2211,38 @@ public interface AmazonDocDBAsync extends AmazonDocDB {
      */
     java.util.concurrent.Future<DBCluster> stopDBClusterAsync(StopDBClusterRequest stopDBClusterRequest,
             com.amazonaws.handlers.AsyncHandler<StopDBClusterRequest, DBCluster> asyncHandler);
+
+    /**
+     * <p>
+     * Switches over the specified secondary Amazon DocumentDB cluster to be the new primary Amazon DocumentDB cluster
+     * in the global database cluster.
+     * </p>
+     * 
+     * @param switchoverGlobalClusterRequest
+     * @return A Java Future containing the result of the SwitchoverGlobalCluster operation returned by the service.
+     * @sample AmazonDocDBAsync.SwitchoverGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/SwitchoverGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> switchoverGlobalClusterAsync(SwitchoverGlobalClusterRequest switchoverGlobalClusterRequest);
+
+    /**
+     * <p>
+     * Switches over the specified secondary Amazon DocumentDB cluster to be the new primary Amazon DocumentDB cluster
+     * in the global database cluster.
+     * </p>
+     * 
+     * @param switchoverGlobalClusterRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the SwitchoverGlobalCluster operation returned by the service.
+     * @sample AmazonDocDBAsyncHandler.SwitchoverGlobalCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/SwitchoverGlobalCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalCluster> switchoverGlobalClusterAsync(SwitchoverGlobalClusterRequest switchoverGlobalClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<SwitchoverGlobalClusterRequest, GlobalCluster> asyncHandler);
 
 }

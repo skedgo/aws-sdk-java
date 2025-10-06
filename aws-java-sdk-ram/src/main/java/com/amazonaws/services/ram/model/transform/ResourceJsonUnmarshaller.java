@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,6 +60,10 @@ public class ResourceJsonUnmarshaller implements Unmarshaller<Resource, JsonUnma
                     context.nextToken();
                     resource.setResourceShareArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("resourceGroupArn", targetDepth)) {
+                    context.nextToken();
+                    resource.setResourceGroupArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("status", targetDepth)) {
                     context.nextToken();
                     resource.setStatus(context.getUnmarshaller(String.class).unmarshall(context));
@@ -75,6 +79,10 @@ public class ResourceJsonUnmarshaller implements Unmarshaller<Resource, JsonUnma
                 if (context.testExpression("lastUpdatedTime", targetDepth)) {
                     context.nextToken();
                     resource.setLastUpdatedTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("resourceRegionScope", targetDepth)) {
+                    context.nextToken();
+                    resource.setResourceRegionScope(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

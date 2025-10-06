@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.personalizeruntime.AmazonPersonalizeRuntimeClientB
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.personalizeruntime.model.*;
+
 import com.amazonaws.services.personalizeruntime.model.transform.*;
 
 /**
@@ -74,13 +75,13 @@ public class AmazonPersonalizeRuntimeClient extends AmazonWebServiceClient imple
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidInputException").withModeledClass(
-                                    com.amazonaws.services.personalizeruntime.model.InvalidInputException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidInputException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.personalizeruntime.model.transform.InvalidInputExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.personalizeruntime.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.personalizeruntime.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.personalizeruntime.model.AmazonPersonalizeRuntimeException.class));
 
     public static AmazonPersonalizeRuntimeClientBuilder builder() {
@@ -131,6 +132,76 @@ public class AmazonPersonalizeRuntimeClient extends AmazonWebServiceClient imple
 
     /**
      * <p>
+     * Returns a list of recommended actions in sorted in descending order by prediction score. Use the
+     * <code>GetActionRecommendations</code> API if you have a custom campaign that deploys a solution version trained
+     * with a PERSONALIZED_ACTIONS recipe.
+     * </p>
+     * <p>
+     * For more information about PERSONALIZED_ACTIONS recipes, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/nexts-best-action-recipes.html">PERSONALIZED_ACTIONS
+     * recipes</a>. For more information about getting action recommendations, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/get-action-recommendations.html">Getting action
+     * recommendations</a>.
+     * </p>
+     * 
+     * @param getActionRecommendationsRequest
+     * @return Result of the GetActionRecommendations operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @sample AmazonPersonalizeRuntime.GetActionRecommendations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-runtime-2018-05-22/GetActionRecommendations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetActionRecommendationsResult getActionRecommendations(GetActionRecommendationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetActionRecommendations(request);
+    }
+
+    @SdkInternalApi
+    final GetActionRecommendationsResult executeGetActionRecommendations(GetActionRecommendationsRequest getActionRecommendationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getActionRecommendationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetActionRecommendationsRequest> request = null;
+        Response<GetActionRecommendationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetActionRecommendationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getActionRecommendationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize Runtime");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetActionRecommendations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetActionRecommendationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetActionRecommendationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Re-ranks a list of recommended items for the given user. The first item in the list is deemed the most likely
      * item to be of interest to the user.
      * </p>
@@ -171,6 +242,8 @@ public class AmazonPersonalizeRuntimeClient extends AmazonWebServiceClient imple
                 request = new GetPersonalizedRankingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPersonalizedRankingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize Runtime");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPersonalizedRanking");
@@ -195,18 +268,19 @@ public class AmazonPersonalizeRuntimeClient extends AmazonWebServiceClient imple
 
     /**
      * <p>
-     * Returns a list of recommended items. The required input depends on the recipe type used to create the solution
-     * backing the campaign, as follows:
+     * Returns a list of recommended items. For campaigns, the campaign's Amazon Resource Name (ARN) is required and the
+     * required user and item input depends on the recipe type used to create the solution backing the campaign as
+     * follows:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * RELATED_ITEMS - <code>itemId</code> required, <code>userId</code> not used
+     * USER_PERSONALIZATION - <code>userId</code> required, <code>itemId</code> not used
      * </p>
      * </li>
      * <li>
      * <p>
-     * USER_PERSONALIZATION - <code>itemId</code> optional, <code>userId</code> required
+     * RELATED_ITEMS - <code>itemId</code> required, <code>userId</code> not used
      * </p>
      * </li>
      * </ul>
@@ -215,6 +289,12 @@ public class AmazonPersonalizeRuntimeClient extends AmazonWebServiceClient imple
      * Campaigns that are backed by a solution created using a recipe of type PERSONALIZED_RANKING use the API.
      * </p>
      * </note>
+     * <p>
+     * For recommenders, the recommender's ARN is required and the required item and user input depends on the use case
+     * (domain-based recipe) backing the recommender. For information on use case requirements see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/domain-use-cases.html">Choosing recommender use
+     * cases</a>.
+     * </p>
      * 
      * @param getRecommendationsRequest
      * @return Result of the GetRecommendations operation returned by the service.
@@ -247,6 +327,8 @@ public class AmazonPersonalizeRuntimeClient extends AmazonWebServiceClient imple
                 request = new GetRecommendationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRecommendationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize Runtime");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRecommendations");
@@ -342,6 +424,11 @@ public class AmazonPersonalizeRuntimeClient extends AmazonWebServiceClient imple
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,16 +28,18 @@ public class ExecuteStatementResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * Metadata for the columns included in the results.
+     * The records returned by the SQL statement. This field is blank if the <code>formatRecordsAs</code> parameter is
+     * set to <code>JSON</code>.
+     * </p>
+     */
+    private java.util.List<java.util.List<Field>> records;
+    /**
+     * <p>
+     * Metadata for the columns included in the results. This field is blank if the <code>formatRecordsAs</code>
+     * parameter is set to <code>JSON</code>.
      * </p>
      */
     private java.util.List<ColumnMetadata> columnMetadata;
-    /**
-     * <p>
-     * Values for fields generated during the request.
-     * </p>
-     */
-    private java.util.List<Field> generatedFields;
     /**
      * <p>
      * The number of records updated by the request.
@@ -46,17 +48,116 @@ public class ExecuteStatementResult extends com.amazonaws.AmazonWebServiceResult
     private Long numberOfRecordsUpdated;
     /**
      * <p>
-     * The records returned by the SQL statement.
+     * Values for fields generated during a DML request.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>generatedFields</code> data isn't supported by Aurora PostgreSQL. To get the values of generated
+     * fields, use the <code>RETURNING</code> clause. For more information, see <a
+     * href="https://www.postgresql.org/docs/10/dml-returning.html">Returning Data From Modified Rows</a> in the
+     * PostgreSQL documentation.
+     * </p>
+     * </note>
+     */
+    private java.util.List<Field> generatedFields;
+    /**
+     * <p>
+     * A string value that represents the result set of a <code>SELECT</code> statement in JSON format. This value is
+     * only present when the <code>formatRecordsAs</code> parameter is set to <code>JSON</code>.
+     * </p>
+     * <p>
+     * The size limit for this field is currently 10 MB. If the JSON-formatted string representing the result set
+     * requires more than 10 MB, the call returns an error.
      * </p>
      */
-    private java.util.List<java.util.List<Field>> records;
+    private String formattedRecords;
 
     /**
      * <p>
-     * Metadata for the columns included in the results.
+     * The records returned by the SQL statement. This field is blank if the <code>formatRecordsAs</code> parameter is
+     * set to <code>JSON</code>.
      * </p>
      * 
-     * @return Metadata for the columns included in the results.
+     * @return The records returned by the SQL statement. This field is blank if the <code>formatRecordsAs</code>
+     *         parameter is set to <code>JSON</code>.
+     */
+
+    public java.util.List<java.util.List<Field>> getRecords() {
+        return records;
+    }
+
+    /**
+     * <p>
+     * The records returned by the SQL statement. This field is blank if the <code>formatRecordsAs</code> parameter is
+     * set to <code>JSON</code>.
+     * </p>
+     * 
+     * @param records
+     *        The records returned by the SQL statement. This field is blank if the <code>formatRecordsAs</code>
+     *        parameter is set to <code>JSON</code>.
+     */
+
+    public void setRecords(java.util.Collection<java.util.List<Field>> records) {
+        if (records == null) {
+            this.records = null;
+            return;
+        }
+
+        this.records = new java.util.ArrayList<java.util.List<Field>>(records);
+    }
+
+    /**
+     * <p>
+     * The records returned by the SQL statement. This field is blank if the <code>formatRecordsAs</code> parameter is
+     * set to <code>JSON</code>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRecords(java.util.Collection)} or {@link #withRecords(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param records
+     *        The records returned by the SQL statement. This field is blank if the <code>formatRecordsAs</code>
+     *        parameter is set to <code>JSON</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ExecuteStatementResult withRecords(java.util.List<Field>... records) {
+        if (this.records == null) {
+            setRecords(new java.util.ArrayList<java.util.List<Field>>(records.length));
+        }
+        for (java.util.List<Field> ele : records) {
+            this.records.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The records returned by the SQL statement. This field is blank if the <code>formatRecordsAs</code> parameter is
+     * set to <code>JSON</code>.
+     * </p>
+     * 
+     * @param records
+     *        The records returned by the SQL statement. This field is blank if the <code>formatRecordsAs</code>
+     *        parameter is set to <code>JSON</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ExecuteStatementResult withRecords(java.util.Collection<java.util.List<Field>> records) {
+        setRecords(records);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Metadata for the columns included in the results. This field is blank if the <code>formatRecordsAs</code>
+     * parameter is set to <code>JSON</code>.
+     * </p>
+     * 
+     * @return Metadata for the columns included in the results. This field is blank if the <code>formatRecordsAs</code>
+     *         parameter is set to <code>JSON</code>.
      */
 
     public java.util.List<ColumnMetadata> getColumnMetadata() {
@@ -65,11 +166,13 @@ public class ExecuteStatementResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * Metadata for the columns included in the results.
+     * Metadata for the columns included in the results. This field is blank if the <code>formatRecordsAs</code>
+     * parameter is set to <code>JSON</code>.
      * </p>
      * 
      * @param columnMetadata
-     *        Metadata for the columns included in the results.
+     *        Metadata for the columns included in the results. This field is blank if the <code>formatRecordsAs</code>
+     *        parameter is set to <code>JSON</code>.
      */
 
     public void setColumnMetadata(java.util.Collection<ColumnMetadata> columnMetadata) {
@@ -83,7 +186,8 @@ public class ExecuteStatementResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * Metadata for the columns included in the results.
+     * Metadata for the columns included in the results. This field is blank if the <code>formatRecordsAs</code>
+     * parameter is set to <code>JSON</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -92,7 +196,8 @@ public class ExecuteStatementResult extends com.amazonaws.AmazonWebServiceResult
      * </p>
      * 
      * @param columnMetadata
-     *        Metadata for the columns included in the results.
+     *        Metadata for the columns included in the results. This field is blank if the <code>formatRecordsAs</code>
+     *        parameter is set to <code>JSON</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -108,86 +213,18 @@ public class ExecuteStatementResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * Metadata for the columns included in the results.
+     * Metadata for the columns included in the results. This field is blank if the <code>formatRecordsAs</code>
+     * parameter is set to <code>JSON</code>.
      * </p>
      * 
      * @param columnMetadata
-     *        Metadata for the columns included in the results.
+     *        Metadata for the columns included in the results. This field is blank if the <code>formatRecordsAs</code>
+     *        parameter is set to <code>JSON</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ExecuteStatementResult withColumnMetadata(java.util.Collection<ColumnMetadata> columnMetadata) {
         setColumnMetadata(columnMetadata);
-        return this;
-    }
-
-    /**
-     * <p>
-     * Values for fields generated during the request.
-     * </p>
-     * 
-     * @return Values for fields generated during the request.
-     */
-
-    public java.util.List<Field> getGeneratedFields() {
-        return generatedFields;
-    }
-
-    /**
-     * <p>
-     * Values for fields generated during the request.
-     * </p>
-     * 
-     * @param generatedFields
-     *        Values for fields generated during the request.
-     */
-
-    public void setGeneratedFields(java.util.Collection<Field> generatedFields) {
-        if (generatedFields == null) {
-            this.generatedFields = null;
-            return;
-        }
-
-        this.generatedFields = new java.util.ArrayList<Field>(generatedFields);
-    }
-
-    /**
-     * <p>
-     * Values for fields generated during the request.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
-     * {@link #setGeneratedFields(java.util.Collection)} or {@link #withGeneratedFields(java.util.Collection)} if you
-     * want to override the existing values.
-     * </p>
-     * 
-     * @param generatedFields
-     *        Values for fields generated during the request.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public ExecuteStatementResult withGeneratedFields(Field... generatedFields) {
-        if (this.generatedFields == null) {
-            setGeneratedFields(new java.util.ArrayList<Field>(generatedFields.length));
-        }
-        for (Field ele : generatedFields) {
-            this.generatedFields.add(ele);
-        }
-        return this;
-    }
-
-    /**
-     * <p>
-     * Values for fields generated during the request.
-     * </p>
-     * 
-     * @param generatedFields
-     *        Values for fields generated during the request.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public ExecuteStatementResult withGeneratedFields(java.util.Collection<Field> generatedFields) {
-        setGeneratedFields(generatedFields);
         return this;
     }
 
@@ -233,71 +270,194 @@ public class ExecuteStatementResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * The records returned by the SQL statement.
+     * Values for fields generated during a DML request.
      * </p>
+     * <note>
+     * <p>
+     * The <code>generatedFields</code> data isn't supported by Aurora PostgreSQL. To get the values of generated
+     * fields, use the <code>RETURNING</code> clause. For more information, see <a
+     * href="https://www.postgresql.org/docs/10/dml-returning.html">Returning Data From Modified Rows</a> in the
+     * PostgreSQL documentation.
+     * </p>
+     * </note>
      * 
-     * @return The records returned by the SQL statement.
+     * @return Values for fields generated during a DML request.</p> <note>
+     *         <p>
+     *         The <code>generatedFields</code> data isn't supported by Aurora PostgreSQL. To get the values of
+     *         generated fields, use the <code>RETURNING</code> clause. For more information, see <a
+     *         href="https://www.postgresql.org/docs/10/dml-returning.html">Returning Data From Modified Rows</a> in the
+     *         PostgreSQL documentation.
+     *         </p>
      */
 
-    public java.util.List<java.util.List<Field>> getRecords() {
-        return records;
+    public java.util.List<Field> getGeneratedFields() {
+        return generatedFields;
     }
 
     /**
      * <p>
-     * The records returned by the SQL statement.
+     * Values for fields generated during a DML request.
      * </p>
+     * <note>
+     * <p>
+     * The <code>generatedFields</code> data isn't supported by Aurora PostgreSQL. To get the values of generated
+     * fields, use the <code>RETURNING</code> clause. For more information, see <a
+     * href="https://www.postgresql.org/docs/10/dml-returning.html">Returning Data From Modified Rows</a> in the
+     * PostgreSQL documentation.
+     * </p>
+     * </note>
      * 
-     * @param records
-     *        The records returned by the SQL statement.
+     * @param generatedFields
+     *        Values for fields generated during a DML request.</p> <note>
+     *        <p>
+     *        The <code>generatedFields</code> data isn't supported by Aurora PostgreSQL. To get the values of generated
+     *        fields, use the <code>RETURNING</code> clause. For more information, see <a
+     *        href="https://www.postgresql.org/docs/10/dml-returning.html">Returning Data From Modified Rows</a> in the
+     *        PostgreSQL documentation.
+     *        </p>
      */
 
-    public void setRecords(java.util.Collection<java.util.List<Field>> records) {
-        if (records == null) {
-            this.records = null;
+    public void setGeneratedFields(java.util.Collection<Field> generatedFields) {
+        if (generatedFields == null) {
+            this.generatedFields = null;
             return;
         }
 
-        this.records = new java.util.ArrayList<java.util.List<Field>>(records);
+        this.generatedFields = new java.util.ArrayList<Field>(generatedFields);
     }
 
     /**
      * <p>
-     * The records returned by the SQL statement.
+     * Values for fields generated during a DML request.
      * </p>
+     * <note>
+     * <p>
+     * The <code>generatedFields</code> data isn't supported by Aurora PostgreSQL. To get the values of generated
+     * fields, use the <code>RETURNING</code> clause. For more information, see <a
+     * href="https://www.postgresql.org/docs/10/dml-returning.html">Returning Data From Modified Rows</a> in the
+     * PostgreSQL documentation.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
-     * {@link #setRecords(java.util.Collection)} or {@link #withRecords(java.util.Collection)} if you want to override
-     * the existing values.
+     * {@link #setGeneratedFields(java.util.Collection)} or {@link #withGeneratedFields(java.util.Collection)} if you
+     * want to override the existing values.
      * </p>
      * 
-     * @param records
-     *        The records returned by the SQL statement.
+     * @param generatedFields
+     *        Values for fields generated during a DML request.</p> <note>
+     *        <p>
+     *        The <code>generatedFields</code> data isn't supported by Aurora PostgreSQL. To get the values of generated
+     *        fields, use the <code>RETURNING</code> clause. For more information, see <a
+     *        href="https://www.postgresql.org/docs/10/dml-returning.html">Returning Data From Modified Rows</a> in the
+     *        PostgreSQL documentation.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
-    public ExecuteStatementResult withRecords(java.util.List<Field>... records) {
-        if (this.records == null) {
-            setRecords(new java.util.ArrayList<java.util.List<Field>>(records.length));
+    public ExecuteStatementResult withGeneratedFields(Field... generatedFields) {
+        if (this.generatedFields == null) {
+            setGeneratedFields(new java.util.ArrayList<Field>(generatedFields.length));
         }
-        for (java.util.List<Field> ele : records) {
-            this.records.add(ele);
+        for (Field ele : generatedFields) {
+            this.generatedFields.add(ele);
         }
         return this;
     }
 
     /**
      * <p>
-     * The records returned by the SQL statement.
+     * Values for fields generated during a DML request.
      * </p>
+     * <note>
+     * <p>
+     * The <code>generatedFields</code> data isn't supported by Aurora PostgreSQL. To get the values of generated
+     * fields, use the <code>RETURNING</code> clause. For more information, see <a
+     * href="https://www.postgresql.org/docs/10/dml-returning.html">Returning Data From Modified Rows</a> in the
+     * PostgreSQL documentation.
+     * </p>
+     * </note>
      * 
-     * @param records
-     *        The records returned by the SQL statement.
+     * @param generatedFields
+     *        Values for fields generated during a DML request.</p> <note>
+     *        <p>
+     *        The <code>generatedFields</code> data isn't supported by Aurora PostgreSQL. To get the values of generated
+     *        fields, use the <code>RETURNING</code> clause. For more information, see <a
+     *        href="https://www.postgresql.org/docs/10/dml-returning.html">Returning Data From Modified Rows</a> in the
+     *        PostgreSQL documentation.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
-    public ExecuteStatementResult withRecords(java.util.Collection<java.util.List<Field>> records) {
-        setRecords(records);
+    public ExecuteStatementResult withGeneratedFields(java.util.Collection<Field> generatedFields) {
+        setGeneratedFields(generatedFields);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A string value that represents the result set of a <code>SELECT</code> statement in JSON format. This value is
+     * only present when the <code>formatRecordsAs</code> parameter is set to <code>JSON</code>.
+     * </p>
+     * <p>
+     * The size limit for this field is currently 10 MB. If the JSON-formatted string representing the result set
+     * requires more than 10 MB, the call returns an error.
+     * </p>
+     * 
+     * @param formattedRecords
+     *        A string value that represents the result set of a <code>SELECT</code> statement in JSON format. This
+     *        value is only present when the <code>formatRecordsAs</code> parameter is set to <code>JSON</code>.</p>
+     *        <p>
+     *        The size limit for this field is currently 10 MB. If the JSON-formatted string representing the result set
+     *        requires more than 10 MB, the call returns an error.
+     */
+
+    public void setFormattedRecords(String formattedRecords) {
+        this.formattedRecords = formattedRecords;
+    }
+
+    /**
+     * <p>
+     * A string value that represents the result set of a <code>SELECT</code> statement in JSON format. This value is
+     * only present when the <code>formatRecordsAs</code> parameter is set to <code>JSON</code>.
+     * </p>
+     * <p>
+     * The size limit for this field is currently 10 MB. If the JSON-formatted string representing the result set
+     * requires more than 10 MB, the call returns an error.
+     * </p>
+     * 
+     * @return A string value that represents the result set of a <code>SELECT</code> statement in JSON format. This
+     *         value is only present when the <code>formatRecordsAs</code> parameter is set to <code>JSON</code>.</p>
+     *         <p>
+     *         The size limit for this field is currently 10 MB. If the JSON-formatted string representing the result
+     *         set requires more than 10 MB, the call returns an error.
+     */
+
+    public String getFormattedRecords() {
+        return this.formattedRecords;
+    }
+
+    /**
+     * <p>
+     * A string value that represents the result set of a <code>SELECT</code> statement in JSON format. This value is
+     * only present when the <code>formatRecordsAs</code> parameter is set to <code>JSON</code>.
+     * </p>
+     * <p>
+     * The size limit for this field is currently 10 MB. If the JSON-formatted string representing the result set
+     * requires more than 10 MB, the call returns an error.
+     * </p>
+     * 
+     * @param formattedRecords
+     *        A string value that represents the result set of a <code>SELECT</code> statement in JSON format. This
+     *        value is only present when the <code>formatRecordsAs</code> parameter is set to <code>JSON</code>.</p>
+     *        <p>
+     *        The size limit for this field is currently 10 MB. If the JSON-formatted string representing the result set
+     *        requires more than 10 MB, the call returns an error.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ExecuteStatementResult withFormattedRecords(String formattedRecords) {
+        setFormattedRecords(formattedRecords);
         return this;
     }
 
@@ -313,14 +473,16 @@ public class ExecuteStatementResult extends com.amazonaws.AmazonWebServiceResult
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getRecords() != null)
+            sb.append("Records: ").append(getRecords()).append(",");
         if (getColumnMetadata() != null)
             sb.append("ColumnMetadata: ").append(getColumnMetadata()).append(",");
-        if (getGeneratedFields() != null)
-            sb.append("GeneratedFields: ").append(getGeneratedFields()).append(",");
         if (getNumberOfRecordsUpdated() != null)
             sb.append("NumberOfRecordsUpdated: ").append(getNumberOfRecordsUpdated()).append(",");
-        if (getRecords() != null)
-            sb.append("Records: ").append(getRecords());
+        if (getGeneratedFields() != null)
+            sb.append("GeneratedFields: ").append(getGeneratedFields()).append(",");
+        if (getFormattedRecords() != null)
+            sb.append("FormattedRecords: ").append(getFormattedRecords());
         sb.append("}");
         return sb.toString();
     }
@@ -335,21 +497,25 @@ public class ExecuteStatementResult extends com.amazonaws.AmazonWebServiceResult
         if (obj instanceof ExecuteStatementResult == false)
             return false;
         ExecuteStatementResult other = (ExecuteStatementResult) obj;
+        if (other.getRecords() == null ^ this.getRecords() == null)
+            return false;
+        if (other.getRecords() != null && other.getRecords().equals(this.getRecords()) == false)
+            return false;
         if (other.getColumnMetadata() == null ^ this.getColumnMetadata() == null)
             return false;
         if (other.getColumnMetadata() != null && other.getColumnMetadata().equals(this.getColumnMetadata()) == false)
-            return false;
-        if (other.getGeneratedFields() == null ^ this.getGeneratedFields() == null)
-            return false;
-        if (other.getGeneratedFields() != null && other.getGeneratedFields().equals(this.getGeneratedFields()) == false)
             return false;
         if (other.getNumberOfRecordsUpdated() == null ^ this.getNumberOfRecordsUpdated() == null)
             return false;
         if (other.getNumberOfRecordsUpdated() != null && other.getNumberOfRecordsUpdated().equals(this.getNumberOfRecordsUpdated()) == false)
             return false;
-        if (other.getRecords() == null ^ this.getRecords() == null)
+        if (other.getGeneratedFields() == null ^ this.getGeneratedFields() == null)
             return false;
-        if (other.getRecords() != null && other.getRecords().equals(this.getRecords()) == false)
+        if (other.getGeneratedFields() != null && other.getGeneratedFields().equals(this.getGeneratedFields()) == false)
+            return false;
+        if (other.getFormattedRecords() == null ^ this.getFormattedRecords() == null)
+            return false;
+        if (other.getFormattedRecords() != null && other.getFormattedRecords().equals(this.getFormattedRecords()) == false)
             return false;
         return true;
     }
@@ -359,10 +525,11 @@ public class ExecuteStatementResult extends com.amazonaws.AmazonWebServiceResult
         final int prime = 31;
         int hashCode = 1;
 
-        hashCode = prime * hashCode + ((getColumnMetadata() == null) ? 0 : getColumnMetadata().hashCode());
-        hashCode = prime * hashCode + ((getGeneratedFields() == null) ? 0 : getGeneratedFields().hashCode());
-        hashCode = prime * hashCode + ((getNumberOfRecordsUpdated() == null) ? 0 : getNumberOfRecordsUpdated().hashCode());
         hashCode = prime * hashCode + ((getRecords() == null) ? 0 : getRecords().hashCode());
+        hashCode = prime * hashCode + ((getColumnMetadata() == null) ? 0 : getColumnMetadata().hashCode());
+        hashCode = prime * hashCode + ((getNumberOfRecordsUpdated() == null) ? 0 : getNumberOfRecordsUpdated().hashCode());
+        hashCode = prime * hashCode + ((getGeneratedFields() == null) ? 0 : getGeneratedFields().hashCode());
+        hashCode = prime * hashCode + ((getFormattedRecords() == null) ? 0 : getFormattedRecords().hashCode());
         return hashCode;
     }
 

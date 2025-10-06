@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -126,7 +126,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -167,7 +168,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws SchemaAlreadyExistsException
      *         Indicates that a schema could not be created due to a naming conflict. Please select a different name and
      *         then try again.
@@ -221,7 +223,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -269,7 +272,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -309,7 +313,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws InvalidAttachmentException
@@ -360,7 +365,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -405,7 +411,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @sample AmazonCloudDirectory.BatchRead
@@ -441,7 +448,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws BatchWriteException
@@ -486,7 +494,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryAlreadyExistsException
      *         Indicates that a <a>Directory</a> could not be created due to a naming conflict. Choose a different name
      *         and try again.
@@ -525,7 +534,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws FacetAlreadyExistsException
@@ -569,7 +579,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -616,7 +627,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -680,12 +692,14 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws SchemaAlreadyExistsException
      *         Indicates that a schema could not be created due to a naming conflict. Please select a different name and
      *         then try again.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @sample AmazonCloudDirectory.CreateSchema
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2017-01-11/CreateSchema" target="_top">AWS
      *      API Documentation</a>
@@ -721,7 +735,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws FacetAlreadyExistsException
@@ -760,7 +775,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryDeletedException
      *         A directory that has been deleted and to which access has been attempted. Note: The requested resource
      *         will eventually cease to exist.
@@ -806,7 +822,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws FacetNotFoundException
@@ -850,7 +867,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -891,7 +909,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws StillContainsLinksException
@@ -932,7 +951,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws FacetNotFoundException
@@ -970,7 +990,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -1013,7 +1034,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -1054,7 +1076,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -1096,7 +1119,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -1134,7 +1158,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws RetryableConflictException
      *         Occurs when a conflict with a previous successful write is detected. For example, if a write operation
      *         occurs on an object and then an attempt is made to read the object using “SERIALIZABLE” consistency, this
@@ -1174,7 +1199,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws RetryableConflictException
      *         Occurs when a conflict with a previous successful write is detected. For example, if a write operation
      *         occurs on an object and then an attempt is made to read the object using “SERIALIZABLE” consistency, this
@@ -1216,7 +1242,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @sample AmazonCloudDirectory.GetAppliedSchemaVersion
@@ -1252,7 +1279,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @sample AmazonCloudDirectory.GetDirectory
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2017-01-11/GetDirectory" target="_top">AWS
      *      API Documentation</a>
@@ -1287,7 +1315,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws FacetNotFoundException
@@ -1325,7 +1354,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -1365,7 +1395,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -1405,7 +1436,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -1445,7 +1477,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws ValidationException
@@ -1485,7 +1518,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidNextTokenException
@@ -1526,7 +1560,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidNextTokenException
@@ -1564,7 +1599,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -1602,7 +1638,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidNextTokenException
@@ -1640,7 +1677,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws InvalidNextTokenException
      *         Indicates that the <code>NextToken</code> value is not valid.
      * @sample AmazonCloudDirectory.ListDirectories
@@ -1676,7 +1714,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws FacetNotFoundException
@@ -1716,7 +1755,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidNextTokenException
@@ -1757,7 +1797,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -1801,7 +1842,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws InvalidNextTokenException
@@ -1834,7 +1876,8 @@ public interface AmazonCloudDirectory {
      * @throws ValidationException
      *         Indicates that your request is malformed in some manner. See the exception message.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidNextTokenException
@@ -1872,7 +1915,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -1914,7 +1958,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -1967,7 +2012,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws InvalidNextTokenException
@@ -2007,7 +2053,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -2049,7 +2096,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -2092,7 +2140,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -2134,7 +2183,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws InvalidNextTokenException
@@ -2177,7 +2227,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidNextTokenException
@@ -2216,7 +2267,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidTaggingRequestException
@@ -2258,7 +2310,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws FacetNotFoundException
@@ -2301,7 +2354,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidNextTokenException
@@ -2345,7 +2399,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws InvalidNextTokenException
@@ -2385,7 +2440,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws SchemaAlreadyPublishedException
@@ -2425,7 +2481,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws InvalidSchemaDocException
      *         Indicates that the provided <code>SchemaDoc</code> value is not valid.
      * @throws InvalidRuleException
@@ -2463,7 +2520,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -2503,7 +2561,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidTaggingRequestException
@@ -2542,7 +2601,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidTaggingRequestException
@@ -2598,7 +2658,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws InvalidFacetUpdateException
      *         An attempt to modify a <a>Facet</a> resulted in an invalid schema exception.
      * @throws FacetValidationException
@@ -2643,7 +2704,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -2683,7 +2745,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws DirectoryNotEnabledException
      *         Operations are only permitted on enabled directories.
      * @throws ResourceNotFoundException
@@ -2726,7 +2789,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @sample AmazonCloudDirectory.UpdateSchema
@@ -2764,7 +2828,8 @@ public interface AmazonCloudDirectory {
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html">Limits</a> for more
      *         information.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws FacetValidationException
      *         The <a>Facet</a> that you provided was not well formed or could not be validated with the schema.
      * @throws InvalidFacetUpdateException
@@ -2811,7 +2876,8 @@ public interface AmazonCloudDirectory {
      *         Indicates a failure occurred while performing a check for backward compatibility between the specified
      *         schema and the schema that is currently applied to the directory.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidAttachmentException
@@ -2853,7 +2919,8 @@ public interface AmazonCloudDirectory {
      *         Indicates a failure occurred while performing a check for backward compatibility between the specified
      *         schema and the schema that is currently applied to the directory.
      * @throws AccessDeniedException
-     *         Access denied. Check your permissions.
+     *         Access denied or directory not found. Either you don't have permissions for this directory or the
+     *         directory does not exist. Try calling <a>ListDirectories</a> and check your permissions.
      * @throws ResourceNotFoundException
      *         The specified resource could not be found.
      * @throws InvalidAttachmentException

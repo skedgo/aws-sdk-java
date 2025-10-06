@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -59,6 +59,34 @@ public class KinesisSettingsJsonUnmarshaller implements Unmarshaller<KinesisSett
                 if (context.testExpression("ServiceAccessRoleArn", targetDepth)) {
                     context.nextToken();
                     kinesisSettings.setServiceAccessRoleArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("IncludeTransactionDetails", targetDepth)) {
+                    context.nextToken();
+                    kinesisSettings.setIncludeTransactionDetails(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("IncludePartitionValue", targetDepth)) {
+                    context.nextToken();
+                    kinesisSettings.setIncludePartitionValue(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("PartitionIncludeSchemaTable", targetDepth)) {
+                    context.nextToken();
+                    kinesisSettings.setPartitionIncludeSchemaTable(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("IncludeTableAlterOperations", targetDepth)) {
+                    context.nextToken();
+                    kinesisSettings.setIncludeTableAlterOperations(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("IncludeControlDetails", targetDepth)) {
+                    context.nextToken();
+                    kinesisSettings.setIncludeControlDetails(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("IncludeNullAndEmpty", targetDepth)) {
+                    context.nextToken();
+                    kinesisSettings.setIncludeNullAndEmpty(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("NoHexPrefix", targetDepth)) {
+                    context.nextToken();
+                    kinesisSettings.setNoHexPrefix(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

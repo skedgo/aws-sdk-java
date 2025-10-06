@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,7 +21,16 @@ import javax.annotation.Generated;
 public enum SecurityServiceType {
 
     WAF("WAF"),
-    SHIELD_ADVANCED("SHIELD_ADVANCED");
+    WAFV2("WAFV2"),
+    SHIELD_ADVANCED("SHIELD_ADVANCED"),
+    SECURITY_GROUPS_COMMON("SECURITY_GROUPS_COMMON"),
+    SECURITY_GROUPS_CONTENT_AUDIT("SECURITY_GROUPS_CONTENT_AUDIT"),
+    SECURITY_GROUPS_USAGE_AUDIT("SECURITY_GROUPS_USAGE_AUDIT"),
+    NETWORK_FIREWALL("NETWORK_FIREWALL"),
+    DNS_FIREWALL("DNS_FIREWALL"),
+    THIRD_PARTY_FIREWALL("THIRD_PARTY_FIREWALL"),
+    IMPORT_NETWORK_FIREWALL("IMPORT_NETWORK_FIREWALL"),
+    NETWORK_ACL_COMMON("NETWORK_ACL_COMMON");
 
     private String value;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -47,6 +47,10 @@ public class DescribeClusterSnapshotsRequestMarshaller implements Marshaller<Req
 
         if (describeClusterSnapshotsRequest.getSnapshotIdentifier() != null) {
             request.addParameter("SnapshotIdentifier", StringUtils.fromString(describeClusterSnapshotsRequest.getSnapshotIdentifier()));
+        }
+
+        if (describeClusterSnapshotsRequest.getSnapshotArn() != null) {
+            request.addParameter("SnapshotArn", StringUtils.fromString(describeClusterSnapshotsRequest.getSnapshotArn()));
         }
 
         if (describeClusterSnapshotsRequest.getSnapshotType() != null) {
@@ -112,15 +116,17 @@ public class DescribeClusterSnapshotsRequestMarshaller implements Marshaller<Req
             int sortingEntitiesListIndex = 1;
 
             for (SnapshotSortingEntity sortingEntitiesListValue : sortingEntitiesList) {
+                if (sortingEntitiesListValue != null) {
 
-                if (sortingEntitiesListValue.getAttribute() != null) {
-                    request.addParameter("SortingEntities.SnapshotSortingEntity." + sortingEntitiesListIndex + ".Attribute",
-                            StringUtils.fromString(sortingEntitiesListValue.getAttribute()));
-                }
+                    if (sortingEntitiesListValue.getAttribute() != null) {
+                        request.addParameter("SortingEntities.SnapshotSortingEntity." + sortingEntitiesListIndex + ".Attribute",
+                                StringUtils.fromString(sortingEntitiesListValue.getAttribute()));
+                    }
 
-                if (sortingEntitiesListValue.getSortOrder() != null) {
-                    request.addParameter("SortingEntities.SnapshotSortingEntity." + sortingEntitiesListIndex + ".SortOrder",
-                            StringUtils.fromString(sortingEntitiesListValue.getSortOrder()));
+                    if (sortingEntitiesListValue.getSortOrder() != null) {
+                        request.addParameter("SortingEntities.SnapshotSortingEntity." + sortingEntitiesListIndex + ".SortOrder",
+                                StringUtils.fromString(sortingEntitiesListValue.getSortOrder()));
+                    }
                 }
                 sortingEntitiesListIndex++;
             }

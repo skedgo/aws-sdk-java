@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,8 +33,14 @@ public class CreateResourceServerRequest extends com.amazonaws.AmazonWebServiceR
     private String userPoolId;
     /**
      * <p>
-     * A unique resource server identifier for the resource server. This could be an HTTPS endpoint where the resource
-     * server is located. For example, <code>https://my-weather-api.example.com</code>.
+     * A unique resource server identifier for the resource server. The identifier can be an API friendly name like
+     * <code>solar-system-data</code>. You can also set an API URL like
+     * <code>https://solar-system-data-api.example.com</code> as your identifier.
+     * </p>
+     * <p>
+     * Amazon Cognito represents scopes in the access token in the format
+     * <code>$resource-server-identifier/$scope</code>. Longer scope-identifier strings increase the size of your access
+     * tokens.
      * </p>
      */
     private String identifier;
@@ -46,7 +52,7 @@ public class CreateResourceServerRequest extends com.amazonaws.AmazonWebServiceR
     private String name;
     /**
      * <p>
-     * A list of scopes. Each scope is map, where the keys are <code>name</code> and <code>description</code>.
+     * A list of scopes. Each scope is a key-value map with the keys <code>name</code> and <code>description</code>.
      * </p>
      */
     private java.util.List<ResourceServerScopeType> scopes;
@@ -93,13 +99,24 @@ public class CreateResourceServerRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A unique resource server identifier for the resource server. This could be an HTTPS endpoint where the resource
-     * server is located. For example, <code>https://my-weather-api.example.com</code>.
+     * A unique resource server identifier for the resource server. The identifier can be an API friendly name like
+     * <code>solar-system-data</code>. You can also set an API URL like
+     * <code>https://solar-system-data-api.example.com</code> as your identifier.
+     * </p>
+     * <p>
+     * Amazon Cognito represents scopes in the access token in the format
+     * <code>$resource-server-identifier/$scope</code>. Longer scope-identifier strings increase the size of your access
+     * tokens.
      * </p>
      * 
      * @param identifier
-     *        A unique resource server identifier for the resource server. This could be an HTTPS endpoint where the
-     *        resource server is located. For example, <code>https://my-weather-api.example.com</code>.
+     *        A unique resource server identifier for the resource server. The identifier can be an API friendly name
+     *        like <code>solar-system-data</code>. You can also set an API URL like
+     *        <code>https://solar-system-data-api.example.com</code> as your identifier.</p>
+     *        <p>
+     *        Amazon Cognito represents scopes in the access token in the format
+     *        <code>$resource-server-identifier/$scope</code>. Longer scope-identifier strings increase the size of your
+     *        access tokens.
      */
 
     public void setIdentifier(String identifier) {
@@ -108,12 +125,23 @@ public class CreateResourceServerRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A unique resource server identifier for the resource server. This could be an HTTPS endpoint where the resource
-     * server is located. For example, <code>https://my-weather-api.example.com</code>.
+     * A unique resource server identifier for the resource server. The identifier can be an API friendly name like
+     * <code>solar-system-data</code>. You can also set an API URL like
+     * <code>https://solar-system-data-api.example.com</code> as your identifier.
+     * </p>
+     * <p>
+     * Amazon Cognito represents scopes in the access token in the format
+     * <code>$resource-server-identifier/$scope</code>. Longer scope-identifier strings increase the size of your access
+     * tokens.
      * </p>
      * 
-     * @return A unique resource server identifier for the resource server. This could be an HTTPS endpoint where the
-     *         resource server is located. For example, <code>https://my-weather-api.example.com</code>.
+     * @return A unique resource server identifier for the resource server. The identifier can be an API friendly name
+     *         like <code>solar-system-data</code>. You can also set an API URL like
+     *         <code>https://solar-system-data-api.example.com</code> as your identifier.</p>
+     *         <p>
+     *         Amazon Cognito represents scopes in the access token in the format
+     *         <code>$resource-server-identifier/$scope</code>. Longer scope-identifier strings increase the size of
+     *         your access tokens.
      */
 
     public String getIdentifier() {
@@ -122,13 +150,24 @@ public class CreateResourceServerRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A unique resource server identifier for the resource server. This could be an HTTPS endpoint where the resource
-     * server is located. For example, <code>https://my-weather-api.example.com</code>.
+     * A unique resource server identifier for the resource server. The identifier can be an API friendly name like
+     * <code>solar-system-data</code>. You can also set an API URL like
+     * <code>https://solar-system-data-api.example.com</code> as your identifier.
+     * </p>
+     * <p>
+     * Amazon Cognito represents scopes in the access token in the format
+     * <code>$resource-server-identifier/$scope</code>. Longer scope-identifier strings increase the size of your access
+     * tokens.
      * </p>
      * 
      * @param identifier
-     *        A unique resource server identifier for the resource server. This could be an HTTPS endpoint where the
-     *        resource server is located. For example, <code>https://my-weather-api.example.com</code>.
+     *        A unique resource server identifier for the resource server. The identifier can be an API friendly name
+     *        like <code>solar-system-data</code>. You can also set an API URL like
+     *        <code>https://solar-system-data-api.example.com</code> as your identifier.</p>
+     *        <p>
+     *        Amazon Cognito represents scopes in the access token in the format
+     *        <code>$resource-server-identifier/$scope</code>. Longer scope-identifier strings increase the size of your
+     *        access tokens.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -179,10 +218,11 @@ public class CreateResourceServerRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of scopes. Each scope is map, where the keys are <code>name</code> and <code>description</code>.
+     * A list of scopes. Each scope is a key-value map with the keys <code>name</code> and <code>description</code>.
      * </p>
      * 
-     * @return A list of scopes. Each scope is map, where the keys are <code>name</code> and <code>description</code>.
+     * @return A list of scopes. Each scope is a key-value map with the keys <code>name</code> and
+     *         <code>description</code>.
      */
 
     public java.util.List<ResourceServerScopeType> getScopes() {
@@ -191,11 +231,12 @@ public class CreateResourceServerRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of scopes. Each scope is map, where the keys are <code>name</code> and <code>description</code>.
+     * A list of scopes. Each scope is a key-value map with the keys <code>name</code> and <code>description</code>.
      * </p>
      * 
      * @param scopes
-     *        A list of scopes. Each scope is map, where the keys are <code>name</code> and <code>description</code>.
+     *        A list of scopes. Each scope is a key-value map with the keys <code>name</code> and
+     *        <code>description</code>.
      */
 
     public void setScopes(java.util.Collection<ResourceServerScopeType> scopes) {
@@ -209,7 +250,7 @@ public class CreateResourceServerRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of scopes. Each scope is map, where the keys are <code>name</code> and <code>description</code>.
+     * A list of scopes. Each scope is a key-value map with the keys <code>name</code> and <code>description</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -218,7 +259,8 @@ public class CreateResourceServerRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param scopes
-     *        A list of scopes. Each scope is map, where the keys are <code>name</code> and <code>description</code>.
+     *        A list of scopes. Each scope is a key-value map with the keys <code>name</code> and
+     *        <code>description</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -234,11 +276,12 @@ public class CreateResourceServerRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of scopes. Each scope is map, where the keys are <code>name</code> and <code>description</code>.
+     * A list of scopes. Each scope is a key-value map with the keys <code>name</code> and <code>description</code>.
      * </p>
      * 
      * @param scopes
-     *        A list of scopes. Each scope is map, where the keys are <code>name</code> and <code>description</code>.
+     *        A list of scopes. Each scope is a key-value map with the keys <code>name</code> and
+     *        <code>description</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

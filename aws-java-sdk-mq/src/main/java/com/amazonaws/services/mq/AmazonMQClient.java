@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,15 +44,18 @@ import com.amazonaws.services.mq.AmazonMQClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.mq.model.*;
+
 import com.amazonaws.services.mq.model.transform.*;
 
 /**
  * Client for accessing AmazonMQ. All service calls made using this client are blocking, and will not return until the
  * service call completes.
  * <p>
- * Amazon MQ is a managed message broker service for Apache ActiveMQ that makes it easy to set up and operate message
- * brokers in the cloud. A message broker allows software applications and components to communicate using various
- * programming languages, operating systems, and formal messaging protocols.
+ * <p>
+ * Amazon MQ is a managed message broker service for Apache ActiveMQ and RabbitMQ that makes it easy to set up and
+ * operate message brokers in the cloud. A message broker allows software applications and components to communicate
+ * using various programming languages, operating systems, and formal messaging protocols.
+ * </p>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -76,25 +79,25 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withModeledClass(
-                                    com.amazonaws.services.mq.model.ConflictException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mq.model.transform.ConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withModeledClass(
-                                    com.amazonaws.services.mq.model.NotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mq.model.transform.NotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnauthorizedException").withModeledClass(
-                                    com.amazonaws.services.mq.model.UnauthorizedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnauthorizedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mq.model.transform.UnauthorizedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ForbiddenException").withModeledClass(
-                                    com.amazonaws.services.mq.model.ForbiddenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ForbiddenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mq.model.transform.ForbiddenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withModeledClass(
-                                    com.amazonaws.services.mq.model.BadRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mq.model.transform.BadRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withModeledClass(
-                                    com.amazonaws.services.mq.model.InternalServerErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mq.model.transform.InternalServerErrorExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.mq.model.AmazonMQException.class));
 
     public static AmazonMQClientBuilder builder() {
@@ -144,7 +147,89 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Creates a broker. Note: This API is asynchronous.
+     * </p>
+     * <p>
+     * To create a broker, you must either use the AmazonMQFullAccess IAM policy or include the following EC2
+     * permissions in your IAM policy.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ec2:CreateNetworkInterface
+     * </p>
+     * <p>
+     * This permission is required to allow Amazon MQ to create an elastic network interface (ENI) on behalf of your
+     * account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:CreateNetworkInterfacePermission
+     * </p>
+     * <p>
+     * This permission is required to attach the ENI to the broker instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DeleteNetworkInterface
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DeleteNetworkInterfacePermission
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DetachNetworkInterface
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeInternetGateways
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeNetworkInterfaces
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeNetworkInterfacePermissions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeRouteTables
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeSecurityGroups
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeSubnets
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeVpcs
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/amazon-mq-setting-up.html#create-iam-user"
+     * >Create an IAM User and Get Your Amazon Web Services Credentials</a> and <a href=
+     * "https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/connecting-to-amazon-mq.html#never-modify-delete-elastic-network-interface"
+     * >Never Modify or Delete the Amazon MQ Elastic Network Interface</a> in the <i>Amazon MQ Developer Guide</i>.
+     * </p>
      * 
      * @param createBrokerRequest
      *        Creates a broker using the specified properties.
@@ -184,6 +269,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new CreateBrokerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createBrokerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateBroker");
@@ -206,8 +293,10 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Creates a new configuration for the specified configuration name. Amazon MQ uses the default configuration (the
      * engine type and version).
+     * </p>
      * 
      * @param createConfigurationRequest
      *        Creates a new configuration for the specified configuration name. Amazon MQ uses the default configuration
@@ -218,10 +307,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
      * @throws InternalServerErrorException
      *         HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.
      * @throws ConflictException
-     *         HTTP Status Code 409: Conflict. This configuration name already exists. Retry your request with another
-     *         configuration name.
+     *         HTTP Status Code 409: Conflict. This broker name already exists. Retry your request with another name.
      * @throws ForbiddenException
-     *         HTTP Status Code 403: Access forbidden. Correct your input and then retry your request.
+     *         HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.
      * @sample AmazonMQ.CreateConfiguration
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateConfiguration" target="_top">AWS API
      *      Documentation</a>
@@ -247,6 +335,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new CreateConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateConfiguration");
@@ -269,7 +359,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Add a tag to a resource.
+     * </p>
      * 
      * @param createTagsRequest
      *        A map of the key-value pairs for the resource tag.
@@ -307,6 +399,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new CreateTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateTags");
@@ -329,7 +423,16 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Creates an ActiveMQ user.
+     * </p>
+     * <important>
+     * <p>
+     * Do not add personally identifiable information (PII) or other confidential or sensitive information in broker
+     * usernames. Broker usernames are accessible to other Amazon Web Services services, including CloudWatch Logs.
+     * Broker usernames are not intended to be used for private or sensitive data.
+     * </p>
+     * </important>
      * 
      * @param createUserRequest
      *        Creates a new ActiveMQ user.
@@ -341,7 +444,7 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
      * @throws InternalServerErrorException
      *         HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.
      * @throws ConflictException
-     *         HTTP Status Code 409: Conflict. Retrying your request might resolve the issue.
+     *         HTTP Status Code 409: Conflict. This broker name already exists. Retry your request with another name.
      * @throws ForbiddenException
      *         HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.
      * @sample AmazonMQ.CreateUser
@@ -369,6 +472,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new CreateUserRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createUserRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateUser");
@@ -391,7 +496,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Deletes a broker. Note: This API is asynchronous.
+     * </p>
      * 
      * @param deleteBrokerRequest
      * @return Result of the DeleteBroker operation returned by the service.
@@ -428,6 +535,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new DeleteBrokerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteBrokerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteBroker");
@@ -450,7 +559,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Removes a tag from a resource.
+     * </p>
      * 
      * @param deleteTagsRequest
      * @return Result of the DeleteTags operation returned by the service.
@@ -487,6 +598,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new DeleteTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteTags");
@@ -509,7 +622,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Deletes an ActiveMQ user.
+     * </p>
      * 
      * @param deleteUserRequest
      * @return Result of the DeleteUser operation returned by the service.
@@ -546,6 +661,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new DeleteUserRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteUserRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteUser");
@@ -568,7 +685,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Returns information about the specified broker.
+     * </p>
      * 
      * @param describeBrokerRequest
      * @return Result of the DescribeBroker operation returned by the service.
@@ -605,6 +724,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new DescribeBrokerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeBrokerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBroker");
@@ -627,7 +748,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Describe available engine types and versions.
+     * </p>
      * 
      * @param describeBrokerEngineTypesRequest
      * @return Result of the DescribeBrokerEngineTypes operation returned by the service.
@@ -663,6 +786,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                         .beforeMarshalling(describeBrokerEngineTypesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBrokerEngineTypes");
@@ -686,7 +811,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Describe available broker instance options.
+     * </p>
      * 
      * @param describeBrokerInstanceOptionsRequest
      * @return Result of the DescribeBrokerInstanceOptions operation returned by the service.
@@ -722,6 +849,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                         .beforeMarshalling(describeBrokerInstanceOptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBrokerInstanceOptions");
@@ -745,7 +874,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Returns information about the specified configuration.
+     * </p>
      * 
      * @param describeConfigurationRequest
      * @return Result of the DescribeConfiguration operation returned by the service.
@@ -782,6 +913,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new DescribeConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConfiguration");
@@ -805,7 +938,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Returns the specified configuration revision for the specified configuration.
+     * </p>
      * 
      * @param describeConfigurationRevisionRequest
      * @return Result of the DescribeConfigurationRevision operation returned by the service.
@@ -843,6 +978,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                         .beforeMarshalling(describeConfigurationRevisionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConfigurationRevision");
@@ -866,7 +1003,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Returns information about an ActiveMQ user.
+     * </p>
      * 
      * @param describeUserRequest
      * @return Result of the DescribeUser operation returned by the service.
@@ -903,6 +1042,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new DescribeUserRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeUserRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeUser");
@@ -925,7 +1066,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Returns a list of all brokers.
+     * </p>
      * 
      * @param listBrokersRequest
      * @return Result of the ListBrokers operation returned by the service.
@@ -960,6 +1103,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new ListBrokersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listBrokersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBrokers");
@@ -982,7 +1127,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Returns a list of all revisions for the specified configuration.
+     * </p>
      * 
      * @param listConfigurationRevisionsRequest
      * @return Result of the ListConfigurationRevisions operation returned by the service.
@@ -1020,6 +1167,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                         .beforeMarshalling(listConfigurationRevisionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListConfigurationRevisions");
@@ -1043,7 +1192,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Returns a list of all configurations.
+     * </p>
      * 
      * @param listConfigurationsRequest
      * @return Result of the ListConfigurations operation returned by the service.
@@ -1078,6 +1229,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new ListConfigurationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listConfigurationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListConfigurations");
@@ -1100,7 +1253,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Lists tags for a resource.
+     * </p>
      * 
      * @param listTagsRequest
      * @return Result of the ListTags operation returned by the service.
@@ -1137,6 +1292,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new ListTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTags");
@@ -1159,7 +1316,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Returns a list of all ActiveMQ users.
+     * </p>
      * 
      * @param listUsersRequest
      * @return Result of the ListUsers operation returned by the service.
@@ -1196,6 +1355,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new ListUsersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listUsersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListUsers");
@@ -1218,7 +1379,73 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
+     * Promotes a data replication replica broker to the primary broker role.
+     * </p>
+     * 
+     * @param promoteRequest
+     *        Promotes a data replication replica broker to the primary broker role.
+     * @return Result of the Promote operation returned by the service.
+     * @throws NotFoundException
+     *         HTTP Status Code 404: Resource not found due to incorrect input. Correct your request and then retry it.
+     * @throws BadRequestException
+     *         HTTP Status Code 400: Bad request due to incorrect input. Correct your request and then retry it.
+     * @throws InternalServerErrorException
+     *         HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.
+     * @throws ForbiddenException
+     *         HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.
+     * @sample AmazonMQ.Promote
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/Promote" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public PromoteResult promote(PromoteRequest request) {
+        request = beforeClientExecution(request);
+        return executePromote(request);
+    }
+
+    @SdkInternalApi
+    final PromoteResult executePromote(PromoteRequest promoteRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(promoteRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PromoteRequest> request = null;
+        Response<PromoteResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PromoteRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(promoteRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "Promote");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PromoteResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new PromoteResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Reboots a broker. Note: This API is asynchronous.
+     * </p>
      * 
      * @param rebootBrokerRequest
      * @return Result of the RebootBroker operation returned by the service.
@@ -1255,6 +1482,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new RebootBrokerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(rebootBrokerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RebootBroker");
@@ -1277,7 +1506,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Adds a pending configuration change to a broker.
+     * </p>
      * 
      * @param updateBrokerRequest
      *        Updates the broker using the specified properties.
@@ -1289,8 +1520,7 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
      * @throws InternalServerErrorException
      *         HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.
      * @throws ConflictException
-     *         HTTP Status Code 409: Conflict. Concurrent broker update detected. Retrying your request might resolve
-     *         the issue.
+     *         HTTP Status Code 409: Conflict. This broker name already exists. Retry your request with another name.
      * @throws ForbiddenException
      *         HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.
      * @sample AmazonMQ.UpdateBroker
@@ -1318,6 +1548,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new UpdateBrokerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateBrokerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateBroker");
@@ -1340,7 +1572,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Updates the specified configuration.
+     * </p>
      * 
      * @param updateConfigurationRequest
      *        Updates the specified configuration.
@@ -1352,9 +1586,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
      * @throws InternalServerErrorException
      *         HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.
      * @throws ConflictException
-     *         HTTP Status Code 409: Conflict. Concurrent update to configuration. Retry to create a new revision.
+     *         HTTP Status Code 409: Conflict. This broker name already exists. Retry your request with another name.
      * @throws ForbiddenException
-     *         HTTP Status Code 403: Access forbidden. Correct your input and then retry your request.
+     *         HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.
      * @sample AmazonMQ.UpdateConfiguration
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateConfiguration" target="_top">AWS API
      *      Documentation</a>
@@ -1380,6 +1614,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new UpdateConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateConfiguration");
@@ -1402,7 +1638,9 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     }
 
     /**
+     * <p>
      * Updates the information for an ActiveMQ user.
+     * </p>
      * 
      * @param updateUserRequest
      *        Updates the information for an ActiveMQ user.
@@ -1414,7 +1652,7 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
      * @throws InternalServerErrorException
      *         HTTP Status Code 500: Unexpected internal server error. Retrying your request might resolve the issue.
      * @throws ConflictException
-     *         HTTP Status Code 409: Conflict. Retrying your request might resolve the issue.
+     *         HTTP Status Code 409: Conflict. This broker name already exists. Retry your request with another name.
      * @throws ForbiddenException
      *         HTTP Status Code 403: Access forbidden. Correct your credentials and then retry your request.
      * @sample AmazonMQ.UpdateUser
@@ -1442,6 +1680,8 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
                 request = new UpdateUserRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateUserRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "mq");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateUser");
@@ -1537,6 +1777,11 @@ public class AmazonMQClient extends AmazonWebServiceClient implements AmazonMQ {
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

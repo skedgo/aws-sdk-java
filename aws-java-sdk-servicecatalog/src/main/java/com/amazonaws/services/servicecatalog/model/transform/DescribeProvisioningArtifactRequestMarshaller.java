@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,8 +33,14 @@ public class DescribeProvisioningArtifactRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProvisioningArtifactId").build();
     private static final MarshallingInfo<String> PRODUCTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("ProductId").build();
+    private static final MarshallingInfo<String> PROVISIONINGARTIFACTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProvisioningArtifactName").build();
+    private static final MarshallingInfo<String> PRODUCTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProductName").build();
     private static final MarshallingInfo<Boolean> VERBOSE_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Verbose").build();
+    private static final MarshallingInfo<Boolean> INCLUDEPROVISIONINGARTIFACTPARAMETERS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IncludeProvisioningArtifactParameters").build();
 
     private static final DescribeProvisioningArtifactRequestMarshaller instance = new DescribeProvisioningArtifactRequestMarshaller();
 
@@ -55,7 +61,11 @@ public class DescribeProvisioningArtifactRequestMarshaller {
             protocolMarshaller.marshall(describeProvisioningArtifactRequest.getAcceptLanguage(), ACCEPTLANGUAGE_BINDING);
             protocolMarshaller.marshall(describeProvisioningArtifactRequest.getProvisioningArtifactId(), PROVISIONINGARTIFACTID_BINDING);
             protocolMarshaller.marshall(describeProvisioningArtifactRequest.getProductId(), PRODUCTID_BINDING);
+            protocolMarshaller.marshall(describeProvisioningArtifactRequest.getProvisioningArtifactName(), PROVISIONINGARTIFACTNAME_BINDING);
+            protocolMarshaller.marshall(describeProvisioningArtifactRequest.getProductName(), PRODUCTNAME_BINDING);
             protocolMarshaller.marshall(describeProvisioningArtifactRequest.getVerbose(), VERBOSE_BINDING);
+            protocolMarshaller.marshall(describeProvisioningArtifactRequest.getIncludeProvisioningArtifactParameters(),
+                    INCLUDEPROVISIONINGARTIFACTPARAMETERS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

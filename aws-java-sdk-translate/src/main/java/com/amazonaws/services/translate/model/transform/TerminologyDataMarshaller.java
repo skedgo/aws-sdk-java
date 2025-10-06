@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class TerminologyDataMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("File").build();
     private static final MarshallingInfo<String> FORMAT_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Format").build();
+    private static final MarshallingInfo<String> DIRECTIONALITY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Directionality").build();
 
     private static final TerminologyDataMarshaller instance = new TerminologyDataMarshaller();
 
@@ -50,6 +52,7 @@ public class TerminologyDataMarshaller {
         try {
             protocolMarshaller.marshall(terminologyData.getFile(), FILE_BINDING);
             protocolMarshaller.marshall(terminologyData.getFormat(), FORMAT_BINDING);
+            protocolMarshaller.marshall(terminologyData.getDirectionality(), DIRECTIONALITY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

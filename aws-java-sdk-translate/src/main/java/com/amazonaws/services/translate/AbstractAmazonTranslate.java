@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,27 @@ public class AbstractAmazonTranslate implements AmazonTranslate {
     }
 
     @Override
+    public CreateParallelDataResult createParallelData(CreateParallelDataRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteParallelDataResult deleteParallelData(DeleteParallelDataRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteTerminologyResult deleteTerminology(DeleteTerminologyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeTextTranslationJobResult describeTextTranslationJob(DescribeTextTranslationJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetParallelDataResult getParallelData(GetParallelDataRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -43,12 +63,62 @@ public class AbstractAmazonTranslate implements AmazonTranslate {
     }
 
     @Override
+    public ListLanguagesResult listLanguages(ListLanguagesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListParallelDataResult listParallelData(ListParallelDataRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListTerminologiesResult listTerminologies(ListTerminologiesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public ListTextTranslationJobsResult listTextTranslationJobs(ListTextTranslationJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartTextTranslationJobResult startTextTranslationJob(StartTextTranslationJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StopTextTranslationJobResult stopTextTranslationJob(StopTextTranslationJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TranslateDocumentResult translateDocument(TranslateDocumentRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public TranslateTextResult translateText(TranslateTextRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateParallelDataResult updateParallelData(UpdateParallelDataRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

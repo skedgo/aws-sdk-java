@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,6 +42,8 @@ public class DiskMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("resourceType").build();
     private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("tags").build();
+    private static final MarshallingInfo<List> ADDONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("addOns").build();
     private static final MarshallingInfo<Integer> SIZEINGB_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("sizeInGb").build();
     private static final MarshallingInfo<Boolean> ISSYSTEMDISK_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
@@ -60,6 +62,8 @@ public class DiskMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("attachmentState").build();
     private static final MarshallingInfo<Integer> GBINUSE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("gbInUse").build();
+    private static final MarshallingInfo<String> AUTOMOUNTSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("autoMountStatus").build();
 
     private static final DiskMarshaller instance = new DiskMarshaller();
 
@@ -84,6 +88,7 @@ public class DiskMarshaller {
             protocolMarshaller.marshall(disk.getLocation(), LOCATION_BINDING);
             protocolMarshaller.marshall(disk.getResourceType(), RESOURCETYPE_BINDING);
             protocolMarshaller.marshall(disk.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(disk.getAddOns(), ADDONS_BINDING);
             protocolMarshaller.marshall(disk.getSizeInGb(), SIZEINGB_BINDING);
             protocolMarshaller.marshall(disk.getIsSystemDisk(), ISSYSTEMDISK_BINDING);
             protocolMarshaller.marshall(disk.getIops(), IOPS_BINDING);
@@ -93,6 +98,7 @@ public class DiskMarshaller {
             protocolMarshaller.marshall(disk.getIsAttached(), ISATTACHED_BINDING);
             protocolMarshaller.marshall(disk.getAttachmentState(), ATTACHMENTSTATE_BINDING);
             protocolMarshaller.marshall(disk.getGbInUse(), GBINUSE_BINDING);
+            protocolMarshaller.marshall(disk.getAutoMountStatus(), AUTOMOUNTSTATUS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

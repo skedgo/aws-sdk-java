@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,11 +54,6 @@ public class UpdateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * The language code.
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
      * <li>
      * <p>
      * <code>jp</code> - Japanese
@@ -193,6 +188,13 @@ public class UpdateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
         return this;
     }
 
+    /**
+     * Add a single Definition entry
+     *
+     * @see UpdateServiceActionRequest#withDefinition
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public UpdateServiceActionRequest addDefinitionEntry(String key, String value) {
         if (null == this.definition) {
             this.definition = new java.util.HashMap<String, String>();
@@ -261,11 +263,6 @@ public class UpdateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -279,11 +276,6 @@ public class UpdateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -307,11 +299,6 @@ public class UpdateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -324,11 +311,6 @@ public class UpdateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * 
      * @return The language code.</p>
      *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>en</code> - English (default)
-     *         </p>
-     *         </li>
      *         <li>
      *         <p>
      *         <code>jp</code> - Japanese
@@ -352,11 +334,6 @@ public class UpdateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -370,11 +347,6 @@ public class UpdateServiceActionRequest extends com.amazonaws.AmazonWebServiceRe
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese

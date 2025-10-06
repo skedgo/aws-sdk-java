@@ -1,0 +1,129 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.detective.model;
+
+import javax.annotation.Generated;
+
+/**
+ * <p>
+ * This request cannot be completed for one of the following reasons.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * This request cannot be completed if it would cause the number of member accounts in the behavior graph to exceed the
+ * maximum allowed. A behavior graph cannot have more than 1,200 member accounts.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * This request cannot be completed if the current volume ingested is above the limit of 10 TB per day. Detective will
+ * not allow you to add additional member accounts.
+ * </p>
+ * </li>
+ * </ul>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class ServiceQuotaExceededException extends com.amazonaws.services.detective.model.AmazonDetectiveException {
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * <p>
+     * The type of resource that has exceeded the service quota.
+     * </p>
+     */
+    private java.util.List<String> resources;
+
+    /**
+     * Constructs a new ServiceQuotaExceededException with the specified error message.
+     *
+     * @param message
+     *        Describes the error encountered.
+     */
+    public ServiceQuotaExceededException(String message) {
+        super(message);
+    }
+
+    /**
+     * <p>
+     * The type of resource that has exceeded the service quota.
+     * </p>
+     * 
+     * @return The type of resource that has exceeded the service quota.
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("Resources")
+    public java.util.List<String> getResources() {
+        return resources;
+    }
+
+    /**
+     * <p>
+     * The type of resource that has exceeded the service quota.
+     * </p>
+     * 
+     * @param resources
+     *        The type of resource that has exceeded the service quota.
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("Resources")
+    public void setResources(java.util.Collection<String> resources) {
+        if (resources == null) {
+            this.resources = null;
+            return;
+        }
+
+        this.resources = new java.util.ArrayList<String>(resources);
+    }
+
+    /**
+     * <p>
+     * The type of resource that has exceeded the service quota.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setResources(java.util.Collection)} or {@link #withResources(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param resources
+     *        The type of resource that has exceeded the service quota.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ServiceQuotaExceededException withResources(String... resources) {
+        if (this.resources == null) {
+            setResources(new java.util.ArrayList<String>(resources.length));
+        }
+        for (String ele : resources) {
+            this.resources.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of resource that has exceeded the service quota.
+     * </p>
+     * 
+     * @param resources
+     *        The type of resource that has exceeded the service quota.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ServiceQuotaExceededException withResources(java.util.Collection<String> resources) {
+        setResources(resources);
+        return this;
+    }
+
+}

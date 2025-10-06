@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,7 +39,7 @@ public class Host implements Serializable, Cloneable {
     private String availabilityZone;
     /**
      * <p>
-     * The number of new instances that can be launched onto the Dedicated Host.
+     * Information about the instances running on the Dedicated Host.
      * </p>
      */
     private AvailableCapacity availableCapacity;
@@ -47,7 +47,7 @@ public class Host implements Serializable, Cloneable {
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
      * Idempotency</a>.
      * </p>
      */
@@ -107,6 +107,51 @@ public class Host implements Serializable, Cloneable {
      * </p>
      */
     private String hostRecovery;
+    /**
+     * <p>
+     * Indicates whether the Dedicated Host supports multiple instance types of the same instance family. If the value
+     * is <code>on</code>, the Dedicated Host supports multiple instance types in the instance family. If the value is
+     * <code>off</code>, the Dedicated Host supports a single instance type only.
+     * </p>
+     */
+    private String allowsMultipleInstanceTypes;
+    /**
+     * <p>
+     * The ID of the Amazon Web Services account that owns the Dedicated Host.
+     * </p>
+     */
+    private String ownerId;
+    /**
+     * <p>
+     * The ID of the Availability Zone in which the Dedicated Host is allocated.
+     * </p>
+     */
+    private String availabilityZoneId;
+    /**
+     * <p>
+     * Indicates whether the Dedicated Host is in a host resource group. If <b>memberOfServiceLinkedResourceGroup</b> is
+     * <code>true</code>, the host is in a host resource group; otherwise, it is not.
+     * </p>
+     */
+    private Boolean memberOfServiceLinkedResourceGroup;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Amazon Web Services Outpost on which the Dedicated Host is allocated.
+     * </p>
+     */
+    private String outpostArn;
+    /**
+     * <p>
+     * Indicates whether host maintenance is enabled or disabled for the Dedicated Host.
+     * </p>
+     */
+    private String hostMaintenance;
+    /**
+     * <p>
+     * The ID of the Outpost hardware asset on which the Dedicated Host is allocated.
+     * </p>
+     */
+    private String assetId;
 
     /**
      * <p>
@@ -223,11 +268,11 @@ public class Host implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of new instances that can be launched onto the Dedicated Host.
+     * Information about the instances running on the Dedicated Host.
      * </p>
      * 
      * @param availableCapacity
-     *        The number of new instances that can be launched onto the Dedicated Host.
+     *        Information about the instances running on the Dedicated Host.
      */
 
     public void setAvailableCapacity(AvailableCapacity availableCapacity) {
@@ -236,10 +281,10 @@ public class Host implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of new instances that can be launched onto the Dedicated Host.
+     * Information about the instances running on the Dedicated Host.
      * </p>
      * 
-     * @return The number of new instances that can be launched onto the Dedicated Host.
+     * @return Information about the instances running on the Dedicated Host.
      */
 
     public AvailableCapacity getAvailableCapacity() {
@@ -248,11 +293,11 @@ public class Host implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of new instances that can be launched onto the Dedicated Host.
+     * Information about the instances running on the Dedicated Host.
      * </p>
      * 
      * @param availableCapacity
-     *        The number of new instances that can be launched onto the Dedicated Host.
+     *        Information about the instances running on the Dedicated Host.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -265,14 +310,14 @@ public class Host implements Serializable, Cloneable {
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
      * Idempotency</a>.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
      *        Idempotency</a>.
      */
 
@@ -284,13 +329,13 @@ public class Host implements Serializable, Cloneable {
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
      * Idempotency</a>.
      * </p>
      * 
      * @return Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *         information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
      *         Idempotency</a>.
      */
 
@@ -302,14 +347,14 @@ public class Host implements Serializable, Cloneable {
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
      * Idempotency</a>.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
      *        Idempotency</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -818,6 +863,399 @@ public class Host implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * Indicates whether the Dedicated Host supports multiple instance types of the same instance family. If the value
+     * is <code>on</code>, the Dedicated Host supports multiple instance types in the instance family. If the value is
+     * <code>off</code>, the Dedicated Host supports a single instance type only.
+     * </p>
+     * 
+     * @param allowsMultipleInstanceTypes
+     *        Indicates whether the Dedicated Host supports multiple instance types of the same instance family. If the
+     *        value is <code>on</code>, the Dedicated Host supports multiple instance types in the instance family. If
+     *        the value is <code>off</code>, the Dedicated Host supports a single instance type only.
+     * @see AllowsMultipleInstanceTypes
+     */
+
+    public void setAllowsMultipleInstanceTypes(String allowsMultipleInstanceTypes) {
+        this.allowsMultipleInstanceTypes = allowsMultipleInstanceTypes;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the Dedicated Host supports multiple instance types of the same instance family. If the value
+     * is <code>on</code>, the Dedicated Host supports multiple instance types in the instance family. If the value is
+     * <code>off</code>, the Dedicated Host supports a single instance type only.
+     * </p>
+     * 
+     * @return Indicates whether the Dedicated Host supports multiple instance types of the same instance family. If the
+     *         value is <code>on</code>, the Dedicated Host supports multiple instance types in the instance family. If
+     *         the value is <code>off</code>, the Dedicated Host supports a single instance type only.
+     * @see AllowsMultipleInstanceTypes
+     */
+
+    public String getAllowsMultipleInstanceTypes() {
+        return this.allowsMultipleInstanceTypes;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the Dedicated Host supports multiple instance types of the same instance family. If the value
+     * is <code>on</code>, the Dedicated Host supports multiple instance types in the instance family. If the value is
+     * <code>off</code>, the Dedicated Host supports a single instance type only.
+     * </p>
+     * 
+     * @param allowsMultipleInstanceTypes
+     *        Indicates whether the Dedicated Host supports multiple instance types of the same instance family. If the
+     *        value is <code>on</code>, the Dedicated Host supports multiple instance types in the instance family. If
+     *        the value is <code>off</code>, the Dedicated Host supports a single instance type only.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AllowsMultipleInstanceTypes
+     */
+
+    public Host withAllowsMultipleInstanceTypes(String allowsMultipleInstanceTypes) {
+        setAllowsMultipleInstanceTypes(allowsMultipleInstanceTypes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the Dedicated Host supports multiple instance types of the same instance family. If the value
+     * is <code>on</code>, the Dedicated Host supports multiple instance types in the instance family. If the value is
+     * <code>off</code>, the Dedicated Host supports a single instance type only.
+     * </p>
+     * 
+     * @param allowsMultipleInstanceTypes
+     *        Indicates whether the Dedicated Host supports multiple instance types of the same instance family. If the
+     *        value is <code>on</code>, the Dedicated Host supports multiple instance types in the instance family. If
+     *        the value is <code>off</code>, the Dedicated Host supports a single instance type only.
+     * @see AllowsMultipleInstanceTypes
+     */
+
+    public void setAllowsMultipleInstanceTypes(AllowsMultipleInstanceTypes allowsMultipleInstanceTypes) {
+        withAllowsMultipleInstanceTypes(allowsMultipleInstanceTypes);
+    }
+
+    /**
+     * <p>
+     * Indicates whether the Dedicated Host supports multiple instance types of the same instance family. If the value
+     * is <code>on</code>, the Dedicated Host supports multiple instance types in the instance family. If the value is
+     * <code>off</code>, the Dedicated Host supports a single instance type only.
+     * </p>
+     * 
+     * @param allowsMultipleInstanceTypes
+     *        Indicates whether the Dedicated Host supports multiple instance types of the same instance family. If the
+     *        value is <code>on</code>, the Dedicated Host supports multiple instance types in the instance family. If
+     *        the value is <code>off</code>, the Dedicated Host supports a single instance type only.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AllowsMultipleInstanceTypes
+     */
+
+    public Host withAllowsMultipleInstanceTypes(AllowsMultipleInstanceTypes allowsMultipleInstanceTypes) {
+        this.allowsMultipleInstanceTypes = allowsMultipleInstanceTypes.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the Amazon Web Services account that owns the Dedicated Host.
+     * </p>
+     * 
+     * @param ownerId
+     *        The ID of the Amazon Web Services account that owns the Dedicated Host.
+     */
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Amazon Web Services account that owns the Dedicated Host.
+     * </p>
+     * 
+     * @return The ID of the Amazon Web Services account that owns the Dedicated Host.
+     */
+
+    public String getOwnerId() {
+        return this.ownerId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Amazon Web Services account that owns the Dedicated Host.
+     * </p>
+     * 
+     * @param ownerId
+     *        The ID of the Amazon Web Services account that owns the Dedicated Host.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Host withOwnerId(String ownerId) {
+        setOwnerId(ownerId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the Availability Zone in which the Dedicated Host is allocated.
+     * </p>
+     * 
+     * @param availabilityZoneId
+     *        The ID of the Availability Zone in which the Dedicated Host is allocated.
+     */
+
+    public void setAvailabilityZoneId(String availabilityZoneId) {
+        this.availabilityZoneId = availabilityZoneId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Availability Zone in which the Dedicated Host is allocated.
+     * </p>
+     * 
+     * @return The ID of the Availability Zone in which the Dedicated Host is allocated.
+     */
+
+    public String getAvailabilityZoneId() {
+        return this.availabilityZoneId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Availability Zone in which the Dedicated Host is allocated.
+     * </p>
+     * 
+     * @param availabilityZoneId
+     *        The ID of the Availability Zone in which the Dedicated Host is allocated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Host withAvailabilityZoneId(String availabilityZoneId) {
+        setAvailabilityZoneId(availabilityZoneId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the Dedicated Host is in a host resource group. If <b>memberOfServiceLinkedResourceGroup</b> is
+     * <code>true</code>, the host is in a host resource group; otherwise, it is not.
+     * </p>
+     * 
+     * @param memberOfServiceLinkedResourceGroup
+     *        Indicates whether the Dedicated Host is in a host resource group. If
+     *        <b>memberOfServiceLinkedResourceGroup</b> is <code>true</code>, the host is in a host resource group;
+     *        otherwise, it is not.
+     */
+
+    public void setMemberOfServiceLinkedResourceGroup(Boolean memberOfServiceLinkedResourceGroup) {
+        this.memberOfServiceLinkedResourceGroup = memberOfServiceLinkedResourceGroup;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the Dedicated Host is in a host resource group. If <b>memberOfServiceLinkedResourceGroup</b> is
+     * <code>true</code>, the host is in a host resource group; otherwise, it is not.
+     * </p>
+     * 
+     * @return Indicates whether the Dedicated Host is in a host resource group. If
+     *         <b>memberOfServiceLinkedResourceGroup</b> is <code>true</code>, the host is in a host resource group;
+     *         otherwise, it is not.
+     */
+
+    public Boolean getMemberOfServiceLinkedResourceGroup() {
+        return this.memberOfServiceLinkedResourceGroup;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the Dedicated Host is in a host resource group. If <b>memberOfServiceLinkedResourceGroup</b> is
+     * <code>true</code>, the host is in a host resource group; otherwise, it is not.
+     * </p>
+     * 
+     * @param memberOfServiceLinkedResourceGroup
+     *        Indicates whether the Dedicated Host is in a host resource group. If
+     *        <b>memberOfServiceLinkedResourceGroup</b> is <code>true</code>, the host is in a host resource group;
+     *        otherwise, it is not.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Host withMemberOfServiceLinkedResourceGroup(Boolean memberOfServiceLinkedResourceGroup) {
+        setMemberOfServiceLinkedResourceGroup(memberOfServiceLinkedResourceGroup);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the Dedicated Host is in a host resource group. If <b>memberOfServiceLinkedResourceGroup</b> is
+     * <code>true</code>, the host is in a host resource group; otherwise, it is not.
+     * </p>
+     * 
+     * @return Indicates whether the Dedicated Host is in a host resource group. If
+     *         <b>memberOfServiceLinkedResourceGroup</b> is <code>true</code>, the host is in a host resource group;
+     *         otherwise, it is not.
+     */
+
+    public Boolean isMemberOfServiceLinkedResourceGroup() {
+        return this.memberOfServiceLinkedResourceGroup;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Amazon Web Services Outpost on which the Dedicated Host is allocated.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Amazon Web Services Outpost on which the Dedicated Host is
+     *        allocated.
+     */
+
+    public void setOutpostArn(String outpostArn) {
+        this.outpostArn = outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Amazon Web Services Outpost on which the Dedicated Host is allocated.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the Amazon Web Services Outpost on which the Dedicated Host is
+     *         allocated.
+     */
+
+    public String getOutpostArn() {
+        return this.outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Amazon Web Services Outpost on which the Dedicated Host is allocated.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Amazon Web Services Outpost on which the Dedicated Host is
+     *        allocated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Host withOutpostArn(String outpostArn) {
+        setOutpostArn(outpostArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether host maintenance is enabled or disabled for the Dedicated Host.
+     * </p>
+     * 
+     * @param hostMaintenance
+     *        Indicates whether host maintenance is enabled or disabled for the Dedicated Host.
+     * @see HostMaintenance
+     */
+
+    public void setHostMaintenance(String hostMaintenance) {
+        this.hostMaintenance = hostMaintenance;
+    }
+
+    /**
+     * <p>
+     * Indicates whether host maintenance is enabled or disabled for the Dedicated Host.
+     * </p>
+     * 
+     * @return Indicates whether host maintenance is enabled or disabled for the Dedicated Host.
+     * @see HostMaintenance
+     */
+
+    public String getHostMaintenance() {
+        return this.hostMaintenance;
+    }
+
+    /**
+     * <p>
+     * Indicates whether host maintenance is enabled or disabled for the Dedicated Host.
+     * </p>
+     * 
+     * @param hostMaintenance
+     *        Indicates whether host maintenance is enabled or disabled for the Dedicated Host.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HostMaintenance
+     */
+
+    public Host withHostMaintenance(String hostMaintenance) {
+        setHostMaintenance(hostMaintenance);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether host maintenance is enabled or disabled for the Dedicated Host.
+     * </p>
+     * 
+     * @param hostMaintenance
+     *        Indicates whether host maintenance is enabled or disabled for the Dedicated Host.
+     * @see HostMaintenance
+     */
+
+    public void setHostMaintenance(HostMaintenance hostMaintenance) {
+        withHostMaintenance(hostMaintenance);
+    }
+
+    /**
+     * <p>
+     * Indicates whether host maintenance is enabled or disabled for the Dedicated Host.
+     * </p>
+     * 
+     * @param hostMaintenance
+     *        Indicates whether host maintenance is enabled or disabled for the Dedicated Host.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HostMaintenance
+     */
+
+    public Host withHostMaintenance(HostMaintenance hostMaintenance) {
+        this.hostMaintenance = hostMaintenance.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the Outpost hardware asset on which the Dedicated Host is allocated.
+     * </p>
+     * 
+     * @param assetId
+     *        The ID of the Outpost hardware asset on which the Dedicated Host is allocated.
+     */
+
+    public void setAssetId(String assetId) {
+        this.assetId = assetId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Outpost hardware asset on which the Dedicated Host is allocated.
+     * </p>
+     * 
+     * @return The ID of the Outpost hardware asset on which the Dedicated Host is allocated.
+     */
+
+    public String getAssetId() {
+        return this.assetId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Outpost hardware asset on which the Dedicated Host is allocated.
+     * </p>
+     * 
+     * @param assetId
+     *        The ID of the Outpost hardware asset on which the Dedicated Host is allocated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Host withAssetId(String assetId) {
+        setAssetId(assetId);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -854,7 +1292,21 @@ public class Host implements Serializable, Cloneable {
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getHostRecovery() != null)
-            sb.append("HostRecovery: ").append(getHostRecovery());
+            sb.append("HostRecovery: ").append(getHostRecovery()).append(",");
+        if (getAllowsMultipleInstanceTypes() != null)
+            sb.append("AllowsMultipleInstanceTypes: ").append(getAllowsMultipleInstanceTypes()).append(",");
+        if (getOwnerId() != null)
+            sb.append("OwnerId: ").append(getOwnerId()).append(",");
+        if (getAvailabilityZoneId() != null)
+            sb.append("AvailabilityZoneId: ").append(getAvailabilityZoneId()).append(",");
+        if (getMemberOfServiceLinkedResourceGroup() != null)
+            sb.append("MemberOfServiceLinkedResourceGroup: ").append(getMemberOfServiceLinkedResourceGroup()).append(",");
+        if (getOutpostArn() != null)
+            sb.append("OutpostArn: ").append(getOutpostArn()).append(",");
+        if (getHostMaintenance() != null)
+            sb.append("HostMaintenance: ").append(getHostMaintenance()).append(",");
+        if (getAssetId() != null)
+            sb.append("AssetId: ").append(getAssetId());
         sb.append("}");
         return sb.toString();
     }
@@ -921,6 +1373,35 @@ public class Host implements Serializable, Cloneable {
             return false;
         if (other.getHostRecovery() != null && other.getHostRecovery().equals(this.getHostRecovery()) == false)
             return false;
+        if (other.getAllowsMultipleInstanceTypes() == null ^ this.getAllowsMultipleInstanceTypes() == null)
+            return false;
+        if (other.getAllowsMultipleInstanceTypes() != null && other.getAllowsMultipleInstanceTypes().equals(this.getAllowsMultipleInstanceTypes()) == false)
+            return false;
+        if (other.getOwnerId() == null ^ this.getOwnerId() == null)
+            return false;
+        if (other.getOwnerId() != null && other.getOwnerId().equals(this.getOwnerId()) == false)
+            return false;
+        if (other.getAvailabilityZoneId() == null ^ this.getAvailabilityZoneId() == null)
+            return false;
+        if (other.getAvailabilityZoneId() != null && other.getAvailabilityZoneId().equals(this.getAvailabilityZoneId()) == false)
+            return false;
+        if (other.getMemberOfServiceLinkedResourceGroup() == null ^ this.getMemberOfServiceLinkedResourceGroup() == null)
+            return false;
+        if (other.getMemberOfServiceLinkedResourceGroup() != null
+                && other.getMemberOfServiceLinkedResourceGroup().equals(this.getMemberOfServiceLinkedResourceGroup()) == false)
+            return false;
+        if (other.getOutpostArn() == null ^ this.getOutpostArn() == null)
+            return false;
+        if (other.getOutpostArn() != null && other.getOutpostArn().equals(this.getOutpostArn()) == false)
+            return false;
+        if (other.getHostMaintenance() == null ^ this.getHostMaintenance() == null)
+            return false;
+        if (other.getHostMaintenance() != null && other.getHostMaintenance().equals(this.getHostMaintenance()) == false)
+            return false;
+        if (other.getAssetId() == null ^ this.getAssetId() == null)
+            return false;
+        if (other.getAssetId() != null && other.getAssetId().equals(this.getAssetId()) == false)
+            return false;
         return true;
     }
 
@@ -942,6 +1423,13 @@ public class Host implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getReleaseTime() == null) ? 0 : getReleaseTime().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getHostRecovery() == null) ? 0 : getHostRecovery().hashCode());
+        hashCode = prime * hashCode + ((getAllowsMultipleInstanceTypes() == null) ? 0 : getAllowsMultipleInstanceTypes().hashCode());
+        hashCode = prime * hashCode + ((getOwnerId() == null) ? 0 : getOwnerId().hashCode());
+        hashCode = prime * hashCode + ((getAvailabilityZoneId() == null) ? 0 : getAvailabilityZoneId().hashCode());
+        hashCode = prime * hashCode + ((getMemberOfServiceLinkedResourceGroup() == null) ? 0 : getMemberOfServiceLinkedResourceGroup().hashCode());
+        hashCode = prime * hashCode + ((getOutpostArn() == null) ? 0 : getOutpostArn().hashCode());
+        hashCode = prime * hashCode + ((getHostMaintenance() == null) ? 0 : getHostMaintenance().hashCode());
+        hashCode = prime * hashCode + ((getAssetId() == null) ? 0 : getAssetId().hashCode());
         return hashCode;
     }
 

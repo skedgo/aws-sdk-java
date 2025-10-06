@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,18 +25,18 @@ public class ModifyEbsDefaultKmsKeyIdResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the default CMK for encryption by default.
+     * The Amazon Resource Name (ARN) of the default KMS key for encryption by default.
      * </p>
      */
     private String kmsKeyId;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the default CMK for encryption by default.
+     * The Amazon Resource Name (ARN) of the default KMS key for encryption by default.
      * </p>
      * 
      * @param kmsKeyId
-     *        The Amazon Resource Name (ARN) of the default CMK for encryption by default.
+     *        The Amazon Resource Name (ARN) of the default KMS key for encryption by default.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -45,10 +45,10 @@ public class ModifyEbsDefaultKmsKeyIdResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the default CMK for encryption by default.
+     * The Amazon Resource Name (ARN) of the default KMS key for encryption by default.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the default CMK for encryption by default.
+     * @return The Amazon Resource Name (ARN) of the default KMS key for encryption by default.
      */
 
     public String getKmsKeyId() {
@@ -57,11 +57,11 @@ public class ModifyEbsDefaultKmsKeyIdResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the default CMK for encryption by default.
+     * The Amazon Resource Name (ARN) of the default KMS key for encryption by default.
      * </p>
      * 
      * @param kmsKeyId
-     *        The Amazon Resource Name (ARN) of the default CMK for encryption by default.
+     *        The Amazon Resource Name (ARN) of the default KMS key for encryption by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,6 +27,8 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class SolutionVersionMarshaller {
 
+    private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("name").build();
     private static final MarshallingInfo<String> SOLUTIONVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("solutionVersionArn").build();
     private static final MarshallingInfo<String> SOLUTIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -43,6 +45,12 @@ public class SolutionVersionMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("datasetGroupArn").build();
     private static final MarshallingInfo<StructuredPojo> SOLUTIONCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("solutionConfig").build();
+    private static final MarshallingInfo<Double> TRAININGHOURS_BINDING = MarshallingInfo.builder(MarshallingType.DOUBLE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("trainingHours").build();
+    private static final MarshallingInfo<String> TRAININGMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("trainingMode").build();
+    private static final MarshallingInfo<StructuredPojo> TUNEDHPOPARAMS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("tunedHPOParams").build();
     private static final MarshallingInfo<String> STATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("status").build();
     private static final MarshallingInfo<String> FAILUREREASON_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -51,6 +59,8 @@ public class SolutionVersionMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("creationDateTime").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<java.util.Date> LASTUPDATEDDATETIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("lastUpdatedDateTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<String> TRAININGTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("trainingType").build();
 
     private static final SolutionVersionMarshaller instance = new SolutionVersionMarshaller();
 
@@ -68,6 +78,7 @@ public class SolutionVersionMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(solutionVersion.getName(), NAME_BINDING);
             protocolMarshaller.marshall(solutionVersion.getSolutionVersionArn(), SOLUTIONVERSIONARN_BINDING);
             protocolMarshaller.marshall(solutionVersion.getSolutionArn(), SOLUTIONARN_BINDING);
             protocolMarshaller.marshall(solutionVersion.getPerformHPO(), PERFORMHPO_BINDING);
@@ -76,10 +87,14 @@ public class SolutionVersionMarshaller {
             protocolMarshaller.marshall(solutionVersion.getEventType(), EVENTTYPE_BINDING);
             protocolMarshaller.marshall(solutionVersion.getDatasetGroupArn(), DATASETGROUPARN_BINDING);
             protocolMarshaller.marshall(solutionVersion.getSolutionConfig(), SOLUTIONCONFIG_BINDING);
+            protocolMarshaller.marshall(solutionVersion.getTrainingHours(), TRAININGHOURS_BINDING);
+            protocolMarshaller.marshall(solutionVersion.getTrainingMode(), TRAININGMODE_BINDING);
+            protocolMarshaller.marshall(solutionVersion.getTunedHPOParams(), TUNEDHPOPARAMS_BINDING);
             protocolMarshaller.marshall(solutionVersion.getStatus(), STATUS_BINDING);
             protocolMarshaller.marshall(solutionVersion.getFailureReason(), FAILUREREASON_BINDING);
             protocolMarshaller.marshall(solutionVersion.getCreationDateTime(), CREATIONDATETIME_BINDING);
             protocolMarshaller.marshall(solutionVersion.getLastUpdatedDateTime(), LASTUPDATEDDATETIME_BINDING);
+            protocolMarshaller.marshall(solutionVersion.getTrainingType(), TRAININGTYPE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

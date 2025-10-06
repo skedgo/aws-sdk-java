@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,8 @@
  */
 package com.amazonaws.services.dlm.model.transform;
 
+import java.util.Map;
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -35,6 +37,22 @@ public class CreateLifecyclePolicyRequestMarshaller {
             .marshallLocationName("State").build();
     private static final MarshallingInfo<StructuredPojo> POLICYDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PolicyDetails").build();
+    private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Tags").build();
+    private static final MarshallingInfo<String> DEFAULTPOLICY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DefaultPolicy").build();
+    private static final MarshallingInfo<Integer> CREATEINTERVAL_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreateInterval").build();
+    private static final MarshallingInfo<Integer> RETAININTERVAL_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RetainInterval").build();
+    private static final MarshallingInfo<Boolean> COPYTAGS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CopyTags").build();
+    private static final MarshallingInfo<Boolean> EXTENDDELETION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExtendDeletion").build();
+    private static final MarshallingInfo<List> CROSSREGIONCOPYTARGETS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CrossRegionCopyTargets").build();
+    private static final MarshallingInfo<StructuredPojo> EXCLUSIONS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Exclusions").build();
 
     private static final CreateLifecyclePolicyRequestMarshaller instance = new CreateLifecyclePolicyRequestMarshaller();
 
@@ -56,6 +74,14 @@ public class CreateLifecyclePolicyRequestMarshaller {
             protocolMarshaller.marshall(createLifecyclePolicyRequest.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(createLifecyclePolicyRequest.getState(), STATE_BINDING);
             protocolMarshaller.marshall(createLifecyclePolicyRequest.getPolicyDetails(), POLICYDETAILS_BINDING);
+            protocolMarshaller.marshall(createLifecyclePolicyRequest.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(createLifecyclePolicyRequest.getDefaultPolicy(), DEFAULTPOLICY_BINDING);
+            protocolMarshaller.marshall(createLifecyclePolicyRequest.getCreateInterval(), CREATEINTERVAL_BINDING);
+            protocolMarshaller.marshall(createLifecyclePolicyRequest.getRetainInterval(), RETAININTERVAL_BINDING);
+            protocolMarshaller.marshall(createLifecyclePolicyRequest.getCopyTags(), COPYTAGS_BINDING);
+            protocolMarshaller.marshall(createLifecyclePolicyRequest.getExtendDeletion(), EXTENDDELETION_BINDING);
+            protocolMarshaller.marshall(createLifecyclePolicyRequest.getCrossRegionCopyTargets(), CROSSREGIONCOPYTARGETS_BINDING);
+            protocolMarshaller.marshall(createLifecyclePolicyRequest.getExclusions(), EXCLUSIONS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

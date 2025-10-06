@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p/>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/support-2013-04-15/ResolveCase" target="_top">AWS API
  *      Documentation</a>
@@ -28,21 +27,21 @@ public class ResolveCaseRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The AWS Support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as
-     * shown in this example: case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
+     * The support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as shown
+     * in this example: case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
      * </p>
      */
     private String caseId;
 
     /**
      * <p>
-     * The AWS Support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as
-     * shown in this example: case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
+     * The support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as shown
+     * in this example: case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
      * </p>
      * 
      * @param caseId
-     *        The AWS Support case ID requested or returned in the call. The case ID is an alphanumeric string formatted
-     *        as shown in this example: case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
+     *        The support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as
+     *        shown in this example: case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
      */
 
     public void setCaseId(String caseId) {
@@ -51,12 +50,12 @@ public class ResolveCaseRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The AWS Support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as
-     * shown in this example: case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
+     * The support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as shown
+     * in this example: case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
      * </p>
      * 
-     * @return The AWS Support case ID requested or returned in the call. The case ID is an alphanumeric string
-     *         formatted as shown in this example: case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
+     * @return The support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as
+     *         shown in this example: case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
      */
 
     public String getCaseId() {
@@ -65,13 +64,13 @@ public class ResolveCaseRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The AWS Support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as
-     * shown in this example: case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
+     * The support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as shown
+     * in this example: case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
      * </p>
      * 
      * @param caseId
-     *        The AWS Support case ID requested or returned in the call. The case ID is an alphanumeric string formatted
-     *        as shown in this example: case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
+     *        The support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as
+     *        shown in this example: case-<i>12345678910-2013-c4c1d2bf33c5cf47</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
 
     /**
      * <p>
-     * One or more network interface permission IDs.
+     * The network interface permission IDs.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> networkInterfacePermissionIds;
@@ -51,12 +51,12 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
      * </li>
      * <li>
      * <p>
-     * <code>network-interface-permission.aws-account-id</code> - The AWS account ID.
+     * <code>network-interface-permission.aws-account-id</code> - The Amazon Web Services account ID.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>network-interface-permission.aws-service</code> - The AWS service.
+     * <code>network-interface-permission.aws-service</code> - The Amazon Web Service.
      * </p>
      * </li>
      * <li>
@@ -70,25 +70,27 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
     /**
      * <p>
-     * The token to request the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * The maximum number of results to return in a single call. To retrieve the remaining results, make another call
-     * with the returned <code>NextToken</code> value. If this parameter is not specified, up to 50 results are returned
-     * by default.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. If this parameter is not specified, up to 50 results are returned by default.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      */
     private Integer maxResults;
 
     /**
      * <p>
-     * One or more network interface permission IDs.
+     * The network interface permission IDs.
      * </p>
      * 
-     * @return One or more network interface permission IDs.
+     * @return The network interface permission IDs.
      */
 
     public java.util.List<String> getNetworkInterfacePermissionIds() {
@@ -100,11 +102,11 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
 
     /**
      * <p>
-     * One or more network interface permission IDs.
+     * The network interface permission IDs.
      * </p>
      * 
      * @param networkInterfacePermissionIds
-     *        One or more network interface permission IDs.
+     *        The network interface permission IDs.
      */
 
     public void setNetworkInterfacePermissionIds(java.util.Collection<String> networkInterfacePermissionIds) {
@@ -118,7 +120,7 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
 
     /**
      * <p>
-     * One or more network interface permission IDs.
+     * The network interface permission IDs.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -127,7 +129,7 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
      * </p>
      * 
      * @param networkInterfacePermissionIds
-     *        One or more network interface permission IDs.
+     *        The network interface permission IDs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -143,11 +145,11 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
 
     /**
      * <p>
-     * One or more network interface permission IDs.
+     * The network interface permission IDs.
      * </p>
      * 
      * @param networkInterfacePermissionIds
-     *        One or more network interface permission IDs.
+     *        The network interface permission IDs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -173,12 +175,12 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
      * </li>
      * <li>
      * <p>
-     * <code>network-interface-permission.aws-account-id</code> - The AWS account ID.
+     * <code>network-interface-permission.aws-account-id</code> - The Amazon Web Services account ID.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>network-interface-permission.aws-service</code> - The AWS service.
+     * <code>network-interface-permission.aws-service</code> - The Amazon Web Service.
      * </p>
      * </li>
      * <li>
@@ -203,12 +205,12 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
      *         </li>
      *         <li>
      *         <p>
-     *         <code>network-interface-permission.aws-account-id</code> - The AWS account ID.
+     *         <code>network-interface-permission.aws-account-id</code> - The Amazon Web Services account ID.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>network-interface-permission.aws-service</code> - The AWS service.
+     *         <code>network-interface-permission.aws-service</code> - The Amazon Web Service.
      *         </p>
      *         </li>
      *         <li>
@@ -243,12 +245,12 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
      * </li>
      * <li>
      * <p>
-     * <code>network-interface-permission.aws-account-id</code> - The AWS account ID.
+     * <code>network-interface-permission.aws-account-id</code> - The Amazon Web Services account ID.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>network-interface-permission.aws-service</code> - The AWS service.
+     * <code>network-interface-permission.aws-service</code> - The Amazon Web Service.
      * </p>
      * </li>
      * <li>
@@ -274,12 +276,12 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
      *        </li>
      *        <li>
      *        <p>
-     *        <code>network-interface-permission.aws-account-id</code> - The AWS account ID.
+     *        <code>network-interface-permission.aws-account-id</code> - The Amazon Web Services account ID.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>network-interface-permission.aws-service</code> - The AWS service.
+     *        <code>network-interface-permission.aws-service</code> - The Amazon Web Service.
      *        </p>
      *        </li>
      *        <li>
@@ -316,12 +318,12 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
      * </li>
      * <li>
      * <p>
-     * <code>network-interface-permission.aws-account-id</code> - The AWS account ID.
+     * <code>network-interface-permission.aws-account-id</code> - The Amazon Web Services account ID.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>network-interface-permission.aws-service</code> - The AWS service.
+     * <code>network-interface-permission.aws-service</code> - The Amazon Web Service.
      * </p>
      * </li>
      * <li>
@@ -352,12 +354,12 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
      *        </li>
      *        <li>
      *        <p>
-     *        <code>network-interface-permission.aws-account-id</code> - The AWS account ID.
+     *        <code>network-interface-permission.aws-account-id</code> - The Amazon Web Services account ID.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>network-interface-permission.aws-service</code> - The AWS service.
+     *        <code>network-interface-permission.aws-service</code> - The Amazon Web Service.
      *        </p>
      *        </li>
      *        <li>
@@ -396,12 +398,12 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
      * </li>
      * <li>
      * <p>
-     * <code>network-interface-permission.aws-account-id</code> - The AWS account ID.
+     * <code>network-interface-permission.aws-account-id</code> - The Amazon Web Services account ID.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>network-interface-permission.aws-service</code> - The AWS service.
+     * <code>network-interface-permission.aws-service</code> - The Amazon Web Service.
      * </p>
      * </li>
      * <li>
@@ -427,12 +429,12 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
      *        </li>
      *        <li>
      *        <p>
-     *        <code>network-interface-permission.aws-account-id</code> - The AWS account ID.
+     *        <code>network-interface-permission.aws-account-id</code> - The Amazon Web Services account ID.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>network-interface-permission.aws-service</code> - The AWS service.
+     *        <code>network-interface-permission.aws-service</code> - The Amazon Web Service.
      *        </p>
      *        </li>
      *        <li>
@@ -451,11 +453,13 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
 
     /**
      * <p>
-     * The token to request the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token to request the next page of results.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      */
 
     public void setNextToken(String nextToken) {
@@ -464,10 +468,12 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
 
     /**
      * <p>
-     * The token to request the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
-     * @return The token to request the next page of results.
+     * @return The token returned from a previous paginated request. Pagination continues from the end of the items
+     *         returned by the previous request.
      */
 
     public String getNextToken() {
@@ -476,11 +482,13 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
 
     /**
      * <p>
-     * The token to request the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token to request the next page of results.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -491,15 +499,18 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. To retrieve the remaining results, make another call
-     * with the returned <code>NextToken</code> value. If this parameter is not specified, up to 50 results are returned
-     * by default.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. If this parameter is not specified, up to 50 results are returned by default.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return in a single call. To retrieve the remaining results, make another
-     *        call with the returned <code>NextToken</code> value. If this parameter is not specified, up to 50 results
-     *        are returned by default.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. If this parameter is not specified, up to 50 results are
+     *        returned by default. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -508,14 +519,17 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. To retrieve the remaining results, make another call
-     * with the returned <code>NextToken</code> value. If this parameter is not specified, up to 50 results are returned
-     * by default.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. If this parameter is not specified, up to 50 results are returned by default.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
-     * @return The maximum number of results to return in a single call. To retrieve the remaining results, make another
-     *         call with the returned <code>NextToken</code> value. If this parameter is not specified, up to 50 results
-     *         are returned by default.
+     * @return The maximum number of items to return for this request. To get the next page of items, make another
+     *         request with the token returned in the output. If this parameter is not specified, up to 50 results are
+     *         returned by default. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *         >Pagination</a>.
      */
 
     public Integer getMaxResults() {
@@ -524,15 +538,18 @@ public class DescribeNetworkInterfacePermissionsRequest extends AmazonWebService
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. To retrieve the remaining results, make another call
-     * with the returned <code>NextToken</code> value. If this parameter is not specified, up to 50 results are returned
-     * by default.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. If this parameter is not specified, up to 50 results are returned by default.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return in a single call. To retrieve the remaining results, make another
-     *        call with the returned <code>NextToken</code> value. If this parameter is not specified, up to 50 results
-     *        are returned by default.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. If this parameter is not specified, up to 50 results are
+     *        returned by default. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

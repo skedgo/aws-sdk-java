@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,7 +34,7 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     /**
      * <p>
      * The new role Amazon Resource Name (ARN) that you want to associate with this job. To create a role ARN, use the
-     * <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>AWS Identity and
+     * <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>Identity and
      * Access Management (IAM) API action.
      * </p>
      */
@@ -51,6 +51,14 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      */
     private JobResource resources;
+    /**
+     * <p>
+     * Specifies the service or services on the Snow Family device that your transferred data will be exported from or
+     * imported into. Amazon Web Services Snow Family supports Amazon S3 and NFS (Network File System) and the Amazon
+     * Web Services Storage Gateway service Tape Gateway type.
+     * </p>
+     */
+    private OnDeviceServiceConfiguration onDeviceServiceConfiguration;
     /**
      * <p>
      * The ID of the updated <a>Address</a> object.
@@ -74,6 +82,12 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * The updated <code>SnowballCapacityPreference</code> of this job's <a>JobMetadata</a> object. The 50 TB Snowballs
      * are only available in the US regions.
      * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
      */
     private String snowballCapacityPreference;
     /**
@@ -82,6 +96,8 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      */
     private String forwardingAddressId;
+
+    private PickupDetails pickupDetails;
 
     /**
      * <p>
@@ -129,14 +145,15 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     /**
      * <p>
      * The new role Amazon Resource Name (ARN) that you want to associate with this job. To create a role ARN, use the
-     * <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>AWS Identity and
+     * <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>Identity and
      * Access Management (IAM) API action.
      * </p>
      * 
      * @param roleARN
      *        The new role Amazon Resource Name (ARN) that you want to associate with this job. To create a role ARN,
-     *        use the <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>AWS
-     *        Identity and Access Management (IAM) API action.
+     *        use the <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>Identity and
+     *        Access Management (IAM) API action.
      */
 
     public void setRoleARN(String roleARN) {
@@ -146,14 +163,14 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     /**
      * <p>
      * The new role Amazon Resource Name (ARN) that you want to associate with this job. To create a role ARN, use the
-     * <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>AWS Identity and
+     * <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>Identity and
      * Access Management (IAM) API action.
      * </p>
      * 
      * @return The new role Amazon Resource Name (ARN) that you want to associate with this job. To create a role ARN,
      *         use the <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>AWS Identity
-     *         and Access Management (IAM) API action.
+     *         href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>Identity and
+     *         Access Management (IAM) API action.
      */
 
     public String getRoleARN() {
@@ -163,14 +180,15 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     /**
      * <p>
      * The new role Amazon Resource Name (ARN) that you want to associate with this job. To create a role ARN, use the
-     * <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>AWS Identity and
+     * <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>Identity and
      * Access Management (IAM) API action.
      * </p>
      * 
      * @param roleARN
      *        The new role Amazon Resource Name (ARN) that you want to associate with this job. To create a role ARN,
-     *        use the <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>AWS
-     *        Identity and Access Management (IAM) API action.
+     *        use the <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>Identity and
+     *        Access Management (IAM) API action.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -256,6 +274,58 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     public UpdateJobRequest withResources(JobResource resources) {
         setResources(resources);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the service or services on the Snow Family device that your transferred data will be exported from or
+     * imported into. Amazon Web Services Snow Family supports Amazon S3 and NFS (Network File System) and the Amazon
+     * Web Services Storage Gateway service Tape Gateway type.
+     * </p>
+     * 
+     * @param onDeviceServiceConfiguration
+     *        Specifies the service or services on the Snow Family device that your transferred data will be exported
+     *        from or imported into. Amazon Web Services Snow Family supports Amazon S3 and NFS (Network File System)
+     *        and the Amazon Web Services Storage Gateway service Tape Gateway type.
+     */
+
+    public void setOnDeviceServiceConfiguration(OnDeviceServiceConfiguration onDeviceServiceConfiguration) {
+        this.onDeviceServiceConfiguration = onDeviceServiceConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies the service or services on the Snow Family device that your transferred data will be exported from or
+     * imported into. Amazon Web Services Snow Family supports Amazon S3 and NFS (Network File System) and the Amazon
+     * Web Services Storage Gateway service Tape Gateway type.
+     * </p>
+     * 
+     * @return Specifies the service or services on the Snow Family device that your transferred data will be exported
+     *         from or imported into. Amazon Web Services Snow Family supports Amazon S3 and NFS (Network File System)
+     *         and the Amazon Web Services Storage Gateway service Tape Gateway type.
+     */
+
+    public OnDeviceServiceConfiguration getOnDeviceServiceConfiguration() {
+        return this.onDeviceServiceConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies the service or services on the Snow Family device that your transferred data will be exported from or
+     * imported into. Amazon Web Services Snow Family supports Amazon S3 and NFS (Network File System) and the Amazon
+     * Web Services Storage Gateway service Tape Gateway type.
+     * </p>
+     * 
+     * @param onDeviceServiceConfiguration
+     *        Specifies the service or services on the Snow Family device that your transferred data will be exported
+     *        from or imported into. Amazon Web Services Snow Family supports Amazon S3 and NFS (Network File System)
+     *        and the Amazon Web Services Storage Gateway service Tape Gateway type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateJobRequest withOnDeviceServiceConfiguration(OnDeviceServiceConfiguration onDeviceServiceConfiguration) {
+        setOnDeviceServiceConfiguration(onDeviceServiceConfiguration);
         return this;
     }
 
@@ -417,10 +487,22 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * The updated <code>SnowballCapacityPreference</code> of this job's <a>JobMetadata</a> object. The 50 TB Snowballs
      * are only available in the US regions.
      * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
      * 
      * @param snowballCapacityPreference
      *        The updated <code>SnowballCapacityPreference</code> of this job's <a>JobMetadata</a> object. The 50 TB
-     *        Snowballs are only available in the US regions.
+     *        Snowballs are only available in the US regions.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @see SnowballCapacity
      */
 
@@ -433,9 +515,21 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * The updated <code>SnowballCapacityPreference</code> of this job's <a>JobMetadata</a> object. The 50 TB Snowballs
      * are only available in the US regions.
      * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
      * 
      * @return The updated <code>SnowballCapacityPreference</code> of this job's <a>JobMetadata</a> object. The 50 TB
-     *         Snowballs are only available in the US regions.
+     *         Snowballs are only available in the US regions.</p>
+     *         <p>
+     *         For more information, see
+     *         "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *         and Capacity) in the <i>Snowcone User Guide</i> or
+     *         "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *         and Capacity) in the <i>Snowcone User Guide</i>.
      * @see SnowballCapacity
      */
 
@@ -448,10 +542,22 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * The updated <code>SnowballCapacityPreference</code> of this job's <a>JobMetadata</a> object. The 50 TB Snowballs
      * are only available in the US regions.
      * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
      * 
      * @param snowballCapacityPreference
      *        The updated <code>SnowballCapacityPreference</code> of this job's <a>JobMetadata</a> object. The 50 TB
-     *        Snowballs are only available in the US regions.
+     *        Snowballs are only available in the US regions.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SnowballCapacity
      */
@@ -466,10 +572,22 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * The updated <code>SnowballCapacityPreference</code> of this job's <a>JobMetadata</a> object. The 50 TB Snowballs
      * are only available in the US regions.
      * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
      * 
      * @param snowballCapacityPreference
      *        The updated <code>SnowballCapacityPreference</code> of this job's <a>JobMetadata</a> object. The 50 TB
-     *        Snowballs are only available in the US regions.
+     *        Snowballs are only available in the US regions.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @see SnowballCapacity
      */
 
@@ -482,10 +600,22 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * The updated <code>SnowballCapacityPreference</code> of this job's <a>JobMetadata</a> object. The 50 TB Snowballs
      * are only available in the US regions.
      * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
      * 
      * @param snowballCapacityPreference
      *        The updated <code>SnowballCapacityPreference</code> of this job's <a>JobMetadata</a> object. The 50 TB
-     *        Snowballs are only available in the US regions.
+     *        Snowballs are only available in the US regions.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SnowballCapacity
      */
@@ -536,6 +666,32 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     }
 
     /**
+     * @param pickupDetails
+     */
+
+    public void setPickupDetails(PickupDetails pickupDetails) {
+        this.pickupDetails = pickupDetails;
+    }
+
+    /**
+     * @return
+     */
+
+    public PickupDetails getPickupDetails() {
+        return this.pickupDetails;
+    }
+
+    /**
+     * @param pickupDetails
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateJobRequest withPickupDetails(PickupDetails pickupDetails) {
+        setPickupDetails(pickupDetails);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -555,6 +711,8 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
             sb.append("Notification: ").append(getNotification()).append(",");
         if (getResources() != null)
             sb.append("Resources: ").append(getResources()).append(",");
+        if (getOnDeviceServiceConfiguration() != null)
+            sb.append("OnDeviceServiceConfiguration: ").append(getOnDeviceServiceConfiguration()).append(",");
         if (getAddressId() != null)
             sb.append("AddressId: ").append(getAddressId()).append(",");
         if (getShippingOption() != null)
@@ -564,7 +722,9 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
         if (getSnowballCapacityPreference() != null)
             sb.append("SnowballCapacityPreference: ").append(getSnowballCapacityPreference()).append(",");
         if (getForwardingAddressId() != null)
-            sb.append("ForwardingAddressId: ").append(getForwardingAddressId());
+            sb.append("ForwardingAddressId: ").append(getForwardingAddressId()).append(",");
+        if (getPickupDetails() != null)
+            sb.append("PickupDetails: ").append(getPickupDetails());
         sb.append("}");
         return sb.toString();
     }
@@ -595,6 +755,10 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
             return false;
         if (other.getResources() != null && other.getResources().equals(this.getResources()) == false)
             return false;
+        if (other.getOnDeviceServiceConfiguration() == null ^ this.getOnDeviceServiceConfiguration() == null)
+            return false;
+        if (other.getOnDeviceServiceConfiguration() != null && other.getOnDeviceServiceConfiguration().equals(this.getOnDeviceServiceConfiguration()) == false)
+            return false;
         if (other.getAddressId() == null ^ this.getAddressId() == null)
             return false;
         if (other.getAddressId() != null && other.getAddressId().equals(this.getAddressId()) == false)
@@ -615,6 +779,10 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
             return false;
         if (other.getForwardingAddressId() != null && other.getForwardingAddressId().equals(this.getForwardingAddressId()) == false)
             return false;
+        if (other.getPickupDetails() == null ^ this.getPickupDetails() == null)
+            return false;
+        if (other.getPickupDetails() != null && other.getPickupDetails().equals(this.getPickupDetails()) == false)
+            return false;
         return true;
     }
 
@@ -627,11 +795,13 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
         hashCode = prime * hashCode + ((getRoleARN() == null) ? 0 : getRoleARN().hashCode());
         hashCode = prime * hashCode + ((getNotification() == null) ? 0 : getNotification().hashCode());
         hashCode = prime * hashCode + ((getResources() == null) ? 0 : getResources().hashCode());
+        hashCode = prime * hashCode + ((getOnDeviceServiceConfiguration() == null) ? 0 : getOnDeviceServiceConfiguration().hashCode());
         hashCode = prime * hashCode + ((getAddressId() == null) ? 0 : getAddressId().hashCode());
         hashCode = prime * hashCode + ((getShippingOption() == null) ? 0 : getShippingOption().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getSnowballCapacityPreference() == null) ? 0 : getSnowballCapacityPreference().hashCode());
         hashCode = prime * hashCode + ((getForwardingAddressId() == null) ? 0 : getForwardingAddressId().hashCode());
+        hashCode = prime * hashCode + ((getPickupDetails() == null) ? 0 : getPickupDetails().hashCode());
         return hashCode;
     }
 

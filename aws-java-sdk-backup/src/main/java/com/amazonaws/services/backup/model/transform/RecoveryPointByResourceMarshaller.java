@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,12 +33,22 @@ public class RecoveryPointByResourceMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreationDate").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<String> STATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Status").build();
+    private static final MarshallingInfo<String> STATUSMESSAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StatusMessage").build();
     private static final MarshallingInfo<String> ENCRYPTIONKEYARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EncryptionKeyArn").build();
     private static final MarshallingInfo<Long> BACKUPSIZEBYTES_BINDING = MarshallingInfo.builder(MarshallingType.LONG)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("BackupSizeBytes").build();
     private static final MarshallingInfo<String> BACKUPVAULTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("BackupVaultName").build();
+    private static final MarshallingInfo<Boolean> ISPARENT_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IsParent").build();
+    private static final MarshallingInfo<String> PARENTRECOVERYPOINTARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ParentRecoveryPointArn").build();
+    private static final MarshallingInfo<String> RESOURCENAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceName").build();
+    private static final MarshallingInfo<String> VAULTTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("VaultType").build();
 
     private static final RecoveryPointByResourceMarshaller instance = new RecoveryPointByResourceMarshaller();
 
@@ -59,9 +69,14 @@ public class RecoveryPointByResourceMarshaller {
             protocolMarshaller.marshall(recoveryPointByResource.getRecoveryPointArn(), RECOVERYPOINTARN_BINDING);
             protocolMarshaller.marshall(recoveryPointByResource.getCreationDate(), CREATIONDATE_BINDING);
             protocolMarshaller.marshall(recoveryPointByResource.getStatus(), STATUS_BINDING);
+            protocolMarshaller.marshall(recoveryPointByResource.getStatusMessage(), STATUSMESSAGE_BINDING);
             protocolMarshaller.marshall(recoveryPointByResource.getEncryptionKeyArn(), ENCRYPTIONKEYARN_BINDING);
             protocolMarshaller.marshall(recoveryPointByResource.getBackupSizeBytes(), BACKUPSIZEBYTES_BINDING);
             protocolMarshaller.marshall(recoveryPointByResource.getBackupVaultName(), BACKUPVAULTNAME_BINDING);
+            protocolMarshaller.marshall(recoveryPointByResource.getIsParent(), ISPARENT_BINDING);
+            protocolMarshaller.marshall(recoveryPointByResource.getParentRecoveryPointArn(), PARENTRECOVERYPOINTARN_BINDING);
+            protocolMarshaller.marshall(recoveryPointByResource.getResourceName(), RESOURCENAME_BINDING);
+            protocolMarshaller.marshall(recoveryPointByResource.getVaultType(), VAULTTYPE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

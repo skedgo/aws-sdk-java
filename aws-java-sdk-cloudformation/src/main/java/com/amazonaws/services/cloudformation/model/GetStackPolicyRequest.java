@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,18 +30,18 @@ public class GetStackPolicyRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name or unique stack ID that is associated with the stack whose policy you want to get.
+     * The name or unique stack ID that's associated with the stack whose policy you want to get.
      * </p>
      */
     private String stackName;
 
     /**
      * <p>
-     * The name or unique stack ID that is associated with the stack whose policy you want to get.
+     * The name or unique stack ID that's associated with the stack whose policy you want to get.
      * </p>
      * 
      * @param stackName
-     *        The name or unique stack ID that is associated with the stack whose policy you want to get.
+     *        The name or unique stack ID that's associated with the stack whose policy you want to get.
      */
 
     public void setStackName(String stackName) {
@@ -50,10 +50,10 @@ public class GetStackPolicyRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name or unique stack ID that is associated with the stack whose policy you want to get.
+     * The name or unique stack ID that's associated with the stack whose policy you want to get.
      * </p>
      * 
-     * @return The name or unique stack ID that is associated with the stack whose policy you want to get.
+     * @return The name or unique stack ID that's associated with the stack whose policy you want to get.
      */
 
     public String getStackName() {
@@ -62,11 +62,11 @@ public class GetStackPolicyRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name or unique stack ID that is associated with the stack whose policy you want to get.
+     * The name or unique stack ID that's associated with the stack whose policy you want to get.
      * </p>
      * 
      * @param stackName
-     *        The name or unique stack ID that is associated with the stack whose policy you want to get.
+     *        The name or unique stack ID that's associated with the stack whose policy you want to get.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

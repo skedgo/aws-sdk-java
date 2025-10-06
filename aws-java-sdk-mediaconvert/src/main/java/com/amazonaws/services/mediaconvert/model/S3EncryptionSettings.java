@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,19 +30,25 @@ public class S3EncryptionSettings implements Serializable, Cloneable, Structured
      * Specify how you want your data keys managed. AWS uses data keys to encrypt your content. AWS also encrypts the
      * data keys themselves, using a customer master key (CMK), and then stores the encrypted data keys alongside your
      * encrypted content. Use this setting to specify which AWS service manages the CMK. For simplest set up, choose
-     * Amazon S3 (SERVER_SIDE_ENCRYPTION_S3). If you want your master key to be managed by AWS Key Management Service
-     * (KMS), choose AWS KMS (SERVER_SIDE_ENCRYPTION_KMS). By default, when you choose AWS KMS, KMS uses the AWS managed
-     * customer master key (CMK) associated with Amazon S3 to encrypt your data keys. You can optionally choose to
-     * specify a different, customer managed CMK. Do so by specifying the Amazon Resource Name (ARN) of the key for the
-     * setting KMS ARN (kmsKeyArn).
+     * Amazon S3. If you want your master key to be managed by AWS Key Management Service (KMS), choose AWS KMS. By
+     * default, when you choose AWS KMS, KMS uses the AWS managed customer master key (CMK) associated with Amazon S3 to
+     * encrypt your data keys. You can optionally choose to specify a different, customer managed CMK. Do so by
+     * specifying the Amazon Resource Name (ARN) of the key for the setting KMS ARN.
      */
     private String encryptionType;
     /**
+     * Optionally, specify the encryption context that you want to use alongside your KMS key. AWS KMS uses this
+     * encryption context as additional authenticated data (AAD) to support authenticated encryption. This value must be
+     * a base64-encoded UTF-8 string holding JSON which represents a string-string map. To use this setting, you must
+     * also set Server-side encryption to AWS KMS. For more information about encryption context, see:
+     * https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context.
+     */
+    private String kmsEncryptionContext;
+    /**
      * Optionally, specify the customer master key (CMK) that you want to use to encrypt the data key that AWS uses to
      * encrypt your output content. Enter the Amazon Resource Name (ARN) of the CMK. To use this setting, you must also
-     * set Server-side encryption (S3ServerSideEncryptionType) to AWS KMS (SERVER_SIDE_ENCRYPTION_KMS). If you set
-     * Server-side encryption to AWS KMS but don't specify a CMK here, AWS uses the AWS managed CMK associated with
-     * Amazon S3.
+     * set Server-side encryption to AWS KMS. If you set Server-side encryption to AWS KMS but don't specify a CMK here,
+     * AWS uses the AWS managed CMK associated with Amazon S3.
      */
     private String kmsKeyArn;
 
@@ -50,21 +56,20 @@ public class S3EncryptionSettings implements Serializable, Cloneable, Structured
      * Specify how you want your data keys managed. AWS uses data keys to encrypt your content. AWS also encrypts the
      * data keys themselves, using a customer master key (CMK), and then stores the encrypted data keys alongside your
      * encrypted content. Use this setting to specify which AWS service manages the CMK. For simplest set up, choose
-     * Amazon S3 (SERVER_SIDE_ENCRYPTION_S3). If you want your master key to be managed by AWS Key Management Service
-     * (KMS), choose AWS KMS (SERVER_SIDE_ENCRYPTION_KMS). By default, when you choose AWS KMS, KMS uses the AWS managed
-     * customer master key (CMK) associated with Amazon S3 to encrypt your data keys. You can optionally choose to
-     * specify a different, customer managed CMK. Do so by specifying the Amazon Resource Name (ARN) of the key for the
-     * setting KMS ARN (kmsKeyArn).
+     * Amazon S3. If you want your master key to be managed by AWS Key Management Service (KMS), choose AWS KMS. By
+     * default, when you choose AWS KMS, KMS uses the AWS managed customer master key (CMK) associated with Amazon S3 to
+     * encrypt your data keys. You can optionally choose to specify a different, customer managed CMK. Do so by
+     * specifying the Amazon Resource Name (ARN) of the key for the setting KMS ARN.
      * 
      * @param encryptionType
      *        Specify how you want your data keys managed. AWS uses data keys to encrypt your content. AWS also encrypts
      *        the data keys themselves, using a customer master key (CMK), and then stores the encrypted data keys
      *        alongside your encrypted content. Use this setting to specify which AWS service manages the CMK. For
-     *        simplest set up, choose Amazon S3 (SERVER_SIDE_ENCRYPTION_S3). If you want your master key to be managed
-     *        by AWS Key Management Service (KMS), choose AWS KMS (SERVER_SIDE_ENCRYPTION_KMS). By default, when you
-     *        choose AWS KMS, KMS uses the AWS managed customer master key (CMK) associated with Amazon S3 to encrypt
-     *        your data keys. You can optionally choose to specify a different, customer managed CMK. Do so by
-     *        specifying the Amazon Resource Name (ARN) of the key for the setting KMS ARN (kmsKeyArn).
+     *        simplest set up, choose Amazon S3. If you want your master key to be managed by AWS Key Management Service
+     *        (KMS), choose AWS KMS. By default, when you choose AWS KMS, KMS uses the AWS managed customer master key
+     *        (CMK) associated with Amazon S3 to encrypt your data keys. You can optionally choose to specify a
+     *        different, customer managed CMK. Do so by specifying the Amazon Resource Name (ARN) of the key for the
+     *        setting KMS ARN.
      * @see S3ServerSideEncryptionType
      */
 
@@ -76,20 +81,19 @@ public class S3EncryptionSettings implements Serializable, Cloneable, Structured
      * Specify how you want your data keys managed. AWS uses data keys to encrypt your content. AWS also encrypts the
      * data keys themselves, using a customer master key (CMK), and then stores the encrypted data keys alongside your
      * encrypted content. Use this setting to specify which AWS service manages the CMK. For simplest set up, choose
-     * Amazon S3 (SERVER_SIDE_ENCRYPTION_S3). If you want your master key to be managed by AWS Key Management Service
-     * (KMS), choose AWS KMS (SERVER_SIDE_ENCRYPTION_KMS). By default, when you choose AWS KMS, KMS uses the AWS managed
-     * customer master key (CMK) associated with Amazon S3 to encrypt your data keys. You can optionally choose to
-     * specify a different, customer managed CMK. Do so by specifying the Amazon Resource Name (ARN) of the key for the
-     * setting KMS ARN (kmsKeyArn).
+     * Amazon S3. If you want your master key to be managed by AWS Key Management Service (KMS), choose AWS KMS. By
+     * default, when you choose AWS KMS, KMS uses the AWS managed customer master key (CMK) associated with Amazon S3 to
+     * encrypt your data keys. You can optionally choose to specify a different, customer managed CMK. Do so by
+     * specifying the Amazon Resource Name (ARN) of the key for the setting KMS ARN.
      * 
      * @return Specify how you want your data keys managed. AWS uses data keys to encrypt your content. AWS also
      *         encrypts the data keys themselves, using a customer master key (CMK), and then stores the encrypted data
      *         keys alongside your encrypted content. Use this setting to specify which AWS service manages the CMK. For
-     *         simplest set up, choose Amazon S3 (SERVER_SIDE_ENCRYPTION_S3). If you want your master key to be managed
-     *         by AWS Key Management Service (KMS), choose AWS KMS (SERVER_SIDE_ENCRYPTION_KMS). By default, when you
-     *         choose AWS KMS, KMS uses the AWS managed customer master key (CMK) associated with Amazon S3 to encrypt
-     *         your data keys. You can optionally choose to specify a different, customer managed CMK. Do so by
-     *         specifying the Amazon Resource Name (ARN) of the key for the setting KMS ARN (kmsKeyArn).
+     *         simplest set up, choose Amazon S3. If you want your master key to be managed by AWS Key Management
+     *         Service (KMS), choose AWS KMS. By default, when you choose AWS KMS, KMS uses the AWS managed customer
+     *         master key (CMK) associated with Amazon S3 to encrypt your data keys. You can optionally choose to
+     *         specify a different, customer managed CMK. Do so by specifying the Amazon Resource Name (ARN) of the key
+     *         for the setting KMS ARN.
      * @see S3ServerSideEncryptionType
      */
 
@@ -101,21 +105,20 @@ public class S3EncryptionSettings implements Serializable, Cloneable, Structured
      * Specify how you want your data keys managed. AWS uses data keys to encrypt your content. AWS also encrypts the
      * data keys themselves, using a customer master key (CMK), and then stores the encrypted data keys alongside your
      * encrypted content. Use this setting to specify which AWS service manages the CMK. For simplest set up, choose
-     * Amazon S3 (SERVER_SIDE_ENCRYPTION_S3). If you want your master key to be managed by AWS Key Management Service
-     * (KMS), choose AWS KMS (SERVER_SIDE_ENCRYPTION_KMS). By default, when you choose AWS KMS, KMS uses the AWS managed
-     * customer master key (CMK) associated with Amazon S3 to encrypt your data keys. You can optionally choose to
-     * specify a different, customer managed CMK. Do so by specifying the Amazon Resource Name (ARN) of the key for the
-     * setting KMS ARN (kmsKeyArn).
+     * Amazon S3. If you want your master key to be managed by AWS Key Management Service (KMS), choose AWS KMS. By
+     * default, when you choose AWS KMS, KMS uses the AWS managed customer master key (CMK) associated with Amazon S3 to
+     * encrypt your data keys. You can optionally choose to specify a different, customer managed CMK. Do so by
+     * specifying the Amazon Resource Name (ARN) of the key for the setting KMS ARN.
      * 
      * @param encryptionType
      *        Specify how you want your data keys managed. AWS uses data keys to encrypt your content. AWS also encrypts
      *        the data keys themselves, using a customer master key (CMK), and then stores the encrypted data keys
      *        alongside your encrypted content. Use this setting to specify which AWS service manages the CMK. For
-     *        simplest set up, choose Amazon S3 (SERVER_SIDE_ENCRYPTION_S3). If you want your master key to be managed
-     *        by AWS Key Management Service (KMS), choose AWS KMS (SERVER_SIDE_ENCRYPTION_KMS). By default, when you
-     *        choose AWS KMS, KMS uses the AWS managed customer master key (CMK) associated with Amazon S3 to encrypt
-     *        your data keys. You can optionally choose to specify a different, customer managed CMK. Do so by
-     *        specifying the Amazon Resource Name (ARN) of the key for the setting KMS ARN (kmsKeyArn).
+     *        simplest set up, choose Amazon S3. If you want your master key to be managed by AWS Key Management Service
+     *        (KMS), choose AWS KMS. By default, when you choose AWS KMS, KMS uses the AWS managed customer master key
+     *        (CMK) associated with Amazon S3 to encrypt your data keys. You can optionally choose to specify a
+     *        different, customer managed CMK. Do so by specifying the Amazon Resource Name (ARN) of the key for the
+     *        setting KMS ARN.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see S3ServerSideEncryptionType
      */
@@ -129,21 +132,20 @@ public class S3EncryptionSettings implements Serializable, Cloneable, Structured
      * Specify how you want your data keys managed. AWS uses data keys to encrypt your content. AWS also encrypts the
      * data keys themselves, using a customer master key (CMK), and then stores the encrypted data keys alongside your
      * encrypted content. Use this setting to specify which AWS service manages the CMK. For simplest set up, choose
-     * Amazon S3 (SERVER_SIDE_ENCRYPTION_S3). If you want your master key to be managed by AWS Key Management Service
-     * (KMS), choose AWS KMS (SERVER_SIDE_ENCRYPTION_KMS). By default, when you choose AWS KMS, KMS uses the AWS managed
-     * customer master key (CMK) associated with Amazon S3 to encrypt your data keys. You can optionally choose to
-     * specify a different, customer managed CMK. Do so by specifying the Amazon Resource Name (ARN) of the key for the
-     * setting KMS ARN (kmsKeyArn).
+     * Amazon S3. If you want your master key to be managed by AWS Key Management Service (KMS), choose AWS KMS. By
+     * default, when you choose AWS KMS, KMS uses the AWS managed customer master key (CMK) associated with Amazon S3 to
+     * encrypt your data keys. You can optionally choose to specify a different, customer managed CMK. Do so by
+     * specifying the Amazon Resource Name (ARN) of the key for the setting KMS ARN.
      * 
      * @param encryptionType
      *        Specify how you want your data keys managed. AWS uses data keys to encrypt your content. AWS also encrypts
      *        the data keys themselves, using a customer master key (CMK), and then stores the encrypted data keys
      *        alongside your encrypted content. Use this setting to specify which AWS service manages the CMK. For
-     *        simplest set up, choose Amazon S3 (SERVER_SIDE_ENCRYPTION_S3). If you want your master key to be managed
-     *        by AWS Key Management Service (KMS), choose AWS KMS (SERVER_SIDE_ENCRYPTION_KMS). By default, when you
-     *        choose AWS KMS, KMS uses the AWS managed customer master key (CMK) associated with Amazon S3 to encrypt
-     *        your data keys. You can optionally choose to specify a different, customer managed CMK. Do so by
-     *        specifying the Amazon Resource Name (ARN) of the key for the setting KMS ARN (kmsKeyArn).
+     *        simplest set up, choose Amazon S3. If you want your master key to be managed by AWS Key Management Service
+     *        (KMS), choose AWS KMS. By default, when you choose AWS KMS, KMS uses the AWS managed customer master key
+     *        (CMK) associated with Amazon S3 to encrypt your data keys. You can optionally choose to specify a
+     *        different, customer managed CMK. Do so by specifying the Amazon Resource Name (ARN) of the key for the
+     *        setting KMS ARN.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see S3ServerSideEncryptionType
      */
@@ -154,18 +156,74 @@ public class S3EncryptionSettings implements Serializable, Cloneable, Structured
     }
 
     /**
+     * Optionally, specify the encryption context that you want to use alongside your KMS key. AWS KMS uses this
+     * encryption context as additional authenticated data (AAD) to support authenticated encryption. This value must be
+     * a base64-encoded UTF-8 string holding JSON which represents a string-string map. To use this setting, you must
+     * also set Server-side encryption to AWS KMS. For more information about encryption context, see:
+     * https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context.
+     * 
+     * @param kmsEncryptionContext
+     *        Optionally, specify the encryption context that you want to use alongside your KMS key. AWS KMS uses this
+     *        encryption context as additional authenticated data (AAD) to support authenticated encryption. This value
+     *        must be a base64-encoded UTF-8 string holding JSON which represents a string-string map. To use this
+     *        setting, you must also set Server-side encryption to AWS KMS. For more information about encryption
+     *        context, see: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context.
+     */
+
+    public void setKmsEncryptionContext(String kmsEncryptionContext) {
+        this.kmsEncryptionContext = kmsEncryptionContext;
+    }
+
+    /**
+     * Optionally, specify the encryption context that you want to use alongside your KMS key. AWS KMS uses this
+     * encryption context as additional authenticated data (AAD) to support authenticated encryption. This value must be
+     * a base64-encoded UTF-8 string holding JSON which represents a string-string map. To use this setting, you must
+     * also set Server-side encryption to AWS KMS. For more information about encryption context, see:
+     * https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context.
+     * 
+     * @return Optionally, specify the encryption context that you want to use alongside your KMS key. AWS KMS uses this
+     *         encryption context as additional authenticated data (AAD) to support authenticated encryption. This value
+     *         must be a base64-encoded UTF-8 string holding JSON which represents a string-string map. To use this
+     *         setting, you must also set Server-side encryption to AWS KMS. For more information about encryption
+     *         context, see: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context.
+     */
+
+    public String getKmsEncryptionContext() {
+        return this.kmsEncryptionContext;
+    }
+
+    /**
+     * Optionally, specify the encryption context that you want to use alongside your KMS key. AWS KMS uses this
+     * encryption context as additional authenticated data (AAD) to support authenticated encryption. This value must be
+     * a base64-encoded UTF-8 string holding JSON which represents a string-string map. To use this setting, you must
+     * also set Server-side encryption to AWS KMS. For more information about encryption context, see:
+     * https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context.
+     * 
+     * @param kmsEncryptionContext
+     *        Optionally, specify the encryption context that you want to use alongside your KMS key. AWS KMS uses this
+     *        encryption context as additional authenticated data (AAD) to support authenticated encryption. This value
+     *        must be a base64-encoded UTF-8 string holding JSON which represents a string-string map. To use this
+     *        setting, you must also set Server-side encryption to AWS KMS. For more information about encryption
+     *        context, see: https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public S3EncryptionSettings withKmsEncryptionContext(String kmsEncryptionContext) {
+        setKmsEncryptionContext(kmsEncryptionContext);
+        return this;
+    }
+
+    /**
      * Optionally, specify the customer master key (CMK) that you want to use to encrypt the data key that AWS uses to
      * encrypt your output content. Enter the Amazon Resource Name (ARN) of the CMK. To use this setting, you must also
-     * set Server-side encryption (S3ServerSideEncryptionType) to AWS KMS (SERVER_SIDE_ENCRYPTION_KMS). If you set
-     * Server-side encryption to AWS KMS but don't specify a CMK here, AWS uses the AWS managed CMK associated with
-     * Amazon S3.
+     * set Server-side encryption to AWS KMS. If you set Server-side encryption to AWS KMS but don't specify a CMK here,
+     * AWS uses the AWS managed CMK associated with Amazon S3.
      * 
      * @param kmsKeyArn
      *        Optionally, specify the customer master key (CMK) that you want to use to encrypt the data key that AWS
      *        uses to encrypt your output content. Enter the Amazon Resource Name (ARN) of the CMK. To use this setting,
-     *        you must also set Server-side encryption (S3ServerSideEncryptionType) to AWS KMS
-     *        (SERVER_SIDE_ENCRYPTION_KMS). If you set Server-side encryption to AWS KMS but don't specify a CMK here,
-     *        AWS uses the AWS managed CMK associated with Amazon S3.
+     *        you must also set Server-side encryption to AWS KMS. If you set Server-side encryption to AWS KMS but
+     *        don't specify a CMK here, AWS uses the AWS managed CMK associated with Amazon S3.
      */
 
     public void setKmsKeyArn(String kmsKeyArn) {
@@ -175,15 +233,13 @@ public class S3EncryptionSettings implements Serializable, Cloneable, Structured
     /**
      * Optionally, specify the customer master key (CMK) that you want to use to encrypt the data key that AWS uses to
      * encrypt your output content. Enter the Amazon Resource Name (ARN) of the CMK. To use this setting, you must also
-     * set Server-side encryption (S3ServerSideEncryptionType) to AWS KMS (SERVER_SIDE_ENCRYPTION_KMS). If you set
-     * Server-side encryption to AWS KMS but don't specify a CMK here, AWS uses the AWS managed CMK associated with
-     * Amazon S3.
+     * set Server-side encryption to AWS KMS. If you set Server-side encryption to AWS KMS but don't specify a CMK here,
+     * AWS uses the AWS managed CMK associated with Amazon S3.
      * 
      * @return Optionally, specify the customer master key (CMK) that you want to use to encrypt the data key that AWS
      *         uses to encrypt your output content. Enter the Amazon Resource Name (ARN) of the CMK. To use this
-     *         setting, you must also set Server-side encryption (S3ServerSideEncryptionType) to AWS KMS
-     *         (SERVER_SIDE_ENCRYPTION_KMS). If you set Server-side encryption to AWS KMS but don't specify a CMK here,
-     *         AWS uses the AWS managed CMK associated with Amazon S3.
+     *         setting, you must also set Server-side encryption to AWS KMS. If you set Server-side encryption to AWS
+     *         KMS but don't specify a CMK here, AWS uses the AWS managed CMK associated with Amazon S3.
      */
 
     public String getKmsKeyArn() {
@@ -193,16 +249,14 @@ public class S3EncryptionSettings implements Serializable, Cloneable, Structured
     /**
      * Optionally, specify the customer master key (CMK) that you want to use to encrypt the data key that AWS uses to
      * encrypt your output content. Enter the Amazon Resource Name (ARN) of the CMK. To use this setting, you must also
-     * set Server-side encryption (S3ServerSideEncryptionType) to AWS KMS (SERVER_SIDE_ENCRYPTION_KMS). If you set
-     * Server-side encryption to AWS KMS but don't specify a CMK here, AWS uses the AWS managed CMK associated with
-     * Amazon S3.
+     * set Server-side encryption to AWS KMS. If you set Server-side encryption to AWS KMS but don't specify a CMK here,
+     * AWS uses the AWS managed CMK associated with Amazon S3.
      * 
      * @param kmsKeyArn
      *        Optionally, specify the customer master key (CMK) that you want to use to encrypt the data key that AWS
      *        uses to encrypt your output content. Enter the Amazon Resource Name (ARN) of the CMK. To use this setting,
-     *        you must also set Server-side encryption (S3ServerSideEncryptionType) to AWS KMS
-     *        (SERVER_SIDE_ENCRYPTION_KMS). If you set Server-side encryption to AWS KMS but don't specify a CMK here,
-     *        AWS uses the AWS managed CMK associated with Amazon S3.
+     *        you must also set Server-side encryption to AWS KMS. If you set Server-side encryption to AWS KMS but
+     *        don't specify a CMK here, AWS uses the AWS managed CMK associated with Amazon S3.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -225,6 +279,8 @@ public class S3EncryptionSettings implements Serializable, Cloneable, Structured
         sb.append("{");
         if (getEncryptionType() != null)
             sb.append("EncryptionType: ").append(getEncryptionType()).append(",");
+        if (getKmsEncryptionContext() != null)
+            sb.append("KmsEncryptionContext: ").append(getKmsEncryptionContext()).append(",");
         if (getKmsKeyArn() != null)
             sb.append("KmsKeyArn: ").append(getKmsKeyArn());
         sb.append("}");
@@ -245,6 +301,10 @@ public class S3EncryptionSettings implements Serializable, Cloneable, Structured
             return false;
         if (other.getEncryptionType() != null && other.getEncryptionType().equals(this.getEncryptionType()) == false)
             return false;
+        if (other.getKmsEncryptionContext() == null ^ this.getKmsEncryptionContext() == null)
+            return false;
+        if (other.getKmsEncryptionContext() != null && other.getKmsEncryptionContext().equals(this.getKmsEncryptionContext()) == false)
+            return false;
         if (other.getKmsKeyArn() == null ^ this.getKmsKeyArn() == null)
             return false;
         if (other.getKmsKeyArn() != null && other.getKmsKeyArn().equals(this.getKmsKeyArn()) == false)
@@ -258,6 +318,7 @@ public class S3EncryptionSettings implements Serializable, Cloneable, Structured
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getEncryptionType() == null) ? 0 : getEncryptionType().hashCode());
+        hashCode = prime * hashCode + ((getKmsEncryptionContext() == null) ? 0 : getKmsEncryptionContext().hashCode());
         hashCode = prime * hashCode + ((getKmsKeyArn() == null) ? 0 : getKmsKeyArn().hashCode());
         return hashCode;
     }

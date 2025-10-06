@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,9 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about a set of Amazon ECS tasks in either an AWS CodeDeploy or an <code>EXTERNAL</code> deployment. An
- * Amazon ECS task set includes details such as the desired number of tasks, how many tasks are running, and whether the
- * task set serves production traffic.
+ * Information about a set of Amazon ECS tasks in either an CodeDeploy or an <code>EXTERNAL</code> deployment. An Amazon
+ * ECS task set includes details such as the desired number of tasks, how many tasks are running, and whether the task
+ * set serves production traffic.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/TaskSet" target="_top">AWS API Documentation</a>
@@ -55,9 +55,9 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
     private String clusterArn;
     /**
      * <p>
-     * The tag specified when a task set is started. If the task set is created by an AWS CodeDeploy deployment, the
-     * <code>startedBy</code> parameter is <code>CODE_DEPLOY</code>. For a task set created for an external deployment,
-     * the startedBy field isn't used.
+     * The tag specified when a task set is started. If an CodeDeploy deployment created the task set, the
+     * <code>startedBy</code> parameter is <code>CODE_DEPLOY</code>. If an external deployment created the task set, the
+     * <code>startedBy</code> field isn't used.
      * </p>
      */
     private String startedBy;
@@ -66,18 +66,18 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * The external ID associated with the task set.
      * </p>
      * <p>
-     * If a task set is created by an AWS CodeDeploy deployment, the <code>externalId</code> parameter contains the AWS
-     * CodeDeploy deployment ID.
+     * If an CodeDeploy deployment created a task set, the <code>externalId</code> parameter contains the CodeDeploy
+     * deployment ID.
      * </p>
      * <p>
      * If a task set is created for an external deployment and is associated with a service discovery registry, the
-     * <code>externalId</code> parameter contains the <code>ECS_TASK_SET_EXTERNAL_ID</code> AWS Cloud Map attribute.
+     * <code>externalId</code> parameter contains the <code>ECS_TASK_SET_EXTERNAL_ID</code> Cloud Map attribute.
      * </p>
      */
     private String externalId;
     /**
      * <p>
-     * The status of the task set. The following describes each state:
+     * The status of the task set. The following describes each state.
      * </p>
      * <dl>
      * <dt>PRIMARY</dt>
@@ -89,13 +89,13 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * <dt>ACTIVE</dt>
      * <dd>
      * <p>
-     * The task set is not serving production traffic.
+     * The task set isn't serving production traffic.
      * </p>
      * </dd>
      * <dt>DRAINING</dt>
      * <dd>
      * <p>
-     * The tasks in the task set are being stopped and their corresponding targets are being deregistered from their
+     * The tasks in the task set are being stopped, and their corresponding targets are being deregistered from their
      * target group.
      * </p>
      * </dd>
@@ -104,7 +104,7 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
     private String status;
     /**
      * <p>
-     * The task definition the task set is using.
+     * The task definition that the task set is using.
      * </p>
      */
     private String taskDefinition;
@@ -120,7 +120,7 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The number of tasks in the task set that are in the <code>PENDING</code> status during a deployment. A task in
      * the <code>PENDING</code> state is preparing to enter the <code>RUNNING</code> state. A task set enters the
-     * <code>PENDING</code> status when it launches for the first time or when it is restarted after being in the
+     * <code>PENDING</code> status when it launches for the first time or when it's restarted after being in the
      * <code>STOPPED</code> state.
      * </p>
      */
@@ -134,34 +134,49 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
     private Integer runningCount;
     /**
      * <p>
-     * The Unix timestamp for when the task set was created.
+     * The Unix timestamp for the time when the task set was created.
      * </p>
      */
     private java.util.Date createdAt;
     /**
      * <p>
-     * The Unix timestamp for when the task set was last updated.
+     * The Unix timestamp for the time when the task set was last updated.
      * </p>
      */
     private java.util.Date updatedAt;
     /**
      * <p>
      * The launch type the tasks in the task set are using. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS Launch Types</a>
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS launch types</a>
      * in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      */
     private String launchType;
     /**
      * <p>
-     * The platform version on which the tasks in the task set are running. A platform version is only specified for
-     * tasks using the Fargate launch type. If one is not specified, the <code>LATEST</code> platform version is used by
-     * default. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">AWS Fargate Platform
-     * Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * The capacity provider strategy that are associated with the task set.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem> capacityProviderStrategy;
+    /**
+     * <p>
+     * The Fargate platform version where the tasks in the task set are running. A platform version is only specified
+     * for tasks run on Fargate. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate platform
+     * versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      */
     private String platformVersion;
+    /**
+     * <p>
+     * The operating system that your tasks in the set are running on. A platform family is specified only for tasks
+     * that use the Fargate launch type.
+     * </p>
+     * <p>
+     * All tasks in the set must have the same value.
+     * </p>
+     */
+    private String platformFamily;
     /**
      * <p>
      * The network configuration for the task set.
@@ -170,27 +185,27 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
     private NetworkConfiguration networkConfiguration;
     /**
      * <p>
-     * Details on a load balancer that is used with a task set.
+     * Details on a load balancer that are used with a task set.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<LoadBalancer> loadBalancers;
     /**
      * <p>
-     * The details of the service discovery registries to assign to this task set. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service Discovery</a>.
+     * The details for the service discovery registries to assign to this task set. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service discovery</a>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<ServiceRegistry> serviceRegistries;
     /**
      * <p>
-     * A floating-point percentage of the desired number of tasks to place and keep running in the task set.
+     * A floating-point percentage of your desired number of tasks to place and keep running in the task set.
      * </p>
      */
     private Scale scale;
     /**
      * <p>
-     * The stability status, which indicates whether the task set has reached a steady state. If the following
-     * conditions are met, the task set will be in <code>STEADY_STATE</code>:
+     * The stability status. This indicates whether the task set has reached a steady state. If the following conditions
+     * are met, the task set are in <code>STEADY_STATE</code>:
      * </p>
      * <ul>
      * <li>
@@ -205,32 +220,83 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * There are no tasks running on container instances in the <code>DRAINING</code> status.
+     * There are no tasks that are running on container instances in the <code>DRAINING</code> status.
      * </p>
      * </li>
      * <li>
      * <p>
      * All tasks are reporting a healthy status from the load balancers, service discovery, and container health checks.
      * </p>
-     * <note>
-     * <p>
-     * If a <code>healthCheckGracePeriodSeconds</code> value was set when the service was created, you may see a
-     * <code>STEADY_STATE</code> reached since unhealthy Elastic Load Balancing target health checks will be ignored
-     * until it expires.
-     * </p>
-     * </note></li>
+     * </li>
      * </ul>
      * <p>
-     * If any of those conditions are not met, the stability status returns <code>STABILIZING</code>.
+     * If any of those conditions aren't met, the stability status returns <code>STABILIZING</code>.
      * </p>
      */
     private String stabilityStatus;
     /**
      * <p>
-     * The Unix timestamp for when the task set stability status was retrieved.
+     * The Unix timestamp for the time when the task set stability status was retrieved.
      * </p>
      */
     private java.util.Date stabilityStatusAt;
+    /**
+     * <p>
+     * The metadata that you apply to the task set to help you categorize and organize them. Each tag consists of a key
+     * and an optional value. You define both.
+     * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * The Fargate ephemeral storage settings for the task set.
+     * </p>
+     */
+    private DeploymentEphemeralStorage fargateEphemeralStorage;
 
     /**
      * <p>
@@ -394,15 +460,15 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tag specified when a task set is started. If the task set is created by an AWS CodeDeploy deployment, the
-     * <code>startedBy</code> parameter is <code>CODE_DEPLOY</code>. For a task set created for an external deployment,
-     * the startedBy field isn't used.
+     * The tag specified when a task set is started. If an CodeDeploy deployment created the task set, the
+     * <code>startedBy</code> parameter is <code>CODE_DEPLOY</code>. If an external deployment created the task set, the
+     * <code>startedBy</code> field isn't used.
      * </p>
      * 
      * @param startedBy
-     *        The tag specified when a task set is started. If the task set is created by an AWS CodeDeploy deployment,
-     *        the <code>startedBy</code> parameter is <code>CODE_DEPLOY</code>. For a task set created for an external
-     *        deployment, the startedBy field isn't used.
+     *        The tag specified when a task set is started. If an CodeDeploy deployment created the task set, the
+     *        <code>startedBy</code> parameter is <code>CODE_DEPLOY</code>. If an external deployment created the task
+     *        set, the <code>startedBy</code> field isn't used.
      */
 
     public void setStartedBy(String startedBy) {
@@ -411,14 +477,14 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tag specified when a task set is started. If the task set is created by an AWS CodeDeploy deployment, the
-     * <code>startedBy</code> parameter is <code>CODE_DEPLOY</code>. For a task set created for an external deployment,
-     * the startedBy field isn't used.
+     * The tag specified when a task set is started. If an CodeDeploy deployment created the task set, the
+     * <code>startedBy</code> parameter is <code>CODE_DEPLOY</code>. If an external deployment created the task set, the
+     * <code>startedBy</code> field isn't used.
      * </p>
      * 
-     * @return The tag specified when a task set is started. If the task set is created by an AWS CodeDeploy deployment,
-     *         the <code>startedBy</code> parameter is <code>CODE_DEPLOY</code>. For a task set created for an external
-     *         deployment, the startedBy field isn't used.
+     * @return The tag specified when a task set is started. If an CodeDeploy deployment created the task set, the
+     *         <code>startedBy</code> parameter is <code>CODE_DEPLOY</code>. If an external deployment created the task
+     *         set, the <code>startedBy</code> field isn't used.
      */
 
     public String getStartedBy() {
@@ -427,15 +493,15 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tag specified when a task set is started. If the task set is created by an AWS CodeDeploy deployment, the
-     * <code>startedBy</code> parameter is <code>CODE_DEPLOY</code>. For a task set created for an external deployment,
-     * the startedBy field isn't used.
+     * The tag specified when a task set is started. If an CodeDeploy deployment created the task set, the
+     * <code>startedBy</code> parameter is <code>CODE_DEPLOY</code>. If an external deployment created the task set, the
+     * <code>startedBy</code> field isn't used.
      * </p>
      * 
      * @param startedBy
-     *        The tag specified when a task set is started. If the task set is created by an AWS CodeDeploy deployment,
-     *        the <code>startedBy</code> parameter is <code>CODE_DEPLOY</code>. For a task set created for an external
-     *        deployment, the startedBy field isn't used.
+     *        The tag specified when a task set is started. If an CodeDeploy deployment created the task set, the
+     *        <code>startedBy</code> parameter is <code>CODE_DEPLOY</code>. If an external deployment created the task
+     *        set, the <code>startedBy</code> field isn't used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -449,23 +515,23 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * The external ID associated with the task set.
      * </p>
      * <p>
-     * If a task set is created by an AWS CodeDeploy deployment, the <code>externalId</code> parameter contains the AWS
-     * CodeDeploy deployment ID.
+     * If an CodeDeploy deployment created a task set, the <code>externalId</code> parameter contains the CodeDeploy
+     * deployment ID.
      * </p>
      * <p>
      * If a task set is created for an external deployment and is associated with a service discovery registry, the
-     * <code>externalId</code> parameter contains the <code>ECS_TASK_SET_EXTERNAL_ID</code> AWS Cloud Map attribute.
+     * <code>externalId</code> parameter contains the <code>ECS_TASK_SET_EXTERNAL_ID</code> Cloud Map attribute.
      * </p>
      * 
      * @param externalId
      *        The external ID associated with the task set.</p>
      *        <p>
-     *        If a task set is created by an AWS CodeDeploy deployment, the <code>externalId</code> parameter contains
-     *        the AWS CodeDeploy deployment ID.
+     *        If an CodeDeploy deployment created a task set, the <code>externalId</code> parameter contains the
+     *        CodeDeploy deployment ID.
      *        </p>
      *        <p>
      *        If a task set is created for an external deployment and is associated with a service discovery registry,
-     *        the <code>externalId</code> parameter contains the <code>ECS_TASK_SET_EXTERNAL_ID</code> AWS Cloud Map
+     *        the <code>externalId</code> parameter contains the <code>ECS_TASK_SET_EXTERNAL_ID</code> Cloud Map
      *        attribute.
      */
 
@@ -478,22 +544,22 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * The external ID associated with the task set.
      * </p>
      * <p>
-     * If a task set is created by an AWS CodeDeploy deployment, the <code>externalId</code> parameter contains the AWS
-     * CodeDeploy deployment ID.
+     * If an CodeDeploy deployment created a task set, the <code>externalId</code> parameter contains the CodeDeploy
+     * deployment ID.
      * </p>
      * <p>
      * If a task set is created for an external deployment and is associated with a service discovery registry, the
-     * <code>externalId</code> parameter contains the <code>ECS_TASK_SET_EXTERNAL_ID</code> AWS Cloud Map attribute.
+     * <code>externalId</code> parameter contains the <code>ECS_TASK_SET_EXTERNAL_ID</code> Cloud Map attribute.
      * </p>
      * 
      * @return The external ID associated with the task set.</p>
      *         <p>
-     *         If a task set is created by an AWS CodeDeploy deployment, the <code>externalId</code> parameter contains
-     *         the AWS CodeDeploy deployment ID.
+     *         If an CodeDeploy deployment created a task set, the <code>externalId</code> parameter contains the
+     *         CodeDeploy deployment ID.
      *         </p>
      *         <p>
      *         If a task set is created for an external deployment and is associated with a service discovery registry,
-     *         the <code>externalId</code> parameter contains the <code>ECS_TASK_SET_EXTERNAL_ID</code> AWS Cloud Map
+     *         the <code>externalId</code> parameter contains the <code>ECS_TASK_SET_EXTERNAL_ID</code> Cloud Map
      *         attribute.
      */
 
@@ -506,23 +572,23 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * The external ID associated with the task set.
      * </p>
      * <p>
-     * If a task set is created by an AWS CodeDeploy deployment, the <code>externalId</code> parameter contains the AWS
-     * CodeDeploy deployment ID.
+     * If an CodeDeploy deployment created a task set, the <code>externalId</code> parameter contains the CodeDeploy
+     * deployment ID.
      * </p>
      * <p>
      * If a task set is created for an external deployment and is associated with a service discovery registry, the
-     * <code>externalId</code> parameter contains the <code>ECS_TASK_SET_EXTERNAL_ID</code> AWS Cloud Map attribute.
+     * <code>externalId</code> parameter contains the <code>ECS_TASK_SET_EXTERNAL_ID</code> Cloud Map attribute.
      * </p>
      * 
      * @param externalId
      *        The external ID associated with the task set.</p>
      *        <p>
-     *        If a task set is created by an AWS CodeDeploy deployment, the <code>externalId</code> parameter contains
-     *        the AWS CodeDeploy deployment ID.
+     *        If an CodeDeploy deployment created a task set, the <code>externalId</code> parameter contains the
+     *        CodeDeploy deployment ID.
      *        </p>
      *        <p>
      *        If a task set is created for an external deployment and is associated with a service discovery registry,
-     *        the <code>externalId</code> parameter contains the <code>ECS_TASK_SET_EXTERNAL_ID</code> AWS Cloud Map
+     *        the <code>externalId</code> parameter contains the <code>ECS_TASK_SET_EXTERNAL_ID</code> Cloud Map
      *        attribute.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -534,7 +600,7 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the task set. The following describes each state:
+     * The status of the task set. The following describes each state.
      * </p>
      * <dl>
      * <dt>PRIMARY</dt>
@@ -546,20 +612,20 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * <dt>ACTIVE</dt>
      * <dd>
      * <p>
-     * The task set is not serving production traffic.
+     * The task set isn't serving production traffic.
      * </p>
      * </dd>
      * <dt>DRAINING</dt>
      * <dd>
      * <p>
-     * The tasks in the task set are being stopped and their corresponding targets are being deregistered from their
+     * The tasks in the task set are being stopped, and their corresponding targets are being deregistered from their
      * target group.
      * </p>
      * </dd>
      * </dl>
      * 
      * @param status
-     *        The status of the task set. The following describes each state:</p>
+     *        The status of the task set. The following describes each state.</p>
      *        <dl>
      *        <dt>PRIMARY</dt>
      *        <dd>
@@ -570,13 +636,13 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      *        <dt>ACTIVE</dt>
      *        <dd>
      *        <p>
-     *        The task set is not serving production traffic.
+     *        The task set isn't serving production traffic.
      *        </p>
      *        </dd>
      *        <dt>DRAINING</dt>
      *        <dd>
      *        <p>
-     *        The tasks in the task set are being stopped and their corresponding targets are being deregistered from
+     *        The tasks in the task set are being stopped, and their corresponding targets are being deregistered from
      *        their target group.
      *        </p>
      *        </dd>
@@ -588,7 +654,7 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the task set. The following describes each state:
+     * The status of the task set. The following describes each state.
      * </p>
      * <dl>
      * <dt>PRIMARY</dt>
@@ -600,19 +666,19 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * <dt>ACTIVE</dt>
      * <dd>
      * <p>
-     * The task set is not serving production traffic.
+     * The task set isn't serving production traffic.
      * </p>
      * </dd>
      * <dt>DRAINING</dt>
      * <dd>
      * <p>
-     * The tasks in the task set are being stopped and their corresponding targets are being deregistered from their
+     * The tasks in the task set are being stopped, and their corresponding targets are being deregistered from their
      * target group.
      * </p>
      * </dd>
      * </dl>
      * 
-     * @return The status of the task set. The following describes each state:</p>
+     * @return The status of the task set. The following describes each state.</p>
      *         <dl>
      *         <dt>PRIMARY</dt>
      *         <dd>
@@ -623,13 +689,13 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      *         <dt>ACTIVE</dt>
      *         <dd>
      *         <p>
-     *         The task set is not serving production traffic.
+     *         The task set isn't serving production traffic.
      *         </p>
      *         </dd>
      *         <dt>DRAINING</dt>
      *         <dd>
      *         <p>
-     *         The tasks in the task set are being stopped and their corresponding targets are being deregistered from
+     *         The tasks in the task set are being stopped, and their corresponding targets are being deregistered from
      *         their target group.
      *         </p>
      *         </dd>
@@ -641,7 +707,7 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the task set. The following describes each state:
+     * The status of the task set. The following describes each state.
      * </p>
      * <dl>
      * <dt>PRIMARY</dt>
@@ -653,20 +719,20 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * <dt>ACTIVE</dt>
      * <dd>
      * <p>
-     * The task set is not serving production traffic.
+     * The task set isn't serving production traffic.
      * </p>
      * </dd>
      * <dt>DRAINING</dt>
      * <dd>
      * <p>
-     * The tasks in the task set are being stopped and their corresponding targets are being deregistered from their
+     * The tasks in the task set are being stopped, and their corresponding targets are being deregistered from their
      * target group.
      * </p>
      * </dd>
      * </dl>
      * 
      * @param status
-     *        The status of the task set. The following describes each state:</p>
+     *        The status of the task set. The following describes each state.</p>
      *        <dl>
      *        <dt>PRIMARY</dt>
      *        <dd>
@@ -677,13 +743,13 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      *        <dt>ACTIVE</dt>
      *        <dd>
      *        <p>
-     *        The task set is not serving production traffic.
+     *        The task set isn't serving production traffic.
      *        </p>
      *        </dd>
      *        <dt>DRAINING</dt>
      *        <dd>
      *        <p>
-     *        The tasks in the task set are being stopped and their corresponding targets are being deregistered from
+     *        The tasks in the task set are being stopped, and their corresponding targets are being deregistered from
      *        their target group.
      *        </p>
      *        </dd>
@@ -697,11 +763,11 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The task definition the task set is using.
+     * The task definition that the task set is using.
      * </p>
      * 
      * @param taskDefinition
-     *        The task definition the task set is using.
+     *        The task definition that the task set is using.
      */
 
     public void setTaskDefinition(String taskDefinition) {
@@ -710,10 +776,10 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The task definition the task set is using.
+     * The task definition that the task set is using.
      * </p>
      * 
-     * @return The task definition the task set is using.
+     * @return The task definition that the task set is using.
      */
 
     public String getTaskDefinition() {
@@ -722,11 +788,11 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The task definition the task set is using.
+     * The task definition that the task set is using.
      * </p>
      * 
      * @param taskDefinition
-     *        The task definition the task set is using.
+     *        The task definition that the task set is using.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -791,14 +857,14 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The number of tasks in the task set that are in the <code>PENDING</code> status during a deployment. A task in
      * the <code>PENDING</code> state is preparing to enter the <code>RUNNING</code> state. A task set enters the
-     * <code>PENDING</code> status when it launches for the first time or when it is restarted after being in the
+     * <code>PENDING</code> status when it launches for the first time or when it's restarted after being in the
      * <code>STOPPED</code> state.
      * </p>
      * 
      * @param pendingCount
      *        The number of tasks in the task set that are in the <code>PENDING</code> status during a deployment. A
      *        task in the <code>PENDING</code> state is preparing to enter the <code>RUNNING</code> state. A task set
-     *        enters the <code>PENDING</code> status when it launches for the first time or when it is restarted after
+     *        enters the <code>PENDING</code> status when it launches for the first time or when it's restarted after
      *        being in the <code>STOPPED</code> state.
      */
 
@@ -810,13 +876,13 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The number of tasks in the task set that are in the <code>PENDING</code> status during a deployment. A task in
      * the <code>PENDING</code> state is preparing to enter the <code>RUNNING</code> state. A task set enters the
-     * <code>PENDING</code> status when it launches for the first time or when it is restarted after being in the
+     * <code>PENDING</code> status when it launches for the first time or when it's restarted after being in the
      * <code>STOPPED</code> state.
      * </p>
      * 
      * @return The number of tasks in the task set that are in the <code>PENDING</code> status during a deployment. A
      *         task in the <code>PENDING</code> state is preparing to enter the <code>RUNNING</code> state. A task set
-     *         enters the <code>PENDING</code> status when it launches for the first time or when it is restarted after
+     *         enters the <code>PENDING</code> status when it launches for the first time or when it's restarted after
      *         being in the <code>STOPPED</code> state.
      */
 
@@ -828,14 +894,14 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The number of tasks in the task set that are in the <code>PENDING</code> status during a deployment. A task in
      * the <code>PENDING</code> state is preparing to enter the <code>RUNNING</code> state. A task set enters the
-     * <code>PENDING</code> status when it launches for the first time or when it is restarted after being in the
+     * <code>PENDING</code> status when it launches for the first time or when it's restarted after being in the
      * <code>STOPPED</code> state.
      * </p>
      * 
      * @param pendingCount
      *        The number of tasks in the task set that are in the <code>PENDING</code> status during a deployment. A
      *        task in the <code>PENDING</code> state is preparing to enter the <code>RUNNING</code> state. A task set
-     *        enters the <code>PENDING</code> status when it launches for the first time or when it is restarted after
+     *        enters the <code>PENDING</code> status when it launches for the first time or when it's restarted after
      *        being in the <code>STOPPED</code> state.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -893,11 +959,11 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the task set was created.
+     * The Unix timestamp for the time when the task set was created.
      * </p>
      * 
      * @param createdAt
-     *        The Unix timestamp for when the task set was created.
+     *        The Unix timestamp for the time when the task set was created.
      */
 
     public void setCreatedAt(java.util.Date createdAt) {
@@ -906,10 +972,10 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the task set was created.
+     * The Unix timestamp for the time when the task set was created.
      * </p>
      * 
-     * @return The Unix timestamp for when the task set was created.
+     * @return The Unix timestamp for the time when the task set was created.
      */
 
     public java.util.Date getCreatedAt() {
@@ -918,11 +984,11 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the task set was created.
+     * The Unix timestamp for the time when the task set was created.
      * </p>
      * 
      * @param createdAt
-     *        The Unix timestamp for when the task set was created.
+     *        The Unix timestamp for the time when the task set was created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -933,11 +999,11 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the task set was last updated.
+     * The Unix timestamp for the time when the task set was last updated.
      * </p>
      * 
      * @param updatedAt
-     *        The Unix timestamp for when the task set was last updated.
+     *        The Unix timestamp for the time when the task set was last updated.
      */
 
     public void setUpdatedAt(java.util.Date updatedAt) {
@@ -946,10 +1012,10 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the task set was last updated.
+     * The Unix timestamp for the time when the task set was last updated.
      * </p>
      * 
-     * @return The Unix timestamp for when the task set was last updated.
+     * @return The Unix timestamp for the time when the task set was last updated.
      */
 
     public java.util.Date getUpdatedAt() {
@@ -958,11 +1024,11 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the task set was last updated.
+     * The Unix timestamp for the time when the task set was last updated.
      * </p>
      * 
      * @param updatedAt
-     *        The Unix timestamp for when the task set was last updated.
+     *        The Unix timestamp for the time when the task set was last updated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -974,14 +1040,14 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The launch type the tasks in the task set are using. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS Launch Types</a>
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS launch types</a>
      * in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
      * @param launchType
      *        The launch type the tasks in the task set are using. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS Launch
-     *        Types</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS launch
+     *        types</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * @see LaunchType
      */
 
@@ -992,13 +1058,13 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The launch type the tasks in the task set are using. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS Launch Types</a>
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS launch types</a>
      * in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
      * @return The launch type the tasks in the task set are using. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS Launch
-     *         Types</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS launch
+     *         types</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * @see LaunchType
      */
 
@@ -1009,14 +1075,14 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The launch type the tasks in the task set are using. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS Launch Types</a>
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS launch types</a>
      * in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
      * @param launchType
      *        The launch type the tasks in the task set are using. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS Launch
-     *        Types</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS launch
+     *        types</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LaunchType
      */
@@ -1029,14 +1095,14 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The launch type the tasks in the task set are using. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS Launch Types</a>
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS launch types</a>
      * in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
      * @param launchType
      *        The launch type the tasks in the task set are using. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS Launch
-     *        Types</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS launch
+     *        types</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LaunchType
      */
@@ -1048,19 +1114,90 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The platform version on which the tasks in the task set are running. A platform version is only specified for
-     * tasks using the Fargate launch type. If one is not specified, the <code>LATEST</code> platform version is used by
-     * default. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">AWS Fargate Platform
-     * Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * The capacity provider strategy that are associated with the task set.
+     * </p>
+     * 
+     * @return The capacity provider strategy that are associated with the task set.
+     */
+
+    public java.util.List<CapacityProviderStrategyItem> getCapacityProviderStrategy() {
+        if (capacityProviderStrategy == null) {
+            capacityProviderStrategy = new com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem>();
+        }
+        return capacityProviderStrategy;
+    }
+
+    /**
+     * <p>
+     * The capacity provider strategy that are associated with the task set.
+     * </p>
+     * 
+     * @param capacityProviderStrategy
+     *        The capacity provider strategy that are associated with the task set.
+     */
+
+    public void setCapacityProviderStrategy(java.util.Collection<CapacityProviderStrategyItem> capacityProviderStrategy) {
+        if (capacityProviderStrategy == null) {
+            this.capacityProviderStrategy = null;
+            return;
+        }
+
+        this.capacityProviderStrategy = new com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem>(capacityProviderStrategy);
+    }
+
+    /**
+     * <p>
+     * The capacity provider strategy that are associated with the task set.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCapacityProviderStrategy(java.util.Collection)} or
+     * {@link #withCapacityProviderStrategy(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param capacityProviderStrategy
+     *        The capacity provider strategy that are associated with the task set.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TaskSet withCapacityProviderStrategy(CapacityProviderStrategyItem... capacityProviderStrategy) {
+        if (this.capacityProviderStrategy == null) {
+            setCapacityProviderStrategy(new com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem>(capacityProviderStrategy.length));
+        }
+        for (CapacityProviderStrategyItem ele : capacityProviderStrategy) {
+            this.capacityProviderStrategy.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The capacity provider strategy that are associated with the task set.
+     * </p>
+     * 
+     * @param capacityProviderStrategy
+     *        The capacity provider strategy that are associated with the task set.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TaskSet withCapacityProviderStrategy(java.util.Collection<CapacityProviderStrategyItem> capacityProviderStrategy) {
+        setCapacityProviderStrategy(capacityProviderStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Fargate platform version where the tasks in the task set are running. A platform version is only specified
+     * for tasks run on Fargate. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate platform
+     * versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
      * @param platformVersion
-     *        The platform version on which the tasks in the task set are running. A platform version is only specified
-     *        for tasks using the Fargate launch type. If one is not specified, the <code>LATEST</code> platform version
-     *        is used by default. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">AWS Fargate
-     *        Platform Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     *        The Fargate platform version where the tasks in the task set are running. A platform version is only
+     *        specified for tasks run on Fargate. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate platform
+     *        versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      */
 
     public void setPlatformVersion(String platformVersion) {
@@ -1069,18 +1206,16 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The platform version on which the tasks in the task set are running. A platform version is only specified for
-     * tasks using the Fargate launch type. If one is not specified, the <code>LATEST</code> platform version is used by
-     * default. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">AWS Fargate Platform
-     * Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * The Fargate platform version where the tasks in the task set are running. A platform version is only specified
+     * for tasks run on Fargate. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate platform
+     * versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
-     * @return The platform version on which the tasks in the task set are running. A platform version is only specified
-     *         for tasks using the Fargate launch type. If one is not specified, the <code>LATEST</code> platform
-     *         version is used by default. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">AWS Fargate
-     *         Platform Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * @return The Fargate platform version where the tasks in the task set are running. A platform version is only
+     *         specified for tasks run on Fargate. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate
+     *         platform versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      */
 
     public String getPlatformVersion() {
@@ -1089,24 +1224,83 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The platform version on which the tasks in the task set are running. A platform version is only specified for
-     * tasks using the Fargate launch type. If one is not specified, the <code>LATEST</code> platform version is used by
-     * default. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">AWS Fargate Platform
-     * Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * The Fargate platform version where the tasks in the task set are running. A platform version is only specified
+     * for tasks run on Fargate. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate platform
+     * versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
      * @param platformVersion
-     *        The platform version on which the tasks in the task set are running. A platform version is only specified
-     *        for tasks using the Fargate launch type. If one is not specified, the <code>LATEST</code> platform version
-     *        is used by default. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">AWS Fargate
-     *        Platform Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     *        The Fargate platform version where the tasks in the task set are running. A platform version is only
+     *        specified for tasks run on Fargate. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate platform
+     *        versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public TaskSet withPlatformVersion(String platformVersion) {
         setPlatformVersion(platformVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The operating system that your tasks in the set are running on. A platform family is specified only for tasks
+     * that use the Fargate launch type.
+     * </p>
+     * <p>
+     * All tasks in the set must have the same value.
+     * </p>
+     * 
+     * @param platformFamily
+     *        The operating system that your tasks in the set are running on. A platform family is specified only for
+     *        tasks that use the Fargate launch type. </p>
+     *        <p>
+     *        All tasks in the set must have the same value.
+     */
+
+    public void setPlatformFamily(String platformFamily) {
+        this.platformFamily = platformFamily;
+    }
+
+    /**
+     * <p>
+     * The operating system that your tasks in the set are running on. A platform family is specified only for tasks
+     * that use the Fargate launch type.
+     * </p>
+     * <p>
+     * All tasks in the set must have the same value.
+     * </p>
+     * 
+     * @return The operating system that your tasks in the set are running on. A platform family is specified only for
+     *         tasks that use the Fargate launch type. </p>
+     *         <p>
+     *         All tasks in the set must have the same value.
+     */
+
+    public String getPlatformFamily() {
+        return this.platformFamily;
+    }
+
+    /**
+     * <p>
+     * The operating system that your tasks in the set are running on. A platform family is specified only for tasks
+     * that use the Fargate launch type.
+     * </p>
+     * <p>
+     * All tasks in the set must have the same value.
+     * </p>
+     * 
+     * @param platformFamily
+     *        The operating system that your tasks in the set are running on. A platform family is specified only for
+     *        tasks that use the Fargate launch type. </p>
+     *        <p>
+     *        All tasks in the set must have the same value.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TaskSet withPlatformFamily(String platformFamily) {
+        setPlatformFamily(platformFamily);
         return this;
     }
 
@@ -1152,10 +1346,10 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Details on a load balancer that is used with a task set.
+     * Details on a load balancer that are used with a task set.
      * </p>
      * 
-     * @return Details on a load balancer that is used with a task set.
+     * @return Details on a load balancer that are used with a task set.
      */
 
     public java.util.List<LoadBalancer> getLoadBalancers() {
@@ -1167,11 +1361,11 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Details on a load balancer that is used with a task set.
+     * Details on a load balancer that are used with a task set.
      * </p>
      * 
      * @param loadBalancers
-     *        Details on a load balancer that is used with a task set.
+     *        Details on a load balancer that are used with a task set.
      */
 
     public void setLoadBalancers(java.util.Collection<LoadBalancer> loadBalancers) {
@@ -1185,7 +1379,7 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Details on a load balancer that is used with a task set.
+     * Details on a load balancer that are used with a task set.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1194,7 +1388,7 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param loadBalancers
-     *        Details on a load balancer that is used with a task set.
+     *        Details on a load balancer that are used with a task set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1210,11 +1404,11 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Details on a load balancer that is used with a task set.
+     * Details on a load balancer that are used with a task set.
      * </p>
      * 
      * @param loadBalancers
-     *        Details on a load balancer that is used with a task set.
+     *        Details on a load balancer that are used with a task set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1225,13 +1419,13 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The details of the service discovery registries to assign to this task set. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service Discovery</a>.
+     * The details for the service discovery registries to assign to this task set. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service discovery</a>.
      * </p>
      * 
-     * @return The details of the service discovery registries to assign to this task set. For more information, see <a
+     * @return The details for the service discovery registries to assign to this task set. For more information, see <a
      *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service
-     *         Discovery</a>.
+     *         discovery</a>.
      */
 
     public java.util.List<ServiceRegistry> getServiceRegistries() {
@@ -1243,14 +1437,14 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The details of the service discovery registries to assign to this task set. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service Discovery</a>.
+     * The details for the service discovery registries to assign to this task set. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service discovery</a>.
      * </p>
      * 
      * @param serviceRegistries
-     *        The details of the service discovery registries to assign to this task set. For more information, see <a
+     *        The details for the service discovery registries to assign to this task set. For more information, see <a
      *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service
-     *        Discovery</a>.
+     *        discovery</a>.
      */
 
     public void setServiceRegistries(java.util.Collection<ServiceRegistry> serviceRegistries) {
@@ -1264,8 +1458,8 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The details of the service discovery registries to assign to this task set. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service Discovery</a>.
+     * The details for the service discovery registries to assign to this task set. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service discovery</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1274,9 +1468,9 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param serviceRegistries
-     *        The details of the service discovery registries to assign to this task set. For more information, see <a
+     *        The details for the service discovery registries to assign to this task set. For more information, see <a
      *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service
-     *        Discovery</a>.
+     *        discovery</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1292,14 +1486,14 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The details of the service discovery registries to assign to this task set. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service Discovery</a>.
+     * The details for the service discovery registries to assign to this task set. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service discovery</a>.
      * </p>
      * 
      * @param serviceRegistries
-     *        The details of the service discovery registries to assign to this task set. For more information, see <a
+     *        The details for the service discovery registries to assign to this task set. For more information, see <a
      *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service
-     *        Discovery</a>.
+     *        discovery</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1310,11 +1504,11 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A floating-point percentage of the desired number of tasks to place and keep running in the task set.
+     * A floating-point percentage of your desired number of tasks to place and keep running in the task set.
      * </p>
      * 
      * @param scale
-     *        A floating-point percentage of the desired number of tasks to place and keep running in the task set.
+     *        A floating-point percentage of your desired number of tasks to place and keep running in the task set.
      */
 
     public void setScale(Scale scale) {
@@ -1323,10 +1517,10 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A floating-point percentage of the desired number of tasks to place and keep running in the task set.
+     * A floating-point percentage of your desired number of tasks to place and keep running in the task set.
      * </p>
      * 
-     * @return A floating-point percentage of the desired number of tasks to place and keep running in the task set.
+     * @return A floating-point percentage of your desired number of tasks to place and keep running in the task set.
      */
 
     public Scale getScale() {
@@ -1335,11 +1529,11 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A floating-point percentage of the desired number of tasks to place and keep running in the task set.
+     * A floating-point percentage of your desired number of tasks to place and keep running in the task set.
      * </p>
      * 
      * @param scale
-     *        A floating-point percentage of the desired number of tasks to place and keep running in the task set.
+     *        A floating-point percentage of your desired number of tasks to place and keep running in the task set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1350,8 +1544,8 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The stability status, which indicates whether the task set has reached a steady state. If the following
-     * conditions are met, the task set will be in <code>STEADY_STATE</code>:
+     * The stability status. This indicates whether the task set has reached a steady state. If the following conditions
+     * are met, the task set are in <code>STEADY_STATE</code>:
      * </p>
      * <ul>
      * <li>
@@ -1366,28 +1560,22 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * There are no tasks running on container instances in the <code>DRAINING</code> status.
+     * There are no tasks that are running on container instances in the <code>DRAINING</code> status.
      * </p>
      * </li>
      * <li>
      * <p>
      * All tasks are reporting a healthy status from the load balancers, service discovery, and container health checks.
      * </p>
-     * <note>
-     * <p>
-     * If a <code>healthCheckGracePeriodSeconds</code> value was set when the service was created, you may see a
-     * <code>STEADY_STATE</code> reached since unhealthy Elastic Load Balancing target health checks will be ignored
-     * until it expires.
-     * </p>
-     * </note></li>
+     * </li>
      * </ul>
      * <p>
-     * If any of those conditions are not met, the stability status returns <code>STABILIZING</code>.
+     * If any of those conditions aren't met, the stability status returns <code>STABILIZING</code>.
      * </p>
      * 
      * @param stabilityStatus
-     *        The stability status, which indicates whether the task set has reached a steady state. If the following
-     *        conditions are met, the task set will be in <code>STEADY_STATE</code>:</p>
+     *        The stability status. This indicates whether the task set has reached a steady state. If the following
+     *        conditions are met, the task set are in <code>STEADY_STATE</code>:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1401,7 +1589,7 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        There are no tasks running on container instances in the <code>DRAINING</code> status.
+     *        There are no tasks that are running on container instances in the <code>DRAINING</code> status.
      *        </p>
      *        </li>
      *        <li>
@@ -1409,16 +1597,10 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      *        All tasks are reporting a healthy status from the load balancers, service discovery, and container health
      *        checks.
      *        </p>
-     *        <note>
-     *        <p>
-     *        If a <code>healthCheckGracePeriodSeconds</code> value was set when the service was created, you may see a
-     *        <code>STEADY_STATE</code> reached since unhealthy Elastic Load Balancing target health checks will be
-     *        ignored until it expires.
-     *        </p>
-     *        </note></li>
+     *        </li>
      *        </ul>
      *        <p>
-     *        If any of those conditions are not met, the stability status returns <code>STABILIZING</code>.
+     *        If any of those conditions aren't met, the stability status returns <code>STABILIZING</code>.
      * @see StabilityStatus
      */
 
@@ -1428,8 +1610,8 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The stability status, which indicates whether the task set has reached a steady state. If the following
-     * conditions are met, the task set will be in <code>STEADY_STATE</code>:
+     * The stability status. This indicates whether the task set has reached a steady state. If the following conditions
+     * are met, the task set are in <code>STEADY_STATE</code>:
      * </p>
      * <ul>
      * <li>
@@ -1444,27 +1626,21 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * There are no tasks running on container instances in the <code>DRAINING</code> status.
+     * There are no tasks that are running on container instances in the <code>DRAINING</code> status.
      * </p>
      * </li>
      * <li>
      * <p>
      * All tasks are reporting a healthy status from the load balancers, service discovery, and container health checks.
      * </p>
-     * <note>
-     * <p>
-     * If a <code>healthCheckGracePeriodSeconds</code> value was set when the service was created, you may see a
-     * <code>STEADY_STATE</code> reached since unhealthy Elastic Load Balancing target health checks will be ignored
-     * until it expires.
-     * </p>
-     * </note></li>
+     * </li>
      * </ul>
      * <p>
-     * If any of those conditions are not met, the stability status returns <code>STABILIZING</code>.
+     * If any of those conditions aren't met, the stability status returns <code>STABILIZING</code>.
      * </p>
      * 
-     * @return The stability status, which indicates whether the task set has reached a steady state. If the following
-     *         conditions are met, the task set will be in <code>STEADY_STATE</code>:</p>
+     * @return The stability status. This indicates whether the task set has reached a steady state. If the following
+     *         conditions are met, the task set are in <code>STEADY_STATE</code>:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -1478,7 +1654,7 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
-     *         There are no tasks running on container instances in the <code>DRAINING</code> status.
+     *         There are no tasks that are running on container instances in the <code>DRAINING</code> status.
      *         </p>
      *         </li>
      *         <li>
@@ -1486,16 +1662,10 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      *         All tasks are reporting a healthy status from the load balancers, service discovery, and container health
      *         checks.
      *         </p>
-     *         <note>
-     *         <p>
-     *         If a <code>healthCheckGracePeriodSeconds</code> value was set when the service was created, you may see a
-     *         <code>STEADY_STATE</code> reached since unhealthy Elastic Load Balancing target health checks will be
-     *         ignored until it expires.
-     *         </p>
-     *         </note></li>
+     *         </li>
      *         </ul>
      *         <p>
-     *         If any of those conditions are not met, the stability status returns <code>STABILIZING</code>.
+     *         If any of those conditions aren't met, the stability status returns <code>STABILIZING</code>.
      * @see StabilityStatus
      */
 
@@ -1505,8 +1675,8 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The stability status, which indicates whether the task set has reached a steady state. If the following
-     * conditions are met, the task set will be in <code>STEADY_STATE</code>:
+     * The stability status. This indicates whether the task set has reached a steady state. If the following conditions
+     * are met, the task set are in <code>STEADY_STATE</code>:
      * </p>
      * <ul>
      * <li>
@@ -1521,28 +1691,22 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * There are no tasks running on container instances in the <code>DRAINING</code> status.
+     * There are no tasks that are running on container instances in the <code>DRAINING</code> status.
      * </p>
      * </li>
      * <li>
      * <p>
      * All tasks are reporting a healthy status from the load balancers, service discovery, and container health checks.
      * </p>
-     * <note>
-     * <p>
-     * If a <code>healthCheckGracePeriodSeconds</code> value was set when the service was created, you may see a
-     * <code>STEADY_STATE</code> reached since unhealthy Elastic Load Balancing target health checks will be ignored
-     * until it expires.
-     * </p>
-     * </note></li>
+     * </li>
      * </ul>
      * <p>
-     * If any of those conditions are not met, the stability status returns <code>STABILIZING</code>.
+     * If any of those conditions aren't met, the stability status returns <code>STABILIZING</code>.
      * </p>
      * 
      * @param stabilityStatus
-     *        The stability status, which indicates whether the task set has reached a steady state. If the following
-     *        conditions are met, the task set will be in <code>STEADY_STATE</code>:</p>
+     *        The stability status. This indicates whether the task set has reached a steady state. If the following
+     *        conditions are met, the task set are in <code>STEADY_STATE</code>:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1556,7 +1720,7 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        There are no tasks running on container instances in the <code>DRAINING</code> status.
+     *        There are no tasks that are running on container instances in the <code>DRAINING</code> status.
      *        </p>
      *        </li>
      *        <li>
@@ -1564,16 +1728,10 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      *        All tasks are reporting a healthy status from the load balancers, service discovery, and container health
      *        checks.
      *        </p>
-     *        <note>
-     *        <p>
-     *        If a <code>healthCheckGracePeriodSeconds</code> value was set when the service was created, you may see a
-     *        <code>STEADY_STATE</code> reached since unhealthy Elastic Load Balancing target health checks will be
-     *        ignored until it expires.
-     *        </p>
-     *        </note></li>
+     *        </li>
      *        </ul>
      *        <p>
-     *        If any of those conditions are not met, the stability status returns <code>STABILIZING</code>.
+     *        If any of those conditions aren't met, the stability status returns <code>STABILIZING</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see StabilityStatus
      */
@@ -1585,8 +1743,8 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The stability status, which indicates whether the task set has reached a steady state. If the following
-     * conditions are met, the task set will be in <code>STEADY_STATE</code>:
+     * The stability status. This indicates whether the task set has reached a steady state. If the following conditions
+     * are met, the task set are in <code>STEADY_STATE</code>:
      * </p>
      * <ul>
      * <li>
@@ -1601,28 +1759,22 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * There are no tasks running on container instances in the <code>DRAINING</code> status.
+     * There are no tasks that are running on container instances in the <code>DRAINING</code> status.
      * </p>
      * </li>
      * <li>
      * <p>
      * All tasks are reporting a healthy status from the load balancers, service discovery, and container health checks.
      * </p>
-     * <note>
-     * <p>
-     * If a <code>healthCheckGracePeriodSeconds</code> value was set when the service was created, you may see a
-     * <code>STEADY_STATE</code> reached since unhealthy Elastic Load Balancing target health checks will be ignored
-     * until it expires.
-     * </p>
-     * </note></li>
+     * </li>
      * </ul>
      * <p>
-     * If any of those conditions are not met, the stability status returns <code>STABILIZING</code>.
+     * If any of those conditions aren't met, the stability status returns <code>STABILIZING</code>.
      * </p>
      * 
      * @param stabilityStatus
-     *        The stability status, which indicates whether the task set has reached a steady state. If the following
-     *        conditions are met, the task set will be in <code>STEADY_STATE</code>:</p>
+     *        The stability status. This indicates whether the task set has reached a steady state. If the following
+     *        conditions are met, the task set are in <code>STEADY_STATE</code>:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1636,7 +1788,7 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        There are no tasks running on container instances in the <code>DRAINING</code> status.
+     *        There are no tasks that are running on container instances in the <code>DRAINING</code> status.
      *        </p>
      *        </li>
      *        <li>
@@ -1644,16 +1796,10 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
      *        All tasks are reporting a healthy status from the load balancers, service discovery, and container health
      *        checks.
      *        </p>
-     *        <note>
-     *        <p>
-     *        If a <code>healthCheckGracePeriodSeconds</code> value was set when the service was created, you may see a
-     *        <code>STEADY_STATE</code> reached since unhealthy Elastic Load Balancing target health checks will be
-     *        ignored until it expires.
-     *        </p>
-     *        </note></li>
+     *        </li>
      *        </ul>
      *        <p>
-     *        If any of those conditions are not met, the stability status returns <code>STABILIZING</code>.
+     *        If any of those conditions aren't met, the stability status returns <code>STABILIZING</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see StabilityStatus
      */
@@ -1665,11 +1811,11 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the task set stability status was retrieved.
+     * The Unix timestamp for the time when the task set stability status was retrieved.
      * </p>
      * 
      * @param stabilityStatusAt
-     *        The Unix timestamp for when the task set stability status was retrieved.
+     *        The Unix timestamp for the time when the task set stability status was retrieved.
      */
 
     public void setStabilityStatusAt(java.util.Date stabilityStatusAt) {
@@ -1678,10 +1824,10 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the task set stability status was retrieved.
+     * The Unix timestamp for the time when the task set stability status was retrieved.
      * </p>
      * 
-     * @return The Unix timestamp for when the task set stability status was retrieved.
+     * @return The Unix timestamp for the time when the task set stability status was retrieved.
      */
 
     public java.util.Date getStabilityStatusAt() {
@@ -1690,16 +1836,486 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the task set stability status was retrieved.
+     * The Unix timestamp for the time when the task set stability status was retrieved.
      * </p>
      * 
      * @param stabilityStatusAt
-     *        The Unix timestamp for when the task set stability status was retrieved.
+     *        The Unix timestamp for the time when the task set stability status was retrieved.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public TaskSet withStabilityStatusAt(java.util.Date stabilityStatusAt) {
         setStabilityStatusAt(stabilityStatusAt);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The metadata that you apply to the task set to help you categorize and organize them. Each tag consists of a key
+     * and an optional value. You define both.
+     * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The metadata that you apply to the task set to help you categorize and organize them. Each tag consists
+     *         of a key and an optional value. You define both.</p>
+     *         <p>
+     *         The following basic restrictions apply to tags:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Maximum number of tags per resource - 50
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For each resource, each tag key must be unique, and each tag key can have only one value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Maximum key length - 128 Unicode characters in UTF-8
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Maximum value length - 256 Unicode characters in UTF-8
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If your tagging schema is used across multiple services and resources, remember that other services may
+     *         have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *         representable in UTF-8, and the following characters: + - = . _ : / @.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Tag keys and values are case-sensitive.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a
+     *         prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete
+     *         tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource
+     *         limit.
+     *         </p>
+     *         </li>
+     */
+
+    public java.util.List<Tag> getTags() {
+        if (tags == null) {
+            tags = new com.amazonaws.internal.SdkInternalList<Tag>();
+        }
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The metadata that you apply to the task set to help you categorize and organize them. Each tag consists of a key
+     * and an optional value. You define both.
+     * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param tags
+     *        The metadata that you apply to the task set to help you categorize and organize them. Each tag consists of
+     *        a key and an optional value. You define both.</p>
+     *        <p>
+     *        The following basic restrictions apply to tags:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Maximum number of tags per resource - 50
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For each resource, each tag key must be unique, and each tag key can have only one value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum key length - 128 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum value length - 256 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If your tagging schema is used across multiple services and resources, remember that other services may
+     *        have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *        representable in UTF-8, and the following characters: + - = . _ : / @.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tag keys and values are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix
+     *        for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag
+     *        keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     *        </p>
+     *        </li>
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new com.amazonaws.internal.SdkInternalList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * The metadata that you apply to the task set to help you categorize and organize them. Each tag consists of a key
+     * and an optional value. You define both.
+     * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        The metadata that you apply to the task set to help you categorize and organize them. Each tag consists of
+     *        a key and an optional value. You define both.</p>
+     *        <p>
+     *        The following basic restrictions apply to tags:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Maximum number of tags per resource - 50
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For each resource, each tag key must be unique, and each tag key can have only one value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum key length - 128 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum value length - 256 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If your tagging schema is used across multiple services and resources, remember that other services may
+     *        have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *        representable in UTF-8, and the following characters: + - = . _ : / @.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tag keys and values are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix
+     *        for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag
+     *        keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TaskSet withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new com.amazonaws.internal.SdkInternalList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The metadata that you apply to the task set to help you categorize and organize them. Each tag consists of a key
+     * and an optional value. You define both.
+     * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param tags
+     *        The metadata that you apply to the task set to help you categorize and organize them. Each tag consists of
+     *        a key and an optional value. You define both.</p>
+     *        <p>
+     *        The following basic restrictions apply to tags:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Maximum number of tags per resource - 50
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For each resource, each tag key must be unique, and each tag key can have only one value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum key length - 128 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum value length - 256 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If your tagging schema is used across multiple services and resources, remember that other services may
+     *        have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *        representable in UTF-8, and the following characters: + - = . _ : / @.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tag keys and values are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix
+     *        for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag
+     *        keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TaskSet withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Fargate ephemeral storage settings for the task set.
+     * </p>
+     * 
+     * @param fargateEphemeralStorage
+     *        The Fargate ephemeral storage settings for the task set.
+     */
+
+    public void setFargateEphemeralStorage(DeploymentEphemeralStorage fargateEphemeralStorage) {
+        this.fargateEphemeralStorage = fargateEphemeralStorage;
+    }
+
+    /**
+     * <p>
+     * The Fargate ephemeral storage settings for the task set.
+     * </p>
+     * 
+     * @return The Fargate ephemeral storage settings for the task set.
+     */
+
+    public DeploymentEphemeralStorage getFargateEphemeralStorage() {
+        return this.fargateEphemeralStorage;
+    }
+
+    /**
+     * <p>
+     * The Fargate ephemeral storage settings for the task set.
+     * </p>
+     * 
+     * @param fargateEphemeralStorage
+     *        The Fargate ephemeral storage settings for the task set.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TaskSet withFargateEphemeralStorage(DeploymentEphemeralStorage fargateEphemeralStorage) {
+        setFargateEphemeralStorage(fargateEphemeralStorage);
         return this;
     }
 
@@ -1743,8 +2359,12 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
             sb.append("UpdatedAt: ").append(getUpdatedAt()).append(",");
         if (getLaunchType() != null)
             sb.append("LaunchType: ").append(getLaunchType()).append(",");
+        if (getCapacityProviderStrategy() != null)
+            sb.append("CapacityProviderStrategy: ").append(getCapacityProviderStrategy()).append(",");
         if (getPlatformVersion() != null)
             sb.append("PlatformVersion: ").append(getPlatformVersion()).append(",");
+        if (getPlatformFamily() != null)
+            sb.append("PlatformFamily: ").append(getPlatformFamily()).append(",");
         if (getNetworkConfiguration() != null)
             sb.append("NetworkConfiguration: ").append(getNetworkConfiguration()).append(",");
         if (getLoadBalancers() != null)
@@ -1756,7 +2376,11 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
         if (getStabilityStatus() != null)
             sb.append("StabilityStatus: ").append(getStabilityStatus()).append(",");
         if (getStabilityStatusAt() != null)
-            sb.append("StabilityStatusAt: ").append(getStabilityStatusAt());
+            sb.append("StabilityStatusAt: ").append(getStabilityStatusAt()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getFargateEphemeralStorage() != null)
+            sb.append("FargateEphemeralStorage: ").append(getFargateEphemeralStorage());
         sb.append("}");
         return sb.toString();
     }
@@ -1827,9 +2451,17 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getLaunchType() != null && other.getLaunchType().equals(this.getLaunchType()) == false)
             return false;
+        if (other.getCapacityProviderStrategy() == null ^ this.getCapacityProviderStrategy() == null)
+            return false;
+        if (other.getCapacityProviderStrategy() != null && other.getCapacityProviderStrategy().equals(this.getCapacityProviderStrategy()) == false)
+            return false;
         if (other.getPlatformVersion() == null ^ this.getPlatformVersion() == null)
             return false;
         if (other.getPlatformVersion() != null && other.getPlatformVersion().equals(this.getPlatformVersion()) == false)
+            return false;
+        if (other.getPlatformFamily() == null ^ this.getPlatformFamily() == null)
+            return false;
+        if (other.getPlatformFamily() != null && other.getPlatformFamily().equals(this.getPlatformFamily()) == false)
             return false;
         if (other.getNetworkConfiguration() == null ^ this.getNetworkConfiguration() == null)
             return false;
@@ -1855,6 +2487,14 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getStabilityStatusAt() != null && other.getStabilityStatusAt().equals(this.getStabilityStatusAt()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getFargateEphemeralStorage() == null ^ this.getFargateEphemeralStorage() == null)
+            return false;
+        if (other.getFargateEphemeralStorage() != null && other.getFargateEphemeralStorage().equals(this.getFargateEphemeralStorage()) == false)
+            return false;
         return true;
     }
 
@@ -1877,13 +2517,17 @@ public class TaskSet implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
         hashCode = prime * hashCode + ((getUpdatedAt() == null) ? 0 : getUpdatedAt().hashCode());
         hashCode = prime * hashCode + ((getLaunchType() == null) ? 0 : getLaunchType().hashCode());
+        hashCode = prime * hashCode + ((getCapacityProviderStrategy() == null) ? 0 : getCapacityProviderStrategy().hashCode());
         hashCode = prime * hashCode + ((getPlatformVersion() == null) ? 0 : getPlatformVersion().hashCode());
+        hashCode = prime * hashCode + ((getPlatformFamily() == null) ? 0 : getPlatformFamily().hashCode());
         hashCode = prime * hashCode + ((getNetworkConfiguration() == null) ? 0 : getNetworkConfiguration().hashCode());
         hashCode = prime * hashCode + ((getLoadBalancers() == null) ? 0 : getLoadBalancers().hashCode());
         hashCode = prime * hashCode + ((getServiceRegistries() == null) ? 0 : getServiceRegistries().hashCode());
         hashCode = prime * hashCode + ((getScale() == null) ? 0 : getScale().hashCode());
         hashCode = prime * hashCode + ((getStabilityStatus() == null) ? 0 : getStabilityStatus().hashCode());
         hashCode = prime * hashCode + ((getStabilityStatusAt() == null) ? 0 : getStabilityStatusAt().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getFargateEphemeralStorage() == null) ? 0 : getFargateEphemeralStorage().hashCode());
         return hashCode;
     }
 

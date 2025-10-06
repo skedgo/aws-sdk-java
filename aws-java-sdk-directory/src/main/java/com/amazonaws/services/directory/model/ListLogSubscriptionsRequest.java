@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,9 @@ public class ListLogSubscriptionsRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * If a <i>DirectoryID</i> is provided, lists only the log subscription associated with that directory. If no
-     * <i>DirectoryId</i> is provided, lists all log subscriptions associated with your AWS account. If there are no log
-     * subscriptions for the AWS account or the directory, an empty list will be returned.
+     * <i>DirectoryId</i> is provided, lists all log subscriptions associated with your Amazon Web Services account. If
+     * there are no log subscriptions for the Amazon Web Services account or the directory, an empty list will be
+     * returned.
      * </p>
      */
     private String directoryId;
@@ -49,14 +50,16 @@ public class ListLogSubscriptionsRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * If a <i>DirectoryID</i> is provided, lists only the log subscription associated with that directory. If no
-     * <i>DirectoryId</i> is provided, lists all log subscriptions associated with your AWS account. If there are no log
-     * subscriptions for the AWS account or the directory, an empty list will be returned.
+     * <i>DirectoryId</i> is provided, lists all log subscriptions associated with your Amazon Web Services account. If
+     * there are no log subscriptions for the Amazon Web Services account or the directory, an empty list will be
+     * returned.
      * </p>
      * 
      * @param directoryId
      *        If a <i>DirectoryID</i> is provided, lists only the log subscription associated with that directory. If no
-     *        <i>DirectoryId</i> is provided, lists all log subscriptions associated with your AWS account. If there are
-     *        no log subscriptions for the AWS account or the directory, an empty list will be returned.
+     *        <i>DirectoryId</i> is provided, lists all log subscriptions associated with your Amazon Web Services
+     *        account. If there are no log subscriptions for the Amazon Web Services account or the directory, an empty
+     *        list will be returned.
      */
 
     public void setDirectoryId(String directoryId) {
@@ -66,13 +69,15 @@ public class ListLogSubscriptionsRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * If a <i>DirectoryID</i> is provided, lists only the log subscription associated with that directory. If no
-     * <i>DirectoryId</i> is provided, lists all log subscriptions associated with your AWS account. If there are no log
-     * subscriptions for the AWS account or the directory, an empty list will be returned.
+     * <i>DirectoryId</i> is provided, lists all log subscriptions associated with your Amazon Web Services account. If
+     * there are no log subscriptions for the Amazon Web Services account or the directory, an empty list will be
+     * returned.
      * </p>
      * 
      * @return If a <i>DirectoryID</i> is provided, lists only the log subscription associated with that directory. If
-     *         no <i>DirectoryId</i> is provided, lists all log subscriptions associated with your AWS account. If there
-     *         are no log subscriptions for the AWS account or the directory, an empty list will be returned.
+     *         no <i>DirectoryId</i> is provided, lists all log subscriptions associated with your Amazon Web Services
+     *         account. If there are no log subscriptions for the Amazon Web Services account or the directory, an empty
+     *         list will be returned.
      */
 
     public String getDirectoryId() {
@@ -82,14 +87,16 @@ public class ListLogSubscriptionsRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * If a <i>DirectoryID</i> is provided, lists only the log subscription associated with that directory. If no
-     * <i>DirectoryId</i> is provided, lists all log subscriptions associated with your AWS account. If there are no log
-     * subscriptions for the AWS account or the directory, an empty list will be returned.
+     * <i>DirectoryId</i> is provided, lists all log subscriptions associated with your Amazon Web Services account. If
+     * there are no log subscriptions for the Amazon Web Services account or the directory, an empty list will be
+     * returned.
      * </p>
      * 
      * @param directoryId
      *        If a <i>DirectoryID</i> is provided, lists only the log subscription associated with that directory. If no
-     *        <i>DirectoryId</i> is provided, lists all log subscriptions associated with your AWS account. If there are
-     *        no log subscriptions for the AWS account or the directory, an empty list will be returned.
+     *        <i>DirectoryId</i> is provided, lists all log subscriptions associated with your Amazon Web Services
+     *        account. If there are no log subscriptions for the Amazon Web Services account or the directory, an empty
+     *        list will be returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

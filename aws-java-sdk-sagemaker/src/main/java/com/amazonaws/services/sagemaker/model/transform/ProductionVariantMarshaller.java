@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,6 +39,24 @@ public class ProductionVariantMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InitialVariantWeight").build();
     private static final MarshallingInfo<String> ACCELERATORTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AcceleratorType").build();
+    private static final MarshallingInfo<StructuredPojo> COREDUMPCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CoreDumpConfig").build();
+    private static final MarshallingInfo<StructuredPojo> SERVERLESSCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ServerlessConfig").build();
+    private static final MarshallingInfo<Integer> VOLUMESIZEINGB_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VolumeSizeInGB").build();
+    private static final MarshallingInfo<Integer> MODELDATADOWNLOADTIMEOUTINSECONDS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ModelDataDownloadTimeoutInSeconds").build();
+    private static final MarshallingInfo<Integer> CONTAINERSTARTUPHEALTHCHECKTIMEOUTINSECONDS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ContainerStartupHealthCheckTimeoutInSeconds").build();
+    private static final MarshallingInfo<Boolean> ENABLESSMACCESS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EnableSSMAccess").build();
+    private static final MarshallingInfo<StructuredPojo> MANAGEDINSTANCESCALING_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ManagedInstanceScaling").build();
+    private static final MarshallingInfo<StructuredPojo> ROUTINGCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RoutingConfig").build();
+    private static final MarshallingInfo<String> INFERENCEAMIVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InferenceAmiVersion").build();
 
     private static final ProductionVariantMarshaller instance = new ProductionVariantMarshaller();
 
@@ -62,6 +80,16 @@ public class ProductionVariantMarshaller {
             protocolMarshaller.marshall(productionVariant.getInstanceType(), INSTANCETYPE_BINDING);
             protocolMarshaller.marshall(productionVariant.getInitialVariantWeight(), INITIALVARIANTWEIGHT_BINDING);
             protocolMarshaller.marshall(productionVariant.getAcceleratorType(), ACCELERATORTYPE_BINDING);
+            protocolMarshaller.marshall(productionVariant.getCoreDumpConfig(), COREDUMPCONFIG_BINDING);
+            protocolMarshaller.marshall(productionVariant.getServerlessConfig(), SERVERLESSCONFIG_BINDING);
+            protocolMarshaller.marshall(productionVariant.getVolumeSizeInGB(), VOLUMESIZEINGB_BINDING);
+            protocolMarshaller.marshall(productionVariant.getModelDataDownloadTimeoutInSeconds(), MODELDATADOWNLOADTIMEOUTINSECONDS_BINDING);
+            protocolMarshaller
+                    .marshall(productionVariant.getContainerStartupHealthCheckTimeoutInSeconds(), CONTAINERSTARTUPHEALTHCHECKTIMEOUTINSECONDS_BINDING);
+            protocolMarshaller.marshall(productionVariant.getEnableSSMAccess(), ENABLESSMACCESS_BINDING);
+            protocolMarshaller.marshall(productionVariant.getManagedInstanceScaling(), MANAGEDINSTANCESCALING_BINDING);
+            protocolMarshaller.marshall(productionVariant.getRoutingConfig(), ROUTINGCONFIG_BINDING);
+            protocolMarshaller.marshall(productionVariant.getInferenceAmiVersion(), INFERENCEAMIVERSION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

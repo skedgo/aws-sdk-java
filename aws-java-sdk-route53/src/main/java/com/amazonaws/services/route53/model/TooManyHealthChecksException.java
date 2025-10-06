@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,12 +27,12 @@ import javax.annotation.Generated;
  * <p>
  * For information about how to get the current limit for an account, see <a
  * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetAccountLimit.html">GetAccountLimit</a>. To
- * request a higher limit, <a href="http://aws.amazon.com/route53-request">create a case</a> with the AWS Support
- * Center.
+ * request a higher limit, <a href="http://aws.amazon.com/route53-request">create a case</a> with the Amazon Web
+ * Services Support Center.
  * </p>
  * <p>
- * You have reached the maximum number of active health checks for an AWS account. To request a higher limit, <a
- * href="http://aws.amazon.com/route53-request">create a case</a> with the AWS Support Center.
+ * You have reached the maximum number of active health checks for an Amazon Web Services account. To request a higher
+ * limit, <a href="http://aws.amazon.com/route53-request">create a case</a> with the Amazon Web Services Support Center.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

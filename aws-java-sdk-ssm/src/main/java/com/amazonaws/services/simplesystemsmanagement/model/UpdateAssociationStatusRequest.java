@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,13 +27,13 @@ public class UpdateAssociationStatusRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      */
     private String instanceId;
@@ -46,11 +46,11 @@ public class UpdateAssociationStatusRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      */
 
     public void setName(String name) {
@@ -59,10 +59,10 @@ public class UpdateAssociationStatusRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
-     * @return The name of the Systems Manager document.
+     * @return The name of the SSM document.
      */
 
     public String getName() {
@@ -71,11 +71,11 @@ public class UpdateAssociationStatusRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -86,11 +86,11 @@ public class UpdateAssociationStatusRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      * 
      * @param instanceId
-     *        The ID of the instance.
+     *        The managed node ID.
      */
 
     public void setInstanceId(String instanceId) {
@@ -99,10 +99,10 @@ public class UpdateAssociationStatusRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      * 
-     * @return The ID of the instance.
+     * @return The managed node ID.
      */
 
     public String getInstanceId() {
@@ -111,11 +111,11 @@ public class UpdateAssociationStatusRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      * 
      * @param instanceId
-     *        The ID of the instance.
+     *        The managed node ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

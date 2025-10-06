@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package com.amazonaws.auth;
 import static com.amazonaws.SDKGlobalConfiguration.ACCESS_KEY_ENV_VAR;
 import static com.amazonaws.SDKGlobalConfiguration.ALTERNATE_ACCESS_KEY_ENV_VAR;
 import static com.amazonaws.SDKGlobalConfiguration.ALTERNATE_SECRET_KEY_ENV_VAR;
+import static com.amazonaws.SDKGlobalConfiguration.AWS_ACCOUNT_ID_ENV_VAR;
 import static com.amazonaws.SDKGlobalConfiguration.AWS_SESSION_TOKEN_ENV_VAR;
 import static com.amazonaws.SDKGlobalConfiguration.SECRET_KEY_ENV_VAR;
 
@@ -27,8 +28,21 @@ import com.amazonaws.util.StringUtils;
  * {@link AWSCredentialsProvider} implementation that provides credentials by looking at the: <code>AWS_ACCESS_KEY_ID</code> (or
  * <code>AWS_ACCESS_KEY</code>) and <code>AWS_SECRET_KEY</code> (or <code>AWS_SECRET_ACCESS_KEY</code>) environment variables. If
  * the <code>AWS_SESSION_TOKEN</code> environment variable is also set then temporary credentials will be used.
+ *
+ * <p>
+ * <b>Migrating to the AWS SDK for Java v2</b>
+ * <p>
+ * The v2 equivalent of this class is
+ * <a href="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/auth/credentials/EnvironmentVariableCredentialsProvider.html">EnvironmentVariableCredentialsProvider</a>
+ *
+ * <p>
+ * See <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/migration-client-credentials.html">Migration Guide</a>
+ * for more information.
  */
 public class EnvironmentVariableCredentialsProvider implements AWSCredentialsProvider {
+
+    private static final String PROVIDER_NAME = "EnvironmentVariableCredentialsProvider";
+
     @Override
     public AWSCredentials getCredentials() {
         String accessKey = System.getenv(ACCESS_KEY_ENV_VAR);
@@ -41,9 +55,11 @@ public class EnvironmentVariableCredentialsProvider implements AWSCredentialsPro
             secretKey = System.getenv(ALTERNATE_SECRET_KEY_ENV_VAR);
         }
 
+        String accountId = System.getenv(AWS_ACCOUNT_ID_ENV_VAR);
+
         accessKey = StringUtils.trim(accessKey);
         secretKey = StringUtils.trim(secretKey);
-        String sessionToken = StringUtils.trim(System.getenv(AWS_SESSION_TOKEN_ENV_VAR));
+        accountId = StringUtils.trim(accountId);
 
         if (StringUtils.isNullOrEmpty(accessKey) || StringUtils.isNullOrEmpty(secretKey)) {
 
@@ -53,10 +69,11 @@ public class EnvironmentVariableCredentialsProvider implements AWSCredentialsPro
                     SECRET_KEY_ENV_VAR + " (or " + ALTERNATE_SECRET_KEY_ENV_VAR + "))");
         }
 
-        return sessionToken == null ?
-                new BasicAWSCredentials(accessKey, secretKey)
+        String sessionToken = StringUtils.trim(System.getenv(AWS_SESSION_TOKEN_ENV_VAR));
+        return StringUtils.isNullOrEmpty(sessionToken) ?
+                new BasicAWSCredentials(accessKey, secretKey, accountId, PROVIDER_NAME)
                 :
-                new BasicSessionCredentials(accessKey, secretKey, sessionToken);
+                new BasicSessionCredentials(accessKey, secretKey, sessionToken, accountId, PROVIDER_NAME);
     }
 
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,9 +16,6 @@ import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
- * <p>
- * Represents the returned data in response to a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeVpcPeeringConnections"
  *      target="_top">AWS API Documentation</a>
@@ -29,17 +26,17 @@ public class DescribeVpcPeeringConnectionsResult extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * Collection of VPC peering connection records that match the request.
+     * A collection of VPC peering connection records that match the request.
      * </p>
      */
     private java.util.List<VpcPeeringConnection> vpcPeeringConnections;
 
     /**
      * <p>
-     * Collection of VPC peering connection records that match the request.
+     * A collection of VPC peering connection records that match the request.
      * </p>
      * 
-     * @return Collection of VPC peering connection records that match the request.
+     * @return A collection of VPC peering connection records that match the request.
      */
 
     public java.util.List<VpcPeeringConnection> getVpcPeeringConnections() {
@@ -48,11 +45,11 @@ public class DescribeVpcPeeringConnectionsResult extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * Collection of VPC peering connection records that match the request.
+     * A collection of VPC peering connection records that match the request.
      * </p>
      * 
      * @param vpcPeeringConnections
-     *        Collection of VPC peering connection records that match the request.
+     *        A collection of VPC peering connection records that match the request.
      */
 
     public void setVpcPeeringConnections(java.util.Collection<VpcPeeringConnection> vpcPeeringConnections) {
@@ -66,7 +63,7 @@ public class DescribeVpcPeeringConnectionsResult extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * Collection of VPC peering connection records that match the request.
+     * A collection of VPC peering connection records that match the request.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -75,7 +72,7 @@ public class DescribeVpcPeeringConnectionsResult extends com.amazonaws.AmazonWeb
      * </p>
      * 
      * @param vpcPeeringConnections
-     *        Collection of VPC peering connection records that match the request.
+     *        A collection of VPC peering connection records that match the request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -91,11 +88,11 @@ public class DescribeVpcPeeringConnectionsResult extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * Collection of VPC peering connection records that match the request.
+     * A collection of VPC peering connection records that match the request.
      * </p>
      * 
      * @param vpcPeeringConnections
-     *        Collection of VPC peering connection records that match the request.
+     *        A collection of VPC peering connection records that match the request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

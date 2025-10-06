@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,13 +15,16 @@ package com.amazonaws.services.mq.model;
 import javax.annotation.Generated;
 
 /**
- * The deployment mode of the broker.
+ * <p>
+ * The broker's deployment mode.
+ * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum DeploymentMode {
 
     SINGLE_INSTANCE("SINGLE_INSTANCE"),
-    ACTIVE_STANDBY_MULTI_AZ("ACTIVE_STANDBY_MULTI_AZ");
+    ACTIVE_STANDBY_MULTI_AZ("ACTIVE_STANDBY_MULTI_AZ"),
+    CLUSTER_MULTI_AZ("CLUSTER_MULTI_AZ");
 
     private String value;
 

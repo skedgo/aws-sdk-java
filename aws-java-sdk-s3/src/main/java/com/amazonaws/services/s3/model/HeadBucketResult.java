@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2015-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ public class HeadBucketResult implements Serializable {
     private String bucketRegion;
 
     /**
-     * Returns the AWS region where the bucket is located.
+     * Returns the Amazon Web Services region where the bucket is located.
      */
     public String getBucketRegion() {
         return bucketRegion;

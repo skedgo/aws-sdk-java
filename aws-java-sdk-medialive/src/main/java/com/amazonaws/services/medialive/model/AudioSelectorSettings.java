@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,9 +26,39 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AudioSelectorSettings implements Serializable, Cloneable, StructuredPojo {
 
+    private AudioHlsRenditionSelection audioHlsRenditionSelection;
+
     private AudioLanguageSelection audioLanguageSelection;
 
     private AudioPidSelection audioPidSelection;
+
+    private AudioTrackSelection audioTrackSelection;
+
+    /**
+     * @param audioHlsRenditionSelection
+     */
+
+    public void setAudioHlsRenditionSelection(AudioHlsRenditionSelection audioHlsRenditionSelection) {
+        this.audioHlsRenditionSelection = audioHlsRenditionSelection;
+    }
+
+    /**
+     * @return
+     */
+
+    public AudioHlsRenditionSelection getAudioHlsRenditionSelection() {
+        return this.audioHlsRenditionSelection;
+    }
+
+    /**
+     * @param audioHlsRenditionSelection
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AudioSelectorSettings withAudioHlsRenditionSelection(AudioHlsRenditionSelection audioHlsRenditionSelection) {
+        setAudioHlsRenditionSelection(audioHlsRenditionSelection);
+        return this;
+    }
 
     /**
      * @param audioLanguageSelection
@@ -83,6 +113,32 @@ public class AudioSelectorSettings implements Serializable, Cloneable, Structure
     }
 
     /**
+     * @param audioTrackSelection
+     */
+
+    public void setAudioTrackSelection(AudioTrackSelection audioTrackSelection) {
+        this.audioTrackSelection = audioTrackSelection;
+    }
+
+    /**
+     * @return
+     */
+
+    public AudioTrackSelection getAudioTrackSelection() {
+        return this.audioTrackSelection;
+    }
+
+    /**
+     * @param audioTrackSelection
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AudioSelectorSettings withAudioTrackSelection(AudioTrackSelection audioTrackSelection) {
+        setAudioTrackSelection(audioTrackSelection);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -94,10 +150,14 @@ public class AudioSelectorSettings implements Serializable, Cloneable, Structure
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getAudioHlsRenditionSelection() != null)
+            sb.append("AudioHlsRenditionSelection: ").append(getAudioHlsRenditionSelection()).append(",");
         if (getAudioLanguageSelection() != null)
             sb.append("AudioLanguageSelection: ").append(getAudioLanguageSelection()).append(",");
         if (getAudioPidSelection() != null)
-            sb.append("AudioPidSelection: ").append(getAudioPidSelection());
+            sb.append("AudioPidSelection: ").append(getAudioPidSelection()).append(",");
+        if (getAudioTrackSelection() != null)
+            sb.append("AudioTrackSelection: ").append(getAudioTrackSelection());
         sb.append("}");
         return sb.toString();
     }
@@ -112,6 +172,10 @@ public class AudioSelectorSettings implements Serializable, Cloneable, Structure
         if (obj instanceof AudioSelectorSettings == false)
             return false;
         AudioSelectorSettings other = (AudioSelectorSettings) obj;
+        if (other.getAudioHlsRenditionSelection() == null ^ this.getAudioHlsRenditionSelection() == null)
+            return false;
+        if (other.getAudioHlsRenditionSelection() != null && other.getAudioHlsRenditionSelection().equals(this.getAudioHlsRenditionSelection()) == false)
+            return false;
         if (other.getAudioLanguageSelection() == null ^ this.getAudioLanguageSelection() == null)
             return false;
         if (other.getAudioLanguageSelection() != null && other.getAudioLanguageSelection().equals(this.getAudioLanguageSelection()) == false)
@@ -119,6 +183,10 @@ public class AudioSelectorSettings implements Serializable, Cloneable, Structure
         if (other.getAudioPidSelection() == null ^ this.getAudioPidSelection() == null)
             return false;
         if (other.getAudioPidSelection() != null && other.getAudioPidSelection().equals(this.getAudioPidSelection()) == false)
+            return false;
+        if (other.getAudioTrackSelection() == null ^ this.getAudioTrackSelection() == null)
+            return false;
+        if (other.getAudioTrackSelection() != null && other.getAudioTrackSelection().equals(this.getAudioTrackSelection()) == false)
             return false;
         return true;
     }
@@ -128,8 +196,10 @@ public class AudioSelectorSettings implements Serializable, Cloneable, Structure
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getAudioHlsRenditionSelection() == null) ? 0 : getAudioHlsRenditionSelection().hashCode());
         hashCode = prime * hashCode + ((getAudioLanguageSelection() == null) ? 0 : getAudioLanguageSelection().hashCode());
         hashCode = prime * hashCode + ((getAudioPidSelection() == null) ? 0 : getAudioPidSelection().hashCode());
+        hashCode = prime * hashCode + ((getAudioTrackSelection() == null) ? 0 : getAudioTrackSelection().hashCode());
         return hashCode;
     }
 

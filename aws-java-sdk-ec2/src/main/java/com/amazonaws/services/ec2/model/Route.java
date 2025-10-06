@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,7 +39,7 @@ public class Route implements Serializable, Cloneable {
     private String destinationIpv6CidrBlock;
     /**
      * <p>
-     * The prefix of the AWS service.
+     * The prefix of the Amazon Web Service.
      * </p>
      */
     private String destinationPrefixListId;
@@ -63,7 +63,7 @@ public class Route implements Serializable, Cloneable {
     private String instanceId;
     /**
      * <p>
-     * The AWS account ID of the owner of the instance.
+     * The ID of Amazon Web Services account that owns the instance.
      * </p>
      */
     private String instanceOwnerId;
@@ -79,6 +79,18 @@ public class Route implements Serializable, Cloneable {
      * </p>
      */
     private String transitGatewayId;
+    /**
+     * <p>
+     * The ID of the local gateway.
+     * </p>
+     */
+    private String localGatewayId;
+    /**
+     * <p>
+     * The ID of the carrier gateway.
+     * </p>
+     */
+    private String carrierGatewayId;
     /**
      * <p>
      * The ID of the network interface.
@@ -121,6 +133,12 @@ public class Route implements Serializable, Cloneable {
      * </p>
      */
     private String vpcPeeringConnectionId;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the core network.
+     * </p>
+     */
+    private String coreNetworkArn;
 
     /**
      * <p>
@@ -204,11 +222,11 @@ public class Route implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The prefix of the AWS service.
+     * The prefix of the Amazon Web Service.
      * </p>
      * 
      * @param destinationPrefixListId
-     *        The prefix of the AWS service.
+     *        The prefix of the Amazon Web Service.
      */
 
     public void setDestinationPrefixListId(String destinationPrefixListId) {
@@ -217,10 +235,10 @@ public class Route implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The prefix of the AWS service.
+     * The prefix of the Amazon Web Service.
      * </p>
      * 
-     * @return The prefix of the AWS service.
+     * @return The prefix of the Amazon Web Service.
      */
 
     public String getDestinationPrefixListId() {
@@ -229,11 +247,11 @@ public class Route implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The prefix of the AWS service.
+     * The prefix of the Amazon Web Service.
      * </p>
      * 
      * @param destinationPrefixListId
-     *        The prefix of the AWS service.
+     *        The prefix of the Amazon Web Service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -364,11 +382,11 @@ public class Route implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the owner of the instance.
+     * The ID of Amazon Web Services account that owns the instance.
      * </p>
      * 
      * @param instanceOwnerId
-     *        The AWS account ID of the owner of the instance.
+     *        The ID of Amazon Web Services account that owns the instance.
      */
 
     public void setInstanceOwnerId(String instanceOwnerId) {
@@ -377,10 +395,10 @@ public class Route implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the owner of the instance.
+     * The ID of Amazon Web Services account that owns the instance.
      * </p>
      * 
-     * @return The AWS account ID of the owner of the instance.
+     * @return The ID of Amazon Web Services account that owns the instance.
      */
 
     public String getInstanceOwnerId() {
@@ -389,11 +407,11 @@ public class Route implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the owner of the instance.
+     * The ID of Amazon Web Services account that owns the instance.
      * </p>
      * 
      * @param instanceOwnerId
-     *        The AWS account ID of the owner of the instance.
+     *        The ID of Amazon Web Services account that owns the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -479,6 +497,86 @@ public class Route implements Serializable, Cloneable {
 
     public Route withTransitGatewayId(String transitGatewayId) {
         setTransitGatewayId(transitGatewayId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the local gateway.
+     * </p>
+     * 
+     * @param localGatewayId
+     *        The ID of the local gateway.
+     */
+
+    public void setLocalGatewayId(String localGatewayId) {
+        this.localGatewayId = localGatewayId;
+    }
+
+    /**
+     * <p>
+     * The ID of the local gateway.
+     * </p>
+     * 
+     * @return The ID of the local gateway.
+     */
+
+    public String getLocalGatewayId() {
+        return this.localGatewayId;
+    }
+
+    /**
+     * <p>
+     * The ID of the local gateway.
+     * </p>
+     * 
+     * @param localGatewayId
+     *        The ID of the local gateway.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Route withLocalGatewayId(String localGatewayId) {
+        setLocalGatewayId(localGatewayId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the carrier gateway.
+     * </p>
+     * 
+     * @param carrierGatewayId
+     *        The ID of the carrier gateway.
+     */
+
+    public void setCarrierGatewayId(String carrierGatewayId) {
+        this.carrierGatewayId = carrierGatewayId;
+    }
+
+    /**
+     * <p>
+     * The ID of the carrier gateway.
+     * </p>
+     * 
+     * @return The ID of the carrier gateway.
+     */
+
+    public String getCarrierGatewayId() {
+        return this.carrierGatewayId;
+    }
+
+    /**
+     * <p>
+     * The ID of the carrier gateway.
+     * </p>
+     * 
+     * @param carrierGatewayId
+     *        The ID of the carrier gateway.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Route withCarrierGatewayId(String carrierGatewayId) {
+        setCarrierGatewayId(carrierGatewayId);
         return this;
     }
 
@@ -889,6 +987,46 @@ public class Route implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the core network.
+     * </p>
+     * 
+     * @param coreNetworkArn
+     *        The Amazon Resource Name (ARN) of the core network.
+     */
+
+    public void setCoreNetworkArn(String coreNetworkArn) {
+        this.coreNetworkArn = coreNetworkArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the core network.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the core network.
+     */
+
+    public String getCoreNetworkArn() {
+        return this.coreNetworkArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the core network.
+     * </p>
+     * 
+     * @param coreNetworkArn
+     *        The Amazon Resource Name (ARN) of the core network.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Route withCoreNetworkArn(String coreNetworkArn) {
+        setCoreNetworkArn(coreNetworkArn);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -918,6 +1056,10 @@ public class Route implements Serializable, Cloneable {
             sb.append("NatGatewayId: ").append(getNatGatewayId()).append(",");
         if (getTransitGatewayId() != null)
             sb.append("TransitGatewayId: ").append(getTransitGatewayId()).append(",");
+        if (getLocalGatewayId() != null)
+            sb.append("LocalGatewayId: ").append(getLocalGatewayId()).append(",");
+        if (getCarrierGatewayId() != null)
+            sb.append("CarrierGatewayId: ").append(getCarrierGatewayId()).append(",");
         if (getNetworkInterfaceId() != null)
             sb.append("NetworkInterfaceId: ").append(getNetworkInterfaceId()).append(",");
         if (getOrigin() != null)
@@ -925,7 +1067,9 @@ public class Route implements Serializable, Cloneable {
         if (getState() != null)
             sb.append("State: ").append(getState()).append(",");
         if (getVpcPeeringConnectionId() != null)
-            sb.append("VpcPeeringConnectionId: ").append(getVpcPeeringConnectionId());
+            sb.append("VpcPeeringConnectionId: ").append(getVpcPeeringConnectionId()).append(",");
+        if (getCoreNetworkArn() != null)
+            sb.append("CoreNetworkArn: ").append(getCoreNetworkArn());
         sb.append("}");
         return sb.toString();
     }
@@ -976,6 +1120,14 @@ public class Route implements Serializable, Cloneable {
             return false;
         if (other.getTransitGatewayId() != null && other.getTransitGatewayId().equals(this.getTransitGatewayId()) == false)
             return false;
+        if (other.getLocalGatewayId() == null ^ this.getLocalGatewayId() == null)
+            return false;
+        if (other.getLocalGatewayId() != null && other.getLocalGatewayId().equals(this.getLocalGatewayId()) == false)
+            return false;
+        if (other.getCarrierGatewayId() == null ^ this.getCarrierGatewayId() == null)
+            return false;
+        if (other.getCarrierGatewayId() != null && other.getCarrierGatewayId().equals(this.getCarrierGatewayId()) == false)
+            return false;
         if (other.getNetworkInterfaceId() == null ^ this.getNetworkInterfaceId() == null)
             return false;
         if (other.getNetworkInterfaceId() != null && other.getNetworkInterfaceId().equals(this.getNetworkInterfaceId()) == false)
@@ -991,6 +1143,10 @@ public class Route implements Serializable, Cloneable {
         if (other.getVpcPeeringConnectionId() == null ^ this.getVpcPeeringConnectionId() == null)
             return false;
         if (other.getVpcPeeringConnectionId() != null && other.getVpcPeeringConnectionId().equals(this.getVpcPeeringConnectionId()) == false)
+            return false;
+        if (other.getCoreNetworkArn() == null ^ this.getCoreNetworkArn() == null)
+            return false;
+        if (other.getCoreNetworkArn() != null && other.getCoreNetworkArn().equals(this.getCoreNetworkArn()) == false)
             return false;
         return true;
     }
@@ -1009,10 +1165,13 @@ public class Route implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getInstanceOwnerId() == null) ? 0 : getInstanceOwnerId().hashCode());
         hashCode = prime * hashCode + ((getNatGatewayId() == null) ? 0 : getNatGatewayId().hashCode());
         hashCode = prime * hashCode + ((getTransitGatewayId() == null) ? 0 : getTransitGatewayId().hashCode());
+        hashCode = prime * hashCode + ((getLocalGatewayId() == null) ? 0 : getLocalGatewayId().hashCode());
+        hashCode = prime * hashCode + ((getCarrierGatewayId() == null) ? 0 : getCarrierGatewayId().hashCode());
         hashCode = prime * hashCode + ((getNetworkInterfaceId() == null) ? 0 : getNetworkInterfaceId().hashCode());
         hashCode = prime * hashCode + ((getOrigin() == null) ? 0 : getOrigin().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
         hashCode = prime * hashCode + ((getVpcPeeringConnectionId() == null) ? 0 : getVpcPeeringConnectionId().hashCode());
+        hashCode = prime * hashCode + ((getCoreNetworkArn() == null) ? 0 : getCoreNetworkArn().hashCode());
         return hashCode;
     }
 

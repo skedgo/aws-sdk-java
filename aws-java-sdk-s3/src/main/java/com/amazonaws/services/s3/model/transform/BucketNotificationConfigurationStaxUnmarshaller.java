@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2015-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.events.XMLEvent;
 
 import com.amazonaws.services.s3.model.BucketNotificationConfiguration;
+import com.amazonaws.services.s3.model.EventBridgeConfiguration;
 import com.amazonaws.services.s3.model.NotificationConfiguration;
 import com.amazonaws.transform.StaxUnmarshallerContext;
 import com.amazonaws.transform.Unmarshaller;
@@ -69,6 +70,10 @@ public class BucketNotificationConfigurationStaxUnmarshaller implements
                     Entry<String, NotificationConfiguration> entry = LambdaConfigurationStaxUnmarshaller.getInstance()
                             .unmarshall(context);
                     config.addConfiguration(entry.getKey(), entry.getValue());
+                } else if (context.testExpression("EventBridgeConfiguration", targetDepth)) {
+                    EventBridgeConfiguration eventBridgeConfig = EventBridgeConfigurationStaxUnmarshaller.getInstance()
+                            .unmarshall(context);
+                    config.setEventBridgeConfiguration(eventBridgeConfig);
                 }
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {

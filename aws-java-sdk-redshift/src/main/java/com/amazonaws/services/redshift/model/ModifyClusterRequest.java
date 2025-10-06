@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,15 +56,13 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * parameter.
      * </p>
      * <p>
-     * When you submit your request to resize a cluster, Amazon Redshift sets access permissions for the cluster to
-     * read-only. After Amazon Redshift provisions a new cluster according to your resize requirements, there will be a
-     * temporary outage while the old cluster is deleted and your connection is switched to the new cluster. When the
-     * new connection is complete, the original access permissions for the cluster are restored. You can use
-     * <a>DescribeResize</a> to track the progress of the resize request.
+     * For more information about resizing clusters, go to <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/rs-resize-tutorial.html">Resizing Clusters in Amazon
+     * Redshift</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * <p>
-     * Valid Values: <code>ds2.xlarge</code> | <code>ds2.8xlarge</code> | <code>dc1.large</code> |
-     * <code>dc1.8xlarge</code> | <code>dc2.large</code> | <code>dc2.8xlarge</code>
+     * Valid Values: <code>dc2.large</code> | <code>dc2.8xlarge</code> | <code>ra3.xlplus</code> |
+     * <code>ra3.4xlarge</code> | <code>ra3.16xlarge</code>
      * </p>
      */
     private String nodeType;
@@ -74,11 +72,9 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * parameter.
      * </p>
      * <p>
-     * When you submit your request to resize a cluster, Amazon Redshift sets access permissions for the cluster to
-     * read-only. After Amazon Redshift provisions a new cluster according to your resize requirements, there will be a
-     * temporary outage while the old cluster is deleted and your connection is switched to the new cluster. When the
-     * new connection is complete, the original access permissions for the cluster are restored. You can use
-     * <a>DescribeResize</a> to track the progress of the resize request.
+     * For more information about resizing clusters, go to <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/rs-resize-tutorial.html">Resizing Clusters in Amazon
+     * Redshift</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * <p>
      * Valid Values: Integer greater than <code>0</code>.
@@ -125,14 +121,17 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     private com.amazonaws.internal.SdkInternalList<String> vpcSecurityGroupIds;
     /**
      * <p>
-     * The new password for the cluster master user. This change is asynchronously applied as soon as possible. Between
+     * The new password for the cluster admin user. This change is asynchronously applied as soon as possible. Between
      * the time of the request and the completion of the request, the <code>MasterUserPassword</code> element exists in
      * the <code>PendingModifiedValues</code> element of the operation response.
      * </p>
+     * <p>
+     * You can't use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is <code>true</code>.
+     * </p>
      * <note>
      * <p>
-     * Operations never return the password, so this operation provides a way to regain access to the master user
-     * account for a cluster if the password is lost.
+     * Operations never return the password, so this operation provides a way to regain access to the admin user account
+     * for a cluster if the password is lost.
      * </p>
      * </note>
      * <p>
@@ -164,8 +163,8 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
-     * Can be any printable ASCII character (ASCII code 33 to 126) except ' (single quote), " (double quote), \, /, @,
-     * or space.
+     * Can be any printable ASCII character (ASCII code 33-126) except <code>'</code> (single quote), <code>"</code>
+     * (double quote), <code>\</code>, <code>/</code>, or <code>@</code>.
      * </p>
      * </li>
      * </ul>
@@ -194,6 +193,9 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * If you decrease the automated snapshot retention period from its current value, existing automated snapshots that
      * fall outside of the new retention period will be immediately deleted.
+     * </p>
+     * <p>
+     * You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35 days.
      * </p>
      * <p>
      * Default: Uses existing setting.
@@ -312,7 +314,7 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
-     * Must be unique for all clusters within an AWS account.
+     * Must be unique for all clusters within an Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -366,20 +368,86 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String maintenanceTrackName;
     /**
      * <p>
-     * Indicates whether the cluster is encrypted. If the cluster is encrypted and you provide a value for the
-     * <code>KmsKeyId</code> parameter, we will encrypt the cluster with the provided <code>KmsKeyId</code>. If you
-     * don't provide a <code>KmsKeyId</code>, we will encrypt with the default key. In the China region we will use
-     * legacy encryption if you specify that the cluster is encrypted.
+     * Indicates whether the cluster is encrypted. If the value is encrypted (true) and you provide a value for the
+     * <code>KmsKeyId</code> parameter, we encrypt the cluster with the provided <code>KmsKeyId</code>. If you don't
+     * provide a <code>KmsKeyId</code>, we encrypt with the default key.
+     * </p>
+     * <p>
+     * If the value is not encrypted (false), then the cluster is decrypted.
      * </p>
      */
     private Boolean encrypted;
     /**
      * <p>
-     * The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
+     * The Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
      * cluster.
      * </p>
      */
     private String kmsKeyId;
+    /**
+     * <p>
+     * The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the cluster
+     * modification is complete.
+     * </p>
+     */
+    private Boolean availabilityZoneRelocation;
+    /**
+     * <p>
+     * The option to initiate relocation for an Amazon Redshift cluster to the target Availability Zone.
+     * </p>
+     */
+    private String availabilityZone;
+    /**
+     * <p>
+     * The option to change the port of an Amazon Redshift cluster.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For clusters with ra3 nodes - Select a port within the ranges <code>5431-5455</code> or <code>8191-8215</code>.
+     * (If you have an existing cluster with ra3 nodes, it isn't required that you change the port to these ranges.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For clusters with dc2 nodes - Select a port within the range <code>1150-65535</code>.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private Integer port;
+    /**
+     * <p>
+     * If <code>true</code>, Amazon Redshift uses Secrets Manager to manage this cluster's admin credentials. You can't
+     * use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is true. If
+     * <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses <code>MasterUserPassword</code> for
+     * the admin user account's password.
+     * </p>
+     */
+    private Boolean manageMasterPassword;
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * You can only use this parameter if <code>ManageMasterPassword</code> is true.
+     * </p>
+     */
+    private String masterPasswordSecretKmsKeyId;
+    /**
+     * <p>
+     * The IP address types that the cluster supports. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     * </p>
+     */
+    private String ipAddressType;
+    /**
+     * <p>
+     * If true and the cluster is currently only deployed in a single Availability Zone, the cluster will be modified to
+     * be deployed in two Availability Zones.
+     * </p>
+     */
+    private Boolean multiAZ;
 
     /**
      * <p>
@@ -533,30 +601,26 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * parameter.
      * </p>
      * <p>
-     * When you submit your request to resize a cluster, Amazon Redshift sets access permissions for the cluster to
-     * read-only. After Amazon Redshift provisions a new cluster according to your resize requirements, there will be a
-     * temporary outage while the old cluster is deleted and your connection is switched to the new cluster. When the
-     * new connection is complete, the original access permissions for the cluster are restored. You can use
-     * <a>DescribeResize</a> to track the progress of the resize request.
+     * For more information about resizing clusters, go to <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/rs-resize-tutorial.html">Resizing Clusters in Amazon
+     * Redshift</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * <p>
-     * Valid Values: <code>ds2.xlarge</code> | <code>ds2.8xlarge</code> | <code>dc1.large</code> |
-     * <code>dc1.8xlarge</code> | <code>dc2.large</code> | <code>dc2.8xlarge</code>
+     * Valid Values: <code>dc2.large</code> | <code>dc2.8xlarge</code> | <code>ra3.xlplus</code> |
+     * <code>ra3.4xlarge</code> | <code>ra3.16xlarge</code>
      * </p>
      * 
      * @param nodeType
      *        The new node type of the cluster. If you specify a new node type, you must also specify the number of
      *        nodes parameter.</p>
      *        <p>
-     *        When you submit your request to resize a cluster, Amazon Redshift sets access permissions for the cluster
-     *        to read-only. After Amazon Redshift provisions a new cluster according to your resize requirements, there
-     *        will be a temporary outage while the old cluster is deleted and your connection is switched to the new
-     *        cluster. When the new connection is complete, the original access permissions for the cluster are
-     *        restored. You can use <a>DescribeResize</a> to track the progress of the resize request.
+     *        For more information about resizing clusters, go to <a
+     *        href="https://docs.aws.amazon.com/redshift/latest/mgmt/rs-resize-tutorial.html">Resizing Clusters in
+     *        Amazon Redshift</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      *        </p>
      *        <p>
-     *        Valid Values: <code>ds2.xlarge</code> | <code>ds2.8xlarge</code> | <code>dc1.large</code> |
-     *        <code>dc1.8xlarge</code> | <code>dc2.large</code> | <code>dc2.8xlarge</code>
+     *        Valid Values: <code>dc2.large</code> | <code>dc2.8xlarge</code> | <code>ra3.xlplus</code> |
+     *        <code>ra3.4xlarge</code> | <code>ra3.16xlarge</code>
      */
 
     public void setNodeType(String nodeType) {
@@ -569,29 +633,25 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * parameter.
      * </p>
      * <p>
-     * When you submit your request to resize a cluster, Amazon Redshift sets access permissions for the cluster to
-     * read-only. After Amazon Redshift provisions a new cluster according to your resize requirements, there will be a
-     * temporary outage while the old cluster is deleted and your connection is switched to the new cluster. When the
-     * new connection is complete, the original access permissions for the cluster are restored. You can use
-     * <a>DescribeResize</a> to track the progress of the resize request.
+     * For more information about resizing clusters, go to <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/rs-resize-tutorial.html">Resizing Clusters in Amazon
+     * Redshift</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * <p>
-     * Valid Values: <code>ds2.xlarge</code> | <code>ds2.8xlarge</code> | <code>dc1.large</code> |
-     * <code>dc1.8xlarge</code> | <code>dc2.large</code> | <code>dc2.8xlarge</code>
+     * Valid Values: <code>dc2.large</code> | <code>dc2.8xlarge</code> | <code>ra3.xlplus</code> |
+     * <code>ra3.4xlarge</code> | <code>ra3.16xlarge</code>
      * </p>
      * 
      * @return The new node type of the cluster. If you specify a new node type, you must also specify the number of
      *         nodes parameter.</p>
      *         <p>
-     *         When you submit your request to resize a cluster, Amazon Redshift sets access permissions for the cluster
-     *         to read-only. After Amazon Redshift provisions a new cluster according to your resize requirements, there
-     *         will be a temporary outage while the old cluster is deleted and your connection is switched to the new
-     *         cluster. When the new connection is complete, the original access permissions for the cluster are
-     *         restored. You can use <a>DescribeResize</a> to track the progress of the resize request.
+     *         For more information about resizing clusters, go to <a
+     *         href="https://docs.aws.amazon.com/redshift/latest/mgmt/rs-resize-tutorial.html">Resizing Clusters in
+     *         Amazon Redshift</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      *         </p>
      *         <p>
-     *         Valid Values: <code>ds2.xlarge</code> | <code>ds2.8xlarge</code> | <code>dc1.large</code> |
-     *         <code>dc1.8xlarge</code> | <code>dc2.large</code> | <code>dc2.8xlarge</code>
+     *         Valid Values: <code>dc2.large</code> | <code>dc2.8xlarge</code> | <code>ra3.xlplus</code> |
+     *         <code>ra3.4xlarge</code> | <code>ra3.16xlarge</code>
      */
 
     public String getNodeType() {
@@ -604,30 +664,26 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * parameter.
      * </p>
      * <p>
-     * When you submit your request to resize a cluster, Amazon Redshift sets access permissions for the cluster to
-     * read-only. After Amazon Redshift provisions a new cluster according to your resize requirements, there will be a
-     * temporary outage while the old cluster is deleted and your connection is switched to the new cluster. When the
-     * new connection is complete, the original access permissions for the cluster are restored. You can use
-     * <a>DescribeResize</a> to track the progress of the resize request.
+     * For more information about resizing clusters, go to <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/rs-resize-tutorial.html">Resizing Clusters in Amazon
+     * Redshift</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * <p>
-     * Valid Values: <code>ds2.xlarge</code> | <code>ds2.8xlarge</code> | <code>dc1.large</code> |
-     * <code>dc1.8xlarge</code> | <code>dc2.large</code> | <code>dc2.8xlarge</code>
+     * Valid Values: <code>dc2.large</code> | <code>dc2.8xlarge</code> | <code>ra3.xlplus</code> |
+     * <code>ra3.4xlarge</code> | <code>ra3.16xlarge</code>
      * </p>
      * 
      * @param nodeType
      *        The new node type of the cluster. If you specify a new node type, you must also specify the number of
      *        nodes parameter.</p>
      *        <p>
-     *        When you submit your request to resize a cluster, Amazon Redshift sets access permissions for the cluster
-     *        to read-only. After Amazon Redshift provisions a new cluster according to your resize requirements, there
-     *        will be a temporary outage while the old cluster is deleted and your connection is switched to the new
-     *        cluster. When the new connection is complete, the original access permissions for the cluster are
-     *        restored. You can use <a>DescribeResize</a> to track the progress of the resize request.
+     *        For more information about resizing clusters, go to <a
+     *        href="https://docs.aws.amazon.com/redshift/latest/mgmt/rs-resize-tutorial.html">Resizing Clusters in
+     *        Amazon Redshift</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      *        </p>
      *        <p>
-     *        Valid Values: <code>ds2.xlarge</code> | <code>ds2.8xlarge</code> | <code>dc1.large</code> |
-     *        <code>dc1.8xlarge</code> | <code>dc2.large</code> | <code>dc2.8xlarge</code>
+     *        Valid Values: <code>dc2.large</code> | <code>dc2.8xlarge</code> | <code>ra3.xlplus</code> |
+     *        <code>ra3.4xlarge</code> | <code>ra3.16xlarge</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -642,11 +698,9 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * parameter.
      * </p>
      * <p>
-     * When you submit your request to resize a cluster, Amazon Redshift sets access permissions for the cluster to
-     * read-only. After Amazon Redshift provisions a new cluster according to your resize requirements, there will be a
-     * temporary outage while the old cluster is deleted and your connection is switched to the new cluster. When the
-     * new connection is complete, the original access permissions for the cluster are restored. You can use
-     * <a>DescribeResize</a> to track the progress of the resize request.
+     * For more information about resizing clusters, go to <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/rs-resize-tutorial.html">Resizing Clusters in Amazon
+     * Redshift</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * <p>
      * Valid Values: Integer greater than <code>0</code>.
@@ -656,11 +710,9 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        The new number of nodes of the cluster. If you specify a new number of nodes, you must also specify the
      *        node type parameter.</p>
      *        <p>
-     *        When you submit your request to resize a cluster, Amazon Redshift sets access permissions for the cluster
-     *        to read-only. After Amazon Redshift provisions a new cluster according to your resize requirements, there
-     *        will be a temporary outage while the old cluster is deleted and your connection is switched to the new
-     *        cluster. When the new connection is complete, the original access permissions for the cluster are
-     *        restored. You can use <a>DescribeResize</a> to track the progress of the resize request.
+     *        For more information about resizing clusters, go to <a
+     *        href="https://docs.aws.amazon.com/redshift/latest/mgmt/rs-resize-tutorial.html">Resizing Clusters in
+     *        Amazon Redshift</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      *        </p>
      *        <p>
      *        Valid Values: Integer greater than <code>0</code>.
@@ -676,11 +728,9 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * parameter.
      * </p>
      * <p>
-     * When you submit your request to resize a cluster, Amazon Redshift sets access permissions for the cluster to
-     * read-only. After Amazon Redshift provisions a new cluster according to your resize requirements, there will be a
-     * temporary outage while the old cluster is deleted and your connection is switched to the new cluster. When the
-     * new connection is complete, the original access permissions for the cluster are restored. You can use
-     * <a>DescribeResize</a> to track the progress of the resize request.
+     * For more information about resizing clusters, go to <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/rs-resize-tutorial.html">Resizing Clusters in Amazon
+     * Redshift</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * <p>
      * Valid Values: Integer greater than <code>0</code>.
@@ -689,11 +739,9 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * @return The new number of nodes of the cluster. If you specify a new number of nodes, you must also specify the
      *         node type parameter.</p>
      *         <p>
-     *         When you submit your request to resize a cluster, Amazon Redshift sets access permissions for the cluster
-     *         to read-only. After Amazon Redshift provisions a new cluster according to your resize requirements, there
-     *         will be a temporary outage while the old cluster is deleted and your connection is switched to the new
-     *         cluster. When the new connection is complete, the original access permissions for the cluster are
-     *         restored. You can use <a>DescribeResize</a> to track the progress of the resize request.
+     *         For more information about resizing clusters, go to <a
+     *         href="https://docs.aws.amazon.com/redshift/latest/mgmt/rs-resize-tutorial.html">Resizing Clusters in
+     *         Amazon Redshift</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      *         </p>
      *         <p>
      *         Valid Values: Integer greater than <code>0</code>.
@@ -709,11 +757,9 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * parameter.
      * </p>
      * <p>
-     * When you submit your request to resize a cluster, Amazon Redshift sets access permissions for the cluster to
-     * read-only. After Amazon Redshift provisions a new cluster according to your resize requirements, there will be a
-     * temporary outage while the old cluster is deleted and your connection is switched to the new cluster. When the
-     * new connection is complete, the original access permissions for the cluster are restored. You can use
-     * <a>DescribeResize</a> to track the progress of the resize request.
+     * For more information about resizing clusters, go to <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/rs-resize-tutorial.html">Resizing Clusters in Amazon
+     * Redshift</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * <p>
      * Valid Values: Integer greater than <code>0</code>.
@@ -723,11 +769,9 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        The new number of nodes of the cluster. If you specify a new number of nodes, you must also specify the
      *        node type parameter.</p>
      *        <p>
-     *        When you submit your request to resize a cluster, Amazon Redshift sets access permissions for the cluster
-     *        to read-only. After Amazon Redshift provisions a new cluster according to your resize requirements, there
-     *        will be a temporary outage while the old cluster is deleted and your connection is switched to the new
-     *        cluster. When the new connection is complete, the original access permissions for the cluster are
-     *        restored. You can use <a>DescribeResize</a> to track the progress of the resize request.
+     *        For more information about resizing clusters, go to <a
+     *        href="https://docs.aws.amazon.com/redshift/latest/mgmt/rs-resize-tutorial.html">Resizing Clusters in
+     *        Amazon Redshift</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      *        </p>
      *        <p>
      *        Valid Values: Integer greater than <code>0</code>.
@@ -1091,14 +1135,17 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The new password for the cluster master user. This change is asynchronously applied as soon as possible. Between
+     * The new password for the cluster admin user. This change is asynchronously applied as soon as possible. Between
      * the time of the request and the completion of the request, the <code>MasterUserPassword</code> element exists in
      * the <code>PendingModifiedValues</code> element of the operation response.
      * </p>
+     * <p>
+     * You can't use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is <code>true</code>.
+     * </p>
      * <note>
      * <p>
-     * Operations never return the password, so this operation provides a way to regain access to the master user
-     * account for a cluster if the password is lost.
+     * Operations never return the password, so this operation provides a way to regain access to the admin user account
+     * for a cluster if the password is lost.
      * </p>
      * </note>
      * <p>
@@ -1130,18 +1177,22 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
-     * Can be any printable ASCII character (ASCII code 33 to 126) except ' (single quote), " (double quote), \, /, @,
-     * or space.
+     * Can be any printable ASCII character (ASCII code 33-126) except <code>'</code> (single quote), <code>"</code>
+     * (double quote), <code>\</code>, <code>/</code>, or <code>@</code>.
      * </p>
      * </li>
      * </ul>
      * 
      * @param masterUserPassword
-     *        The new password for the cluster master user. This change is asynchronously applied as soon as possible.
+     *        The new password for the cluster admin user. This change is asynchronously applied as soon as possible.
      *        Between the time of the request and the completion of the request, the <code>MasterUserPassword</code>
-     *        element exists in the <code>PendingModifiedValues</code> element of the operation response. </p> <note>
+     *        element exists in the <code>PendingModifiedValues</code> element of the operation response. </p>
      *        <p>
-     *        Operations never return the password, so this operation provides a way to regain access to the master user
+     *        You can't use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is <code>true</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Operations never return the password, so this operation provides a way to regain access to the admin user
      *        account for a cluster if the password is lost.
      *        </p>
      *        </note>
@@ -1174,8 +1225,8 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </li>
      *        <li>
      *        <p>
-     *        Can be any printable ASCII character (ASCII code 33 to 126) except ' (single quote), " (double quote), \,
-     *        /, @, or space.
+     *        Can be any printable ASCII character (ASCII code 33-126) except <code>'</code> (single quote),
+     *        <code>"</code> (double quote), <code>\</code>, <code>/</code>, or <code>@</code>.
      *        </p>
      *        </li>
      */
@@ -1186,14 +1237,17 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The new password for the cluster master user. This change is asynchronously applied as soon as possible. Between
+     * The new password for the cluster admin user. This change is asynchronously applied as soon as possible. Between
      * the time of the request and the completion of the request, the <code>MasterUserPassword</code> element exists in
      * the <code>PendingModifiedValues</code> element of the operation response.
      * </p>
+     * <p>
+     * You can't use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is <code>true</code>.
+     * </p>
      * <note>
      * <p>
-     * Operations never return the password, so this operation provides a way to regain access to the master user
-     * account for a cluster if the password is lost.
+     * Operations never return the password, so this operation provides a way to regain access to the admin user account
+     * for a cluster if the password is lost.
      * </p>
      * </note>
      * <p>
@@ -1225,18 +1279,22 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
-     * Can be any printable ASCII character (ASCII code 33 to 126) except ' (single quote), " (double quote), \, /, @,
-     * or space.
+     * Can be any printable ASCII character (ASCII code 33-126) except <code>'</code> (single quote), <code>"</code>
+     * (double quote), <code>\</code>, <code>/</code>, or <code>@</code>.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The new password for the cluster master user. This change is asynchronously applied as soon as possible.
+     * @return The new password for the cluster admin user. This change is asynchronously applied as soon as possible.
      *         Between the time of the request and the completion of the request, the <code>MasterUserPassword</code>
-     *         element exists in the <code>PendingModifiedValues</code> element of the operation response. </p> <note>
+     *         element exists in the <code>PendingModifiedValues</code> element of the operation response. </p>
      *         <p>
-     *         Operations never return the password, so this operation provides a way to regain access to the master
-     *         user account for a cluster if the password is lost.
+     *         You can't use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is <code>true</code>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Operations never return the password, so this operation provides a way to regain access to the admin user
+     *         account for a cluster if the password is lost.
      *         </p>
      *         </note>
      *         <p>
@@ -1268,8 +1326,8 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         </li>
      *         <li>
      *         <p>
-     *         Can be any printable ASCII character (ASCII code 33 to 126) except ' (single quote), " (double quote), \,
-     *         /, @, or space.
+     *         Can be any printable ASCII character (ASCII code 33-126) except <code>'</code> (single quote),
+     *         <code>"</code> (double quote), <code>\</code>, <code>/</code>, or <code>@</code>.
      *         </p>
      *         </li>
      */
@@ -1280,14 +1338,17 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The new password for the cluster master user. This change is asynchronously applied as soon as possible. Between
+     * The new password for the cluster admin user. This change is asynchronously applied as soon as possible. Between
      * the time of the request and the completion of the request, the <code>MasterUserPassword</code> element exists in
      * the <code>PendingModifiedValues</code> element of the operation response.
      * </p>
+     * <p>
+     * You can't use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is <code>true</code>.
+     * </p>
      * <note>
      * <p>
-     * Operations never return the password, so this operation provides a way to regain access to the master user
-     * account for a cluster if the password is lost.
+     * Operations never return the password, so this operation provides a way to regain access to the admin user account
+     * for a cluster if the password is lost.
      * </p>
      * </note>
      * <p>
@@ -1319,18 +1380,22 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
-     * Can be any printable ASCII character (ASCII code 33 to 126) except ' (single quote), " (double quote), \, /, @,
-     * or space.
+     * Can be any printable ASCII character (ASCII code 33-126) except <code>'</code> (single quote), <code>"</code>
+     * (double quote), <code>\</code>, <code>/</code>, or <code>@</code>.
      * </p>
      * </li>
      * </ul>
      * 
      * @param masterUserPassword
-     *        The new password for the cluster master user. This change is asynchronously applied as soon as possible.
+     *        The new password for the cluster admin user. This change is asynchronously applied as soon as possible.
      *        Between the time of the request and the completion of the request, the <code>MasterUserPassword</code>
-     *        element exists in the <code>PendingModifiedValues</code> element of the operation response. </p> <note>
+     *        element exists in the <code>PendingModifiedValues</code> element of the operation response. </p>
      *        <p>
-     *        Operations never return the password, so this operation provides a way to regain access to the master user
+     *        You can't use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is <code>true</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Operations never return the password, so this operation provides a way to regain access to the admin user
      *        account for a cluster if the password is lost.
      *        </p>
      *        </note>
@@ -1363,8 +1428,8 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </li>
      *        <li>
      *        <p>
-     *        Can be any printable ASCII character (ASCII code 33 to 126) except ' (single quote), " (double quote), \,
-     *        /, @, or space.
+     *        Can be any printable ASCII character (ASCII code 33-126) except <code>'</code> (single quote),
+     *        <code>"</code> (double quote), <code>\</code>, <code>/</code>, or <code>@</code>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1471,6 +1536,9 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * fall outside of the new retention period will be immediately deleted.
      * </p>
      * <p>
+     * You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35 days.
+     * </p>
+     * <p>
      * Default: Uses existing setting.
      * </p>
      * <p>
@@ -1484,6 +1552,10 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <p>
      *        If you decrease the automated snapshot retention period from its current value, existing automated
      *        snapshots that fall outside of the new retention period will be immediately deleted.
+     *        </p>
+     *        <p>
+     *        You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35
+     *        days.
      *        </p>
      *        <p>
      *        Default: Uses existing setting.
@@ -1507,6 +1579,9 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * fall outside of the new retention period will be immediately deleted.
      * </p>
      * <p>
+     * You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35 days.
+     * </p>
+     * <p>
      * Default: Uses existing setting.
      * </p>
      * <p>
@@ -1519,6 +1594,10 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         <p>
      *         If you decrease the automated snapshot retention period from its current value, existing automated
      *         snapshots that fall outside of the new retention period will be immediately deleted.
+     *         </p>
+     *         <p>
+     *         You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35
+     *         days.
      *         </p>
      *         <p>
      *         Default: Uses existing setting.
@@ -1542,6 +1621,9 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * fall outside of the new retention period will be immediately deleted.
      * </p>
      * <p>
+     * You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35 days.
+     * </p>
+     * <p>
      * Default: Uses existing setting.
      * </p>
      * <p>
@@ -1555,6 +1637,10 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <p>
      *        If you decrease the automated snapshot retention period from its current value, existing automated
      *        snapshots that fall outside of the new retention period will be immediately deleted.
+     *        </p>
+     *        <p>
+     *        You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35
+     *        days.
      *        </p>
      *        <p>
      *        Default: Uses existing setting.
@@ -2104,7 +2190,7 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
-     * Must be unique for all clusters within an AWS account.
+     * Must be unique for all clusters within an Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -2140,7 +2226,7 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </li>
      *        <li>
      *        <p>
-     *        Must be unique for all clusters within an AWS account.
+     *        Must be unique for all clusters within an Amazon Web Services account.
      *        </p>
      *        </li>
      *        </ul>
@@ -2182,7 +2268,7 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
-     * Must be unique for all clusters within an AWS account.
+     * Must be unique for all clusters within an Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -2217,7 +2303,7 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         </li>
      *         <li>
      *         <p>
-     *         Must be unique for all clusters within an AWS account.
+     *         Must be unique for all clusters within an Amazon Web Services account.
      *         </p>
      *         </li>
      *         </ul>
@@ -2259,7 +2345,7 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
-     * Must be unique for all clusters within an AWS account.
+     * Must be unique for all clusters within an Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -2295,7 +2381,7 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </li>
      *        <li>
      *        <p>
-     *        Must be unique for all clusters within an AWS account.
+     *        Must be unique for all clusters within an Amazon Web Services account.
      *        </p>
      *        </li>
      *        </ul>
@@ -2623,17 +2709,20 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Indicates whether the cluster is encrypted. If the cluster is encrypted and you provide a value for the
-     * <code>KmsKeyId</code> parameter, we will encrypt the cluster with the provided <code>KmsKeyId</code>. If you
-     * don't provide a <code>KmsKeyId</code>, we will encrypt with the default key. In the China region we will use
-     * legacy encryption if you specify that the cluster is encrypted.
+     * Indicates whether the cluster is encrypted. If the value is encrypted (true) and you provide a value for the
+     * <code>KmsKeyId</code> parameter, we encrypt the cluster with the provided <code>KmsKeyId</code>. If you don't
+     * provide a <code>KmsKeyId</code>, we encrypt with the default key.
+     * </p>
+     * <p>
+     * If the value is not encrypted (false), then the cluster is decrypted.
      * </p>
      * 
      * @param encrypted
-     *        Indicates whether the cluster is encrypted. If the cluster is encrypted and you provide a value for the
-     *        <code>KmsKeyId</code> parameter, we will encrypt the cluster with the provided <code>KmsKeyId</code>. If
-     *        you don't provide a <code>KmsKeyId</code>, we will encrypt with the default key. In the China region we
-     *        will use legacy encryption if you specify that the cluster is encrypted.
+     *        Indicates whether the cluster is encrypted. If the value is encrypted (true) and you provide a value for
+     *        the <code>KmsKeyId</code> parameter, we encrypt the cluster with the provided <code>KmsKeyId</code>. If
+     *        you don't provide a <code>KmsKeyId</code>, we encrypt with the default key. </p>
+     *        <p>
+     *        If the value is not encrypted (false), then the cluster is decrypted.
      */
 
     public void setEncrypted(Boolean encrypted) {
@@ -2642,16 +2731,19 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Indicates whether the cluster is encrypted. If the cluster is encrypted and you provide a value for the
-     * <code>KmsKeyId</code> parameter, we will encrypt the cluster with the provided <code>KmsKeyId</code>. If you
-     * don't provide a <code>KmsKeyId</code>, we will encrypt with the default key. In the China region we will use
-     * legacy encryption if you specify that the cluster is encrypted.
+     * Indicates whether the cluster is encrypted. If the value is encrypted (true) and you provide a value for the
+     * <code>KmsKeyId</code> parameter, we encrypt the cluster with the provided <code>KmsKeyId</code>. If you don't
+     * provide a <code>KmsKeyId</code>, we encrypt with the default key.
+     * </p>
+     * <p>
+     * If the value is not encrypted (false), then the cluster is decrypted.
      * </p>
      * 
-     * @return Indicates whether the cluster is encrypted. If the cluster is encrypted and you provide a value for the
-     *         <code>KmsKeyId</code> parameter, we will encrypt the cluster with the provided <code>KmsKeyId</code>. If
-     *         you don't provide a <code>KmsKeyId</code>, we will encrypt with the default key. In the China region we
-     *         will use legacy encryption if you specify that the cluster is encrypted.
+     * @return Indicates whether the cluster is encrypted. If the value is encrypted (true) and you provide a value for
+     *         the <code>KmsKeyId</code> parameter, we encrypt the cluster with the provided <code>KmsKeyId</code>. If
+     *         you don't provide a <code>KmsKeyId</code>, we encrypt with the default key. </p>
+     *         <p>
+     *         If the value is not encrypted (false), then the cluster is decrypted.
      */
 
     public Boolean getEncrypted() {
@@ -2660,17 +2752,20 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Indicates whether the cluster is encrypted. If the cluster is encrypted and you provide a value for the
-     * <code>KmsKeyId</code> parameter, we will encrypt the cluster with the provided <code>KmsKeyId</code>. If you
-     * don't provide a <code>KmsKeyId</code>, we will encrypt with the default key. In the China region we will use
-     * legacy encryption if you specify that the cluster is encrypted.
+     * Indicates whether the cluster is encrypted. If the value is encrypted (true) and you provide a value for the
+     * <code>KmsKeyId</code> parameter, we encrypt the cluster with the provided <code>KmsKeyId</code>. If you don't
+     * provide a <code>KmsKeyId</code>, we encrypt with the default key.
+     * </p>
+     * <p>
+     * If the value is not encrypted (false), then the cluster is decrypted.
      * </p>
      * 
      * @param encrypted
-     *        Indicates whether the cluster is encrypted. If the cluster is encrypted and you provide a value for the
-     *        <code>KmsKeyId</code> parameter, we will encrypt the cluster with the provided <code>KmsKeyId</code>. If
-     *        you don't provide a <code>KmsKeyId</code>, we will encrypt with the default key. In the China region we
-     *        will use legacy encryption if you specify that the cluster is encrypted.
+     *        Indicates whether the cluster is encrypted. If the value is encrypted (true) and you provide a value for
+     *        the <code>KmsKeyId</code> parameter, we encrypt the cluster with the provided <code>KmsKeyId</code>. If
+     *        you don't provide a <code>KmsKeyId</code>, we encrypt with the default key. </p>
+     *        <p>
+     *        If the value is not encrypted (false), then the cluster is decrypted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2681,16 +2776,19 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Indicates whether the cluster is encrypted. If the cluster is encrypted and you provide a value for the
-     * <code>KmsKeyId</code> parameter, we will encrypt the cluster with the provided <code>KmsKeyId</code>. If you
-     * don't provide a <code>KmsKeyId</code>, we will encrypt with the default key. In the China region we will use
-     * legacy encryption if you specify that the cluster is encrypted.
+     * Indicates whether the cluster is encrypted. If the value is encrypted (true) and you provide a value for the
+     * <code>KmsKeyId</code> parameter, we encrypt the cluster with the provided <code>KmsKeyId</code>. If you don't
+     * provide a <code>KmsKeyId</code>, we encrypt with the default key.
+     * </p>
+     * <p>
+     * If the value is not encrypted (false), then the cluster is decrypted.
      * </p>
      * 
-     * @return Indicates whether the cluster is encrypted. If the cluster is encrypted and you provide a value for the
-     *         <code>KmsKeyId</code> parameter, we will encrypt the cluster with the provided <code>KmsKeyId</code>. If
-     *         you don't provide a <code>KmsKeyId</code>, we will encrypt with the default key. In the China region we
-     *         will use legacy encryption if you specify that the cluster is encrypted.
+     * @return Indicates whether the cluster is encrypted. If the value is encrypted (true) and you provide a value for
+     *         the <code>KmsKeyId</code> parameter, we encrypt the cluster with the provided <code>KmsKeyId</code>. If
+     *         you don't provide a <code>KmsKeyId</code>, we encrypt with the default key. </p>
+     *         <p>
+     *         If the value is not encrypted (false), then the cluster is decrypted.
      */
 
     public Boolean isEncrypted() {
@@ -2699,13 +2797,13 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
+     * The Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
      * cluster.
      * </p>
      * 
      * @param kmsKeyId
-     *        The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in
-     *        the cluster.
+     *        The Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
+     *        cluster.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -2714,12 +2812,12 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
+     * The Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
      * cluster.
      * </p>
      * 
-     * @return The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in
-     *         the cluster.
+     * @return The Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
+     *         cluster.
      */
 
     public String getKmsKeyId() {
@@ -2728,19 +2826,480 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
+     * The Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
      * cluster.
      * </p>
      * 
      * @param kmsKeyId
-     *        The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in
-     *        the cluster.
+     *        The Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
+     *        cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ModifyClusterRequest withKmsKeyId(String kmsKeyId) {
         setKmsKeyId(kmsKeyId);
         return this;
+    }
+
+    /**
+     * <p>
+     * The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the cluster
+     * modification is complete.
+     * </p>
+     * 
+     * @param availabilityZoneRelocation
+     *        The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the
+     *        cluster modification is complete.
+     */
+
+    public void setAvailabilityZoneRelocation(Boolean availabilityZoneRelocation) {
+        this.availabilityZoneRelocation = availabilityZoneRelocation;
+    }
+
+    /**
+     * <p>
+     * The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the cluster
+     * modification is complete.
+     * </p>
+     * 
+     * @return The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the
+     *         cluster modification is complete.
+     */
+
+    public Boolean getAvailabilityZoneRelocation() {
+        return this.availabilityZoneRelocation;
+    }
+
+    /**
+     * <p>
+     * The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the cluster
+     * modification is complete.
+     * </p>
+     * 
+     * @param availabilityZoneRelocation
+     *        The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the
+     *        cluster modification is complete.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyClusterRequest withAvailabilityZoneRelocation(Boolean availabilityZoneRelocation) {
+        setAvailabilityZoneRelocation(availabilityZoneRelocation);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the cluster
+     * modification is complete.
+     * </p>
+     * 
+     * @return The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the
+     *         cluster modification is complete.
+     */
+
+    public Boolean isAvailabilityZoneRelocation() {
+        return this.availabilityZoneRelocation;
+    }
+
+    /**
+     * <p>
+     * The option to initiate relocation for an Amazon Redshift cluster to the target Availability Zone.
+     * </p>
+     * 
+     * @param availabilityZone
+     *        The option to initiate relocation for an Amazon Redshift cluster to the target Availability Zone.
+     */
+
+    public void setAvailabilityZone(String availabilityZone) {
+        this.availabilityZone = availabilityZone;
+    }
+
+    /**
+     * <p>
+     * The option to initiate relocation for an Amazon Redshift cluster to the target Availability Zone.
+     * </p>
+     * 
+     * @return The option to initiate relocation for an Amazon Redshift cluster to the target Availability Zone.
+     */
+
+    public String getAvailabilityZone() {
+        return this.availabilityZone;
+    }
+
+    /**
+     * <p>
+     * The option to initiate relocation for an Amazon Redshift cluster to the target Availability Zone.
+     * </p>
+     * 
+     * @param availabilityZone
+     *        The option to initiate relocation for an Amazon Redshift cluster to the target Availability Zone.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyClusterRequest withAvailabilityZone(String availabilityZone) {
+        setAvailabilityZone(availabilityZone);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The option to change the port of an Amazon Redshift cluster.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For clusters with ra3 nodes - Select a port within the ranges <code>5431-5455</code> or <code>8191-8215</code>.
+     * (If you have an existing cluster with ra3 nodes, it isn't required that you change the port to these ranges.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For clusters with dc2 nodes - Select a port within the range <code>1150-65535</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param port
+     *        The option to change the port of an Amazon Redshift cluster.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For clusters with ra3 nodes - Select a port within the ranges <code>5431-5455</code> or
+     *        <code>8191-8215</code>. (If you have an existing cluster with ra3 nodes, it isn't required that you change
+     *        the port to these ranges.)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For clusters with dc2 nodes - Select a port within the range <code>1150-65535</code>.
+     *        </p>
+     *        </li>
+     */
+
+    public void setPort(Integer port) {
+        this.port = port;
+    }
+
+    /**
+     * <p>
+     * The option to change the port of an Amazon Redshift cluster.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For clusters with ra3 nodes - Select a port within the ranges <code>5431-5455</code> or <code>8191-8215</code>.
+     * (If you have an existing cluster with ra3 nodes, it isn't required that you change the port to these ranges.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For clusters with dc2 nodes - Select a port within the range <code>1150-65535</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The option to change the port of an Amazon Redshift cluster.</p>
+     *         <p>
+     *         Valid Values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         For clusters with ra3 nodes - Select a port within the ranges <code>5431-5455</code> or
+     *         <code>8191-8215</code>. (If you have an existing cluster with ra3 nodes, it isn't required that you
+     *         change the port to these ranges.)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For clusters with dc2 nodes - Select a port within the range <code>1150-65535</code>.
+     *         </p>
+     *         </li>
+     */
+
+    public Integer getPort() {
+        return this.port;
+    }
+
+    /**
+     * <p>
+     * The option to change the port of an Amazon Redshift cluster.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For clusters with ra3 nodes - Select a port within the ranges <code>5431-5455</code> or <code>8191-8215</code>.
+     * (If you have an existing cluster with ra3 nodes, it isn't required that you change the port to these ranges.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For clusters with dc2 nodes - Select a port within the range <code>1150-65535</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param port
+     *        The option to change the port of an Amazon Redshift cluster.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For clusters with ra3 nodes - Select a port within the ranges <code>5431-5455</code> or
+     *        <code>8191-8215</code>. (If you have an existing cluster with ra3 nodes, it isn't required that you change
+     *        the port to these ranges.)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For clusters with dc2 nodes - Select a port within the range <code>1150-65535</code>.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyClusterRequest withPort(Integer port) {
+        setPort(port);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, Amazon Redshift uses Secrets Manager to manage this cluster's admin credentials. You can't
+     * use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is true. If
+     * <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses <code>MasterUserPassword</code> for
+     * the admin user account's password.
+     * </p>
+     * 
+     * @param manageMasterPassword
+     *        If <code>true</code>, Amazon Redshift uses Secrets Manager to manage this cluster's admin credentials. You
+     *        can't use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is true. If
+     *        <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses
+     *        <code>MasterUserPassword</code> for the admin user account's password.
+     */
+
+    public void setManageMasterPassword(Boolean manageMasterPassword) {
+        this.manageMasterPassword = manageMasterPassword;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, Amazon Redshift uses Secrets Manager to manage this cluster's admin credentials. You can't
+     * use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is true. If
+     * <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses <code>MasterUserPassword</code> for
+     * the admin user account's password.
+     * </p>
+     * 
+     * @return If <code>true</code>, Amazon Redshift uses Secrets Manager to manage this cluster's admin credentials.
+     *         You can't use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is true. If
+     *         <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses
+     *         <code>MasterUserPassword</code> for the admin user account's password.
+     */
+
+    public Boolean getManageMasterPassword() {
+        return this.manageMasterPassword;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, Amazon Redshift uses Secrets Manager to manage this cluster's admin credentials. You can't
+     * use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is true. If
+     * <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses <code>MasterUserPassword</code> for
+     * the admin user account's password.
+     * </p>
+     * 
+     * @param manageMasterPassword
+     *        If <code>true</code>, Amazon Redshift uses Secrets Manager to manage this cluster's admin credentials. You
+     *        can't use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is true. If
+     *        <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses
+     *        <code>MasterUserPassword</code> for the admin user account's password.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyClusterRequest withManageMasterPassword(Boolean manageMasterPassword) {
+        setManageMasterPassword(manageMasterPassword);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, Amazon Redshift uses Secrets Manager to manage this cluster's admin credentials. You can't
+     * use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is true. If
+     * <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses <code>MasterUserPassword</code> for
+     * the admin user account's password.
+     * </p>
+     * 
+     * @return If <code>true</code>, Amazon Redshift uses Secrets Manager to manage this cluster's admin credentials.
+     *         You can't use <code>MasterUserPassword</code> if <code>ManageMasterPassword</code> is true. If
+     *         <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses
+     *         <code>MasterUserPassword</code> for the admin user account's password.
+     */
+
+    public Boolean isManageMasterPassword() {
+        return this.manageMasterPassword;
+    }
+
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * You can only use this parameter if <code>ManageMasterPassword</code> is true.
+     * </p>
+     * 
+     * @param masterPasswordSecretKmsKeyId
+     *        The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials
+     *        secret. You can only use this parameter if <code>ManageMasterPassword</code> is true.
+     */
+
+    public void setMasterPasswordSecretKmsKeyId(String masterPasswordSecretKmsKeyId) {
+        this.masterPasswordSecretKmsKeyId = masterPasswordSecretKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * You can only use this parameter if <code>ManageMasterPassword</code> is true.
+     * </p>
+     * 
+     * @return The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials
+     *         secret. You can only use this parameter if <code>ManageMasterPassword</code> is true.
+     */
+
+    public String getMasterPasswordSecretKmsKeyId() {
+        return this.masterPasswordSecretKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * You can only use this parameter if <code>ManageMasterPassword</code> is true.
+     * </p>
+     * 
+     * @param masterPasswordSecretKmsKeyId
+     *        The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials
+     *        secret. You can only use this parameter if <code>ManageMasterPassword</code> is true.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyClusterRequest withMasterPasswordSecretKmsKeyId(String masterPasswordSecretKmsKeyId) {
+        setMasterPasswordSecretKmsKeyId(masterPasswordSecretKmsKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IP address types that the cluster supports. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address types that the cluster supports. Possible values are <code>ipv4</code> and
+     *        <code>dualstack</code>.
+     */
+
+    public void setIpAddressType(String ipAddressType) {
+        this.ipAddressType = ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The IP address types that the cluster supports. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     * </p>
+     * 
+     * @return The IP address types that the cluster supports. Possible values are <code>ipv4</code> and
+     *         <code>dualstack</code>.
+     */
+
+    public String getIpAddressType() {
+        return this.ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The IP address types that the cluster supports. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address types that the cluster supports. Possible values are <code>ipv4</code> and
+     *        <code>dualstack</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyClusterRequest withIpAddressType(String ipAddressType) {
+        setIpAddressType(ipAddressType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If true and the cluster is currently only deployed in a single Availability Zone, the cluster will be modified to
+     * be deployed in two Availability Zones.
+     * </p>
+     * 
+     * @param multiAZ
+     *        If true and the cluster is currently only deployed in a single Availability Zone, the cluster will be
+     *        modified to be deployed in two Availability Zones.
+     */
+
+    public void setMultiAZ(Boolean multiAZ) {
+        this.multiAZ = multiAZ;
+    }
+
+    /**
+     * <p>
+     * If true and the cluster is currently only deployed in a single Availability Zone, the cluster will be modified to
+     * be deployed in two Availability Zones.
+     * </p>
+     * 
+     * @return If true and the cluster is currently only deployed in a single Availability Zone, the cluster will be
+     *         modified to be deployed in two Availability Zones.
+     */
+
+    public Boolean getMultiAZ() {
+        return this.multiAZ;
+    }
+
+    /**
+     * <p>
+     * If true and the cluster is currently only deployed in a single Availability Zone, the cluster will be modified to
+     * be deployed in two Availability Zones.
+     * </p>
+     * 
+     * @param multiAZ
+     *        If true and the cluster is currently only deployed in a single Availability Zone, the cluster will be
+     *        modified to be deployed in two Availability Zones.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyClusterRequest withMultiAZ(Boolean multiAZ) {
+        setMultiAZ(multiAZ);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If true and the cluster is currently only deployed in a single Availability Zone, the cluster will be modified to
+     * be deployed in two Availability Zones.
+     * </p>
+     * 
+     * @return If true and the cluster is currently only deployed in a single Availability Zone, the cluster will be
+     *         modified to be deployed in two Availability Zones.
+     */
+
+    public Boolean isMultiAZ() {
+        return this.multiAZ;
     }
 
     /**
@@ -2768,7 +3327,7 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getVpcSecurityGroupIds() != null)
             sb.append("VpcSecurityGroupIds: ").append(getVpcSecurityGroupIds()).append(",");
         if (getMasterUserPassword() != null)
-            sb.append("MasterUserPassword: ").append(getMasterUserPassword()).append(",");
+            sb.append("MasterUserPassword: ").append("***Sensitive Data Redacted***").append(",");
         if (getClusterParameterGroupName() != null)
             sb.append("ClusterParameterGroupName: ").append(getClusterParameterGroupName()).append(",");
         if (getAutomatedSnapshotRetentionPeriod() != null)
@@ -2798,7 +3357,21 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getEncrypted() != null)
             sb.append("Encrypted: ").append(getEncrypted()).append(",");
         if (getKmsKeyId() != null)
-            sb.append("KmsKeyId: ").append(getKmsKeyId());
+            sb.append("KmsKeyId: ").append(getKmsKeyId()).append(",");
+        if (getAvailabilityZoneRelocation() != null)
+            sb.append("AvailabilityZoneRelocation: ").append(getAvailabilityZoneRelocation()).append(",");
+        if (getAvailabilityZone() != null)
+            sb.append("AvailabilityZone: ").append(getAvailabilityZone()).append(",");
+        if (getPort() != null)
+            sb.append("Port: ").append(getPort()).append(",");
+        if (getManageMasterPassword() != null)
+            sb.append("ManageMasterPassword: ").append(getManageMasterPassword()).append(",");
+        if (getMasterPasswordSecretKmsKeyId() != null)
+            sb.append("MasterPasswordSecretKmsKeyId: ").append(getMasterPasswordSecretKmsKeyId()).append(",");
+        if (getIpAddressType() != null)
+            sb.append("IpAddressType: ").append(getIpAddressType()).append(",");
+        if (getMultiAZ() != null)
+            sb.append("MultiAZ: ").append(getMultiAZ());
         sb.append("}");
         return sb.toString();
     }
@@ -2904,6 +3477,34 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getKmsKeyId() != null && other.getKmsKeyId().equals(this.getKmsKeyId()) == false)
             return false;
+        if (other.getAvailabilityZoneRelocation() == null ^ this.getAvailabilityZoneRelocation() == null)
+            return false;
+        if (other.getAvailabilityZoneRelocation() != null && other.getAvailabilityZoneRelocation().equals(this.getAvailabilityZoneRelocation()) == false)
+            return false;
+        if (other.getAvailabilityZone() == null ^ this.getAvailabilityZone() == null)
+            return false;
+        if (other.getAvailabilityZone() != null && other.getAvailabilityZone().equals(this.getAvailabilityZone()) == false)
+            return false;
+        if (other.getPort() == null ^ this.getPort() == null)
+            return false;
+        if (other.getPort() != null && other.getPort().equals(this.getPort()) == false)
+            return false;
+        if (other.getManageMasterPassword() == null ^ this.getManageMasterPassword() == null)
+            return false;
+        if (other.getManageMasterPassword() != null && other.getManageMasterPassword().equals(this.getManageMasterPassword()) == false)
+            return false;
+        if (other.getMasterPasswordSecretKmsKeyId() == null ^ this.getMasterPasswordSecretKmsKeyId() == null)
+            return false;
+        if (other.getMasterPasswordSecretKmsKeyId() != null && other.getMasterPasswordSecretKmsKeyId().equals(this.getMasterPasswordSecretKmsKeyId()) == false)
+            return false;
+        if (other.getIpAddressType() == null ^ this.getIpAddressType() == null)
+            return false;
+        if (other.getIpAddressType() != null && other.getIpAddressType().equals(this.getIpAddressType()) == false)
+            return false;
+        if (other.getMultiAZ() == null ^ this.getMultiAZ() == null)
+            return false;
+        if (other.getMultiAZ() != null && other.getMultiAZ().equals(this.getMultiAZ()) == false)
+            return false;
         return true;
     }
 
@@ -2934,6 +3535,13 @@ public class ModifyClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getMaintenanceTrackName() == null) ? 0 : getMaintenanceTrackName().hashCode());
         hashCode = prime * hashCode + ((getEncrypted() == null) ? 0 : getEncrypted().hashCode());
         hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
+        hashCode = prime * hashCode + ((getAvailabilityZoneRelocation() == null) ? 0 : getAvailabilityZoneRelocation().hashCode());
+        hashCode = prime * hashCode + ((getAvailabilityZone() == null) ? 0 : getAvailabilityZone().hashCode());
+        hashCode = prime * hashCode + ((getPort() == null) ? 0 : getPort().hashCode());
+        hashCode = prime * hashCode + ((getManageMasterPassword() == null) ? 0 : getManageMasterPassword().hashCode());
+        hashCode = prime * hashCode + ((getMasterPasswordSecretKmsKeyId() == null) ? 0 : getMasterPasswordSecretKmsKeyId().hashCode());
+        hashCode = prime * hashCode + ((getIpAddressType() == null) ? 0 : getIpAddressType().hashCode());
+        hashCode = prime * hashCode + ((getMultiAZ() == null) ? 0 : getMultiAZ().hashCode());
         return hashCode;
     }
 

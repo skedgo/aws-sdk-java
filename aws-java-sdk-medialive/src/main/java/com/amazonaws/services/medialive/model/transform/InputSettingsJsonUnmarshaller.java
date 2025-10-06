@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,11 +50,15 @@ public class InputSettingsJsonUnmarshaller implements Unmarshaller<InputSettings
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("audioSelectors", targetDepth)) {
                     context.nextToken();
-                    inputSettings.setAudioSelectors(new ListUnmarshaller<AudioSelector>(AudioSelectorJsonUnmarshaller.getInstance()).unmarshall(context));
+                    inputSettings.setAudioSelectors(new ListUnmarshaller<AudioSelector>(AudioSelectorJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("captionSelectors", targetDepth)) {
                     context.nextToken();
-                    inputSettings.setCaptionSelectors(new ListUnmarshaller<CaptionSelector>(CaptionSelectorJsonUnmarshaller.getInstance()).unmarshall(context));
+                    inputSettings.setCaptionSelectors(new ListUnmarshaller<CaptionSelector>(CaptionSelectorJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("deblockFilter", targetDepth)) {
                     context.nextToken();
@@ -75,6 +79,14 @@ public class InputSettingsJsonUnmarshaller implements Unmarshaller<InputSettings
                 if (context.testExpression("networkInputSettings", targetDepth)) {
                     context.nextToken();
                     inputSettings.setNetworkInputSettings(NetworkInputSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("scte35Pid", targetDepth)) {
+                    context.nextToken();
+                    inputSettings.setScte35Pid(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("smpte2038DataPreference", targetDepth)) {
+                    context.nextToken();
+                    inputSettings.setSmpte2038DataPreference(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("sourceEndBehavior", targetDepth)) {
                     context.nextToken();

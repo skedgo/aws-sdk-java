@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,7 @@ public class GetTraceSummariesResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Trace IDs and metadata for traces that were found in the specified time frame.
+     * Trace IDs and annotations for traces that were found in the specified time frame.
      * </p>
      */
     private java.util.List<TraceSummary> traceSummaries;
@@ -44,17 +44,17 @@ public class GetTraceSummariesResult extends com.amazonaws.AmazonWebServiceResul
     /**
      * <p>
      * If the requested time frame contained more than one page of results, you can use this token to retrieve the next
-     * page. The first page contains the most most recent results, closest to the end of the time frame.
+     * page. The first page contains the most recent results, closest to the end of the time frame.
      * </p>
      */
     private String nextToken;
 
     /**
      * <p>
-     * Trace IDs and metadata for traces that were found in the specified time frame.
+     * Trace IDs and annotations for traces that were found in the specified time frame.
      * </p>
      * 
-     * @return Trace IDs and metadata for traces that were found in the specified time frame.
+     * @return Trace IDs and annotations for traces that were found in the specified time frame.
      */
 
     public java.util.List<TraceSummary> getTraceSummaries() {
@@ -63,11 +63,11 @@ public class GetTraceSummariesResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Trace IDs and metadata for traces that were found in the specified time frame.
+     * Trace IDs and annotations for traces that were found in the specified time frame.
      * </p>
      * 
      * @param traceSummaries
-     *        Trace IDs and metadata for traces that were found in the specified time frame.
+     *        Trace IDs and annotations for traces that were found in the specified time frame.
      */
 
     public void setTraceSummaries(java.util.Collection<TraceSummary> traceSummaries) {
@@ -81,7 +81,7 @@ public class GetTraceSummariesResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Trace IDs and metadata for traces that were found in the specified time frame.
+     * Trace IDs and annotations for traces that were found in the specified time frame.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -90,7 +90,7 @@ public class GetTraceSummariesResult extends com.amazonaws.AmazonWebServiceResul
      * </p>
      * 
      * @param traceSummaries
-     *        Trace IDs and metadata for traces that were found in the specified time frame.
+     *        Trace IDs and annotations for traces that were found in the specified time frame.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -106,11 +106,11 @@ public class GetTraceSummariesResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Trace IDs and metadata for traces that were found in the specified time frame.
+     * Trace IDs and annotations for traces that were found in the specified time frame.
      * </p>
      * 
      * @param traceSummaries
-     *        Trace IDs and metadata for traces that were found in the specified time frame.
+     *        Trace IDs and annotations for traces that were found in the specified time frame.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -203,12 +203,12 @@ public class GetTraceSummariesResult extends com.amazonaws.AmazonWebServiceResul
     /**
      * <p>
      * If the requested time frame contained more than one page of results, you can use this token to retrieve the next
-     * page. The first page contains the most most recent results, closest to the end of the time frame.
+     * page. The first page contains the most recent results, closest to the end of the time frame.
      * </p>
      * 
      * @param nextToken
      *        If the requested time frame contained more than one page of results, you can use this token to retrieve
-     *        the next page. The first page contains the most most recent results, closest to the end of the time frame.
+     *        the next page. The first page contains the most recent results, closest to the end of the time frame.
      */
 
     public void setNextToken(String nextToken) {
@@ -218,12 +218,11 @@ public class GetTraceSummariesResult extends com.amazonaws.AmazonWebServiceResul
     /**
      * <p>
      * If the requested time frame contained more than one page of results, you can use this token to retrieve the next
-     * page. The first page contains the most most recent results, closest to the end of the time frame.
+     * page. The first page contains the most recent results, closest to the end of the time frame.
      * </p>
      * 
      * @return If the requested time frame contained more than one page of results, you can use this token to retrieve
-     *         the next page. The first page contains the most most recent results, closest to the end of the time
-     *         frame.
+     *         the next page. The first page contains the most recent results, closest to the end of the time frame.
      */
 
     public String getNextToken() {
@@ -233,12 +232,12 @@ public class GetTraceSummariesResult extends com.amazonaws.AmazonWebServiceResul
     /**
      * <p>
      * If the requested time frame contained more than one page of results, you can use this token to retrieve the next
-     * page. The first page contains the most most recent results, closest to the end of the time frame.
+     * page. The first page contains the most recent results, closest to the end of the time frame.
      * </p>
      * 
      * @param nextToken
      *        If the requested time frame contained more than one page of results, you can use this token to retrieve
-     *        the next page. The first page contains the most most recent results, closest to the end of the time frame.
+     *        the next page. The first page contains the most recent results, closest to the end of the time frame.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

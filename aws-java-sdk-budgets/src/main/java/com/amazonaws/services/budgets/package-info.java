@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -13,9 +13,9 @@
 
 /**
  * <p>
- * The AWS Budgets API enables you to use AWS Budgets to plan your service usage, service costs, and instance
- * reservations. The API reference provides descriptions, syntax, and usage examples for each of the actions and data
- * types for AWS Budgets.
+ * Use the Amazon Web Services Budgets API to plan your service usage, service costs, and instance reservations. This
+ * API reference provides descriptions, syntax, and usage examples for each of the actions and data types for the Amazon
+ * Web Services Budgets feature.
  * </p>
  * <p>
  * Budgets provide you with a way to see the following information:
@@ -33,8 +33,8 @@
  * </li>
  * <li>
  * <p>
- * Your current estimated charges from AWS, and how much your predicted usage will accrue in charges by the end of the
- * month
+ * Your current estimated charges from Amazon Web Services, and how much your predicted usage will accrue in charges by
+ * the end of the month
  * </p>
  * </li>
  * <li>
@@ -44,8 +44,8 @@
  * </li>
  * </ul>
  * <p>
- * AWS updates your budget status several times a day. Budgets track your unblended costs, subscriptions, refunds, and
- * RIs. You can create the following types of budgets:
+ * Amazon Web Services updates your budget status several times a day. Budgets track your unblended costs,
+ * subscriptions, refunds, and RIs. You can create the following types of budgets:
  * </p>
  * <ul>
  * <li>
@@ -76,7 +76,7 @@
  * Service Endpoint
  * </p>
  * <p>
- * The AWS Budgets API provides the following endpoint:
+ * The Amazon Web Services Budgets API provides the following endpoint:
  * </p>
  * <ul>
  * <li>
@@ -86,8 +86,8 @@
  * </li>
  * </ul>
  * <p>
- * For information about costs that are associated with the AWS Budgets API, see <a
- * href="https://aws.amazon.com/aws-cost-management/pricing/">AWS Cost Management Pricing</a>.
+ * For information about costs that are associated with the Amazon Web Services Budgets API, see <a
+ * href="https://aws.amazon.com/aws-cost-management/pricing/">Amazon Web Services Cost Management Pricing</a>.
  * </p>
  */
 package com.amazonaws.services.budgets;

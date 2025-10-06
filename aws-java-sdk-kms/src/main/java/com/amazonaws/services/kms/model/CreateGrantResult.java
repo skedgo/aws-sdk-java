@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,9 +28,11 @@ public class CreateGrantResult extends com.amazonaws.AmazonWebServiceResult<com.
      * The grant token.
      * </p>
      * <p>
-     * For more information, see <a
-     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in the
-     * <i>AWS Key Management Service Developer Guide</i>.
+     * Use a grant token when your permission to call this operation comes from a new grant that has not yet achieved
+     * <i>eventual consistency</i>. For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using a grant
+     * token</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      */
     private String grantToken;
@@ -39,7 +41,7 @@ public class CreateGrantResult extends com.amazonaws.AmazonWebServiceResult<com.
      * The unique identifier for the grant.
      * </p>
      * <p>
-     * You can use the <code>GrantId</code> in a subsequent <a>RetireGrant</a> or <a>RevokeGrant</a> operation.
+     * You can use the <code>GrantId</code> in a <a>ListGrants</a>, <a>RetireGrant</a>, or <a>RevokeGrant</a> operation.
      * </p>
      */
     private String grantId;
@@ -49,17 +51,21 @@ public class CreateGrantResult extends com.amazonaws.AmazonWebServiceResult<com.
      * The grant token.
      * </p>
      * <p>
-     * For more information, see <a
-     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in the
-     * <i>AWS Key Management Service Developer Guide</i>.
+     * Use a grant token when your permission to call this operation comes from a new grant that has not yet achieved
+     * <i>eventual consistency</i>. For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using a grant
+     * token</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      * 
      * @param grantToken
      *        The grant token.</p>
      *        <p>
-     *        For more information, see <a
-     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in
-     *        the <i>AWS Key Management Service Developer Guide</i>.
+     *        Use a grant token when your permission to call this operation comes from a new grant that has not yet
+     *        achieved <i>eventual consistency</i>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and
+     *        <a href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using
+     *        a grant token</a> in the <i>Key Management Service Developer Guide</i>.
      */
 
     public void setGrantToken(String grantToken) {
@@ -71,16 +77,20 @@ public class CreateGrantResult extends com.amazonaws.AmazonWebServiceResult<com.
      * The grant token.
      * </p>
      * <p>
-     * For more information, see <a
-     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in the
-     * <i>AWS Key Management Service Developer Guide</i>.
+     * Use a grant token when your permission to call this operation comes from a new grant that has not yet achieved
+     * <i>eventual consistency</i>. For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using a grant
+     * token</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      * 
      * @return The grant token.</p>
      *         <p>
-     *         For more information, see <a
-     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a>
-     *         in the <i>AWS Key Management Service Developer Guide</i>.
+     *         Use a grant token when your permission to call this operation comes from a new grant that has not yet
+     *         achieved <i>eventual consistency</i>. For more information, see <a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and
+     *         <a href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using
+     *         a grant token</a> in the <i>Key Management Service Developer Guide</i>.
      */
 
     public String getGrantToken() {
@@ -92,17 +102,21 @@ public class CreateGrantResult extends com.amazonaws.AmazonWebServiceResult<com.
      * The grant token.
      * </p>
      * <p>
-     * For more information, see <a
-     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in the
-     * <i>AWS Key Management Service Developer Guide</i>.
+     * Use a grant token when your permission to call this operation comes from a new grant that has not yet achieved
+     * <i>eventual consistency</i>. For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using a grant
+     * token</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      * 
      * @param grantToken
      *        The grant token.</p>
      *        <p>
-     *        For more information, see <a
-     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in
-     *        the <i>AWS Key Management Service Developer Guide</i>.
+     *        Use a grant token when your permission to call this operation comes from a new grant that has not yet
+     *        achieved <i>eventual consistency</i>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and
+     *        <a href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using
+     *        a grant token</a> in the <i>Key Management Service Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -116,13 +130,14 @@ public class CreateGrantResult extends com.amazonaws.AmazonWebServiceResult<com.
      * The unique identifier for the grant.
      * </p>
      * <p>
-     * You can use the <code>GrantId</code> in a subsequent <a>RetireGrant</a> or <a>RevokeGrant</a> operation.
+     * You can use the <code>GrantId</code> in a <a>ListGrants</a>, <a>RetireGrant</a>, or <a>RevokeGrant</a> operation.
      * </p>
      * 
      * @param grantId
      *        The unique identifier for the grant.</p>
      *        <p>
-     *        You can use the <code>GrantId</code> in a subsequent <a>RetireGrant</a> or <a>RevokeGrant</a> operation.
+     *        You can use the <code>GrantId</code> in a <a>ListGrants</a>, <a>RetireGrant</a>, or <a>RevokeGrant</a>
+     *        operation.
      */
 
     public void setGrantId(String grantId) {
@@ -134,12 +149,13 @@ public class CreateGrantResult extends com.amazonaws.AmazonWebServiceResult<com.
      * The unique identifier for the grant.
      * </p>
      * <p>
-     * You can use the <code>GrantId</code> in a subsequent <a>RetireGrant</a> or <a>RevokeGrant</a> operation.
+     * You can use the <code>GrantId</code> in a <a>ListGrants</a>, <a>RetireGrant</a>, or <a>RevokeGrant</a> operation.
      * </p>
      * 
      * @return The unique identifier for the grant.</p>
      *         <p>
-     *         You can use the <code>GrantId</code> in a subsequent <a>RetireGrant</a> or <a>RevokeGrant</a> operation.
+     *         You can use the <code>GrantId</code> in a <a>ListGrants</a>, <a>RetireGrant</a>, or <a>RevokeGrant</a>
+     *         operation.
      */
 
     public String getGrantId() {
@@ -151,13 +167,14 @@ public class CreateGrantResult extends com.amazonaws.AmazonWebServiceResult<com.
      * The unique identifier for the grant.
      * </p>
      * <p>
-     * You can use the <code>GrantId</code> in a subsequent <a>RetireGrant</a> or <a>RevokeGrant</a> operation.
+     * You can use the <code>GrantId</code> in a <a>ListGrants</a>, <a>RetireGrant</a>, or <a>RevokeGrant</a> operation.
      * </p>
      * 
      * @param grantId
      *        The unique identifier for the grant.</p>
      *        <p>
-     *        You can use the <code>GrantId</code> in a subsequent <a>RetireGrant</a> or <a>RevokeGrant</a> operation.
+     *        You can use the <code>GrantId</code> in a <a>ListGrants</a>, <a>RetireGrant</a>, or <a>RevokeGrant</a>
+     *        operation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,14 +30,26 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
 
     /**
      * <p>
+     * The job definition name.
+     * </p>
+     */
+    private String definitionName;
+
+    private HyperParameterTuningJobObjective tuningObjective;
+
+    private ParameterRanges hyperParameterRanges;
+    /**
+     * <p>
      * Specifies the values of hyperparameters that do not change for the tuning job.
      * </p>
      */
     private java.util.Map<String, String> staticHyperParameters;
     /**
      * <p>
-     * The <a>HyperParameterAlgorithmSpecification</a> object that specifies the resource algorithm to use for the
-     * training jobs that the tuning job launches.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterAlgorithmSpecification.html"
+     * >HyperParameterAlgorithmSpecification</a> object that specifies the resource algorithm to use for the training
+     * jobs that the tuning job launches.
      * </p>
      */
     private HyperParameterAlgorithmSpecification algorithmSpecification;
@@ -49,16 +61,18 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
     private String roleArn;
     /**
      * <p>
-     * An array of <a>Channel</a> objects that specify the input for the training jobs that the tuning job launches.
+     * An array of <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Channel.html">Channel</a>
+     * objects that specify the input for the training jobs that the tuning job launches.
      * </p>
      */
     private java.util.List<Channel> inputDataConfig;
     /**
      * <p>
-     * The <a>VpcConfig</a> object that specifies the VPC that you want the training jobs that this hyperparameter
-     * tuning job launches to connect to. Control access to and from your training container by configuring the VPC. For
-     * more information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect Training
-     * Jobs by Using an Amazon Virtual Private Cloud</a>.
+     * The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that you want the training jobs that this hyperparameter tuning job launches to connect
+     * to. Control access to and from your training container by configuring the VPC. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect Training Jobs by Using an Amazon
+     * Virtual Private Cloud</a>.
      * </p>
      */
     private VpcConfig vpcConfig;
@@ -76,16 +90,33 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
      * </p>
      * <p>
      * Storage volumes store model artifacts and incremental states. Training algorithms might also use storage volumes
-     * for scratch space. If you want Amazon SageMaker to use the storage volume to store the training data, choose
+     * for scratch space. If you want SageMaker to use the storage volume to store the training data, choose
      * <code>File</code> as the <code>TrainingInputMode</code> in the algorithm specification. For distributed training
      * algorithms, specify an instance count greater than 1.
      * </p>
+     * <note>
+     * <p>
+     * If you want to use hyperparameter optimization with instance type flexibility, use
+     * <code>HyperParameterTuningResourceConfig</code> instead.
+     * </p>
+     * </note>
      */
     private ResourceConfig resourceConfig;
     /**
      * <p>
-     * Specifies a limit to how long a model hyperparameter training job can run. When the job reaches the time limit,
-     * Amazon SageMaker ends the training job. Use this API to cap model training costs.
+     * The configuration for the hyperparameter tuning resources, including the compute instances and storage volumes,
+     * used for training jobs launched by the tuning job. By default, storage volumes hold model artifacts and
+     * incremental states. Choose <code>File</code> for <code>TrainingInputMode</code> in the
+     * <code>AlgorithmSpecification</code> parameter to additionally store training data in the storage volume
+     * (optional).
+     * </p>
+     */
+    private HyperParameterTuningResourceConfig hyperParameterTuningResourceConfig;
+    /**
+     * <p>
+     * Specifies a limit to how long a model hyperparameter training job can run. It also specifies how long a managed
+     * spot training job has to complete. When the job reaches the time limit, SageMaker ends the training job. Use this
+     * API to cap model training costs.
      * </p>
      */
     private StoppingCondition stoppingCondition;
@@ -93,14 +124,9 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
      * <p>
      * Isolates the training container. No inbound or outbound network calls can be made, except for calls between peers
      * within a training cluster for distributed training. If network isolation is used for training jobs that are
-     * configured to use a VPC, Amazon SageMaker downloads and uploads customer data and model artifacts through the
-     * specified VPC, but the training container does not have network access.
+     * configured to use a VPC, SageMaker downloads and uploads customer data and model artifacts through the specified
+     * VPC, but the training container does not have network access.
      * </p>
-     * <note>
-     * <p>
-     * The Semantic Segmentation built-in algorithm does not support network isolation.
-     * </p>
-     * </note>
      */
     private Boolean enableNetworkIsolation;
     /**
@@ -112,6 +138,132 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
      * </p>
      */
     private Boolean enableInterContainerTrafficEncryption;
+    /**
+     * <p>
+     * A Boolean indicating whether managed spot training is enabled (<code>True</code>) or not (<code>False</code>).
+     * </p>
+     */
+    private Boolean enableManagedSpotTraining;
+
+    private CheckpointConfig checkpointConfig;
+    /**
+     * <p>
+     * The number of times to retry the job when the job fails due to an <code>InternalServerError</code>.
+     * </p>
+     */
+    private RetryStrategy retryStrategy;
+    /**
+     * <p>
+     * An environment variable that you can pass into the SageMaker <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingJob.html">CreateTrainingJob</a>
+     * API. You can use an existing <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingJob.html#sagemaker-CreateTrainingJob-request-Environment"
+     * >environment variable from the training container</a> or use your own. See <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-metrics-variables.html"
+     * >Define metrics and variables</a> for more information.
+     * </p>
+     * <note>
+     * <p>
+     * The maximum number of items specified for <code>Map Entries</code> refers to the maximum number of environment
+     * variables for each <code>TrainingJobDefinition</code> and also the maximum for the hyperparameter tuning job
+     * itself. That is, the sum of the number of environment variables for all the training job definitions can't exceed
+     * the maximum number specified.
+     * </p>
+     * </note>
+     */
+    private java.util.Map<String, String> environment;
+
+    /**
+     * <p>
+     * The job definition name.
+     * </p>
+     * 
+     * @param definitionName
+     *        The job definition name.
+     */
+
+    public void setDefinitionName(String definitionName) {
+        this.definitionName = definitionName;
+    }
+
+    /**
+     * <p>
+     * The job definition name.
+     * </p>
+     * 
+     * @return The job definition name.
+     */
+
+    public String getDefinitionName() {
+        return this.definitionName;
+    }
+
+    /**
+     * <p>
+     * The job definition name.
+     * </p>
+     * 
+     * @param definitionName
+     *        The job definition name.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HyperParameterTrainingJobDefinition withDefinitionName(String definitionName) {
+        setDefinitionName(definitionName);
+        return this;
+    }
+
+    /**
+     * @param tuningObjective
+     */
+
+    public void setTuningObjective(HyperParameterTuningJobObjective tuningObjective) {
+        this.tuningObjective = tuningObjective;
+    }
+
+    /**
+     * @return
+     */
+
+    public HyperParameterTuningJobObjective getTuningObjective() {
+        return this.tuningObjective;
+    }
+
+    /**
+     * @param tuningObjective
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HyperParameterTrainingJobDefinition withTuningObjective(HyperParameterTuningJobObjective tuningObjective) {
+        setTuningObjective(tuningObjective);
+        return this;
+    }
+
+    /**
+     * @param hyperParameterRanges
+     */
+
+    public void setHyperParameterRanges(ParameterRanges hyperParameterRanges) {
+        this.hyperParameterRanges = hyperParameterRanges;
+    }
+
+    /**
+     * @return
+     */
+
+    public ParameterRanges getHyperParameterRanges() {
+        return this.hyperParameterRanges;
+    }
+
+    /**
+     * @param hyperParameterRanges
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HyperParameterTrainingJobDefinition withHyperParameterRanges(ParameterRanges hyperParameterRanges) {
+        setHyperParameterRanges(hyperParameterRanges);
+        return this;
+    }
 
     /**
      * <p>
@@ -153,6 +305,13 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
         return this;
     }
 
+    /**
+     * Add a single StaticHyperParameters entry
+     *
+     * @see HyperParameterTrainingJobDefinition#withStaticHyperParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public HyperParameterTrainingJobDefinition addStaticHyperParametersEntry(String key, String value) {
         if (null == this.staticHyperParameters) {
             this.staticHyperParameters = new java.util.HashMap<String, String>();
@@ -176,13 +335,17 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
 
     /**
      * <p>
-     * The <a>HyperParameterAlgorithmSpecification</a> object that specifies the resource algorithm to use for the
-     * training jobs that the tuning job launches.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterAlgorithmSpecification.html"
+     * >HyperParameterAlgorithmSpecification</a> object that specifies the resource algorithm to use for the training
+     * jobs that the tuning job launches.
      * </p>
      * 
      * @param algorithmSpecification
-     *        The <a>HyperParameterAlgorithmSpecification</a> object that specifies the resource algorithm to use for
-     *        the training jobs that the tuning job launches.
+     *        The <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterAlgorithmSpecification.html"
+     *        >HyperParameterAlgorithmSpecification</a> object that specifies the resource algorithm to use for the
+     *        training jobs that the tuning job launches.
      */
 
     public void setAlgorithmSpecification(HyperParameterAlgorithmSpecification algorithmSpecification) {
@@ -191,12 +354,16 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
 
     /**
      * <p>
-     * The <a>HyperParameterAlgorithmSpecification</a> object that specifies the resource algorithm to use for the
-     * training jobs that the tuning job launches.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterAlgorithmSpecification.html"
+     * >HyperParameterAlgorithmSpecification</a> object that specifies the resource algorithm to use for the training
+     * jobs that the tuning job launches.
      * </p>
      * 
-     * @return The <a>HyperParameterAlgorithmSpecification</a> object that specifies the resource algorithm to use for
-     *         the training jobs that the tuning job launches.
+     * @return The <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterAlgorithmSpecification.html"
+     *         >HyperParameterAlgorithmSpecification</a> object that specifies the resource algorithm to use for the
+     *         training jobs that the tuning job launches.
      */
 
     public HyperParameterAlgorithmSpecification getAlgorithmSpecification() {
@@ -205,13 +372,17 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
 
     /**
      * <p>
-     * The <a>HyperParameterAlgorithmSpecification</a> object that specifies the resource algorithm to use for the
-     * training jobs that the tuning job launches.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterAlgorithmSpecification.html"
+     * >HyperParameterAlgorithmSpecification</a> object that specifies the resource algorithm to use for the training
+     * jobs that the tuning job launches.
      * </p>
      * 
      * @param algorithmSpecification
-     *        The <a>HyperParameterAlgorithmSpecification</a> object that specifies the resource algorithm to use for
-     *        the training jobs that the tuning job launches.
+     *        The <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterAlgorithmSpecification.html"
+     *        >HyperParameterAlgorithmSpecification</a> object that specifies the resource algorithm to use for the
+     *        training jobs that the tuning job launches.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -265,11 +436,13 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
 
     /**
      * <p>
-     * An array of <a>Channel</a> objects that specify the input for the training jobs that the tuning job launches.
+     * An array of <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Channel.html">Channel</a>
+     * objects that specify the input for the training jobs that the tuning job launches.
      * </p>
      * 
-     * @return An array of <a>Channel</a> objects that specify the input for the training jobs that the tuning job
-     *         launches.
+     * @return An array of <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Channel.html">Channel</a> objects
+     *         that specify the input for the training jobs that the tuning job launches.
      */
 
     public java.util.List<Channel> getInputDataConfig() {
@@ -278,12 +451,14 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
 
     /**
      * <p>
-     * An array of <a>Channel</a> objects that specify the input for the training jobs that the tuning job launches.
+     * An array of <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Channel.html">Channel</a>
+     * objects that specify the input for the training jobs that the tuning job launches.
      * </p>
      * 
      * @param inputDataConfig
-     *        An array of <a>Channel</a> objects that specify the input for the training jobs that the tuning job
-     *        launches.
+     *        An array of <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Channel.html">Channel</a> objects that
+     *        specify the input for the training jobs that the tuning job launches.
      */
 
     public void setInputDataConfig(java.util.Collection<Channel> inputDataConfig) {
@@ -297,7 +472,8 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
 
     /**
      * <p>
-     * An array of <a>Channel</a> objects that specify the input for the training jobs that the tuning job launches.
+     * An array of <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Channel.html">Channel</a>
+     * objects that specify the input for the training jobs that the tuning job launches.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -306,8 +482,9 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
      * </p>
      * 
      * @param inputDataConfig
-     *        An array of <a>Channel</a> objects that specify the input for the training jobs that the tuning job
-     *        launches.
+     *        An array of <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Channel.html">Channel</a> objects that
+     *        specify the input for the training jobs that the tuning job launches.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -323,12 +500,14 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
 
     /**
      * <p>
-     * An array of <a>Channel</a> objects that specify the input for the training jobs that the tuning job launches.
+     * An array of <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Channel.html">Channel</a>
+     * objects that specify the input for the training jobs that the tuning job launches.
      * </p>
      * 
      * @param inputDataConfig
-     *        An array of <a>Channel</a> objects that specify the input for the training jobs that the tuning job
-     *        launches.
+     *        An array of <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Channel.html">Channel</a> objects that
+     *        specify the input for the training jobs that the tuning job launches.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -339,18 +518,19 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
 
     /**
      * <p>
-     * The <a>VpcConfig</a> object that specifies the VPC that you want the training jobs that this hyperparameter
-     * tuning job launches to connect to. Control access to and from your training container by configuring the VPC. For
-     * more information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect Training
-     * Jobs by Using an Amazon Virtual Private Cloud</a>.
+     * The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that you want the training jobs that this hyperparameter tuning job launches to connect
+     * to. Control access to and from your training container by configuring the VPC. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect Training Jobs by Using an Amazon
+     * Virtual Private Cloud</a>.
      * </p>
      * 
      * @param vpcConfig
-     *        The <a>VpcConfig</a> object that specifies the VPC that you want the training jobs that this
-     *        hyperparameter tuning job launches to connect to. Control access to and from your training container by
-     *        configuring the VPC. For more information, see <a
-     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect Training Jobs by Using an
-     *        Amazon Virtual Private Cloud</a>.
+     *        The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a>
+     *        object that specifies the VPC that you want the training jobs that this hyperparameter tuning job launches
+     *        to connect to. Control access to and from your training container by configuring the VPC. For more
+     *        information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect Training
+     *        Jobs by Using an Amazon Virtual Private Cloud</a>.
      */
 
     public void setVpcConfig(VpcConfig vpcConfig) {
@@ -359,17 +539,18 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
 
     /**
      * <p>
-     * The <a>VpcConfig</a> object that specifies the VPC that you want the training jobs that this hyperparameter
-     * tuning job launches to connect to. Control access to and from your training container by configuring the VPC. For
-     * more information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect Training
-     * Jobs by Using an Amazon Virtual Private Cloud</a>.
+     * The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that you want the training jobs that this hyperparameter tuning job launches to connect
+     * to. Control access to and from your training container by configuring the VPC. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect Training Jobs by Using an Amazon
+     * Virtual Private Cloud</a>.
      * </p>
      * 
-     * @return The <a>VpcConfig</a> object that specifies the VPC that you want the training jobs that this
-     *         hyperparameter tuning job launches to connect to. Control access to and from your training container by
-     *         configuring the VPC. For more information, see <a
-     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect Training Jobs by Using an
-     *         Amazon Virtual Private Cloud</a>.
+     * @return The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a>
+     *         object that specifies the VPC that you want the training jobs that this hyperparameter tuning job
+     *         launches to connect to. Control access to and from your training container by configuring the VPC. For
+     *         more information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect
+     *         Training Jobs by Using an Amazon Virtual Private Cloud</a>.
      */
 
     public VpcConfig getVpcConfig() {
@@ -378,18 +559,19 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
 
     /**
      * <p>
-     * The <a>VpcConfig</a> object that specifies the VPC that you want the training jobs that this hyperparameter
-     * tuning job launches to connect to. Control access to and from your training container by configuring the VPC. For
-     * more information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect Training
-     * Jobs by Using an Amazon Virtual Private Cloud</a>.
+     * The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that you want the training jobs that this hyperparameter tuning job launches to connect
+     * to. Control access to and from your training container by configuring the VPC. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect Training Jobs by Using an Amazon
+     * Virtual Private Cloud</a>.
      * </p>
      * 
      * @param vpcConfig
-     *        The <a>VpcConfig</a> object that specifies the VPC that you want the training jobs that this
-     *        hyperparameter tuning job launches to connect to. Control access to and from your training container by
-     *        configuring the VPC. For more information, see <a
-     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect Training Jobs by Using an
-     *        Amazon Virtual Private Cloud</a>.
+     *        The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a>
+     *        object that specifies the VPC that you want the training jobs that this hyperparameter tuning job launches
+     *        to connect to. Control access to and from your training container by configuring the VPC. For more
+     *        information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect Training
+     *        Jobs by Using an Amazon Virtual Private Cloud</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -451,19 +633,31 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
      * </p>
      * <p>
      * Storage volumes store model artifacts and incremental states. Training algorithms might also use storage volumes
-     * for scratch space. If you want Amazon SageMaker to use the storage volume to store the training data, choose
+     * for scratch space. If you want SageMaker to use the storage volume to store the training data, choose
      * <code>File</code> as the <code>TrainingInputMode</code> in the algorithm specification. For distributed training
      * algorithms, specify an instance count greater than 1.
      * </p>
+     * <note>
+     * <p>
+     * If you want to use hyperparameter optimization with instance type flexibility, use
+     * <code>HyperParameterTuningResourceConfig</code> instead.
+     * </p>
+     * </note>
      * 
      * @param resourceConfig
      *        The resources, including the compute instances and storage volumes, to use for the training jobs that the
      *        tuning job launches.</p>
      *        <p>
      *        Storage volumes store model artifacts and incremental states. Training algorithms might also use storage
-     *        volumes for scratch space. If you want Amazon SageMaker to use the storage volume to store the training
-     *        data, choose <code>File</code> as the <code>TrainingInputMode</code> in the algorithm specification. For
+     *        volumes for scratch space. If you want SageMaker to use the storage volume to store the training data,
+     *        choose <code>File</code> as the <code>TrainingInputMode</code> in the algorithm specification. For
      *        distributed training algorithms, specify an instance count greater than 1.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If you want to use hyperparameter optimization with instance type flexibility, use
+     *        <code>HyperParameterTuningResourceConfig</code> instead.
+     *        </p>
      */
 
     public void setResourceConfig(ResourceConfig resourceConfig) {
@@ -477,18 +671,30 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
      * </p>
      * <p>
      * Storage volumes store model artifacts and incremental states. Training algorithms might also use storage volumes
-     * for scratch space. If you want Amazon SageMaker to use the storage volume to store the training data, choose
+     * for scratch space. If you want SageMaker to use the storage volume to store the training data, choose
      * <code>File</code> as the <code>TrainingInputMode</code> in the algorithm specification. For distributed training
      * algorithms, specify an instance count greater than 1.
      * </p>
+     * <note>
+     * <p>
+     * If you want to use hyperparameter optimization with instance type flexibility, use
+     * <code>HyperParameterTuningResourceConfig</code> instead.
+     * </p>
+     * </note>
      * 
      * @return The resources, including the compute instances and storage volumes, to use for the training jobs that the
      *         tuning job launches.</p>
      *         <p>
      *         Storage volumes store model artifacts and incremental states. Training algorithms might also use storage
-     *         volumes for scratch space. If you want Amazon SageMaker to use the storage volume to store the training
-     *         data, choose <code>File</code> as the <code>TrainingInputMode</code> in the algorithm specification. For
+     *         volumes for scratch space. If you want SageMaker to use the storage volume to store the training data,
+     *         choose <code>File</code> as the <code>TrainingInputMode</code> in the algorithm specification. For
      *         distributed training algorithms, specify an instance count greater than 1.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         If you want to use hyperparameter optimization with instance type flexibility, use
+     *         <code>HyperParameterTuningResourceConfig</code> instead.
+     *         </p>
      */
 
     public ResourceConfig getResourceConfig() {
@@ -502,19 +708,31 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
      * </p>
      * <p>
      * Storage volumes store model artifacts and incremental states. Training algorithms might also use storage volumes
-     * for scratch space. If you want Amazon SageMaker to use the storage volume to store the training data, choose
+     * for scratch space. If you want SageMaker to use the storage volume to store the training data, choose
      * <code>File</code> as the <code>TrainingInputMode</code> in the algorithm specification. For distributed training
      * algorithms, specify an instance count greater than 1.
      * </p>
+     * <note>
+     * <p>
+     * If you want to use hyperparameter optimization with instance type flexibility, use
+     * <code>HyperParameterTuningResourceConfig</code> instead.
+     * </p>
+     * </note>
      * 
      * @param resourceConfig
      *        The resources, including the compute instances and storage volumes, to use for the training jobs that the
      *        tuning job launches.</p>
      *        <p>
      *        Storage volumes store model artifacts and incremental states. Training algorithms might also use storage
-     *        volumes for scratch space. If you want Amazon SageMaker to use the storage volume to store the training
-     *        data, choose <code>File</code> as the <code>TrainingInputMode</code> in the algorithm specification. For
+     *        volumes for scratch space. If you want SageMaker to use the storage volume to store the training data,
+     *        choose <code>File</code> as the <code>TrainingInputMode</code> in the algorithm specification. For
      *        distributed training algorithms, specify an instance count greater than 1.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If you want to use hyperparameter optimization with instance type flexibility, use
+     *        <code>HyperParameterTuningResourceConfig</code> instead.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -525,13 +743,79 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
 
     /**
      * <p>
-     * Specifies a limit to how long a model hyperparameter training job can run. When the job reaches the time limit,
-     * Amazon SageMaker ends the training job. Use this API to cap model training costs.
+     * The configuration for the hyperparameter tuning resources, including the compute instances and storage volumes,
+     * used for training jobs launched by the tuning job. By default, storage volumes hold model artifacts and
+     * incremental states. Choose <code>File</code> for <code>TrainingInputMode</code> in the
+     * <code>AlgorithmSpecification</code> parameter to additionally store training data in the storage volume
+     * (optional).
+     * </p>
+     * 
+     * @param hyperParameterTuningResourceConfig
+     *        The configuration for the hyperparameter tuning resources, including the compute instances and storage
+     *        volumes, used for training jobs launched by the tuning job. By default, storage volumes hold model
+     *        artifacts and incremental states. Choose <code>File</code> for <code>TrainingInputMode</code> in the
+     *        <code>AlgorithmSpecification</code> parameter to additionally store training data in the storage volume
+     *        (optional).
+     */
+
+    public void setHyperParameterTuningResourceConfig(HyperParameterTuningResourceConfig hyperParameterTuningResourceConfig) {
+        this.hyperParameterTuningResourceConfig = hyperParameterTuningResourceConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration for the hyperparameter tuning resources, including the compute instances and storage volumes,
+     * used for training jobs launched by the tuning job. By default, storage volumes hold model artifacts and
+     * incremental states. Choose <code>File</code> for <code>TrainingInputMode</code> in the
+     * <code>AlgorithmSpecification</code> parameter to additionally store training data in the storage volume
+     * (optional).
+     * </p>
+     * 
+     * @return The configuration for the hyperparameter tuning resources, including the compute instances and storage
+     *         volumes, used for training jobs launched by the tuning job. By default, storage volumes hold model
+     *         artifacts and incremental states. Choose <code>File</code> for <code>TrainingInputMode</code> in the
+     *         <code>AlgorithmSpecification</code> parameter to additionally store training data in the storage volume
+     *         (optional).
+     */
+
+    public HyperParameterTuningResourceConfig getHyperParameterTuningResourceConfig() {
+        return this.hyperParameterTuningResourceConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration for the hyperparameter tuning resources, including the compute instances and storage volumes,
+     * used for training jobs launched by the tuning job. By default, storage volumes hold model artifacts and
+     * incremental states. Choose <code>File</code> for <code>TrainingInputMode</code> in the
+     * <code>AlgorithmSpecification</code> parameter to additionally store training data in the storage volume
+     * (optional).
+     * </p>
+     * 
+     * @param hyperParameterTuningResourceConfig
+     *        The configuration for the hyperparameter tuning resources, including the compute instances and storage
+     *        volumes, used for training jobs launched by the tuning job. By default, storage volumes hold model
+     *        artifacts and incremental states. Choose <code>File</code> for <code>TrainingInputMode</code> in the
+     *        <code>AlgorithmSpecification</code> parameter to additionally store training data in the storage volume
+     *        (optional).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HyperParameterTrainingJobDefinition withHyperParameterTuningResourceConfig(HyperParameterTuningResourceConfig hyperParameterTuningResourceConfig) {
+        setHyperParameterTuningResourceConfig(hyperParameterTuningResourceConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies a limit to how long a model hyperparameter training job can run. It also specifies how long a managed
+     * spot training job has to complete. When the job reaches the time limit, SageMaker ends the training job. Use this
+     * API to cap model training costs.
      * </p>
      * 
      * @param stoppingCondition
-     *        Specifies a limit to how long a model hyperparameter training job can run. When the job reaches the time
-     *        limit, Amazon SageMaker ends the training job. Use this API to cap model training costs.
+     *        Specifies a limit to how long a model hyperparameter training job can run. It also specifies how long a
+     *        managed spot training job has to complete. When the job reaches the time limit, SageMaker ends the
+     *        training job. Use this API to cap model training costs.
      */
 
     public void setStoppingCondition(StoppingCondition stoppingCondition) {
@@ -540,12 +824,14 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
 
     /**
      * <p>
-     * Specifies a limit to how long a model hyperparameter training job can run. When the job reaches the time limit,
-     * Amazon SageMaker ends the training job. Use this API to cap model training costs.
+     * Specifies a limit to how long a model hyperparameter training job can run. It also specifies how long a managed
+     * spot training job has to complete. When the job reaches the time limit, SageMaker ends the training job. Use this
+     * API to cap model training costs.
      * </p>
      * 
-     * @return Specifies a limit to how long a model hyperparameter training job can run. When the job reaches the time
-     *         limit, Amazon SageMaker ends the training job. Use this API to cap model training costs.
+     * @return Specifies a limit to how long a model hyperparameter training job can run. It also specifies how long a
+     *         managed spot training job has to complete. When the job reaches the time limit, SageMaker ends the
+     *         training job. Use this API to cap model training costs.
      */
 
     public StoppingCondition getStoppingCondition() {
@@ -554,13 +840,15 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
 
     /**
      * <p>
-     * Specifies a limit to how long a model hyperparameter training job can run. When the job reaches the time limit,
-     * Amazon SageMaker ends the training job. Use this API to cap model training costs.
+     * Specifies a limit to how long a model hyperparameter training job can run. It also specifies how long a managed
+     * spot training job has to complete. When the job reaches the time limit, SageMaker ends the training job. Use this
+     * API to cap model training costs.
      * </p>
      * 
      * @param stoppingCondition
-     *        Specifies a limit to how long a model hyperparameter training job can run. When the job reaches the time
-     *        limit, Amazon SageMaker ends the training job. Use this API to cap model training costs.
+     *        Specifies a limit to how long a model hyperparameter training job can run. It also specifies how long a
+     *        managed spot training job has to complete. When the job reaches the time limit, SageMaker ends the
+     *        training job. Use this API to cap model training costs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -573,24 +861,15 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
      * <p>
      * Isolates the training container. No inbound or outbound network calls can be made, except for calls between peers
      * within a training cluster for distributed training. If network isolation is used for training jobs that are
-     * configured to use a VPC, Amazon SageMaker downloads and uploads customer data and model artifacts through the
-     * specified VPC, but the training container does not have network access.
+     * configured to use a VPC, SageMaker downloads and uploads customer data and model artifacts through the specified
+     * VPC, but the training container does not have network access.
      * </p>
-     * <note>
-     * <p>
-     * The Semantic Segmentation built-in algorithm does not support network isolation.
-     * </p>
-     * </note>
      * 
      * @param enableNetworkIsolation
      *        Isolates the training container. No inbound or outbound network calls can be made, except for calls
      *        between peers within a training cluster for distributed training. If network isolation is used for
-     *        training jobs that are configured to use a VPC, Amazon SageMaker downloads and uploads customer data and
-     *        model artifacts through the specified VPC, but the training container does not have network access.</p>
-     *        <note>
-     *        <p>
-     *        The Semantic Segmentation built-in algorithm does not support network isolation.
-     *        </p>
+     *        training jobs that are configured to use a VPC, SageMaker downloads and uploads customer data and model
+     *        artifacts through the specified VPC, but the training container does not have network access.
      */
 
     public void setEnableNetworkIsolation(Boolean enableNetworkIsolation) {
@@ -601,23 +880,14 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
      * <p>
      * Isolates the training container. No inbound or outbound network calls can be made, except for calls between peers
      * within a training cluster for distributed training. If network isolation is used for training jobs that are
-     * configured to use a VPC, Amazon SageMaker downloads and uploads customer data and model artifacts through the
-     * specified VPC, but the training container does not have network access.
+     * configured to use a VPC, SageMaker downloads and uploads customer data and model artifacts through the specified
+     * VPC, but the training container does not have network access.
      * </p>
-     * <note>
-     * <p>
-     * The Semantic Segmentation built-in algorithm does not support network isolation.
-     * </p>
-     * </note>
      * 
      * @return Isolates the training container. No inbound or outbound network calls can be made, except for calls
      *         between peers within a training cluster for distributed training. If network isolation is used for
-     *         training jobs that are configured to use a VPC, Amazon SageMaker downloads and uploads customer data and
-     *         model artifacts through the specified VPC, but the training container does not have network access.</p>
-     *         <note>
-     *         <p>
-     *         The Semantic Segmentation built-in algorithm does not support network isolation.
-     *         </p>
+     *         training jobs that are configured to use a VPC, SageMaker downloads and uploads customer data and model
+     *         artifacts through the specified VPC, but the training container does not have network access.
      */
 
     public Boolean getEnableNetworkIsolation() {
@@ -628,24 +898,15 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
      * <p>
      * Isolates the training container. No inbound or outbound network calls can be made, except for calls between peers
      * within a training cluster for distributed training. If network isolation is used for training jobs that are
-     * configured to use a VPC, Amazon SageMaker downloads and uploads customer data and model artifacts through the
-     * specified VPC, but the training container does not have network access.
+     * configured to use a VPC, SageMaker downloads and uploads customer data and model artifacts through the specified
+     * VPC, but the training container does not have network access.
      * </p>
-     * <note>
-     * <p>
-     * The Semantic Segmentation built-in algorithm does not support network isolation.
-     * </p>
-     * </note>
      * 
      * @param enableNetworkIsolation
      *        Isolates the training container. No inbound or outbound network calls can be made, except for calls
      *        between peers within a training cluster for distributed training. If network isolation is used for
-     *        training jobs that are configured to use a VPC, Amazon SageMaker downloads and uploads customer data and
-     *        model artifacts through the specified VPC, but the training container does not have network access.</p>
-     *        <note>
-     *        <p>
-     *        The Semantic Segmentation built-in algorithm does not support network isolation.
-     *        </p>
+     *        training jobs that are configured to use a VPC, SageMaker downloads and uploads customer data and model
+     *        artifacts through the specified VPC, but the training container does not have network access.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -658,23 +919,14 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
      * <p>
      * Isolates the training container. No inbound or outbound network calls can be made, except for calls between peers
      * within a training cluster for distributed training. If network isolation is used for training jobs that are
-     * configured to use a VPC, Amazon SageMaker downloads and uploads customer data and model artifacts through the
-     * specified VPC, but the training container does not have network access.
+     * configured to use a VPC, SageMaker downloads and uploads customer data and model artifacts through the specified
+     * VPC, but the training container does not have network access.
      * </p>
-     * <note>
-     * <p>
-     * The Semantic Segmentation built-in algorithm does not support network isolation.
-     * </p>
-     * </note>
      * 
      * @return Isolates the training container. No inbound or outbound network calls can be made, except for calls
      *         between peers within a training cluster for distributed training. If network isolation is used for
-     *         training jobs that are configured to use a VPC, Amazon SageMaker downloads and uploads customer data and
-     *         model artifacts through the specified VPC, but the training container does not have network access.</p>
-     *         <note>
-     *         <p>
-     *         The Semantic Segmentation built-in algorithm does not support network isolation.
-     *         </p>
+     *         training jobs that are configured to use a VPC, SageMaker downloads and uploads customer data and model
+     *         artifacts through the specified VPC, but the training container does not have network access.
      */
 
     public Boolean isEnableNetworkIsolation() {
@@ -758,6 +1010,274 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
     }
 
     /**
+     * <p>
+     * A Boolean indicating whether managed spot training is enabled (<code>True</code>) or not (<code>False</code>).
+     * </p>
+     * 
+     * @param enableManagedSpotTraining
+     *        A Boolean indicating whether managed spot training is enabled (<code>True</code>) or not (
+     *        <code>False</code>).
+     */
+
+    public void setEnableManagedSpotTraining(Boolean enableManagedSpotTraining) {
+        this.enableManagedSpotTraining = enableManagedSpotTraining;
+    }
+
+    /**
+     * <p>
+     * A Boolean indicating whether managed spot training is enabled (<code>True</code>) or not (<code>False</code>).
+     * </p>
+     * 
+     * @return A Boolean indicating whether managed spot training is enabled (<code>True</code>) or not (
+     *         <code>False</code>).
+     */
+
+    public Boolean getEnableManagedSpotTraining() {
+        return this.enableManagedSpotTraining;
+    }
+
+    /**
+     * <p>
+     * A Boolean indicating whether managed spot training is enabled (<code>True</code>) or not (<code>False</code>).
+     * </p>
+     * 
+     * @param enableManagedSpotTraining
+     *        A Boolean indicating whether managed spot training is enabled (<code>True</code>) or not (
+     *        <code>False</code>).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HyperParameterTrainingJobDefinition withEnableManagedSpotTraining(Boolean enableManagedSpotTraining) {
+        setEnableManagedSpotTraining(enableManagedSpotTraining);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A Boolean indicating whether managed spot training is enabled (<code>True</code>) or not (<code>False</code>).
+     * </p>
+     * 
+     * @return A Boolean indicating whether managed spot training is enabled (<code>True</code>) or not (
+     *         <code>False</code>).
+     */
+
+    public Boolean isEnableManagedSpotTraining() {
+        return this.enableManagedSpotTraining;
+    }
+
+    /**
+     * @param checkpointConfig
+     */
+
+    public void setCheckpointConfig(CheckpointConfig checkpointConfig) {
+        this.checkpointConfig = checkpointConfig;
+    }
+
+    /**
+     * @return
+     */
+
+    public CheckpointConfig getCheckpointConfig() {
+        return this.checkpointConfig;
+    }
+
+    /**
+     * @param checkpointConfig
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HyperParameterTrainingJobDefinition withCheckpointConfig(CheckpointConfig checkpointConfig) {
+        setCheckpointConfig(checkpointConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of times to retry the job when the job fails due to an <code>InternalServerError</code>.
+     * </p>
+     * 
+     * @param retryStrategy
+     *        The number of times to retry the job when the job fails due to an <code>InternalServerError</code>.
+     */
+
+    public void setRetryStrategy(RetryStrategy retryStrategy) {
+        this.retryStrategy = retryStrategy;
+    }
+
+    /**
+     * <p>
+     * The number of times to retry the job when the job fails due to an <code>InternalServerError</code>.
+     * </p>
+     * 
+     * @return The number of times to retry the job when the job fails due to an <code>InternalServerError</code>.
+     */
+
+    public RetryStrategy getRetryStrategy() {
+        return this.retryStrategy;
+    }
+
+    /**
+     * <p>
+     * The number of times to retry the job when the job fails due to an <code>InternalServerError</code>.
+     * </p>
+     * 
+     * @param retryStrategy
+     *        The number of times to retry the job when the job fails due to an <code>InternalServerError</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HyperParameterTrainingJobDefinition withRetryStrategy(RetryStrategy retryStrategy) {
+        setRetryStrategy(retryStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An environment variable that you can pass into the SageMaker <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingJob.html">CreateTrainingJob</a>
+     * API. You can use an existing <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingJob.html#sagemaker-CreateTrainingJob-request-Environment"
+     * >environment variable from the training container</a> or use your own. See <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-metrics-variables.html"
+     * >Define metrics and variables</a> for more information.
+     * </p>
+     * <note>
+     * <p>
+     * The maximum number of items specified for <code>Map Entries</code> refers to the maximum number of environment
+     * variables for each <code>TrainingJobDefinition</code> and also the maximum for the hyperparameter tuning job
+     * itself. That is, the sum of the number of environment variables for all the training job definitions can't exceed
+     * the maximum number specified.
+     * </p>
+     * </note>
+     * 
+     * @return An environment variable that you can pass into the SageMaker <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingJob.html"
+     *         >CreateTrainingJob</a> API. You can use an existing <a href=
+     *         "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingJob.html#sagemaker-CreateTrainingJob-request-Environment"
+     *         >environment variable from the training container</a> or use your own. See <a href=
+     *         "https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-metrics-variables.html"
+     *         >Define metrics and variables</a> for more information.</p> <note>
+     *         <p>
+     *         The maximum number of items specified for <code>Map Entries</code> refers to the maximum number of
+     *         environment variables for each <code>TrainingJobDefinition</code> and also the maximum for the
+     *         hyperparameter tuning job itself. That is, the sum of the number of environment variables for all the
+     *         training job definitions can't exceed the maximum number specified.
+     *         </p>
+     */
+
+    public java.util.Map<String, String> getEnvironment() {
+        return environment;
+    }
+
+    /**
+     * <p>
+     * An environment variable that you can pass into the SageMaker <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingJob.html">CreateTrainingJob</a>
+     * API. You can use an existing <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingJob.html#sagemaker-CreateTrainingJob-request-Environment"
+     * >environment variable from the training container</a> or use your own. See <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-metrics-variables.html"
+     * >Define metrics and variables</a> for more information.
+     * </p>
+     * <note>
+     * <p>
+     * The maximum number of items specified for <code>Map Entries</code> refers to the maximum number of environment
+     * variables for each <code>TrainingJobDefinition</code> and also the maximum for the hyperparameter tuning job
+     * itself. That is, the sum of the number of environment variables for all the training job definitions can't exceed
+     * the maximum number specified.
+     * </p>
+     * </note>
+     * 
+     * @param environment
+     *        An environment variable that you can pass into the SageMaker <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingJob.html"
+     *        >CreateTrainingJob</a> API. You can use an existing <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingJob.html#sagemaker-CreateTrainingJob-request-Environment"
+     *        >environment variable from the training container</a> or use your own. See <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-metrics-variables.html"
+     *        >Define metrics and variables</a> for more information.</p> <note>
+     *        <p>
+     *        The maximum number of items specified for <code>Map Entries</code> refers to the maximum number of
+     *        environment variables for each <code>TrainingJobDefinition</code> and also the maximum for the
+     *        hyperparameter tuning job itself. That is, the sum of the number of environment variables for all the
+     *        training job definitions can't exceed the maximum number specified.
+     *        </p>
+     */
+
+    public void setEnvironment(java.util.Map<String, String> environment) {
+        this.environment = environment;
+    }
+
+    /**
+     * <p>
+     * An environment variable that you can pass into the SageMaker <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingJob.html">CreateTrainingJob</a>
+     * API. You can use an existing <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingJob.html#sagemaker-CreateTrainingJob-request-Environment"
+     * >environment variable from the training container</a> or use your own. See <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-metrics-variables.html"
+     * >Define metrics and variables</a> for more information.
+     * </p>
+     * <note>
+     * <p>
+     * The maximum number of items specified for <code>Map Entries</code> refers to the maximum number of environment
+     * variables for each <code>TrainingJobDefinition</code> and also the maximum for the hyperparameter tuning job
+     * itself. That is, the sum of the number of environment variables for all the training job definitions can't exceed
+     * the maximum number specified.
+     * </p>
+     * </note>
+     * 
+     * @param environment
+     *        An environment variable that you can pass into the SageMaker <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingJob.html"
+     *        >CreateTrainingJob</a> API. You can use an existing <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingJob.html#sagemaker-CreateTrainingJob-request-Environment"
+     *        >environment variable from the training container</a> or use your own. See <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-metrics-variables.html"
+     *        >Define metrics and variables</a> for more information.</p> <note>
+     *        <p>
+     *        The maximum number of items specified for <code>Map Entries</code> refers to the maximum number of
+     *        environment variables for each <code>TrainingJobDefinition</code> and also the maximum for the
+     *        hyperparameter tuning job itself. That is, the sum of the number of environment variables for all the
+     *        training job definitions can't exceed the maximum number specified.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HyperParameterTrainingJobDefinition withEnvironment(java.util.Map<String, String> environment) {
+        setEnvironment(environment);
+        return this;
+    }
+
+    /**
+     * Add a single Environment entry
+     *
+     * @see HyperParameterTrainingJobDefinition#withEnvironment
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HyperParameterTrainingJobDefinition addEnvironmentEntry(String key, String value) {
+        if (null == this.environment) {
+            this.environment = new java.util.HashMap<String, String>();
+        }
+        if (this.environment.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.environment.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Environment.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HyperParameterTrainingJobDefinition clearEnvironmentEntries() {
+        this.environment = null;
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -769,6 +1289,12 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getDefinitionName() != null)
+            sb.append("DefinitionName: ").append(getDefinitionName()).append(",");
+        if (getTuningObjective() != null)
+            sb.append("TuningObjective: ").append(getTuningObjective()).append(",");
+        if (getHyperParameterRanges() != null)
+            sb.append("HyperParameterRanges: ").append(getHyperParameterRanges()).append(",");
         if (getStaticHyperParameters() != null)
             sb.append("StaticHyperParameters: ").append(getStaticHyperParameters()).append(",");
         if (getAlgorithmSpecification() != null)
@@ -783,12 +1309,22 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
             sb.append("OutputDataConfig: ").append(getOutputDataConfig()).append(",");
         if (getResourceConfig() != null)
             sb.append("ResourceConfig: ").append(getResourceConfig()).append(",");
+        if (getHyperParameterTuningResourceConfig() != null)
+            sb.append("HyperParameterTuningResourceConfig: ").append(getHyperParameterTuningResourceConfig()).append(",");
         if (getStoppingCondition() != null)
             sb.append("StoppingCondition: ").append(getStoppingCondition()).append(",");
         if (getEnableNetworkIsolation() != null)
             sb.append("EnableNetworkIsolation: ").append(getEnableNetworkIsolation()).append(",");
         if (getEnableInterContainerTrafficEncryption() != null)
-            sb.append("EnableInterContainerTrafficEncryption: ").append(getEnableInterContainerTrafficEncryption());
+            sb.append("EnableInterContainerTrafficEncryption: ").append(getEnableInterContainerTrafficEncryption()).append(",");
+        if (getEnableManagedSpotTraining() != null)
+            sb.append("EnableManagedSpotTraining: ").append(getEnableManagedSpotTraining()).append(",");
+        if (getCheckpointConfig() != null)
+            sb.append("CheckpointConfig: ").append(getCheckpointConfig()).append(",");
+        if (getRetryStrategy() != null)
+            sb.append("RetryStrategy: ").append(getRetryStrategy()).append(",");
+        if (getEnvironment() != null)
+            sb.append("Environment: ").append(getEnvironment());
         sb.append("}");
         return sb.toString();
     }
@@ -803,6 +1339,18 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
         if (obj instanceof HyperParameterTrainingJobDefinition == false)
             return false;
         HyperParameterTrainingJobDefinition other = (HyperParameterTrainingJobDefinition) obj;
+        if (other.getDefinitionName() == null ^ this.getDefinitionName() == null)
+            return false;
+        if (other.getDefinitionName() != null && other.getDefinitionName().equals(this.getDefinitionName()) == false)
+            return false;
+        if (other.getTuningObjective() == null ^ this.getTuningObjective() == null)
+            return false;
+        if (other.getTuningObjective() != null && other.getTuningObjective().equals(this.getTuningObjective()) == false)
+            return false;
+        if (other.getHyperParameterRanges() == null ^ this.getHyperParameterRanges() == null)
+            return false;
+        if (other.getHyperParameterRanges() != null && other.getHyperParameterRanges().equals(this.getHyperParameterRanges()) == false)
+            return false;
         if (other.getStaticHyperParameters() == null ^ this.getStaticHyperParameters() == null)
             return false;
         if (other.getStaticHyperParameters() != null && other.getStaticHyperParameters().equals(this.getStaticHyperParameters()) == false)
@@ -831,6 +1379,11 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
             return false;
         if (other.getResourceConfig() != null && other.getResourceConfig().equals(this.getResourceConfig()) == false)
             return false;
+        if (other.getHyperParameterTuningResourceConfig() == null ^ this.getHyperParameterTuningResourceConfig() == null)
+            return false;
+        if (other.getHyperParameterTuningResourceConfig() != null
+                && other.getHyperParameterTuningResourceConfig().equals(this.getHyperParameterTuningResourceConfig()) == false)
+            return false;
         if (other.getStoppingCondition() == null ^ this.getStoppingCondition() == null)
             return false;
         if (other.getStoppingCondition() != null && other.getStoppingCondition().equals(this.getStoppingCondition()) == false)
@@ -844,6 +1397,22 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
         if (other.getEnableInterContainerTrafficEncryption() != null
                 && other.getEnableInterContainerTrafficEncryption().equals(this.getEnableInterContainerTrafficEncryption()) == false)
             return false;
+        if (other.getEnableManagedSpotTraining() == null ^ this.getEnableManagedSpotTraining() == null)
+            return false;
+        if (other.getEnableManagedSpotTraining() != null && other.getEnableManagedSpotTraining().equals(this.getEnableManagedSpotTraining()) == false)
+            return false;
+        if (other.getCheckpointConfig() == null ^ this.getCheckpointConfig() == null)
+            return false;
+        if (other.getCheckpointConfig() != null && other.getCheckpointConfig().equals(this.getCheckpointConfig()) == false)
+            return false;
+        if (other.getRetryStrategy() == null ^ this.getRetryStrategy() == null)
+            return false;
+        if (other.getRetryStrategy() != null && other.getRetryStrategy().equals(this.getRetryStrategy()) == false)
+            return false;
+        if (other.getEnvironment() == null ^ this.getEnvironment() == null)
+            return false;
+        if (other.getEnvironment() != null && other.getEnvironment().equals(this.getEnvironment()) == false)
+            return false;
         return true;
     }
 
@@ -852,6 +1421,9 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getDefinitionName() == null) ? 0 : getDefinitionName().hashCode());
+        hashCode = prime * hashCode + ((getTuningObjective() == null) ? 0 : getTuningObjective().hashCode());
+        hashCode = prime * hashCode + ((getHyperParameterRanges() == null) ? 0 : getHyperParameterRanges().hashCode());
         hashCode = prime * hashCode + ((getStaticHyperParameters() == null) ? 0 : getStaticHyperParameters().hashCode());
         hashCode = prime * hashCode + ((getAlgorithmSpecification() == null) ? 0 : getAlgorithmSpecification().hashCode());
         hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
@@ -859,9 +1431,14 @@ public class HyperParameterTrainingJobDefinition implements Serializable, Clonea
         hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
         hashCode = prime * hashCode + ((getOutputDataConfig() == null) ? 0 : getOutputDataConfig().hashCode());
         hashCode = prime * hashCode + ((getResourceConfig() == null) ? 0 : getResourceConfig().hashCode());
+        hashCode = prime * hashCode + ((getHyperParameterTuningResourceConfig() == null) ? 0 : getHyperParameterTuningResourceConfig().hashCode());
         hashCode = prime * hashCode + ((getStoppingCondition() == null) ? 0 : getStoppingCondition().hashCode());
         hashCode = prime * hashCode + ((getEnableNetworkIsolation() == null) ? 0 : getEnableNetworkIsolation().hashCode());
         hashCode = prime * hashCode + ((getEnableInterContainerTrafficEncryption() == null) ? 0 : getEnableInterContainerTrafficEncryption().hashCode());
+        hashCode = prime * hashCode + ((getEnableManagedSpotTraining() == null) ? 0 : getEnableManagedSpotTraining().hashCode());
+        hashCode = prime * hashCode + ((getCheckpointConfig() == null) ? 0 : getCheckpointConfig().hashCode());
+        hashCode = prime * hashCode + ((getRetryStrategy() == null) ? 0 : getRetryStrategy().hashCode());
+        hashCode = prime * hashCode + ((getEnvironment() == null) ? 0 : getEnvironment().hashCode());
         return hashCode;
     }
 

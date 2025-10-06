@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,6 +60,10 @@ public class StreamDescriptionSummaryJsonUnmarshaller implements Unmarshaller<St
                     context.nextToken();
                     streamDescriptionSummary.setStreamStatus(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("StreamModeDetails", targetDepth)) {
+                    context.nextToken();
+                    streamDescriptionSummary.setStreamModeDetails(StreamModeDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("RetentionPeriodHours", targetDepth)) {
                     context.nextToken();
                     streamDescriptionSummary.setRetentionPeriodHours(context.getUnmarshaller(Integer.class).unmarshall(context));
@@ -71,7 +75,8 @@ public class StreamDescriptionSummaryJsonUnmarshaller implements Unmarshaller<St
                 if (context.testExpression("EnhancedMonitoring", targetDepth)) {
                     context.nextToken();
                     streamDescriptionSummary.setEnhancedMonitoring(new ListUnmarshaller<EnhancedMetrics>(EnhancedMetricsJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("EncryptionType", targetDepth)) {
                     context.nextToken();

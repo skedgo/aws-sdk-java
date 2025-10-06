@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,18 @@ public class InvokeEndpointRequestMarshaller {
             .marshallLocationName("Accept").build();
     private static final MarshallingInfo<String> CUSTOMATTRIBUTES_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.HEADER).marshallLocationName("X-Amzn-SageMaker-Custom-Attributes").build();
+    private static final MarshallingInfo<String> TARGETMODEL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.HEADER).marshallLocationName("X-Amzn-SageMaker-Target-Model").build();
+    private static final MarshallingInfo<String> TARGETVARIANT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.HEADER).marshallLocationName("X-Amzn-SageMaker-Target-Variant").build();
+    private static final MarshallingInfo<String> TARGETCONTAINERHOSTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.HEADER).marshallLocationName("X-Amzn-SageMaker-Target-Container-Hostname").build();
+    private static final MarshallingInfo<String> INFERENCEID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.HEADER).marshallLocationName("X-Amzn-SageMaker-Inference-Id").build();
+    private static final MarshallingInfo<String> ENABLEEXPLANATIONS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.HEADER).marshallLocationName("X-Amzn-SageMaker-Enable-Explanations").build();
+    private static final MarshallingInfo<String> INFERENCECOMPONENTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.HEADER).marshallLocationName("X-Amzn-SageMaker-Inference-Component").build();
 
     private static final InvokeEndpointRequestMarshaller instance = new InvokeEndpointRequestMarshaller();
 
@@ -59,6 +71,12 @@ public class InvokeEndpointRequestMarshaller {
             protocolMarshaller.marshall(invokeEndpointRequest.getContentType(), CONTENTTYPE_BINDING);
             protocolMarshaller.marshall(invokeEndpointRequest.getAccept(), ACCEPT_BINDING);
             protocolMarshaller.marshall(invokeEndpointRequest.getCustomAttributes(), CUSTOMATTRIBUTES_BINDING);
+            protocolMarshaller.marshall(invokeEndpointRequest.getTargetModel(), TARGETMODEL_BINDING);
+            protocolMarshaller.marshall(invokeEndpointRequest.getTargetVariant(), TARGETVARIANT_BINDING);
+            protocolMarshaller.marshall(invokeEndpointRequest.getTargetContainerHostname(), TARGETCONTAINERHOSTNAME_BINDING);
+            protocolMarshaller.marshall(invokeEndpointRequest.getInferenceId(), INFERENCEID_BINDING);
+            protocolMarshaller.marshall(invokeEndpointRequest.getEnableExplanations(), ENABLEEXPLANATIONS_BINDING);
+            protocolMarshaller.marshall(invokeEndpointRequest.getInferenceComponentName(), INFERENCECOMPONENTNAME_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

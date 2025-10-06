@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,26 +44,22 @@ public class DescribeGlobalClustersRequest extends com.amazonaws.AmazonWebServic
     private String globalClusterIdentifier;
     /**
      * <p>
-     * A filter that specifies one or more global DB clusters to describe.
+     * A filter that specifies one or more global database clusters to describe. This parameter is case-sensitive.
      * </p>
      * <p>
-     * Supported filters:
+     * Currently, the only supported filter is <code>region</code>.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The
-     * results list will only include information about the DB clusters identified by these ARNs.
+     * If used, the request returns information about any global cluster with at least one member (primary or secondary)
+     * in the specified Amazon Web Services Regions.
      * </p>
-     * </li>
-     * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -100,7 +96,7 @@ public class DescribeGlobalClustersRequest extends com.amazonaws.AmazonWebServic
      * 
      * @param globalClusterIdentifier
      *        The user-supplied DB cluster identifier. If this parameter is specified, information from only the
-     *        specific DB cluster is returned. This parameter isn't case-sensitive. </p>
+     *        specific DB cluster is returned. This parameter isn't case-sensitive.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -133,7 +129,7 @@ public class DescribeGlobalClustersRequest extends com.amazonaws.AmazonWebServic
      * </ul>
      * 
      * @return The user-supplied DB cluster identifier. If this parameter is specified, information from only the
-     *         specific DB cluster is returned. This parameter isn't case-sensitive. </p>
+     *         specific DB cluster is returned. This parameter isn't case-sensitive.</p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -167,7 +163,7 @@ public class DescribeGlobalClustersRequest extends com.amazonaws.AmazonWebServic
      * 
      * @param globalClusterIdentifier
      *        The user-supplied DB cluster identifier. If this parameter is specified, information from only the
-     *        specific DB cluster is returned. This parameter isn't case-sensitive. </p>
+     *        specific DB cluster is returned. This parameter isn't case-sensitive.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -187,31 +183,24 @@ public class DescribeGlobalClustersRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A filter that specifies one or more global DB clusters to describe.
+     * A filter that specifies one or more global database clusters to describe. This parameter is case-sensitive.
      * </p>
      * <p>
-     * Supported filters:
+     * Currently, the only supported filter is <code>region</code>.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The
-     * results list will only include information about the DB clusters identified by these ARNs.
+     * If used, the request returns information about any global cluster with at least one member (primary or secondary)
+     * in the specified Amazon Web Services Regions.
      * </p>
-     * </li>
-     * </ul>
      * 
-     * @return A filter that specifies one or more global DB clusters to describe.</p>
+     * @return A filter that specifies one or more global database clusters to describe. This parameter is
+     *         case-sensitive.</p>
      *         <p>
-     *         Supported filters:
+     *         Currently, the only supported filter is <code>region</code>.
      *         </p>
-     *         <ul>
-     *         <li>
      *         <p>
-     *         <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs).
-     *         The results list will only include information about the DB clusters identified by these ARNs.
-     *         </p>
-     *         </li>
+     *         If used, the request returns information about any global cluster with at least one member (primary or
+     *         secondary) in the specified Amazon Web Services Regions.
      */
 
     public java.util.List<Filter> getFilters() {
@@ -223,32 +212,25 @@ public class DescribeGlobalClustersRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A filter that specifies one or more global DB clusters to describe.
+     * A filter that specifies one or more global database clusters to describe. This parameter is case-sensitive.
      * </p>
      * <p>
-     * Supported filters:
+     * Currently, the only supported filter is <code>region</code>.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The
-     * results list will only include information about the DB clusters identified by these ARNs.
+     * If used, the request returns information about any global cluster with at least one member (primary or secondary)
+     * in the specified Amazon Web Services Regions.
      * </p>
-     * </li>
-     * </ul>
      * 
      * @param filters
-     *        A filter that specifies one or more global DB clusters to describe.</p>
+     *        A filter that specifies one or more global database clusters to describe. This parameter is
+     *        case-sensitive.</p>
      *        <p>
-     *        Supported filters:
+     *        Currently, the only supported filter is <code>region</code>.
      *        </p>
-     *        <ul>
-     *        <li>
      *        <p>
-     *        <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs).
-     *        The results list will only include information about the DB clusters identified by these ARNs.
-     *        </p>
-     *        </li>
+     *        If used, the request returns information about any global cluster with at least one member (primary or
+     *        secondary) in the specified Amazon Web Services Regions.
      */
 
     public void setFilters(java.util.Collection<Filter> filters) {
@@ -262,19 +244,15 @@ public class DescribeGlobalClustersRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A filter that specifies one or more global DB clusters to describe.
+     * A filter that specifies one or more global database clusters to describe. This parameter is case-sensitive.
      * </p>
      * <p>
-     * Supported filters:
+     * Currently, the only supported filter is <code>region</code>.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The
-     * results list will only include information about the DB clusters identified by these ARNs.
+     * If used, the request returns information about any global cluster with at least one member (primary or secondary)
+     * in the specified Amazon Web Services Regions.
      * </p>
-     * </li>
-     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setFilters(java.util.Collection)} or {@link #withFilters(java.util.Collection)} if you want to override
@@ -282,17 +260,14 @@ public class DescribeGlobalClustersRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param filters
-     *        A filter that specifies one or more global DB clusters to describe.</p>
+     *        A filter that specifies one or more global database clusters to describe. This parameter is
+     *        case-sensitive.</p>
      *        <p>
-     *        Supported filters:
+     *        Currently, the only supported filter is <code>region</code>.
      *        </p>
-     *        <ul>
-     *        <li>
      *        <p>
-     *        <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs).
-     *        The results list will only include information about the DB clusters identified by these ARNs.
-     *        </p>
-     *        </li>
+     *        If used, the request returns information about any global cluster with at least one member (primary or
+     *        secondary) in the specified Amazon Web Services Regions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -308,32 +283,25 @@ public class DescribeGlobalClustersRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A filter that specifies one or more global DB clusters to describe.
+     * A filter that specifies one or more global database clusters to describe. This parameter is case-sensitive.
      * </p>
      * <p>
-     * Supported filters:
+     * Currently, the only supported filter is <code>region</code>.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The
-     * results list will only include information about the DB clusters identified by these ARNs.
+     * If used, the request returns information about any global cluster with at least one member (primary or secondary)
+     * in the specified Amazon Web Services Regions.
      * </p>
-     * </li>
-     * </ul>
      * 
      * @param filters
-     *        A filter that specifies one or more global DB clusters to describe.</p>
+     *        A filter that specifies one or more global database clusters to describe. This parameter is
+     *        case-sensitive.</p>
      *        <p>
-     *        Supported filters:
+     *        Currently, the only supported filter is <code>region</code>.
      *        </p>
-     *        <ul>
-     *        <li>
      *        <p>
-     *        <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs).
-     *        The results list will only include information about the DB clusters identified by these ARNs.
-     *        </p>
-     *        </li>
+     *        If used, the request returns information about any global cluster with at least one member (primary or
+     *        secondary) in the specified Amazon Web Services Regions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -345,8 +313,8 @@ public class DescribeGlobalClustersRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -357,8 +325,8 @@ public class DescribeGlobalClustersRequest extends com.amazonaws.AmazonWebServic
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more records exist than the specified
-     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *        remaining results can be retrieved. </p>
+     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you
+     *        can retrieve the remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>
@@ -373,8 +341,8 @@ public class DescribeGlobalClustersRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -384,8 +352,8 @@ public class DescribeGlobalClustersRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @return The maximum number of records to include in the response. If more records exist than the specified
-     *         <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *         remaining results can be retrieved. </p>
+     *         <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you
+     *         can retrieve the remaining results.</p>
      *         <p>
      *         Default: 100
      *         </p>
@@ -400,8 +368,8 @@ public class DescribeGlobalClustersRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -412,8 +380,8 @@ public class DescribeGlobalClustersRequest extends com.amazonaws.AmazonWebServic
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more records exist than the specified
-     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *        remaining results can be retrieved. </p>
+     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you
+     *        can retrieve the remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class ListChangeSetsResult extends com.amazonaws.AmazonWebServiceResult<c
     /**
      * <p>
      * If the output exceeds 1 MB, a string that identifies the next page of change sets. If there is no additional
-     * page, this value is null.
+     * page, this value is <code>null</code>.
      * </p>
      */
     private String nextToken;
@@ -125,12 +125,12 @@ public class ListChangeSetsResult extends com.amazonaws.AmazonWebServiceResult<c
     /**
      * <p>
      * If the output exceeds 1 MB, a string that identifies the next page of change sets. If there is no additional
-     * page, this value is null.
+     * page, this value is <code>null</code>.
      * </p>
      * 
      * @param nextToken
      *        If the output exceeds 1 MB, a string that identifies the next page of change sets. If there is no
-     *        additional page, this value is null.
+     *        additional page, this value is <code>null</code>.
      */
 
     public void setNextToken(String nextToken) {
@@ -140,11 +140,11 @@ public class ListChangeSetsResult extends com.amazonaws.AmazonWebServiceResult<c
     /**
      * <p>
      * If the output exceeds 1 MB, a string that identifies the next page of change sets. If there is no additional
-     * page, this value is null.
+     * page, this value is <code>null</code>.
      * </p>
      * 
      * @return If the output exceeds 1 MB, a string that identifies the next page of change sets. If there is no
-     *         additional page, this value is null.
+     *         additional page, this value is <code>null</code>.
      */
 
     public String getNextToken() {
@@ -154,12 +154,12 @@ public class ListChangeSetsResult extends com.amazonaws.AmazonWebServiceResult<c
     /**
      * <p>
      * If the output exceeds 1 MB, a string that identifies the next page of change sets. If there is no additional
-     * page, this value is null.
+     * page, this value is <code>null</code>.
      * </p>
      * 
      * @param nextToken
      *        If the output exceeds 1 MB, a string that identifies the next page of change sets. If there is no
-     *        additional page, this value is null.
+     *        additional page, this value is <code>null</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

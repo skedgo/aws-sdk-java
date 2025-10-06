@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * A complex type that contains information about one health check that is associated with the current AWS account.
+ * A complex type that contains information about one health check that is associated with the current Amazon Web
+ * Services account.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/HealthCheck" target="_top">AWS API
@@ -28,7 +29,7 @@ public class HealthCheck implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier that Amazon Route 53assigned to the health check when you created it. When you add or update a
+     * The identifier that Amazon Route 53 assigned to the health check when you created it. When you add or update a
      * resource record set, you use this value to specify which health check to use. The value can be up to 64
      * characters long.
      * </p>
@@ -70,13 +71,13 @@ public class HealthCheck implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier that Amazon Route 53assigned to the health check when you created it. When you add or update a
+     * The identifier that Amazon Route 53 assigned to the health check when you created it. When you add or update a
      * resource record set, you use this value to specify which health check to use. The value can be up to 64
      * characters long.
      * </p>
      * 
      * @param id
-     *        The identifier that Amazon Route 53assigned to the health check when you created it. When you add or
+     *        The identifier that Amazon Route 53 assigned to the health check when you created it. When you add or
      *        update a resource record set, you use this value to specify which health check to use. The value can be up
      *        to 64 characters long.
      */
@@ -87,12 +88,12 @@ public class HealthCheck implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier that Amazon Route 53assigned to the health check when you created it. When you add or update a
+     * The identifier that Amazon Route 53 assigned to the health check when you created it. When you add or update a
      * resource record set, you use this value to specify which health check to use. The value can be up to 64
      * characters long.
      * </p>
      * 
-     * @return The identifier that Amazon Route 53assigned to the health check when you created it. When you add or
+     * @return The identifier that Amazon Route 53 assigned to the health check when you created it. When you add or
      *         update a resource record set, you use this value to specify which health check to use. The value can be
      *         up to 64 characters long.
      */
@@ -103,13 +104,13 @@ public class HealthCheck implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier that Amazon Route 53assigned to the health check when you created it. When you add or update a
+     * The identifier that Amazon Route 53 assigned to the health check when you created it. When you add or update a
      * resource record set, you use this value to specify which health check to use. The value can be up to 64
      * characters long.
      * </p>
      * 
      * @param id
-     *        The identifier that Amazon Route 53assigned to the health check when you created it. When you add or
+     *        The identifier that Amazon Route 53 assigned to the health check when you created it. When you add or
      *        update a resource record set, you use this value to specify which health check to use. The value can be up
      *        to 64 characters long.
      * @return Returns a reference to this object so that method calls can be chained together.

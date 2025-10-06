@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -80,6 +80,10 @@ public class ProblemJsonUnmarshaller implements Unmarshaller<Problem, JsonUnmars
                     context.nextToken();
                     problem.setSeverityLevel(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("AccountId", targetDepth)) {
+                    context.nextToken();
+                    problem.setAccountId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("ResourceGroupName", targetDepth)) {
                     context.nextToken();
                     problem.setResourceGroupName(context.getUnmarshaller(String.class).unmarshall(context));
@@ -88,6 +92,22 @@ public class ProblemJsonUnmarshaller implements Unmarshaller<Problem, JsonUnmars
                     context.nextToken();
                     problem.setFeedback(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
                             .unmarshall(context));
+                }
+                if (context.testExpression("RecurringCount", targetDepth)) {
+                    context.nextToken();
+                    problem.setRecurringCount(context.getUnmarshaller(Long.class).unmarshall(context));
+                }
+                if (context.testExpression("LastRecurrenceTime", targetDepth)) {
+                    context.nextToken();
+                    problem.setLastRecurrenceTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("Visibility", targetDepth)) {
+                    context.nextToken();
+                    problem.setVisibility(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ResolutionMethod", targetDepth)) {
+                    context.nextToken();
+                    problem.setResolutionMethod(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

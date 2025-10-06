@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,10 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Identifies a model that you want to host and the resources to deploy for hosting it. If you are deploying multiple
- * models, tell Amazon SageMaker how to distribute traffic among the models by specifying variant weights.
+ * Identifies a model that you want to host and the resources chosen to deploy for hosting it. If you are deploying
+ * multiple models, tell SageMaker how to distribute traffic among the models by specifying variant weights. For more
+ * information on production variants, check <a
+ * href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-ab-testing.html"> Production variants</a>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ProductionVariant" target="_top">AWS API
@@ -65,12 +67,80 @@ public class ProductionVariant implements Serializable, Cloneable, StructuredPoj
      * <p>
      * The size of the Elastic Inference (EI) instance to use for the production variant. EI instances provide on-demand
      * GPU computing for inference. For more information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon SageMaker</a>.
-     * For more information, see <a href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic
-     * Inference in Amazon SageMaker</a>.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon SageMaker</a>.
      * </p>
      */
     private String acceleratorType;
+    /**
+     * <p>
+     * Specifies configuration for a core dump from the model container when the process crashes.
+     * </p>
+     */
+    private ProductionVariantCoreDumpConfig coreDumpConfig;
+    /**
+     * <p>
+     * The serverless configuration for an endpoint. Specifies a serverless endpoint configuration instead of an
+     * instance-based endpoint configuration.
+     * </p>
+     */
+    private ProductionVariantServerlessConfig serverlessConfig;
+    /**
+     * <p>
+     * The size, in GB, of the ML storage volume attached to individual inference instance associated with the
+     * production variant. Currently only Amazon EBS gp2 storage volumes are supported.
+     * </p>
+     */
+    private Integer volumeSizeInGB;
+    /**
+     * <p>
+     * The timeout value, in seconds, to download and extract the model that you want to host from Amazon S3 to the
+     * individual inference instance associated with this production variant.
+     * </p>
+     */
+    private Integer modelDataDownloadTimeoutInSeconds;
+    /**
+     * <p>
+     * The timeout value, in seconds, for your inference container to pass health check by SageMaker Hosting. For more
+     * information about health check, see <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-inference-code.html#your-algorithms-inference-algo-ping-requests"
+     * >How Your Container Should Respond to Health Check (Ping) Requests</a>.
+     * </p>
+     */
+    private Integer containerStartupHealthCheckTimeoutInSeconds;
+    /**
+     * <p>
+     * You can use this parameter to turn on native Amazon Web Services Systems Manager (SSM) access for a production
+     * variant behind an endpoint. By default, SSM access is disabled for all production variants behind an endpoint.
+     * You can turn on or turn off SSM access for a production variant behind an existing endpoint by creating a new
+     * endpoint configuration and calling <code>UpdateEndpoint</code>.
+     * </p>
+     */
+    private Boolean enableSSMAccess;
+    /**
+     * <p>
+     * Settings that control the range in the number of instances that the endpoint provisions as it scales up or down
+     * to accommodate traffic.
+     * </p>
+     */
+    private ProductionVariantManagedInstanceScaling managedInstanceScaling;
+    /**
+     * <p>
+     * Settings that control how the endpoint routes incoming traffic to the instances that the endpoint hosts.
+     * </p>
+     */
+    private ProductionVariantRoutingConfig routingConfig;
+    /**
+     * <p>
+     * Specifies an option from a collection of preconfigured Amazon Machine Image (AMI) images. Each image is
+     * configured by Amazon Web Services with a set of software and driver versions. Amazon Web Services optimizes these
+     * configurations for different machine learning workloads.
+     * </p>
+     * <p>
+     * By selecting an AMI version, you can ensure that your inference environment is compatible with specific software
+     * requirements, such as CUDA driver versions, Linux kernel versions, or Amazon Web Services Neuron driver versions.
+     * </p>
+     */
+    private String inferenceAmiVersion;
 
     /**
      * <p>
@@ -310,17 +380,13 @@ public class ProductionVariant implements Serializable, Cloneable, StructuredPoj
      * <p>
      * The size of the Elastic Inference (EI) instance to use for the production variant. EI instances provide on-demand
      * GPU computing for inference. For more information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon SageMaker</a>.
-     * For more information, see <a href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic
-     * Inference in Amazon SageMaker</a>.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon SageMaker</a>.
      * </p>
      * 
      * @param acceleratorType
      *        The size of the Elastic Inference (EI) instance to use for the production variant. EI instances provide
      *        on-demand GPU computing for inference. For more information, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon
-     *        SageMaker</a>. For more information, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon
      *        SageMaker</a>.
      * @see ProductionVariantAcceleratorType
      */
@@ -333,16 +399,12 @@ public class ProductionVariant implements Serializable, Cloneable, StructuredPoj
      * <p>
      * The size of the Elastic Inference (EI) instance to use for the production variant. EI instances provide on-demand
      * GPU computing for inference. For more information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon SageMaker</a>.
-     * For more information, see <a href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic
-     * Inference in Amazon SageMaker</a>.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon SageMaker</a>.
      * </p>
      * 
      * @return The size of the Elastic Inference (EI) instance to use for the production variant. EI instances provide
      *         on-demand GPU computing for inference. For more information, see <a
-     *         href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon
-     *         SageMaker</a>. For more information, see <a
-     *         href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon
      *         SageMaker</a>.
      * @see ProductionVariantAcceleratorType
      */
@@ -355,17 +417,13 @@ public class ProductionVariant implements Serializable, Cloneable, StructuredPoj
      * <p>
      * The size of the Elastic Inference (EI) instance to use for the production variant. EI instances provide on-demand
      * GPU computing for inference. For more information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon SageMaker</a>.
-     * For more information, see <a href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic
-     * Inference in Amazon SageMaker</a>.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon SageMaker</a>.
      * </p>
      * 
      * @param acceleratorType
      *        The size of the Elastic Inference (EI) instance to use for the production variant. EI instances provide
      *        on-demand GPU computing for inference. For more information, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon
-     *        SageMaker</a>. For more information, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon
      *        SageMaker</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ProductionVariantAcceleratorType
@@ -380,17 +438,13 @@ public class ProductionVariant implements Serializable, Cloneable, StructuredPoj
      * <p>
      * The size of the Elastic Inference (EI) instance to use for the production variant. EI instances provide on-demand
      * GPU computing for inference. For more information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon SageMaker</a>.
-     * For more information, see <a href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic
-     * Inference in Amazon SageMaker</a>.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon SageMaker</a>.
      * </p>
      * 
      * @param acceleratorType
      *        The size of the Elastic Inference (EI) instance to use for the production variant. EI instances provide
      *        on-demand GPU computing for inference. For more information, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon
-     *        SageMaker</a>. For more information, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon
      *        SageMaker</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ProductionVariantAcceleratorType
@@ -398,6 +452,511 @@ public class ProductionVariant implements Serializable, Cloneable, StructuredPoj
 
     public ProductionVariant withAcceleratorType(ProductionVariantAcceleratorType acceleratorType) {
         this.acceleratorType = acceleratorType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies configuration for a core dump from the model container when the process crashes.
+     * </p>
+     * 
+     * @param coreDumpConfig
+     *        Specifies configuration for a core dump from the model container when the process crashes.
+     */
+
+    public void setCoreDumpConfig(ProductionVariantCoreDumpConfig coreDumpConfig) {
+        this.coreDumpConfig = coreDumpConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies configuration for a core dump from the model container when the process crashes.
+     * </p>
+     * 
+     * @return Specifies configuration for a core dump from the model container when the process crashes.
+     */
+
+    public ProductionVariantCoreDumpConfig getCoreDumpConfig() {
+        return this.coreDumpConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies configuration for a core dump from the model container when the process crashes.
+     * </p>
+     * 
+     * @param coreDumpConfig
+     *        Specifies configuration for a core dump from the model container when the process crashes.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProductionVariant withCoreDumpConfig(ProductionVariantCoreDumpConfig coreDumpConfig) {
+        setCoreDumpConfig(coreDumpConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The serverless configuration for an endpoint. Specifies a serverless endpoint configuration instead of an
+     * instance-based endpoint configuration.
+     * </p>
+     * 
+     * @param serverlessConfig
+     *        The serverless configuration for an endpoint. Specifies a serverless endpoint configuration instead of an
+     *        instance-based endpoint configuration.
+     */
+
+    public void setServerlessConfig(ProductionVariantServerlessConfig serverlessConfig) {
+        this.serverlessConfig = serverlessConfig;
+    }
+
+    /**
+     * <p>
+     * The serverless configuration for an endpoint. Specifies a serverless endpoint configuration instead of an
+     * instance-based endpoint configuration.
+     * </p>
+     * 
+     * @return The serverless configuration for an endpoint. Specifies a serverless endpoint configuration instead of an
+     *         instance-based endpoint configuration.
+     */
+
+    public ProductionVariantServerlessConfig getServerlessConfig() {
+        return this.serverlessConfig;
+    }
+
+    /**
+     * <p>
+     * The serverless configuration for an endpoint. Specifies a serverless endpoint configuration instead of an
+     * instance-based endpoint configuration.
+     * </p>
+     * 
+     * @param serverlessConfig
+     *        The serverless configuration for an endpoint. Specifies a serverless endpoint configuration instead of an
+     *        instance-based endpoint configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProductionVariant withServerlessConfig(ProductionVariantServerlessConfig serverlessConfig) {
+        setServerlessConfig(serverlessConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The size, in GB, of the ML storage volume attached to individual inference instance associated with the
+     * production variant. Currently only Amazon EBS gp2 storage volumes are supported.
+     * </p>
+     * 
+     * @param volumeSizeInGB
+     *        The size, in GB, of the ML storage volume attached to individual inference instance associated with the
+     *        production variant. Currently only Amazon EBS gp2 storage volumes are supported.
+     */
+
+    public void setVolumeSizeInGB(Integer volumeSizeInGB) {
+        this.volumeSizeInGB = volumeSizeInGB;
+    }
+
+    /**
+     * <p>
+     * The size, in GB, of the ML storage volume attached to individual inference instance associated with the
+     * production variant. Currently only Amazon EBS gp2 storage volumes are supported.
+     * </p>
+     * 
+     * @return The size, in GB, of the ML storage volume attached to individual inference instance associated with the
+     *         production variant. Currently only Amazon EBS gp2 storage volumes are supported.
+     */
+
+    public Integer getVolumeSizeInGB() {
+        return this.volumeSizeInGB;
+    }
+
+    /**
+     * <p>
+     * The size, in GB, of the ML storage volume attached to individual inference instance associated with the
+     * production variant. Currently only Amazon EBS gp2 storage volumes are supported.
+     * </p>
+     * 
+     * @param volumeSizeInGB
+     *        The size, in GB, of the ML storage volume attached to individual inference instance associated with the
+     *        production variant. Currently only Amazon EBS gp2 storage volumes are supported.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProductionVariant withVolumeSizeInGB(Integer volumeSizeInGB) {
+        setVolumeSizeInGB(volumeSizeInGB);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The timeout value, in seconds, to download and extract the model that you want to host from Amazon S3 to the
+     * individual inference instance associated with this production variant.
+     * </p>
+     * 
+     * @param modelDataDownloadTimeoutInSeconds
+     *        The timeout value, in seconds, to download and extract the model that you want to host from Amazon S3 to
+     *        the individual inference instance associated with this production variant.
+     */
+
+    public void setModelDataDownloadTimeoutInSeconds(Integer modelDataDownloadTimeoutInSeconds) {
+        this.modelDataDownloadTimeoutInSeconds = modelDataDownloadTimeoutInSeconds;
+    }
+
+    /**
+     * <p>
+     * The timeout value, in seconds, to download and extract the model that you want to host from Amazon S3 to the
+     * individual inference instance associated with this production variant.
+     * </p>
+     * 
+     * @return The timeout value, in seconds, to download and extract the model that you want to host from Amazon S3 to
+     *         the individual inference instance associated with this production variant.
+     */
+
+    public Integer getModelDataDownloadTimeoutInSeconds() {
+        return this.modelDataDownloadTimeoutInSeconds;
+    }
+
+    /**
+     * <p>
+     * The timeout value, in seconds, to download and extract the model that you want to host from Amazon S3 to the
+     * individual inference instance associated with this production variant.
+     * </p>
+     * 
+     * @param modelDataDownloadTimeoutInSeconds
+     *        The timeout value, in seconds, to download and extract the model that you want to host from Amazon S3 to
+     *        the individual inference instance associated with this production variant.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProductionVariant withModelDataDownloadTimeoutInSeconds(Integer modelDataDownloadTimeoutInSeconds) {
+        setModelDataDownloadTimeoutInSeconds(modelDataDownloadTimeoutInSeconds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The timeout value, in seconds, for your inference container to pass health check by SageMaker Hosting. For more
+     * information about health check, see <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-inference-code.html#your-algorithms-inference-algo-ping-requests"
+     * >How Your Container Should Respond to Health Check (Ping) Requests</a>.
+     * </p>
+     * 
+     * @param containerStartupHealthCheckTimeoutInSeconds
+     *        The timeout value, in seconds, for your inference container to pass health check by SageMaker Hosting. For
+     *        more information about health check, see <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-inference-code.html#your-algorithms-inference-algo-ping-requests"
+     *        >How Your Container Should Respond to Health Check (Ping) Requests</a>.
+     */
+
+    public void setContainerStartupHealthCheckTimeoutInSeconds(Integer containerStartupHealthCheckTimeoutInSeconds) {
+        this.containerStartupHealthCheckTimeoutInSeconds = containerStartupHealthCheckTimeoutInSeconds;
+    }
+
+    /**
+     * <p>
+     * The timeout value, in seconds, for your inference container to pass health check by SageMaker Hosting. For more
+     * information about health check, see <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-inference-code.html#your-algorithms-inference-algo-ping-requests"
+     * >How Your Container Should Respond to Health Check (Ping) Requests</a>.
+     * </p>
+     * 
+     * @return The timeout value, in seconds, for your inference container to pass health check by SageMaker Hosting.
+     *         For more information about health check, see <a href=
+     *         "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-inference-code.html#your-algorithms-inference-algo-ping-requests"
+     *         >How Your Container Should Respond to Health Check (Ping) Requests</a>.
+     */
+
+    public Integer getContainerStartupHealthCheckTimeoutInSeconds() {
+        return this.containerStartupHealthCheckTimeoutInSeconds;
+    }
+
+    /**
+     * <p>
+     * The timeout value, in seconds, for your inference container to pass health check by SageMaker Hosting. For more
+     * information about health check, see <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-inference-code.html#your-algorithms-inference-algo-ping-requests"
+     * >How Your Container Should Respond to Health Check (Ping) Requests</a>.
+     * </p>
+     * 
+     * @param containerStartupHealthCheckTimeoutInSeconds
+     *        The timeout value, in seconds, for your inference container to pass health check by SageMaker Hosting. For
+     *        more information about health check, see <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-inference-code.html#your-algorithms-inference-algo-ping-requests"
+     *        >How Your Container Should Respond to Health Check (Ping) Requests</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProductionVariant withContainerStartupHealthCheckTimeoutInSeconds(Integer containerStartupHealthCheckTimeoutInSeconds) {
+        setContainerStartupHealthCheckTimeoutInSeconds(containerStartupHealthCheckTimeoutInSeconds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * You can use this parameter to turn on native Amazon Web Services Systems Manager (SSM) access for a production
+     * variant behind an endpoint. By default, SSM access is disabled for all production variants behind an endpoint.
+     * You can turn on or turn off SSM access for a production variant behind an existing endpoint by creating a new
+     * endpoint configuration and calling <code>UpdateEndpoint</code>.
+     * </p>
+     * 
+     * @param enableSSMAccess
+     *        You can use this parameter to turn on native Amazon Web Services Systems Manager (SSM) access for a
+     *        production variant behind an endpoint. By default, SSM access is disabled for all production variants
+     *        behind an endpoint. You can turn on or turn off SSM access for a production variant behind an existing
+     *        endpoint by creating a new endpoint configuration and calling <code>UpdateEndpoint</code>.
+     */
+
+    public void setEnableSSMAccess(Boolean enableSSMAccess) {
+        this.enableSSMAccess = enableSSMAccess;
+    }
+
+    /**
+     * <p>
+     * You can use this parameter to turn on native Amazon Web Services Systems Manager (SSM) access for a production
+     * variant behind an endpoint. By default, SSM access is disabled for all production variants behind an endpoint.
+     * You can turn on or turn off SSM access for a production variant behind an existing endpoint by creating a new
+     * endpoint configuration and calling <code>UpdateEndpoint</code>.
+     * </p>
+     * 
+     * @return You can use this parameter to turn on native Amazon Web Services Systems Manager (SSM) access for a
+     *         production variant behind an endpoint. By default, SSM access is disabled for all production variants
+     *         behind an endpoint. You can turn on or turn off SSM access for a production variant behind an existing
+     *         endpoint by creating a new endpoint configuration and calling <code>UpdateEndpoint</code>.
+     */
+
+    public Boolean getEnableSSMAccess() {
+        return this.enableSSMAccess;
+    }
+
+    /**
+     * <p>
+     * You can use this parameter to turn on native Amazon Web Services Systems Manager (SSM) access for a production
+     * variant behind an endpoint. By default, SSM access is disabled for all production variants behind an endpoint.
+     * You can turn on or turn off SSM access for a production variant behind an existing endpoint by creating a new
+     * endpoint configuration and calling <code>UpdateEndpoint</code>.
+     * </p>
+     * 
+     * @param enableSSMAccess
+     *        You can use this parameter to turn on native Amazon Web Services Systems Manager (SSM) access for a
+     *        production variant behind an endpoint. By default, SSM access is disabled for all production variants
+     *        behind an endpoint. You can turn on or turn off SSM access for a production variant behind an existing
+     *        endpoint by creating a new endpoint configuration and calling <code>UpdateEndpoint</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProductionVariant withEnableSSMAccess(Boolean enableSSMAccess) {
+        setEnableSSMAccess(enableSSMAccess);
+        return this;
+    }
+
+    /**
+     * <p>
+     * You can use this parameter to turn on native Amazon Web Services Systems Manager (SSM) access for a production
+     * variant behind an endpoint. By default, SSM access is disabled for all production variants behind an endpoint.
+     * You can turn on or turn off SSM access for a production variant behind an existing endpoint by creating a new
+     * endpoint configuration and calling <code>UpdateEndpoint</code>.
+     * </p>
+     * 
+     * @return You can use this parameter to turn on native Amazon Web Services Systems Manager (SSM) access for a
+     *         production variant behind an endpoint. By default, SSM access is disabled for all production variants
+     *         behind an endpoint. You can turn on or turn off SSM access for a production variant behind an existing
+     *         endpoint by creating a new endpoint configuration and calling <code>UpdateEndpoint</code>.
+     */
+
+    public Boolean isEnableSSMAccess() {
+        return this.enableSSMAccess;
+    }
+
+    /**
+     * <p>
+     * Settings that control the range in the number of instances that the endpoint provisions as it scales up or down
+     * to accommodate traffic.
+     * </p>
+     * 
+     * @param managedInstanceScaling
+     *        Settings that control the range in the number of instances that the endpoint provisions as it scales up or
+     *        down to accommodate traffic.
+     */
+
+    public void setManagedInstanceScaling(ProductionVariantManagedInstanceScaling managedInstanceScaling) {
+        this.managedInstanceScaling = managedInstanceScaling;
+    }
+
+    /**
+     * <p>
+     * Settings that control the range in the number of instances that the endpoint provisions as it scales up or down
+     * to accommodate traffic.
+     * </p>
+     * 
+     * @return Settings that control the range in the number of instances that the endpoint provisions as it scales up
+     *         or down to accommodate traffic.
+     */
+
+    public ProductionVariantManagedInstanceScaling getManagedInstanceScaling() {
+        return this.managedInstanceScaling;
+    }
+
+    /**
+     * <p>
+     * Settings that control the range in the number of instances that the endpoint provisions as it scales up or down
+     * to accommodate traffic.
+     * </p>
+     * 
+     * @param managedInstanceScaling
+     *        Settings that control the range in the number of instances that the endpoint provisions as it scales up or
+     *        down to accommodate traffic.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProductionVariant withManagedInstanceScaling(ProductionVariantManagedInstanceScaling managedInstanceScaling) {
+        setManagedInstanceScaling(managedInstanceScaling);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings that control how the endpoint routes incoming traffic to the instances that the endpoint hosts.
+     * </p>
+     * 
+     * @param routingConfig
+     *        Settings that control how the endpoint routes incoming traffic to the instances that the endpoint hosts.
+     */
+
+    public void setRoutingConfig(ProductionVariantRoutingConfig routingConfig) {
+        this.routingConfig = routingConfig;
+    }
+
+    /**
+     * <p>
+     * Settings that control how the endpoint routes incoming traffic to the instances that the endpoint hosts.
+     * </p>
+     * 
+     * @return Settings that control how the endpoint routes incoming traffic to the instances that the endpoint hosts.
+     */
+
+    public ProductionVariantRoutingConfig getRoutingConfig() {
+        return this.routingConfig;
+    }
+
+    /**
+     * <p>
+     * Settings that control how the endpoint routes incoming traffic to the instances that the endpoint hosts.
+     * </p>
+     * 
+     * @param routingConfig
+     *        Settings that control how the endpoint routes incoming traffic to the instances that the endpoint hosts.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProductionVariant withRoutingConfig(ProductionVariantRoutingConfig routingConfig) {
+        setRoutingConfig(routingConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies an option from a collection of preconfigured Amazon Machine Image (AMI) images. Each image is
+     * configured by Amazon Web Services with a set of software and driver versions. Amazon Web Services optimizes these
+     * configurations for different machine learning workloads.
+     * </p>
+     * <p>
+     * By selecting an AMI version, you can ensure that your inference environment is compatible with specific software
+     * requirements, such as CUDA driver versions, Linux kernel versions, or Amazon Web Services Neuron driver versions.
+     * </p>
+     * 
+     * @param inferenceAmiVersion
+     *        Specifies an option from a collection of preconfigured Amazon Machine Image (AMI) images. Each image is
+     *        configured by Amazon Web Services with a set of software and driver versions. Amazon Web Services
+     *        optimizes these configurations for different machine learning workloads.</p>
+     *        <p>
+     *        By selecting an AMI version, you can ensure that your inference environment is compatible with specific
+     *        software requirements, such as CUDA driver versions, Linux kernel versions, or Amazon Web Services Neuron
+     *        driver versions.
+     * @see ProductionVariantInferenceAmiVersion
+     */
+
+    public void setInferenceAmiVersion(String inferenceAmiVersion) {
+        this.inferenceAmiVersion = inferenceAmiVersion;
+    }
+
+    /**
+     * <p>
+     * Specifies an option from a collection of preconfigured Amazon Machine Image (AMI) images. Each image is
+     * configured by Amazon Web Services with a set of software and driver versions. Amazon Web Services optimizes these
+     * configurations for different machine learning workloads.
+     * </p>
+     * <p>
+     * By selecting an AMI version, you can ensure that your inference environment is compatible with specific software
+     * requirements, such as CUDA driver versions, Linux kernel versions, or Amazon Web Services Neuron driver versions.
+     * </p>
+     * 
+     * @return Specifies an option from a collection of preconfigured Amazon Machine Image (AMI) images. Each image is
+     *         configured by Amazon Web Services with a set of software and driver versions. Amazon Web Services
+     *         optimizes these configurations for different machine learning workloads.</p>
+     *         <p>
+     *         By selecting an AMI version, you can ensure that your inference environment is compatible with specific
+     *         software requirements, such as CUDA driver versions, Linux kernel versions, or Amazon Web Services Neuron
+     *         driver versions.
+     * @see ProductionVariantInferenceAmiVersion
+     */
+
+    public String getInferenceAmiVersion() {
+        return this.inferenceAmiVersion;
+    }
+
+    /**
+     * <p>
+     * Specifies an option from a collection of preconfigured Amazon Machine Image (AMI) images. Each image is
+     * configured by Amazon Web Services with a set of software and driver versions. Amazon Web Services optimizes these
+     * configurations for different machine learning workloads.
+     * </p>
+     * <p>
+     * By selecting an AMI version, you can ensure that your inference environment is compatible with specific software
+     * requirements, such as CUDA driver versions, Linux kernel versions, or Amazon Web Services Neuron driver versions.
+     * </p>
+     * 
+     * @param inferenceAmiVersion
+     *        Specifies an option from a collection of preconfigured Amazon Machine Image (AMI) images. Each image is
+     *        configured by Amazon Web Services with a set of software and driver versions. Amazon Web Services
+     *        optimizes these configurations for different machine learning workloads.</p>
+     *        <p>
+     *        By selecting an AMI version, you can ensure that your inference environment is compatible with specific
+     *        software requirements, such as CUDA driver versions, Linux kernel versions, or Amazon Web Services Neuron
+     *        driver versions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ProductionVariantInferenceAmiVersion
+     */
+
+    public ProductionVariant withInferenceAmiVersion(String inferenceAmiVersion) {
+        setInferenceAmiVersion(inferenceAmiVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies an option from a collection of preconfigured Amazon Machine Image (AMI) images. Each image is
+     * configured by Amazon Web Services with a set of software and driver versions. Amazon Web Services optimizes these
+     * configurations for different machine learning workloads.
+     * </p>
+     * <p>
+     * By selecting an AMI version, you can ensure that your inference environment is compatible with specific software
+     * requirements, such as CUDA driver versions, Linux kernel versions, or Amazon Web Services Neuron driver versions.
+     * </p>
+     * 
+     * @param inferenceAmiVersion
+     *        Specifies an option from a collection of preconfigured Amazon Machine Image (AMI) images. Each image is
+     *        configured by Amazon Web Services with a set of software and driver versions. Amazon Web Services
+     *        optimizes these configurations for different machine learning workloads.</p>
+     *        <p>
+     *        By selecting an AMI version, you can ensure that your inference environment is compatible with specific
+     *        software requirements, such as CUDA driver versions, Linux kernel versions, or Amazon Web Services Neuron
+     *        driver versions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ProductionVariantInferenceAmiVersion
+     */
+
+    public ProductionVariant withInferenceAmiVersion(ProductionVariantInferenceAmiVersion inferenceAmiVersion) {
+        this.inferenceAmiVersion = inferenceAmiVersion.toString();
         return this;
     }
 
@@ -424,7 +983,25 @@ public class ProductionVariant implements Serializable, Cloneable, StructuredPoj
         if (getInitialVariantWeight() != null)
             sb.append("InitialVariantWeight: ").append(getInitialVariantWeight()).append(",");
         if (getAcceleratorType() != null)
-            sb.append("AcceleratorType: ").append(getAcceleratorType());
+            sb.append("AcceleratorType: ").append(getAcceleratorType()).append(",");
+        if (getCoreDumpConfig() != null)
+            sb.append("CoreDumpConfig: ").append(getCoreDumpConfig()).append(",");
+        if (getServerlessConfig() != null)
+            sb.append("ServerlessConfig: ").append(getServerlessConfig()).append(",");
+        if (getVolumeSizeInGB() != null)
+            sb.append("VolumeSizeInGB: ").append(getVolumeSizeInGB()).append(",");
+        if (getModelDataDownloadTimeoutInSeconds() != null)
+            sb.append("ModelDataDownloadTimeoutInSeconds: ").append(getModelDataDownloadTimeoutInSeconds()).append(",");
+        if (getContainerStartupHealthCheckTimeoutInSeconds() != null)
+            sb.append("ContainerStartupHealthCheckTimeoutInSeconds: ").append(getContainerStartupHealthCheckTimeoutInSeconds()).append(",");
+        if (getEnableSSMAccess() != null)
+            sb.append("EnableSSMAccess: ").append(getEnableSSMAccess()).append(",");
+        if (getManagedInstanceScaling() != null)
+            sb.append("ManagedInstanceScaling: ").append(getManagedInstanceScaling()).append(",");
+        if (getRoutingConfig() != null)
+            sb.append("RoutingConfig: ").append(getRoutingConfig()).append(",");
+        if (getInferenceAmiVersion() != null)
+            sb.append("InferenceAmiVersion: ").append(getInferenceAmiVersion());
         sb.append("}");
         return sb.toString();
     }
@@ -463,6 +1040,44 @@ public class ProductionVariant implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getAcceleratorType() != null && other.getAcceleratorType().equals(this.getAcceleratorType()) == false)
             return false;
+        if (other.getCoreDumpConfig() == null ^ this.getCoreDumpConfig() == null)
+            return false;
+        if (other.getCoreDumpConfig() != null && other.getCoreDumpConfig().equals(this.getCoreDumpConfig()) == false)
+            return false;
+        if (other.getServerlessConfig() == null ^ this.getServerlessConfig() == null)
+            return false;
+        if (other.getServerlessConfig() != null && other.getServerlessConfig().equals(this.getServerlessConfig()) == false)
+            return false;
+        if (other.getVolumeSizeInGB() == null ^ this.getVolumeSizeInGB() == null)
+            return false;
+        if (other.getVolumeSizeInGB() != null && other.getVolumeSizeInGB().equals(this.getVolumeSizeInGB()) == false)
+            return false;
+        if (other.getModelDataDownloadTimeoutInSeconds() == null ^ this.getModelDataDownloadTimeoutInSeconds() == null)
+            return false;
+        if (other.getModelDataDownloadTimeoutInSeconds() != null
+                && other.getModelDataDownloadTimeoutInSeconds().equals(this.getModelDataDownloadTimeoutInSeconds()) == false)
+            return false;
+        if (other.getContainerStartupHealthCheckTimeoutInSeconds() == null ^ this.getContainerStartupHealthCheckTimeoutInSeconds() == null)
+            return false;
+        if (other.getContainerStartupHealthCheckTimeoutInSeconds() != null
+                && other.getContainerStartupHealthCheckTimeoutInSeconds().equals(this.getContainerStartupHealthCheckTimeoutInSeconds()) == false)
+            return false;
+        if (other.getEnableSSMAccess() == null ^ this.getEnableSSMAccess() == null)
+            return false;
+        if (other.getEnableSSMAccess() != null && other.getEnableSSMAccess().equals(this.getEnableSSMAccess()) == false)
+            return false;
+        if (other.getManagedInstanceScaling() == null ^ this.getManagedInstanceScaling() == null)
+            return false;
+        if (other.getManagedInstanceScaling() != null && other.getManagedInstanceScaling().equals(this.getManagedInstanceScaling()) == false)
+            return false;
+        if (other.getRoutingConfig() == null ^ this.getRoutingConfig() == null)
+            return false;
+        if (other.getRoutingConfig() != null && other.getRoutingConfig().equals(this.getRoutingConfig()) == false)
+            return false;
+        if (other.getInferenceAmiVersion() == null ^ this.getInferenceAmiVersion() == null)
+            return false;
+        if (other.getInferenceAmiVersion() != null && other.getInferenceAmiVersion().equals(this.getInferenceAmiVersion()) == false)
+            return false;
         return true;
     }
 
@@ -477,6 +1092,16 @@ public class ProductionVariant implements Serializable, Cloneable, StructuredPoj
         hashCode = prime * hashCode + ((getInstanceType() == null) ? 0 : getInstanceType().hashCode());
         hashCode = prime * hashCode + ((getInitialVariantWeight() == null) ? 0 : getInitialVariantWeight().hashCode());
         hashCode = prime * hashCode + ((getAcceleratorType() == null) ? 0 : getAcceleratorType().hashCode());
+        hashCode = prime * hashCode + ((getCoreDumpConfig() == null) ? 0 : getCoreDumpConfig().hashCode());
+        hashCode = prime * hashCode + ((getServerlessConfig() == null) ? 0 : getServerlessConfig().hashCode());
+        hashCode = prime * hashCode + ((getVolumeSizeInGB() == null) ? 0 : getVolumeSizeInGB().hashCode());
+        hashCode = prime * hashCode + ((getModelDataDownloadTimeoutInSeconds() == null) ? 0 : getModelDataDownloadTimeoutInSeconds().hashCode());
+        hashCode = prime * hashCode
+                + ((getContainerStartupHealthCheckTimeoutInSeconds() == null) ? 0 : getContainerStartupHealthCheckTimeoutInSeconds().hashCode());
+        hashCode = prime * hashCode + ((getEnableSSMAccess() == null) ? 0 : getEnableSSMAccess().hashCode());
+        hashCode = prime * hashCode + ((getManagedInstanceScaling() == null) ? 0 : getManagedInstanceScaling().hashCode());
+        hashCode = prime * hashCode + ((getRoutingConfig() == null) ? 0 : getRoutingConfig().hashCode());
+        hashCode = prime * hashCode + ((getInferenceAmiVersion() == null) ? 0 : getInferenceAmiVersion().hashCode());
         return hashCode;
     }
 

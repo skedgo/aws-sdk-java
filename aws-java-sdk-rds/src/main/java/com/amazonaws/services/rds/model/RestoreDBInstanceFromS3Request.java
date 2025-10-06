@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -63,27 +63,27 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     private String dBInstanceIdentifier;
     /**
      * <p>
-     * The amount of storage (in gigabytes) to allocate initially for the DB instance. Follow the allocation rules
+     * The amount of storage (in gibibytes) to allocate initially for the DB instance. Follow the allocation rules
      * specified in <code>CreateDBInstance</code>.
      * </p>
      * <note>
      * <p>
-     * Be sure to allocate enough memory for your new DB instance so that the restore operation can succeed. You can
-     * also allocate additional memory for future growth.
+     * Be sure to allocate enough storage for your new DB instance so that the restore operation can succeed. You can
+     * also allocate additional storage for future growth.
      * </p>
      * </note>
      */
     private Integer allocatedStorage;
     /**
      * <p>
-     * The compute and memory capacity of the DB instance, for example, <code>db.m4.large</code>. Not all DB instance
-     * classes are available in all AWS Regions, or for all database engines. For the full list of DB instance classes,
-     * and availability for your engine, see <a
+     * The compute and memory capacity of the DB instance, for example db.m4.large. Not all DB instance classes are
+     * available in all Amazon Web Services Regions, or for all database engines. For the full list of DB instance
+     * classes, and availability for your engine, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance Class</a>
      * in the <i>Amazon RDS User Guide.</i>
      * </p>
      * <p>
-     * Importing from Amazon S3 is not supported on the db.t2.micro DB instance class.
+     * Importing from Amazon S3 isn't supported on the db.t2.micro DB instance class.
      * </p>
      */
     private String dBInstanceClass;
@@ -124,11 +124,59 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     private String masterUsername;
     /**
      * <p>
-     * The password for the master user. The password can include any printable ASCII character except "/", """, or "@".
+     * The password for the master user.
      * </p>
      * <p>
-     * Constraints: Must contain from 8 to 41 characters.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't be specified if <code>ManageMasterUserPassword</code> is turned on.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can include any printable ASCII character except "/",
+     * """, or "@". For RDS for Oracle, can't include the "&amp;" (ampersand) or the "'" (single quotes) character.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Length Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * RDS for Db2 - Must contain from 8 to 128 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MariaDB - Must contain from 8 to 41 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Microsoft SQL Server - Must contain from 8 to 128 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL - Must contain from 8 to 41 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Oracle - Must contain from 8 to 30 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for PostgreSQL - Must contain from 8 to 128 characters.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String masterUserPassword;
     /**
@@ -148,26 +196,33 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     private com.amazonaws.internal.SdkInternalList<String> vpcSecurityGroupIds;
     /**
      * <p>
-     * The Availability Zone that the DB instance is created in. For information about AWS Regions and Availability
-     * Zones, see <a
+     * The Availability Zone that the DB instance is created in. For information about Amazon Web Services Regions and
+     * Availability Zones, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">Regions
      * and Availability Zones</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * <p>
-     * Default: A random, system-chosen Availability Zone in the endpoint's AWS Region.
+     * Default: A random, system-chosen Availability Zone in the endpoint's Amazon Web Services Region.
      * </p>
      * <p>
      * Example: <code>us-east-1d</code>
      * </p>
      * <p>
      * Constraint: The <code>AvailabilityZone</code> parameter can't be specified if the DB instance is a Multi-AZ
-     * deployment. The specified Availability Zone must be in the same AWS Region as the current endpoint.
+     * deployment. The specified Availability Zone must be in the same Amazon Web Services Region as the current
+     * endpoint.
      * </p>
      */
     private String availabilityZone;
     /**
      * <p>
      * A DB subnet group to associate with this DB instance.
+     * </p>
+     * <p>
+     * Constraints: If supplied, must match the name of an existing DBSubnetGroup.
+     * </p>
+     * <p>
+     * Example: <code>mydbsubnetgroup</code>
      * </p>
      */
     private String dBSubnetGroupName;
@@ -212,8 +267,11 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     private String preferredMaintenanceWindow;
     /**
      * <p>
-     * The name of the DB parameter group to associate with this DB instance. If this argument is omitted, the default
-     * parameter group for the specified engine is used.
+     * The name of the DB parameter group to associate with this DB instance.
+     * </p>
+     * <p>
+     * If you do not specify a value for <code>DBParameterGroupName</code>, then the default
+     * <code>DBParameterGroup</code> for the specified DB engine is used.
      * </p>
      */
     private String dBParameterGroupName;
@@ -229,7 +287,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * The time range each day during which automated backups are created if automated backups are enabled. For more
      * information, see <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow"
-     * >The Backup Window</a> in the <i>Amazon RDS User Guide.</i>
+     * >Backup window</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * <p>
      * Constraints:
@@ -275,8 +333,8 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     private Integer port;
     /**
      * <p>
-     * A value that indicates whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ
-     * deployment, you can't set the <code>AvailabilityZone</code> parameter.
+     * Specifies whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ deployment, you
+     * can't set the <code>AvailabilityZone</code> parameter.
      * </p>
      */
     private Boolean multiAZ;
@@ -290,8 +348,8 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     private String engineVersion;
     /**
      * <p>
-     * A value that indicates whether minor engine upgrades are applied automatically to the DB instance during the
-     * maintenance window. By default, minor engine upgrades are not applied automatically.
+     * Specifies whether to automatically apply minor engine upgrades to the DB instance during the maintenance window.
+     * By default, minor engine upgrades are not applied automatically.
      * </p>
      */
     private Boolean autoMinorVersionUpgrade;
@@ -304,9 +362,9 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     /**
      * <p>
      * The amount of Provisioned IOPS (input/output operations per second) to allocate initially for the DB instance.
-     * For information about valid Iops values, see see <a
+     * For information about valid IOPS values, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS Provisioned
-     * IOPS Storage to Improve Performance</a> in the <i>Amazon RDS User Guide.</i>
+     * IOPS storage</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      */
     private Integer iops;
@@ -319,10 +377,20 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     private String optionGroupName;
     /**
      * <p>
-     * A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     * accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP
-     * address. When the DB instance is not publicly accessible, it is an internal instance with a DNS name that
-     * resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     * Specifies whether the DB instance is publicly accessible.
+     * </p>
+     * <p>
+     * When the DB instance is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP
+     * address from within the DB instance's virtual private cloud (VPC). It resolves to the public IP address from
+     * outside of the DB instance's VPC. Access to the DB instance is ultimately controlled by the security group it
+     * uses. That public access is not permitted if the security group assigned to the DB instance doesn't permit it.
+     * </p>
+     * <p>
+     * When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that resolves to a
+     * private IP address.
+     * </p>
+     * <p>
+     * For more information, see <a>CreateDBInstance</a>.
      * </p>
      */
     private Boolean publiclyAccessible;
@@ -339,10 +407,11 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * Specifies the storage type to be associated with the DB instance.
      * </p>
      * <p>
-     * Valid values: <code>standard</code> | <code>gp2</code> | <code>io1</code>
+     * Valid Values: <code>gp2 | gp3 | io1 | io2 | standard</code>
      * </p>
      * <p>
-     * If you specify <code>io1</code>, you must also include a value for the <code>Iops</code> parameter.
+     * If you specify <code>io1</code>, <code>io2</code>, or <code>gp3</code>, you must also include a value for the
+     * <code>Iops</code> parameter.
      * </p>
      * <p>
      * Default: <code>io1</code> if the <code>Iops</code> parameter is specified; otherwise <code>gp2</code>
@@ -351,31 +420,30 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     private String storageType;
     /**
      * <p>
-     * A value that indicates whether the new DB instance is encrypted or not.
+     * Specifies whether the new DB instance is encrypted or not.
      * </p>
      */
     private Boolean storageEncrypted;
     /**
      * <p>
-     * The AWS KMS key identifier for an encrypted DB instance.
+     * The Amazon Web Services KMS key identifier for an encrypted DB instance.
      * </p>
      * <p>
-     * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are creating a DB
-     * instance with the same AWS account that owns the KMS encryption key used to encrypt the new DB instance, then you
-     * can use the KMS key alias instead of the ARN for the KM encryption key.
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
      * </p>
      * <p>
      * If the <code>StorageEncrypted</code> parameter is enabled, and you do not specify a value for the
-     * <code>KmsKeyId</code> parameter, then Amazon RDS will use your default encryption key. AWS KMS creates the
-     * default encryption key for your AWS account. Your AWS account has a different default encryption key for each AWS
-     * Region.
+     * <code>KmsKeyId</code> parameter, then Amazon RDS will use your default KMS key. There is a default KMS key for
+     * your Amazon Web Services account. Your Amazon Web Services account has a different default KMS key for each
+     * Amazon Web Services Region.
      * </p>
      */
     private String kmsKeyId;
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By default,
-     * tags are not copied.
+     * Specifies whether to copy all tags from the DB instance to snapshots of the DB instance. By default, tags are not
+     * copied.
      * </p>
      */
     private Boolean copyTagsToSnapshot;
@@ -412,8 +480,13 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     private String monitoringRoleArn;
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * For more information about IAM database authentication, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      */
     private Boolean enableIAMDatabaseAuthentication;
@@ -428,10 +501,13 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     private String sourceEngine;
     /**
      * <p>
-     * The engine version of your source database.
+     * The version of the database that the backup files were created from.
      * </p>
      * <p>
-     * Valid Values: <code>5.6</code>
+     * MySQL versions 5.6 and 5.7 are supported.
+     * </p>
+     * <p>
+     * Example: <code>5.6.40</code>
      * </p>
      */
     private String sourceEngineVersion;
@@ -449,36 +525,86 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     private String s3Prefix;
     /**
      * <p>
-     * An AWS Identity and Access Management (IAM) role to allow Amazon RDS to access your Amazon S3 bucket.
+     * An Amazon Web Services Identity and Access Management (IAM) role with a trust policy and a permissions policy
+     * that allows Amazon RDS to access your Amazon S3 bucket. For information about this role, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.html#MySQL.Procedural.Importing.Enabling.IAM"
+     * > Creating an IAM role manually</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      */
     private String s3IngestionRoleArn;
     /**
      * <p>
-     * A value that indicates whether to enable Performance Insights for the DB instance.
+     * Specifies whether to enable Performance Insights for the DB instance.
      * </p>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html">Using Amazon Performance
-     * Insights</a> in the <i>Amazon Relational Database Service User Guide</i>.
+     * Insights</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      */
     private Boolean enablePerformanceInsights;
     /**
      * <p>
-     * The AWS KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon Resource
-     * Name (ARN), the KMS key identifier, or the KMS key alias for the KMS encryption key.
+     * The Amazon Web Services KMS key identifier for encryption of Performance Insights data.
      * </p>
      * <p>
-     * If you do not specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your default
-     * encryption key. AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different
-     * default encryption key for each AWS Region.
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you do not specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your default KMS
+     * key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a
+     * different default KMS key for each Amazon Web Services Region.
      * </p>
      */
     private String performanceInsightsKMSKeyId;
     /**
      * <p>
-     * The amount of time, in days, to retain Performance Insights data. Valid values are 7 or 731 (2 years).
+     * The number of days to retain Performance Insights data. The default is 7 days. The following values are valid:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * 7
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>month</i> * 31, where <i>month</i> is a number of months from 1-23
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 731
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For example, the following values are valid:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * 93 (3 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 341 (11 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 589 (19 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 731
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you specify a retention period such as 94, which isn't a valid value, RDS issues an error.
      * </p>
      */
     private Integer performanceInsightsRetentionPeriod;
@@ -499,19 +625,170 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     private com.amazonaws.internal.SdkInternalList<ProcessorFeature> processorFeatures;
     /**
      * <p>
-     * A value that indicates whether the DB instance class of the DB instance uses its default processor features.
+     * Specifies whether the DB instance class of the DB instance uses its default processor features.
      * </p>
      */
     private Boolean useDefaultProcessorFeatures;
     /**
      * <p>
-     * A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted
-     * when deletion protection is enabled. By default, deletion protection is disabled. For more information, see <a
+     * Specifies whether to enable deletion protection for the DB instance. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled. For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      * Instance</a>.
      * </p>
      */
     private Boolean deletionProtection;
+    /**
+     * <p>
+     * The upper limit in gibibytes (GiB) to which Amazon RDS can automatically scale the storage of the DB instance.
+     * </p>
+     * <p>
+     * For more information about this setting, including limitations that apply to it, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling">
+     * Managing capacity automatically with Amazon RDS storage autoscaling</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     */
+    private Integer maxAllocatedStorage;
+    /**
+     * <p>
+     * The network type of the DB instance.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     */
+    private String networkType;
+    /**
+     * <p>
+     * Specifies the storage throughput value for the DB instance.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom or Amazon Aurora.
+     * </p>
+     */
+    private Integer storageThroughput;
+    /**
+     * <p>
+     * Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with
+     * Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't manage the master user password with Amazon Web Services Secrets Manager if <code>MasterUserPassword</code>
+     * is specified.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private Boolean manageMasterUserPassword;
+    /**
+     * <p>
+     * The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and managed in
+     * Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets Manager
+     * for the DB instance.
+     * </p>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
+     * </p>
+     * <p>
+     * If you don't specify <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS key is
+     * used to encrypt the secret. If the secret is in a different Amazon Web Services account, then you can't use the
+     * <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer managed KMS key.
+     * </p>
+     * <p>
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services Region.
+     * </p>
+     */
+    private String masterUserSecretKmsKeyId;
+    /**
+     * <p>
+     * Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     * </p>
+     */
+    private Boolean dedicatedLogVolume;
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB instance's server certificate.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom DB instances.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to
+     * encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     */
+    private String cACertificateIdentifier;
+    /**
+     * <p>
+     * The life cycle type for this DB instance.
+     * </p>
+     * <note>
+     * <p>
+     * By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB instance
+     * into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by
+     * setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, RDS automatically
+     * upgrades your restored DB instance to a higher engine version, if the major engine version is past its end of
+     * standard support date.
+     * </p>
+     * </note>
+     * <p>
+     * You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended Support,
+     * you can run the selected major engine version on your DB instance past the end of standard support for that
+     * engine version. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon RDS Extended
+     * Support</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the life cycle
+     * type is managed by the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     * </p>
+     * <p>
+     * Default: <code>open-source-rds-extended-support</code>
+     * </p>
+     */
+    private String engineLifecycleSupport;
 
     /**
      * <p>
@@ -588,7 +865,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * </p>
      * 
      * @param dBInstanceIdentifier
-     *        The DB instance identifier. This parameter is stored as a lowercase string. </p>
+     *        The DB instance identifier. This parameter is stored as a lowercase string.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -645,7 +922,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * Example: <code>mydbinstance</code>
      * </p>
      * 
-     * @return The DB instance identifier. This parameter is stored as a lowercase string. </p>
+     * @return The DB instance identifier. This parameter is stored as a lowercase string.</p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -703,7 +980,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * </p>
      * 
      * @param dBInstanceIdentifier
-     *        The DB instance identifier. This parameter is stored as a lowercase string. </p>
+     *        The DB instance identifier. This parameter is stored as a lowercase string.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -736,22 +1013,22 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The amount of storage (in gigabytes) to allocate initially for the DB instance. Follow the allocation rules
+     * The amount of storage (in gibibytes) to allocate initially for the DB instance. Follow the allocation rules
      * specified in <code>CreateDBInstance</code>.
      * </p>
      * <note>
      * <p>
-     * Be sure to allocate enough memory for your new DB instance so that the restore operation can succeed. You can
-     * also allocate additional memory for future growth.
+     * Be sure to allocate enough storage for your new DB instance so that the restore operation can succeed. You can
+     * also allocate additional storage for future growth.
      * </p>
      * </note>
      * 
      * @param allocatedStorage
-     *        The amount of storage (in gigabytes) to allocate initially for the DB instance. Follow the allocation
-     *        rules specified in <code>CreateDBInstance</code>. </p> <note>
+     *        The amount of storage (in gibibytes) to allocate initially for the DB instance. Follow the allocation
+     *        rules specified in <code>CreateDBInstance</code>.</p> <note>
      *        <p>
-     *        Be sure to allocate enough memory for your new DB instance so that the restore operation can succeed. You
-     *        can also allocate additional memory for future growth.
+     *        Be sure to allocate enough storage for your new DB instance so that the restore operation can succeed. You
+     *        can also allocate additional storage for future growth.
      *        </p>
      */
 
@@ -761,21 +1038,21 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The amount of storage (in gigabytes) to allocate initially for the DB instance. Follow the allocation rules
+     * The amount of storage (in gibibytes) to allocate initially for the DB instance. Follow the allocation rules
      * specified in <code>CreateDBInstance</code>.
      * </p>
      * <note>
      * <p>
-     * Be sure to allocate enough memory for your new DB instance so that the restore operation can succeed. You can
-     * also allocate additional memory for future growth.
+     * Be sure to allocate enough storage for your new DB instance so that the restore operation can succeed. You can
+     * also allocate additional storage for future growth.
      * </p>
      * </note>
      * 
-     * @return The amount of storage (in gigabytes) to allocate initially for the DB instance. Follow the allocation
-     *         rules specified in <code>CreateDBInstance</code>. </p> <note>
+     * @return The amount of storage (in gibibytes) to allocate initially for the DB instance. Follow the allocation
+     *         rules specified in <code>CreateDBInstance</code>.</p> <note>
      *         <p>
-     *         Be sure to allocate enough memory for your new DB instance so that the restore operation can succeed. You
-     *         can also allocate additional memory for future growth.
+     *         Be sure to allocate enough storage for your new DB instance so that the restore operation can succeed.
+     *         You can also allocate additional storage for future growth.
      *         </p>
      */
 
@@ -785,22 +1062,22 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The amount of storage (in gigabytes) to allocate initially for the DB instance. Follow the allocation rules
+     * The amount of storage (in gibibytes) to allocate initially for the DB instance. Follow the allocation rules
      * specified in <code>CreateDBInstance</code>.
      * </p>
      * <note>
      * <p>
-     * Be sure to allocate enough memory for your new DB instance so that the restore operation can succeed. You can
-     * also allocate additional memory for future growth.
+     * Be sure to allocate enough storage for your new DB instance so that the restore operation can succeed. You can
+     * also allocate additional storage for future growth.
      * </p>
      * </note>
      * 
      * @param allocatedStorage
-     *        The amount of storage (in gigabytes) to allocate initially for the DB instance. Follow the allocation
-     *        rules specified in <code>CreateDBInstance</code>. </p> <note>
+     *        The amount of storage (in gibibytes) to allocate initially for the DB instance. Follow the allocation
+     *        rules specified in <code>CreateDBInstance</code>.</p> <note>
      *        <p>
-     *        Be sure to allocate enough memory for your new DB instance so that the restore operation can succeed. You
-     *        can also allocate additional memory for future growth.
+     *        Be sure to allocate enough storage for your new DB instance so that the restore operation can succeed. You
+     *        can also allocate additional storage for future growth.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -812,24 +1089,24 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The compute and memory capacity of the DB instance, for example, <code>db.m4.large</code>. Not all DB instance
-     * classes are available in all AWS Regions, or for all database engines. For the full list of DB instance classes,
-     * and availability for your engine, see <a
+     * The compute and memory capacity of the DB instance, for example db.m4.large. Not all DB instance classes are
+     * available in all Amazon Web Services Regions, or for all database engines. For the full list of DB instance
+     * classes, and availability for your engine, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance Class</a>
      * in the <i>Amazon RDS User Guide.</i>
      * </p>
      * <p>
-     * Importing from Amazon S3 is not supported on the db.t2.micro DB instance class.
+     * Importing from Amazon S3 isn't supported on the db.t2.micro DB instance class.
      * </p>
      * 
      * @param dBInstanceClass
-     *        The compute and memory capacity of the DB instance, for example, <code>db.m4.large</code>. Not all DB
-     *        instance classes are available in all AWS Regions, or for all database engines. For the full list of DB
+     *        The compute and memory capacity of the DB instance, for example db.m4.large. Not all DB instance classes
+     *        are available in all Amazon Web Services Regions, or for all database engines. For the full list of DB
      *        instance classes, and availability for your engine, see <a
      *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance
      *        Class</a> in the <i>Amazon RDS User Guide.</i> </p>
      *        <p>
-     *        Importing from Amazon S3 is not supported on the db.t2.micro DB instance class.
+     *        Importing from Amazon S3 isn't supported on the db.t2.micro DB instance class.
      */
 
     public void setDBInstanceClass(String dBInstanceClass) {
@@ -838,23 +1115,23 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The compute and memory capacity of the DB instance, for example, <code>db.m4.large</code>. Not all DB instance
-     * classes are available in all AWS Regions, or for all database engines. For the full list of DB instance classes,
-     * and availability for your engine, see <a
+     * The compute and memory capacity of the DB instance, for example db.m4.large. Not all DB instance classes are
+     * available in all Amazon Web Services Regions, or for all database engines. For the full list of DB instance
+     * classes, and availability for your engine, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance Class</a>
      * in the <i>Amazon RDS User Guide.</i>
      * </p>
      * <p>
-     * Importing from Amazon S3 is not supported on the db.t2.micro DB instance class.
+     * Importing from Amazon S3 isn't supported on the db.t2.micro DB instance class.
      * </p>
      * 
-     * @return The compute and memory capacity of the DB instance, for example, <code>db.m4.large</code>. Not all DB
-     *         instance classes are available in all AWS Regions, or for all database engines. For the full list of DB
+     * @return The compute and memory capacity of the DB instance, for example db.m4.large. Not all DB instance classes
+     *         are available in all Amazon Web Services Regions, or for all database engines. For the full list of DB
      *         instance classes, and availability for your engine, see <a
      *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance
      *         Class</a> in the <i>Amazon RDS User Guide.</i> </p>
      *         <p>
-     *         Importing from Amazon S3 is not supported on the db.t2.micro DB instance class.
+     *         Importing from Amazon S3 isn't supported on the db.t2.micro DB instance class.
      */
 
     public String getDBInstanceClass() {
@@ -863,24 +1140,24 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The compute and memory capacity of the DB instance, for example, <code>db.m4.large</code>. Not all DB instance
-     * classes are available in all AWS Regions, or for all database engines. For the full list of DB instance classes,
-     * and availability for your engine, see <a
+     * The compute and memory capacity of the DB instance, for example db.m4.large. Not all DB instance classes are
+     * available in all Amazon Web Services Regions, or for all database engines. For the full list of DB instance
+     * classes, and availability for your engine, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance Class</a>
      * in the <i>Amazon RDS User Guide.</i>
      * </p>
      * <p>
-     * Importing from Amazon S3 is not supported on the db.t2.micro DB instance class.
+     * Importing from Amazon S3 isn't supported on the db.t2.micro DB instance class.
      * </p>
      * 
      * @param dBInstanceClass
-     *        The compute and memory capacity of the DB instance, for example, <code>db.m4.large</code>. Not all DB
-     *        instance classes are available in all AWS Regions, or for all database engines. For the full list of DB
+     *        The compute and memory capacity of the DB instance, for example db.m4.large. Not all DB instance classes
+     *        are available in all Amazon Web Services Regions, or for all database engines. For the full list of DB
      *        instance classes, and availability for your engine, see <a
      *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance
      *        Class</a> in the <i>Amazon RDS User Guide.</i> </p>
      *        <p>
-     *        Importing from Amazon S3 is not supported on the db.t2.micro DB instance class.
+     *        Importing from Amazon S3 isn't supported on the db.t2.micro DB instance class.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -898,7 +1175,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * </p>
      * 
      * @param engine
-     *        The name of the database engine to be used for this instance. </p>
+     *        The name of the database engine to be used for this instance.</p>
      *        <p>
      *        Valid Values: <code>mysql</code>
      */
@@ -915,7 +1192,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * Valid Values: <code>mysql</code>
      * </p>
      * 
-     * @return The name of the database engine to be used for this instance. </p>
+     * @return The name of the database engine to be used for this instance.</p>
      *         <p>
      *         Valid Values: <code>mysql</code>
      */
@@ -933,7 +1210,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * </p>
      * 
      * @param engine
-     *        The name of the database engine to be used for this instance. </p>
+     *        The name of the database engine to be used for this instance.</p>
      *        <p>
      *        Valid Values: <code>mysql</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -970,7 +1247,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * </ul>
      * 
      * @param masterUsername
-     *        The name for the master user. </p>
+     *        The name for the master user.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -1021,7 +1298,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * </li>
      * </ul>
      * 
-     * @return The name for the master user. </p>
+     * @return The name for the master user.</p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -1073,7 +1350,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * </ul>
      * 
      * @param masterUsername
-     *        The name for the master user. </p>
+     *        The name for the master user.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -1103,17 +1380,113 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The password for the master user. The password can include any printable ASCII character except "/", """, or "@".
+     * The password for the master user.
      * </p>
      * <p>
-     * Constraints: Must contain from 8 to 41 characters.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't be specified if <code>ManageMasterUserPassword</code> is turned on.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can include any printable ASCII character except "/",
+     * """, or "@". For RDS for Oracle, can't include the "&amp;" (ampersand) or the "'" (single quotes) character.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Length Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * RDS for Db2 - Must contain from 8 to 128 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MariaDB - Must contain from 8 to 41 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Microsoft SQL Server - Must contain from 8 to 128 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL - Must contain from 8 to 41 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Oracle - Must contain from 8 to 30 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for PostgreSQL - Must contain from 8 to 128 characters.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param masterUserPassword
-     *        The password for the master user. The password can include any printable ASCII character except "/",
-     *        """, or "@". </p>
+     *        The password for the master user.</p>
      *        <p>
-     *        Constraints: Must contain from 8 to 41 characters.
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Can't be specified if <code>ManageMasterUserPassword</code> is turned on.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can include any printable ASCII character except "/",
+     *        """, or "@". For RDS for Oracle, can't include the "&amp;" (ampersand) or the "'" (single quotes)
+     *        character.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Length Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        RDS for Db2 - Must contain from 8 to 128 characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for MariaDB - Must contain from 8 to 41 characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for Microsoft SQL Server - Must contain from 8 to 128 characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for MySQL - Must contain from 8 to 41 characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for Oracle - Must contain from 8 to 30 characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for PostgreSQL - Must contain from 8 to 128 characters.
+     *        </p>
+     *        </li>
      */
 
     public void setMasterUserPassword(String masterUserPassword) {
@@ -1122,16 +1495,112 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The password for the master user. The password can include any printable ASCII character except "/", """, or "@".
+     * The password for the master user.
      * </p>
      * <p>
-     * Constraints: Must contain from 8 to 41 characters.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't be specified if <code>ManageMasterUserPassword</code> is turned on.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can include any printable ASCII character except "/",
+     * """, or "@". For RDS for Oracle, can't include the "&amp;" (ampersand) or the "'" (single quotes) character.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Length Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * RDS for Db2 - Must contain from 8 to 128 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MariaDB - Must contain from 8 to 41 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Microsoft SQL Server - Must contain from 8 to 128 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL - Must contain from 8 to 41 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Oracle - Must contain from 8 to 30 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for PostgreSQL - Must contain from 8 to 128 characters.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The password for the master user. The password can include any printable ASCII character except "/",
-     *         """, or "@". </p>
+     * @return The password for the master user.</p>
      *         <p>
-     *         Constraints: Must contain from 8 to 41 characters.
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Can't be specified if <code>ManageMasterUserPassword</code> is turned on.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Can include any printable ASCII character except "/",
+     *         """, or "@". For RDS for Oracle, can't include the "&amp;" (ampersand) or the "'" (single quotes)
+     *         character.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Length Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         RDS for Db2 - Must contain from 8 to 128 characters.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RDS for MariaDB - Must contain from 8 to 41 characters.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RDS for Microsoft SQL Server - Must contain from 8 to 128 characters.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RDS for MySQL - Must contain from 8 to 41 characters.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RDS for Oracle - Must contain from 8 to 30 characters.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RDS for PostgreSQL - Must contain from 8 to 128 characters.
+     *         </p>
+     *         </li>
      */
 
     public String getMasterUserPassword() {
@@ -1140,17 +1609,113 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The password for the master user. The password can include any printable ASCII character except "/", """, or "@".
+     * The password for the master user.
      * </p>
      * <p>
-     * Constraints: Must contain from 8 to 41 characters.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't be specified if <code>ManageMasterUserPassword</code> is turned on.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can include any printable ASCII character except "/",
+     * """, or "@". For RDS for Oracle, can't include the "&amp;" (ampersand) or the "'" (single quotes) character.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Length Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * RDS for Db2 - Must contain from 8 to 128 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MariaDB - Must contain from 8 to 41 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Microsoft SQL Server - Must contain from 8 to 128 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL - Must contain from 8 to 41 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Oracle - Must contain from 8 to 30 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for PostgreSQL - Must contain from 8 to 128 characters.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param masterUserPassword
-     *        The password for the master user. The password can include any printable ASCII character except "/",
-     *        """, or "@". </p>
+     *        The password for the master user.</p>
      *        <p>
-     *        Constraints: Must contain from 8 to 41 characters.
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Can't be specified if <code>ManageMasterUserPassword</code> is turned on.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can include any printable ASCII character except "/",
+     *        """, or "@". For RDS for Oracle, can't include the "&amp;" (ampersand) or the "'" (single quotes)
+     *        character.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Length Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        RDS for Db2 - Must contain from 8 to 128 characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for MariaDB - Must contain from 8 to 41 characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for Microsoft SQL Server - Must contain from 8 to 128 characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for MySQL - Must contain from 8 to 41 characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for Oracle - Must contain from 8 to 30 characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for PostgreSQL - Must contain from 8 to 128 characters.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1327,37 +1892,38 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The Availability Zone that the DB instance is created in. For information about AWS Regions and Availability
-     * Zones, see <a
+     * The Availability Zone that the DB instance is created in. For information about Amazon Web Services Regions and
+     * Availability Zones, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">Regions
      * and Availability Zones</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * <p>
-     * Default: A random, system-chosen Availability Zone in the endpoint's AWS Region.
+     * Default: A random, system-chosen Availability Zone in the endpoint's Amazon Web Services Region.
      * </p>
      * <p>
      * Example: <code>us-east-1d</code>
      * </p>
      * <p>
      * Constraint: The <code>AvailabilityZone</code> parameter can't be specified if the DB instance is a Multi-AZ
-     * deployment. The specified Availability Zone must be in the same AWS Region as the current endpoint.
+     * deployment. The specified Availability Zone must be in the same Amazon Web Services Region as the current
+     * endpoint.
      * </p>
      * 
      * @param availabilityZone
-     *        The Availability Zone that the DB instance is created in. For information about AWS Regions and
-     *        Availability Zones, see <a
+     *        The Availability Zone that the DB instance is created in. For information about Amazon Web Services
+     *        Regions and Availability Zones, see <a
      *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html"
      *        >Regions and Availability Zones</a> in the <i>Amazon RDS User Guide.</i> </p>
      *        <p>
-     *        Default: A random, system-chosen Availability Zone in the endpoint's AWS Region.
+     *        Default: A random, system-chosen Availability Zone in the endpoint's Amazon Web Services Region.
      *        </p>
      *        <p>
      *        Example: <code>us-east-1d</code>
      *        </p>
      *        <p>
      *        Constraint: The <code>AvailabilityZone</code> parameter can't be specified if the DB instance is a
-     *        Multi-AZ deployment. The specified Availability Zone must be in the same AWS Region as the current
-     *        endpoint.
+     *        Multi-AZ deployment. The specified Availability Zone must be in the same Amazon Web Services Region as the
+     *        current endpoint.
      */
 
     public void setAvailabilityZone(String availabilityZone) {
@@ -1366,36 +1932,37 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The Availability Zone that the DB instance is created in. For information about AWS Regions and Availability
-     * Zones, see <a
+     * The Availability Zone that the DB instance is created in. For information about Amazon Web Services Regions and
+     * Availability Zones, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">Regions
      * and Availability Zones</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * <p>
-     * Default: A random, system-chosen Availability Zone in the endpoint's AWS Region.
+     * Default: A random, system-chosen Availability Zone in the endpoint's Amazon Web Services Region.
      * </p>
      * <p>
      * Example: <code>us-east-1d</code>
      * </p>
      * <p>
      * Constraint: The <code>AvailabilityZone</code> parameter can't be specified if the DB instance is a Multi-AZ
-     * deployment. The specified Availability Zone must be in the same AWS Region as the current endpoint.
+     * deployment. The specified Availability Zone must be in the same Amazon Web Services Region as the current
+     * endpoint.
      * </p>
      * 
-     * @return The Availability Zone that the DB instance is created in. For information about AWS Regions and
-     *         Availability Zones, see <a
+     * @return The Availability Zone that the DB instance is created in. For information about Amazon Web Services
+     *         Regions and Availability Zones, see <a
      *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html"
      *         >Regions and Availability Zones</a> in the <i>Amazon RDS User Guide.</i> </p>
      *         <p>
-     *         Default: A random, system-chosen Availability Zone in the endpoint's AWS Region.
+     *         Default: A random, system-chosen Availability Zone in the endpoint's Amazon Web Services Region.
      *         </p>
      *         <p>
      *         Example: <code>us-east-1d</code>
      *         </p>
      *         <p>
      *         Constraint: The <code>AvailabilityZone</code> parameter can't be specified if the DB instance is a
-     *         Multi-AZ deployment. The specified Availability Zone must be in the same AWS Region as the current
-     *         endpoint.
+     *         Multi-AZ deployment. The specified Availability Zone must be in the same Amazon Web Services Region as
+     *         the current endpoint.
      */
 
     public String getAvailabilityZone() {
@@ -1404,37 +1971,38 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The Availability Zone that the DB instance is created in. For information about AWS Regions and Availability
-     * Zones, see <a
+     * The Availability Zone that the DB instance is created in. For information about Amazon Web Services Regions and
+     * Availability Zones, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">Regions
      * and Availability Zones</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * <p>
-     * Default: A random, system-chosen Availability Zone in the endpoint's AWS Region.
+     * Default: A random, system-chosen Availability Zone in the endpoint's Amazon Web Services Region.
      * </p>
      * <p>
      * Example: <code>us-east-1d</code>
      * </p>
      * <p>
      * Constraint: The <code>AvailabilityZone</code> parameter can't be specified if the DB instance is a Multi-AZ
-     * deployment. The specified Availability Zone must be in the same AWS Region as the current endpoint.
+     * deployment. The specified Availability Zone must be in the same Amazon Web Services Region as the current
+     * endpoint.
      * </p>
      * 
      * @param availabilityZone
-     *        The Availability Zone that the DB instance is created in. For information about AWS Regions and
-     *        Availability Zones, see <a
+     *        The Availability Zone that the DB instance is created in. For information about Amazon Web Services
+     *        Regions and Availability Zones, see <a
      *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html"
      *        >Regions and Availability Zones</a> in the <i>Amazon RDS User Guide.</i> </p>
      *        <p>
-     *        Default: A random, system-chosen Availability Zone in the endpoint's AWS Region.
+     *        Default: A random, system-chosen Availability Zone in the endpoint's Amazon Web Services Region.
      *        </p>
      *        <p>
      *        Example: <code>us-east-1d</code>
      *        </p>
      *        <p>
      *        Constraint: The <code>AvailabilityZone</code> parameter can't be specified if the DB instance is a
-     *        Multi-AZ deployment. The specified Availability Zone must be in the same AWS Region as the current
-     *        endpoint.
+     *        Multi-AZ deployment. The specified Availability Zone must be in the same Amazon Web Services Region as the
+     *        current endpoint.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1447,9 +2015,20 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * <p>
      * A DB subnet group to associate with this DB instance.
      * </p>
+     * <p>
+     * Constraints: If supplied, must match the name of an existing DBSubnetGroup.
+     * </p>
+     * <p>
+     * Example: <code>mydbsubnetgroup</code>
+     * </p>
      * 
      * @param dBSubnetGroupName
-     *        A DB subnet group to associate with this DB instance.
+     *        A DB subnet group to associate with this DB instance.</p>
+     *        <p>
+     *        Constraints: If supplied, must match the name of an existing DBSubnetGroup.
+     *        </p>
+     *        <p>
+     *        Example: <code>mydbsubnetgroup</code>
      */
 
     public void setDBSubnetGroupName(String dBSubnetGroupName) {
@@ -1460,8 +2039,19 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * <p>
      * A DB subnet group to associate with this DB instance.
      * </p>
+     * <p>
+     * Constraints: If supplied, must match the name of an existing DBSubnetGroup.
+     * </p>
+     * <p>
+     * Example: <code>mydbsubnetgroup</code>
+     * </p>
      * 
-     * @return A DB subnet group to associate with this DB instance.
+     * @return A DB subnet group to associate with this DB instance.</p>
+     *         <p>
+     *         Constraints: If supplied, must match the name of an existing DBSubnetGroup.
+     *         </p>
+     *         <p>
+     *         Example: <code>mydbsubnetgroup</code>
      */
 
     public String getDBSubnetGroupName() {
@@ -1472,9 +2062,20 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * <p>
      * A DB subnet group to associate with this DB instance.
      * </p>
+     * <p>
+     * Constraints: If supplied, must match the name of an existing DBSubnetGroup.
+     * </p>
+     * <p>
+     * Example: <code>mydbsubnetgroup</code>
+     * </p>
      * 
      * @param dBSubnetGroupName
-     *        A DB subnet group to associate with this DB instance.
+     *        A DB subnet group to associate with this DB instance.</p>
+     *        <p>
+     *        Constraints: If supplied, must match the name of an existing DBSubnetGroup.
+     *        </p>
+     *        <p>
+     *        Example: <code>mydbsubnetgroup</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1720,13 +2321,18 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The name of the DB parameter group to associate with this DB instance. If this argument is omitted, the default
-     * parameter group for the specified engine is used.
+     * The name of the DB parameter group to associate with this DB instance.
+     * </p>
+     * <p>
+     * If you do not specify a value for <code>DBParameterGroupName</code>, then the default
+     * <code>DBParameterGroup</code> for the specified DB engine is used.
      * </p>
      * 
      * @param dBParameterGroupName
-     *        The name of the DB parameter group to associate with this DB instance. If this argument is omitted, the
-     *        default parameter group for the specified engine is used.
+     *        The name of the DB parameter group to associate with this DB instance.</p>
+     *        <p>
+     *        If you do not specify a value for <code>DBParameterGroupName</code>, then the default
+     *        <code>DBParameterGroup</code> for the specified DB engine is used.
      */
 
     public void setDBParameterGroupName(String dBParameterGroupName) {
@@ -1735,12 +2341,17 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The name of the DB parameter group to associate with this DB instance. If this argument is omitted, the default
-     * parameter group for the specified engine is used.
+     * The name of the DB parameter group to associate with this DB instance.
+     * </p>
+     * <p>
+     * If you do not specify a value for <code>DBParameterGroupName</code>, then the default
+     * <code>DBParameterGroup</code> for the specified DB engine is used.
      * </p>
      * 
-     * @return The name of the DB parameter group to associate with this DB instance. If this argument is omitted, the
-     *         default parameter group for the specified engine is used.
+     * @return The name of the DB parameter group to associate with this DB instance.</p>
+     *         <p>
+     *         If you do not specify a value for <code>DBParameterGroupName</code>, then the default
+     *         <code>DBParameterGroup</code> for the specified DB engine is used.
      */
 
     public String getDBParameterGroupName() {
@@ -1749,13 +2360,18 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The name of the DB parameter group to associate with this DB instance. If this argument is omitted, the default
-     * parameter group for the specified engine is used.
+     * The name of the DB parameter group to associate with this DB instance.
+     * </p>
+     * <p>
+     * If you do not specify a value for <code>DBParameterGroupName</code>, then the default
+     * <code>DBParameterGroup</code> for the specified DB engine is used.
      * </p>
      * 
      * @param dBParameterGroupName
-     *        The name of the DB parameter group to associate with this DB instance. If this argument is omitted, the
-     *        default parameter group for the specified engine is used.
+     *        The name of the DB parameter group to associate with this DB instance.</p>
+     *        <p>
+     *        If you do not specify a value for <code>DBParameterGroupName</code>, then the default
+     *        <code>DBParameterGroup</code> for the specified DB engine is used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1815,7 +2431,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * The time range each day during which automated backups are created if automated backups are enabled. For more
      * information, see <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow"
-     * >The Backup Window</a> in the <i>Amazon RDS User Guide.</i>
+     * >Backup window</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * <p>
      * Constraints:
@@ -1847,7 +2463,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      *        The time range each day during which automated backups are created if automated backups are enabled. For
      *        more information, see <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow"
-     *        >The Backup Window</a> in the <i>Amazon RDS User Guide.</i> </p>
+     *        >Backup window</a> in the <i>Amazon RDS User Guide.</i> </p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -1883,7 +2499,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * The time range each day during which automated backups are created if automated backups are enabled. For more
      * information, see <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow"
-     * >The Backup Window</a> in the <i>Amazon RDS User Guide.</i>
+     * >Backup window</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * <p>
      * Constraints:
@@ -1914,7 +2530,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * @return The time range each day during which automated backups are created if automated backups are enabled. For
      *         more information, see <a href=
      *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow"
-     *         >The Backup Window</a> in the <i>Amazon RDS User Guide.</i> </p>
+     *         >Backup window</a> in the <i>Amazon RDS User Guide.</i> </p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -1950,7 +2566,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * The time range each day during which automated backups are created if automated backups are enabled. For more
      * information, see <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow"
-     * >The Backup Window</a> in the <i>Amazon RDS User Guide.</i>
+     * >Backup window</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * <p>
      * Constraints:
@@ -1982,7 +2598,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      *        The time range each day during which automated backups are created if automated backups are enabled. For
      *        more information, see <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow"
-     *        >The Backup Window</a> in the <i>Amazon RDS User Guide.</i> </p>
+     *        >Backup window</a> in the <i>Amazon RDS User Guide.</i> </p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -2030,7 +2646,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * </p>
      * 
      * @param port
-     *        The port number on which the database accepts connections. </p>
+     *        The port number on which the database accepts connections.</p>
      *        <p>
      *        Type: Integer
      *        </p>
@@ -2059,7 +2675,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * Default: <code>3306</code>
      * </p>
      * 
-     * @return The port number on which the database accepts connections. </p>
+     * @return The port number on which the database accepts connections.</p>
      *         <p>
      *         Type: Integer
      *         </p>
@@ -2089,7 +2705,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * </p>
      * 
      * @param port
-     *        The port number on which the database accepts connections. </p>
+     *        The port number on which the database accepts connections.</p>
      *        <p>
      *        Type: Integer
      *        </p>
@@ -2108,13 +2724,13 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ
-     * deployment, you can't set the <code>AvailabilityZone</code> parameter.
+     * Specifies whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ deployment, you
+     * can't set the <code>AvailabilityZone</code> parameter.
      * </p>
      * 
      * @param multiAZ
-     *        A value that indicates whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ
-     *        deployment, you can't set the <code>AvailabilityZone</code> parameter.
+     *        Specifies whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ deployment,
+     *        you can't set the <code>AvailabilityZone</code> parameter.
      */
 
     public void setMultiAZ(Boolean multiAZ) {
@@ -2123,12 +2739,12 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ
-     * deployment, you can't set the <code>AvailabilityZone</code> parameter.
+     * Specifies whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ deployment, you
+     * can't set the <code>AvailabilityZone</code> parameter.
      * </p>
      * 
-     * @return A value that indicates whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ
-     *         deployment, you can't set the <code>AvailabilityZone</code> parameter.
+     * @return Specifies whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ deployment,
+     *         you can't set the <code>AvailabilityZone</code> parameter.
      */
 
     public Boolean getMultiAZ() {
@@ -2137,13 +2753,13 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ
-     * deployment, you can't set the <code>AvailabilityZone</code> parameter.
+     * Specifies whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ deployment, you
+     * can't set the <code>AvailabilityZone</code> parameter.
      * </p>
      * 
      * @param multiAZ
-     *        A value that indicates whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ
-     *        deployment, you can't set the <code>AvailabilityZone</code> parameter.
+     *        Specifies whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ deployment,
+     *        you can't set the <code>AvailabilityZone</code> parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2154,12 +2770,12 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ
-     * deployment, you can't set the <code>AvailabilityZone</code> parameter.
+     * Specifies whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ deployment, you
+     * can't set the <code>AvailabilityZone</code> parameter.
      * </p>
      * 
-     * @return A value that indicates whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ
-     *         deployment, you can't set the <code>AvailabilityZone</code> parameter.
+     * @return Specifies whether the DB instance is a Multi-AZ deployment. If the DB instance is a Multi-AZ deployment,
+     *         you can't set the <code>AvailabilityZone</code> parameter.
      */
 
     public Boolean isMultiAZ() {
@@ -2220,13 +2836,13 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether minor engine upgrades are applied automatically to the DB instance during the
-     * maintenance window. By default, minor engine upgrades are not applied automatically.
+     * Specifies whether to automatically apply minor engine upgrades to the DB instance during the maintenance window.
+     * By default, minor engine upgrades are not applied automatically.
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        A value that indicates whether minor engine upgrades are applied automatically to the DB instance during
-     *        the maintenance window. By default, minor engine upgrades are not applied automatically.
+     *        Specifies whether to automatically apply minor engine upgrades to the DB instance during the maintenance
+     *        window. By default, minor engine upgrades are not applied automatically.
      */
 
     public void setAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
@@ -2235,12 +2851,12 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether minor engine upgrades are applied automatically to the DB instance during the
-     * maintenance window. By default, minor engine upgrades are not applied automatically.
+     * Specifies whether to automatically apply minor engine upgrades to the DB instance during the maintenance window.
+     * By default, minor engine upgrades are not applied automatically.
      * </p>
      * 
-     * @return A value that indicates whether minor engine upgrades are applied automatically to the DB instance during
-     *         the maintenance window. By default, minor engine upgrades are not applied automatically.
+     * @return Specifies whether to automatically apply minor engine upgrades to the DB instance during the maintenance
+     *         window. By default, minor engine upgrades are not applied automatically.
      */
 
     public Boolean getAutoMinorVersionUpgrade() {
@@ -2249,13 +2865,13 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether minor engine upgrades are applied automatically to the DB instance during the
-     * maintenance window. By default, minor engine upgrades are not applied automatically.
+     * Specifies whether to automatically apply minor engine upgrades to the DB instance during the maintenance window.
+     * By default, minor engine upgrades are not applied automatically.
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        A value that indicates whether minor engine upgrades are applied automatically to the DB instance during
-     *        the maintenance window. By default, minor engine upgrades are not applied automatically.
+     *        Specifies whether to automatically apply minor engine upgrades to the DB instance during the maintenance
+     *        window. By default, minor engine upgrades are not applied automatically.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2266,12 +2882,12 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether minor engine upgrades are applied automatically to the DB instance during the
-     * maintenance window. By default, minor engine upgrades are not applied automatically.
+     * Specifies whether to automatically apply minor engine upgrades to the DB instance during the maintenance window.
+     * By default, minor engine upgrades are not applied automatically.
      * </p>
      * 
-     * @return A value that indicates whether minor engine upgrades are applied automatically to the DB instance during
-     *         the maintenance window. By default, minor engine upgrades are not applied automatically.
+     * @return Specifies whether to automatically apply minor engine upgrades to the DB instance during the maintenance
+     *         window. By default, minor engine upgrades are not applied automatically.
      */
 
     public Boolean isAutoMinorVersionUpgrade() {
@@ -2321,16 +2937,16 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     /**
      * <p>
      * The amount of Provisioned IOPS (input/output operations per second) to allocate initially for the DB instance.
-     * For information about valid Iops values, see see <a
+     * For information about valid IOPS values, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS Provisioned
-     * IOPS Storage to Improve Performance</a> in the <i>Amazon RDS User Guide.</i>
+     * IOPS storage</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * 
      * @param iops
      *        The amount of Provisioned IOPS (input/output operations per second) to allocate initially for the DB
-     *        instance. For information about valid Iops values, see see <a
+     *        instance. For information about valid IOPS values, see <a
      *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS
-     *        Provisioned IOPS Storage to Improve Performance</a> in the <i>Amazon RDS User Guide.</i>
+     *        Provisioned IOPS storage</a> in the <i>Amazon RDS User Guide.</i>
      */
 
     public void setIops(Integer iops) {
@@ -2340,15 +2956,15 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     /**
      * <p>
      * The amount of Provisioned IOPS (input/output operations per second) to allocate initially for the DB instance.
-     * For information about valid Iops values, see see <a
+     * For information about valid IOPS values, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS Provisioned
-     * IOPS Storage to Improve Performance</a> in the <i>Amazon RDS User Guide.</i>
+     * IOPS storage</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * 
      * @return The amount of Provisioned IOPS (input/output operations per second) to allocate initially for the DB
-     *         instance. For information about valid Iops values, see see <a
+     *         instance. For information about valid IOPS values, see <a
      *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS
-     *         Provisioned IOPS Storage to Improve Performance</a> in the <i>Amazon RDS User Guide.</i>
+     *         Provisioned IOPS storage</a> in the <i>Amazon RDS User Guide.</i>
      */
 
     public Integer getIops() {
@@ -2358,16 +2974,16 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
     /**
      * <p>
      * The amount of Provisioned IOPS (input/output operations per second) to allocate initially for the DB instance.
-     * For information about valid Iops values, see see <a
+     * For information about valid IOPS values, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS Provisioned
-     * IOPS Storage to Improve Performance</a> in the <i>Amazon RDS User Guide.</i>
+     * IOPS storage</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * 
      * @param iops
      *        The amount of Provisioned IOPS (input/output operations per second) to allocate initially for the DB
-     *        instance. For information about valid Iops values, see see <a
+     *        instance. For information about valid IOPS values, see <a
      *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS
-     *        Provisioned IOPS Storage to Improve Performance</a> in the <i>Amazon RDS User Guide.</i>
+     *        Provisioned IOPS storage</a> in the <i>Amazon RDS User Guide.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2424,17 +3040,37 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     * accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP
-     * address. When the DB instance is not publicly accessible, it is an internal instance with a DNS name that
-     * resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     * Specifies whether the DB instance is publicly accessible.
+     * </p>
+     * <p>
+     * When the DB instance is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP
+     * address from within the DB instance's virtual private cloud (VPC). It resolves to the public IP address from
+     * outside of the DB instance's VPC. Access to the DB instance is ultimately controlled by the security group it
+     * uses. That public access is not permitted if the security group assigned to the DB instance doesn't permit it.
+     * </p>
+     * <p>
+     * When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that resolves to a
+     * private IP address.
+     * </p>
+     * <p>
+     * For more information, see <a>CreateDBInstance</a>.
      * </p>
      * 
      * @param publiclyAccessible
-     *        A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     *        accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a
-     *        public IP address. When the DB instance is not publicly accessible, it is an internal instance with a DNS
-     *        name that resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     *        Specifies whether the DB instance is publicly accessible.</p>
+     *        <p>
+     *        When the DB instance is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private
+     *        IP address from within the DB instance's virtual private cloud (VPC). It resolves to the public IP address
+     *        from outside of the DB instance's VPC. Access to the DB instance is ultimately controlled by the security
+     *        group it uses. That public access is not permitted if the security group assigned to the DB instance
+     *        doesn't permit it.
+     *        </p>
+     *        <p>
+     *        When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that
+     *        resolves to a private IP address.
+     *        </p>
+     *        <p>
+     *        For more information, see <a>CreateDBInstance</a>.
      */
 
     public void setPubliclyAccessible(Boolean publiclyAccessible) {
@@ -2443,16 +3079,36 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     * accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP
-     * address. When the DB instance is not publicly accessible, it is an internal instance with a DNS name that
-     * resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     * Specifies whether the DB instance is publicly accessible.
+     * </p>
+     * <p>
+     * When the DB instance is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP
+     * address from within the DB instance's virtual private cloud (VPC). It resolves to the public IP address from
+     * outside of the DB instance's VPC. Access to the DB instance is ultimately controlled by the security group it
+     * uses. That public access is not permitted if the security group assigned to the DB instance doesn't permit it.
+     * </p>
+     * <p>
+     * When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that resolves to a
+     * private IP address.
+     * </p>
+     * <p>
+     * For more information, see <a>CreateDBInstance</a>.
      * </p>
      * 
-     * @return A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     *         accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a
-     *         public IP address. When the DB instance is not publicly accessible, it is an internal instance with a DNS
-     *         name that resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     * @return Specifies whether the DB instance is publicly accessible.</p>
+     *         <p>
+     *         When the DB instance is publicly accessible, its Domain Name System (DNS) endpoint resolves to the
+     *         private IP address from within the DB instance's virtual private cloud (VPC). It resolves to the public
+     *         IP address from outside of the DB instance's VPC. Access to the DB instance is ultimately controlled by
+     *         the security group it uses. That public access is not permitted if the security group assigned to the DB
+     *         instance doesn't permit it.
+     *         </p>
+     *         <p>
+     *         When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that
+     *         resolves to a private IP address.
+     *         </p>
+     *         <p>
+     *         For more information, see <a>CreateDBInstance</a>.
      */
 
     public Boolean getPubliclyAccessible() {
@@ -2461,17 +3117,37 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     * accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP
-     * address. When the DB instance is not publicly accessible, it is an internal instance with a DNS name that
-     * resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     * Specifies whether the DB instance is publicly accessible.
+     * </p>
+     * <p>
+     * When the DB instance is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP
+     * address from within the DB instance's virtual private cloud (VPC). It resolves to the public IP address from
+     * outside of the DB instance's VPC. Access to the DB instance is ultimately controlled by the security group it
+     * uses. That public access is not permitted if the security group assigned to the DB instance doesn't permit it.
+     * </p>
+     * <p>
+     * When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that resolves to a
+     * private IP address.
+     * </p>
+     * <p>
+     * For more information, see <a>CreateDBInstance</a>.
      * </p>
      * 
      * @param publiclyAccessible
-     *        A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     *        accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a
-     *        public IP address. When the DB instance is not publicly accessible, it is an internal instance with a DNS
-     *        name that resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     *        Specifies whether the DB instance is publicly accessible.</p>
+     *        <p>
+     *        When the DB instance is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private
+     *        IP address from within the DB instance's virtual private cloud (VPC). It resolves to the public IP address
+     *        from outside of the DB instance's VPC. Access to the DB instance is ultimately controlled by the security
+     *        group it uses. That public access is not permitted if the security group assigned to the DB instance
+     *        doesn't permit it.
+     *        </p>
+     *        <p>
+     *        When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that
+     *        resolves to a private IP address.
+     *        </p>
+     *        <p>
+     *        For more information, see <a>CreateDBInstance</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2482,16 +3158,36 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     * accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP
-     * address. When the DB instance is not publicly accessible, it is an internal instance with a DNS name that
-     * resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     * Specifies whether the DB instance is publicly accessible.
+     * </p>
+     * <p>
+     * When the DB instance is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP
+     * address from within the DB instance's virtual private cloud (VPC). It resolves to the public IP address from
+     * outside of the DB instance's VPC. Access to the DB instance is ultimately controlled by the security group it
+     * uses. That public access is not permitted if the security group assigned to the DB instance doesn't permit it.
+     * </p>
+     * <p>
+     * When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that resolves to a
+     * private IP address.
+     * </p>
+     * <p>
+     * For more information, see <a>CreateDBInstance</a>.
      * </p>
      * 
-     * @return A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     *         accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a
-     *         public IP address. When the DB instance is not publicly accessible, it is an internal instance with a DNS
-     *         name that resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     * @return Specifies whether the DB instance is publicly accessible.</p>
+     *         <p>
+     *         When the DB instance is publicly accessible, its Domain Name System (DNS) endpoint resolves to the
+     *         private IP address from within the DB instance's virtual private cloud (VPC). It resolves to the public
+     *         IP address from outside of the DB instance's VPC. Access to the DB instance is ultimately controlled by
+     *         the security group it uses. That public access is not permitted if the security group assigned to the DB
+     *         instance doesn't permit it.
+     *         </p>
+     *         <p>
+     *         When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that
+     *         resolves to a private IP address.
+     *         </p>
+     *         <p>
+     *         For more information, see <a>CreateDBInstance</a>.
      */
 
     public Boolean isPubliclyAccessible() {
@@ -2592,22 +3288,24 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * Specifies the storage type to be associated with the DB instance.
      * </p>
      * <p>
-     * Valid values: <code>standard</code> | <code>gp2</code> | <code>io1</code>
+     * Valid Values: <code>gp2 | gp3 | io1 | io2 | standard</code>
      * </p>
      * <p>
-     * If you specify <code>io1</code>, you must also include a value for the <code>Iops</code> parameter.
+     * If you specify <code>io1</code>, <code>io2</code>, or <code>gp3</code>, you must also include a value for the
+     * <code>Iops</code> parameter.
      * </p>
      * <p>
      * Default: <code>io1</code> if the <code>Iops</code> parameter is specified; otherwise <code>gp2</code>
      * </p>
      * 
      * @param storageType
-     *        Specifies the storage type to be associated with the DB instance. </p>
+     *        Specifies the storage type to be associated with the DB instance.</p>
      *        <p>
-     *        Valid values: <code>standard</code> | <code>gp2</code> | <code>io1</code>
+     *        Valid Values: <code>gp2 | gp3 | io1 | io2 | standard</code>
      *        </p>
      *        <p>
-     *        If you specify <code>io1</code>, you must also include a value for the <code>Iops</code> parameter.
+     *        If you specify <code>io1</code>, <code>io2</code>, or <code>gp3</code>, you must also include a value for
+     *        the <code>Iops</code> parameter.
      *        </p>
      *        <p>
      *        Default: <code>io1</code> if the <code>Iops</code> parameter is specified; otherwise <code>gp2</code>
@@ -2622,21 +3320,23 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * Specifies the storage type to be associated with the DB instance.
      * </p>
      * <p>
-     * Valid values: <code>standard</code> | <code>gp2</code> | <code>io1</code>
+     * Valid Values: <code>gp2 | gp3 | io1 | io2 | standard</code>
      * </p>
      * <p>
-     * If you specify <code>io1</code>, you must also include a value for the <code>Iops</code> parameter.
+     * If you specify <code>io1</code>, <code>io2</code>, or <code>gp3</code>, you must also include a value for the
+     * <code>Iops</code> parameter.
      * </p>
      * <p>
      * Default: <code>io1</code> if the <code>Iops</code> parameter is specified; otherwise <code>gp2</code>
      * </p>
      * 
-     * @return Specifies the storage type to be associated with the DB instance. </p>
+     * @return Specifies the storage type to be associated with the DB instance.</p>
      *         <p>
-     *         Valid values: <code>standard</code> | <code>gp2</code> | <code>io1</code>
+     *         Valid Values: <code>gp2 | gp3 | io1 | io2 | standard</code>
      *         </p>
      *         <p>
-     *         If you specify <code>io1</code>, you must also include a value for the <code>Iops</code> parameter.
+     *         If you specify <code>io1</code>, <code>io2</code>, or <code>gp3</code>, you must also include a value for
+     *         the <code>Iops</code> parameter.
      *         </p>
      *         <p>
      *         Default: <code>io1</code> if the <code>Iops</code> parameter is specified; otherwise <code>gp2</code>
@@ -2651,22 +3351,24 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * Specifies the storage type to be associated with the DB instance.
      * </p>
      * <p>
-     * Valid values: <code>standard</code> | <code>gp2</code> | <code>io1</code>
+     * Valid Values: <code>gp2 | gp3 | io1 | io2 | standard</code>
      * </p>
      * <p>
-     * If you specify <code>io1</code>, you must also include a value for the <code>Iops</code> parameter.
+     * If you specify <code>io1</code>, <code>io2</code>, or <code>gp3</code>, you must also include a value for the
+     * <code>Iops</code> parameter.
      * </p>
      * <p>
      * Default: <code>io1</code> if the <code>Iops</code> parameter is specified; otherwise <code>gp2</code>
      * </p>
      * 
      * @param storageType
-     *        Specifies the storage type to be associated with the DB instance. </p>
+     *        Specifies the storage type to be associated with the DB instance.</p>
      *        <p>
-     *        Valid values: <code>standard</code> | <code>gp2</code> | <code>io1</code>
+     *        Valid Values: <code>gp2 | gp3 | io1 | io2 | standard</code>
      *        </p>
      *        <p>
-     *        If you specify <code>io1</code>, you must also include a value for the <code>Iops</code> parameter.
+     *        If you specify <code>io1</code>, <code>io2</code>, or <code>gp3</code>, you must also include a value for
+     *        the <code>Iops</code> parameter.
      *        </p>
      *        <p>
      *        Default: <code>io1</code> if the <code>Iops</code> parameter is specified; otherwise <code>gp2</code>
@@ -2680,11 +3382,11 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the new DB instance is encrypted or not.
+     * Specifies whether the new DB instance is encrypted or not.
      * </p>
      * 
      * @param storageEncrypted
-     *        A value that indicates whether the new DB instance is encrypted or not.
+     *        Specifies whether the new DB instance is encrypted or not.
      */
 
     public void setStorageEncrypted(Boolean storageEncrypted) {
@@ -2693,10 +3395,10 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the new DB instance is encrypted or not.
+     * Specifies whether the new DB instance is encrypted or not.
      * </p>
      * 
-     * @return A value that indicates whether the new DB instance is encrypted or not.
+     * @return Specifies whether the new DB instance is encrypted or not.
      */
 
     public Boolean getStorageEncrypted() {
@@ -2705,11 +3407,11 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the new DB instance is encrypted or not.
+     * Specifies whether the new DB instance is encrypted or not.
      * </p>
      * 
      * @param storageEncrypted
-     *        A value that indicates whether the new DB instance is encrypted or not.
+     *        Specifies whether the new DB instance is encrypted or not.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2720,10 +3422,10 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the new DB instance is encrypted or not.
+     * Specifies whether the new DB instance is encrypted or not.
      * </p>
      * 
-     * @return A value that indicates whether the new DB instance is encrypted or not.
+     * @return Specifies whether the new DB instance is encrypted or not.
      */
 
     public Boolean isStorageEncrypted() {
@@ -2732,32 +3434,30 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The AWS KMS key identifier for an encrypted DB instance.
+     * The Amazon Web Services KMS key identifier for an encrypted DB instance.
      * </p>
      * <p>
-     * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are creating a DB
-     * instance with the same AWS account that owns the KMS encryption key used to encrypt the new DB instance, then you
-     * can use the KMS key alias instead of the ARN for the KM encryption key.
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
      * </p>
      * <p>
      * If the <code>StorageEncrypted</code> parameter is enabled, and you do not specify a value for the
-     * <code>KmsKeyId</code> parameter, then Amazon RDS will use your default encryption key. AWS KMS creates the
-     * default encryption key for your AWS account. Your AWS account has a different default encryption key for each AWS
-     * Region.
+     * <code>KmsKeyId</code> parameter, then Amazon RDS will use your default KMS key. There is a default KMS key for
+     * your Amazon Web Services account. Your Amazon Web Services account has a different default KMS key for each
+     * Amazon Web Services Region.
      * </p>
      * 
      * @param kmsKeyId
-     *        The AWS KMS key identifier for an encrypted DB instance. </p>
+     *        The Amazon Web Services KMS key identifier for an encrypted DB instance.</p>
      *        <p>
-     *        The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are creating a
-     *        DB instance with the same AWS account that owns the KMS encryption key used to encrypt the new DB
-     *        instance, then you can use the KMS key alias instead of the ARN for the KM encryption key.
+     *        The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *        key. To use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
      *        </p>
      *        <p>
      *        If the <code>StorageEncrypted</code> parameter is enabled, and you do not specify a value for the
-     *        <code>KmsKeyId</code> parameter, then Amazon RDS will use your default encryption key. AWS KMS creates the
-     *        default encryption key for your AWS account. Your AWS account has a different default encryption key for
-     *        each AWS Region.
+     *        <code>KmsKeyId</code> parameter, then Amazon RDS will use your default KMS key. There is a default KMS key
+     *        for your Amazon Web Services account. Your Amazon Web Services account has a different default KMS key for
+     *        each Amazon Web Services Region.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -2766,31 +3466,29 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The AWS KMS key identifier for an encrypted DB instance.
+     * The Amazon Web Services KMS key identifier for an encrypted DB instance.
      * </p>
      * <p>
-     * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are creating a DB
-     * instance with the same AWS account that owns the KMS encryption key used to encrypt the new DB instance, then you
-     * can use the KMS key alias instead of the ARN for the KM encryption key.
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
      * </p>
      * <p>
      * If the <code>StorageEncrypted</code> parameter is enabled, and you do not specify a value for the
-     * <code>KmsKeyId</code> parameter, then Amazon RDS will use your default encryption key. AWS KMS creates the
-     * default encryption key for your AWS account. Your AWS account has a different default encryption key for each AWS
-     * Region.
+     * <code>KmsKeyId</code> parameter, then Amazon RDS will use your default KMS key. There is a default KMS key for
+     * your Amazon Web Services account. Your Amazon Web Services account has a different default KMS key for each
+     * Amazon Web Services Region.
      * </p>
      * 
-     * @return The AWS KMS key identifier for an encrypted DB instance. </p>
+     * @return The Amazon Web Services KMS key identifier for an encrypted DB instance.</p>
      *         <p>
-     *         The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are creating
-     *         a DB instance with the same AWS account that owns the KMS encryption key used to encrypt the new DB
-     *         instance, then you can use the KMS key alias instead of the ARN for the KM encryption key.
+     *         The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *         key. To use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
      *         </p>
      *         <p>
      *         If the <code>StorageEncrypted</code> parameter is enabled, and you do not specify a value for the
-     *         <code>KmsKeyId</code> parameter, then Amazon RDS will use your default encryption key. AWS KMS creates
-     *         the default encryption key for your AWS account. Your AWS account has a different default encryption key
-     *         for each AWS Region.
+     *         <code>KmsKeyId</code> parameter, then Amazon RDS will use your default KMS key. There is a default KMS
+     *         key for your Amazon Web Services account. Your Amazon Web Services account has a different default KMS
+     *         key for each Amazon Web Services Region.
      */
 
     public String getKmsKeyId() {
@@ -2799,32 +3497,30 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The AWS KMS key identifier for an encrypted DB instance.
+     * The Amazon Web Services KMS key identifier for an encrypted DB instance.
      * </p>
      * <p>
-     * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are creating a DB
-     * instance with the same AWS account that owns the KMS encryption key used to encrypt the new DB instance, then you
-     * can use the KMS key alias instead of the ARN for the KM encryption key.
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
      * </p>
      * <p>
      * If the <code>StorageEncrypted</code> parameter is enabled, and you do not specify a value for the
-     * <code>KmsKeyId</code> parameter, then Amazon RDS will use your default encryption key. AWS KMS creates the
-     * default encryption key for your AWS account. Your AWS account has a different default encryption key for each AWS
-     * Region.
+     * <code>KmsKeyId</code> parameter, then Amazon RDS will use your default KMS key. There is a default KMS key for
+     * your Amazon Web Services account. Your Amazon Web Services account has a different default KMS key for each
+     * Amazon Web Services Region.
      * </p>
      * 
      * @param kmsKeyId
-     *        The AWS KMS key identifier for an encrypted DB instance. </p>
+     *        The Amazon Web Services KMS key identifier for an encrypted DB instance.</p>
      *        <p>
-     *        The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are creating a
-     *        DB instance with the same AWS account that owns the KMS encryption key used to encrypt the new DB
-     *        instance, then you can use the KMS key alias instead of the ARN for the KM encryption key.
+     *        The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *        key. To use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
      *        </p>
      *        <p>
      *        If the <code>StorageEncrypted</code> parameter is enabled, and you do not specify a value for the
-     *        <code>KmsKeyId</code> parameter, then Amazon RDS will use your default encryption key. AWS KMS creates the
-     *        default encryption key for your AWS account. Your AWS account has a different default encryption key for
-     *        each AWS Region.
+     *        <code>KmsKeyId</code> parameter, then Amazon RDS will use your default KMS key. There is a default KMS key
+     *        for your Amazon Web Services account. Your Amazon Web Services account has a different default KMS key for
+     *        each Amazon Web Services Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2835,13 +3531,13 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By default,
-     * tags are not copied.
+     * Specifies whether to copy all tags from the DB instance to snapshots of the DB instance. By default, tags are not
+     * copied.
      * </p>
      * 
      * @param copyTagsToSnapshot
-     *        A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By
-     *        default, tags are not copied.
+     *        Specifies whether to copy all tags from the DB instance to snapshots of the DB instance. By default, tags
+     *        are not copied.
      */
 
     public void setCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
@@ -2850,12 +3546,12 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By default,
-     * tags are not copied.
+     * Specifies whether to copy all tags from the DB instance to snapshots of the DB instance. By default, tags are not
+     * copied.
      * </p>
      * 
-     * @return A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By
-     *         default, tags are not copied.
+     * @return Specifies whether to copy all tags from the DB instance to snapshots of the DB instance. By default, tags
+     *         are not copied.
      */
 
     public Boolean getCopyTagsToSnapshot() {
@@ -2864,13 +3560,13 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By default,
-     * tags are not copied.
+     * Specifies whether to copy all tags from the DB instance to snapshots of the DB instance. By default, tags are not
+     * copied.
      * </p>
      * 
      * @param copyTagsToSnapshot
-     *        A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By
-     *        default, tags are not copied.
+     *        Specifies whether to copy all tags from the DB instance to snapshots of the DB instance. By default, tags
+     *        are not copied.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2881,12 +3577,12 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By default,
-     * tags are not copied.
+     * Specifies whether to copy all tags from the DB instance to snapshots of the DB instance. By default, tags are not
+     * copied.
      * </p>
      * 
-     * @return A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By
-     *         default, tags are not copied.
+     * @return Specifies whether to copy all tags from the DB instance to snapshots of the DB instance. By default, tags
+     *         are not copied.
      */
 
     public Boolean isCopyTagsToSnapshot() {
@@ -2911,7 +3607,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * 
      * @param monitoringInterval
      *        The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB
-     *        instance. To disable collecting Enhanced Monitoring metrics, specify 0. </p>
+     *        instance. To disable collecting Enhanced Monitoring metrics, specify 0.</p>
      *        <p>
      *        If <code>MonitoringRoleArn</code> is specified, then you must also set <code>MonitoringInterval</code> to
      *        a value other than 0.
@@ -2944,7 +3640,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * </p>
      * 
      * @return The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB
-     *         instance. To disable collecting Enhanced Monitoring metrics, specify 0. </p>
+     *         instance. To disable collecting Enhanced Monitoring metrics, specify 0.</p>
      *         <p>
      *         If <code>MonitoringRoleArn</code> is specified, then you must also set <code>MonitoringInterval</code> to
      *         a value other than 0.
@@ -2978,7 +3674,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * 
      * @param monitoringInterval
      *        The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB
-     *        instance. To disable collecting Enhanced Monitoring metrics, specify 0. </p>
+     *        instance. To disable collecting Enhanced Monitoring metrics, specify 0.</p>
      *        <p>
      *        If <code>MonitoringRoleArn</code> is specified, then you must also set <code>MonitoringInterval</code> to
      *        a value other than 0.
@@ -3083,13 +3779,22 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * For more information about IAM database authentication, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * 
      * @param enableIAMDatabaseAuthentication
-     *        A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *        database accounts. By default, mapping is disabled.
+     *        Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *        to database accounts. By default, mapping isn't enabled.</p>
+     *        <p>
+     *        For more information about IAM database authentication, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     *        Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      */
 
     public void setEnableIAMDatabaseAuthentication(Boolean enableIAMDatabaseAuthentication) {
@@ -3098,12 +3803,21 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * For more information about IAM database authentication, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * 
-     * @return A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *         database accounts. By default, mapping is disabled.
+     * @return Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *         to database accounts. By default, mapping isn't enabled.</p>
+     *         <p>
+     *         For more information about IAM database authentication, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     *         Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      */
 
     public Boolean getEnableIAMDatabaseAuthentication() {
@@ -3112,13 +3826,22 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * For more information about IAM database authentication, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * 
      * @param enableIAMDatabaseAuthentication
-     *        A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *        database accounts. By default, mapping is disabled.
+     *        Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *        to database accounts. By default, mapping isn't enabled.</p>
+     *        <p>
+     *        For more information about IAM database authentication, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     *        Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3129,12 +3852,21 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * For more information about IAM database authentication, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * 
-     * @return A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *         database accounts. By default, mapping is disabled.
+     * @return Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *         to database accounts. By default, mapping isn't enabled.</p>
+     *         <p>
+     *         For more information about IAM database authentication, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     *         Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      */
 
     public Boolean isEnableIAMDatabaseAuthentication() {
@@ -3150,7 +3882,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * </p>
      * 
      * @param sourceEngine
-     *        The name of the engine of your source database. </p>
+     *        The name of the engine of your source database.</p>
      *        <p>
      *        Valid Values: <code>mysql</code>
      */
@@ -3167,7 +3899,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * Valid Values: <code>mysql</code>
      * </p>
      * 
-     * @return The name of the engine of your source database. </p>
+     * @return The name of the engine of your source database.</p>
      *         <p>
      *         Valid Values: <code>mysql</code>
      */
@@ -3185,7 +3917,7 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
      * </p>
      * 
      * @param sourceEngine
-     *        The name of the engine of your source database. </p>
+     *        The name of the engine of your source database.</p>
      *        <p>
      *        Valid Values: <code>mysql</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -3198,16 +3930,22 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The engine version of your source database.
+     * The version of the database that the backup files were created from.
      * </p>
      * <p>
-     * Valid Values: <code>5.6</code>
+     * MySQL versions 5.6 and 5.7 are supported.
+     * </p>
+     * <p>
+     * Example: <code>5.6.40</code>
      * </p>
      * 
      * @param sourceEngineVersion
-     *        The engine version of your source database. </p>
+     *        The version of the database that the backup files were created from.</p>
      *        <p>
-     *        Valid Values: <code>5.6</code>
+     *        MySQL versions 5.6 and 5.7 are supported.
+     *        </p>
+     *        <p>
+     *        Example: <code>5.6.40</code>
      */
 
     public void setSourceEngineVersion(String sourceEngineVersion) {
@@ -3216,15 +3954,21 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The engine version of your source database.
+     * The version of the database that the backup files were created from.
      * </p>
      * <p>
-     * Valid Values: <code>5.6</code>
+     * MySQL versions 5.6 and 5.7 are supported.
+     * </p>
+     * <p>
+     * Example: <code>5.6.40</code>
      * </p>
      * 
-     * @return The engine version of your source database. </p>
+     * @return The version of the database that the backup files were created from.</p>
      *         <p>
-     *         Valid Values: <code>5.6</code>
+     *         MySQL versions 5.6 and 5.7 are supported.
+     *         </p>
+     *         <p>
+     *         Example: <code>5.6.40</code>
      */
 
     public String getSourceEngineVersion() {
@@ -3233,16 +3977,22 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The engine version of your source database.
+     * The version of the database that the backup files were created from.
      * </p>
      * <p>
-     * Valid Values: <code>5.6</code>
+     * MySQL versions 5.6 and 5.7 are supported.
+     * </p>
+     * <p>
+     * Example: <code>5.6.40</code>
      * </p>
      * 
      * @param sourceEngineVersion
-     *        The engine version of your source database. </p>
+     *        The version of the database that the backup files were created from.</p>
      *        <p>
-     *        Valid Values: <code>5.6</code>
+     *        MySQL versions 5.6 and 5.7 are supported.
+     *        </p>
+     *        <p>
+     *        Example: <code>5.6.40</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3333,11 +4083,18 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * An AWS Identity and Access Management (IAM) role to allow Amazon RDS to access your Amazon S3 bucket.
+     * An Amazon Web Services Identity and Access Management (IAM) role with a trust policy and a permissions policy
+     * that allows Amazon RDS to access your Amazon S3 bucket. For information about this role, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.html#MySQL.Procedural.Importing.Enabling.IAM"
+     * > Creating an IAM role manually</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * 
      * @param s3IngestionRoleArn
-     *        An AWS Identity and Access Management (IAM) role to allow Amazon RDS to access your Amazon S3 bucket.
+     *        An Amazon Web Services Identity and Access Management (IAM) role with a trust policy and a permissions
+     *        policy that allows Amazon RDS to access your Amazon S3 bucket. For information about this role, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.html#MySQL.Procedural.Importing.Enabling.IAM"
+     *        > Creating an IAM role manually</a> in the <i>Amazon RDS User Guide.</i>
      */
 
     public void setS3IngestionRoleArn(String s3IngestionRoleArn) {
@@ -3346,10 +4103,17 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * An AWS Identity and Access Management (IAM) role to allow Amazon RDS to access your Amazon S3 bucket.
+     * An Amazon Web Services Identity and Access Management (IAM) role with a trust policy and a permissions policy
+     * that allows Amazon RDS to access your Amazon S3 bucket. For information about this role, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.html#MySQL.Procedural.Importing.Enabling.IAM"
+     * > Creating an IAM role manually</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * 
-     * @return An AWS Identity and Access Management (IAM) role to allow Amazon RDS to access your Amazon S3 bucket.
+     * @return An Amazon Web Services Identity and Access Management (IAM) role with a trust policy and a permissions
+     *         policy that allows Amazon RDS to access your Amazon S3 bucket. For information about this role, see <a
+     *         href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.html#MySQL.Procedural.Importing.Enabling.IAM"
+     *         > Creating an IAM role manually</a> in the <i>Amazon RDS User Guide.</i>
      */
 
     public String getS3IngestionRoleArn() {
@@ -3358,11 +4122,18 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * An AWS Identity and Access Management (IAM) role to allow Amazon RDS to access your Amazon S3 bucket.
+     * An Amazon Web Services Identity and Access Management (IAM) role with a trust policy and a permissions policy
+     * that allows Amazon RDS to access your Amazon S3 bucket. For information about this role, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.html#MySQL.Procedural.Importing.Enabling.IAM"
+     * > Creating an IAM role manually</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * 
      * @param s3IngestionRoleArn
-     *        An AWS Identity and Access Management (IAM) role to allow Amazon RDS to access your Amazon S3 bucket.
+     *        An Amazon Web Services Identity and Access Management (IAM) role with a trust policy and a permissions
+     *        policy that allows Amazon RDS to access your Amazon S3 bucket. For information about this role, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.html#MySQL.Procedural.Importing.Enabling.IAM"
+     *        > Creating an IAM role manually</a> in the <i>Amazon RDS User Guide.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3373,20 +4144,20 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether to enable Performance Insights for the DB instance.
+     * Specifies whether to enable Performance Insights for the DB instance.
      * </p>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html">Using Amazon Performance
-     * Insights</a> in the <i>Amazon Relational Database Service User Guide</i>.
+     * Insights</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * 
      * @param enablePerformanceInsights
-     *        A value that indicates whether to enable Performance Insights for the DB instance. </p>
+     *        Specifies whether to enable Performance Insights for the DB instance.</p>
      *        <p>
      *        For more information, see <a
      *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html">Using Amazon
-     *        Performance Insights</a> in the <i>Amazon Relational Database Service User Guide</i>.
+     *        Performance Insights</a> in the <i>Amazon RDS User Guide</i>.
      */
 
     public void setEnablePerformanceInsights(Boolean enablePerformanceInsights) {
@@ -3395,19 +4166,19 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether to enable Performance Insights for the DB instance.
+     * Specifies whether to enable Performance Insights for the DB instance.
      * </p>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html">Using Amazon Performance
-     * Insights</a> in the <i>Amazon Relational Database Service User Guide</i>.
+     * Insights</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * 
-     * @return A value that indicates whether to enable Performance Insights for the DB instance. </p>
+     * @return Specifies whether to enable Performance Insights for the DB instance.</p>
      *         <p>
      *         For more information, see <a
      *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html">Using Amazon
-     *         Performance Insights</a> in the <i>Amazon Relational Database Service User Guide</i>.
+     *         Performance Insights</a> in the <i>Amazon RDS User Guide</i>.
      */
 
     public Boolean getEnablePerformanceInsights() {
@@ -3416,20 +4187,20 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether to enable Performance Insights for the DB instance.
+     * Specifies whether to enable Performance Insights for the DB instance.
      * </p>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html">Using Amazon Performance
-     * Insights</a> in the <i>Amazon Relational Database Service User Guide</i>.
+     * Insights</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * 
      * @param enablePerformanceInsights
-     *        A value that indicates whether to enable Performance Insights for the DB instance. </p>
+     *        Specifies whether to enable Performance Insights for the DB instance.</p>
      *        <p>
      *        For more information, see <a
      *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html">Using Amazon
-     *        Performance Insights</a> in the <i>Amazon Relational Database Service User Guide</i>.
+     *        Performance Insights</a> in the <i>Amazon RDS User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3440,19 +4211,19 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether to enable Performance Insights for the DB instance.
+     * Specifies whether to enable Performance Insights for the DB instance.
      * </p>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html">Using Amazon Performance
-     * Insights</a> in the <i>Amazon Relational Database Service User Guide</i>.
+     * Insights</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * 
-     * @return A value that indicates whether to enable Performance Insights for the DB instance. </p>
+     * @return Specifies whether to enable Performance Insights for the DB instance.</p>
      *         <p>
      *         For more information, see <a
      *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html">Using Amazon
-     *         Performance Insights</a> in the <i>Amazon Relational Database Service User Guide</i>.
+     *         Performance Insights</a> in the <i>Amazon RDS User Guide</i>.
      */
 
     public Boolean isEnablePerformanceInsights() {
@@ -3461,22 +4232,27 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The AWS KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon Resource
-     * Name (ARN), the KMS key identifier, or the KMS key alias for the KMS encryption key.
+     * The Amazon Web Services KMS key identifier for encryption of Performance Insights data.
      * </p>
      * <p>
-     * If you do not specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your default
-     * encryption key. AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different
-     * default encryption key for each AWS Region.
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you do not specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your default KMS
+     * key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a
+     * different default KMS key for each Amazon Web Services Region.
      * </p>
      * 
      * @param performanceInsightsKMSKeyId
-     *        The AWS KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon
-     *        Resource Name (ARN), the KMS key identifier, or the KMS key alias for the KMS encryption key. </p>
+     *        The Amazon Web Services KMS key identifier for encryption of Performance Insights data.</p>
+     *        <p>
+     *        The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *        key.
+     *        </p>
      *        <p>
      *        If you do not specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your
-     *        default encryption key. AWS KMS creates the default encryption key for your AWS account. Your AWS account
-     *        has a different default encryption key for each AWS Region.
+     *        default KMS key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services
+     *        account has a different default KMS key for each Amazon Web Services Region.
      */
 
     public void setPerformanceInsightsKMSKeyId(String performanceInsightsKMSKeyId) {
@@ -3485,21 +4261,26 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The AWS KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon Resource
-     * Name (ARN), the KMS key identifier, or the KMS key alias for the KMS encryption key.
+     * The Amazon Web Services KMS key identifier for encryption of Performance Insights data.
      * </p>
      * <p>
-     * If you do not specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your default
-     * encryption key. AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different
-     * default encryption key for each AWS Region.
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you do not specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your default KMS
+     * key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a
+     * different default KMS key for each Amazon Web Services Region.
      * </p>
      * 
-     * @return The AWS KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon
-     *         Resource Name (ARN), the KMS key identifier, or the KMS key alias for the KMS encryption key. </p>
+     * @return The Amazon Web Services KMS key identifier for encryption of Performance Insights data.</p>
+     *         <p>
+     *         The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *         key.
+     *         </p>
      *         <p>
      *         If you do not specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your
-     *         default encryption key. AWS KMS creates the default encryption key for your AWS account. Your AWS account
-     *         has a different default encryption key for each AWS Region.
+     *         default KMS key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web
+     *         Services account has a different default KMS key for each Amazon Web Services Region.
      */
 
     public String getPerformanceInsightsKMSKeyId() {
@@ -3508,22 +4289,27 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The AWS KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon Resource
-     * Name (ARN), the KMS key identifier, or the KMS key alias for the KMS encryption key.
+     * The Amazon Web Services KMS key identifier for encryption of Performance Insights data.
      * </p>
      * <p>
-     * If you do not specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your default
-     * encryption key. AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different
-     * default encryption key for each AWS Region.
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you do not specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your default KMS
+     * key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a
+     * different default KMS key for each Amazon Web Services Region.
      * </p>
      * 
      * @param performanceInsightsKMSKeyId
-     *        The AWS KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon
-     *        Resource Name (ARN), the KMS key identifier, or the KMS key alias for the KMS encryption key. </p>
+     *        The Amazon Web Services KMS key identifier for encryption of Performance Insights data.</p>
+     *        <p>
+     *        The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *        key.
+     *        </p>
      *        <p>
      *        If you do not specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your
-     *        default encryption key. AWS KMS creates the default encryption key for your AWS account. Your AWS account
-     *        has a different default encryption key for each AWS Region.
+     *        default KMS key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services
+     *        account has a different default KMS key for each Amazon Web Services Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3534,11 +4320,101 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The amount of time, in days, to retain Performance Insights data. Valid values are 7 or 731 (2 years).
+     * The number of days to retain Performance Insights data. The default is 7 days. The following values are valid:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * 7
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>month</i> * 31, where <i>month</i> is a number of months from 1-23
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 731
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For example, the following values are valid:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * 93 (3 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 341 (11 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 589 (19 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 731
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you specify a retention period such as 94, which isn't a valid value, RDS issues an error.
      * </p>
      * 
      * @param performanceInsightsRetentionPeriod
-     *        The amount of time, in days, to retain Performance Insights data. Valid values are 7 or 731 (2 years).
+     *        The number of days to retain Performance Insights data. The default is 7 days. The following values are
+     *        valid:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        7
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>month</i> * 31, where <i>month</i> is a number of months from 1-23
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        731
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For example, the following values are valid:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        93 (3 months * 31)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        341 (11 months * 31)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        589 (19 months * 31)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        731
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you specify a retention period such as 94, which isn't a valid value, RDS issues an error.
      */
 
     public void setPerformanceInsightsRetentionPeriod(Integer performanceInsightsRetentionPeriod) {
@@ -3547,10 +4423,100 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The amount of time, in days, to retain Performance Insights data. Valid values are 7 or 731 (2 years).
+     * The number of days to retain Performance Insights data. The default is 7 days. The following values are valid:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * 7
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>month</i> * 31, where <i>month</i> is a number of months from 1-23
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 731
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For example, the following values are valid:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * 93 (3 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 341 (11 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 589 (19 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 731
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you specify a retention period such as 94, which isn't a valid value, RDS issues an error.
      * </p>
      * 
-     * @return The amount of time, in days, to retain Performance Insights data. Valid values are 7 or 731 (2 years).
+     * @return The number of days to retain Performance Insights data. The default is 7 days. The following values are
+     *         valid:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         7
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>month</i> * 31, where <i>month</i> is a number of months from 1-23
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         731
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For example, the following values are valid:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         93 (3 months * 31)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         341 (11 months * 31)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         589 (19 months * 31)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         731
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If you specify a retention period such as 94, which isn't a valid value, RDS issues an error.
      */
 
     public Integer getPerformanceInsightsRetentionPeriod() {
@@ -3559,11 +4525,101 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The amount of time, in days, to retain Performance Insights data. Valid values are 7 or 731 (2 years).
+     * The number of days to retain Performance Insights data. The default is 7 days. The following values are valid:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * 7
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>month</i> * 31, where <i>month</i> is a number of months from 1-23
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 731
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For example, the following values are valid:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * 93 (3 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 341 (11 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 589 (19 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * 731
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you specify a retention period such as 94, which isn't a valid value, RDS issues an error.
      * </p>
      * 
      * @param performanceInsightsRetentionPeriod
-     *        The amount of time, in days, to retain Performance Insights data. Valid values are 7 or 731 (2 years).
+     *        The number of days to retain Performance Insights data. The default is 7 days. The following values are
+     *        valid:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        7
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>month</i> * 31, where <i>month</i> is a number of months from 1-23
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        731
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For example, the following values are valid:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        93 (3 months * 31)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        341 (11 months * 31)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        589 (19 months * 31)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        731
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you specify a retention period such as 94, which isn't a valid value, RDS issues an error.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3744,12 +4800,11 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance class of the DB instance uses its default processor features.
+     * Specifies whether the DB instance class of the DB instance uses its default processor features.
      * </p>
      * 
      * @param useDefaultProcessorFeatures
-     *        A value that indicates whether the DB instance class of the DB instance uses its default processor
-     *        features.
+     *        Specifies whether the DB instance class of the DB instance uses its default processor features.
      */
 
     public void setUseDefaultProcessorFeatures(Boolean useDefaultProcessorFeatures) {
@@ -3758,11 +4813,10 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance class of the DB instance uses its default processor features.
+     * Specifies whether the DB instance class of the DB instance uses its default processor features.
      * </p>
      * 
-     * @return A value that indicates whether the DB instance class of the DB instance uses its default processor
-     *         features.
+     * @return Specifies whether the DB instance class of the DB instance uses its default processor features.
      */
 
     public Boolean getUseDefaultProcessorFeatures() {
@@ -3771,12 +4825,11 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance class of the DB instance uses its default processor features.
+     * Specifies whether the DB instance class of the DB instance uses its default processor features.
      * </p>
      * 
      * @param useDefaultProcessorFeatures
-     *        A value that indicates whether the DB instance class of the DB instance uses its default processor
-     *        features.
+     *        Specifies whether the DB instance class of the DB instance uses its default processor features.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3787,11 +4840,10 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance class of the DB instance uses its default processor features.
+     * Specifies whether the DB instance class of the DB instance uses its default processor features.
      * </p>
      * 
-     * @return A value that indicates whether the DB instance class of the DB instance uses its default processor
-     *         features.
+     * @return Specifies whether the DB instance class of the DB instance uses its default processor features.
      */
 
     public Boolean isUseDefaultProcessorFeatures() {
@@ -3800,17 +4852,16 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted
-     * when deletion protection is enabled. By default, deletion protection is disabled. For more information, see <a
+     * Specifies whether to enable deletion protection for the DB instance. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled. For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      * Instance</a>.
      * </p>
      * 
      * @param deletionProtection
-     *        A value that indicates whether the DB instance has deletion protection enabled. The database can't be
-     *        deleted when deletion protection is enabled. By default, deletion protection is disabled. For more
-     *        information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
+     *        Specifies whether to enable deletion protection for the DB instance. The database can't be deleted when
+     *        deletion protection is enabled. By default, deletion protection isn't enabled. For more information, see
+     *        <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      *        Instance</a>.
      */
 
@@ -3820,16 +4871,15 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted
-     * when deletion protection is enabled. By default, deletion protection is disabled. For more information, see <a
+     * Specifies whether to enable deletion protection for the DB instance. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled. For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      * Instance</a>.
      * </p>
      * 
-     * @return A value that indicates whether the DB instance has deletion protection enabled. The database can't be
-     *         deleted when deletion protection is enabled. By default, deletion protection is disabled. For more
-     *         information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
+     * @return Specifies whether to enable deletion protection for the DB instance. The database can't be deleted when
+     *         deletion protection is enabled. By default, deletion protection isn't enabled. For more information, see
+     *         <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      *         Instance</a>.
      */
 
@@ -3839,17 +4889,16 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted
-     * when deletion protection is enabled. By default, deletion protection is disabled. For more information, see <a
+     * Specifies whether to enable deletion protection for the DB instance. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled. For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      * Instance</a>.
      * </p>
      * 
      * @param deletionProtection
-     *        A value that indicates whether the DB instance has deletion protection enabled. The database can't be
-     *        deleted when deletion protection is enabled. By default, deletion protection is disabled. For more
-     *        information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
+     *        Specifies whether to enable deletion protection for the DB instance. The database can't be deleted when
+     *        deletion protection is enabled. By default, deletion protection isn't enabled. For more information, see
+     *        <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      *        Instance</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -3861,21 +4910,998 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted
-     * when deletion protection is enabled. By default, deletion protection is disabled. For more information, see <a
+     * Specifies whether to enable deletion protection for the DB instance. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled. For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      * Instance</a>.
      * </p>
      * 
-     * @return A value that indicates whether the DB instance has deletion protection enabled. The database can't be
-     *         deleted when deletion protection is enabled. By default, deletion protection is disabled. For more
-     *         information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
+     * @return Specifies whether to enable deletion protection for the DB instance. The database can't be deleted when
+     *         deletion protection is enabled. By default, deletion protection isn't enabled. For more information, see
+     *         <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      *         Instance</a>.
      */
 
     public Boolean isDeletionProtection() {
         return this.deletionProtection;
+    }
+
+    /**
+     * <p>
+     * The upper limit in gibibytes (GiB) to which Amazon RDS can automatically scale the storage of the DB instance.
+     * </p>
+     * <p>
+     * For more information about this setting, including limitations that apply to it, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling">
+     * Managing capacity automatically with Amazon RDS storage autoscaling</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * 
+     * @param maxAllocatedStorage
+     *        The upper limit in gibibytes (GiB) to which Amazon RDS can automatically scale the storage of the DB
+     *        instance.</p>
+     *        <p>
+     *        For more information about this setting, including limitations that apply to it, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling"
+     *        > Managing capacity automatically with Amazon RDS storage autoscaling</a> in the <i>Amazon RDS User
+     *        Guide</i>.
+     */
+
+    public void setMaxAllocatedStorage(Integer maxAllocatedStorage) {
+        this.maxAllocatedStorage = maxAllocatedStorage;
+    }
+
+    /**
+     * <p>
+     * The upper limit in gibibytes (GiB) to which Amazon RDS can automatically scale the storage of the DB instance.
+     * </p>
+     * <p>
+     * For more information about this setting, including limitations that apply to it, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling">
+     * Managing capacity automatically with Amazon RDS storage autoscaling</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * 
+     * @return The upper limit in gibibytes (GiB) to which Amazon RDS can automatically scale the storage of the DB
+     *         instance.</p>
+     *         <p>
+     *         For more information about this setting, including limitations that apply to it, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling"
+     *         > Managing capacity automatically with Amazon RDS storage autoscaling</a> in the <i>Amazon RDS User
+     *         Guide</i>.
+     */
+
+    public Integer getMaxAllocatedStorage() {
+        return this.maxAllocatedStorage;
+    }
+
+    /**
+     * <p>
+     * The upper limit in gibibytes (GiB) to which Amazon RDS can automatically scale the storage of the DB instance.
+     * </p>
+     * <p>
+     * For more information about this setting, including limitations that apply to it, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling">
+     * Managing capacity automatically with Amazon RDS storage autoscaling</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * 
+     * @param maxAllocatedStorage
+     *        The upper limit in gibibytes (GiB) to which Amazon RDS can automatically scale the storage of the DB
+     *        instance.</p>
+     *        <p>
+     *        For more information about this setting, including limitations that apply to it, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling"
+     *        > Managing capacity automatically with Amazon RDS storage autoscaling</a> in the <i>Amazon RDS User
+     *        Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceFromS3Request withMaxAllocatedStorage(Integer maxAllocatedStorage) {
+        setMaxAllocatedStorage(maxAllocatedStorage);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The network type of the DB instance.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param networkType
+     *        The network type of the DB instance.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>IPV4</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DUAL</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A
+     *        <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *        <code>DUAL</code>).
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *        Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     */
+
+    public void setNetworkType(String networkType) {
+        this.networkType = networkType;
+    }
+
+    /**
+     * <p>
+     * The network type of the DB instance.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @return The network type of the DB instance.</p>
+     *         <p>
+     *         Valid Values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>IPV4</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DUAL</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A
+     *         <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *         <code>DUAL</code>).
+     *         </p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *         Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     */
+
+    public String getNetworkType() {
+        return this.networkType;
+    }
+
+    /**
+     * <p>
+     * The network type of the DB instance.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param networkType
+     *        The network type of the DB instance.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>IPV4</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DUAL</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A
+     *        <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *        <code>DUAL</code>).
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *        Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceFromS3Request withNetworkType(String networkType) {
+        setNetworkType(networkType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the storage throughput value for the DB instance.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom or Amazon Aurora.
+     * </p>
+     * 
+     * @param storageThroughput
+     *        Specifies the storage throughput value for the DB instance.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom or Amazon Aurora.
+     */
+
+    public void setStorageThroughput(Integer storageThroughput) {
+        this.storageThroughput = storageThroughput;
+    }
+
+    /**
+     * <p>
+     * Specifies the storage throughput value for the DB instance.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom or Amazon Aurora.
+     * </p>
+     * 
+     * @return Specifies the storage throughput value for the DB instance.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom or Amazon Aurora.
+     */
+
+    public Integer getStorageThroughput() {
+        return this.storageThroughput;
+    }
+
+    /**
+     * <p>
+     * Specifies the storage throughput value for the DB instance.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom or Amazon Aurora.
+     * </p>
+     * 
+     * @param storageThroughput
+     *        Specifies the storage throughput value for the DB instance.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom or Amazon Aurora.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceFromS3Request withStorageThroughput(Integer storageThroughput) {
+        setStorageThroughput(storageThroughput);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with
+     * Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't manage the master user password with Amazon Web Services Secrets Manager if <code>MasterUserPassword</code>
+     * is specified.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param manageMasterUserPassword
+     *        Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management
+     *        with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Can't manage the master user password with Amazon Web Services Secrets Manager if
+     *        <code>MasterUserPassword</code> is specified.
+     *        </p>
+     *        </li>
+     */
+
+    public void setManageMasterUserPassword(Boolean manageMasterUserPassword) {
+        this.manageMasterUserPassword = manageMasterUserPassword;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with
+     * Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't manage the master user password with Amazon Web Services Secrets Manager if <code>MasterUserPassword</code>
+     * is specified.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password
+     *         management with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide.</i>
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Can't manage the master user password with Amazon Web Services Secrets Manager if
+     *         <code>MasterUserPassword</code> is specified.
+     *         </p>
+     *         </li>
+     */
+
+    public Boolean getManageMasterUserPassword() {
+        return this.manageMasterUserPassword;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with
+     * Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't manage the master user password with Amazon Web Services Secrets Manager if <code>MasterUserPassword</code>
+     * is specified.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param manageMasterUserPassword
+     *        Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management
+     *        with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Can't manage the master user password with Amazon Web Services Secrets Manager if
+     *        <code>MasterUserPassword</code> is specified.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceFromS3Request withManageMasterUserPassword(Boolean manageMasterUserPassword) {
+        setManageMasterUserPassword(manageMasterUserPassword);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with
+     * Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't manage the master user password with Amazon Web Services Secrets Manager if <code>MasterUserPassword</code>
+     * is specified.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password
+     *         management with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide.</i>
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Can't manage the master user password with Amazon Web Services Secrets Manager if
+     *         <code>MasterUserPassword</code> is specified.
+     *         </p>
+     *         </li>
+     */
+
+    public Boolean isManageMasterUserPassword() {
+        return this.manageMasterUserPassword;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and managed in
+     * Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets Manager
+     * for the DB instance.
+     * </p>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
+     * </p>
+     * <p>
+     * If you don't specify <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS key is
+     * used to encrypt the secret. If the secret is in a different Amazon Web Services account, then you can't use the
+     * <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer managed KMS key.
+     * </p>
+     * <p>
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services Region.
+     * </p>
+     * 
+     * @param masterUserSecretKmsKeyId
+     *        The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and managed
+     *        in Amazon Web Services Secrets Manager.</p>
+     *        <p>
+     *        This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets
+     *        Manager for the DB instance.
+     *        </p>
+     *        <p>
+     *        The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *        key. To use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
+     *        </p>
+     *        <p>
+     *        If you don't specify <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS
+     *        key is used to encrypt the secret. If the secret is in a different Amazon Web Services account, then you
+     *        can't use the <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer
+     *        managed KMS key.
+     *        </p>
+     *        <p>
+     *        There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a
+     *        different default KMS key for each Amazon Web Services Region.
+     */
+
+    public void setMasterUserSecretKmsKeyId(String masterUserSecretKmsKeyId) {
+        this.masterUserSecretKmsKeyId = masterUserSecretKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and managed in
+     * Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets Manager
+     * for the DB instance.
+     * </p>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
+     * </p>
+     * <p>
+     * If you don't specify <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS key is
+     * used to encrypt the secret. If the secret is in a different Amazon Web Services account, then you can't use the
+     * <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer managed KMS key.
+     * </p>
+     * <p>
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services Region.
+     * </p>
+     * 
+     * @return The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and
+     *         managed in Amazon Web Services Secrets Manager.</p>
+     *         <p>
+     *         This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets
+     *         Manager for the DB instance.
+     *         </p>
+     *         <p>
+     *         The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *         key. To use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
+     *         </p>
+     *         <p>
+     *         If you don't specify <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS
+     *         key is used to encrypt the secret. If the secret is in a different Amazon Web Services account, then you
+     *         can't use the <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer
+     *         managed KMS key.
+     *         </p>
+     *         <p>
+     *         There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a
+     *         different default KMS key for each Amazon Web Services Region.
+     */
+
+    public String getMasterUserSecretKmsKeyId() {
+        return this.masterUserSecretKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and managed in
+     * Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets Manager
+     * for the DB instance.
+     * </p>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
+     * </p>
+     * <p>
+     * If you don't specify <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS key is
+     * used to encrypt the secret. If the secret is in a different Amazon Web Services account, then you can't use the
+     * <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer managed KMS key.
+     * </p>
+     * <p>
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services Region.
+     * </p>
+     * 
+     * @param masterUserSecretKmsKeyId
+     *        The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and managed
+     *        in Amazon Web Services Secrets Manager.</p>
+     *        <p>
+     *        This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets
+     *        Manager for the DB instance.
+     *        </p>
+     *        <p>
+     *        The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *        key. To use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
+     *        </p>
+     *        <p>
+     *        If you don't specify <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS
+     *        key is used to encrypt the secret. If the secret is in a different Amazon Web Services account, then you
+     *        can't use the <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer
+     *        managed KMS key.
+     *        </p>
+     *        <p>
+     *        There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a
+     *        different default KMS key for each Amazon Web Services Region.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceFromS3Request withMasterUserSecretKmsKeyId(String masterUserSecretKmsKeyId) {
+        setMasterUserSecretKmsKeyId(masterUserSecretKmsKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     * </p>
+     * 
+     * @param dedicatedLogVolume
+     *        Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     */
+
+    public void setDedicatedLogVolume(Boolean dedicatedLogVolume) {
+        this.dedicatedLogVolume = dedicatedLogVolume;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     * </p>
+     * 
+     * @return Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     */
+
+    public Boolean getDedicatedLogVolume() {
+        return this.dedicatedLogVolume;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     * </p>
+     * 
+     * @param dedicatedLogVolume
+     *        Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceFromS3Request withDedicatedLogVolume(Boolean dedicatedLogVolume) {
+        setDedicatedLogVolume(dedicatedLogVolume);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     * </p>
+     * 
+     * @return Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     */
+
+    public Boolean isDedicatedLogVolume() {
+        return this.dedicatedLogVolume;
+    }
+
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB instance's server certificate.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom DB instances.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to
+     * encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param cACertificateIdentifier
+     *        The CA certificate identifier to use for the DB instance's server certificate.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom DB instances.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to
+     *        encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS
+     *        to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     */
+
+    public void setCACertificateIdentifier(String cACertificateIdentifier) {
+        this.cACertificateIdentifier = cACertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB instance's server certificate.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom DB instances.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to
+     * encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @return The CA certificate identifier to use for the DB instance's server certificate.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom DB instances.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to
+     *         encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS
+     *         to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     */
+
+    public String getCACertificateIdentifier() {
+        return this.cACertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB instance's server certificate.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom DB instances.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to
+     * encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param cACertificateIdentifier
+     *        The CA certificate identifier to use for the DB instance's server certificate.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom DB instances.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to
+     *        encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS
+     *        to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceFromS3Request withCACertificateIdentifier(String cACertificateIdentifier) {
+        setCACertificateIdentifier(cACertificateIdentifier);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The life cycle type for this DB instance.
+     * </p>
+     * <note>
+     * <p>
+     * By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB instance
+     * into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by
+     * setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, RDS automatically
+     * upgrades your restored DB instance to a higher engine version, if the major engine version is past its end of
+     * standard support date.
+     * </p>
+     * </note>
+     * <p>
+     * You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended Support,
+     * you can run the selected major engine version on your DB instance past the end of standard support for that
+     * engine version. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon RDS Extended
+     * Support</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the life cycle
+     * type is managed by the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     * </p>
+     * <p>
+     * Default: <code>open-source-rds-extended-support</code>
+     * </p>
+     * 
+     * @param engineLifecycleSupport
+     *        The life cycle type for this DB instance.</p> <note>
+     *        <p>
+     *        By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB
+     *        instance into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for
+     *        Extended Support by setting the value to <code>open-source-rds-extended-support-disabled</code>. In this
+     *        case, RDS automatically upgrades your restored DB instance to a higher engine version, if the major engine
+     *        version is past its end of standard support date.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended
+     *        Support, you can run the selected major engine version on your DB instance past the end of standard
+     *        support for that engine version. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon RDS
+     *        Extended Support</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the
+     *        life cycle type is managed by the DB cluster.
+     *        </p>
+     *        <p>
+     *        Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     *        </p>
+     *        <p>
+     *        Default: <code>open-source-rds-extended-support</code>
+     */
+
+    public void setEngineLifecycleSupport(String engineLifecycleSupport) {
+        this.engineLifecycleSupport = engineLifecycleSupport;
+    }
+
+    /**
+     * <p>
+     * The life cycle type for this DB instance.
+     * </p>
+     * <note>
+     * <p>
+     * By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB instance
+     * into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by
+     * setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, RDS automatically
+     * upgrades your restored DB instance to a higher engine version, if the major engine version is past its end of
+     * standard support date.
+     * </p>
+     * </note>
+     * <p>
+     * You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended Support,
+     * you can run the selected major engine version on your DB instance past the end of standard support for that
+     * engine version. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon RDS Extended
+     * Support</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the life cycle
+     * type is managed by the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     * </p>
+     * <p>
+     * Default: <code>open-source-rds-extended-support</code>
+     * </p>
+     * 
+     * @return The life cycle type for this DB instance.</p> <note>
+     *         <p>
+     *         By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB
+     *         instance into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for
+     *         Extended Support by setting the value to <code>open-source-rds-extended-support-disabled</code>. In this
+     *         case, RDS automatically upgrades your restored DB instance to a higher engine version, if the major
+     *         engine version is past its end of standard support date.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended
+     *         Support, you can run the selected major engine version on your DB instance past the end of standard
+     *         support for that engine version. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon RDS
+     *         Extended Support</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         <p>
+     *         This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the
+     *         life cycle type is managed by the DB cluster.
+     *         </p>
+     *         <p>
+     *         Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     *         </p>
+     *         <p>
+     *         Default: <code>open-source-rds-extended-support</code>
+     */
+
+    public String getEngineLifecycleSupport() {
+        return this.engineLifecycleSupport;
+    }
+
+    /**
+     * <p>
+     * The life cycle type for this DB instance.
+     * </p>
+     * <note>
+     * <p>
+     * By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB instance
+     * into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by
+     * setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, RDS automatically
+     * upgrades your restored DB instance to a higher engine version, if the major engine version is past its end of
+     * standard support date.
+     * </p>
+     * </note>
+     * <p>
+     * You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended Support,
+     * you can run the selected major engine version on your DB instance past the end of standard support for that
+     * engine version. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon RDS Extended
+     * Support</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the life cycle
+     * type is managed by the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     * </p>
+     * <p>
+     * Default: <code>open-source-rds-extended-support</code>
+     * </p>
+     * 
+     * @param engineLifecycleSupport
+     *        The life cycle type for this DB instance.</p> <note>
+     *        <p>
+     *        By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB
+     *        instance into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for
+     *        Extended Support by setting the value to <code>open-source-rds-extended-support-disabled</code>. In this
+     *        case, RDS automatically upgrades your restored DB instance to a higher engine version, if the major engine
+     *        version is past its end of standard support date.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended
+     *        Support, you can run the selected major engine version on your DB instance past the end of standard
+     *        support for that engine version. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon RDS
+     *        Extended Support</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the
+     *        life cycle type is managed by the DB cluster.
+     *        </p>
+     *        <p>
+     *        Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     *        </p>
+     *        <p>
+     *        Default: <code>open-source-rds-extended-support</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceFromS3Request withEngineLifecycleSupport(String engineLifecycleSupport) {
+        setEngineLifecycleSupport(engineLifecycleSupport);
+        return this;
     }
 
     /**
@@ -3975,7 +6001,23 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
         if (getUseDefaultProcessorFeatures() != null)
             sb.append("UseDefaultProcessorFeatures: ").append(getUseDefaultProcessorFeatures()).append(",");
         if (getDeletionProtection() != null)
-            sb.append("DeletionProtection: ").append(getDeletionProtection());
+            sb.append("DeletionProtection: ").append(getDeletionProtection()).append(",");
+        if (getMaxAllocatedStorage() != null)
+            sb.append("MaxAllocatedStorage: ").append(getMaxAllocatedStorage()).append(",");
+        if (getNetworkType() != null)
+            sb.append("NetworkType: ").append(getNetworkType()).append(",");
+        if (getStorageThroughput() != null)
+            sb.append("StorageThroughput: ").append(getStorageThroughput()).append(",");
+        if (getManageMasterUserPassword() != null)
+            sb.append("ManageMasterUserPassword: ").append(getManageMasterUserPassword()).append(",");
+        if (getMasterUserSecretKmsKeyId() != null)
+            sb.append("MasterUserSecretKmsKeyId: ").append(getMasterUserSecretKmsKeyId()).append(",");
+        if (getDedicatedLogVolume() != null)
+            sb.append("DedicatedLogVolume: ").append(getDedicatedLogVolume()).append(",");
+        if (getCACertificateIdentifier() != null)
+            sb.append("CACertificateIdentifier: ").append(getCACertificateIdentifier()).append(",");
+        if (getEngineLifecycleSupport() != null)
+            sb.append("EngineLifecycleSupport: ").append(getEngineLifecycleSupport());
         sb.append("}");
         return sb.toString();
     }
@@ -4164,6 +6206,38 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
             return false;
         if (other.getDeletionProtection() != null && other.getDeletionProtection().equals(this.getDeletionProtection()) == false)
             return false;
+        if (other.getMaxAllocatedStorage() == null ^ this.getMaxAllocatedStorage() == null)
+            return false;
+        if (other.getMaxAllocatedStorage() != null && other.getMaxAllocatedStorage().equals(this.getMaxAllocatedStorage()) == false)
+            return false;
+        if (other.getNetworkType() == null ^ this.getNetworkType() == null)
+            return false;
+        if (other.getNetworkType() != null && other.getNetworkType().equals(this.getNetworkType()) == false)
+            return false;
+        if (other.getStorageThroughput() == null ^ this.getStorageThroughput() == null)
+            return false;
+        if (other.getStorageThroughput() != null && other.getStorageThroughput().equals(this.getStorageThroughput()) == false)
+            return false;
+        if (other.getManageMasterUserPassword() == null ^ this.getManageMasterUserPassword() == null)
+            return false;
+        if (other.getManageMasterUserPassword() != null && other.getManageMasterUserPassword().equals(this.getManageMasterUserPassword()) == false)
+            return false;
+        if (other.getMasterUserSecretKmsKeyId() == null ^ this.getMasterUserSecretKmsKeyId() == null)
+            return false;
+        if (other.getMasterUserSecretKmsKeyId() != null && other.getMasterUserSecretKmsKeyId().equals(this.getMasterUserSecretKmsKeyId()) == false)
+            return false;
+        if (other.getDedicatedLogVolume() == null ^ this.getDedicatedLogVolume() == null)
+            return false;
+        if (other.getDedicatedLogVolume() != null && other.getDedicatedLogVolume().equals(this.getDedicatedLogVolume()) == false)
+            return false;
+        if (other.getCACertificateIdentifier() == null ^ this.getCACertificateIdentifier() == null)
+            return false;
+        if (other.getCACertificateIdentifier() != null && other.getCACertificateIdentifier().equals(this.getCACertificateIdentifier()) == false)
+            return false;
+        if (other.getEngineLifecycleSupport() == null ^ this.getEngineLifecycleSupport() == null)
+            return false;
+        if (other.getEngineLifecycleSupport() != null && other.getEngineLifecycleSupport().equals(this.getEngineLifecycleSupport()) == false)
+            return false;
         return true;
     }
 
@@ -4215,6 +6289,14 @@ public class RestoreDBInstanceFromS3Request extends com.amazonaws.AmazonWebServi
         hashCode = prime * hashCode + ((getProcessorFeatures() == null) ? 0 : getProcessorFeatures().hashCode());
         hashCode = prime * hashCode + ((getUseDefaultProcessorFeatures() == null) ? 0 : getUseDefaultProcessorFeatures().hashCode());
         hashCode = prime * hashCode + ((getDeletionProtection() == null) ? 0 : getDeletionProtection().hashCode());
+        hashCode = prime * hashCode + ((getMaxAllocatedStorage() == null) ? 0 : getMaxAllocatedStorage().hashCode());
+        hashCode = prime * hashCode + ((getNetworkType() == null) ? 0 : getNetworkType().hashCode());
+        hashCode = prime * hashCode + ((getStorageThroughput() == null) ? 0 : getStorageThroughput().hashCode());
+        hashCode = prime * hashCode + ((getManageMasterUserPassword() == null) ? 0 : getManageMasterUserPassword().hashCode());
+        hashCode = prime * hashCode + ((getMasterUserSecretKmsKeyId() == null) ? 0 : getMasterUserSecretKmsKeyId().hashCode());
+        hashCode = prime * hashCode + ((getDedicatedLogVolume() == null) ? 0 : getDedicatedLogVolume().hashCode());
+        hashCode = prime * hashCode + ((getCACertificateIdentifier() == null) ? 0 : getCACertificateIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getEngineLifecycleSupport() == null) ? 0 : getEngineLifecycleSupport().hashCode());
         return hashCode;
     }
 

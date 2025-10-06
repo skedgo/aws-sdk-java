@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,31 +30,32 @@ public class DeleteUserAttributesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * An array of strings representing the user attribute names you wish to delete.
+     * An array of strings representing the user attribute names you want to delete.
      * </p>
      * <p>
-     * For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
+     * For custom attributes, you must prependattach the <code>custom:</code> prefix to the front of the attribute name.
      * </p>
      */
     private java.util.List<String> userAttributeNames;
     /**
      * <p>
-     * The access token used in the request to delete user attributes.
+     * A valid access token that Amazon Cognito issued to the user whose attributes you want to delete.
      * </p>
      */
     private String accessToken;
 
     /**
      * <p>
-     * An array of strings representing the user attribute names you wish to delete.
+     * An array of strings representing the user attribute names you want to delete.
      * </p>
      * <p>
-     * For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
+     * For custom attributes, you must prependattach the <code>custom:</code> prefix to the front of the attribute name.
      * </p>
      * 
-     * @return An array of strings representing the user attribute names you wish to delete.</p>
+     * @return An array of strings representing the user attribute names you want to delete.</p>
      *         <p>
-     *         For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
+     *         For custom attributes, you must prependattach the <code>custom:</code> prefix to the front of the
+     *         attribute name.
      */
 
     public java.util.List<String> getUserAttributeNames() {
@@ -63,16 +64,17 @@ public class DeleteUserAttributesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * An array of strings representing the user attribute names you wish to delete.
+     * An array of strings representing the user attribute names you want to delete.
      * </p>
      * <p>
-     * For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
+     * For custom attributes, you must prependattach the <code>custom:</code> prefix to the front of the attribute name.
      * </p>
      * 
      * @param userAttributeNames
-     *        An array of strings representing the user attribute names you wish to delete.</p>
+     *        An array of strings representing the user attribute names you want to delete.</p>
      *        <p>
-     *        For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
+     *        For custom attributes, you must prependattach the <code>custom:</code> prefix to the front of the
+     *        attribute name.
      */
 
     public void setUserAttributeNames(java.util.Collection<String> userAttributeNames) {
@@ -86,10 +88,10 @@ public class DeleteUserAttributesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * An array of strings representing the user attribute names you wish to delete.
+     * An array of strings representing the user attribute names you want to delete.
      * </p>
      * <p>
-     * For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
+     * For custom attributes, you must prependattach the <code>custom:</code> prefix to the front of the attribute name.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -98,9 +100,10 @@ public class DeleteUserAttributesRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param userAttributeNames
-     *        An array of strings representing the user attribute names you wish to delete.</p>
+     *        An array of strings representing the user attribute names you want to delete.</p>
      *        <p>
-     *        For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
+     *        For custom attributes, you must prependattach the <code>custom:</code> prefix to the front of the
+     *        attribute name.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -116,16 +119,17 @@ public class DeleteUserAttributesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * An array of strings representing the user attribute names you wish to delete.
+     * An array of strings representing the user attribute names you want to delete.
      * </p>
      * <p>
-     * For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
+     * For custom attributes, you must prependattach the <code>custom:</code> prefix to the front of the attribute name.
      * </p>
      * 
      * @param userAttributeNames
-     *        An array of strings representing the user attribute names you wish to delete.</p>
+     *        An array of strings representing the user attribute names you want to delete.</p>
      *        <p>
-     *        For custom attributes, you must prepend the <code>custom:</code> prefix to the attribute name.
+     *        For custom attributes, you must prependattach the <code>custom:</code> prefix to the front of the
+     *        attribute name.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -136,11 +140,11 @@ public class DeleteUserAttributesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The access token used in the request to delete user attributes.
+     * A valid access token that Amazon Cognito issued to the user whose attributes you want to delete.
      * </p>
      * 
      * @param accessToken
-     *        The access token used in the request to delete user attributes.
+     *        A valid access token that Amazon Cognito issued to the user whose attributes you want to delete.
      */
 
     public void setAccessToken(String accessToken) {
@@ -149,10 +153,10 @@ public class DeleteUserAttributesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The access token used in the request to delete user attributes.
+     * A valid access token that Amazon Cognito issued to the user whose attributes you want to delete.
      * </p>
      * 
-     * @return The access token used in the request to delete user attributes.
+     * @return A valid access token that Amazon Cognito issued to the user whose attributes you want to delete.
      */
 
     public String getAccessToken() {
@@ -161,11 +165,11 @@ public class DeleteUserAttributesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The access token used in the request to delete user attributes.
+     * A valid access token that Amazon Cognito issued to the user whose attributes you want to delete.
      * </p>
      * 
      * @param accessToken
-     *        The access token used in the request to delete user attributes.
+     *        A valid access token that Amazon Cognito issued to the user whose attributes you want to delete.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

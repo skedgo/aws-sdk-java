@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,6 +45,7 @@ import com.amazonaws.services.elastictranscoder.waiters.AmazonElasticTranscoderW
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.elastictranscoder.model.*;
+
 import com.amazonaws.services.elastictranscoder.model.transform.*;
 
 /**
@@ -80,28 +81,28 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withModeledClass(
-                                    com.amazonaws.services.elastictranscoder.model.AccessDeniedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.elastictranscoder.model.transform.AccessDeniedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withModeledClass(
-                                    com.amazonaws.services.elastictranscoder.model.ResourceInUseException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.elastictranscoder.model.transform.ResourceInUseExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.elastictranscoder.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.elastictranscoder.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("IncompatibleVersionException").withModeledClass(
-                                    com.amazonaws.services.elastictranscoder.model.IncompatibleVersionException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("IncompatibleVersionException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.elastictranscoder.model.transform.IncompatibleVersionExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withModeledClass(
-                                    com.amazonaws.services.elastictranscoder.model.ValidationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.elastictranscoder.model.transform.ValidationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServiceException").withModeledClass(
-                                    com.amazonaws.services.elastictranscoder.model.InternalServiceException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServiceException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.elastictranscoder.model.transform.InternalServiceExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.elastictranscoder.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.elastictranscoder.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.elastictranscoder.model.AmazonElasticTranscoderException.class));
 
     /**
@@ -355,6 +356,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new CancelJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelJob");
@@ -426,6 +429,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new CreateJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateJob");
@@ -491,6 +496,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new CreatePipelineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createPipelineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePipeline");
@@ -569,6 +576,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new CreatePresetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createPresetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePreset");
@@ -638,6 +647,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new DeletePipelineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deletePipelineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePipeline");
@@ -705,6 +716,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new DeletePresetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deletePresetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePreset");
@@ -771,6 +784,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new ListJobsByPipelineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listJobsByPipelineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListJobsByPipeline");
@@ -834,6 +849,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new ListJobsByStatusRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listJobsByStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListJobsByStatus");
@@ -893,6 +910,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new ListPipelinesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPipelinesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPipelines");
@@ -958,6 +977,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new ListPresetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPresetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPresets");
@@ -1025,6 +1046,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new ReadJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(readJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ReadJob");
@@ -1087,6 +1110,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new ReadPipelineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(readPipelineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ReadPipeline");
@@ -1149,6 +1174,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new ReadPresetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(readPresetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ReadPreset");
@@ -1218,6 +1245,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new TestRoleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(testRoleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TestRole");
@@ -1290,6 +1319,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new UpdatePipelineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updatePipelineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePipeline");
@@ -1361,6 +1392,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                         .beforeMarshalling(updatePipelineNotificationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePipelineNotifications");
@@ -1433,6 +1466,8 @@ public class AmazonElasticTranscoderClient extends AmazonWebServiceClient implem
                 request = new UpdatePipelineStatusRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updatePipelineStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Elastic Transcoder");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePipelineStatus");

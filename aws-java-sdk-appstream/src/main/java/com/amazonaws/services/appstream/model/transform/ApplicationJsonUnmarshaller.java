@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -76,6 +76,42 @@ public class ApplicationJsonUnmarshaller implements Unmarshaller<Application, Js
                     context.nextToken();
                     application.setMetadata(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
                             .unmarshall(context));
+                }
+                if (context.testExpression("WorkingDirectory", targetDepth)) {
+                    context.nextToken();
+                    application.setWorkingDirectory(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Description", targetDepth)) {
+                    context.nextToken();
+                    application.setDescription(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Arn", targetDepth)) {
+                    context.nextToken();
+                    application.setArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AppBlockArn", targetDepth)) {
+                    context.nextToken();
+                    application.setAppBlockArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("IconS3Location", targetDepth)) {
+                    context.nextToken();
+                    application.setIconS3Location(S3LocationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("Platforms", targetDepth)) {
+                    context.nextToken();
+                    application.setPlatforms(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("InstanceFamilies", targetDepth)) {
+                    context.nextToken();
+                    application.setInstanceFamilies(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("CreatedTime", targetDepth)) {
+                    context.nextToken();
+                    application.setCreatedTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

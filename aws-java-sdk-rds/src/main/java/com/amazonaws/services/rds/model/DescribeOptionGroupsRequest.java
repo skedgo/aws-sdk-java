@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,7 +34,7 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
     private String optionGroupName;
     /**
      * <p>
-     * This parameter is not currently supported.
+     * This parameter isn't currently supported.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
@@ -48,8 +48,8 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -61,8 +61,78 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
     private Integer maxRecords;
     /**
      * <p>
-     * Filters the list of option groups to only include groups associated with a specific database engine.
+     * A filter to only include option groups associated with this database engine.
      * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mariadb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ex</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-web</code>
+     * </p>
+     * </li>
+     * </ul>
      */
     private String engineName;
     /**
@@ -118,10 +188,10 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * This parameter isn't currently supported.
      * </p>
      * 
-     * @return This parameter is not currently supported.
+     * @return This parameter isn't currently supported.
      */
 
     public java.util.List<Filter> getFilters() {
@@ -133,11 +203,11 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * This parameter isn't currently supported.
      * </p>
      * 
      * @param filters
-     *        This parameter is not currently supported.
+     *        This parameter isn't currently supported.
      */
 
     public void setFilters(java.util.Collection<Filter> filters) {
@@ -151,7 +221,7 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * This parameter isn't currently supported.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -160,7 +230,7 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param filters
-     *        This parameter is not currently supported.
+     *        This parameter isn't currently supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -176,11 +246,11 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * This parameter isn't currently supported.
      * </p>
      * 
      * @param filters
-     *        This parameter is not currently supported.
+     *        This parameter isn't currently supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -241,8 +311,8 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -253,8 +323,8 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more records exist than the specified
-     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *        remaining results can be retrieved. </p>
+     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you
+     *        can retrieve the remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>
@@ -269,8 +339,8 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -280,8 +350,8 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @return The maximum number of records to include in the response. If more records exist than the specified
-     *         <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *         remaining results can be retrieved. </p>
+     *         <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you
+     *         can retrieve the remaining results.</p>
      *         <p>
      *         Default: 100
      *         </p>
@@ -296,8 +366,8 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -308,8 +378,8 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more records exist than the specified
-     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *        remaining results can be retrieved. </p>
+     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you
+     *        can retrieve the remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>
@@ -325,11 +395,150 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Filters the list of option groups to only include groups associated with a specific database engine.
+     * A filter to only include option groups associated with this database engine.
      * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mariadb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ex</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-web</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param engineName
-     *        Filters the list of option groups to only include groups associated with a specific database engine.
+     *        A filter to only include option groups associated with this database engine.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>db2-ae</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>db2-se</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>mariadb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>mysql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-ee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-ee-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-se2</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-se2-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>postgres</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-ee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-se</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-ex</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-web</code>
+     *        </p>
+     *        </li>
      */
 
     public void setEngineName(String engineName) {
@@ -338,10 +547,149 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Filters the list of option groups to only include groups associated with a specific database engine.
+     * A filter to only include option groups associated with this database engine.
      * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mariadb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ex</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-web</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return Filters the list of option groups to only include groups associated with a specific database engine.
+     * @return A filter to only include option groups associated with this database engine.</p>
+     *         <p>
+     *         Valid Values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>db2-ae</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>db2-se</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>mariadb</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>mysql</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>oracle-ee</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>oracle-ee-cdb</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>oracle-se2</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>oracle-se2-cdb</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>postgres</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sqlserver-ee</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sqlserver-se</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sqlserver-ex</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sqlserver-web</code>
+     *         </p>
+     *         </li>
      */
 
     public String getEngineName() {
@@ -350,11 +698,150 @@ public class DescribeOptionGroupsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Filters the list of option groups to only include groups associated with a specific database engine.
+     * A filter to only include option groups associated with this database engine.
      * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mariadb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ex</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-web</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param engineName
-     *        Filters the list of option groups to only include groups associated with a specific database engine.
+     *        A filter to only include option groups associated with this database engine.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>db2-ae</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>db2-se</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>mariadb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>mysql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-ee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-ee-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-se2</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-se2-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>postgres</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-ee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-se</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-ex</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-web</code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

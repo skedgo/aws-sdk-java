@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -99,6 +99,26 @@ public class EntityRecognizerPropertiesJsonUnmarshaller implements Unmarshaller<
                 if (context.testExpression("VpcConfig", targetDepth)) {
                     context.nextToken();
                     entityRecognizerProperties.setVpcConfig(VpcConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ModelKmsKeyId", targetDepth)) {
+                    context.nextToken();
+                    entityRecognizerProperties.setModelKmsKeyId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("VersionName", targetDepth)) {
+                    context.nextToken();
+                    entityRecognizerProperties.setVersionName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("SourceModelArn", targetDepth)) {
+                    context.nextToken();
+                    entityRecognizerProperties.setSourceModelArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("FlywheelArn", targetDepth)) {
+                    context.nextToken();
+                    entityRecognizerProperties.setFlywheelArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("OutputDataConfig", targetDepth)) {
+                    context.nextToken();
+                    entityRecognizerProperties.setOutputDataConfig(EntityRecognizerOutputDataConfigJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

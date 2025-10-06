@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Represents the settings for a global table in a region that will be modified.
+ * Represents the settings for a global table in a Region that will be modified.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/ReplicaSettingsUpdate" target="_top">AWS API
@@ -30,7 +30,7 @@ public class ReplicaSettingsUpdate implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The region of the replica to be added.
+     * The Region of the replica to be added.
      * </p>
      */
     private String regionName;
@@ -45,7 +45,7 @@ public class ReplicaSettingsUpdate implements Serializable, Cloneable, Structure
     private Long replicaProvisionedReadCapacityUnits;
     /**
      * <p>
-     * Autoscaling settings for managing a global table replica's read capacity units.
+     * Auto scaling settings for managing a global table replica's read capacity units.
      * </p>
      */
     private AutoScalingSettingsUpdate replicaProvisionedReadCapacityAutoScalingSettingsUpdate;
@@ -55,14 +55,20 @@ public class ReplicaSettingsUpdate implements Serializable, Cloneable, Structure
      * </p>
      */
     private java.util.List<ReplicaGlobalSecondaryIndexSettingsUpdate> replicaGlobalSecondaryIndexSettingsUpdate;
+    /**
+     * <p>
+     * Replica-specific table class. If not specified, uses the source table's table class.
+     * </p>
+     */
+    private String replicaTableClass;
 
     /**
      * <p>
-     * The region of the replica to be added.
+     * The Region of the replica to be added.
      * </p>
      * 
      * @param regionName
-     *        The region of the replica to be added.
+     *        The Region of the replica to be added.
      */
 
     public void setRegionName(String regionName) {
@@ -71,10 +77,10 @@ public class ReplicaSettingsUpdate implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The region of the replica to be added.
+     * The Region of the replica to be added.
      * </p>
      * 
-     * @return The region of the replica to be added.
+     * @return The Region of the replica to be added.
      */
 
     public String getRegionName() {
@@ -83,11 +89,11 @@ public class ReplicaSettingsUpdate implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The region of the replica to be added.
+     * The Region of the replica to be added.
      * </p>
      * 
      * @param regionName
-     *        The region of the replica to be added.
+     *        The Region of the replica to be added.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -156,11 +162,11 @@ public class ReplicaSettingsUpdate implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * Autoscaling settings for managing a global table replica's read capacity units.
+     * Auto scaling settings for managing a global table replica's read capacity units.
      * </p>
      * 
      * @param replicaProvisionedReadCapacityAutoScalingSettingsUpdate
-     *        Autoscaling settings for managing a global table replica's read capacity units.
+     *        Auto scaling settings for managing a global table replica's read capacity units.
      */
 
     public void setReplicaProvisionedReadCapacityAutoScalingSettingsUpdate(AutoScalingSettingsUpdate replicaProvisionedReadCapacityAutoScalingSettingsUpdate) {
@@ -169,10 +175,10 @@ public class ReplicaSettingsUpdate implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * Autoscaling settings for managing a global table replica's read capacity units.
+     * Auto scaling settings for managing a global table replica's read capacity units.
      * </p>
      * 
-     * @return Autoscaling settings for managing a global table replica's read capacity units.
+     * @return Auto scaling settings for managing a global table replica's read capacity units.
      */
 
     public AutoScalingSettingsUpdate getReplicaProvisionedReadCapacityAutoScalingSettingsUpdate() {
@@ -181,11 +187,11 @@ public class ReplicaSettingsUpdate implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * Autoscaling settings for managing a global table replica's read capacity units.
+     * Auto scaling settings for managing a global table replica's read capacity units.
      * </p>
      * 
      * @param replicaProvisionedReadCapacityAutoScalingSettingsUpdate
-     *        Autoscaling settings for managing a global table replica's read capacity units.
+     *        Auto scaling settings for managing a global table replica's read capacity units.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -272,6 +278,65 @@ public class ReplicaSettingsUpdate implements Serializable, Cloneable, Structure
     }
 
     /**
+     * <p>
+     * Replica-specific table class. If not specified, uses the source table's table class.
+     * </p>
+     * 
+     * @param replicaTableClass
+     *        Replica-specific table class. If not specified, uses the source table's table class.
+     * @see TableClass
+     */
+
+    public void setReplicaTableClass(String replicaTableClass) {
+        this.replicaTableClass = replicaTableClass;
+    }
+
+    /**
+     * <p>
+     * Replica-specific table class. If not specified, uses the source table's table class.
+     * </p>
+     * 
+     * @return Replica-specific table class. If not specified, uses the source table's table class.
+     * @see TableClass
+     */
+
+    public String getReplicaTableClass() {
+        return this.replicaTableClass;
+    }
+
+    /**
+     * <p>
+     * Replica-specific table class. If not specified, uses the source table's table class.
+     * </p>
+     * 
+     * @param replicaTableClass
+     *        Replica-specific table class. If not specified, uses the source table's table class.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TableClass
+     */
+
+    public ReplicaSettingsUpdate withReplicaTableClass(String replicaTableClass) {
+        setReplicaTableClass(replicaTableClass);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Replica-specific table class. If not specified, uses the source table's table class.
+     * </p>
+     * 
+     * @param replicaTableClass
+     *        Replica-specific table class. If not specified, uses the source table's table class.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TableClass
+     */
+
+    public ReplicaSettingsUpdate withReplicaTableClass(TableClass replicaTableClass) {
+        this.replicaTableClass = replicaTableClass.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -291,7 +356,9 @@ public class ReplicaSettingsUpdate implements Serializable, Cloneable, Structure
             sb.append("ReplicaProvisionedReadCapacityAutoScalingSettingsUpdate: ").append(getReplicaProvisionedReadCapacityAutoScalingSettingsUpdate())
                     .append(",");
         if (getReplicaGlobalSecondaryIndexSettingsUpdate() != null)
-            sb.append("ReplicaGlobalSecondaryIndexSettingsUpdate: ").append(getReplicaGlobalSecondaryIndexSettingsUpdate());
+            sb.append("ReplicaGlobalSecondaryIndexSettingsUpdate: ").append(getReplicaGlobalSecondaryIndexSettingsUpdate()).append(",");
+        if (getReplicaTableClass() != null)
+            sb.append("ReplicaTableClass: ").append(getReplicaTableClass());
         sb.append("}");
         return sb.toString();
     }
@@ -326,6 +393,10 @@ public class ReplicaSettingsUpdate implements Serializable, Cloneable, Structure
         if (other.getReplicaGlobalSecondaryIndexSettingsUpdate() != null
                 && other.getReplicaGlobalSecondaryIndexSettingsUpdate().equals(this.getReplicaGlobalSecondaryIndexSettingsUpdate()) == false)
             return false;
+        if (other.getReplicaTableClass() == null ^ this.getReplicaTableClass() == null)
+            return false;
+        if (other.getReplicaTableClass() != null && other.getReplicaTableClass().equals(this.getReplicaTableClass()) == false)
+            return false;
         return true;
     }
 
@@ -342,6 +413,7 @@ public class ReplicaSettingsUpdate implements Serializable, Cloneable, Structure
                         .hashCode());
         hashCode = prime * hashCode
                 + ((getReplicaGlobalSecondaryIndexSettingsUpdate() == null) ? 0 : getReplicaGlobalSecondaryIndexSettingsUpdate().hashCode());
+        hashCode = prime * hashCode + ((getReplicaTableClass() == null) ? 0 : getReplicaTableClass().hashCode());
         return hashCode;
     }
 
